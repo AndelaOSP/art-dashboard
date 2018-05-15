@@ -1,0 +1,9 @@
+# <type>(<scope>): <subject>
+# feat|chore|bug|test|doc|refactor(dashboard| authentication): implement exactly once delivery
+ 
+# <message-body>: More details on why for need of changes;
+# - ensure every event published to kafka is delivered exactly once
+ 
+# <footer>: [(Finishes|Fixes|Delivers) #TRACKER_STORY_ID]
+# - [Delivers|Finishes|Fixes #130635935]
+
