@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
-import logo from './logo.svg';
+import { Router, Route, Switch } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { Provider } from 'react-redux';
 import './App.css';
+
+import RoutesComponent from './_components/RoutesComponent';
+import store from './_store';
+
+const history = createBrowserHistory();
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-          <Header as='h1'>Welcome to ART Dashboard, Lets build together</Header>
-          To get started, edit <code>src/App.js</code> and save to reload.
-      </div>
+      <Provider store={store}>
+        <Router history={history}>
+          <Switch>
+            <Route path={`/`} component={RoutesComponent} />
+          </Switch>
+        </Router>
+      </Provider>
+    </div>
     );
   }
 }
