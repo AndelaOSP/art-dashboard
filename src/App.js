@@ -1,31 +1,28 @@
-import React from 'react';
-import { Button, Container, Header, Image } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { Provider } from 'react-redux';
 import './App.css';
 
-const App = () => {
-  return (
-    <div className='app landing-overlay background'>
-      <Container>
-        <Image 
-          centered 
-          src='http://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png' 
-          alt='Andela logo'
-          id="andela-logo"
-        />
-        <Header className='landing-heading' inverted content='ART' />
-        <Header as='h1' className='description' inverted content='Andela Resource Tracker' />
-        <Button className='google-button' size='large'>
-          <Image 
-            floated='left' 
-            src='http://res.cloudinary.com/damc3mj5u/image/upload/v1526571608/google-logo_jjjjqs.svg'
-            alt='Google logo'
-            id='google-logo'
-          />
-          Sign in with Google
-        </Button>
-      </Container>
+import RoutesComponent from './_components/RoutesComponent';
+import store from './_store';
+
+const history = createBrowserHistory();
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+      <Provider store={store}>
+        <Router history={history}>
+          <Switch>
+            <Route path={`/`} component={RoutesComponent} />
+          </Switch>
+        </Router>
+      </Provider>
     </div>
-  );
+    );
+  }
 }
 
 export default App;
