@@ -5,14 +5,18 @@ import { withRouter } from 'react-router-dom';
 import { loginAction } from '../_actions/login.action';
 
 class LoginComponent extends React.Component {
+
+  goToDashboard() {
+    this.props.history.push('/');
+  }
   componentDidMount() {
     if (this.props.isAuthenticated) {
-      this.props.history.push('/');
+      this.goToDashboard();
     }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuthenticated) {
-      this.props.history.push('/');
+      this.goToDashboard();
     } 
   }
   render() {
