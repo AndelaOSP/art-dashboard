@@ -23,7 +23,7 @@ class LoginComponent extends React.Component {
     return (
       <div>
         <h1>Login</h1>
-        <button onClick={this.props.loginAction}>Login</button>
+        <button onClick={() => this.props.loginAction('token')}>Login</button>
       </div>
     )
   }

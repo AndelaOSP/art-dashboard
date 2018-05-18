@@ -13,7 +13,7 @@ class RoutesComponent extends React.Component {
     isAuthenticated: false,
   }
   componentWillMount() {
-    this.props.loginAction();
+    this.props.loginAction('token');
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.isAuthenticated) {
