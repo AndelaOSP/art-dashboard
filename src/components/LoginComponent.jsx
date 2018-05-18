@@ -6,18 +6,16 @@ import { loginAction } from '../_actions/login.action';
 
 class LoginComponent extends React.Component {
 
-  goToDashboard() {
-    this.props.history.push('/');
-  }
-  componentDidMount() {
-    if (this.props.isAuthenticated) {
-      this.goToDashboard();
+  redirectToDashboard(props) {
+    if (props.isAuthenticated) {
+      this.props.history.push('/');
     }
   }
+  componentDidMount() {
+    this.redirectToDashboard(this.props);
+  }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isAuthenticated) {
-      this.goToDashboard();
-    } 
+    this.redirectToDashboard(nextProps);
   }
   render() {
     return (
