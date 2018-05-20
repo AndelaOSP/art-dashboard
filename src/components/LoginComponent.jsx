@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import { loginAction } from '../_actions/login.action';
 
+import getToken from '../utils/getToken';
+
 class LoginComponent extends React.Component {
 
   redirectToDashboard(props) {
@@ -17,11 +19,16 @@ class LoginComponent extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.redirectToDashboard(nextProps);
   }
+  handleLogin = () => {
+    const token = getToken();
+    this.props.loginAction(token);
+  }
+
   render() {
     return (
       <div>
         <h1>Login</h1>
-        <button onClick={() => this.props.loginAction('token')}>Login</button>
+        <button onClick={this.handleLogin}>Login</button>
       </div>
     )
   }

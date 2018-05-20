@@ -8,12 +8,16 @@ import AuthenticateComponent from './AuthenticateComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 
+import getToken from '../utils/getToken';
+
 class RoutesComponent extends React.Component {
   state = {
     isAuthenticated: false,
   }
+
   componentWillMount() {
-    this.props.loginAction('token');
+    const token = getToken();
+    this.props.loginAction(token);
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.isAuthenticated) {
