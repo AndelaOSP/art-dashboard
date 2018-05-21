@@ -9,20 +9,33 @@ import getToken from '../_utils/getToken';
 
 import '../_css/LoginComponent.css';
 
+import { auth, firebase } from '../firebase';
+
+const provider = new firebase.auth.GoogleAuthProvider();
+
 class LoginComponent extends React.Component {
+
   redirectToDashboard(props) {
     if (props.isAuthenticated) {
       this.props.history.push('/');
     }
   }
+
   componentDidMount() {
     this.redirectToDashboard(this.props);
   }
+
   componentWillReceiveProps(nextProps) {
     this.redirectToDashboard(nextProps);
   }
+  
   handleLogin = () => {
-    this.props.loginAction(getToken());
+    auth.signInWithEmail(provider).then(result => {
+      console.log(result, '---');
+    }).catch(error => {
+      console.log(error, '+++');
+    });
+    // this.props.loginAction(getToken());
   }
 
   render() {
