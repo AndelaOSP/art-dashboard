@@ -16,8 +16,7 @@ class RoutesComponent extends React.Component {
   }
 
   componentWillMount() {
-    const token = getToken();
-    this.props.loginAction(token);
+    this.props.loginAction(getToken());
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.isAuthenticated) {

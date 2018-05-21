@@ -22,8 +22,7 @@ class LoginComponent extends React.Component {
     this.redirectToDashboard(nextProps);
   }
   handleLogin = () => {
-    const token = getToken();
-    this.props.loginAction(token);
+    this.props.loginAction(getToken());
   }
 
   render() {
