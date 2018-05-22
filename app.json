@@ -1,0 +1,16 @@
+{
+  "name": "art-dashboard",
+  "scripts": {},
+  "env": {},
+  "formation": {
+    "web": {
+      "quantity": 3
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "https://github.com/mars/create-react-app-buildpack.git"
+    }
+  ]
+}
