@@ -18,7 +18,7 @@ class RoutesComponent extends React.Component {
     if(nextProps.isAuthenticated) {
       this.setState({
         isAuthenticated: true,
-      })
+      });
     }
   }
   render () {

@@ -33,7 +33,7 @@ class LoginComponent extends React.Component {
   validateUser = (result) => {
     if (validAndelaEmail(result.user.email)) {
       this.props.loginAction();
-      localStorage.set('token', result.credential.accessToken);
+      localStorage.setItem('token', result.credential.accessToken);
       ToastMessage.success({ message: 'Welcome to ART' });
     } else {
       ToastMessage.error({ message: 'Please sign in with your andela email' });
