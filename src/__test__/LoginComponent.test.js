@@ -16,6 +16,7 @@ window.localStorage = localStorageMock;
 
 
 describe('Renders <LoginComponent /> correctly', () => {
+
   const { WrappedComponent } = withRouter(connect()(LoginComponent));
   const wrapper = shallowWithStore(<WrappedComponent />, createMockStore(null));
 

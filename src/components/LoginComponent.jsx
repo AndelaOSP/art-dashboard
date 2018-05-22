@@ -14,10 +14,6 @@ import '../_css/LoginComponent.css';
 const provider = new firebase.auth.GoogleAuthProvider();
 
 class LoginComponent extends React.Component {
-  state = {
-    isVisible: false,
-    message: ''
-  };
 
   redirectToDashboard(props) {
     if (props.isAuthenticated) {
