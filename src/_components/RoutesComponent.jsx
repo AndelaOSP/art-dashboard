@@ -9,7 +9,7 @@ import AssetTypesComponent from '../components/AssetTypesComponent'
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 
-import getToken from '../_utils/getToken';
+import LocalStorageUtil from '../_utils/LocalStorageUtil';
 
 class RoutesComponent extends React.Component {
   state = {
@@ -17,13 +17,14 @@ class RoutesComponent extends React.Component {
   }
 
   componentWillMount() {
-    this.props.loginAction(getToken());
+    this.props.loginAction(LocalStorageUtil.get('token'));
   }
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.isAuthenticated) {
       this.setState({
         isAuthenticated: true,
-      })
+      });
     }
   }
   render () {

@@ -6,6 +6,7 @@ import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 
 import { loginAction } from '../_actions/login.action';
 import { auth, firebase } from '../firebase';
+import LocalStorageUtil from '../_utils/LocalStorageUtil';
 
 import '../_css/LoginComponent.css';
 
@@ -43,9 +44,9 @@ class LoginComponent extends React.Component {
     const validAndelaEmail = /^[\w.-]+@andela\.com$/;
 
     if (validAndelaEmail.test(result.user.email)) {
-      this.props.loginAction(result.credential.accessToken);
+      this.props.loginAction(result.credential.accessToken, LocalStorageUtil);
     } else {
-      const message = 'please sign in with your andela email';
+      const message = 'Please sign in with your andela email';
       this.handleErrorMessage(message);
     }
   }
