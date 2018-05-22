@@ -1,10 +1,7 @@
 import firebase from 'firebase';
-// import dotenv from 'dotenv';
-// dotenv.config();
-require('dotenv').config();
 
 const config = {
-  apiKey: 'AIzaSyAqvqoN18NeH6nsirWuzoqiPGolYQoGhPg',
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: 'art-dashboard.firebaseapp.com',
   databaseURL: 'art-dashboard.firebaseio.com',
   projectId: 'art-dashboard',

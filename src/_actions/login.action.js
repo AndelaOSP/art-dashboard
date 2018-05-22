@@ -9,6 +9,7 @@ export const loginAction = (token) => {
         type: LOGIN_USER_SUCCESS,
         payload: true,
       });
+      localStorage.setItem('token', token);
     } else {
       dispatch({
         type: LOGIN_USER_FAILURE,
