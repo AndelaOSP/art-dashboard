@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button, Container, Header, Image } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 
-import { loginAction } from '../_actions/login.action';
 import { signInWithEmail, firebase } from '../firebase';
 import { ToastMessage } from '../_utils/ToastMessage';
 import { validAndelaEmail } from '../_utils/validAndelaEmail';
@@ -15,26 +13,12 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 class LoginComponent extends React.Component {
 
-  redirectToDashboard(props) {
-    if (props.isAuthenticated) {
-      this.props.history.push('/');
-    }
-  }
-
-  componentDidMount() {
-    this.redirectToDashboard(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.redirectToDashboard(nextProps);
-  }
-
   // checks that the user used an Andela email
   validateUser = (result) => {
     if (validAndelaEmail(result.user.email)) {
-      this.props.loginAction();
       localStorage.setItem('token', result.credential.accessToken);
       ToastMessage.success({ message: 'Welcome to ART' });
+      this.props.history.push('/dashboard');
     } else {
       ToastMessage.error({ message: 'Please sign in with your andela email' });
     }
@@ -77,13 +61,4 @@ class LoginComponent extends React.Component {
   }
 };
 
-const mapStateToProps = ({ loginReducer }) => {
-  const { isAuthenticated } = loginReducer;
-  return {
-    isAuthenticated,
-  }
-}
-
-export default withRouter(connect(mapStateToProps, {
-  loginAction,
-})(LoginComponent));
+export default withRouter(LoginComponent);
