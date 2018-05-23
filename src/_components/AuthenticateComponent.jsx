@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const AuthenticateComponent = ({ component: Component, isAuthenticated, ...options }) => (
+const AuthenticateComponent = ({ component: Component, ...options }) => (
   <Route {...options} render={props => (
-      isAuthenticated
+      localStorage.getItem('andela_notification_values_tokens_1576::1454404601')
           ? <Component {...props} />
           : <Redirect to='/login' />
   )} />
