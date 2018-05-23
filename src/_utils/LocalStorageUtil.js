@@ -3,7 +3,7 @@ const LocalStorageUtil = {
     localStorage.setItem(key, value);
   },
   get(key) {
-    localStorage.getItem(key);
+    return localStorage.getItem(key);
   },
   remove(key) {
     localStorage.removeItem(key);

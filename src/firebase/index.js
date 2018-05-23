@@ -1,7 +1,7 @@
 import firebase from 'firebase';
-import * as auth from './auth';
+import { signInWithEmail } from './auth';
 
 export {
-  auth,
+  signInWithEmail,
   firebase,
 };

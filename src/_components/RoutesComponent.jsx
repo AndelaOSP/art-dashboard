@@ -17,7 +17,7 @@ class RoutesComponent extends React.Component {
   }
 
   componentWillMount() {
-    this.props.loginAction(LocalStorageUtil.get('token'));
+    this.props.loginAction(LocalStorageUtil.get('token'), LocalStorageUtil);
   }
 
   componentWillReceiveProps(nextProps) {

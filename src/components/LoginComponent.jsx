@@ -5,7 +5,7 @@ import { Button, Container, Header, Image } from 'semantic-ui-react';
 import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 
 import { loginAction } from '../_actions/login.action';
-import { auth, firebase } from '../firebase';
+import { signInWithEmail, firebase } from '../firebase';
 import LocalStorageUtil from '../_utils/LocalStorageUtil';
 
 import '../_css/LoginComponent.css';
@@ -53,7 +53,7 @@ class LoginComponent extends React.Component {
 
   // authenticates user
   handleLogin = () => {
-    auth.signInWithEmail(provider).then(result => {
+    signInWithEmail(provider).then(result => {
       this.validateUser(result);
     }).catch(error => {
       if (error) {
