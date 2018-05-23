@@ -24,7 +24,7 @@ class LoginComponent extends React.Component {
     }
   }
 
-  // authenticates user
+  // authenticates user`
   handleLogin = () => {
     signInWithEmail(provider)
       .then(this.validateUser)

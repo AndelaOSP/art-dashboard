@@ -1,11 +1,10 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const AuthenticateComponent = ({ component: Component, ...options }) => {
-  const token = localStorage.getItem('token');
+const AuthenticateComponent = ({ component: Component, isAuthenticated, ...options }) => {
   return (
     <Route {...options} render={props => (
-        token
+        isAuthenticated
             ? <Component {...props} />
             : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
     )} />
