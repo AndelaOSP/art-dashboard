@@ -1,28 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button, Container, Header, Image } from 'semantic-ui-react';
-
-import { loginAction } from '../_actions/login.action';
 
 import getToken from '../_utils/getToken';
 
 import '../_css/LoginComponent.css';
 
 class LoginComponent extends React.Component {
-  redirectToDashboard(props) {
-    if (props.isAuthenticated) {
-      this.props.history.push('/');
-    }
-  }
-  componentDidMount() {
-    this.redirectToDashboard(this.props);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.redirectToDashboard(nextProps);
-  }
   handleLogin = () => {
-    this.props.loginAction(getToken());
+    if (getToken()) {
+      this.props.history.push('/dashboard');
+    }
   }
 
   render() {
@@ -52,13 +40,4 @@ class LoginComponent extends React.Component {
   }
 };
 
-const mapStateToProps = ({ loginReducer }) => {
-  const { isAuthenticated } = loginReducer;
-  return {
-    isAuthenticated,
-  }
-}
-
-export default withRouter(connect(mapStateToProps, {
-  loginAction,
-})(LoginComponent));
+export default withRouter(LoginComponent);

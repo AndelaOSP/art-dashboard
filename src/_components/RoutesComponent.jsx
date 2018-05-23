@@ -1,8 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { loginAction } from '../_actions/login.action';
 
 import AuthenticateComponent from './AuthenticateComponent';
 import LoginComponent from '../components/LoginComponent';
@@ -16,41 +13,28 @@ class RoutesComponent extends React.Component {
   }
 
   componentWillMount() {
-    this.props.loginAction(getToken());
-  }
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.isAuthenticated) {
+    if(getToken()) {
       this.setState({
-        isAuthenticated: true,
+        isAuthenticated: true
       })
     }
   }
+
   render () {
     return (
       <div>
         <Switch>
           <AuthenticateComponent
-            exact
             isAuthenticated={this.state.isAuthenticated}
-            path='/'
+            path='/dashboard'
             component={DashboardComponent}
           />
-          <Route path='/login' component={LoginComponent} />
+          <Route path='/' component={LoginComponent} />
+          <Route path='*' component={LoginComponent} />
         </Switch>
       </div>
     );
   }
 };
 
-const mapStateToProps = ({ loginReducer }) => {
-  const { isAuthenticated } = loginReducer;
-  return {
-    isAuthenticated,
-  }
-};
-
-const mapDispatchToProps = {
-  loginAction,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RoutesComponent);
+export default (RoutesComponent);
