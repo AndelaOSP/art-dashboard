@@ -1,16 +1,15 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Button, Container, Header, Image } from 'semantic-ui-react';
 
-import getToken from '../_utils/getToken';
+import { loginAction } from '../_actions/login.action';
 
 import '../_css/LoginComponent.css';
 
 class LoginComponent extends React.Component {
   handleLogin = () => {
-    if (getToken()) {
-      this.props.history.push('/dashboard');
-    }
+    this.props.loginAction();
   }
 
   render() {
@@ -40,4 +39,6 @@ class LoginComponent extends React.Component {
   }
 };
 
-export default withRouter(LoginComponent);
+export default withRouter(connect(null, {
+  loginAction,
+})(LoginComponent));
