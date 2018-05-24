@@ -6,7 +6,6 @@ import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 
 import { loginAction } from '../_actions/login.action';
 import { signInWithEmail, firebase } from '../firebase';
-import LocalStorageUtil from '../_utils/LocalStorageUtil';
 
 import '../_css/LoginComponent.css';
 
@@ -28,26 +27,20 @@ class LoginComponent extends React.Component {
     this.redirectToDashboard(nextProps);
   }
 
-  // displays error messages in a toast
-  handleErrorMessage = (message) => {
-    const messageTimeout = 5000;
-      toast(
-        {
-          type: 'warning',
-          description: message,
-          time: messageTimeout
-        });
+  // toasts message
+  toastMessage = (description, type = 'warning', time = 5000) => {
+    toast({ type, description, time });
   }
 
   // checks that the user used an Andela email
   validateUser = (result) => {
-    const validAndelaEmail = /^[\w.-]+@andela\.com$/;
+    const VALID_ANDELA_EMAIL = /^[\w.-]+@andela\.com$/;
 
-    if (validAndelaEmail.test(result.user.email)) {
-      this.props.loginAction(result.credential.accessToken, LocalStorageUtil);
+    if (VALID_ANDELA_EMAIL.test(result.user.email)) {
+      this.props.loginAction();
+      localStorage.set('token', result.credential.accessToken);
     } else {
-      const message = 'Please sign in with your andela email';
-      this.handleErrorMessage(message);
+      this.toastMessage('Please sign in with your andela email');
     }
   }
 
@@ -57,7 +50,7 @@ class LoginComponent extends React.Component {
       this.validateUser(result);
     }).catch(error => {
       if (error) {
-        this.handleErrorMessage(error.message);
+        this.toastMessage(error.message);
       }
     });
   }
