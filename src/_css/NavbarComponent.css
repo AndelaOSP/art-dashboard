@@ -1,0 +1,17 @@
+#navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: #FFFFFF;
+    height: 80px;
+    position: absolute;
+    width: 90%;
+    max-width: 90%;
+    left: 170px;
+}
+
+#navbar h4 {
+    margin-left: 19px;
+    margin-top: 26px;
+    flex-grow: 1;
+}

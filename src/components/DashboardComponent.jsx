@@ -1,13 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import SidebarComponent from './SidebarComponent';
+import NavbarComponent from './NavbarComponent';
+import CardComponent from './CardComponent'
+import PieChartComponent from './PieChartComponent';
+import BarlineGraphComponent from './BarlineGraphComponent';
+import statistics from '../_mock/statistics';
 
 const DashboardComponent = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <ul id="nav-mobile" className="right hide-on-med-and-down">
-        <li><Link to="/asset_types">Asset Types</Link></li>
-      </ul>
+      <NavbarComponent />
+      <CardComponent />
+      <BarlineGraphComponent/>
+      <PieChartComponent/>
     </div>
   )
 };
