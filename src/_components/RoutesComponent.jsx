@@ -7,6 +7,9 @@ import AssetsComponent from '../components/AssetsComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 import AddAssetComponent from './AddAssetComponent';
+import FeedbackComponent from '../components/FeedbackComponent';
+
+import getToken from '../_utils/getToken';
 
 class RoutesComponent extends React.Component {
   checkAuthentication = () => {
@@ -33,6 +36,13 @@ class RoutesComponent extends React.Component {
             isAuthenticated={this.checkAuthentication()}
             path='/assets'
             component={AssetsComponent}
+          />
+          <AuthenticateComponent
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path='/feedback'
+            isAuthenticated={this.checkAuthentication()}
+            component={FeedbackComponent}
           />
           <AuthenticateComponent
             exact

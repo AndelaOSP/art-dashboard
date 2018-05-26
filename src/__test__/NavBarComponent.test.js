@@ -1,30 +1,22 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import ReactDOM from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import expect from 'expect';
+import { Provider } from 'react-redux';
+import { createMockStore } from 'redux-test-utils';
+import { withRouter } from 'react-router-dom';
+import { shallowWithStore } from 'enzyme-redux';
+import { connect } from 'react-redux';
 
-import NavBarComponent from '../_components/NavBarComponent.jsx';
+import NavbarComponent from '../components/NavbarComponent';
 
-import localStorageMock from '../_mock/localStorage';
+describe('Renders <NavbarComponent /> correctly', () => {
 
-window.localStorage = localStorageMock;
+  const { WrappedComponent } = withRouter(connect()(NavbarComponent));
+  const wrapper = shallowWithStore(<WrappedComponent />, createMockStore(null));
 
-describe('NavBarComponent is rendered', () => {
-
-  const wrapper = shallow(<NavBarComponent />);
-
-  it('renders a div element', () => {
-    expect(wrapper.find('.navbar').length).toBe(1);
-  });
-
-  it('renders a Menu component', () => {
+  it('renders navbar menu', () => {
     expect(wrapper.find('Menu').length).toBe(1);
   });
 
-  it('renders a Dropdown menu', () => {
-    expect(wrapper.find('Dropdown').length).toBe(1);
-  });
-
-  it('renders a list layout Icon on the navbar', () => {
-    expect(wrapper.find('Icon').length).toBe(1);
-  });
 });
