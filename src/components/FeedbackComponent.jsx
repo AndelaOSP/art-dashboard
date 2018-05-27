@@ -1,9 +1,37 @@
 import React from 'react';
 import { Container, Header, Table } from 'semantic-ui-react';
+
 export class FeedbackComponent extends React.Component {
-state = {
-    feedback: [],
-    feedbackCount: 0
+
+constructor(){
+    super();
+    this.state = {
+        feedback: [],
+    };
+}
+
+componentWillMount(){
+    fetch('https://jsonplaceholder.typicode.com/comments')
+    .then(json => console.log(json))
+    .then(results => {
+        return results.json();
+    
+    }).then(data => {
+        let feedback = data.results.map((index, feedback) => {
+            return(
+                <Table.Row>
+                <Table.Cell>key = {index}</Table.Cell>
+                <Table.Cell>{feedback.submitted_by}</Table.Cell>
+                <Table.Cell>{feedback.date_submitted}</Table.Cell>
+                <Table.Cell>{feedback.complaint}</Table.Cell>
+                <Table.Cell>{feedback.description}</Table.Cell>
+                </Table.Row>
+                )
+        this.setState({feedback:feedback.data});
+        console.log("state", this.state.feedback);
+        }
+    )})
+
 }
 render() {
     return [
@@ -13,6 +41,7 @@ render() {
         <Table celled>
         <Table.Header>
         <Table.Row>
+        <Table.HeaderCell>Index</Table.HeaderCell>
         <Table.HeaderCell>Submitted by</Table.HeaderCell>
         <Table.HeaderCell>Date Submitted</Table.HeaderCell>
         <Table.HeaderCell>Type</Table.HeaderCell>
@@ -21,12 +50,7 @@ render() {
       </Table.Header>
 
       <Table.Body>
-      <Table.Row>
-                <Table.Cell>31-8-2000</Table.Cell>
-                <Table.Cell>Joan Awinja</Table.Cell>
-                <Table.Cell>Complaint</Table.Cell>
-                <Table.Cell>Lorem impsum</Table.Cell>
-                </Table.Row>
+          {this.state.feedback}
       </Table.Body>
 
       </Table>
