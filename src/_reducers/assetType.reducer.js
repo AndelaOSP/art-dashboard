@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         assetTypes: [],
+        assetTypesCount: 0,
       }
     default:
       return state;

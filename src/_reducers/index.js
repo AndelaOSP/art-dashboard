@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import loginReducer from './login.reducer';
-import assetReducer from './asset.reducer';
+import assetTypeReducer from './assetType.reducer';
+import assetsReducer from './assets.reducer';
 
 const rootReducer = combineReducers({
   loginReducer,
-  assetReducer,
+  assetTypeReducer,
+  assetsReducer,
 });
 
 export default rootReducer;

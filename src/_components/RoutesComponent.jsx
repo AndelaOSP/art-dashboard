@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { loginAction } from '../_actions/login.action';
 
 import AuthenticateComponent from './AuthenticateComponent';
-import AssetTypesComponent from '../components/AssetTypesComponent'
+import AssetTypesComponent from '../components/AssetTypesComponent';
+import AssetsComponent from '../components/AssetsComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 
@@ -41,6 +42,12 @@ class RoutesComponent extends React.Component {
             isAuthenticated={this.state.isAuthenticated}
             path='/asset_types'
             component={AssetTypesComponent}
+          />
+          <AuthenticateComponent
+            exact
+            isAuthenticated={this.state.isAuthenticated}
+            path='/assets'
+            component={AssetsComponent}
           />
           <Route path='/login' component={LoginComponent} />
         </Switch>

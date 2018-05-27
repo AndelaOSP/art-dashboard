@@ -1,68 +1,68 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Container, Header, Table, Pagination } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent';
 
-import { loadAssetTypeAction } from '../_actions/assetType.action';
+import { getAssetsAction } from '../_actions/assets.action';
 
-export class AssetTypesComponent extends React.Component {
+export class AssetsComponent extends Component {
   state = {
     activePage: 1,
     limit: 10,
   }
   componentDidMount() {
-    this.props.loadAssetTypeAction(this.state.activePage);
+    this.props.getAssetsAction();
   }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetTypeAction(activePage);
+    this.props.getAssetsAction(activePage);
   }
 
   handlePageTotal = () => {
-    return Math.ceil(this.props.assetTypesCount / this.state.limit);
+    return Math.ceil(this.props.assetsCount / this.state.limit);
   }
 
   emptyAssetTypeCheck = () => {
-    return (this.props.assetTypes.length === 0);
+    return (this.props.assets.length === 0);
   }
 
-  loadRoles = () => {
+  loadTableContent = () => {
     if (this.emptyAssetTypeCheck()) {
-      return <Table.Row><Table.Cell colSpan="3">No Data found</Table.Cell></Table.Row>
+      return <Table.Row><Table.Cell colSpan="6">No Data found</Table.Cell></Table.Row>
     } else {
-      const assetTypes = this.props.assetTypes.map((assetType, index) => {
-        return <TableRowComponent key={index} data={assetType} />
-      });
-      return assetTypes;
+    return (this.props.assets.map((asset, index) => {
+        return <TableRowComponent key={index} data={asset} aasets />
+    }));
     }
   }
 
   render() {
     return (
-      <div className=''>
       <Container>
-        <Header className='landing-heading' content='Asset Types' />
+        <Header className='landing-heading' content='All Assets' />
         <Table celled>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Category</Table.HeaderCell>
               <Table.HeaderCell>Sub-category</Table.HeaderCell>
               <Table.HeaderCell>Type</Table.HeaderCell>
+              <Table.HeaderCell>Make</Table.HeaderCell>
+              <Table.HeaderCell>Model</Table.HeaderCell>
+              <Table.HeaderCell>Item</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
           <Table.Body>
             {
-              this.loadRoles()
+              this.loadTableContent()
             }
           </Table.Body>
 
           <Table.Footer>
             <Table.Row>
-              <Table.HeaderCell colSpan='3'>
+              <Table.HeaderCell colSpan='6'>
                 {
                   (this.emptyAssetTypeCheck()) ? '' :
                     <Pagination
@@ -76,19 +76,18 @@ export class AssetTypesComponent extends React.Component {
           </Table.Footer>
         </Table>
       </Container>
-    </div>
     )
   }
 };
 
-const mapStateToProps = ({ assetTypeReducer }) => {
-  const { assetTypes, assetTypesCount } = assetTypeReducer;
+const mapStateToProps = ({ assetsReducer }) => {
+  const { assets, assetsCount } = assetsReducer;
   return {
-    assetTypes,
-    assetTypesCount,
+    assets,
+    assetsCount,
   }
 }
 
-export default withRouter(connect(mapStateToProps, {
-  loadAssetTypeAction,
-})(AssetTypesComponent));
+export default connect(mapStateToProps, {
+  getAssetsAction,
+})(AssetsComponent);
