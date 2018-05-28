@@ -6,7 +6,8 @@ import {
   Form,
   Input,
   Dropdown,
-  Header
+  Header,
+  Grid
 } from 'semantic-ui-react';
 
 // actions
@@ -37,7 +38,7 @@ const placeCategoryPropsInSemanticUIOptions = (props) => {
 };
 
 const isEmpty = (props) => {
-  if (props.length <=1) {
+  if (props.length <= 1) {
     return true;
   }
   return false;
@@ -73,7 +74,7 @@ class AddAssetComponent extends React.Component {
     }
   }
 
-  handleDropdownChange = (e, data) => {
+  handleDropdownChanges = (e, data) => {
     if(data.name === 'asset-category') {
       this.setState({
         filteredSubCategories:
@@ -99,74 +100,116 @@ class AddAssetComponent extends React.Component {
 
   render(){
     return (
-      <div style={{width: '50%'}}>
-        <Header size='medium'>Add Asset</Header>
+      <div style={{width: '70%'}}>
+        <Header size='medium' textAlign='center'>Add an Asset</Header>
         <Form>
-          <Form.Group widths='equal'>
-            <Dropdown
-              fluid
-              search
-              selection
-              label='Asset Category'
-              options={placeCategoryPropsInSemanticUIOptions(this.props.categories)}
-              placeholder='Select Asset Category'
-              name='asset-category'
-              onChange={this.handleDropdownChange}
-            />
-            <Dropdown
-              fluid
-              search
-              selection
-              label='Asset Subcategory'
-              options={this.state.filteredSubCategories}
-              placeholder='Select Asset Subcategory'
-              name='asset-subcategory'
-              onChange={this.handleDropdownChange}
-            />
-          </Form.Group>
-          <Form.Group widths='equal'>
-            <Dropdown
-              fluid
-              search
-              selection
-              label='Asset Type'
-              options={this.state.filteredAssetTypes}
-              placeholder='Select Asset Type'
-              name='asset-types'
-              onChange={this.handleDropdownChange}
-            />
-            <Dropdown
-              fluid
-              search
-              selection
-              label='Asset Make'
-              options={this.state.filteredAssetMakes}
-              placeholder='Select Asset Make'
-              name='asset-makes'
-              onChange={this.handleDropdownChange}
-            />
-          </Form.Group>
-            <Dropdown
-              fluid
-              search
-              selection
-              label='Asset Model Number'
-              options={this.state.filteredModelNumbers}
-              placeholder='Select Asset Model Number'
-            />
-          <Form.Group widths='equal'>
-            <Form.Field
-              control={Input}
-              label='Asset Tag'
-              placeholder='Enter Asset Tag'
-            />
-            <Form.Field
-              control={Input}
-              label='Asset Serial Number'
-              placeholder='Enter Asset Serial Number'
-            />
-          </Form.Group>
-          <Form.Field control={Button}>Save New Asset</Form.Field>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={6}>
+              <Form.Group widths='equal' inline>
+                <label style={{width: '100px', textAlign: 'left'}}>Category</label>
+                <Dropdown
+                  style={{width: '65%'}}
+                  fluid
+                  search
+                  selection
+                  label='Asset Category'
+                  options={placeCategoryPropsInSemanticUIOptions(this.props.categories)}
+                  placeholder='Select Asset Category'
+                  name='asset-category'
+                  onChange={this.handleDropdownChanges}
+                />
+              </Form.Group>
+              <Form.Group widths='equal' inline>
+                <label style={{width: '100px', textAlign: 'left'}}>Sub Category</label>
+                <Dropdown
+                  style={{width: '65%'}}
+                  fluid
+                  search
+                  selection
+                  label='Asset Subcategory'
+                  options={this.state.filteredSubCategories}
+                  placeholder='Select Asset Subcategory'
+                  name='asset-subcategory'
+                  onChange={this.handleDropdownChanges}
+                />
+              </Form.Group>
+              <Form.Group widths='equal' inline>
+                <label style={{width: '100px', textAlign: 'left'}}>Type</label>
+                <Dropdown
+                  style={{width: '65%'}}
+                  fluid
+                  search
+                  selection
+                  label='Asset Type'
+                  options={this.state.filteredAssetTypes}
+                  placeholder='Select Asset Type'
+                  name='asset-types'
+                  onChange={this.handleDropdownChanges}
+                />
+              </Form.Group>
+              <Form.Group widths='equal' inline>
+                <label style={{width: '100px', textAlign: 'left'}}>Make</label>
+                <Dropdown
+                  style={{width: '65%'}}
+                  fluid
+                  search
+                  selection
+                  label='Asset Make'
+                  options={this.state.filteredAssetMakes}
+                  placeholder='Select Asset Make'
+                  name='asset-makes'
+                  onChange={this.handleDropdownChanges}
+                />
+              </Form.Group>
+            </Grid.Column>
+            <Grid.Column width={6}>
+              <Form.Group widths='equal' inline>
+                <label style={{width: '100px', textAlign: 'left'}}>Model</label>
+                <Dropdown
+                  style={{width: '65%'}}
+                  fluid
+                  search
+                  selection
+                  label='Asset Model Number'
+                  options={this.state.filteredModelNumbers}
+                  placeholder='Select Asset Model Number'
+                />
+              </Form.Group>
+              <Form.Group widths='equal' inline>
+                <label style={{width: '100px', textAlign: 'left'}}>Serial Number</label>
+                <Input
+                  style={{width: '65%'}}
+                  placeholder='Enter Serial Number'
+                />
+              </Form.Group>
+              <Form.Group widths='equal' inline>
+                <label style={{width: '100px', textAlign: 'left'}}>Asset Tag</label>
+                <Input
+                  style={{width: '65%'}}
+                  placeholder='Enter Asset Tag'
+                />
+              </Form.Group>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={6}>
+              <Form.TextArea
+                label='Asset Specs'
+                placeholder='Indepth details about asset...'
+              />
+            </Grid.Column>
+            <Grid.Column width={6}>
+              <Form.TextArea
+                label='Condition'
+                placeholder='...'
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <Form.Group widths='equal'>
+          <Button>Save</Button>
+        </Form.Group>
         </Form>
       </div>
     )

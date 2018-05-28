@@ -3,7 +3,6 @@ export const filterSubCategories = (subcategories, filterKey) => {
   filteredSubCategories = subcategories.filter((subcategory) => {
     return subcategory.asset_category === filterKey
   });
-
   return filteredSubCategories.map((subcategory) => {
     return {
       key: subcategory.id,
@@ -18,12 +17,11 @@ export const filterAssetTypes = (assetTypes, filterKey) => {
   filteredAssetTypes = assetTypes.filter((assetType) => {
     return assetType.asset_sub_category === filterKey;
   });
-
   return filteredAssetTypes.map((assetType) => {
     return {
-      key: assetTypes.id,
-      text: assetTypes.asset_type,
-      value: assetTypes.asset_type
+      key: assetType.id,
+      text: assetType.asset_type,
+      value: assetType.asset_type
     }
   });
 };
@@ -32,7 +30,7 @@ export const filterAssetMakes = (assetMakes, filterKey) => {
   let filteredAssetMakes = [];
   filteredAssetMakes = assetMakes.filter((assetMake) => {
     return (assetMake.asset_type === filterKey);
-  })
+  });
   return filteredAssetMakes.map((assetMake) => {
     return {
       key: assetMake.id,
