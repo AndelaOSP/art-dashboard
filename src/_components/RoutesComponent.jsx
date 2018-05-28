@@ -8,6 +8,7 @@ import AuthenticateComponent from './AuthenticateComponent';
 import AssetTypesComponent from '../components/AssetTypesComponent'
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
+import AddAssetComponent from './AddAssetComponent';
 
 class RoutesComponent extends React.Component {
   state = {
@@ -38,6 +39,7 @@ class RoutesComponent extends React.Component {
             component={AssetTypesComponent}
           />
           <Route path='/login' component={LoginComponent} />
+          <Route path='/add/asset' component={AddAssetComponent} />
         </Switch>
       </div>
     );
