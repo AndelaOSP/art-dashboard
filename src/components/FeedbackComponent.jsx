@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Container, Header, Table } from 'semantic-ui-react';
+import { feedbackAction } from '../_actions/feedback.action';
 
 export class FeedbackComponent extends React.Component {
 
@@ -7,34 +9,30 @@ constructor(){
     super();
     this.state = {
         feedback: [],
+    defaultPage: 1,
     };
 }
 
-componentWillMount(){
-    fetch('https://jsonplaceholder.typicode.com/comments')
-    .then(results => results.json())
-    .then(data => {
-        console.log('data',data);
-        let feedbacks = data && data.map((feedback,index) => {
-            console.log('feedback',feedback);
-            return(
-                <Table.Row>
-                <Table.Cell>{feedback.id}</Table.Cell>
-                <Table.Cell>{feedback.email}</Table.Cell>
-                <Table.Cell>12/07/2018</Table.Cell>
-                <Table.Cell>{feedback.name}</Table.Cell>
-                <Table.Cell>{feedback.body}</Table.Cell>
-                </Table.Row>
+loadFeedback = () => {
+    const feedbacks = this.props.feedback.map((feedback) => {
+        return(
+            <Table.Row>
+                <Table.Cell>{feedback.index}</Table.Cell>
+                <Table.Cell>{feedback.submittedBy}</Table.Cell>
+                <Table.Cell>{feedback.dateSubmitted}</Table.Cell>
+                <Table.Cell>{feedback.type}</Table.Cell>
+                <Table.Cell>{feedback.description}</Table.Cell>
+            </Table.Row>
                 )
-        }
-        
-    );
-    this.setState({feedback:feedbacks});
-
-})
-    .catch(error => console.log('Fetch error :', error));
+            }); 
+    return feedbacks
 
 }
+
+componentDidMount(){
+    this.props.feedbackAction(this.state.defaultPage);
+    }
+    
 render() {
     console.log("state", this.state.feedback);
     return [
@@ -53,7 +51,7 @@ render() {
       </Table.Header>
 
       <Table.Body>
-          {this.state.feedback}
+          {this.loadFeedback()}
       </Table.Body>
 
       </Table>
@@ -62,4 +60,13 @@ render() {
     ];
   };}
 
-export default (FeedbackComponent);
+const mapStateToProps = ({ feedbackReducer }) => {
+    const { feedback, feedbackCount } = feedbackReducer;
+        return {
+            feedback,
+            feedbackCount,
+        }
+  }
+
+export default connect(mapStateToProps, { feedbackAction, })(FeedbackComponent);
+  
