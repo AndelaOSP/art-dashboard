@@ -12,28 +12,31 @@ constructor(){
 
 componentWillMount(){
     fetch('https://jsonplaceholder.typicode.com/comments')
-    .then(json => console.log(json))
-    .then(results => {
-        return results.json();
-    
-    }).then(data => {
-        let feedback = data.results.map((index, feedback) => {
+    .then(results => results.json())
+    .then(data => {
+        console.log('data',data);
+        let feedbacks = data && data.map((feedback,index) => {
+            console.log('feedback',feedback);
             return(
                 <Table.Row>
-                <Table.Cell>key = {index}</Table.Cell>
-                <Table.Cell>{feedback.submitted_by}</Table.Cell>
-                <Table.Cell>{feedback.date_submitted}</Table.Cell>
-                <Table.Cell>{feedback.complaint}</Table.Cell>
-                <Table.Cell>{feedback.description}</Table.Cell>
+                <Table.Cell>{feedback.id}</Table.Cell>
+                <Table.Cell>{feedback.email}</Table.Cell>
+                <Table.Cell>12/07/2018</Table.Cell>
+                <Table.Cell>{feedback.name}</Table.Cell>
+                <Table.Cell>{feedback.body}</Table.Cell>
                 </Table.Row>
                 )
-        this.setState({feedback:feedback.data});
-        console.log("state", this.state.feedback);
         }
-    )})
+        
+    );
+    this.setState({feedback:feedbacks});
+
+})
+    .catch(error => console.log('Fetch error :', error));
 
 }
 render() {
+    console.log("state", this.state.feedback);
     return [
     <div className=''>
       <Container>
