@@ -16,8 +16,8 @@ window.localStorage = localStorageMock;
 
 
 describe('Renders <LoginComponent /> correctly', () => {
-  
-  const { WrappedComponent } = withRouter(connect()(LoginComponent));  
+
+  const { WrappedComponent } = withRouter(connect()(LoginComponent));
   const wrapper = shallowWithStore(<WrappedComponent />, createMockStore(null));
 
   const andelaLogo = 'http://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png';
@@ -46,4 +46,12 @@ describe('Renders <LoginComponent /> correctly', () => {
     expect(wrapper.find('.description').prop('content')).toEqual('Andela Resource Tracker');
   });
 
+  it('should call the handleLogin function when the sign in button is clicked', () => {
+    const handleLoginSpy = jest.spyOn(
+      wrapper.instance(), 'handleLogin'
+    );
+    wrapper.find('Button').simulate('click');
+    wrapper.instance().handleLogin();
+    expect(handleLoginSpy.mock.calls.length).toEqual(1)
+  });
 });

@@ -10,8 +10,8 @@ jobs:
       - checkout
       - run:
           name: install dependencies
-          command: sudo yarn install
+          command: sudo npm install
 
       - run:
           name: run tests
-          command: yarn test
+          command: npm test

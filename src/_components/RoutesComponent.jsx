@@ -9,16 +9,11 @@ import AssetTypesComponent from '../components/AssetTypesComponent'
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 
-import getToken from '../_utils/getToken';
-
 class RoutesComponent extends React.Component {
   state = {
     isAuthenticated: false,
   }
 
-  componentWillMount() {
-    this.props.loginAction(getToken());
-  }
   componentWillReceiveProps(nextProps) {
     if(nextProps.isAuthenticated) {
       this.setState({
