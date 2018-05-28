@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.4.0
+
+    working_directory: ~/art-dashboard
+
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: sudo npm install
+
+      - run:
+          name: run tests
+          command: npm test
