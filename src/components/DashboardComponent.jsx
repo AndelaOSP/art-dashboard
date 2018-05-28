@@ -10,7 +10,7 @@ const DashboardComponent = () => {
   return (
     <div>
       <NavbarComponent />
-      <CardComponent />
+      <CardComponent statistics={statistics}/>
       <BarlineGraphComponent/>
       <PieChartComponent/>
     </div>

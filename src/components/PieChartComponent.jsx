@@ -5,8 +5,6 @@ import Charts from 'fusioncharts/fusioncharts.charts';
 import ReactFC from 'react-fusioncharts';
 import { Divider } from 'semantic-ui-react';
 
-Charts(FusionCharts);
-
 export default class PieChartComponent extends React.Component {
 
     myDataSource = {
