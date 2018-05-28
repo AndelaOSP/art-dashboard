@@ -16,7 +16,7 @@ class LoginComponent extends React.Component {
   // checks that the user used an Andela email
   validateUser = (result) => {
     if (validAndelaEmail(result.user.email)) {
-      localStorage.setItem('andela_notification_values_tokens_1576::1454404601', result.credential.accessToken);
+      localStorage.setItem('andela_notification_values_tokens_1576::145440460', result.credential.accessToken);
       this.props.history.push('/dashboard');
       ToastMessage.success({ message: 'Welcome to ART' });
     } else {
