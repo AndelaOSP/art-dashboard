@@ -8,7 +8,6 @@ import modelNumber from './modelNumber.reducer';
 import assetsReducer from './assets.reducer';
 import viewAssets from './viewAssets.reducer';
 import feedbackReducer from './feedback.reducer';
-import viewAssets from './viewAssets.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
