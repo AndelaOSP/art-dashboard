@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button, Container, Header, Image } from 'semantic-ui-react';
-import { SemanticToastContainer, toast } from 'react-semantic-toasts';
+import { SemanticToastContainer } from 'react-semantic-toasts';
 
 import { loginAction } from '../_actions/login.action';
 import { signInWithEmail, firebase } from '../firebase';
+import { ToastMessage } from '../_utils/ToastMessage';
+import { validAndelaEmail } from '../_utils/validAndelaEmail';
 
 import '../_css/LoginComponent.css';
 
@@ -27,38 +29,28 @@ class LoginComponent extends React.Component {
     this.redirectToDashboard(nextProps);
   }
 
-  // toasts message
-  toastMessage = (description, type = 'warning', time = 5000) => {
-    toast({ type, description, time });
-  }
-
   // checks that the user used an Andela email
   validateUser = (result) => {
-    const VALID_ANDELA_EMAIL = /^[\w.-]+@andela\.com$/;
-
-    if (VALID_ANDELA_EMAIL.test(result.user.email)) {
+    if (validAndelaEmail(result.user.email)) {
       this.props.loginAction();
       localStorage.set('token', result.credential.accessToken);
+      ToastMessage.success({ message: 'Welcome to ART' });
     } else {
-      this.toastMessage('Please sign in with your andela email');
+      ToastMessage.error({ message: 'Please sign in with your andela email' });
     }
   }
 
   // authenticates user
   handleLogin = () => {
-    signInWithEmail(provider).then(result => {
-      this.validateUser(result);
-    }).catch(error => {
-      if (error) {
-        this.toastMessage(error.message);
-      }
-    });
+    signInWithEmail(provider)
+      .then(this.validateUser)
+      .catch(ToastMessage.error);
   }
 
   render() {
     return (
       <div>
-        <SemanticToastContainer position="top-right" />
+        <SemanticToastContainer />
         <div className='app landing-overlay background'>
           <Container>
             <Image
