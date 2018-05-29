@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Table } from 'semantic-ui-react';
+import { Container, Header, Table, Pagination } from 'semantic-ui-react';
 import { feedbackAction } from '../_actions/feedback.action';
 
 export class FeedbackComponent extends React.Component {
@@ -8,9 +8,31 @@ export class FeedbackComponent extends React.Component {
 constructor(){
     super();
     this.state = {
-        feedback: [],
-    defaultPage: 1,
+        activePage: 1,
+        limit: 10,
     };
+}
+
+handlePaginationChange = (e, { activePage }) => {
+    this.setState({ activePage });
+    this.props.feedbackAction(activePage);
+}
+
+
+handlePageTotal = () => {
+    return Math.ceil(this.props.feedbackCount / this.state.limit);
+}
+
+pagination = () => {
+    return (
+        <div>
+          <Pagination
+            activePage={this.state.activePage}
+            totalPages={this.handlePageTotal()}
+            onPageChange={this.handlePaginationChange}
+          />
+        </div>
+      );
 }
 
 loadFeedback = () => {
@@ -53,7 +75,13 @@ render() {
       <Table.Body>
           {this.loadFeedback()}
       </Table.Body>
-
+      <Table.Footer>
+      <Table.Row>
+      <Table.HeaderCell colSpan='5'>
+        {this.pagination()}
+      </Table.HeaderCell>
+      </Table.Row>
+      </Table.Footer>
       </Table>
       </Container>
       </div>
