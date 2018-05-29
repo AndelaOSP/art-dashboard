@@ -6,13 +6,17 @@ import PieChartComponent from './PieChartComponent';
 import BarlineGraphComponent from './BarlineGraphComponent';
 import statistics from '../_mock/statistics';
 
+import '../_css/DashboardComponenet.css';
+
 const DashboardComponent = () => {
   return (
     <div>
       <NavbarComponent />
-      <CardComponent statistics={statistics}/>
-      <BarlineGraphComponent/>
-      <PieChartComponent/>
+      <CardComponent statistics={statistics} />
+      <div className="chartArea">
+        <BarlineGraphComponent />
+        <PieChartComponent />
+      </div>
     </div>
   )
 };

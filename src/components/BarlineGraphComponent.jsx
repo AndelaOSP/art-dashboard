@@ -11,8 +11,8 @@ export default class BarlineGraphComponent extends React.Component {
 
     myDataSource = {
         chart: {
-            "caption": "Actual Revenues, Targeted Revenues & Profits",
-            "subcaption": "Last year",
+            "caption": "Asset Financials",
+            "subcaption": "2018",
             "xaxisname": "Month",
             "yaxisname": "Amount (In USD)",
             "numberprefix": "$",
@@ -62,7 +62,7 @@ export default class BarlineGraphComponent extends React.Component {
         ],
         "dataset": [
             {
-                "seriesname": "Actual Revenue",
+                "seriesname": "Cost of Purchase",
                 "data": [
                     {
                         "value": "16000"
@@ -103,7 +103,7 @@ export default class BarlineGraphComponent extends React.Component {
                 ]
             },
             {
-                "seriesname": "Projected Revenue",
+                "seriesname": "Cost of Damages",
                 "renderas": "line",
                 "showvalues": "0",
                 "data": [
@@ -146,7 +146,7 @@ export default class BarlineGraphComponent extends React.Component {
                 ]
             },
             {
-                "seriesname": "Profit",
+                "seriesname": "Loss incurred",
                 "renderas": "area",
                 "showvalues": "0",
                 "data": [
@@ -193,7 +193,7 @@ export default class BarlineGraphComponent extends React.Component {
     chartConfigs = {
         id: 'multi_chart',
         type: 'mscombi2d',
-        width: '50%',
+        width: '45%',
         height: 400,
         dataFormat: 'json',
         dataSource: this.myDataSource,
@@ -201,7 +201,7 @@ export default class BarlineGraphComponent extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="barlineGraph">
                 <Divider hidden />
                 <ReactFC {...this.chartConfigs} />
             </div>

@@ -1,19 +1,19 @@
 const statistics = [
     {
-        assets: 20,
-        description: 'Damaged Assets'
+        value: 20,
+        label: 'Damaged Assets'
     },
     {
-        assets: 120,
-        description: 'Lost Assets'
+        value: 120,
+        label: 'Lost Assets'
     },
     {
-        assets: 250,
-        description: 'Allocated Assets'
+        value: 250,
+        label: 'Allocated Assets'
     },
     {
-        assets: 210,
-        description: 'Avaliable Assets'
+        value: 210,
+        label: 'Avaliable Assets'
     },
 ];
 
