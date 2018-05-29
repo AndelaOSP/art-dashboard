@@ -9,8 +9,8 @@ class CardComponent extends React.Component {
             return (
                 <Card key={index}>
                     <Card.Content>
-                        <Card.Header>{value.assets}</Card.Header>
-                        <Card.Description>{value.description}</Card.Description>
+                        <Card.Header>{value.value}</Card.Header>
+                        <Card.Description>{value.label}</Card.Description>
                     </Card.Content>
                 </Card>
             )
