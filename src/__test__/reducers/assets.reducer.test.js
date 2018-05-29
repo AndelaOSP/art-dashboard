@@ -17,14 +17,14 @@ import {
 
 describe('Asset Reducer tests', () => {
 
-  it('should handle CREATE_ASSET_SUCCESS when createAssetSuccess is called', () => {
+  it('should handle CREATE_ASSET_SUCCESS', () => {
     let expected = [asset];
     let action = createAssetSuccess(asset);
     expect(mockStore.assets.length).toEqual(0);
     expect(assetReducer(mockStore.assets, action)).toEqual(expected);
   });
 
-  it('should handle CREATE_ASSET_FAIL when createAssetFail is called', () => {
+  it('should handle CREATE_ASSET_FAIL', () => {
     let action = createAssetFail();
     expect(mockStore.assets.length).toEqual(0);
     expect(assetReducer(mockStore.assets, action).length).toEqual(0);
