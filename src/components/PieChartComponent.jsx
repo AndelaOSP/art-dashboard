@@ -33,4 +33,4 @@ export default class PieChartComponent extends React.Component {
         )
     }
 
-}
+};
