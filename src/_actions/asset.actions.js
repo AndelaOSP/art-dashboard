@@ -16,7 +16,8 @@ export const createAsset = (assetDetail) => {
     return axios.post('/assets', assetDetail).then((response) => {
       dispatch(createAssetSuccess(response.data));
     }).catch((error) => {
-      dispatch(createAssetFail(error));
+      console.log(error);
+      dispatch(createAssetFail());
     });
   });
 };
@@ -35,10 +36,8 @@ export const createAssetSuccess = (asset) => {
 /**
  * createAssetFail - create new asset fail action creator
  *
- * @param {type} error details of error
- *
  * @return {type} type and payload
  */
-export const createAssetFail = (error) => {
-  return { type: CREATE_ASSET_FAIL, payload: error };
+export const createAssetFail = () => {
+  return { type: CREATE_ASSET_FAIL };
 };

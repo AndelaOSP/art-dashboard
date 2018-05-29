@@ -36,8 +36,7 @@ describe('Asset Action tests', () => {
       payload: asset
     },
     {
-      type: CREATE_ASSET_FAIL,
-      payload: "Networ error"
+      type: CREATE_ASSET_FAIL
     }
   ]
 
