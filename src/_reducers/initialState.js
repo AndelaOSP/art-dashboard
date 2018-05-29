@@ -3,5 +3,6 @@ export default {
   subcategories: [],
   assetTypes: [],
   assetMakes: [],
-  modelNumbers: []
+  modelNumbers: [],
+  assets: []
 }
