@@ -7,39 +7,36 @@ import thunk from 'redux-thunk';
 
 // constants
 import constants from '../../_constants';
-const { LOAD_CATEGORIES_SUCCESS } = constants;
+const { LOAD_ASSET_MAKES_SUCCESS } = constants;
 
 // actions
-import { loadCategories } from '../../_actions/category.actions';
+import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 
 // store
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
 
-describe('Category action tests', () => {
+describe('Asset Makes action tests', () => {
   const mock = new MockAdapter(axios);
   store = mockStore({});
   let expectedActions = [
     {
-      type: LOAD_CATEGORIES_SUCCESS
+      type: LOAD_ASSET_MAKES_SUCCESS
     }
   ];
 
-  it('should dispatch LOAD_CATEGORIES_SUCCESS when loadCategories called successfully', () => {
-    mock.onGet('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories').reply(200,
+  it('should dispatch LOAD_ASSET_MAKES_SUCCESS when loadAssetMakes called successfully', () => {
+    mock.onGet('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/makes').reply(200,
       [
         {
           "id": 1,
-          "category_name": "Accessories"
-        },
-        {
-          "id": 2,
-          "category_name": "Electronics"
+          "make_label": "Mircosoft",
+          "asset_type": "Headsets"
         }
       ]
     );
-    return store.dispatch(loadCategories()).then(() => {
+    return store.dispatch(loadAssetMakes()).then(() => {
       expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
     });
   });
