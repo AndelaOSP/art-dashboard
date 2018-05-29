@@ -1,8 +1,0 @@
-#statistics-cards {
-    position: absolute;
-    left: 170px;
-    top: 99px;
-    display: flex;
-    width: calc(150px * 4);
-    justify-content: space-around;
-}
