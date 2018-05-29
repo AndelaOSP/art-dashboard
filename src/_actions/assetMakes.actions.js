@@ -7,7 +7,7 @@ const { LOAD_ASSET_MAKES_SUCCESS } = constants;
 /**
  * load asset makes thunk
  *
- * @return {type} loadAssetMakesSuccess type and payload
+ * @return dispatch loadAssetMakesSuccess type and payload
  */
 export const loadAssetMakes = () => {
   return ((dispatch) => {
@@ -22,9 +22,9 @@ export const loadAssetMakes = () => {
 /**
  * loadAssetMakesSuccess action creator
  *
- * @param {type} assetMakes list of asset makes
+ * @param {array} assetMakes list of asset makes
  *
- * @return {type} type and payload
+ * @return {object} type and payload
  */
 export const loadAssetMakesSuccess = (assetMakes) => {
   return { type: LOAD_ASSET_MAKES_SUCCESS, payload: assetMakes };
