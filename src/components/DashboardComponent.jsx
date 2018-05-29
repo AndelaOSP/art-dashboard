@@ -1,5 +1,4 @@
 import React from 'react';
-import SidebarComponent from './SidebarComponent';
 import NavbarComponent from './NavbarComponent';
 import CardComponent from './CardComponent'
 import PieChartComponent from './PieChartComponent';
@@ -15,7 +14,7 @@ const DashboardComponent = () => {
       <CardComponent statistics={statistics} />
       <div className="chartArea">
         <BarlineGraphComponent />
-        <PieChartComponent />
+        <PieChartComponent statistics={statistics}/>
       </div>
     </div>
   )
