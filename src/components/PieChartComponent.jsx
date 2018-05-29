@@ -4,16 +4,15 @@ import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
 import ReactFC from 'react-fusioncharts';
 import { Divider } from 'semantic-ui-react';
-import statistics from '../_mock/statistics'
 
 export default class PieChartComponent extends React.Component {
-
+    statistics = this.props.statistics;
     myDataSource = {
         chart: {
             caption: 'Asset Statistics',
             subCaption: 'Assets status breakdown',
         },
-        data: statistics,
+        data: this.statistics,
     }
 
     chartConfigs = {

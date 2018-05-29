@@ -1,5 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import NavbarComponent from './NavbarComponent';
+import CardComponent from './CardComponent'
+import PieChartComponent from './PieChartComponent';
+import BarlineGraphComponent from './BarlineGraphComponent';
+import statistics from '../_mock/statistics';
 
 import '../_css/DashboardComponenet.css';
 
@@ -10,7 +14,7 @@ const DashboardComponent = () => {
       <CardComponent statistics={statistics} />
       <div className="chartArea">
         <BarlineGraphComponent />
-        <PieChartComponent />
+        <PieChartComponent statistics={statistics}/>
       </div>
     </div>
   )
