@@ -7,16 +7,21 @@ import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 
 class RoutesComponent extends React.Component {
+  checkAuthentication = () => {
+    return !!(localStorage.getItem('token'));
+  }
   render () {
     return (
       <div>
         <Switch>
           <AuthenticateComponent
             path='/dashboard'
+            isAuthenticated={this.checkAuthentication()}
             component={DashboardComponent}
           />
           <AuthenticateComponent
             path='/asset_types'
+            isAuthenticated={this.checkAuthentication()}
             component={AssetTypesComponent}
           />
           <Route exact path='/' component={LoginComponent} />
