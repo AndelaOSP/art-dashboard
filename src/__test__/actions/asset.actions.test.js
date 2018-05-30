@@ -22,6 +22,7 @@ let store;
 
 describe('Asset Action tests', () => {
   const mock = new MockAdapter(axios);
+  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories';
   store = mockStore({});
 
   let assetToBeCreated = {
@@ -41,7 +42,7 @@ describe('Asset Action tests', () => {
   ]
 
   it('should dispatch CREATE_ASSET_SUCCESS when createAsset is called successfully', () => {
-    mock.onPost('/assets', assetToBeCreated).reply(201,
+    mock.onPost(url, assetToBeCreated).reply(201,
       asset
     );
     return store.dispatch(createAsset(assetToBeCreated)).then(() => {

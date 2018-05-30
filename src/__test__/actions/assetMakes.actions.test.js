@@ -19,6 +19,7 @@ let store;
 
 describe('Asset Makes action tests', () => {
   const mock = new MockAdapter(axios);
+  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/makes';
   store = mockStore({});
   let expectedActions = [
     {
@@ -27,7 +28,7 @@ describe('Asset Makes action tests', () => {
   ];
 
   it('should dispatch LOAD_ASSET_MAKES_SUCCESS when loadAssetMakes called successfully', () => {
-    mock.onGet('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/makes').reply(200,
+    mock.onGet(url).reply(200,
       [
         {
           "id": 1,

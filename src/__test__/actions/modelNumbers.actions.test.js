@@ -19,6 +19,7 @@ let store;
 
 describe('Model Numbers action tests', () => {
   const mock = new MockAdapter(axios);
+  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers';
   store = mockStore({});
   let expectedActions = [
     {
@@ -27,7 +28,7 @@ describe('Model Numbers action tests', () => {
   ];
 
   it('should dispatch LOAD_ASSET_MODEL_NUMBERS when loadModelNumbers called successfully', () => {
-    mock.onGet('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers').reply(200,
+    mock.onGet(url).reply(200,
       [
         {
           "id": 6,

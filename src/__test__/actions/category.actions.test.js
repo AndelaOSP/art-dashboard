@@ -19,6 +19,7 @@ let store;
 
 describe('Category action tests', () => {
   const mock = new MockAdapter(axios);
+  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories';
   store = mockStore({});
   let expectedActions = [
     {
@@ -27,7 +28,7 @@ describe('Category action tests', () => {
   ];
 
   it('should dispatch LOAD_CATEGORIES_SUCCESS when loadCategories called successfully', () => {
-    mock.onGet('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories').reply(200,
+    mock.onGet(url).reply(200,
       [
         {
           "id": 1,
