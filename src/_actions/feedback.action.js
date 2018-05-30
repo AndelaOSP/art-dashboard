@@ -20,4 +20,3 @@ export const feedbackAction = (page, limit = 10) => {
       });
     }
   };
-  
