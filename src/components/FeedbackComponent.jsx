@@ -59,32 +59,32 @@ render() {
     console.log("state", this.state.feedback);
     return [
     <div className=''>
-      <Container>
-        <Header className='landing-heading' content='User Feedback' />
-        <Table celled>
-        <Table.Header>
-        <Table.Row>
-        <Table.HeaderCell>Index</Table.HeaderCell>
-        <Table.HeaderCell>Submitted by</Table.HeaderCell>
-        <Table.HeaderCell>Date Submitted</Table.HeaderCell>
-        <Table.HeaderCell>Type</Table.HeaderCell>
-        <Table.HeaderCell>Description</Table.HeaderCell>
-      </Table.Row>
-      </Table.Header>
+        <Container>
+            <Header className='landing-heading' content='User Feedback' />
+                <Table celled>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Index</Table.HeaderCell>
+                            <Table.HeaderCell>Submitted by</Table.HeaderCell>
+                            <Table.HeaderCell>Date Submitted</Table.HeaderCell>
+                            <Table.HeaderCell>Type</Table.HeaderCell>
+                            <Table.HeaderCell>Description</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
 
-      <Table.Body>
-          {this.loadFeedback()}
-      </Table.Body>
-      <Table.Footer>
-      <Table.Row>
-      <Table.HeaderCell colSpan='5'>
-        {this.pagination()}
-      </Table.HeaderCell>
-      </Table.Row>
-      </Table.Footer>
-      </Table>
-      </Container>
-      </div>
+                    <Table.Body>
+                        {this.loadFeedback()}
+                    </Table.Body>
+                    <Table.Footer>
+                        <Table.Row>
+                            <Table.HeaderCell colSpan='5'>
+                                {this.pagination()}
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Footer>
+                </Table>
+        </Container>
+    </div>
     ];
   };}
 
