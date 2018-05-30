@@ -16,6 +16,7 @@ import { loadSubCategories } from '../_actions/subcategory.actions';
 import { loadAssetTypes } from '../_actions/assetTypes.actions';
 import { loadAssetMakes } from '../_actions/assetMakes.actions';
 import { loadModelNumbers } from '../_actions/modelNumbers.actions';
+import { createAsset } from '../_actions/asset.actions';
 
 // utils
 import {
@@ -45,14 +46,16 @@ const isEmpty = (props) => {
 }
 
 class AddAssetComponent extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       filteredSubCategories: [],
       filteredAssetTypes: [],
       filteredAssetMakes: [],
-      filteredModelNumbers: []
+      filteredModelNumbers: [],
+      modelNumber: 0,
+      serialNumber: '',
+      assetTag: ''
     };
   }
 
@@ -98,11 +101,31 @@ class AddAssetComponent extends React.Component {
     }
   };
 
+  onSelectModelNumber = (event, data) => {
+    this.setState({ modelNumber: data.value });
+  };
+
+  onAddSerialNumber = (event) => {
+    this.setState({ serialNumber: event.target.value });
+  };
+
+  onAddAssetTag = (event) => {
+    this.setState({ assetTag: event.target.value });
+  };
+
+  onCreateAsset = (event, data) => {
+    this.props.createAsset({
+      "asset_code": this.state.assetTag,
+      "serial_number": this.state.serialNumber,
+      "model_number": this.state.modelNumber
+    });
+  };
+
   render(){
     return (
       <div style={{width: '70%'}}>
         <Header size='medium' textAlign='center'>Add an Asset</Header>
-        <Form>
+        <Form onSubmit={this.onCreateAsset}>
         <Grid>
           <Grid.Row>
             <Grid.Column width={6}>
@@ -174,6 +197,7 @@ class AddAssetComponent extends React.Component {
                   label='Asset Model Number'
                   options={this.state.filteredModelNumbers}
                   placeholder='Select Asset Model Number'
+                  onChange={this.onSelectModelNumber}
                 />
               </Form.Group>
               <Form.Group widths='equal' inline>
@@ -181,6 +205,8 @@ class AddAssetComponent extends React.Component {
                 <Input
                   style={{width: '65%'}}
                   placeholder='Enter Serial Number'
+                  name='serial-number'
+                  onChange={this.onAddSerialNumber}
                 />
               </Form.Group>
               <Form.Group widths='equal' inline>
@@ -188,6 +214,8 @@ class AddAssetComponent extends React.Component {
                 <Input
                   style={{width: '65%'}}
                   placeholder='Enter Asset Tag'
+                  name='asset-tag'
+                  onChange={this.onAddAssetTag}
                 />
               </Form.Group>
             </Grid.Column>
@@ -208,7 +236,7 @@ class AddAssetComponent extends React.Component {
           </Grid.Row>
         </Grid>
         <Form.Group widths='equal'>
-          <Button>Save</Button>
+          <Button type='submit'>Save</Button>
         </Form.Group>
         </Form>
       </div>
@@ -220,14 +248,16 @@ const mapStateToProps = (
     subcategoriesList,
     assetTypesList,
     assetMakesList,
-    modelNumbersList
+    modelNumbersList,
+    assetsList
    }) => {
   const categories = categoriesList;
   const subcategories = subcategoriesList;
   const assetTypes = assetTypesList;
   const assetMakes = assetMakesList;
   const modelNumbers = modelNumbersList;
-  return  { categories, subcategories, assetTypes, assetMakes, modelNumbers };
+  const assets = assetsList;
+  return  { categories, subcategories, assetTypes, assetMakes, modelNumbers, assets };
 }
 export default connect(mapStateToProps,
   {
@@ -235,5 +265,6 @@ export default connect(mapStateToProps,
     loadSubCategories,
     loadAssetTypes,
     loadAssetMakes,
-    loadModelNumbers
+    loadModelNumbers,
+    createAsset
    })(AddAssetComponent);

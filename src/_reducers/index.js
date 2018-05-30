@@ -6,6 +6,7 @@ import subCategoryReducer from './subcategory.reducer';
 import assetTypeReducer from './assetType.reducer';
 import assetMake from './assetMake.reducer';
 import modelNumber from './modelNumber.reducer';
+import assetsReducer from './assets.reducer';
 
 const rootReducer = combineReducers({
   loginReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   subcategoriesList: subCategoryReducer,
   assetTypesList: assetTypeReducer,
   assetMakesList: assetMake,
-  modelNumbersList: modelNumber
+  modelNumbersList: modelNumber,
+  assetsList: assetsReducer
 });
 
 export default rootReducer;
