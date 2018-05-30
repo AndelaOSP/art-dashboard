@@ -19,6 +19,7 @@ let store;
 
 describe('Asset Types action tests', () => {
   const mock = new MockAdapter(axios);
+  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/types';
   store = mockStore({});
   let expectedActions = [
     {
@@ -27,7 +28,7 @@ describe('Asset Types action tests', () => {
   ];
 
   it('should dispatch LOAD_ASSET_TYPES_SUCCESS when loadAssetTypes called successfully', () => {
-    mock.onGet('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/types').reply(200,
+    mock.onGet(url).reply(200,
       [
         {
           "id": 1,
