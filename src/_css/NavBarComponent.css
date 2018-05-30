@@ -1,0 +1,11 @@
+.navbar {
+    background: rgb(248, 249, 251);
+}
+
+.ui.secondary.menu > a {
+    font-size: 1.5rem;
+}
+
+.ui.menu .item > i.icon {
+    font-size: 1.5rem;
+}
