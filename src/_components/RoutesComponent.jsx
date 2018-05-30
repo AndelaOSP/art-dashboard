@@ -39,7 +39,7 @@ class RoutesComponent extends React.Component {
             component={AssetTypesComponent}
           />
           <Route path='/login' component={LoginComponent} />
-          <Route path='/add/asset' component={AddAssetComponent} />
+          <Route path='/asset/add' component={AddAssetComponent} />
         </Switch>
       </div>
     );
