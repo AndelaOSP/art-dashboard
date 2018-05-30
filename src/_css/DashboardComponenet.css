@@ -1,0 +1,12 @@
+.chartArea {
+    display: flex;
+    flex-direction: row;
+}
+
+.barlineGraph {
+    margin-left: 120px;
+}
+
+.pieChartGraph {
+    margin-left: 30px;
+}
