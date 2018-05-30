@@ -1,7 +1,12 @@
+// third-party library
 import axios from 'axios';
-import constants from '../_constants';
 
 // constants
+import constants from '../_constants';
+
+// mock data
+import mockAsset from '../_mock/asset';
+
 const { CREATE_ASSET_SUCCESS, CREATE_ASSET_FAIL } = constants;
 
 /**
@@ -13,8 +18,8 @@ const { CREATE_ASSET_SUCCESS, CREATE_ASSET_FAIL } = constants;
  */
 export const createAsset = (assetDetail) => {
   return ((dispatch) => {
-    return axios.post('/assets', assetDetail).then((response) => {
-      dispatch(createAssetSuccess(response.data));
+    return axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories', assetDetail).then((response) => {
+      dispatch(createAssetSuccess(mockAsset));
     }).catch((error) => {
       console.log(error);
       dispatch(createAssetFail());

@@ -49,7 +49,7 @@ export const filterModelNumbers = (modelNumbers, filterKey) => {
     return {
       key: modelNumber.id,
       text: modelNumber.model_number,
-      value: modelNumber.model_number
+      value: modelNumber.id
     }
   });
 };
