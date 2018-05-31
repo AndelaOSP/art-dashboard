@@ -9,8 +9,6 @@ import DashboardComponent from '../components/DashboardComponent';
 import AddAssetComponent from './AddAssetComponent';
 import FeedbackComponent from '../components/FeedbackComponent';
 
-import getToken from '../_utils/getToken';
-
 class RoutesComponent extends React.Component {
   checkAuthentication = () => {
     return !!(localStorage.getItem('token'));
