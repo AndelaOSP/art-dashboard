@@ -1,22 +1,21 @@
 import React from 'react';
-import NavbarComponent from './NavbarComponent';
 import CardComponent from './CardComponent'
 import PieChartComponent from './PieChartComponent';
 import BarlineGraphComponent from './BarlineGraphComponent';
+import SideMenuComponent from '../_components/SideMenuComponent';
 import statistics from '../_mock/statistics';
 
-import '../_css/DashboardComponenet.css';
+import '../_css/DashboardComponent.css';
 
 const DashboardComponent = () => {
   return (
-    <div>
-      <NavbarComponent />
+    <SideMenuComponent>
       <CardComponent statistics={statistics} />
       <div className="chartArea">
         <BarlineGraphComponent />
-        <PieChartComponent statistics={statistics}/>
+        <PieChartComponent statistics={statistics} />
       </div>
-    </div>
+    </SideMenuComponent>
   )
 };
 
