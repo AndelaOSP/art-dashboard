@@ -1,21 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 
 const TableRowComponent = props => (
   <Table.Row>
-    <Table.Cell>{props.data.category}</Table.Cell>
-    <Table.Cell>{props.data.sub_category}</Table.Cell>
-    <Table.Cell>{props.data.asset_type}</Table.Cell>
-    {
-      props.aasets && (
-        <Fragment>
-          <Table.Cell>{props.data.make}</Table.Cell>
-          <Table.Cell>{props.data.model_number}</Table.Cell>
-          <Table.Cell>{props.data.asset_code}</Table.Cell>
-        </Fragment>
-      )
-    }
+    {props.headings
+      .map((heading, index) => {
+        return
+          <Table.Cell key={index}>
+            {props.data[heading]}
+          </Table.Cell>
+      }
+    )}
   </Table.Row>
 );
+
+TableRowComponent.propTypes = {
+  headings: PropTypes.array,
+  data: PropTypes.object
+};
 
 export default TableRowComponent;
