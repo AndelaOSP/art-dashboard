@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Container, Header, Table, Pagination } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent';
+import SideMenuComponent from '../_components/SideMenuComponent';
 
 import { loadAssetTypeAction } from '../_actions/assetType.action';
 
@@ -42,41 +43,41 @@ export class AssetTypesComponent extends React.Component {
 
   render() {
     return (
-      <div className=''>
-      <Container>
-        <Header className='landing-heading' content='Asset Types' />
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Category</Table.HeaderCell>
-              <Table.HeaderCell>Sub-category</Table.HeaderCell>
-              <Table.HeaderCell>Type</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
+      <SideMenuComponent>
+        <Container>
+          <Header className='landing-heading' content='Asset Types' />
+          <Table celled>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Category</Table.HeaderCell>
+                <Table.HeaderCell>Sub-category</Table.HeaderCell>
+                <Table.HeaderCell>Type</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-          <Table.Body>
-            {
-              this.loadRoles()
-            }
-          </Table.Body>
+            <Table.Body>
+              {
+                this.loadRoles()
+              }
+            </Table.Body>
 
-          <Table.Footer>
-            <Table.Row>
-              <Table.HeaderCell colSpan='3'>
-                {
-                  (this.emptyAssetTypeCheck()) ? '' :
-                    <Pagination
-                      totalPages={this.handlePageTotal()}
-                      onPageChange={this.handlePaginationChange}
-                      activePage={this.state.activePage}
-                    />
-                }
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Footer>
-        </Table>
-      </Container>
-    </div>
+            <Table.Footer>
+              <Table.Row>
+                <Table.HeaderCell colSpan='3'>
+                  {
+                    (this.emptyAssetTypeCheck()) ? '' :
+                      <Pagination
+                        totalPages={this.handlePageTotal()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                  }
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Footer>
+          </Table>
+        </Container>
+      </SideMenuComponent>
     )
   }
 };
