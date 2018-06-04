@@ -44,6 +44,7 @@ class AddAssetContainer extends React.Component {
       this.props.loadSubCategories();
     }
     if (_.isEmpty(this.props.assetTypes)) {
+      console.log('@@@@@@')
       this.props.loadAssetTypes();
     }
     if (_.isEmpty(this.props.assetMakes)) {
@@ -144,14 +145,14 @@ AddAssetComponent.propTypes = {
 const mapStateToProps = (
   { categoriesList,
     subcategoriesList,
-    assetTypesList,
+    assetTypeList,
     assetMakesList,
     modelNumbersList,
     assetsList
    }) => {
   const categories = categoriesList;
   const subcategories = subcategoriesList;
-  const assetTypes = assetTypesList;
+  const assetTypes = assetTypeList;
   const assetMakes = assetMakesList;
   const modelNumbers = modelNumbersList;
   const assets = assetsList;
