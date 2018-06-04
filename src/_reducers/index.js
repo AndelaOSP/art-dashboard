@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   assetMakesList: assetMake,
   modelNumbersList: modelNumber,
   assetsList: assetsReducer,
-  viewAssets
+  viewAssets,
 });
 
 export default rootReducer;
