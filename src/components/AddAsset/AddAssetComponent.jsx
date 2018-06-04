@@ -42,22 +42,43 @@ class AddAssetComponent extends React.Component {
                     />
                   </Form.Group>
                   <Form.Group widths='equal' inline>
-                    <label className='label-style'>Sub Category</label>
-                    <AddAssetDropdown
-                      label='Asset Subcategory'
-                      options={this.props.filteredSubCategories}
-                      placeholder='Select Asset Subcategory'
-                      name='asset-subcategory'
-                      onChange={this.props.handleDropdownChanges}
-                    />
-                  </Form.Group>
-                  <Form.Group widths='equal' inline>
+
                     <label className='label-style'>Type</label>
                     <AddAssetDropdown
                       label='Asset Type'
                       options={this.props.filteredAssetTypes}
                       placeholder='Select Asset Type'
                       name='asset-types'
+                      onChange={this.props.handleDropdownChanges}
+                    />
+                  </Form.Group>
+                  <Form.Group widths='equal' inline>
+                    <label className='label-style'>Model</label>
+                    <AddAssetDropdown
+                      label='Asset Model Number'
+                      options={this.props.filteredModelNumbers}
+                      placeholder='Select Asset Model Number'
+                      onChange={this.props.onSelectModelNumber}
+                    />
+                  </Form.Group>
+                  <Form.Group widths='equal' inline>
+                    <label className='label-style'>Asset Tag</label>
+                    <Input
+                      style={{ width: '65%' }}
+                      placeholder='Enter Asset Tag'
+                      name='asset-tag'
+                      onChange={this.props.onAddAssetTag}
+                    />
+                  </Form.Group>
+                </Grid.Column>
+                <Grid.Column width={6}>
+                  <Form.Group widths='equal' inline>
+                    <label className='label-style'>Sub Category</label>
+                    <AddAssetDropdown
+                      label='Asset Subcategory'
+                      options={this.props.filteredSubCategories}
+                      placeholder='Select Asset Subcategory'
+                      name='asset-subcategory'
                       onChange={this.props.handleDropdownChanges}
                     />
                   </Form.Group>
@@ -71,17 +92,6 @@ class AddAssetComponent extends React.Component {
                       onChange={this.props.handleDropdownChanges}
                     />
                   </Form.Group>
-                </Grid.Column>
-                <Grid.Column width={6}>
-                  <Form.Group widths='equal' inline>
-                    <label className='label-style'>Model</label>
-                    <AddAssetDropdown
-                      label='Asset Model Number'
-                      options={this.props.filteredModelNumbers}
-                      placeholder='Select Asset Model Number'
-                      onChange={this.props.onSelectModelNumber}
-                    />
-                  </Form.Group>
                   <Form.Group widths='equal' inline>
                     <label className='label-style'>Serial Number</label>
                     <Input
@@ -89,15 +99,6 @@ class AddAssetComponent extends React.Component {
                       placeholder='Enter Serial Number'
                       name='serial-number'
                       onChange={this.props.onAddSerialNumber}
-                    />
-                  </Form.Group>
-                  <Form.Group widths='equal' inline>
-                    <label className='label-style'>Asset Tag</label>
-                    <Input
-                      style={{ width: '65%' }}
-                      placeholder='Enter Asset Tag'
-                      name='asset-tag'
-                      onChange={this.props.onAddAssetTag}
                     />
                   </Form.Group>
                 </Grid.Column>
