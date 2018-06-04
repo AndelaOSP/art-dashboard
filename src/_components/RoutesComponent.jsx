@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthenticateComponent from './AuthenticateComponent';
-import AssetTypesComponent from '../components/AssetTypesComponent'
+import AssetTypesComponent from '../components/AssetTypesComponent';
+import AssetsComponent from '../components/AssetsComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 import AddAssetComponent from './AddAssetComponent';
@@ -26,6 +27,12 @@ class RoutesComponent extends React.Component {
             path='/asset_types'
             isAuthenticated={this.checkAuthentication()}
             component={AssetTypesComponent}
+          />
+          <AuthenticateComponent
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path='/assets'
+            component={AssetsComponent}
           />
           <AuthenticateComponent
             exact
