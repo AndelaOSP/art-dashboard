@@ -7,6 +7,7 @@ import './App.css';
 import RoutesComponent from './_components/RoutesComponent';
 
 import store from './_store';
+
 const history = createBrowserHistory();
 
 
