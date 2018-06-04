@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import AddAssetComponent from './AddAssetComponent';
+import AddAssetComponent from '../../components/AddAsset/AddAssetComponent';
 
 // actions
 import { loadCategories } from '../../_actions/category.actions';
@@ -125,6 +126,21 @@ class AddAssetContainer extends React.Component {
   }
 }
 
+AddAssetComponent.propTypes = {
+  categoriesList: PropTypes.array,
+  subcategoriesList: PropTypes.array,
+  assetTypesList: PropTypes.array,
+  assetMakesList: PropTypes.array,
+  modelNumbersList: PropTypes.array,
+  assetsList: PropTypes.array,
+  loadCategories: PropTypes.func,
+  loadSubCategories: PropTypes.func,
+  loadAssetTypes: PropTypes.func,
+  loadAssetMakes: PropTypes.func,
+  loadModelNumbers: PropTypes.func,
+  createAsset: PropTypes.func
+};
+
 const mapStateToProps = (
   { categoriesList,
     subcategoriesList,
@@ -140,7 +156,8 @@ const mapStateToProps = (
   const modelNumbers = modelNumbersList;
   const assets = assetsList;
   return  { categories, subcategories, assetTypes, assetMakes, modelNumbers, assets };
-}
+};
+
 export default connect(mapStateToProps,
   {
     loadCategories,
