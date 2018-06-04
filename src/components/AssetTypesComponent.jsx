@@ -82,8 +82,8 @@ export class AssetTypesComponent extends React.Component {
   }
 };
 
-const mapStateToProps = ({ assetTypeReducer }) => {
-  const { assetTypes, assetTypesCount } = assetTypeReducer;
+const mapStateToProps = ({ assetTypesList }) => {
+  const { assetTypes, assetTypesCount } = assetTypesList;
   return {
     assetTypes,
     assetTypesCount,

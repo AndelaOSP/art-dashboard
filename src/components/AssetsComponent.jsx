@@ -80,8 +80,8 @@ export class AssetsComponent extends Component {
   }
 };
 
-const mapStateToProps = ({ assetsReducer }) => {
-  const { assets, assetsCount } = assetsReducer;
+const mapStateToProps = ({ viewAssets }) => {
+  const { assets, assetsCount } = viewAssets;
   return {
     assets,
     assetsCount,

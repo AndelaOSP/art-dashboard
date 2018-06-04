@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 import NavBarComponent from './NavBarComponent';
 
@@ -33,7 +34,7 @@ class SideMenuComponent extends Component {
               <span><Icon name='users'/>Users</span>
             </Menu.Item>
             <Menu.Item name='assets'>
-              <span><Icon name='tv'/>Assets</span>
+              <Link to="/assets"><Icon name='tv'/>Assets</Link>
             </Menu.Item>
             <Menu.Item name='reports'>
               <span><Icon name='tasks'/>Reports</span>
