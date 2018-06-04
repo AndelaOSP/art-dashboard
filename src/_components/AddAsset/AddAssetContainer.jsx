@@ -107,13 +107,8 @@ class AddAssetContainer extends React.Component {
 
   render(){
     return (
-      <AddAssetComponent
-        categories={this.props.categories}
-        subcategories={this.props.subcategories}
-        assetTypes={this.props.assetTypes}
-        assetMakes={this.props.assetMakes}
+      <AddAssetComponent {...this.props}
         handleDropdownChanges={this.handleDropdownChanges}
-        modelNumbers={this.props.modelNumbers}
         onSelectModelNumber={this.onSelectModelNumber}
         onAddSerialNumber={this.onAddSerialNumber}
         onAddAssetTag={this.onAddAssetTag}
