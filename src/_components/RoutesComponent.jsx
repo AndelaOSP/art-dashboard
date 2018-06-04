@@ -11,7 +11,6 @@ class RoutesComponent extends React.Component {
   checkAuthentication = () => {
     return !!(localStorage.getItem('token'));
   }
-
   render () {
     return (
       <div>
@@ -25,6 +24,7 @@ class RoutesComponent extends React.Component {
             exact
             isAuthenticated={this.checkAuthentication()}
             path='/asset_types'
+            isAuthenticated={this.checkAuthentication()}
             component={AssetTypesComponent}
           />
           <AuthenticateComponent
