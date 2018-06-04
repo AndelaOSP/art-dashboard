@@ -1,8 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { loginAction } from '../_actions/login.action';
 
 import AuthenticateComponent from './AuthenticateComponent';
 import AssetTypesComponent from '../components/AssetTypesComponent'
@@ -11,50 +8,37 @@ import DashboardComponent from '../components/DashboardComponent';
 import AddAssetComponent from './AddAssetComponent';
 
 class RoutesComponent extends React.Component {
-  state = {
-    isAuthenticated: false,
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.isAuthenticated) {
-      this.setState({
-        isAuthenticated: true,
-      })
-    }
+  checkAuthentication = () => {
+    return !!(localStorage.getItem('token'));
   }
   render () {
     return (
       <div>
         <Switch>
           <AuthenticateComponent
-            exact
-            isAuthenticated={this.state.isAuthenticated}
-            path='/'
+            isAuthenticated={this.checkAuthentication()}
+            path='/dashboard'
             component={DashboardComponent}
           />
           <AuthenticateComponent
             exact
-            isAuthenticated={this.state.isAuthenticated}
+            isAuthenticated={this.checkAuthentication()}
             path='/asset_types'
+            isAuthenticated={this.checkAuthentication()}
             component={AssetTypesComponent}
           />
-          <Route path='/login' component={LoginComponent} />
-          <Route path='/asset/add' component={AddAssetComponent} />
+          <AuthenticateComponent
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path='/asset/add'
+            component={AddAssetComponent}
+          />
+          <Route exact path='/' component={LoginComponent} />
+          <Route path='*' component={LoginComponent} />
         </Switch>
       </div>
     );
   }
 };
 
-const mapStateToProps = ({ loginReducer }) => {
-  const { isAuthenticated } = loginReducer;
-  return {
-    isAuthenticated,
-  }
-};
-
-const mapDispatchToProps = {
-  loginAction,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RoutesComponent);
+export default (RoutesComponent);
