@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Header, Table, Pagination } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent';
+import SideMenuComponent from '../_components/SideMenuComponent';
 
 import { getAssetsAction } from '../_actions/assets.action';
 
@@ -40,7 +41,7 @@ export class AssetsComponent extends Component {
 
   render() {
     return (
-      <Container>
+      <SideMenuComponent>
         <Header className='landing-heading' content='All Assets' />
         <Table celled>
           <Table.Header>
@@ -75,7 +76,7 @@ export class AssetsComponent extends Component {
             </Table.Row>
           </Table.Footer>
         </Table>
-      </Container>
+      </SideMenuComponent>
     )
   }
 };
