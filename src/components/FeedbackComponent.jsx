@@ -54,7 +54,6 @@ export class FeedbackComponent extends React.Component {
 	}
 
 	render() {
-		console.log("state", this.state.feedback);
 		return [
 			<div className=''>
 				<Container>
