@@ -38,7 +38,7 @@ export class AssetTypesComponent extends React.Component {
         return <TableRowComponent
           key={index}
           data={assetType}
-          headings={['category', 'sub-category', 'types']}
+          headings={['category', 'sub_category', 'asset_type']}
         />
       });
       return assetTypes;

@@ -6,12 +6,11 @@ const TableRowComponent = props => (
   <Table.Row>
     {props.headings
       .map((heading, index) => {
-        return
-          <Table.Cell key={index}>
-            {props.data[heading]}
-          </Table.Cell>
+        return <Table.Cell key={index}>
+          {props.data[heading]}
+        </Table.Cell>
       }
-    )}
+      )}
   </Table.Row>
 );
 
