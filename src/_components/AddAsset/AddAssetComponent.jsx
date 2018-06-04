@@ -8,6 +8,7 @@ import {
 } from 'semantic-ui-react';
 
 import AddAssetDropdown from './AddAssetDropdown';
+import SideMenuComponent from '../../_components/SideMenuComponent';
 
 const placeCategoriesInSemanticUIOptions = (props) => {
   return props.map((option, index) => ({
@@ -20,6 +21,7 @@ const placeCategoriesInSemanticUIOptions = (props) => {
 class AddAssetComponent extends React.Component {
   render(){
     return (
+      <SideMenuComponent>
       <div style={{width: '70%'}}>
         <Header size='medium' textAlign='center'>Add an Asset</Header>
         <Form onSubmit={this.props.onCreateAsset}>
@@ -117,6 +119,7 @@ class AddAssetComponent extends React.Component {
         </Form.Group>
         </Form>
       </div>
+      </SideMenuComponent>
     )
   }
 }
