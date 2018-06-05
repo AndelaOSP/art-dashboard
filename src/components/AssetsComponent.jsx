@@ -37,11 +37,11 @@ export class AssetsComponent extends Component {
       key={asset.id}
       data={asset}
       headings={['category',
-            'sub_category',
-            'asset_type',
-            'make',
-            'model_number',
-            'asset_code']}
+        'sub_category',
+        'asset_type',
+        'make',
+        'model_number',
+        'asset_code']}
     />)));
   }
 
@@ -78,7 +78,7 @@ export class AssetsComponent extends Component {
               </Table.HeaderCell>
               <Table.HeaderCell >
                 <div className="header">
-                Model
+                  Model
                   <ModalComponent modalTitle="Add Asset Model Number">
                     <ModelNumberContainer />
                   </ModalComponent>
@@ -105,10 +105,10 @@ export class AssetsComponent extends Component {
                 {
                   (this.emptyAssetTypeCheck()) ? '' :
                   <Pagination
-                    totalPages={this.handlePageTotal()}
-                    onPageChange={this.handlePaginationChange}
-                    activePage={this.state.activePage}
-                  />
+                      totalPages={this.handlePageTotal()}
+                      onPageChange={this.handlePaginationChange}
+                      activePage={this.state.activePage}
+                    />
                 }
               </Table.HeaderCell>
             </Table.Row>
@@ -128,7 +128,7 @@ AssetsComponent.propTypes = {
 AssetsComponent.defaultProps = {
   assets: [],
   assetsCount: 0,
-  getAssetsAction: () => {}
+  getAssetsAction: () => { }
 };
 
 const mapStateToProps = ({ viewAssets }) => {
