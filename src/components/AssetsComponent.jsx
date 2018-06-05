@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Table, Pagination } from 'semantic-ui-react';
+import { Header, Table, Pagination } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';

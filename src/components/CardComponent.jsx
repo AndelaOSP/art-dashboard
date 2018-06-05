@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Card } from 'semantic-ui-react'
 
 class CardComponent extends React.Component {

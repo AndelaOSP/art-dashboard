@@ -26,7 +26,6 @@ class RoutesComponent extends React.Component {
             exact
             isAuthenticated={this.checkAuthentication()}
             path='/asset_types'
-            isAuthenticated={this.checkAuthentication()}
             component={AssetTypesComponent}
           />
           <AuthenticateComponent
@@ -39,7 +38,6 @@ class RoutesComponent extends React.Component {
             exact
             isAuthenticated={this.checkAuthentication()}
             path='/feedback'
-            isAuthenticated={this.checkAuthentication()}
             component={FeedbackComponent}
           />
           <AuthenticateComponent
