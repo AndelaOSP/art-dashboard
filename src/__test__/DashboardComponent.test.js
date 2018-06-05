@@ -15,8 +15,8 @@ describe('Renders <DashboardComponent /> correctly', () => {
   const { WrappedComponent } = withRouter(connect()(DashboardComponent));
   const wrapper = shallowWithStore(<WrappedComponent />, createMockStore(null));
 
-  it('renders navbar component', () => {
-    expect(wrapper.find('NavbarComponent').length).toBe(1);
+  it('renders SideMenu component', () => {
+    expect(wrapper.find('SideMenuComponent').length).toBe(1);
   });
 
   it('renders card component', () => {
