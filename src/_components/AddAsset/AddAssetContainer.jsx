@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { ToastMessage } from '../../_utils/ToastMessage';
 
 import AddAssetComponent from '../../components/AddAsset/AddAssetComponent';
 
@@ -32,7 +33,8 @@ class AddAssetContainer extends React.Component {
       filteredModelNumbers: [],
       modelNumber: 0,
       serialNumber: '',
-      assetTag: ''
+      assetTag: '',
+      assets: this.props.assets
     };
   }
 
@@ -54,13 +56,20 @@ class AddAssetContainer extends React.Component {
     }
   }
 
-  placeCategoriesInSemanticUIOptions = (props) => {
-    return props.map((option, index) => ({
-        key: index,
-        text: option.category_name,
-        value: option.id
-      }));
-  };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.assets.length !== prevState.assets.length) {
+      ToastMessage.success({ message: 'Asset Saved Successfully' });
+      return {
+        filteredSubCategories: [],
+        filteredAssetTypes: [],
+        filteredAssetMakes: [],
+        filteredModelNumbers: [],
+        modelNumber: 0,
+        assets: nextProps.assets
+      }
+    }
+    return null;
+  }
 
   handleDropdownChanges = (event, data) => {
     if(data.name === 'asset-category') {
@@ -104,6 +113,7 @@ class AddAssetContainer extends React.Component {
       "serial_number": this.state.serialNumber,
       "model_number": this.state.modelNumber
     });
+    event.target.reset();
   };
 
   render(){

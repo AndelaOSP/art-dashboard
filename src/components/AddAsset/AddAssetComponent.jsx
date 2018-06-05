@@ -10,6 +10,7 @@ import {
 
 import AddAssetDropdown from './AddAssetDropdown';
 import SideMenuComponent from '../../_components/SideMenuComponent';
+import { SemanticToastContainer } from 'react-semantic-toasts';
 
 import '../../_css/AddAssetComponent.css';
 
@@ -25,6 +26,7 @@ class AddAssetComponent extends React.Component {
   render() {
     return (
       <SideMenuComponent>
+        <SemanticToastContainer />
         <div className='form-wrapper'>
           <Header size='medium' textAlign='center'>Add an Asset</Header>
           <Form onSubmit={this.props.onCreateAsset}>
