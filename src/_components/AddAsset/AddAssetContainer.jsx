@@ -44,7 +44,6 @@ class AddAssetContainer extends React.Component {
       this.props.loadSubCategories();
     }
     if (_.isEmpty(this.props.assetTypes)) {
-      console.log('@@@@@@')
       this.props.loadAssetTypes();
     }
     if (_.isEmpty(this.props.assetMakes)) {
