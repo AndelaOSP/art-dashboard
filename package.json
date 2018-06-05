@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "coveralls": "^3.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "expect": "^22.4.3",
@@ -30,6 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --silent",
+    "coverage": "react-scripts test --env=jsdom --coverage",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
