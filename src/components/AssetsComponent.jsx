@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, Table, Pagination } from 'semantic-ui-react';
-
+import { Header, Table, Pagination} from 'semantic-ui-react';
 import TableRowComponent from './TableRowComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
-
 import { getAssetsAction } from '../_actions/assets.action';
+import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
   state = {
@@ -50,7 +49,10 @@ export class AssetsComponent extends Component {
               <Table.HeaderCell>Sub-category</Table.HeaderCell>
               <Table.HeaderCell>Type</Table.HeaderCell>
               <Table.HeaderCell>Make</Table.HeaderCell>
-              <Table.HeaderCell>Model</Table.HeaderCell>
+              <Table.HeaderCell className="header">Model
+              <i class="plus link icon" ></i>
+              </Table.HeaderCell>
+
               <Table.HeaderCell>Item</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
