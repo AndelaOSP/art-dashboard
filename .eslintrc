@@ -42,6 +42,15 @@
         ]
       }
     ],
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [
+          ">",
+          "}"
+        ]
+      }
+    ],
     "arrow-body-style": [
       "error",
       "as-needed"

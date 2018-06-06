@@ -8,6 +8,7 @@ import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 import Feedback from '../components/FeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
+import PageNotFoundComponent from '../components/PageNotFoundComponent';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'))
@@ -45,7 +46,7 @@ class RoutesComponent extends Component {
             component={AddAssetContainer}
           />
           <Route exact path="/" component={LoginComponent} />
-          <Route path="*" component={LoginComponent} />
+          <Route path="*" component={PageNotFoundComponent} />
         </Switch>
       </div>
     );
