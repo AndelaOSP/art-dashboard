@@ -45,7 +45,7 @@ class RoutesComponent extends React.Component {
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/asset/add'
+            path='/assets/add'
             component={AddAssetContainer}
           />
           <Route exact path='/' component={LoginComponent} />
