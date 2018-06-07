@@ -44,7 +44,6 @@ export class AssetsComponent extends Component {
         'asset_code']}
     />)));
   }
-
   render() {
     return (
       <SideMenuComponent>
