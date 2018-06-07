@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, Table, Pagination} from 'semantic-ui-react';
+import { Header, Table, Pagination } from 'semantic-ui-react';
 import TableRowComponent from './TableRowComponent';
+import AddAssetModel from './ModalComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import '../_css/AssetComponent.css';
@@ -11,6 +12,7 @@ export class AssetsComponent extends Component {
     activePage: 1,
     limit: 10,
   }
+
   componentDidMount() {
     this.props.getAssetsAction();
   }
@@ -37,7 +39,6 @@ export class AssetsComponent extends Component {
     }));
     }
   }
-
   render() {
     return (
       <SideMenuComponent>
@@ -50,9 +51,8 @@ export class AssetsComponent extends Component {
               <Table.HeaderCell>Type</Table.HeaderCell>
               <Table.HeaderCell>Make</Table.HeaderCell>
               <Table.HeaderCell className="header">Model
-              <i class="plus link icon" ></i>
+              <AddAssetModel />
               </Table.HeaderCell>
-
               <Table.HeaderCell>Item</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
