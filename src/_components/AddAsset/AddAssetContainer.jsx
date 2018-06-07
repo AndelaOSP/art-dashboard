@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -19,9 +20,7 @@ import {
   filterAssetTypes,
   filterAssetMakes,
   filterModelNumbers
-} from  '../../_utils/filterDropdowns';
-
-import _ from 'lodash';
+} from '../../_utils/filterDropdowns';
 
 class AddAssetContainer extends React.Component {
   constructor(props) {
@@ -34,7 +33,7 @@ class AddAssetContainer extends React.Component {
       modelNumber: 0,
       serialNumber: '',
       assetTag: '',
-      assets: this.props.assets
+      assets: props.assets
     };
   }
 
@@ -72,25 +71,24 @@ class AddAssetContainer extends React.Component {
   }
 
   handleDropdownChanges = (event, data) => {
-    if(data.name === 'asset-category') {
+    const { name, value } = data;
+    const { subcategories, assetTypes, assetMakes, modelNumbers } = this.props;
+
+    if (name === 'asset-category') {
       this.setState({
-        filteredSubCategories:
-        filterSubCategories(this.props.subcategories, data.value)
+        filteredSubCategories: filterSubCategories(subcategories, value)
       });
-    } else if (data.name === 'asset-subcategory') {
+    } else if (name === 'asset-subcategory') {
       this.setState({
-        filteredAssetTypes:
-        filterAssetTypes(this.props.assetTypes, data.value)
+        filteredAssetTypes: filterAssetTypes(assetTypes, value)
       });
-    } else if (data.name === 'asset-types') {
+    } else if (name === 'asset-types') {
       this.setState({
-        filteredAssetMakes:
-        filterAssetMakes(this.props.assetMakes, data.value)
+        filteredAssetMakes: filterAssetMakes(assetMakes, value)
       });
-    } else if (data.name === 'asset-makes') {
+    } else if (name === 'asset-makes') {
       this.setState({
-        filteredModelNumbers:
-        filterModelNumbers(this.props.modelNumbers, data.value)
+        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     }
   };
@@ -116,64 +114,62 @@ class AddAssetContainer extends React.Component {
     event.target.reset();
   };
 
-  render(){
+  render() {
     return (
       <AddAssetComponent {...this.props}
-        handleDropdownChanges={this.handleDropdownChanges}
-        onSelectModelNumber={this.onSelectModelNumber}
-        onAddSerialNumber={this.onAddSerialNumber}
-        onAddAssetTag={this.onAddAssetTag}
-        onCreateAsset={this.onCreateAsset}
-        filteredSubCategories={this.state.filteredSubCategories}
-        filteredAssetTypes={this.state.filteredAssetTypes}
-        filteredAssetMakes={this.state.filteredAssetMakes}
-        filteredModelNumbers={this.state.filteredModelNumbers}
-        modelNumber={this.state.modelNumber}
-        serialNumber={this.state.serialNumber}
-        assetTag={this.state.assetTag}
+                         handleDropdownChanges={this.handleDropdownChanges}
+                         onSelectModelNumber={this.onSelectModelNumber}
+                         onAddSerialNumber={this.onAddSerialNumber}
+                         onAddAssetTag={this.onAddAssetTag}
+                         onCreateAsset={this.onCreateAsset}
+                         filteredSubCategories={this.state.filteredSubCategories}
+                         filteredAssetTypes={this.state.filteredAssetTypes}
+                         filteredAssetMakes={this.state.filteredAssetMakes}
+                         filteredModelNumbers={this.state.filteredModelNumbers}
+                         modelNumber={this.state.modelNumber}
+                         serialNumber={this.state.serialNumber}
+                         assetTag={this.state.assetTag}
       />
     );
   }
 }
 
-AddAssetComponent.propTypes = {
+AddAssetContainer.propTypes = {
   categoriesList: PropTypes.array,
   subcategoriesList: PropTypes.array,
   assetTypesList: PropTypes.array,
   assetMakesList: PropTypes.array,
   modelNumbersList: PropTypes.array,
   assetsList: PropTypes.array,
-  loadCategories: PropTypes.func,
-  loadSubCategories: PropTypes.func,
-  loadAssetTypes: PropTypes.func,
-  loadAssetMakes: PropTypes.func,
-  loadModelNumbers: PropTypes.func,
-  createAsset: PropTypes.func
+  loadCategories: PropTypes.func.isRequired,
+  loadSubCategories: PropTypes.func.isRequired,
+  loadAssetTypes: PropTypes.func.isRequired,
+  loadAssetMakes: PropTypes.func.isRequired,
+  loadModelNumbers: PropTypes.func.isRequired,
+  createAsset: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (
-  { categoriesList,
-    subcategoriesList,
-    assetTypeList,
-    assetMakesList,
-    modelNumbersList,
-    assetsList
-   }) => {
-  const categories = categoriesList;
-  const subcategories = subcategoriesList;
-  const assetTypes = assetTypeList;
-  const assetMakes = assetMakesList;
-  const modelNumbers = modelNumbersList;
-  const assets = assetsList;
-  return  { categories, subcategories, assetTypes, assetMakes, modelNumbers, assets };
-};
+const mapStateToProps = ({
+                           categoriesList,
+                           subcategoriesList,
+                           assetTypeList,
+                           assetMakesList,
+                           modelNumbersList,
+                           assetsList
+                         }) => ({
+  categories: categoriesList,
+  subcategories: subcategoriesList,
+  assetTypes: assetTypeList,
+  assetMakes: assetMakesList,
+  modelNumbers: modelNumbersList,
+  assets: assetsList
+});
 
-export default connect(mapStateToProps,
-  {
-    loadCategories,
-    loadSubCategories,
-    loadAssetTypes,
-    loadAssetMakes,
-    loadModelNumbers,
-    createAsset
-  })(AddAssetContainer);
+export default connect(mapStateToProps, {
+  loadCategories,
+  loadSubCategories,
+  loadAssetTypes,
+  loadAssetMakes,
+  loadModelNumbers,
+  createAsset
+})(AddAssetContainer);

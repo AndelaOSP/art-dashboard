@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { SemanticToastContainer } from 'react-semantic-toasts';
 import {
   Button,
   Form,
@@ -10,7 +11,6 @@ import {
 
 import AddAssetDropdown from './AddAssetDropdown';
 import SideMenuComponent from '../../_components/SideMenuComponent';
-import { SemanticToastContainer } from 'react-semantic-toasts';
 
 import '../../_css/AddAssetComponent.css';
 
@@ -44,7 +44,6 @@ class AddAssetComponent extends React.Component {
                     />
                   </Form.Group>
                   <Form.Group widths='equal' inline>
-
                     <label className='label-style'>Type</label>
                     <AddAssetDropdown
                       label='Asset Type'
@@ -66,7 +65,7 @@ class AddAssetComponent extends React.Component {
                   <Form.Group widths='equal' inline>
                     <label className='label-style'>Asset Tag</label>
                     <Input
-                      style={{ width: '65%' }}
+                      className='input-style'
                       placeholder='Enter Asset Tag'
                       name='asset-tag'
                       onChange={this.props.onAddAssetTag}
@@ -97,7 +96,7 @@ class AddAssetComponent extends React.Component {
                   <Form.Group widths='equal' inline>
                     <label className='label-style'>Serial Number</label>
                     <Input
-                      style={{ width: '65%' }}
+                      className='input-style'
                       placeholder='Enter Serial Number'
                       name='serial-number'
                       onChange={this.props.onAddSerialNumber}

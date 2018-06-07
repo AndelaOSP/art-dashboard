@@ -1,8 +1,12 @@
 .form-wrapper {
-    width: 70%;
+  width: 70%;
 }
 
-.label-style {
-    width: 100px !important;
-    text-align: left !important;
+.ui.form .inline.fields .label-style {
+  width: 100px;
+  text-align: left;
+}
+
+.input-style {
+  width: 65%;
 }
