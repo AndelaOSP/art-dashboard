@@ -6,7 +6,6 @@ import { ToastMessage } from '../../_utils/ToastMessage';
 
 import AddAssetComponent from '../../components/AddAsset/AddAssetComponent';
 
-// actions
 import { loadCategories } from '../../_actions/category.actions';
 import { loadSubCategories } from '../../_actions/subcategory.actions';
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
@@ -14,7 +13,6 @@ import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 import { loadModelNumbers } from '../../_actions/modelNumbers.actions';
 import { createAsset } from '../../_actions/asset.actions';
 
-// utils
 import {
   filterSubCategories,
   filterAssetTypes,
@@ -33,7 +31,7 @@ class AddAssetContainer extends React.Component {
       modelNumber: 0,
       serialNumber: '',
       assetTag: '',
-      assets: props.assets
+      assets: typeof(props.assets) !== "undefined" ? props.assets: []
     };
   }
 
