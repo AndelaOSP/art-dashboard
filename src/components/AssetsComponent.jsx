@@ -11,11 +11,16 @@ import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContaine
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
-  state = {
-    activePage: 1,
-    limit: 10,
-    modelNumber: [],
-    assetMake: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePage: 1,
+      limit: 10,
+      modelNumber: '',
+      assetMake: '',
+      newModel: {},
+      modalOpen: true,
+    };
   }
 
   componentDidMount() {
