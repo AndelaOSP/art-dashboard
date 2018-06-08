@@ -161,7 +161,7 @@ const mapStateToProps = ({
   assetTypes: assetTypeList,
   assetMakes: assetMakesList,
   modelNumbers: modelNumbersList,
- assets: assetsList
+  assets: assetsList
 });
 
 export default connect(mapStateToProps, {
