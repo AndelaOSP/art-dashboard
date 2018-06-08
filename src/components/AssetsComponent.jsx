@@ -14,6 +14,8 @@ export class AssetsComponent extends Component {
   state = {
     activePage: 1,
     limit: 10,
+    modelNumber: [],
+    assetMake: [],
   }
 
   componentDidMount() {
