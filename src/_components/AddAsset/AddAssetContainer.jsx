@@ -31,7 +31,7 @@ class AddAssetContainer extends React.Component {
       modelNumber: 0,
       serialNumber: '',
       assetTag: '',
-      assets: typeof(props.assets) !== "undefined" ? props.assets: []
+      assets: props.assets || []
     };
   }
 
@@ -114,19 +114,20 @@ class AddAssetContainer extends React.Component {
 
   render() {
     return (
-      <AddAssetComponent {...this.props}
-                         handleDropdownChanges={this.handleDropdownChanges}
-                         onSelectModelNumber={this.onSelectModelNumber}
-                         onAddSerialNumber={this.onAddSerialNumber}
-                         onAddAssetTag={this.onAddAssetTag}
-                         onCreateAsset={this.onCreateAsset}
-                         filteredSubCategories={this.state.filteredSubCategories}
-                         filteredAssetTypes={this.state.filteredAssetTypes}
-                         filteredAssetMakes={this.state.filteredAssetMakes}
-                         filteredModelNumbers={this.state.filteredModelNumbers}
-                         modelNumber={this.state.modelNumber}
-                         serialNumber={this.state.serialNumber}
-                         assetTag={this.state.assetTag}
+      <AddAssetComponent
+         {...this.props}
+         handleDropdownChanges={this.handleDropdownChanges}
+         onSelectModelNumber={this.onSelectModelNumber}
+         onAddSerialNumber={this.onAddSerialNumber}
+         onAddAssetTag={this.onAddAssetTag}
+         onCreateAsset={this.onCreateAsset}
+         filteredSubCategories={this.state.filteredSubCategories}
+         filteredAssetTypes={this.state.filteredAssetTypes}
+         filteredAssetMakes={this.state.filteredAssetMakes}
+         filteredModelNumbers={this.state.filteredModelNumbers}
+         modelNumber={this.state.modelNumber}
+         serialNumber={this.state.serialNumber}
+         assetTag={this.state.assetTag}
       />
     );
   }
@@ -148,19 +149,19 @@ AddAssetContainer.propTypes = {
 };
 
 const mapStateToProps = ({
-                           categoriesList,
-                           subcategoriesList,
-                           assetTypeList,
-                           assetMakesList,
-                           modelNumbersList,
-                           assetsList
-                         }) => ({
+  categoriesList,
+  subcategoriesList,
+  assetTypeList,
+  assetMakesList,
+  modelNumbersList,
+  assetsList
+}) => ({
   categories: categoriesList,
   subcategories: subcategoriesList,
   assetTypes: assetTypeList,
   assetMakes: assetMakesList,
   modelNumbers: modelNumbersList,
-  assets: assetsList
+ assets: assetsList
 });
 
 export default connect(mapStateToProps, {
