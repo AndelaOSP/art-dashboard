@@ -11,6 +11,8 @@ export class AssetsComponent extends Component {
   state = {
     activePage: 1,
     limit: 10,
+    modelNumber: [],
+    assetMake: [],
   }
 
   componentDidMount() {
@@ -24,6 +26,14 @@ export class AssetsComponent extends Component {
 
   handlePageTotal = () => {
     return Math.ceil(this.props.assetsCount / this.state.limit);
+  }
+
+  handleSubmit = () => {
+    console.log("its working")
+  }
+
+  updateFromField (name, value) {
+      console.log('------------------------>>>>>>>>', name, value)
   }
 
   emptyAssetTypeCheck = () => {
@@ -51,7 +61,10 @@ export class AssetsComponent extends Component {
               <Table.HeaderCell>Type</Table.HeaderCell>
               <Table.HeaderCell>Make</Table.HeaderCell>
               <Table.HeaderCell className="header">Model
-              <AddAssetModel />
+              <AddAssetModel
+                handleSubmit={this.handleSubmit}
+                updateFromField={this.updateFromField}
+                />
               </Table.HeaderCell>
               <Table.HeaderCell>Item</Table.HeaderCell>
             </Table.Row>
