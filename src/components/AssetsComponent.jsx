@@ -5,14 +5,20 @@ import TableRowComponent from './TableRowComponent';
 import AddAssetModel from './ModalComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
+import { createModelNumbers } from '../_actions/modelNumbers.actions';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
-  state = {
-    activePage: 1,
-    limit: 10,
-    modelNumber: [],
-    assetMake: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePage: 1,
+      limit: 10,
+      modelNumber: '',
+      assetMake: '',
+      newModel: {},
+      modalOpen: true,
+    }
   }
 
   componentDidMount() {
@@ -29,11 +35,17 @@ export class AssetsComponent extends Component {
   }
 
   handleSubmit = () => {
-    console.log("its working")
+    this.props.createModelNumbers(this.state.newModel)
+    console.log('------------->>>>>>>', this.props)
   }
+  handleOpen = () => this.setState({ modalOpen: true })
 
-  updateFromField (name, value) {
-      console.log('------------------------>>>>>>>>', name, value)
+  handleClose = () => this.setState({ modalOpen: false })
+
+  updateFromField   = (name, value) => {
+    let newModel = this.state.newModel
+    newModel[name] = value
+    this.setState({newModel})
   }
 
   emptyAssetTypeCheck = () => {
@@ -64,6 +76,9 @@ export class AssetsComponent extends Component {
               <AddAssetModel
                 handleSubmit={this.handleSubmit}
                 updateFromField={this.updateFromField}
+                modalOpen={this.state.modalOpen}
+                handleOpen={this.handleOpen}
+                handleClose={this.handleClose}
                 />
               </Table.HeaderCell>
               <Table.HeaderCell>Item</Table.HeaderCell>
@@ -106,4 +121,5 @@ const mapStateToProps = ({ viewAssets }) => {
 
 export default connect(mapStateToProps, {
   getAssetsAction,
+  createModelNumbers,
 })(AssetsComponent);

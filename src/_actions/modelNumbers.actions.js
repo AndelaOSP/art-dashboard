@@ -4,7 +4,7 @@ import axios from 'axios';
 // constants
 import constants from '../_constants';
 
-const { LOAD_ASSET_MODEL_NUMBERS } = constants;
+const {LOAD_ASSET_MODEL_NUMBERS ,CREATE_MODEL_NUMBER_SUCCESS,CREATE_MODEL_NUMBER_FAILURE} = constants;
 
 /**
  * load Model Numbers thunk
@@ -13,7 +13,7 @@ const { LOAD_ASSET_MODEL_NUMBERS } = constants;
  */
 export const loadModelNumbers = () => {
   return ((dispatch) => {
-    return axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers').then((response) => {
+    return axios.get('model_numbers').then((response) => {
       dispatch(loadModelNumbersSuccess(response.data));
     }).catch((error) => {
       console.log(error);
@@ -31,3 +31,28 @@ export const loadModelNumbers = () => {
 export const loadModelNumbersSuccess = (modelNumbers) => {
   return { type: LOAD_ASSET_MODEL_NUMBERS, payload: modelNumbers };
 }
+
+/**
+ * create new asset model number thunk
+ * @param {object} newModel details of new model to be created
+ *
+*/
+
+export const createModelNumbers = (newModel) => {
+  return (dispatch) => {
+    axios.post('model_numbers', newModel)
+    .then((response) => {
+      console.log('response', response)
+      return dispatch({
+        type:CREATE_MODEL_NUMBER_SUCCESS,
+        payload: response,
+      });
+    })
+    .catch((error) => {
+      return dispatch({
+        type:CREATE_MODEL_NUMBER_FAILURE,
+        payload: error,
+      });
+    });
+  }
+};

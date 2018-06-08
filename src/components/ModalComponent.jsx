@@ -2,18 +2,23 @@ import React from 'react';
 import { Modal, Button, Icon } from 'semantic-ui-react';
 
 
-
-const AddAssetModel = (props) => {
+const AddAssetModel = (props, modalOpen, handleOpen, handleClose) => {
   const updateValues = (e) => {
     const name = e.target.name
     const value = e.target.value
    props.updateFromField(name, value)
   }
+
   const handleSubmit = () => {
     props.handleSubmit()
   }
+
   return(
-    <Modal trigger={<i className="plus link icon" />} centered={true}>
+    <Modal trigger={<i className="plus link icon" onClick={handleOpen}/>}
+    open='false'
+    basic
+    size='large'
+    >
     <Modal.Header>Add Model</Modal.Header>
     <Modal.Content>
         <div className="ui form">
@@ -28,7 +33,8 @@ const AddAssetModel = (props) => {
         </div>
     </Modal.Content>
     <Modal.Actions>
-      <Button color='red'>
+      <Button color='red'
+      onClick={handleClose}>
         <Icon name='remove' /> Cancel
       </Button>
       <Button
