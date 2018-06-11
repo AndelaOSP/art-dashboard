@@ -119,7 +119,6 @@ export class AssetsComponent extends Component {
           </Table>
         </SideMenuComponent>
       );
-
   } // render()
 
 }; // AssetComponent

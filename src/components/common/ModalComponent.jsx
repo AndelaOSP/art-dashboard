@@ -21,10 +21,10 @@ export default class ModalExampleControlled extends Component {
       <Modal.Header>Header</Modal.Header>
         {this.props.children}
       </Modal>
-    )
+    );
   }
 
 }
 ModalExampleControlled.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.any.isRequired,
 };
