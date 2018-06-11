@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Table, Pagination, Modal } from 'semantic-ui-react';
+import { Header, Table, Pagination } from 'semantic-ui-react';
 import TableRowComponent from './TableRowComponent';
 import ModalComponent from './common/ModalComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
@@ -118,7 +118,7 @@ export class AssetsComponent extends Component {
               <Table.HeaderCell colSpan="6">
                 {
                   (this.emptyAssetTypeCheck()) ? '' :
-                    <Pagination
+                  <Pagination
                       totalPages={this.handlePageTotal()}
                       onPageChange={this.handlePaginationChange}
                       activePage={this.state.activePage}
