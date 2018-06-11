@@ -7,6 +7,7 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
 import ArtButton from '../components/common/ButtonComponent';
+import InputFluid from './common/TextInputComponent';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
@@ -57,7 +58,7 @@ export class AssetsComponent extends Component {
   addAssetModel = () => {
   return(
       <div>
-          <p>swsqwswqwq</p>
+        <InputFluid />
         <ArtButton buttonName="Save" color="primary" />
     </div>
   )
