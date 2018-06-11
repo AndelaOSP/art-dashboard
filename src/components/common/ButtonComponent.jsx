@@ -28,7 +28,7 @@ ButtonComponent.propTypes = {
 
 ButtonComponent.defaultProps = {
   color: '',
-  handleClick: () => {},
+  handleClick: () => { },
   buttonState: false
 };
 

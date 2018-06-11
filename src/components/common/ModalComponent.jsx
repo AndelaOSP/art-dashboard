@@ -22,7 +22,7 @@ export default class ArtModal extends Component {
             <i
               className="plus link icon"
               onClick={this.toggleModal}
-              onKeyUp={() => {}}
+              onKeyUp={() => { }}
               role="button"
               tabIndex="-1"
             />
