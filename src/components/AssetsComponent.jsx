@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, Table, Pagination } from 'semantic-ui-react';
+import { Header, Table, Pagination, Modal } from 'semantic-ui-react';
 import TableRowComponent from './TableRowComponent';
-import ModalComponent from './ModalComponent';
+import ModalComponent from './common/ModalComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
+import ArtButton from '../components/common/ButtonComponent';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
@@ -53,6 +54,15 @@ export class AssetsComponent extends Component {
     }
   }
 
+  addAssetModel = () => {
+  return(
+      <div>
+          <p>swsqwswqwq</p>
+        <ArtButton buttonName="Save" color="primary" />
+    </div>
+  )
+}
+
   render() {
 
     return (
@@ -61,14 +71,33 @@ export class AssetsComponent extends Component {
           <Table celled>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Category</Table.HeaderCell>
-                <Table.HeaderCell>Sub-category</Table.HeaderCell>
-                <Table.HeaderCell>Type</Table.HeaderCell>
-                <Table.HeaderCell>Make</Table.HeaderCell>
-                <Table.HeaderCell className="header">Model
-                <ModalComponent/>
+                <Table.HeaderCell>
+                    Category
+                    <ModalComponent/>
                 </Table.HeaderCell>
-                <Table.HeaderCell>Item</Table.HeaderCell>
+                <Table.HeaderCell>
+                    Sub-category
+                    <ModalComponent/>
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                    Type
+                    <ModalComponent/>
+                </Table.HeaderCell>
+                <Table.HeaderCell >
+                    Make
+                    <ModalComponent/>
+                </Table.HeaderCell>
+                <Table.HeaderCell className="header">
+                    Model
+                    <ModalComponent>
+                        { this.addAssetModel() }
+                    </ModalComponent>
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                    Item
+                    <ModalComponent/>
+
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
