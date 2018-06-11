@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, Table, Pagination, Modal } from 'semantic-ui-react';
+import { Header, Table, Pagination } from 'semantic-ui-react';
 import TableRowComponent from './TableRowComponent';
 import ModalComponent from './common/ModalComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
-import ArtButton from '../components/common/ButtonComponent';
-import InputFluid from './common/TextInputComponent';
-import DropdownComponent from './common/DropdownComponent';
+// import ArtButton from '../components/common/ButtonComponent';
+// import InputFluid from './common/TextInputComponent';
+// import DropdownComponent from './common/DropdownComponent';
+import AssetMake from '../_components/AssetMake/AssetMakeContainer';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
@@ -57,30 +58,7 @@ export class AssetsComponent extends Component {
   }
 
   addAssetModel = () => {
-      const onChange = () => {
-          console.log('ABCDE');
-      }
-      const options = [{
-        key: 1,
-        text: 'Asset Make 1',
-        value: 1
-      }]
-  return(
-      <div>
-        <InputFluid />
-        <br></br>
-        <DropdownComponent
-            label="Asset Makes"
-            placeholder="Select Asset Makes"
-            name="asset-make"
-            onChange={this.onChange}
-            options={options}
-        />
-        <br></br>
-        <ArtButton buttonName="Save" color="primary" />
-        <ArtButton buttonName="Cancel" />
-    </div>
-  )
+  return(<AssetMake />)
 }
 
   render() {

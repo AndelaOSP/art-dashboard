@@ -13,7 +13,7 @@ const {LOAD_ASSET_MODEL_NUMBERS ,CREATE_MODEL_NUMBER_SUCCESS,CREATE_MODEL_NUMBER
  */
 export const loadModelNumbers = () => {
   return ((dispatch) => {
-    return axios.get('model_numbers').then((response) => {
+    return axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers').then((response) => {
       dispatch(loadModelNumbersSuccess(response.data));
     }).catch((error) => {
       console.log(error);
