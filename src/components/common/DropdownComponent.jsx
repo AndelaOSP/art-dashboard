@@ -27,7 +27,7 @@ DropdownComponent.propTypes = {
 DropdownComponent.defaultProps = {
   label: '',
   placeHolder: '',
-  onChange: () => {},
+  onChange: () => { },
 };
 
 export default DropdownComponent;
