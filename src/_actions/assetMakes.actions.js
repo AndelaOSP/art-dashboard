@@ -11,7 +11,7 @@ const { LOAD_ASSET_MAKES_SUCCESS } = constants;
  */
 export const loadAssetMakes = () => {
   return ((dispatch) => {
-    return axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/makes').then((response) => {
+    return axios.get('makes').then((response) => {
       dispatch(loadAssetMakesSuccess(response.data));
     }).catch((error) => {
       console.log(error);
