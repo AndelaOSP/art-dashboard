@@ -35,7 +35,11 @@ export class AssetTypesComponent extends React.Component {
       return <Table.Row><Table.Cell colSpan="3">No Data found</Table.Cell></Table.Row>
     } else {
       const assetTypes = this.props.assetTypes.map((assetType, index) => {
-        return <TableRowComponent key={index} data={assetType} />
+        return <TableRowComponent
+          key={index}
+          data={assetType}
+          headings={['category', 'sub_category', 'asset_type']}
+        />
       });
       return assetTypes;
     }

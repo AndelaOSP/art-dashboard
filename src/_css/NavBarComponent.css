@@ -1,5 +1,6 @@
 .navbar {
     background: rgb(248, 249, 251);
+    margin-bottom: 30px;
 }
 
 .ui.secondary.menu > a {

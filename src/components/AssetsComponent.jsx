@@ -56,9 +56,18 @@ export class AssetsComponent extends Component {
     if (this.emptyAssetTypeCheck()) {
       return <Table.Row><Table.Cell colSpan="6">No Data found</Table.Cell></Table.Row>
     } else {
-    return (this.props.assets.map((asset, index) => {
-        return <TableRowComponent key={index} data={asset} aasets />
-    }));
+      return (this.props.assets.map((asset, index) => {
+        return <TableRowComponent
+          key={index}
+          data={asset}
+          headings={['category',
+            'sub_category',
+            'asset_type',
+            'make',
+            'model_number',
+            'asset_code']}
+        />
+      }));
     }
   }
   render() {
