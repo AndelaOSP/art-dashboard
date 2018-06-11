@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Modal } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 export default class ModalExampleControlled extends Component {
   state = { modalOpen: false }
@@ -22,4 +23,8 @@ export default class ModalExampleControlled extends Component {
       </Modal>
     )
   }
+
 }
+ModalExampleControlled.propTypes = {
+  children: PropTypes.any,
+};

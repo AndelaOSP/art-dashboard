@@ -6,9 +6,6 @@ import ModalComponent from './common/ModalComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
-// import ArtButton from '../components/common/ButtonComponent';
-// import InputFluid from './common/TextInputComponent';
-// import DropdownComponent from './common/DropdownComponent';
 import AssetMake from '../_components/AssetMake/AssetMakeContainer';
 import '../_css/AssetComponent.css';
 
@@ -124,7 +121,6 @@ export class AssetsComponent extends Component {
       );
 
   } // render()
-
 
 }; // AssetComponent
 

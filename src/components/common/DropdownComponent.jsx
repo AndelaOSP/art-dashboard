@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Dropdown } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
-export default (props) => (
+const DropdownComponent = (props) => (
   <Dropdown
     style={{width: '65%'}}
     fluid
@@ -14,3 +15,12 @@ export default (props) => (
     onChange={props.onChange}
   />
 );
+
+DropdownComponent.propTypes = {
+  label: PropTypes.string,
+  options: PropTypes.array,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func
+};
+
+export default DropdownComponent;
