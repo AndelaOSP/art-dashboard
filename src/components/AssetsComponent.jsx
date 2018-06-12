@@ -84,7 +84,7 @@ export class AssetsComponent extends Component {
                 </Table.HeaderCell>
                 <Table.HeaderCell className="header">
                     Model
-                    <ModalComponent>
+                    <ModalComponent modalTitle="Add Asset Model Number">
                         { this.addAssetModel() }
                     </ModalComponent>
                 </Table.HeaderCell>

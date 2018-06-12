@@ -15,11 +15,14 @@ export default class ModalExampleControlled extends Component {
         trigger={<i className="plus link icon"  onClick={this.handleOpen}/>}
         open={this.state.modalOpen}
         onClose={this.handleClose}
-        basic
-        size='small'
+        size="large"
       >
-      <Modal.Header>Header</Modal.Header>
-        {this.props.children}
+      <Modal.Header>{this.props.modalTitle}</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            {this.props.children}
+          </Modal.Description>
+        </Modal.Content>
       </Modal>
     );
   }
