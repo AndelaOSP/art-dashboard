@@ -40,18 +40,20 @@ export const loadModelNumbersSuccess = (modelNumbers) => {
 
 export const createModelNumbers = (newModel) => {
   return (dispatch) => {
-    axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers', newModel)
+    return axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers', newModel)
     .then((response) => {
-      return dispatch({
-        type:CREATE_MODEL_NUMBER_SUCCESS,
-        payload: response.data,
-      });
+      return dispatch(createModelNumberSuccess(response.data));
     })
     .catch((error) => {
-      return dispatch({
-        type:CREATE_MODEL_NUMBER_FAILURE,
-        payload: error,
-      });
+      return dispatch(createModelNumberFailure(error));
     });
   }
 };
+
+export const createModelNumberSuccess = (modelNumber) => {
+  return { type: CREATE_MODEL_NUMBER_SUCCESS, payload: modelNumber };
+}
+
+export const createModelNumberFailure = (error) => {
+  return { type: CREATE_MODEL_NUMBER_FAILURE, payload: error };
+}

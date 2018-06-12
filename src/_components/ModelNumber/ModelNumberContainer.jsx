@@ -70,9 +70,7 @@ class ModelNumberContainer extends React.Component {
 }
 ModelNumberContainer.propTypes = {
   loadAssetMakes: PropTypes.func.isRequired,
-  createModelNumbers: PropTypes.func.isRequired,
-  assetMakesList: PropTypes.array.isRequired,
-  modelNumbersList: PropTypes.array.isRequired
+  createModelNumbers: PropTypes.func.isRequired
 }
 const mapStateToProps = ({ assetMakesList, modelNumbersList }) => ({
   assetMakes: assetMakesList,
