@@ -26,6 +26,7 @@
     ],
     "comma-dangle": 0,
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react/jsx-filename-extension": [
       1,
       {
@@ -90,6 +91,9 @@
     "react/require-default-props": 0,
     "react/sort-comp": 0
 =======
+=======
+    "import/extensions": "ignorePackages",
+>>>>>>> feat(issue-and-styling): hound-ci issues and styling
     "linebreak-style": ["error","unix"],
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],

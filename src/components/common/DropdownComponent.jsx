@@ -30,4 +30,10 @@ DropdownComponent.defaultProps = {
   onChange: () => { },
 };
 
+DropdownComponent.defaultProps = {
+  label: '',
+  placeholder: '',
+  onChange: () => { }
+}
+
 export default DropdownComponent;

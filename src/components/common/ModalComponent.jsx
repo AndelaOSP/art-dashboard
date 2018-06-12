@@ -55,6 +55,7 @@ ArtModal.defaultProps = {
   modalTitle: ''
 };
 
-ModalExampleControlled.defaultProps = {
-  children: <div></div>
+ArtModal.defaultProps = {
+  children: <br />,
+  modalTitle: ""
 }
