@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { Form } from 'semantic-ui-react';
 import ArtButton from '../common/ButtonComponent';
 import InputFluid from '../common/TextInputComponent';
 import DropdownComponent from '../common/DropdownComponent';
 
-class AddAssetComponent extends React.Component {
+class ModelNumberComponent extends React.Component {
   render() {
 
     const placeMakesInSemanticUIOptions = (props) => {
@@ -20,20 +21,22 @@ class AddAssetComponent extends React.Component {
 
     return (
       <div>
-        <InputFluid />
-        <br></br>
-        <DropdownComponent
-          label="Asset Makes"
-          placeholder="Select Asset Makes"
-          name="asset-make"
-          onChange={this.onChange}
-          options={placeMakesInSemanticUIOptions(this.props.assetMakes)}
-        />
-        <br></br>
-        <ArtButton buttonName="Save" color="primary" />
-        <ArtButton buttonName="Cancel" />
+        <Form onSubmit={this.props.handleSubmit}>
+          <InputFluid name="model-number" onChange={this.props.onAddModelNumber} />
+          <br></br>
+          <DropdownComponent
+            label="Asset Makes"
+            placeholder="Select Asset Makes"
+            name="asset-make"
+            onChange={this.props.onSelectAssetMake}
+            options={placeMakesInSemanticUIOptions(this.props.assetMakes)}
+          />
+          <br></br>
+          <ArtButton buttonName="Save" color="primary" />
+          <ArtButton buttonName="Cancel" />
+        </Form>
       </div>
     );
   }
 }
-export default AddAssetComponent;
+export default ModelNumberComponent;
