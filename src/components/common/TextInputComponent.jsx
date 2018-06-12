@@ -9,15 +9,20 @@ const TextInputComponent = (props) => (
     style={{width: "65%"}}
     icon="pencil"
     placeholder={props.placeholder}
+    name={props.name}
+    onChange={props.onChange}
   />
 );
 
 TextInputComponent.propTypes = {
   placeholder: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
 };
 
 TextInputComponent.defaultProps = {
   placeholder: '',
+  onChange: () => {}
 };
 
 export default TextInputComponent;

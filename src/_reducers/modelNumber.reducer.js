@@ -7,7 +7,7 @@ const {
   CREATE_MODEL_NUMBER_FAILURE
 } = constants;
 
-export default (state = initialState.assetMakes, action) => {
+export default (state = initialState.modelNumbers, action) => {
   switch (action.type) {
     case LOAD_ASSET_MODEL_NUMBERS:
       return action.payload
@@ -15,7 +15,6 @@ export default (state = initialState.assetMakes, action) => {
       return {
         ...state,
         modelNumbers: [...state.modelNumbers]
-
      }
     case CREATE_MODEL_NUMBER_FAILURE:
      return {
