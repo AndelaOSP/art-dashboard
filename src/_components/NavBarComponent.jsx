@@ -6,7 +6,7 @@ import '../_css/NavBarComponent.css';
 
 const NavBarComponent = (props) => {
   const { title } = props;
-  const token = jwt.decode(localStorage.getItem('token'));
+  const token = jwt.decode(localStorage.getItem('art-prod-web-token'));
   let username = '';
 
   if (token != null) {

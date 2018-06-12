@@ -21,7 +21,6 @@ export const createAsset = (assetDetail) => {
     return axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories', assetDetail).then((response) => {
       dispatch(createAssetSuccess(mockAsset));
     }).catch((error) => {
-      console.log(error);
       dispatch(createAssetFail());
     });
   });
