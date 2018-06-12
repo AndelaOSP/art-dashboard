@@ -6,7 +6,7 @@ const TextInputComponent = (props) => (
   <Input
     fluid
     size="large"
-    style={{width: "65%"}}
+    style={{width: "100%"}}
     icon="pencil"
     placeholder={props.placeholder}
     name={props.name}

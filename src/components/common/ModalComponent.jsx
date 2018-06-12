@@ -30,7 +30,7 @@ export default class ArtModal extends Component {
           onClose={this.toggleModal}
           size="small"
           closeIcon
-          style={{ marginLeft: "-350px" }}
+          style={{ marginLeft: "-270px", width: "35%" }}
         >
         <Modal.Header>{this.props.modalTitle}</Modal.Header>
           <Modal.Content>
