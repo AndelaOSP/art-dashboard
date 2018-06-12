@@ -6,7 +6,7 @@ import ModalComponent from './common/ModalComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
-import AssetMake from '../_components/AssetMake/AssetMakeContainer';
+import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
@@ -55,7 +55,7 @@ export class AssetsComponent extends Component {
   }
 
   addAssetModel = () => {
-  return(<AssetMake />)
+  return(<ModelNumberContainer />)
 }
 
   render() {
