@@ -67,31 +67,43 @@ export class AssetsComponent extends Component {
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>
+                    <div className="header">
                     Category
                     <ModalComponent/>
+                    </div>
                 </Table.HeaderCell>
                 <Table.HeaderCell>
+                    <div className="header">
                     Sub-category
                     <ModalComponent/>
-                </Table.HeaderCell>
-                <Table.HeaderCell>
-                    Type
-                    <ModalComponent/>
+                  </div>
                 </Table.HeaderCell>
                 <Table.HeaderCell >
+                    <div className="header">
+                    Type
+                    <ModalComponent/>
+                    </div>
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                    <div className="header">
                     Make
                     <ModalComponent/>
+                    </div>
+
                 </Table.HeaderCell>
-                <Table.HeaderCell className="header">
+                <Table.HeaderCell >
+                    <div className="header">
                     Model
                     <ModalComponent modalTitle="Add Asset Model Number">
                         { this.addAssetModel() }
                     </ModalComponent>
+                    </div>
                 </Table.HeaderCell>
                 <Table.HeaderCell>
+                    <div className="header">
                     Item
                     <ModalComponent/>
-
+                    </div>
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Header>

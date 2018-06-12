@@ -18,6 +18,7 @@ class ModelNumberContainer extends React.Component {
   }
 
   componentDidMount(){
+    console.log(this.props)
     if (_.isEmpty(this.props.assetMakes)) {
       this.props.loadAssetMakes();
     }

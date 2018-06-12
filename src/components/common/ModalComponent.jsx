@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import '../../_css/ModalComponent.css';
 
 export default class ModalExampleControlled extends Component {
   state = { modalOpen: false }
@@ -12,10 +13,13 @@ export default class ModalExampleControlled extends Component {
   render() {
     return (
       <Modal
-        trigger={<i className="plus link icon"  onClick={this.handleOpen}/>}
+        trigger={<i className="plus link icon"
+        onClick={this.handleOpen}/>}
         open={this.state.modalOpen}
         onClose={this.handleClose}
-        size="large"
+        size="small"
+        closeIcon
+        style={{marginLeft: "-350px"}}
       >
       <Modal.Header>{this.props.modalTitle}</Modal.Header>
         <Modal.Content>

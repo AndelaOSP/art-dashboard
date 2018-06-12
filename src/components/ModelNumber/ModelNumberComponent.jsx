@@ -17,7 +17,7 @@ class ModelNumberComponent extends React.Component {
 
     return(
       <div>
-          <Form onSubmit={this.props.handleSubmit}>
+        <Form onSubmit={this.props.handleSubmit}>
         <InputFluid name="model-number" onChange={this.props.onAddModelNumber} />
         <br></br>
         <DropdownComponent
@@ -29,7 +29,6 @@ class ModelNumberComponent extends React.Component {
         />
         <br></br>
         <ArtButton buttonName="Save" color="primary" />
-        <ArtButton buttonName="Cancel" />
         </Form>
       </div>
     );
