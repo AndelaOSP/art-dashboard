@@ -40,7 +40,6 @@ export const loadModelNumbersSuccess = (modelNumbers) => {
 
 export const createModelNumbers = (newModel) => {
   return (dispatch) => {
-    console.log(newModel);
     axios.post('model_numbers', newModel)
     .then((response) => {
       return dispatch({

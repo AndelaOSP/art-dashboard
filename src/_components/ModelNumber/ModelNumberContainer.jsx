@@ -23,12 +23,11 @@ class ModelNumberContainer extends React.Component {
     }
   }
   handleSubmit = (event, data) => {
-      let newModel = {
-          "asset_make": this.state.assetMake,
-          "model_number": this.state.modelNumber
-      }
-    //   console.log(newModel);
-      this.props.createModelNumbers(newModel)
+    let newModel = {
+      "asset_make": this.state.assetMake,
+      "model_number": this.state.modelNumber
+    }
+    this.props.createModelNumbers(newModel)
   }
 
   onAddModelNumber = (event) => {
