@@ -22,11 +22,7 @@ TextInputComponent.propTypes = {
 
 TextInputComponent.defaultProps = {
   placeholder: '',
-<<<<<<< HEAD
   onChange: () => { }
-=======
-  onChange: () => {}
->>>>>>> wokring add model numbers
 };
 
 export default TextInputComponent;
