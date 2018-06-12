@@ -2,58 +2,54 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthenticateComponent from './AuthenticateComponent';
-import AssetTypesComponent from '../components/AssetTypesComponent';
-import AssetsComponent from '../components/AssetsComponent';
+import AssetTypes from '../components/AssetTypesComponent';
+import Assets from '../components/AssetsComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
-import FeedbackComponent from '../components/FeedbackComponent';
+import Feedback from '../components/FeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
 
 class RoutesComponent extends React.Component {
-  checkAuthentication = () => {
-    return !!(localStorage.getItem('art-prod-web-token'));
-  }
-  render () {
+  checkAuthentication = () => !!(localStorage.getItem('token'))
+  render() {
     return (
       <div>
         <Switch>
           <AuthenticateComponent
             isAuthenticated={this.checkAuthentication()}
-            path='/dashboard'
+            path="/dashboard"
             component={DashboardComponent}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/asset_types'
-            isAuthenticated={this.checkAuthentication()}
-            component={AssetTypesComponent}
+            path="/asset_types"
+            component={AssetTypes}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/assets'
-            component={AssetsComponent}
+            path="/assets"
+            component={Assets}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/feedback'
-            isAuthenticated={this.checkAuthentication()}
-            component={FeedbackComponent}
+            path="/feedback"
+            component={Feedback}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/assets/add'
+            path="/assets/add"
             component={AddAssetContainer}
           />
-          <Route exact path='/' component={LoginComponent} />
-          <Route path='*' component={LoginComponent} />
+          <Route exact path="/" component={LoginComponent} />
+          <Route path="*" component={LoginComponent} />
         </Switch>
       </div>
     );
   }
-};
+}
 
 export default (RoutesComponent);
