@@ -40,7 +40,7 @@ export const loadModelNumbersSuccess = (modelNumbers) => {
 
 export const createModelNumbers = (newModel) => {
   return (dispatch) => {
-    axios.post('model_numbers', newModel)
+    axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers', newModel)
     .then((response) => {
       return dispatch({
         type:CREATE_MODEL_NUMBER_SUCCESS,

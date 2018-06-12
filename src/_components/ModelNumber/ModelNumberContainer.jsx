@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import ModelNumberComponent from '../../components/ModelNumber/ModelNumberComponent'
+import { ToastMessage } from '../../_utils/ToastMessage';
 
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 import { createModelNumbers } from '../../_actions/modelNumbers.actions';
@@ -13,7 +14,8 @@ class ModelNumberContainer extends React.Component {
     super(props);
     this.state = {
       modelNumber:  "",
-      assetMake: ""
+      assetMake: "",
+      modelNumbers: props.modelNumbers || []
     }
   }
 
@@ -23,12 +25,26 @@ class ModelNumberContainer extends React.Component {
       this.props.loadAssetMakes();
     }
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.modelNumbers.length !== prevState.modelNumbers.length) {
+      ToastMessage.success({ message: 'Model Number Saved Successfully' });
+      return {
+        modelNumber:  "",
+        assetMake: "",
+        modelNumbers: nextProps.modelNumbers
+      }
+    }
+    return null;
+  }
+
   handleSubmit = (event, data) => {
     let newModel = {
       "asset_make": this.state.assetMake,
       "model_number": this.state.modelNumber
     }
     this.props.createModelNumbers(newModel)
+    event.target.reset();
   }
 
   onAddModelNumber = (event) => {
@@ -47,15 +63,20 @@ class ModelNumberContainer extends React.Component {
           modelNumber={this.state.modelNumber}
           onSelectAssetMake={this.onSelectAssetMake}
           handleSubmit={this.handleSubmit}
+          toggleModal={this.props.toggleModal}
         />
-    )
+    );
   }
 }
 ModelNumberContainer.propTypes = {
-  loadAssetMakes: PropTypes.func.isRequired
+  loadAssetMakes: PropTypes.func.isRequired,
+  createModelNumbers: PropTypes.func.isRequired,
+  assetMakesList: PropTypes.array.isRequired,
+  modelNumbersList: PropTypes.array.isRequired
 }
-const mapStateToProps = ({ assetMakesList }) => ({
-  assetMakes: assetMakesList
+const mapStateToProps = ({ assetMakesList, modelNumbersList }) => ({
+  assetMakes: assetMakesList,
+  modelNumbers: modelNumbersList
 });
 export default connect(mapStateToProps, {
     loadAssetMakes,
