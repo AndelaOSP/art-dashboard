@@ -23,8 +23,7 @@ export default class ModalExampleControlled extends Component {
       </Modal>
     );
   }
-
 }
 ModalExampleControlled.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.func.isRequired,
 };

@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 const TextInputComponent = (props) => (
   <Input
     fluid
-    size='large'
+    size="large"
     style={{width: "65%"}}
-    icon='pencil'
+    icon="pencil"
     placeholder={props.placeholder}
   />
 );
