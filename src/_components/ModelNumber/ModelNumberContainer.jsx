@@ -56,14 +56,14 @@ class ModelNumberContainer extends React.Component {
 
   render(){
     return (
-        <ModelNumberComponent
-          {...this.props}
-          onAddModelNumber={this.onAddModelNumber}
-          modelNumber={this.state.modelNumber}
-          onSelectAssetMake={this.onSelectAssetMake}
-          handleSubmit={this.handleSubmit}
-          toggleModal={this.props.toggleModal}
-        />
+      <ModelNumberComponent
+        {...this.props}
+        onAddModelNumber={this.onAddModelNumber}
+        modelNumber={this.state.modelNumber}
+        onSelectAssetMake={this.onSelectAssetMake}
+        handleSubmit={this.handleSubmit}
+        toggleModal={this.props.toggleModal}
+      />
     );
   }
 }

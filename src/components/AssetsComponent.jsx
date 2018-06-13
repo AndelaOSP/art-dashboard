@@ -59,77 +59,75 @@ export class AssetsComponent extends Component {
 }
 
   render() {
-
     return (
-        <SideMenuComponent>
-          <Header className='landing-heading' content='All Assets' />
-          <Table celled>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>
-                    <div className="header">
-                    Category
-                    <ModalComponent/>
-                    </div>
-                </Table.HeaderCell>
-                <Table.HeaderCell>
-                    <div className="header">
-                    Sub-category
-                    <ModalComponent/>
+      <SideMenuComponent>
+        <Header className='landing-heading' content='All Assets' />
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>
+                  <div className="header">
+                  Category
+                  <ModalComponent/>
                   </div>
-                </Table.HeaderCell>
-                <Table.HeaderCell >
-                    <div className="header">
-                    Type
-                    <ModalComponent/>
-                    </div>
-                </Table.HeaderCell>
-                <Table.HeaderCell>
-                    <div className="header">
-                    Make
-                    <ModalComponent/>
-                    </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                  <div className="header">
+                  Sub-category
+                  <ModalComponent/>
+                </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell >
+                  <div className="header">
+                  Type
+                  <ModalComponent/>
+                  </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <div className="header">
+                  Make
+                <ModalComponent/>
+                </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell >
+                <div className="header">
+                Model
+                <ModalComponent modalTitle="Add Asset Model Number">
+                  { this.addAssetModel() }
+                </ModalComponent>
+                </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <div className="header">
+                Item
+                <ModalComponent/>
+                </div>
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
 
-                </Table.HeaderCell>
-                <Table.HeaderCell >
-                    <div className="header">
-                    Model
-                    <ModalComponent modalTitle="Add Asset Model Number">
-                        { this.addAssetModel() }
-                    </ModalComponent>
-                    </div>
-                </Table.HeaderCell>
-                <Table.HeaderCell>
-                    <div className="header">
-                    Item
-                    <ModalComponent/>
-                    </div>
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
+          <Table.Body>
+            {
+              this.loadTableContent()
+            }
+          </Table.Body>
 
-            <Table.Body>
-              {
-                this.loadTableContent()
-              }
-            </Table.Body>
-
-            <Table.Footer>
-              <Table.Row>
-                <Table.HeaderCell colSpan='6'>
-                  {
-                    (this.emptyAssetTypeCheck()) ? '' :
-                      <Pagination
-                        totalPages={this.handlePageTotal()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                  }
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Footer>
-          </Table>
-        </SideMenuComponent>
+          <Table.Footer>
+            <Table.Row>
+              <Table.HeaderCell colSpan='6'>
+                {
+                  (this.emptyAssetTypeCheck()) ? '' :
+                    <Pagination
+                      totalPages={this.handlePageTotal()}
+                      onPageChange={this.handlePaginationChange}
+                      activePage={this.state.activePage}
+                    />
+                }
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Footer>
+        </Table>
+      </SideMenuComponent>
       );
   } // render()
 
