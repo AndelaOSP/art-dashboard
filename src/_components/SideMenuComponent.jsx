@@ -7,21 +7,29 @@ import NavBarComponent from './NavBarComponent';
 
 import '../_css/SideMenuComponent.css';
 
-/** Side menu component
- *
- * @class SideMenuComponent
- * @extends {Component}
- */
+/* eslint-disable no-undef */
 class SideMenuComponent extends Component {
   state = { visible: true };
 
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSize);
+    this.handleWindowSize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSize);
+  }
+
+  handleWindowSize = () => {
+    if (window.innerWidth < 960) {
+      this.setState({ visible: false });
+    } else {
+      this.setState({ visible: true });
+    }
+  };
+
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
-  /**
-   *
-   * @returns {JSX} JSX
-   * @memberof SideMenuComponent
-   */
   render() {
     const { visible } = this.state;
     const { title } = this.props;
