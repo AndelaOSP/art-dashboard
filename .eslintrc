@@ -37,6 +37,10 @@
     "no-use-before-define": "off",
     "react/jsx-indent": "off",
     "import/extensions": 0,
-    "function-paren-newline": "off"
+    "function-paren-newline": "off",
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "to" ]
+    }]
   }
 }
