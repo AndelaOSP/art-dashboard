@@ -13,7 +13,8 @@ const {LOAD_ASSET_MODEL_NUMBERS ,CREATE_MODEL_NUMBER_SUCCESS,CREATE_MODEL_NUMBER
  */
 export const loadModelNumbers = () => {
   return ((dispatch) => {
-    return axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers').then((response) => {
+    return axios.get('https://my-json-server.typicode.com/HawiCaesar/' +
+      'jsonplaceholders-demo/model_numbers').then((response) => {
       dispatch(loadModelNumbersSuccess(response.data));
     }).catch((error) => {
       console.log(error);
@@ -40,7 +41,8 @@ export const loadModelNumbersSuccess = (modelNumbers) => {
 
 export const createModelNumbers = (newModel) => {
   return (dispatch) => {
-    return axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers', newModel)
+    return axios.post('https://my-json-server.typicode.com/HawiCaesar/' +
+      'jsonplaceholders-demo/model_numbers', newModel)
     .then((response) => {
       return dispatch(createModelNumberSuccess(response.data));
     })
