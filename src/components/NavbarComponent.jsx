@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 
-export default class NavbarComponent extends React.Component {
+export default class NavbarComponent extends Component {
     state = { activeItem: 'home' }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthenticateComponent from './AuthenticateComponent';
@@ -9,7 +9,7 @@ import DashboardComponent from '../components/DashboardComponent';
 import Feedback from '../components/FeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
 
-class RoutesComponent extends React.Component {
+class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('token'))
   render() {
     return (

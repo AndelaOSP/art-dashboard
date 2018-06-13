@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-class CardComponent extends React.Component {
+class CardComponent extends Component {
     statistics = this.props.statistics;
 
     render() {
@@ -24,7 +24,11 @@ class CardComponent extends React.Component {
 }
 
 CardComponent.propTypes = {
-  statistics: PropTypes.arrayOf.isRequired
+  statistics: PropTypes.arrayOf(PropTypes.object)
+};
+
+CardComponent.defaultProps = {
+  statistics: []
 };
 
 export default CardComponent;

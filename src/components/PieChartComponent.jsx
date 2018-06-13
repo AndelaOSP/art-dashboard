@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactFC from 'react-fusioncharts';
 import { Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-export default class PieChartComponent extends React.Component {
+export default class PieChartComponent extends Component {
     statistics = this.props.statistics;
     myDataSource = {
       chart: {
@@ -33,5 +33,9 @@ export default class PieChartComponent extends React.Component {
 }
 
 PieChartComponent.propTypes = {
-  statistics: PropTypes.arrayOf.isRequired
+  statistics: PropTypes.arrayOf(PropTypes.object)
+};
+
+PieChartComponent.defaultProps = {
+  statistics: []
 };
