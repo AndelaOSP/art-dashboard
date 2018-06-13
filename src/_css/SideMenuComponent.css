@@ -1,48 +1,54 @@
-.ui.sidebar,
+ .ui.sidebar,
 .ui.left.sidebar,
 .ui.wide.left.sidebar {
-    width: 17%!important;
-}
-
-.ui.visible.wide.left.sidebar~.fixed, .ui.visible.wide.left.sidebar~.pusher {
-    -webkit-transform: translate3d(350px,0,0);
-    transform: translate3d(26%,0,0);
-}
-
-.ui.visible.sidebar~.pusher {
-    display: block!important;
-    width: 83%;
-    height: 100%;
-    overflow: hidden!important;
-    margin-left: -70px;
-}
-
-.ui.icon.menu .item {
-    text-align: left;
-    padding-left: 25px;
+    width: 17%;
 }
 
 .ui.vertical.menu {
-    background: rgb(248, 249, 251);
+  background: rgb(248, 249, 251);
 }
 
-.ui.labeled.icon.menu .item {
-    font-size: 1.5rem;
+.ui.icon.menu .item {
+  text-align: left;
 }
 
 .wrapper {
-    height: 100vh;
+  height: 93vh;
+}
+
+.wrapper .ui.segment {
+margin: 0;
+}
+
+.pusher {
+  padding: 1rem 0;
 }
 
 #andela-logo {
-    animation: andela-logo-spin infinite 40s linear;
+  animation: andela-logo-spin infinite 40s linear;
 }
 
 @keyframes andela-logo-spin {
-    0% {
-        transform: rotate(0);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+      transform: rotate(0);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .ui.labeled.icon.menu .item {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .ui.wide.left.sidebar, .ui.wide.right.sidebar {
+    width: 150px;
+  }
+
+  .wrapper {
+    height: 93vh;
+  }
 }
