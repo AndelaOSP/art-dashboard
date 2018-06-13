@@ -11,16 +11,9 @@ import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContaine
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activePage: 1,
-      limit: 10,
-      modelNumber: '',
-      assetMake: '',
-      newModel: {},
-      modalOpen: true,
-    };
+  state = {
+    activePage: 1,
+    limit: 10,
   }
 
   componentDidMount() {
@@ -51,13 +44,6 @@ export class AssetsComponent extends Component {
         'asset_code']}
     />)));
   }
-
-  addAssetModel = () => (
-    <div>
-      <p>swsqwswqwq</p>
-      <ArtButton buttonName="Save" color="primary" />
-    </div>
-  )
 
   render() {
     return (
