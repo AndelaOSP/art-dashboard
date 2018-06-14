@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 import '../_css/NavBarComponent.css';
 
-
 class NavBarComponent extends Component {
   handleLogout = () => {
     localStorage.removeItem('token');
