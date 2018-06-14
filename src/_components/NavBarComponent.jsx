@@ -6,10 +6,6 @@ import PropTypes from 'prop-types';
 
 import '../_css/NavBarComponent.css';
 
-/* eslint require-jsdoc: 0 */
-/* eslint no-undef: 0 */
-/* eslint react/forbid-prop-types: 0 */
-/* eslint react/require-default-props: 0 */
 class NavBarComponent extends Component {
   handleLogout = () => {
     localStorage.removeItem('token');
