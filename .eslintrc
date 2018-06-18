@@ -12,7 +12,8 @@
   },
   "plugins": [
     "react",
-    "import"
+    "import",
+    "jest"
   ],
   "rules": {
     "quotes": [
