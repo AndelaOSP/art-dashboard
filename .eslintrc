@@ -5,18 +5,14 @@
     "node": true,
     "jest": true
   },
-  "extends": ["airbnb", "jest-enzyme"],
+  "extends": "airbnb",
   "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    }
+    "ecmaVersion": 6
   },
   "plugins": [
     "react",
-    "import",
-    "jest"
+    "import"
   ],
   "rules": {
     "quotes": [
@@ -32,9 +28,13 @@
     "react/forbid-prop-types": ['error', { forbid: ['any', 'object'] }],
     "arrow-body-style": ["error", "as-needed"],
     "jsx-quotes": ["error", "prefer-double"],
+    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "import/no-unresolved": [2, { "commonjs": true }],
     "no-restricted-syntax": "off",
     "no-prototype-builtins": "off",
     "no-underscore-dangle": "off",
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "react/jsx-indent": "off",
+
   }
 }
