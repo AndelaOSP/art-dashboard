@@ -29,6 +29,7 @@
     ],
     "comma-dangle": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/forbid-prop-types": ['error', { forbid: ['any', 'object'] }],
     "arrow-body-style": ["error", "as-needed"],
     "jsx-quotes": ["error", "prefer-double"],
     "no-restricted-syntax": "off",

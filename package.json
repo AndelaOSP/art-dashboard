@@ -36,17 +36,26 @@
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
-    "custom-eslint": "./node_modules/.bin/eslint --fix"
+    "eslint-check": "./node_modules/.bin/eslint --fix",
+    "css-style-check": "./node_modules/.bin/stylelint --fix"
   },
   "lint-staged": {
-    "*.{js,jsx,json,css}": [
-      "./node_modules/.bin/prettier --write",
-      "git add"
-    ],
-    "*{.js,jsx}": [
-      "npm run custom-eslint",
-      "git add"
-    ]
+    "concurrent": true,
+    "subTaskConcurrency": 1,
+    "linters": {
+      "*.{js,jsx,json,css}": [
+        "./node_modules/.bin/prettier --write",
+        "git add"
+      ],
+      "*{.js,jsx}": [
+        "npm run eslint-check",
+        "git add"
+      ],
+      "*{css,scss}": [
+        "npm run css-style-check",
+        "git add"
+      ]
+    }
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
@@ -63,6 +72,8 @@
     "lint-staged": "^7.2.0",
     "prettier": "^1.13.5",
     "redux-mock-store": "^1.5.1",
-    "redux-test-utils": "^0.2.2"
+    "redux-test-utils": "^0.2.2",
+    "stylelint": "^9.3.0",
+    "stylelint-config-standard": "^18.2.0"
   }
 }
