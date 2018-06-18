@@ -40,7 +40,7 @@
     "css-style-check": "./node_modules/.bin/stylelint --fix"
   },
   "lint-staged": {
-    "concurrent": true,
+    "concurrent": false,
     "subTaskConcurrency": 1,
     "linters": {
       "*.{js,jsx,json,css}": [
