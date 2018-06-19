@@ -9,6 +9,7 @@ import '../_css/NavBarComponent.css';
 class NavBarComponent extends Component {
   handleLogout = () => {
     localStorage.removeItem('art-prod-web-token');
+    console.log(this.props.history, '+++');
     this.props.history.push('/');
   }
 
@@ -48,7 +49,7 @@ NavBarComponent.propTypes = {
   title: PropTypes.string,
   toggleVisibility: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  push: PropTypes.func.isRequired,
+  push: PropTypes.func,
 };
 
 NavBarComponent.defaultProps = {
