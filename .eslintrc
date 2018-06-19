@@ -70,6 +70,7 @@
     "no-prototype-builtins": "off",
     "no-underscore-dangle": "off",
     "no-use-before-define": "off",
+    "object-curly-newline": "off",
     "react/jsx-indent": "off",
     "import/extensions": 0,
     "function-paren-newline": "off",
