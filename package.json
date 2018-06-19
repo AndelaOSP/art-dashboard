@@ -43,10 +43,6 @@
     "concurrent": false,
     "subTaskConcurrency": 1,
     "linters": {
-      "*.{js,jsx,json,css}": [
-        "./node_modules/.bin/prettier --write",
-        "git add"
-      ],
       "*{.js,jsx}": [
         "npm run eslint-check",
         "git add"
