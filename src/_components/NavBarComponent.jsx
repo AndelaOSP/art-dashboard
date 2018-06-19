@@ -48,7 +48,7 @@ NavBarComponent.propTypes = {
   title: PropTypes.string,
   toggleVisibility: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  push: PropTypes.func,
+  push: PropTypes.func.isRequired,
 };
 
 NavBarComponent.defaultProps = {
