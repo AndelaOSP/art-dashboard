@@ -13,7 +13,7 @@ const { LOAD_CATEGORIES_SUCCESS } = constants;
  */
 export const loadCategories = () => {
   return ((dispatch) => {
-    return axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories').then((response) => {
+    return axios.get('categories').then((response) => {
       dispatch(loadCategoriesSuccess(response.data));
     }).catch((error) => {
       console.log(error);

@@ -7,6 +7,7 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
+import CategoryContainer from '../_components/Category/CategoryContainer'
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
@@ -58,6 +59,10 @@ export class AssetsComponent extends Component {
   return(<ModelNumberContainer />)
 }
 
+addcategory = () => {
+    return(<CategoryContainer />)
+}
+
   render() {
     return (
       <SideMenuComponent>
@@ -68,7 +73,9 @@ export class AssetsComponent extends Component {
               <Table.HeaderCell>
                   <div className="header">
                   Category
-                  <ModalComponent/>
+                  <ModalComponent modalTitle="Add Asset Category">
+                  { this.addcategory() }
+                  </ModalComponent>
                   </div>
               </Table.HeaderCell>
               <Table.HeaderCell>
