@@ -15,15 +15,11 @@ class NavBarComponent extends Component {
   render() {
     const { title } = this.props;
     const token = jwt.decode(localStorage.getItem('token'));
-    let username = '';
-
-    if (token != null) {
-      ({ username } = token);
-    }
+    const { username = '' } = token || {};
 
     return (
       <div className="navbar">
-        <Menu secondary stackable>
+        <Menu secondary>
           <Menu.Item name="menu" onClick={this.props.toggleVisibility}>
             <Icon name="list layout" />
           </Menu.Item>
