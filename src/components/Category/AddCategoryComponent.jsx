@@ -10,19 +10,19 @@ class AddCategoryComponent extends React.Component {
     return (
       <div>
         <Form onSubmit={this.props.handleSubmit}>
-        <label className='label-style'>Category Name</label>
-        <InputFluid
-          name="category-name"
-          onChange={this.props.onaddCategoryName}
-          placeholder="Enter Category Name"
-        />
-        <br></br>
-        <ArtButton buttonName="Save" color="primary" />
-        <ArtButton buttonName="Cancel" onClick={this.props.toggleModal} />
-
+          <label className='label-style'>Category Name</label>
+          <InputFluid
+            name="category-name"
+            onChange={this.props.onaddCategoryName}
+            placeholder="Enter Category Name"
+          />
+          <br></br>
+          <ArtButton buttonName="Save" color="primary" />
+          <ArtButton buttonName="Cancel" onClick={this.props.toggleModal} />
         </Form>
       </div>
     );
   }
 }
 export default AddCategoryComponent;
+
