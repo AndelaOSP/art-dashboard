@@ -1,13 +1,13 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import { Button, Container, Header, Image } from "semantic-ui-react";
-import { SemanticToastContainer } from "react-semantic-toasts";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { Button, Container, Header, Image } from 'semantic-ui-react';
+import { SemanticToastContainer } from 'react-semantic-toasts';
 
-import { signInWithEmail, firebase } from "../firebase";
-import { ToastMessage } from "../_utils/ToastMessage";
-import { validAndelaEmail } from "../_utils/validAndelaEmail";
+import { signInWithEmail, firebase } from '../firebase';
+import { ToastMessage } from '../_utils/ToastMessage';
+import { validAndelaEmail } from '../_utils/validAndelaEmail';
 
-import "../_css/LoginComponent.css";
+import '../_css/LoginComponent.css';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -15,13 +15,13 @@ class LoginComponent extends React.Component {
   // checks that the user used an Andela email
   validateUser = result => {
     if (validAndelaEmail(result.user.email)) {
-      result.user.getIdToken().then(function(idToken) {
-        localStorage.setItem("art-prod-web-token", idToken);
+      result.user.getIdToken().then((idToken) => {
+        localStorage.setItem('art-prod-web-token', idToken);
       });
-      ToastMessage.success({ message: "Welcome to ART" });
-      this.props.history.push("/dashboard");
+      ToastMessage.success({ message: 'Welcome to ART' });
+      this.props.history.push('/dashboard');
     } else {
-      ToastMessage.error({ message: "Please sign in with your andela email" });
+      ToastMessage.error({ message: 'Please sign in with your andela email' });
     }
   };
 
