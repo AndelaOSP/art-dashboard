@@ -25,12 +25,47 @@
       "always"
     ],
     "comma-dangle": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/forbid-prop-types": ["error", { "forbid": ["any", "object"] }],
-    "arrow-body-style": ["error", "as-needed"],
-    "jsx-quotes": ["error", "prefer-double"],
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
-    "import/no-unresolved": [2, { "commonjs": true }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/forbid-prop-types": [
+      "error",
+      {
+        "forbid": [
+          "any"
+        ]
+      }
+    ],
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "no-shadow": [
+      "error",
+      {
+        "allow": [
+          "req",
+          "res",
+          "err"
+        ]
+      }
+    ],
+    "import/no-unresolved": [
+      2,
+      {
+        "commonjs": true
+      }
+    ],
     "no-restricted-syntax": "off",
     "no-prototype-builtins": "off",
     "no-underscore-dangle": "off",
@@ -38,9 +73,16 @@
     "react/jsx-indent": "off",
     "import/extensions": 0,
     "function-paren-newline": "off",
-    "jsx-a11y/anchor-is-valid": [ "error", {
-      "components": [ "Link" ],
-      "specialLink": [ "to" ]
-    }]
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "to"
+        ]
+      }
+    ]
   }
 }
