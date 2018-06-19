@@ -11,7 +11,7 @@ import AddAssetContainer from './AddAsset/AddAssetContainer';
 
 class RoutesComponent extends React.Component {
   checkAuthentication = () => {
-    return !!(localStorage.getItem('token'));
+    return !!(localStorage.getItem('art-prod-web-token'));
   }
   render () {
     return (
