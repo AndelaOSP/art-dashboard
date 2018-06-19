@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import CategoryComponent from '../../components/Category/AddCategoryComponent';
-import { ToastMessage } from '../../_utils/ToastMessage';
 import { createCategory } from '../../_actions/category.actions';
 
 class CategoryContainer extends React.Component {
@@ -35,7 +33,7 @@ class CategoryContainer extends React.Component {
         handleSubmit={this.handleSubmit}
         toggleModal={this.props.toggleModal}
       />
-    ); 
+    );
   }
 }
 CategoryContainer.propTypes = {

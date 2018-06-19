@@ -31,21 +31,25 @@ export const loadCategories = () => {
 export const loadCategoriesSuccess = (categories) => {
   return { type: LOAD_CATEGORIES_SUCCESS, payload: categories };
 }
+
 export const createCategory = (newCategory) => {
   return (dispatch) => {
     return axios.post('categories', newCategory)
     .then((response) => {
-      return dispatch(createCategorySuccess(response.data));
+      return dispatch({
+        type: CREATE_CATEGORY_SUCCESS,
+        payload: response
+      });
     })
     .catch((error) => {
-      return dispatch(createCategoryFailure(error));
+      return dispatch({ type: CREATE_CATEGORY_FAILURE, payload: error });
     });
   }
 };
 
-export const createCategorySuccess = (category) => {
-  return { type: CREATE_CATEGORY_SUCCESS, payload: category};
-}
-export const createCategoryFailure = (error) => {
-  return { type: CREATE_CATEGORY_FAILURE, payload: error };
-}
+// export const createCategorySuccess = (category) => {
+//   return { type: CREATE_CATEGORY_SUCCESS, payload: category};
+// }
+// export const createCategoryFailure = (error) => {
+//   return { type: CREATE_CATEGORY_FAILURE, payload: error };
+// }
