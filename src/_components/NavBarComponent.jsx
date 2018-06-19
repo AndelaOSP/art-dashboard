@@ -8,7 +8,7 @@ import '../_css/NavBarComponent.css';
 
 class NavBarComponent extends Component {
   handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('art-prod-web-token');
     this.props.history.push('/');
   }
 
