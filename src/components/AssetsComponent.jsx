@@ -33,9 +33,9 @@ export class AssetsComponent extends Component {
         </Table.Row>
       );
     }
-    return (this.props.assets.map((asset, index) => (
+    return (this.props.assets.map(asset => (
       <TableRowComponent
-        key={index}
+        key={asset.id}
         data={asset}
         headings={['category',
             'sub_category',
