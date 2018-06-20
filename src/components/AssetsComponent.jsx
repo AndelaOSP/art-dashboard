@@ -91,7 +91,7 @@ export class AssetsComponent extends Component {
 
 AssetsComponent.propTypes = {
   assetsCount: PropTypes.number.isRequired,
-  assets: PropTypes.arrayOf,
+  assets: PropTypes.arrayOf(PropTypes.object),
   getAssetsAction: PropTypes.func.isRequired,
 };
 

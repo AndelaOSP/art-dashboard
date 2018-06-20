@@ -10,7 +10,7 @@ import Feedback from '../components/FeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
 
 class RoutesComponent extends Component {
-  checkAuthentication = () => !!(localStorage.getItem('token'))
+  checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'))
   render() {
     return (
       <div>
