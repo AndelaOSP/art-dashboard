@@ -17,7 +17,7 @@ const {
  * @return dispatch
  */
 export const loadModelNumbers = () => (dispatch =>
-  axios.get('model_numbers').then((response) => {
+  axios.get('asset-models/').then((response) => {
     dispatch(loadModelNumbersSuccess(response.data));
   })
 );
@@ -39,7 +39,7 @@ export const loadModelNumbersSuccess = modelNumbers => (
  *
 */
 export const createModelNumbers = newModel => dispatch =>
-  axios.post('model_numbers', newModel).then((response) => {
+  axios.post('asset-models/', newModel).then((response) => {
     dispatch(createModelNumberSuccess(response.data));
     dispatch(updateToastMessageContent('Model Number Saved Successfully',
       'success'));
@@ -47,8 +47,7 @@ export const createModelNumbers = newModel => dispatch =>
     dispatch(createModelNumberFailure(error));
     dispatch(updateToastMessageContent('Could Not Save The Model Number',
       'error'));
-  }
-  );
+  });
 
 export const createModelNumberSuccess = modelNumber => (
   { type: CREATE_MODEL_NUMBER_SUCCESS, payload: modelNumber }
