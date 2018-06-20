@@ -8,12 +8,8 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "expect": "^22.4.3",
-<<<<<<< HEAD
     "firebase": "^5.0.4",
-=======
-    "firebase": "^5.0.3",
     "fusioncharts": "^3.12.2",
->>>>>>> e9b8cae60e7e45bb24d8479c2795f6d63aa20a2e
     "history": "^4.7.2",
     "jsonwebtoken": "^8.2.2",
     "lodash": "^4.17.10",
