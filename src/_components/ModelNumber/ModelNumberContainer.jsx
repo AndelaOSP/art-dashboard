@@ -8,7 +8,7 @@ import { ToastMessage } from '../../_utils/ToastMessage';
 
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 import { createModelNumbers } from '../../_actions/modelNumbers.actions';
-import { resetToastMessageContent } from '../../_actions/resetToastMessage.actions';
+import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
 
 class ModelNumberContainer extends React.Component {
   constructor(props) {
