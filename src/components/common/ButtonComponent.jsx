@@ -6,4 +6,4 @@ export default ({buttonName, color, onClick}) => {
     return <Button primary onClick={onClick}>{buttonName}</Button>
   }
   return <Button secondary onClick={onClick}>{buttonName}</Button>
-}
+};

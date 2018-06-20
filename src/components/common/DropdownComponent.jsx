@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-const DropdownComponent = (props) => (
+const DropdownComponent = props => (
   <Dropdown
     style={{ width: '65%' }}
     fluid
