@@ -25,31 +25,6 @@
       "always"
     ],
     "comma-dangle": 0,
-<<<<<<< HEAD
-    "linebreak-style": ["error","unix"],
-    "curly": ["error", "multi-line"],
-    "import/no-unresolved": [2, { "commonjs": true }],
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
-    "valid-jsdoc": ["error", {
-      "requireReturn": true,
-      "requireReturnType": true,
-      "requireParamDescription": false,
-      "requireReturnDescription": true
-    }],
-    "react/jsx-no-bind": ["error", {
-      "ignoreRefs": true,
-      "allowArrowFunctions": true,
-      "allowBind": true
-    }],
-    "react/jsx-filename-extension": [1, { "extensions": [".jsx"] }],
-    "require-jsdoc": ["error", {
-        "require": {
-            "FunctionDeclaration": true,
-            "MethodDefinition": true,
-            "ClassDeclaration": true
-        }
-    }]
-=======
     "react/jsx-filename-extension": [
       1,
       {
@@ -111,6 +86,5 @@
       }
     ],
     "linebreak-style": 0
->>>>>>> e9b8cae60e7e45bb24d8479c2795f6d63aa20a2e
   }
 }
