@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Table, Pagination } from 'semantic-ui-react';
-
+import { Header, Table, Pagination } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import TableRowComponent from './TableRowComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 
@@ -21,37 +21,36 @@ export class AssetsComponent extends Component {
     this.props.getAssetsAction(activePage);
   }
 
-  handlePageTotal = () => {
-    return Math.ceil(this.props.assetsCount / this.state.limit);
-  }
+  handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit)
 
-  emptyAssetTypeCheck = () => {
-    return (this.props.assets.length === 0);
-  }
+  emptyAssetTypeCheck = () => (this.props.assets.length === 0)
 
   loadTableContent = () => {
     if (this.emptyAssetTypeCheck()) {
-      return <Table.Row><Table.Cell colSpan="6">No Data found</Table.Cell></Table.Row>
-    } else {
-      return (this.props.assets.map((asset, index) => {
-        return <TableRowComponent
-          key={index}
-          data={asset}
-          headings={['category',
+      return (
+        <Table.Row>
+          <Table.Cell colSpan="6">No Data found</Table.Cell>
+        </Table.Row>
+      );
+    }
+    return (this.props.assets.map(asset => (
+      <TableRowComponent
+        key={asset.id}
+        data={asset}
+        headings={['category',
             'sub_category',
             'asset_type',
             'make',
             'model_number',
             'asset_code']}
-        />
-      }));
-    }
+      />
+    )));
   }
 
   render() {
     return (
       <SideMenuComponent>
-        <Header className='landing-heading' content='All Assets' />
+        <Header className="landing-heading" content="All Assets" />
         <Table celled>
           <Table.Header>
             <Table.Row>
@@ -72,22 +71,32 @@ export class AssetsComponent extends Component {
 
           <Table.Footer>
             <Table.Row>
-              <Table.HeaderCell colSpan='6'>
+              <Table.HeaderCell colSpan="6">
                 {
                   (this.emptyAssetTypeCheck()) ? '' :
-                    <Pagination
-                      totalPages={this.handlePageTotal()}
-                      onPageChange={this.handlePaginationChange}
-                      activePage={this.state.activePage}
-                    />
+                  <Pagination
+                    totalPages={this.handlePageTotal()}
+                    onPageChange={this.handlePaginationChange}
+                    activePage={this.state.activePage}
+                  />
                 }
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
         </Table>
       </SideMenuComponent>
-    )
+    );
   }
+}
+
+AssetsComponent.propTypes = {
+  assetsCount: PropTypes.number.isRequired,
+  assets: PropTypes.arrayOf(PropTypes.object),
+  getAssetsAction: PropTypes.func.isRequired,
+};
+
+AssetsComponent.defaultProps = {
+  assets: [],
 };
 
 const mapStateToProps = ({ viewAssets }) => {
@@ -95,8 +104,8 @@ const mapStateToProps = ({ viewAssets }) => {
   return {
     assets,
     assetsCount,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, {
   getAssetsAction,
