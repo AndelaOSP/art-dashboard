@@ -10,48 +10,46 @@ import FeedbackComponent from '../components/FeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
 
 class RoutesComponent extends React.Component {
-  checkAuthentication = () => {
-    return !!(localStorage.getItem('token'));
-  }
-  render () {
+  checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'))
+  render() {
     return (
       <div>
         <Switch>
           <AuthenticateComponent
             isAuthenticated={this.checkAuthentication()}
-            path='/dashboard'
+            path="/dashboard"
             component={DashboardComponent}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/asset_types'
+            path="/asset_types"
             component={AssetTypesComponent}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/assets'
+            path="/assets"
             component={AssetsComponent}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/feedback'
+            path="/feedback"
             component={FeedbackComponent}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/assets/add'
+            path="/assets/add"
             component={AddAssetContainer}
           />
-          <Route exact path='/' component={LoginComponent} />
-          <Route path='*' component={LoginComponent} />
+          <Route exact path="/" component={LoginComponent} />
+          <Route path="*" component={LoginComponent} />
         </Switch>
       </div>
     );
   }
-};
+}
 
 export default (RoutesComponent);
