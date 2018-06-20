@@ -17,7 +17,7 @@ const {
  * @return dispatch
  */
 export const loadModelNumbers = () => (dispatch =>
-  axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers').then((response) => {
+  axios.get('model_numbers').then((response) => {
     dispatch(loadModelNumbersSuccess(response.data));
   })
 );
@@ -39,7 +39,7 @@ export const loadModelNumbersSuccess = modelNumbers => (
  *
 */
 export const createModelNumbers = newModel => dispatch =>
-  axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/modelnumbers', newModel).then((response) => {
+  axios.post('model_numbers', newModel).then((response) => {
     dispatch(createModelNumberSuccess(response.data));
     dispatch(updateToastMessageContent('Model Number Saved Successfully',
       'success'));
