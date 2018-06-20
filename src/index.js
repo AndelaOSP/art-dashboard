@@ -6,7 +6,8 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-
+const AUTH_TOKEN = localStorage.getItem('art-prod-web-token');
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.headers.common['Authorization'] = `Token ${AUTH_TOKEN}`;
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

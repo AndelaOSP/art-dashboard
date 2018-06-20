@@ -1,25 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthenticateComponent from './AuthenticateComponent';
 import AssetTypesComponent from '../components/AssetTypesComponent';
-import AssetsComponent from '../components/AssetsComponent';
+import Assets from '../components/AssetsComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
 import FeedbackComponent from '../components/FeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
 
-class RoutesComponent extends React.Component {
-  checkAuthentication = () => {
-    return !!(localStorage.getItem('token'));
-  }
-  render () {
+class RoutesComponent extends Component {
+  checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'))
+  render() {
     return (
       <div>
         <Switch>
           <AuthenticateComponent
             isAuthenticated={this.checkAuthentication()}
-            path='/dashboard'
+            path="/dashboard"
             component={DashboardComponent}
           />
           <AuthenticateComponent
@@ -31,8 +29,8 @@ class RoutesComponent extends React.Component {
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/assets'
-            component={AssetsComponent}
+            path="/assets"
+            component={Assets}
           />
           <AuthenticateComponent
             exact
@@ -43,15 +41,15 @@ class RoutesComponent extends React.Component {
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/assets/add'
+            path="/assets/add"
             component={AddAssetContainer}
           />
-          <Route exact path='/' component={LoginComponent} />
-          <Route path='*' component={LoginComponent} />
+          <Route exact path="/" component={LoginComponent} />
+          <Route path="*" component={LoginComponent} />
         </Switch>
       </div>
     );
   }
-};
+}
 
 export default (RoutesComponent);
