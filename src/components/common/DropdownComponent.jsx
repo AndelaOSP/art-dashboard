@@ -18,9 +18,16 @@ const DropdownComponent = props => (
 
 DropdownComponent.propTypes = {
   label: PropTypes.string,
-  options: PropTypes.array,
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func
+  options: PropTypes.array.isRequired,
+  placeHolder: PropTypes.string,
+  onChange: PropTypes.func,
+  name: PropTypes.string.isRequired
+};
+
+DropdownComponent.defaultProps = {
+  label: '',
+  placeHolder: '',
+  onChange: () => {},
 };
 
 export default DropdownComponent;
