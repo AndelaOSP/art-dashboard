@@ -36,8 +36,7 @@ export const loadModelNumbersSuccess = modelNumbers => (
 /**
  * create new asset model number thunk
  * @param {object} newModel details of new model to be created
- *
-*/
+ */
 export const createModelNumbers = newModel => dispatch =>
   axios.post('asset-models/', newModel).then((response) => {
     dispatch(createModelNumberSuccess(response.data));
@@ -66,4 +65,3 @@ export const updateToastMessageContent = (message, type) => (
     }
   }
 );
-

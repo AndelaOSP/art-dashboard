@@ -16,16 +16,12 @@ class ModelNumberContainer extends React.Component {
     this.state = {
       modelNumber: '',
       assetMake: '',
-      saveButtonState: false,
-      toastMessageContent: {
-        type: '',
-        message: ''
-      }
+      saveButtonState: false
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.toastMessageContent.type !== prevState.toastMessageContent.type) {
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.toastMessageContent.type) {
       if (nextProps.toastMessageContent.type === 'success') {
         ToastMessage.success({
           message: nextProps.toastMessageContent.message
@@ -40,10 +36,6 @@ class ModelNumberContainer extends React.Component {
       return {
         modelNumber: '',
         assetMake: '',
-        toastMessageContent: {
-          type: '',
-          message: ''
-        },
         saveButtonState: false
       };
     }
@@ -87,7 +79,6 @@ class ModelNumberContainer extends React.Component {
         onChangeButtonState={this.onChangeButtonState}
         buttonState={this.state.saveButtonState}
         toggleModal={this.props.toggleModal}
-
       />
     );
   }

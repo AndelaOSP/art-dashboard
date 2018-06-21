@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthenticateComponent from './AuthenticateComponent';
-import AssetTypesComponent from '../components/AssetTypesComponent';
+import AssetTypes from '../components/AssetTypesComponent';
 import Assets from '../components/AssetsComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
-import FeedbackComponent from '../components/FeedbackComponent';
+import Feedback from '../components/FeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
 
 class RoutesComponent extends Component {
@@ -23,8 +23,8 @@ class RoutesComponent extends Component {
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/asset_types'
-            component={AssetTypesComponent}
+            path="/asset_types"
+            component={AssetTypes}
           />
           <AuthenticateComponent
             exact
@@ -35,8 +35,8 @@ class RoutesComponent extends Component {
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path='/feedback'
-            component={FeedbackComponent}
+            path="/feedback"
+            component={Feedback}
           />
           <AuthenticateComponent
             exact

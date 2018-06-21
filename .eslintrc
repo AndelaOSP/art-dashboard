@@ -86,6 +86,7 @@
       }
     ],
     "linebreak-style": 0,
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    "react/sort-comp": 0
   }
 }
