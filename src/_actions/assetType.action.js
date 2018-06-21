@@ -5,7 +5,7 @@ const { LOAD_ASSET_TYPE_SUCCESS, LOAD_ASSET_TYPE_FAILURE } = constants;
 
 export const loadAssetTypeAction = (page, limit = 10) => {
   return (dispatch) => {
-    axios.get('asset-types/')
+    axios.get(`asset-types?_page=${page}&_limit=${limit}`)
     .then((response) => {
       return dispatch({
         type: LOAD_ASSET_TYPE_SUCCESS,

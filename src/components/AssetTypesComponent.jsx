@@ -31,15 +31,16 @@ export class AssetTypesComponent extends React.Component {
   }
 
   loadRoles = () => {
+    let assetTypes = null;
     if (this.emptyAssetTypeCheck()) {
-      return <Table.Row><Table.Cell colSpan="3">No Data found</Table.Cell></Table.Row>
+      assetTypes = <Table.Row><Table.Cell colSpan="3">No Data found</Table.Cell></Table.Row>;
     } else {
-      const assetTypes = this.props.assetTypes.map((assetType, index) => {
-        return <TableRowComponent
+      assetTypes = this.props.assetTypes.map((assetType, index) => {
+        return (<TableRowComponent
           key={index}
           data={assetType}
-          headings={['category', 'sub_category', 'asset_type']}
-        />
+          headings={['id', 'asset_sub_category', 'asset_type']}
+        />);
       });
       return assetTypes;
     }
@@ -49,11 +50,11 @@ export class AssetTypesComponent extends React.Component {
     return (
       <SideMenuComponent>
         <Container>
-          <Header className='landing-heading' content='Asset Types' />
+          <Header className="landing-heading" content="Asset Types" />
           <Table celled>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Category</Table.HeaderCell>
+                <Table.HeaderCell>Id</Table.HeaderCell>                
                 <Table.HeaderCell>Sub-category</Table.HeaderCell>
                 <Table.HeaderCell>Type</Table.HeaderCell>
               </Table.Row>
