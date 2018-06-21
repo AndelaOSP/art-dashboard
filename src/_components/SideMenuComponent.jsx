@@ -87,7 +87,11 @@ class SideMenuComponent extends Component {
 
 SideMenuComponent.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string
 };
+
+SideMenuComponent.defaultProps = {
+  title: '',
+}
 
 export default SideMenuComponent;
