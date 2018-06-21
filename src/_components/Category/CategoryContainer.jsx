@@ -8,15 +8,15 @@ class CategoryContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryName: ""
-    }
+      categoryName: ''
+    };
   }
 
-  handleSubmit = (event, data) => {
-    let newCategory = {
-      "category_name": this.state.categoryName
-    }
-    this.props.createCategory(newCategory)
+  handleSubmit = (event) => {
+    const newCategory = {
+      category_name: this.state.categoryName
+    };
+    this.props.createCategory(newCategory);
     event.target.reset();
   }
 
@@ -37,8 +37,9 @@ class CategoryContainer extends React.Component {
   }
 }
 CategoryContainer.propTypes = {
-  createCategory: PropTypes.func.isRequired
-}
+  createCategory: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired
+};
 const mapStateToProps = ({ categories }) => ({
   categories
 });
