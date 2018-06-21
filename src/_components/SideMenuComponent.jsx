@@ -52,7 +52,7 @@ class SideMenuComponent extends Component {
             <Menu.Item name="art" className="logo">
               <Image
                 centered
-                src="http://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png" // eslint-disable-line max-len
+                src="https://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png" // eslint-disable-line max-len
                 alt="Andela logo"
                 id="andela-logo"
               />
@@ -88,4 +88,3 @@ SideMenuComponent.propTypes = {
 };
 
 export default SideMenuComponent;
-

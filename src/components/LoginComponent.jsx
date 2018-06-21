@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Container, Header, Image } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import PropTypes from 'prop-types';
 
 import { signInWithEmail, firebase } from '../firebase';
 import { ToastMessage } from '../_utils/ToastMessage';
@@ -13,7 +14,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 class LoginComponent extends React.Component {
   // checks that the user used an Andela email
-  validateUser = result => {
+  validateUser = (result) => {
     if (validAndelaEmail(result.user.email)) {
       result.user.getIdToken().then((idToken) => {
         localStorage.setItem('art-prod-web-token', idToken);
@@ -40,7 +41,7 @@ class LoginComponent extends React.Component {
           <Container>
             <Image
               centered
-              src="http://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png"
+              src="https://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png"
               alt="Andela logo"
               id="andela-logo"
             />
@@ -58,7 +59,7 @@ class LoginComponent extends React.Component {
             >
               <Image
                 floated="left"
-                src="http://res.cloudinary.com/damc3mj5u/image/upload/v1526571608/google-logo_jjjjqs.svg"
+                src="https://res.cloudinary.com/damc3mj5u/image/upload/v1526571608/google-logo_jjjjqs.svg"
                 alt="Google logo"
                 id="google-logo"
               />
@@ -70,5 +71,13 @@ class LoginComponent extends React.Component {
     );
   }
 }
+
+LoginComponent.propTypes = {
+  history: PropTypes.object,
+};
+
+LoginComponent.defaultProps = {
+  history: {},
+};
 
 export default withRouter(LoginComponent);

@@ -4,7 +4,7 @@
 }
 
 .background {
-  background: url('http://res.cloudinary.com/damc3mj5u/image/upload/v1526571576/desktopImage_n8cdwx.jpg');
+  background: url('https://res.cloudinary.com/damc3mj5u/image/upload/v1526571576/desktopImage_n8cdwx.jpg');
   width: 100vw;
   min-height: 100vh;
   padding: 0;
@@ -20,7 +20,7 @@
 
 @media screen and (max-width: 480px) {
   .background {
-      background-image: url('http://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/mobileImage_svuovy.png');
+    background-image: url('https://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/mobileImage_svuovy.png');
   }
 }
 
@@ -39,14 +39,14 @@
   margin-bottom: 55px !important;
 }
 
-.landing-overlay:before{
+.landing-overlay::before {
   position: absolute;
-  content:" ";
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  content: " ";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: block;
-  z-index:0;
+  z-index: 0;
   background-color: rgba(0, 0, 225, 0.2);
 }
