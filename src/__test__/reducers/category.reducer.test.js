@@ -1,16 +1,8 @@
-// third-party library
 import expect from 'expect';
-// reducer
 import categoryReducer from '../../_reducers/category.reducer';
-
-// initial mock State
 import { mockStore } from '../../_mock/mockStore';
-
-// mock data
 import categories from '../../_mock/categories';
-
 import { loadCategoriesSuccess, createCategorySuccess } from '../../_actions/category.actions';
-
 
 describe('Category Reducer tests', () => {
   it('should handle LOAD_CATEGORIES_SUCCESS', () => {

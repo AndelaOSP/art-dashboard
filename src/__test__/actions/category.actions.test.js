@@ -1,19 +1,12 @@
-// third-party libraries
 import expect from 'expect';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-
-// constants
 import constants from '../../_constants';
-
-// actions
 import { loadCategories, createCategory } from '../../_actions/category.actions';
 
 const { LOAD_CATEGORIES_SUCCESS } = constants;
-
-// store
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
