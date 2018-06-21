@@ -4,7 +4,12 @@ import axios from 'axios';
 // constants
 import constants from '../_constants';
 
-const { LOAD_CATEGORIES_SUCCESS, CREATE_CATEGORY_SUCCESS, CREATE_CATEGORY_FAILURE } = constants;
+const {
+  LOAD_CATEGORIES_SUCCESS,
+  LOAD_CATEGORY_FAILURE,
+  CREATE_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_FAILURE
+} = constants;
 
 /**
  * load Categories thunk
@@ -13,9 +18,10 @@ const { LOAD_CATEGORIES_SUCCESS, CREATE_CATEGORY_SUCCESS, CREATE_CATEGORY_FAILUR
  */
 export const loadCategories = () => (dispatch => axios.get('categories').then((response) => {
   dispatch(loadCategoriesSuccess(response.data));
-}).catch((error) => {
-  console.log(error);
-}));
+}).catch(error => dispatch({
+  type: LOAD_CATEGORY_FAILURE,
+  payload: error,
+})));
 
 /**
  * load Categories Success action creator

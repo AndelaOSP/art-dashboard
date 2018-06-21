@@ -8,12 +8,16 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
+import CategoryContainer from '../_components/Category/CategoryContainer';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
-  state = {
-    activePage: 1,
-    limit: 10,
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePage: 1,
+      limit: 10,
+    };
   }
 
   componentDidMount() {
@@ -45,6 +49,10 @@ export class AssetsComponent extends Component {
     />)));
   }
 
+  addAssetModel = () => (<ModelNumberContainer />)
+
+  addcategory = () => (<CategoryContainer />)
+
   render() {
     return (
       <SideMenuComponent>
@@ -55,7 +63,9 @@ export class AssetsComponent extends Component {
               <Table.HeaderCell>
                 <div className="header">
                   Category
-                  <ModalComponent />
+                  <ModalComponent modalTitle="Add Asset Category">
+                    {this.addcategory()}
+                  </ModalComponent>
                 </div>
               </Table.HeaderCell>
               <Table.HeaderCell>

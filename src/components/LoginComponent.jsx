@@ -13,7 +13,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 class LoginComponent extends React.Component {
   // checks that the user used an Andela email
-  validateUser = result => {
+  validateUser = (result) => {
     if (validAndelaEmail(result.user.email)) {
       result.user.getIdToken().then((idToken) => {
         localStorage.setItem('art-prod-web-token', idToken);
