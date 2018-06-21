@@ -11,15 +11,11 @@ const { LOAD_CATEGORIES_SUCCESS, CREATE_CATEGORY_SUCCESS, CREATE_CATEGORY_FAILUR
  *
  * @return dispatch type and payload
  */
-export const loadCategories = () => {
-  return ((dispatch) => {
-    return axios.get('categories').then((response) => {
-      dispatch(loadCategoriesSuccess(response.data));
-    }).catch((error) => {
-      console.log(error);
-    });
-  });
-}
+export const loadCategories = () => (dispatch => axios.get('categories').then((response) => {
+  dispatch(loadCategoriesSuccess(response.data));
+}).catch((error) => {
+  console.log(error);
+}));
 
 /**
  * load Categories Success action creator
@@ -28,28 +24,15 @@ export const loadCategories = () => {
  *
  * @return {object} type and payload
  */
-export const loadCategoriesSuccess = (categories) => {
-  return { type: LOAD_CATEGORIES_SUCCESS, payload: categories };
-}
+export const loadCategoriesSuccess = categories =>
+  ({ type: LOAD_CATEGORIES_SUCCESS, payload: categories });
 
-export const createCategory = (newCategory) => {
-  return (dispatch) => {
-    return axios.post('categories', newCategory)
-    .then((response) => {
-      return dispatch({
-        type: CREATE_CATEGORY_SUCCESS,
-        payload: response
-      });
-    })
-    .catch((error) => {
-      return dispatch({ type: CREATE_CATEGORY_FAILURE, payload: error });
-    });
-  }
-};
+export const createCategory = newCategory => dispatch => axios.post('categories', newCategory)
+  .then(response => dispatch(dispatch(createCategorySuccess(response.data))))
+  .catch(error => dispatch(createCategoryFailure(error)));
 
-// export const createCategorySuccess = (category) => {
-//   return { type: CREATE_CATEGORY_SUCCESS, payload: category};
-// }
-// export const createCategoryFailure = (error) => {
-//   return { type: CREATE_CATEGORY_FAILURE, payload: error };
-// }
+export const createCategorySuccess = category =>
+  ({ type: CREATE_CATEGORY_SUCCESS, payload: category });
+
+export const createCategoryFailure = error =>
+  ({ type: CREATE_CATEGORY_FAILURE, payload: error });
