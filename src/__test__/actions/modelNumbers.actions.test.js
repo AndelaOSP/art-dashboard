@@ -7,11 +7,6 @@ import thunk from 'redux-thunk';
 
 // constants
 import constants from '../../_constants';
-const {
-  LOAD_ASSET_MODEL_NUMBERS,
-  CREATE_MODEL_NUMBER_SUCCESS,
-  CREATE_MODEL_NUMBER_FAILURE
-} = constants;
 
 // actions
 import {
@@ -19,24 +14,30 @@ import {
   createModelNumbers
 } from '../../_actions/modelNumbers.actions';
 
+const {
+  LOAD_ASSET_MODEL_NUMBERS,
+  CREATE_MODEL_NUMBER_SUCCESS,
+  CREATE_MODEL_NUMBER_FAILURE
+} = constants;
+
 // store
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
 
 describe('Model Numbers action tests', () => {
-  let mock = new MockAdapter(axios);
-  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers';
+  const mock = new MockAdapter(axios);
+  const url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers';
   store = mockStore({});
-  let expectedActions = [
+  const expectedActions = [
     { type: LOAD_ASSET_MODEL_NUMBERS },
     { type: CREATE_MODEL_NUMBER_SUCCESS },
     { type: CREATE_MODEL_NUMBER_FAILURE }
   ];
-  let newModel = {
-    make_label: "Sollatex",
-    model_number: "Sollatex GT89"
-  }
+  const newModel = {
+    make_label: 'Sollatex',
+    model_number: 'Sollatex GT89'
+  };
 
   afterEach(() => {
     store = mockStore({});
@@ -48,25 +49,24 @@ describe('Model Numbers action tests', () => {
     mock.onGet(url).reply(200,
       [
         {
-          "id": 6,
-          "model_number": "Mircosoft LX-Lifechat-7000",
-          "make_label": "Mircosoft"
+          id: 6,
+          model_number: 'Mircosoft LX-Lifechat-7000',
+          make_label: 'Mircosoft'
         }
       ]
     );
     return store.dispatch(loadModelNumbers()).then(() => {
       expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
     });
-
   });
 
   it('should dispatch CREATE_MODEL_NUMBER_SUCCESS when createModelNumbers called successfully', () => {
     mock.onPost(url, newModel).reply(201,
       [
         {
-          "id": 7,
-          "model_number": "Sollatex GT89",
-          "make_label": "Sollatex"
+          id: 7,
+          model_number: 'Sollatex GT89',
+          make_label: 'Sollatex'
         }
       ]
     );
@@ -74,4 +74,4 @@ describe('Model Numbers action tests', () => {
       expect(store.getActions()[0].type).toEqual(expectedActions[1].type);
     });
   });
-})
+});

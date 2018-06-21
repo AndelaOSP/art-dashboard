@@ -1,28 +1,31 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 import ArtButton from '../common/ButtonComponent';
 import InputFluid from '../common/TextInputComponent';
 
 import '../../_css/AddAssetComponent.css';
 
-class AddCategoryComponent extends React.Component {
-  render() {
-    return (
-      <div>
-        <Form onSubmit={this.props.handleSubmit}>
-          <label className='label-style'>Category Name</label>
-          <InputFluid
-            name="category-name"
-            onChange={this.props.onaddCategoryName}
-            placeholder="Enter Category Name"
-          />
-          <br></br>
-          <ArtButton buttonName="Save" color="primary" />
-          <ArtButton buttonName="Cancel" onClick={this.props.toggleModal} />
-        </Form>
-      </div>
-    );
-  }
-}
-export default AddCategoryComponent;
+const AddCategoryComponent = props => (
+  <div>
+    <Form onSubmit={props.handleSubmit}>
+      <label className="label-style">Category Name</label>
+      <InputFluid
+        name="category-name"
+        onChange={props.onaddCategoryName}
+        placeholder="Enter Category Name"
+      />
+      <br />
+      <ArtButton buttonName="Save" color="primary" />
+      <ArtButton buttonName="Cancel" onClick={props.toggleModal} />
+    </Form>
+  </div>
+);
 
+AddCategoryComponent.propTypes = {
+  handleSubmit: PropTypes.func,
+  onaddCategoryName: PropTypes.func,
+  toggleModal: PropTypes.func,
+};
+
+export default AddCategoryComponent;

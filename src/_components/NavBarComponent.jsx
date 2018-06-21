@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
 import { withRouter } from 'react-router-dom';
 import { Dropdown, Menu, Icon } from 'semantic-ui-react';

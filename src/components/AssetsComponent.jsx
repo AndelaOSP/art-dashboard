@@ -115,10 +115,10 @@ export class AssetsComponent extends Component {
                 {
                   (this.emptyAssetTypeCheck()) ? '' :
                   <Pagination
-                      totalPages={this.handlePageTotal()}
-                      onPageChange={this.handlePaginationChange}
-                      activePage={this.state.activePage}
-                    />
+                    totalPages={this.handlePageTotal()}
+                    onPageChange={this.handlePaginationChange}
+                    activePage={this.state.activePage}
+                  />
                 }
               </Table.HeaderCell>
             </Table.Row>

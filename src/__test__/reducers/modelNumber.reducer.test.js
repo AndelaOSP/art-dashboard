@@ -15,30 +15,27 @@ import {
 } from '../../_actions/modelNumbers.actions';
 
 describe('Model Number Reducer tests', () => {
-
-  let modelNumbers = Array(3).fill({}).map((value, index) => {
-    return {
-      "id": index,
-      "model_number": faker.random.word(),
-      "make_label": faker.random.word()
-    }
-  });
+  const modelNumbers = Array(3).fill({}).map((value, index) => ({
+    id: index,
+    model_number: faker.random.word(),
+    make_label: faker.random.word()
+  }));
 
   it('should handle LOAD_ASSET_MODEL_NUMBERS', () => {
-    let action = loadModelNumbersSuccess(modelNumbers);
+    const action = loadModelNumbersSuccess(modelNumbers);
     expect(mockStore.modelNumbers.length).toEqual(0);
     expect(modelNumberReducer(mockStore.modelNumbers, action)).toEqual(modelNumbers);
   });
 
   it('should handle CREATE_MODEL_NUMBER_SUCCESS', () => {
-    let action = createModelNumberSuccess(modelNumbers[0]);
+    const action = createModelNumberSuccess(modelNumbers[0]);
     expect(mockStore.modelNumbers.length).toEqual(0);
     expect(modelNumberReducer(mockStore.modelNumbers, action).length)
       .toEqual(1);
   });
 
   it('should handle CREATE_MODEL_NUMBER_FAILURE', () => {
-    let action = createModelNumberFailure("Invalid");
+    const action = createModelNumberFailure('Invalid');
     expect(mockStore.modelNumbers.length).toEqual(0);
     expect(modelNumberReducer(mockStore.modelNumbers, action).length)
       .toEqual(0);
