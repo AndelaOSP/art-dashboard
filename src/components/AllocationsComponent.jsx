@@ -8,19 +8,49 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import TableRowComponent from './TableRowComponent';
 
 export class AllocationsComponent extends Component {
+  state = {
+    currentAllocations: [],
+    offset: 0,
+    activePage: 1,
+    limit: 10,
+  }
+
   componentDidMount() {
     this.props.loadAllocationsAction();
   }
 
-  emptyAllocationsCheck = () => {
+  componentDidUpdate(prevProps) {
+    if (this.props.allAllocations.length !== prevProps.allAllocations.length) {
+      this.setTableComponent();
+    }
+  }
+
+  getTotalPages = () => {
+    return Math.ceil(this.props.allAllocations.length / this.state.limit);
+  }
+
+  setTableComponent = () => {
+    this.setState({
+      currentAllocations: this.props.allAllocations.slice(this.state.offset, (this.state.activePage * this.state.limit))
+    })
+  }
+
+  handlePaginationChange = (event, { activePage }) => {
+    this.setState({
+      activePage,
+      offset: (activePage - 1) * this.state.limit,
+    }, () => this.setTableComponent())
+  }
+
+  isEmptyAllocations = () => {
     return this.props.allAllocations.length === 0;
   }
 
   loadAllocations = () => {
-    if (this.emptyAllocationsCheck()) {
+    if (this.isEmptyAllocations()) {
       return <Table.Row><Table.Cell colSpan="3">No Data found</Table.Cell></Table.Row>
     }
-    return this.props.allAllocations.map((allocation, index) => {
+    return this.state.currentAllocations.map((allocation, index) => {
       return <TableRowComponent
         key={index}
         data={allocation}
@@ -49,6 +79,21 @@ export class AllocationsComponent extends Component {
                 this.loadAllocations()
               }
             </Table.Body>
+
+            <Table.Footer>
+              <Table.Row>
+                <Table.HeaderCell colSpan='4'>
+                  {
+                    (this.isEmptyAllocations()) ? '' :
+                      <Pagination
+                        totalPages={this.getTotalPages()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                  }
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Footer>
           </Table>
         </Container>
       </SideMenuComponent>
