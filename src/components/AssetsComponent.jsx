@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Table, Pagination } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
 import TableRowComponent from './TableRowComponent';
+import ModalComponent from './common/ModalComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
-
 import { getAssetsAction } from '../_actions/assets.action';
+import { createModelNumbers } from '../_actions/modelNumbers.actions';
+import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
+import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
   state = {
     activePage: 1,
     limit: 10,
   }
+
   componentDidMount() {
     this.props.getAssetsAction();
   }
@@ -27,24 +31,18 @@ export class AssetsComponent extends Component {
 
   loadTableContent = () => {
     if (this.emptyAssetTypeCheck()) {
-      return (
-        <Table.Row>
-          <Table.Cell colSpan="6">No Data found</Table.Cell>
-        </Table.Row>
-      );
+      return <Table.Row><Table.Cell colSpan="6">No Data found</Table.Cell></Table.Row>;
     }
-    return (this.props.assets.map(asset => (
-      <TableRowComponent
-        key={asset.id}
-        data={asset}
-        headings={['category',
+    return (this.props.assets.map(asset => (<TableRowComponent
+      key={asset.id}
+      data={asset}
+      headings={['category',
             'sub_category',
             'asset_type',
             'make',
             'model_number',
             'asset_code']}
-      />
-    )));
+    />)));
   }
 
   render() {
@@ -54,12 +52,44 @@ export class AssetsComponent extends Component {
         <Table celled>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Category</Table.HeaderCell>
-              <Table.HeaderCell>Sub-category</Table.HeaderCell>
-              <Table.HeaderCell>Type</Table.HeaderCell>
-              <Table.HeaderCell>Make</Table.HeaderCell>
-              <Table.HeaderCell>Model</Table.HeaderCell>
-              <Table.HeaderCell>Item</Table.HeaderCell>
+              <Table.HeaderCell>
+                <div className="header">
+                  Category
+                  <ModalComponent />
+                </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <div className="header">
+                  Sub-category
+                  <ModalComponent />
+                </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell >
+                <div className="header">
+                  Type
+                  <ModalComponent />
+                </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <div className="header">
+                  Make
+                  <ModalComponent />
+                </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell >
+                <div className="header">
+                Model
+                  <ModalComponent modalTitle="Add Asset Model Number">
+                    <ModelNumberContainer />
+                  </ModalComponent>
+                </div>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <div className="header">
+                  Item
+                  <ModalComponent />
+                </div>
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
@@ -90,13 +120,15 @@ export class AssetsComponent extends Component {
 }
 
 AssetsComponent.propTypes = {
-  assetsCount: PropTypes.number.isRequired,
-  assets: PropTypes.arrayOf(PropTypes.object),
-  getAssetsAction: PropTypes.func.isRequired,
+  assets: PropTypes.array,
+  assetsCount: PropTypes.number,
+  getAssetsAction: PropTypes.func
 };
 
 AssetsComponent.defaultProps = {
   assets: [],
+  assetsCount: 0,
+  getAssetsAction: () => {}
 };
 
 const mapStateToProps = ({ viewAssets }) => {
@@ -109,4 +141,5 @@ const mapStateToProps = ({ viewAssets }) => {
 
 export default connect(mapStateToProps, {
   getAssetsAction,
+  createModelNumbers,
 })(AssetsComponent);

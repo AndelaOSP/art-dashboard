@@ -9,15 +9,10 @@ const { LOAD_ASSET_MAKES_SUCCESS } = constants;
  *
  * @return dispatch loadAssetMakesSuccess type and payload
  */
-export const loadAssetMakes = () => {
-  return ((dispatch) => {
-    return axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/makes').then((response) => {
-      dispatch(loadAssetMakesSuccess(response.data));
-    }).catch((error) => {
-      console.log(error);
-    });
-  });
-}
+export const loadAssetMakes = () => (dispatch =>
+  axios.get('asset-makes/').then((response) => {
+    dispatch(loadAssetMakesSuccess(response.data));
+  }));
 
 /**
  * loadAssetMakesSuccess action creator
@@ -26,6 +21,6 @@ export const loadAssetMakes = () => {
  *
  * @return {object} type and payload
  */
-export const loadAssetMakesSuccess = (assetMakes) => {
-  return { type: LOAD_ASSET_MAKES_SUCCESS, payload: assetMakes };
-}
+export const loadAssetMakesSuccess = assetMakes => (
+  { type: LOAD_ASSET_MAKES_SUCCESS, payload: assetMakes }
+);
