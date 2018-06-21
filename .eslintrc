@@ -70,7 +70,8 @@
     "no-prototype-builtins": "off",
     "no-underscore-dangle": "off",
     "no-use-before-define": "off",
-    "react/jsx-indent": "off",
+    "object-curly-newline": "off",
+    "react/jsx-indent": [2, 2],
     "import/extensions": 0,
     "function-paren-newline": "off",
     "jsx-a11y/anchor-is-valid": [
@@ -83,6 +84,9 @@
           "to"
         ]
       }
-    ]
+    ],
+    "linebreak-style": 0,
+    "react/require-default-props": 0,
+    "react/sort-comp": 0
   }
 }

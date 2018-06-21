@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthenticateComponent from './AuthenticateComponent';
-import AssetTypesComponent from '../components/AssetTypesComponent';
-import AssetsComponent from '../components/AssetsComponent';
+import AssetTypes from '../components/AssetTypesComponent';
+import Assets from '../components/AssetsComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
-import FeedbackComponent from '../components/FeedbackComponent';
+import Feedback from '../components/FeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
 
-class RoutesComponent extends React.Component {
+class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'))
   render() {
     return (
@@ -24,19 +24,19 @@ class RoutesComponent extends React.Component {
             exact
             isAuthenticated={this.checkAuthentication()}
             path="/asset_types"
-            component={AssetTypesComponent}
+            component={AssetTypes}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
             path="/assets"
-            component={AssetsComponent}
+            component={Assets}
           />
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
             path="/feedback"
-            component={FeedbackComponent}
+            component={Feedback}
           />
           <AuthenticateComponent
             exact

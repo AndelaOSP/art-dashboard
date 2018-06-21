@@ -24,15 +24,16 @@ export default class ArtModal extends Component {
               onClick={this.toggleModal}
               onKeyUp={() => {}}
               role="button"
+              tabIndex="-1"
             />
           }
           open={this.state.modalOpen}
           onClose={this.toggleModal}
           size="small"
           closeIcon
-          style={{ marginLeft: "-270px", width: "35%" }}
+          style={{ marginLeft: '-270px', width: '35%' }}
         >
-        <Modal.Header>{this.props.modalTitle}</Modal.Header>
+          <Modal.Header>{this.props.modalTitle}</Modal.Header>
           <Modal.Content>
             <Modal.Description>
               {childrenWithProps}
@@ -45,11 +46,11 @@ export default class ArtModal extends Component {
   }
 }
 ArtModal.propTypes = {
-  children: PropTypes.node.isRequired,
-  modalTitle: PropTypes.string.isRequired
+  children: PropTypes.node,
+  modalTitle: PropTypes.string
 };
 
 ArtModal.defaultProps = {
   children: <br />,
-  modalTitle: ""
-}
+  modalTitle: ''
+};

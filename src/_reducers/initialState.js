@@ -4,5 +4,9 @@ export default {
   assetTypes: [],
   assetMakes: [],
   modelNumbers: [],
-  assets: []
-}
+  assets: [],
+  toastMessage: {
+    message: '',
+    type: ''
+  }
+};

@@ -14,7 +14,7 @@ export default (state = initialState.modelNumbers, action) => {
     case CREATE_MODEL_NUMBER_SUCCESS:
       return [...state, action.payload];
     case CREATE_MODEL_NUMBER_FAILURE:
-     return state;
+      return state;
     default:
       return state;
   }
