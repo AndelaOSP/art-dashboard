@@ -9,6 +9,7 @@ import modelNumber from './modelNumber.reducer';
 import assetsReducer from './assets.reducer';
 import feedbackReducer from './feedback.reducer';
 import toastMessage from './toastMessage.reducer';
+import allocationsReducer from './allocations.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   modelNumbersList: modelNumber,
   assets: assetsReducer,
   feedbackReducer,
-  toastMessage
+  toastMessage,
+  allocationsList: allocationsReducer,
 });
 
 export default rootReducer;

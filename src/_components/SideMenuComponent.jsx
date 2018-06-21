@@ -72,6 +72,9 @@ class SideMenuComponent extends Component {
             <Menu.Item name="feedback">
               <span><Icon name="address card" />Feedback</span>
             </Menu.Item>
+            <Menu.Item name="allocations">
+              <Link to="/allocations"><Icon name="table" />Allocations</Link>
+            </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
             {this.props.children}
