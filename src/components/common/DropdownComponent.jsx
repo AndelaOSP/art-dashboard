@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const DropdownComponent = props => (
   <Dropdown
-    style={{ width: '65%' }}
+    style={{ width: '100%' }}
     fluid
     search
     selection
@@ -27,7 +27,13 @@ DropdownComponent.propTypes = {
 DropdownComponent.defaultProps = {
   label: '',
   placeHolder: '',
-  onChange: () => {},
+  onChange: () => { },
 };
+
+DropdownComponent.defaultProps = {
+  label: '',
+  placeholder: '',
+  onChange: () => { }
+}
 
 export default DropdownComponent;

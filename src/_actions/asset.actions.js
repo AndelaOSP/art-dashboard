@@ -16,15 +16,11 @@ const { CREATE_ASSET_SUCCESS, CREATE_ASSET_FAIL } = constants;
  *
  * @return {object} createAssetSuccess type and payload
  */
-export const createAsset = (assetDetail) => {
-  return ((dispatch) => {
-    return axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories', assetDetail).then((response) => {
-      dispatch(createAssetSuccess(mockAsset));
-    }).catch((error) => {
-      dispatch(createAssetFail());
-    });
-  });
-};
+export const createAsset = assetDetail => (dispatch => axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories', assetDetail).then((response) => {
+  dispatch(createAssetSuccess(mockAsset, response));
+}).catch((error) => {
+  dispatch({ type: CREATE_ASSET_FAIL, payload: error });
+}));
 
 /**
  * createAssetSuccess - create new asset success action creator
@@ -33,15 +29,10 @@ export const createAsset = (assetDetail) => {
  *
  * @return {object} type and payload
  */
-export const createAssetSuccess = (asset) => {
-  return { type: CREATE_ASSET_SUCCESS, payload: asset };
-};
+export const createAssetSuccess = asset => ({ type: CREATE_ASSET_SUCCESS, payload: asset });
 
 /**
  * createAssetFail - create new asset fail action creator
  *
  * @return {type} type and payload
  */
-export const createAssetFail = () => {
-  return { type: CREATE_ASSET_FAIL };
-};
