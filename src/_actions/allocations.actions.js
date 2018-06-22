@@ -1,10 +1,15 @@
 import constants from '../_constants';
 import axios from 'axios';
 
-const { LOAD_ALLOCATIONS_SUCCESS, LOAD_ALLOCATIONS_FAILURE } = constants;
+const {
+  LOAD_ALLOCATIONS_SUCCESS,
+  LOAD_ALLOCATIONS_FAILURE,
+  LOADING_ALLOCATIONS,
+} = constants;
 
 export const loadAllocationsAction = () => {
   return (dispatch) => {
+    dispatch({ type: LOADING_ALLOCATIONS });
     axios.get('allocations/', {
       headers: {
         'Authorization': `Token ${localStorage.getItem('art-prod-web-token')}`,

@@ -6,6 +6,7 @@ import { Header, Table, Pagination, Container } from 'semantic-ui-react';
 import { loadAllocationsAction } from '../_actions/allocations.actions';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import TableRowComponent from './TableRowComponent';
+import LoaderComponent from './LoaderComponent';
 
 export class AllocationsComponent extends Component {
   state = {
@@ -58,54 +59,66 @@ export class AllocationsComponent extends Component {
     });
   }
 
+  showTable = () => {
+    if (this.props.isLoading) {
+      return <LoaderComponent size='large' dimmerStyle={{ height: '100vh' }} />
+    }
+    return (
+      <Container>
+        <Header content='All Allocations' />
+        <Table celled>
+          <Table.Header>
+            {/* @TODO make the header cells more flexible depending on response from API */}
+            <Table.Row>
+              <Table.HeaderCell>Asset</Table.HeaderCell>
+              <Table.HeaderCell>Current Owner</Table.HeaderCell>
+              <Table.HeaderCell>Previous Owner</Table.HeaderCell>
+              <Table.HeaderCell>Created At</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {
+              this.loadAllocations()
+            }
+          </Table.Body>
+
+          <Table.Footer>
+            <Table.Row>
+              <Table.HeaderCell colSpan='4'>
+                {
+                  (this.isEmptyAllocations()) ? '' :
+                    <Pagination
+                      totalPages={this.getTotalPages()}
+                      onPageChange={this.handlePaginationChange}
+                      activePage={this.state.activePage}
+                    />
+                }
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Footer>
+        </Table>
+      </Container>
+    );
+  }
+
   render() {
     return (
       <SideMenuComponent>
-        <Container>
-          <Header content='All Allocations' />
-          <Table celled>
-            <Table.Header>
-              {/* @TODO make the header cells more flexible depending on response from API */}
-              <Table.Row>
-                <Table.HeaderCell>Asset</Table.HeaderCell>
-                <Table.HeaderCell>Current Owner</Table.HeaderCell>
-                <Table.HeaderCell>Previous Owner</Table.HeaderCell>
-                <Table.HeaderCell>Created At</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              {
-                this.loadAllocations()
-              }
-            </Table.Body>
-
-            <Table.Footer>
-              <Table.Row>
-                <Table.HeaderCell colSpan='4'>
-                  {
-                    (this.isEmptyAllocations()) ? '' :
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                  }
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Footer>
-          </Table>
-        </Container>
+        {
+          this.showTable()
+        }
       </SideMenuComponent>
     )
   }
 }
 
 const mapStateToProps = ({ allocationsList }) => {
-  const { allAllocations } = allocationsList;
+  const { allAllocations, isLoading } = allocationsList;
 
   return {
     allAllocations,
+    isLoading,
   }
 }
 
