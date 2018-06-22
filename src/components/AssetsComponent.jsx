@@ -8,12 +8,16 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
+import CategoryContainer from '../_components/Category/CategoryContainer';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
-  state = {
-    activePage: 1,
-    limit: 10,
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePage: 1,
+      limit: 10,
+    };
   }
 
   componentDidMount() {
@@ -37,13 +41,17 @@ export class AssetsComponent extends Component {
       key={asset.id}
       data={asset}
       headings={['category',
-            'sub_category',
-            'asset_type',
-            'make',
-            'model_number',
-            'asset_code']}
+        'sub_category',
+        'asset_type',
+        'make',
+        'model_number',
+        'asset_code']}
     />)));
   }
+
+  addAssetModel = () => (<ModelNumberContainer />)
+
+  addcategory = () => (<CategoryContainer />)
 
   render() {
     return (
@@ -55,7 +63,9 @@ export class AssetsComponent extends Component {
               <Table.HeaderCell>
                 <div className="header">
                   Category
-                  <ModalComponent />
+                  <ModalComponent modalTitle="Add Asset Category">
+                    {this.addcategory()}
+                  </ModalComponent>
                 </div>
               </Table.HeaderCell>
               <Table.HeaderCell>
@@ -78,7 +88,7 @@ export class AssetsComponent extends Component {
               </Table.HeaderCell>
               <Table.HeaderCell >
                 <div className="header">
-                Model
+                  Model
                   <ModalComponent modalTitle="Add Asset Model Number">
                     <ModelNumberContainer />
                   </ModalComponent>
@@ -128,7 +138,7 @@ AssetsComponent.propTypes = {
 AssetsComponent.defaultProps = {
   assets: [],
   assetsCount: 0,
-  getAssetsAction: () => {}
+  getAssetsAction: () => { }
 };
 
 const mapStateToProps = ({ viewAssets }) => {
