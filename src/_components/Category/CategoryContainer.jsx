@@ -3,14 +3,41 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CategoryComponent from '../../components/Category/AddCategoryComponent';
 import { createCategory } from '../../_actions/category.actions';
+import { ToastMessage } from '../../_utils/ToastMessage';
+import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
+
 
 class CategoryContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryName: ''
+      categoryName: '',
+      saveButtonState: false
     };
   }
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.toastMessageContent.type) {
+      if (nextProps.toastMessageContent.type === 'success') {
+        ToastMessage.success({
+          message: nextProps.toastMessageContent.message
+        });
+      } else if (nextProps.toastMessageContent.type === 'error') {
+        ToastMessage.error({
+          message: nextProps.toastMessageContent.message
+        });
+      }
+      nextProps.resetToastMessageContent();
+      nextProps.toggleModal();
+      return {
+        categoryName: '',
+        saveButtonState: false
+      };
+    }
+    return null;
+  }
+  onChangeButtonState = () => {
+    this.setState({ saveButtonState: !this.state.saveButtonState });
+  };
 
   handleSubmit = (event) => {
     const newCategory = {
@@ -31,6 +58,8 @@ class CategoryContainer extends React.Component {
         onaddCategoryName={this.onAddCategory}
         categoryName={this.state.categoryName}
         handleSubmit={this.handleSubmit}
+        onChangeButtonState={this.onChangeButtonState}
+        buttonState={this.state.saveButtonState}
         toggleModal={this.props.toggleModal}
       />
     );
@@ -38,11 +67,21 @@ class CategoryContainer extends React.Component {
 }
 CategoryContainer.propTypes = {
   createCategory: PropTypes.func.isRequired,
+<<<<<<< HEAD
   toggleModal: PropTypes.func.isRequired
 };
 const mapStateToProps = ({ categories }) => ({
   categories
+=======
+  toggleModal: PropTypes.func.isRequired,
+  resetToastMessageContent: PropTypes.func.isRequired
+};
+const mapStateToProps = ({ categories, toastMessage }) => ({
+  categories,
+  toastMessageContent: toastMessage
+>>>>>>> everything is working
 });
 export default connect(mapStateToProps, {
-  createCategory
+  createCategory,
+  resetToastMessageContent
 })(CategoryContainer);
