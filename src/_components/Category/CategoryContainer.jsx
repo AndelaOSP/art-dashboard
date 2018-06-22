@@ -67,19 +67,12 @@ class CategoryContainer extends React.Component {
 }
 CategoryContainer.propTypes = {
   createCategory: PropTypes.func.isRequired,
-<<<<<<< HEAD
-  toggleModal: PropTypes.func.isRequired
-};
-const mapStateToProps = ({ categories }) => ({
-  categories
-=======
   toggleModal: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired
 };
 const mapStateToProps = ({ categories, toastMessage }) => ({
   categories,
   toastMessageContent: toastMessage
->>>>>>> everything is working
 });
 export default connect(mapStateToProps, {
   createCategory,
