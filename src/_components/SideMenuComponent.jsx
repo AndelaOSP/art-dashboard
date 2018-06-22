@@ -69,8 +69,8 @@ class SideMenuComponent extends Component {
             <Menu.Item name="reports">
               <span><Icon name="tasks" />Reports</span>
             </Menu.Item>
-            <Menu.Item name="feedback">
-              <span><Icon name="address card" />Feedback</span>
+            <Menu.Item name="user-feedback">
+              <Link to="/user-feedback"><Icon name="address card" />Feedback</Link>
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
