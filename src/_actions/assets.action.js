@@ -1,22 +1,24 @@
-import constants from '../_constants';
 import axios from 'axios';
+import constants from '../_constants';
 
-const { LOAD_ASSETS_SUCCESS, LOAD_ASSETS_FAILURE } = constants;
+const { LOAD_ASSETS_SUCCESS, LOAD_ASSETS_FAILURE, LOAD_ASSETS_STARTS } = constants;
 
-export const getAssetsAction = (page = 1, limit = 10) => {
-  return (dispatch) => {
-    axios.get(`assets?_page=${page}&_limit=${limit}`)
-    .then((response) => {
-      return dispatch({
-        type: LOAD_ASSETS_SUCCESS,
-        payload: response,
+/* eslint-disable import/prefer-default-export */
+export const getAssetsAction = () => (
+  (dispatch) => {
+    dispatch({ type: LOAD_ASSETS_STARTS });
+    return axios.get('assets')
+      .then((response) => {
+        dispatch({
+          type: LOAD_ASSETS_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: LOAD_ASSETS_FAILURE,
+          payload: error,
+        });
       });
-    })
-    .catch((error) => {
-      return dispatch({
-        type: LOAD_ASSETS_FAILURE,
-        payload: error,
-      });
-    });
   }
-};
+);
