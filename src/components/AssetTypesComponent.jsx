@@ -33,14 +33,17 @@ export class AssetTypesComponent extends React.Component {
   loadRoles = () => {
     let assetTypes = null;
     if (this.emptyAssetTypeCheck()) {
-      assetTypes = <Table.Row><Table.Cell colSpan="3">No Data found</Table.Cell></Table.Row>;
+      assetTypes = <Table.Row><Table.Cell colSpan="2">No Data found</Table.Cell></Table.Row>;
     } else {
-      assetTypes = this.props.assetTypes.map((assetType, index) => {
-        return (<TableRowComponent
-          key={index}
-          data={assetType}
-          headings={['id', 'asset_sub_category', 'asset_type']}
-        />);
+      assetTypes = this.props.assetTypes.map((assetType) => {
+        return (
+          <TableRowComponent
+            data={assetType}
+            headings={['id', 'asset_sub_category', 'asset_type']}
+            action
+          >
+          </TableRowComponent>
+        );
       });
       return assetTypes;
     }
@@ -57,6 +60,7 @@ export class AssetTypesComponent extends React.Component {
                 <Table.HeaderCell>Id</Table.HeaderCell>                
                 <Table.HeaderCell>Sub-category</Table.HeaderCell>
                 <Table.HeaderCell>Type</Table.HeaderCell>
+                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -68,14 +72,14 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan='3'>
+                <Table.HeaderCell colSpan="4">
                   {
                     (this.emptyAssetTypeCheck()) ? '' :
-                      <Pagination
-                        totalPages={this.handlePageTotal()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
+                    <Pagination
+                      totalPages={this.handlePageTotal()}
+                      onPageChange={this.handlePaginationChange}
+                      activePage={this.state.activePage}
+                    />
                   }
                 </Table.HeaderCell>
               </Table.Row>
@@ -83,9 +87,9 @@ export class AssetTypesComponent extends React.Component {
           </Table>
         </Container>
       </SideMenuComponent>
-    )
+    );
   }
-};
+}
 
 const mapStateToProps = ({ assetTypesList }) => {
   const { assetTypes, assetTypesCount } = assetTypesList;
