@@ -48,9 +48,6 @@ export class AllocationsComponent extends Component {
   }
 
   loadAllocations = () => {
-    if (this.isEmptyAllocations()) {
-      return <Table.Row><Table.Cell colSpan="3">No Data found</Table.Cell></Table.Row>
-    }
     return this.state.currentAllocations.map((allocation, index) => {
       return <TableRowComponent
         key={index}
@@ -59,9 +56,17 @@ export class AllocationsComponent extends Component {
     });
   }
 
-  showTable = () => {
+  display = () => {
     if (this.props.isLoading) {
       return <LoaderComponent size='large' dimmerStyle={{ height: '100vh' }} />
+    } else if (!this.props.isLoading && this.isEmptyAllocations()) {
+      return (
+        <Container>
+          <p>
+            Unable to load allocations
+          </p>
+        </Container>
+      );
     }
     return (
       <Container>
@@ -106,7 +111,7 @@ export class AllocationsComponent extends Component {
     return (
       <SideMenuComponent>
         {
-          this.showTable()
+          this.display()
         }
       </SideMenuComponent>
     )
