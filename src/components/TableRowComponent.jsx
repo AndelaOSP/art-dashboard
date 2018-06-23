@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Table, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const action = () => (<span>
-  <Link to="#"><Icon name="edit" /></Link>
-  <Link to="#"><Icon name="eye" /></Link>
-</span>   
-  );
+const action = () => (
+  <span>
+    <Link to="/asset_types" data-tooltip="View"><Icon name="eye" /></Link>
+    <Link to="/asset_types" data-tooltip="Edit"><Icon name="edit" /></Link>
+  </span>
+);
 
 
 const TableRowComponent = props => (
@@ -36,6 +37,8 @@ TableRowComponent.propTypes = {
   action: PropTypes.bool
 };
 TableRowComponent.defaultProps = {
+  headings: [],
+  data: null,
   action: false
 };
 
