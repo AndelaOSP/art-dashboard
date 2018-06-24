@@ -5,12 +5,13 @@ import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-// constants
-import constants from '../../_constants';
-const { LOAD_ASSET_MODEL_NUMBERS } = constants;
-
 // actions
 import { loadModelNumbers } from '../../_actions/modelNumbers.actions';
+
+// constants
+import constants from '../../_constants';
+
+const { LOAD_ASSET_MODEL_NUMBERS } = constants;
 
 // store
 const middleware = [thunk];
@@ -19,9 +20,9 @@ let store;
 
 describe('Model Numbers action tests', () => {
   const mock = new MockAdapter(axios);
-  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/model_numbers';
+  const url = 'asset-models/';
   store = mockStore({});
-  let expectedActions = [
+  const expectedActions = [
     {
       type: LOAD_ASSET_MODEL_NUMBERS
     }
@@ -31,9 +32,9 @@ describe('Model Numbers action tests', () => {
     mock.onGet(url).reply(200,
       [
         {
-          "id": 6,
-          "model_number": "Mircosoft LX-Lifechat-7000",
-          "make_label": "Mircosoft"
+          id: 6,
+          model_number: 'Mircosoft LX-Lifechat-7000',
+          make_label: 'Mircosoft'
         }
       ]
     );
@@ -41,4 +42,4 @@ describe('Model Numbers action tests', () => {
       expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
     });
   });
-})
+});

@@ -5,12 +5,13 @@ import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-// constants
-import constants from '../../_constants';
-const { LOAD_ASSET_MAKES_SUCCESS } = constants;
-
 // actions
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
+
+// constants
+import constants from '../../_constants';
+
+const { LOAD_ASSET_MAKES_SUCCESS } = constants;
 
 // store
 const middleware = [thunk];
@@ -19,9 +20,9 @@ let store;
 
 describe('Asset Makes action tests', () => {
   const mock = new MockAdapter(axios);
-  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/makes';
+  const url = 'asset-makes/';
   store = mockStore({});
-  let expectedActions = [
+  const expectedActions = [
     {
       type: LOAD_ASSET_MAKES_SUCCESS
     }
@@ -31,9 +32,9 @@ describe('Asset Makes action tests', () => {
     mock.onGet(url).reply(200,
       [
         {
-          "id": 1,
-          "make_label": "Mircosoft",
-          "asset_type": "Headsets"
+          id: 1,
+          make_label: 'Mircosoft',
+          asset_type: 'Headsets'
         }
       ]
     );
