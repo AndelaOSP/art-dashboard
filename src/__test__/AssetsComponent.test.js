@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
@@ -13,13 +12,17 @@ describe('Renders <AssetsComponent /> correctly', () => {
     handlePaginationChange: jest.fn(),
     assets,
     assetsCount: 10,
+    hasError: false,
+    isLoading: false
   };
   const wrapper = shallow(<AssetsComponent
-      {...props}
-    />)
+    {...props}
+  />);
+
+  wrapper.setState({ activePageAssets: props.assets });
 
   it('renders page title', () => {
-    expect(wrapper.find('.landing-heading').prop('content')).toEqual('All Assets');
+    expect(wrapper.find('.assets-heading').prop('content')).toEqual('My Assets');
   });
 
   it('renders Pageination component', () => {
@@ -33,5 +36,4 @@ describe('Renders <AssetsComponent /> correctly', () => {
   it('renders TableRowComponent component', () => {
     expect(wrapper.find('TableRowComponent').length).toBe(2);
   });
-
 });

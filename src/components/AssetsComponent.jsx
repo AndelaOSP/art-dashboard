@@ -62,8 +62,7 @@ export class AssetsComponent extends Component {
     }
 
     return (
-      <Container>
-        <Header className="assets-heading" content="My Assets" />
+      <div>
         <Button icon labelPosition="left" floated="right" className="add-asset">
           <Icon name="add" />
           Add Asset
@@ -119,13 +118,16 @@ export class AssetsComponent extends Component {
             </Table.Row>
           </Table.Footer>
         </Table>
-      </Container>);
+      </div>);
   }
 
   render() {
     return (
       <SideMenuComponent title="Assets">
-        {this.loadTableContent()}
+        <Container>
+          <Header className="assets-heading" content="My Assets" />
+          {this.loadTableContent()}
+        </Container>
       </SideMenuComponent>
     );
   }
