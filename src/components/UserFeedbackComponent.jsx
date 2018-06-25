@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Container, Header, Table, Pagination } from 'semantic-ui-react';
 import feedbackAction from '../_actions/feedback.action';
 import SideMenuComponent from '../_components/SideMenuComponent';
+import TableRowComponent from './TableRowComponent';
 
 export class UserFeedbackComponent extends React.Component {
   constructor() {
@@ -23,21 +24,12 @@ export class UserFeedbackComponent extends React.Component {
     this.props.feedbackAction(activePage);
   }
 
-
   handlePageTotal = () => Math.ceil(this.props.feedbackCount / this.state.limit)
 
-  pagination = () => (
-    <div>
-      <Pagination
-        activePage={this.state.activePage}
-        totalPages={this.handlePageTotal()}
-        onPageChange={this.handlePaginationChange}
-      />
-    </div>
-  )
+  emptyFeedbackCount = () => (this.props.feedbackCount === 0)
 
   loadFeedback = () => {
-    if (this.props.feedbackCount === 0) {
+    if (this.emptyFeedbackCount()) {
       return (
         <Table.Row>
           <Table.Cell colSpan="6">No Data found</Table.Cell>
@@ -45,13 +37,15 @@ export class UserFeedbackComponent extends React.Component {
       );
     }
     const feedbacks = this.props.feedback.map(feedback => (
-      <Table.Row>
-        <Table.Cell>{feedback.index}</Table.Cell>
-        <Table.Cell>{feedback.submittedBy}</Table.Cell>
-        <Table.Cell>{feedback.dateSubmitted}</Table.Cell>
-        <Table.Cell>{feedback.type}</Table.Cell>
-        <Table.Cell>{feedback.description}</Table.Cell>
-      </Table.Row>
+      <TableRowComponent
+        key={feedback.created_at}
+        data={feedback}
+        headings={['index',
+            'submitted_by',
+            'date_submitted',
+            'type',
+            'description']}
+      />
     ));
     return feedbacks;
   }
@@ -59,7 +53,7 @@ export class UserFeedbackComponent extends React.Component {
 
   render() {
     return [
-      <SideMenuComponent>
+      <SideMenuComponent title="User Feedback">
         <div className="">
           <Container>
             <Header className="landing-heading" content="User Feedback" />
@@ -80,7 +74,14 @@ export class UserFeedbackComponent extends React.Component {
               <Table.Footer>
                 <Table.Row>
                   <Table.HeaderCell colSpan="5">
-                    {this.pagination()}
+                    {
+                      this.emptyFeedbackCount() ? '' :
+                      <Pagination
+                        totalPages={this.handlePageTotal()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    }
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Footer>
@@ -102,7 +103,7 @@ const mapStateToProps = ({ feedbackReducer }) => {
 
 UserFeedbackComponent.propTypes = {
   feedbackAction: PropTypes.func,
-  feedbackCount: PropTypes.number.isRequired,
+  feedbackCount: PropTypes.number,
   feedback: PropTypes.arrayOf(PropTypes.object)
 };
 
@@ -111,4 +112,4 @@ UserFeedbackComponent.defaultProps = {
   feedback: []
 };
 
-export default connect(mapStateToProps, { feedbackAction, })(UserFeedbackComponent);
+export default connect(mapStateToProps, { feedbackAction })(UserFeedbackComponent);
