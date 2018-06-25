@@ -4,25 +4,22 @@ import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-// constants
 import constants from '../../_constants';
-const { LOAD_ALLOCATIONS_SUCCESS,
+const {
+  LOAD_ALLOCATIONS_SUCCESS,
   LOAD_ALLOCATIONS_FAILURE,
-  LOADING_ALLOCATIONS
+  LOADING_ALLOCATIONS,
 } = constants;
 
-// actions
 import { loadAllocationsAction } from '../../_actions/allocations.actions';
 
-// mock data
 import allocations from '../../_mock/allocations';
 
-// mock store
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
 
-describe.only('Allocation action tests', () => {
+describe('Allocation action tests', () => {
   const mock = new MockAdapter(axios);
   store = mockStore({});
 
