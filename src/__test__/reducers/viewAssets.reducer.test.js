@@ -5,7 +5,7 @@ import expect from 'expect';
 import viewAssetsReducer from '../../_reducers/viewAssets.reducer';
 
 // mock data
-import { assets } from '../../_mock/assets';
+import assets from '../../_mock/assets';
 
 // constants
 import constants from '../../_constants';
@@ -43,10 +43,4 @@ describe('Asset Reducer tests', () => {
     action.type = LOAD_ASSETS_STARTS;
     expect(viewAssetsReducer(state, action).isLoading).toBe(true);
   });
-
-  // it('should handle CREATE_ASSET_FAIL', () => {
-  //   let action = createAssetFail();
-  //   expect(mockStore.assets.length).toEqual(0);
-  //   expect(assetReducer(mockStore.assets, action).length).toEqual(0);
-  // });
 });

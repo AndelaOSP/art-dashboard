@@ -7,13 +7,13 @@ const ActionComponent = ({ onViewClick, onEditClick }) => (
     <Button animated onClick={onViewClick}>
       <Button.Content hidden>View</Button.Content>
       <Button.Content visible>
-        <Icon name="eye" />
+        <Icon name="eye" id="view" />
       </Button.Content>
     </Button>
     <Button animated onClick={onEditClick}>
       <Button.Content hidden>Edit</Button.Content>
       <Button.Content visible>
-        <Icon name="edit" />
+        <Icon name="edit" id="edit" />
       </Button.Content>
     </Button>
   </div>

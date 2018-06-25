@@ -53,11 +53,11 @@ export class AssetsComponent extends Component {
       return <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />;
     }
     if (this.props.hasError) {
-      return <Header as="h3">An error has occured</Header>;
+      return <Header as="h3" id="assets-error" content="An error has occured" />;
     }
     if (this.emptyAssetTypeCheck()) {
       return (
-        <Header as="h3">There are no assets assigned to you</Header>
+        <Header as="h3" id="empty-assets" content="There are no assets assigned to you" />
       );
     }
 
