@@ -10,11 +10,7 @@ const {
 export const loadAllocationsAction = () => {
   return (dispatch) => {
     dispatch({ type: LOADING_ALLOCATIONS });
-    axios.get('allocations/', {
-      headers: {
-        'Authorization': `Token ${localStorage.getItem('art-prod-web-token')}`,
-      }
-    })
+    return axios.get('allocations/')
       .then((response) => {
         return dispatch({
           type: LOAD_ALLOCATIONS_SUCCESS,
