@@ -2,14 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import NavBarComponent from '../_components/NavBarComponent.jsx';
+import { NavBarComponent } from '../_components/NavBarComponent.jsx';
 
 import localStorageMock from '../_mock/localStorage';
 
 window.localStorage = localStorageMock;
 
 describe('NavBarComponent is rendered', () => {
-
   const wrapper = shallow(<NavBarComponent />);
 
   it('renders a div element', () => {
