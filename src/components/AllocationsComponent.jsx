@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Header, Table, Pagination, Container } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 import { loadAllocationsAction } from '../_actions/allocations.actions';
 import SideMenuComponent from '../_components/SideMenuComponent';
@@ -22,7 +23,7 @@ export class AllocationsComponent extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.allAllocations.length !== prevProps.allAllocations.length) {
-      this.setTableComponent();
+      this.setTableContent();
     }
   }
 
@@ -30,35 +31,44 @@ export class AllocationsComponent extends Component {
     return Math.ceil(this.props.allAllocations.length / this.state.limit);
   }
 
-  setTableComponent = () => {
+  setTableContent = () => {
+    let currentAllocations = this.props.allAllocations.slice(this.state.offset, (this.state.activePage * this.state.limit));
+    // format date
+    const dateOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }
+    currentAllocations.map(el => {
+      return el.created_at = new Date(el.created_at).toLocaleDateString('en-US', dateOptions);
+    });
     this.setState({
-      currentAllocations: this.props.allAllocations.slice(this.state.offset, (this.state.activePage * this.state.limit))
-    })
+      currentAllocations: currentAllocations,
+    });
   }
 
   handlePaginationChange = (event, { activePage }) => {
     this.setState({
       activePage,
       offset: (activePage - 1) * this.state.limit,
-    }, () => this.setTableComponent())
+    }, () => this.setTableContent());
   }
 
-  isEmptyAllocations = () => {
-    return this.props.allAllocations.length === 0;
-  }
+  isEmptyAllocations = () => this.props.allAllocations.length === 0;
 
-  loadAllocations = () => {
-    return this.state.currentAllocations.map((allocation, index) => {
-      return <TableRowComponent
+  showAllocations = () => {
+    return this.state.currentAllocations.map((allocation, index) => (
+      <TableRowComponent
         key={index}
         data={allocation}
         headings={['asset', 'current_owner', 'previous_owner', 'created_at']} />
-    });
+    ));
   }
 
   display = () => {
     if (this.props.isLoading) {
-      return <LoaderComponent size='large' dimmerStyle={{ height: '100vh' }} />
+      return <LoaderComponent size="large" dimmerStyle={{ height: "100vh" }} />;
     } else if (!this.props.isLoading && this.isEmptyAllocations()) {
       return (
         <Container>
@@ -70,7 +80,7 @@ export class AllocationsComponent extends Component {
     }
     return (
       <Container>
-        <Header content='All Allocations' />
+        <Header content="All Allocations" />
         <Table celled>
           <Table.Header>
             {/* @TODO make the header cells more flexible depending on response from API */}
@@ -84,13 +94,13 @@ export class AllocationsComponent extends Component {
 
           <Table.Body>
             {
-              this.loadAllocations()
+              this.showAllocations()
             }
           </Table.Body>
 
           <Table.Footer>
             <Table.Row>
-              <Table.HeaderCell colSpan='4'>
+              <Table.HeaderCell colSpan="4">
                 {
                   (this.isEmptyAllocations()) ? '' :
                     <Pagination
@@ -114,7 +124,7 @@ export class AllocationsComponent extends Component {
           this.display()
         }
       </SideMenuComponent>
-    )
+    );
   }
 }
 
@@ -124,7 +134,11 @@ const mapStateToProps = ({ allocationsList }) => {
   return {
     allAllocations,
     isLoading,
-  }
+  };
+};
+
+AllocationsComponent.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
 }
 
 export default withRouter(connect(mapStateToProps, {
