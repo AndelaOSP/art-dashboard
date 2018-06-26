@@ -7,33 +7,31 @@ import { ToastMessage } from '../../_utils/ToastMessage';
 import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
 
 class CategoryContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categoryName: '',
-      saveButtonState: false
-    };
-  }
-  static getDerivedStateFromProps(nextProps) {
-    if (nextProps.toastMessageContent.type) {
-      if (nextProps.toastMessageContent.type === 'success') {
-        ToastMessage.success({
-          message: nextProps.toastMessageContent.message
-        });
-      } else if (nextProps.toastMessageContent.type === 'error') {
-        ToastMessage.error({
-          message: nextProps.toastMessageContent.message
-        });
-      }
-      nextProps.resetToastMessageContent();
-      nextProps.toggleModal();
-      return {
+      state = {
         categoryName: '',
         saveButtonState: false
       };
-    }
-    return null;
-  }
+
+      static getDerivedStateFromProps(nextProps) {
+        if (nextProps.toastMessageContent.type) {
+          if (nextProps.toastMessageContent.type === 'success') {
+            ToastMessage.success({
+              message: nextProps.toastMessageContent.message
+            });
+          } else if (nextProps.toastMessageContent.type === 'error') {
+            ToastMessage.error({
+              message: nextProps.toastMessageContent.message
+            });
+          }
+          nextProps.resetToastMessageContent();
+          nextProps.toggleModal();
+          return {
+            categoryName: '',
+            saveButtonState: false
+          };
+        }
+        return null;
+      }
   onChangeButtonState = () => {
     this.setState({ saveButtonState: !this.state.saveButtonState });
   };
