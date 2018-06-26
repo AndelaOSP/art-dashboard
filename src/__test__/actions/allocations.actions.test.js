@@ -5,15 +5,14 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import constants from '../../_constants';
+import allocations from '../../_mock/allocations';
+import loadAllocationsAction from '../../_actions/allocations.actions';
+
 const {
   LOAD_ALLOCATIONS_SUCCESS,
   LOAD_ALLOCATIONS_FAILURE,
   LOADING_ALLOCATIONS,
 } = constants;
-
-import { loadAllocationsAction } from '../../_actions/allocations.actions';
-
-import allocations from '../../_mock/allocations';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -23,23 +22,9 @@ describe('Allocation action tests', () => {
   const mock = new MockAdapter(axios);
   store = mockStore({});
 
-  let expectedActions = [
-    {
-      type: LOADING_ALLOCATIONS,
-    },
-    {
-      type: LOAD_ALLOCATIONS_SUCCESS,
-      payload: allocations,
-    },
-    {
-      type: LOAD_ALLOCATIONS_FAILURE,
-      payload: 'An error occured',
-    }
-  ]
-
   afterEach(() => {
     store.clearActions();
-  })
+  });
 
   it('should dispatch LOADING_ALLOCATIONS and LOAD_ALLOCATIONS_SUCCESS when allocations are loaded successfully', () => {
     mock.onGet('allocations/').reply(200, allocations);

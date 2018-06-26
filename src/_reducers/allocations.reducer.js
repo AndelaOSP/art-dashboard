@@ -9,7 +9,7 @@ const {
 const initialState = {
   allAllocations: [],
   isLoading: false,
-}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -18,19 +18,19 @@ export default (state = initialState, action) => {
         ...state,
         allAllocations: [...action.payload.data],
         isLoading: false,
-      }
+      };
     case LOAD_ALLOCATIONS_FAILURE:
       return {
         ...state,
         allAllocations: [],
         isLoading: false,
-      }
+      };
     case LOADING_ALLOCATIONS:
       return {
         ...state,
         isLoading: true,
-      }
+      };
     default:
       return state;
   }
-}
+};

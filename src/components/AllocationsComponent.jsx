@@ -5,7 +5,7 @@ import { Header, Table, Pagination, Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { loadAllocationsAction } from '../_actions/allocations.actions';
+import loadAllocationsAction from '../_actions/allocations.actions';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
@@ -29,12 +29,11 @@ export class AllocationsComponent extends Component {
     }
   }
 
-  getTotalPages = () => {
-    return Math.ceil(this.props.allAllocations.length / this.state.limit);
-  }
+  getTotalPages = () => Math.ceil(this.props.allAllocations.length / this.state.limit);
 
   setTableContent = () => {
-    let currentAllocations = this.props.allAllocations.slice(this.state.offset, (this.state.activePage * this.state.limit));
+    const currentAllocations = this.props.allAllocations.slice(this.state.offset,
+      (this.state.activePage * this.state.limit));
     // format date
     const dateOptions = {
       weekday: 'long',
@@ -63,7 +62,7 @@ export class AllocationsComponent extends Component {
         <SideMenuComponent>
           <LoaderComponent size="large" dimmerStyle={{ height: "100vh" }} />
         </SideMenuComponent>
-      )
+      );
     } else if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
       return (
         <SideMenuComponent>
@@ -73,7 +72,7 @@ export class AllocationsComponent extends Component {
             </h1>
           </Container>
         </SideMenuComponent>
-      )
+      );
     }
     return (
       <SideMenuComponent>
@@ -95,7 +94,8 @@ export class AllocationsComponent extends Component {
                   <TableRowComponent
                     key={index}
                     data={allocation}
-                    headings={['asset', 'current_owner', 'previous_owner', 'created_at']} />
+                    headings={['asset', 'current_owner', 'previous_owner', 'created_at']}
+                  />
                 ))
               }
             </Table.Body>
@@ -132,7 +132,9 @@ const mapStateToProps = ({ allocationsList }) => {
 
 AllocationsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-}
+  allAllocations: PropTypes.array.isRequired,
+  loadAllocationsAction: PropTypes.func.isRequired,
+};
 
 export default withRouter(connect(mapStateToProps, {
   loadAllocationsAction,

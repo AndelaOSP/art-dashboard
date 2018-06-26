@@ -1,5 +1,5 @@
-import constants from '../_constants';
 import axios from 'axios';
+import constants from '../_constants';
 
 const {
   LOAD_ALLOCATIONS_SUCCESS,
@@ -7,21 +7,16 @@ const {
   LOADING_ALLOCATIONS,
 } = constants;
 
-export const loadAllocationsAction = () => {
-  return (dispatch) => {
-    dispatch({ type: LOADING_ALLOCATIONS });
-    return axios.get('allocations/')
-      .then((response) => {
-        return dispatch({
-          type: LOAD_ALLOCATIONS_SUCCESS,
-          payload: response,
-        });
-      })
-      .catch((error) => {
-        return dispatch({
-          type: LOAD_ALLOCATIONS_FAILURE,
-          payload: error,
-        });
-      });
-  }
-}
+const loadAllocationsAction = () => (dispatch) => {
+  dispatch({ type: LOADING_ALLOCATIONS });
+  return axios.get('allocations/')
+    .then(response => dispatch({
+      type: LOAD_ALLOCATIONS_SUCCESS,
+      payload: response,
+    })).catch(error => dispatch({
+      type: LOAD_ALLOCATIONS_FAILURE,
+      payload: error,
+    }));
+};
+
+export default loadAllocationsAction;
