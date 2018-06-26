@@ -14,5 +14,6 @@ export default {
   toastMessage: {
     message: '',
     type: ''
-  }
+  },
+  feedback: []
 };

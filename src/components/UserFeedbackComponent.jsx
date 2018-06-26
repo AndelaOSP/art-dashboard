@@ -16,7 +16,7 @@ export class UserFeedbackComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.feedbackAction(this.state.defaultPage);
+    this.props.feedbackAction(this.state.activePage);
   }
 
   handlePaginationChange = (e, { activePage }) => {
@@ -24,30 +24,37 @@ export class UserFeedbackComponent extends React.Component {
     this.props.feedbackAction(activePage);
   }
 
-  handlePageTotal = () => Math.ceil(this.props.feedbackCount / this.state.limit)
+  handlePageTotal = () => Math.ceil(this.props.feedback.length / this.state.limit)
 
-  emptyFeedbackCount = () => (this.props.feedbackCount === 0)
+  pagination = () => (
+    <div>
+      <Pagination
+        totalPages={this.handlePageTotal()}
+        onPageChange={this.handlePaginationChange}
+        activePage={this.state.activePage}
+      />
+    </div>
+  )
 
   loadFeedback = () => {
-    if (this.emptyFeedbackCount()) {
+    if (this.props.feedback.length === 0) {
       return (
         <Table.Row>
           <Table.Cell colSpan="6">No Data found</Table.Cell>
         </Table.Row>
       );
     }
-    const feedbacks = this.props.feedback.map(feedback => (
+    const feedbackRecord = this.props.feedback.map(feedback => (
       <TableRowComponent
         key={feedback.created_at}
         data={feedback}
-        headings={['index',
-            'submitted_by',
-            'date_submitted',
-            'type',
-            'description']}
+        headings={['reported_by',
+            'created_at',
+            'report_type',
+            'message']}
       />
     ));
-    return feedbacks;
+    return feedbackRecord;
   }
 
 
@@ -60,11 +67,11 @@ export class UserFeedbackComponent extends React.Component {
             <Table celled>
               <Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell>Index</Table.HeaderCell>
+                  {/* <Table.HeaderCell>Index</Table.HeaderCell> */}
                   <Table.HeaderCell>Submitted by</Table.HeaderCell>
                   <Table.HeaderCell>Date Submitted</Table.HeaderCell>
                   <Table.HeaderCell>Type</Table.HeaderCell>
-                  <Table.HeaderCell>Description</Table.HeaderCell>
+                  <Table.HeaderCell>Message</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
 
@@ -73,14 +80,10 @@ export class UserFeedbackComponent extends React.Component {
               </Table.Body>
               <Table.Footer>
                 <Table.Row>
-                  <Table.HeaderCell colSpan="5">
+                  <Table.HeaderCell colSpan="4">
                     {
-                      this.emptyFeedbackCount() ? '' :
-                      <Pagination
-                        totalPages={this.handlePageTotal()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
+                      this.props.feedback.length === 0 ? '' :
+                      this.pagination()
                     }
                   </Table.HeaderCell>
                 </Table.Row>
@@ -94,16 +97,14 @@ export class UserFeedbackComponent extends React.Component {
 }
 
 const mapStateToProps = ({ feedbackReducer }) => {
-  const { feedback, feedbackCount } = feedbackReducer;
+  const { feedback } = feedbackReducer;
   return {
-    feedback,
-    feedbackCount,
+    feedback
   };
 };
 
 UserFeedbackComponent.propTypes = {
   feedbackAction: PropTypes.func,
-  feedbackCount: PropTypes.number,
   feedback: PropTypes.arrayOf(PropTypes.object)
 };
 

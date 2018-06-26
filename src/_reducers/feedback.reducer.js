@@ -1,24 +1,18 @@
 import constants from '../_constants';
+import initialState from './initialState';
 
 const { LOAD_FEEDBACK_SUCCESS, LOAD_FEEDBACK_FAILURE } = constants;
 
-const initialState = {
-  feedback: [],
-  feedbackCount: 0,
-};
 
-export default (state = initialState, action) => {
+export default (state = initialState.feedback, action) => {
   switch (action.type) {
     case LOAD_FEEDBACK_SUCCESS:
       return {
-        ...state,
-        feedback: [...action.payload.data],
-        feedbackCount: action.payload.headers['x-total-count'],
+        ...state, feedback: action.payload.data
       };
     case LOAD_FEEDBACK_FAILURE:
       return {
         ...state,
-        feedback: [],
       };
     default:
       return state;
