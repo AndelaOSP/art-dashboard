@@ -45,11 +45,6 @@ export class AssetsComponent extends Component {
         'asset_code']}
     />)));
   }
-
-  addAssetModel = () => (<ModelNumberContainer />)
-
-  addcategory = () => (<CategoryContainer />)
-
   render() {
     return (
       <SideMenuComponent>
@@ -61,7 +56,7 @@ export class AssetsComponent extends Component {
                 <div className="header">
                   Category
                   <ModalComponent modalTitle="Add Asset Category">
-                    {this.addcategory()}
+                    <CategoryContainer />
                   </ModalComponent>
                 </div>
               </Table.HeaderCell>
