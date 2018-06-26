@@ -1,13 +1,14 @@
 import axios from 'axios';
 import constants from '../_constants';
 
-const { LOAD_FEEDBACK_SUCCESS, LOAD_FEEDBACK_FAILURE } = constants;
+const { LOAD_FEEDBACK_SUCCESS, LOAD_FEEDBACK_FAILURE, LOADING_FEEDBACK } = constants;
 
-const feedbackAction = (page, limit = 10) => (dispatch) => {
-  axios.get(`user-feedback?_page=${page}&_limit=${limit}`)
+const feedbackAction = () => (dispatch) => {
+  dispatch({ type: LOADING_FEEDBACK });
+  return axios.get('user-feedback/')
     .then(response => dispatch({
       type: LOAD_FEEDBACK_SUCCESS,
-      payload: response,
+      payload: response.data,
     }))
     .catch(error => dispatch({
       type: LOAD_FEEDBACK_FAILURE,
