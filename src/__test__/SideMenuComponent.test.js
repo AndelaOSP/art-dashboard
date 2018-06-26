@@ -5,8 +5,7 @@ import expect from 'expect';
 import SideMenuComponent from '../_components/SideMenuComponent';
 
 describe('Renders <SideMenuComponent /> correctly', () => {
-
-  const wrapper = shallow(<SideMenuComponent/>);
+  const wrapper = shallow(<SideMenuComponent />);
 
   it('renders wrapper div', () => {
     expect(wrapper.find('.wrapper').length).toBe(1);
@@ -19,6 +18,6 @@ describe('Renders <SideMenuComponent /> correctly', () => {
   it('renders links correctly', () => {
     expect(wrapper.find('Sidebar').dive()
       .find('Menu').dive()
-      .find('MenuItem').length).toBe(6);
+      .find('MenuItem').length).toBe(7);
   });
 });
