@@ -53,12 +53,10 @@ export const createCategoryFailure = error => ({
   type: CREATE_CATEGORY_FAILURE,
   payload: error
 });
-export const updateToastMessageContent = (message, type) => (
-  {
-    type: UPDATE_TOAST_MESSAGE_CONTENT,
-    payload: {
-      message,
-      type
-    }
+export const updateToastMessageContent = (message, type) => ({
+  type: UPDATE_TOAST_MESSAGE_CONTENT,
+  payload: {
+    message,
+    type
   }
-);
+});
