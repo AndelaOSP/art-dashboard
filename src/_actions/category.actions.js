@@ -47,10 +47,12 @@ export const createCategory = newCategory => dispatch =>
 
 export const createCategorySuccess = category => ({
   type: CREATE_CATEGORY_SUCCESS,
-  payload: category });
+  payload: category
+});
 export const createCategoryFailure = error => ({
   type: CREATE_CATEGORY_FAILURE,
-  payload: error });
+  payload: error
+});
 export const updateToastMessageContent = (message, type) => (
   {
     type: UPDATE_TOAST_MESSAGE_CONTENT,
