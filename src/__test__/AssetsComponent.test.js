@@ -10,31 +10,24 @@ describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
     getAssetsAction: jest.fn(),
     handlePaginationChange: jest.fn(),
-    assets,
+    assets: [],
     assetsCount: 10,
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    title: 'My assets'
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
   />);
 
-  wrapper.setState({ activePageAssets: props.assets });
+  wrapper.setProps({ assets });
 
   it('renders page title', () => {
     expect(wrapper.find('.assets-heading').prop('content')).toEqual('My Assets');
   });
 
-  it('renders Pageination component', () => {
-    expect(wrapper.find('Pagination').length).toBe(1);
-  });
-
-  it('renders Table component', () => {
-    expect(wrapper.find('Table').length).toBe(1);
-  });
-
-  it('renders TableRowComponent component', () => {
-    expect(wrapper.find('TableRowComponent').length).toBe(2);
+  it('renders the AssetsTableContent component', () => {
+    expect(wrapper.find('AssetsTableContent').length).toBe(1);
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {
@@ -47,18 +40,19 @@ describe('Renders <AssetsComponent /> correctly', () => {
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
 
-  it('renders LoaderComponent if page is loading', () => {
-    wrapper.setProps({ isLoading: true });
-    expect(wrapper.find('LoaderComponent').length).toBe(1);
+  it('calls the handlePageTotal function when the next button is clicked', () => {
+    const handlePageTotalSpy = jest.spyOn(
+      wrapper.instance(), 'handlePageTotal'
+    );
+    wrapper.instance().handlePageTotal();
+    expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
   });
 
-  it('renders Error message if there is an error', () => {
-    wrapper.setProps({ hasError: true, isLoading: false });
-    expect(wrapper.find('#assets-error').prop('content')).toEqual('An error has occured');
-  });
-
-  it('renders message if there are no assets returned', () => {
-    wrapper.setProps({ assets: [], hasError: false });
-    expect(wrapper.find('#empty-assets').prop('content')).toEqual('There are no assets assigned to you');
+  it('calls the emptyAssetCheck function when the next button is clicked', () => {
+    const emptyAssetsCheckSpy = jest.spyOn(
+      wrapper.instance(), 'emptyAssetsCheck'
+    );
+    wrapper.instance().emptyAssetsCheck();
+    expect(emptyAssetsCheckSpy.mock.calls.length).toEqual(1);
   });
 });

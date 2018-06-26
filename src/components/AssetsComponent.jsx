@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Icon, Container, Header, Table, Pagination } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import LoaderComponent from './LoaderComponent';
-import TableRowComponent from './TableRowComponent';
+import { isEmpty } from 'lodash';
 import SideMenuComponent from '../_components/SideMenuComponent';
-import ActionComponent from './ActionComponent';
+import AssetsTableContent from './AssetsTableContent';
 
 import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
@@ -46,87 +45,22 @@ export class AssetsComponent extends Component {
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit)
 
-  emptyAssetTypeCheck = () => (this.props.assets.length === 0)
-
-  loadTableContent = () => {
-    if (this.props.isLoading) {
-      return <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />;
-    }
-    if (this.props.hasError) {
-      return <Header as="h3" id="assets-error" content="An error has occured" />;
-    }
-    if (this.emptyAssetTypeCheck()) {
-      return (
-        <Header as="h3" id="empty-assets" content="There are no assets assigned to you" />
-      );
-    }
-
-    return (
-      <div>
-        <Button icon labelPosition="left" floated="right" className="add-asset">
-          <Icon name="add" />
-          Add Asset
-        </Button>
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Asset Code</Table.HeaderCell>
-              <Table.HeaderCell>Serial Number</Table.HeaderCell>
-              <Table.HeaderCell>Model Number</Table.HeaderCell>
-              <Table.HeaderCell>Checkin Status</Table.HeaderCell>
-              <Table.HeaderCell>Current Status</Table.HeaderCell>
-              <Table.HeaderCell>Asset Type</Table.HeaderCell>
-              <Table.HeaderCell>Action</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            {
-              this.state.activePageAssets.map(asset => (
-                <TableRowComponent
-                  key={asset.id}
-                  data={asset}
-                  headings={[
-                    'asset_code',
-                    'serial_number',
-                    'model_number',
-                    'checkin_status',
-                    'current_status',
-                    'asset_type'
-                  ]}
-                >
-                  <Table.Cell>
-                    <ActionComponent />
-                  </Table.Cell>
-                </TableRowComponent>
-              ))
-            }
-          </Table.Body>
-
-          <Table.Footer>
-            <Table.Row>
-              <Table.HeaderCell colSpan="7">
-                {
-                  (this.emptyAssetTypeCheck()) ? '' :
-                  <Pagination
-                    totalPages={this.handlePageTotal()}
-                    onPageChange={this.handlePaginationChange}
-                    activePage={this.state.activePage}
-                  />
-                }
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Footer>
-        </Table>
-      </div>);
-  }
+  emptyAssetsCheck = () => (isEmpty(this.props.assets))
 
   render() {
     return (
       <SideMenuComponent title="Assets">
         <Container>
           <Header className="assets-heading" content="My Assets" />
-          {this.loadTableContent()}
+          <AssetsTableContent
+            activePage={this.state.activePage}
+            activePageAssets={this.state.activePageAssets}
+            emptyAssetsCheck={this.emptyAssetsCheck}
+            handlePageTotal={this.handlePageTotal}
+            handlePaginationChange={this.handlePaginationChange}
+            hasError={this.props.hasError}
+            isLoading={this.props.isLoading}
+          />
         </Container>
       </SideMenuComponent>
     );
