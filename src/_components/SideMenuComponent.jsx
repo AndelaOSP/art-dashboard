@@ -91,7 +91,7 @@ SideMenuComponent.propTypes = {
 };
 
 SideMenuComponent.defaultProps = {
-  title: '',
+  title: ''
 }
 
 export default SideMenuComponent;
