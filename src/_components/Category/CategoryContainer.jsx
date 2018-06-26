@@ -6,7 +6,6 @@ import { createCategory } from '../../_actions/category.actions';
 import { ToastMessage } from '../../_utils/ToastMessage';
 import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
 
-
 class CategoryContainer extends React.Component {
   constructor(props) {
     super(props);
