@@ -4,7 +4,13 @@ export default {
   assetTypes: [],
   assetMakes: [],
   modelNumbers: [],
-  assets: [],
+  assets: {
+    assetsList: [],
+    assetsCount: 0,
+    errorMessage: '',
+    hasError: false,
+    isLoading: false,
+  },
   toastMessage: {
     message: '',
     type: ''

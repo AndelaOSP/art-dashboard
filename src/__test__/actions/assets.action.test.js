@@ -13,7 +13,6 @@ import constants from '../../_constants';
 
 const { LOAD_ASSETS_SUCCESS, LOAD_ASSETS_FAILURE, LOAD_ASSETS_STARTS } = constants;
 
-
 // store
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);

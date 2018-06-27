@@ -12,15 +12,18 @@ describe('Renders <AssetsComponent /> correctly', () => {
     handlePaginationChange: jest.fn(),
     assets: [],
     assetsCount: 10,
+    errorMessage: '',
     hasError: false,
     isLoading: false,
-    title: 'My assets'
+    title: 'My Assets'
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
   />);
+  const prevProps = wrapper.props();
 
   wrapper.setProps({ assets });
+  wrapper.instance().componentDidUpdate(prevProps);
 
   it('renders page title', () => {
     expect(wrapper.find('.assets-heading').prop('content')).toEqual('My Assets');
@@ -28,6 +31,14 @@ describe('Renders <AssetsComponent /> correctly', () => {
 
   it('renders the AssetsTableContent component', () => {
     expect(wrapper.find('AssetsTableContent').length).toBe(1);
+  });
+
+  it('should not rerender the component if the error message is the same', () => {
+    const componentDidUpdateSpy = jest.spyOn(
+      wrapper.instance(), 'componentDidUpdate'
+    );
+    wrapper.setProps({ hasError: true });
+    expect(componentDidUpdateSpy.mock.calls.length).toBe(1);
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {

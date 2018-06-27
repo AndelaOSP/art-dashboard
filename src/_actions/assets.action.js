@@ -17,7 +17,7 @@ export const getAssetsAction = () => (
       .catch((error) => {
         dispatch({
           type: LOAD_ASSETS_FAILURE,
-          payload: error,
+          payload: error.message,
         });
       });
   }

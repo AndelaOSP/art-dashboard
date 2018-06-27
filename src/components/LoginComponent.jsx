@@ -18,9 +18,8 @@ class LoginComponent extends React.Component {
     if (validAndelaEmail(result.user.email)) {
       result.user.getIdToken().then((idToken) => {
         localStorage.setItem('art-prod-web-token', idToken);
+        this.props.history.push('/dashboard');
       });
-      ToastMessage.success({ message: 'Welcome to ART' });
-      this.props.history.push('/dashboard');
     } else {
       ToastMessage.error({ message: 'Please sign in with your andela email' });
     }

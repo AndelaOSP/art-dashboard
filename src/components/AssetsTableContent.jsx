@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Icon, Header, Table, Pagination } from 'semantic-ui-react';
+import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
 import TableRowComponent from './TableRowComponent';
 import ActionComponent from './ActionComponent';
 import LoaderComponent from './LoaderComponent';
+import { ToastMessage } from '../_utils/ToastMessage';
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
@@ -11,7 +13,10 @@ const AssetsTableContent = (props) => {
   }
 
   if (props.hasError) {
-    return <Header as="h3" id="assets-error" content="An error has occured" />;
+    setTimeout(() => {
+      ToastMessage.error({ message: props.errorMessage });
+    }, 500);
+    return <SemanticToastContainer />;
   }
 
   if (props.emptyAssetsCheck()) {
@@ -65,14 +70,13 @@ const AssetsTableContent = (props) => {
         <Table.Footer>
           <Table.Row>
             <Table.HeaderCell colSpan="7">
-              {
-                (props.emptyAssetsCheck()) ? '' :
+              {!props.emptyAssetsCheck() && (
                 <Pagination
                   totalPages={props.handlePageTotal()}
                   onPageChange={props.handlePaginationChange}
                   activePage={props.activePage}
                 />
-              }
+              )}
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
@@ -84,13 +88,15 @@ AssetsTableContent.propTypes = {
   activePage: PropTypes.number,
   activePageAssets: PropTypes.arrayOf(PropTypes.object),
   emptyAssetsCheck: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
   handlePageTotal: PropTypes.func,
   handlePaginationChange: PropTypes.func,
-  hasError: PropTypes.bool.isRequired,
+  hasError: PropTypes.bool,
   isLoading: PropTypes.bool.isRequired,
 };
 
 AssetsTableContent.defaultProps = {
   activePage: 1,
+  errorMessage: '',
 };
 export default AssetsTableContent;

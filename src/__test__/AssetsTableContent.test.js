@@ -13,6 +13,7 @@ describe('Renders <AssetsTableContent /> correctly', () => {
     activePageAssets: assets,
     assetsCount: 10,
     emptyAssetsCheck: jest.fn(),
+    errorMessage: '',
     handlePageTotal: jest.fn((() => (1))),
     hasError: false,
     isLoading: false
@@ -21,7 +22,7 @@ describe('Renders <AssetsTableContent /> correctly', () => {
     {...props}
   />);
 
-  it('renders Pageination component', () => {
+  it('renders Pagination component', () => {
     expect(wrapper.find('Pagination').length).toBe(1);
   });
 
@@ -38,9 +39,9 @@ describe('Renders <AssetsTableContent /> correctly', () => {
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 
-  it('renders Error message if there is an error', () => {
+  it('renders a toast message if there is an error', () => {
     wrapper.setProps({ hasError: true, isLoading: false });
-    expect(wrapper.find('#assets-error').prop('content')).toEqual('An error has occured');
+    expect(wrapper.find('SemanticToastContainer').length).toBe(1);
   });
 
   it('renders message if there are no assets returned', () => {

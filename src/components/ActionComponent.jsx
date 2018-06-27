@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import '../_css/ActionComponent.css';
 
 const ActionComponent = ({ onViewClick, onEditClick }) => (
-  <div>
+  <div className="action-group">
     <Button animated onClick={onViewClick}>
       <Button.Content hidden>View</Button.Content>
       <Button.Content visible>

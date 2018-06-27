@@ -21,8 +21,16 @@ export class AssetsComponent extends Component {
     this.props.getAssetsAction();
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props.hasError &&
+      (this.props.errorMessage === nextProps.errorMessage)) {
+      return false;
+    }
+    return true;
+  }
+
   componentDidUpdate(prevProps) {
-    if (this.props.assets !== prevProps.assets) {
+    if (this.props.assetsList !== prevProps.assetsList) {
       this.handlePageContent();
     }
   }
@@ -30,7 +38,7 @@ export class AssetsComponent extends Component {
   handlePageContent = () => {
     const { activePage, limit, offset } = this.state;
     const endIndex = (limit * activePage) - 1;
-    const assets = this.props.assets.slice(offset, endIndex);
+    const assets = this.props.assetsList.slice(offset, endIndex);
     this.setState({
       activePageAssets: assets
     });
@@ -45,7 +53,7 @@ export class AssetsComponent extends Component {
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit)
 
-  emptyAssetsCheck = () => (isEmpty(this.props.assets))
+  emptyAssetsCheck = () => (isEmpty(this.props.assetsList))
 
   render() {
     return (
@@ -56,6 +64,7 @@ export class AssetsComponent extends Component {
             activePage={this.state.activePage}
             activePageAssets={this.state.activePageAssets}
             emptyAssetsCheck={this.emptyAssetsCheck}
+            errorMessage={this.props.errorMessage}
             handlePageTotal={this.handlePageTotal}
             handlePaginationChange={this.handlePaginationChange}
             hasError={this.props.hasError}
@@ -69,21 +78,24 @@ export class AssetsComponent extends Component {
 
 AssetsComponent.propTypes = {
   assetsCount: PropTypes.number.isRequired,
-  assets: PropTypes.arrayOf(PropTypes.object),
+  assetsList: PropTypes.arrayOf(PropTypes.object),
+  errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired
 };
 
 AssetsComponent.defaultProps = {
-  assets: []
+  assetsList: [],
+  errorMessage: ''
 };
 
-const mapStateToProps = ({ viewAssets }) => {
-  const { assets, assetsCount, hasError, isLoading } = viewAssets;
+const mapStateToProps = ({ assets }) => {
+  const { assetsList, assetsCount, errorMessage, hasError, isLoading } = assets;
   return {
-    assets,
+    assetsList,
     assetsCount,
+    errorMessage,
     hasError,
     isLoading
   };
