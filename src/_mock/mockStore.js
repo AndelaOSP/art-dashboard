@@ -4,5 +4,11 @@ export const mockStore = {
   assetTypes: [],
   assetMakes: [],
   modelNumbers: [],
-  assets: []
+  assets: [],
+  incidenceReports: {
+    reports: [],
+    incidenceReportsCount: 0,
+    isLoading: false,
+    hasError: false
+  }
 }

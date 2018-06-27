@@ -15,5 +15,11 @@ export default {
     message: '',
     type: ''
   },
-  feedback: []
+  feedback: [],
+  incidenceReports: {
+    reports: [],
+    incidenceReportsCount: 0,
+    isLoading: false,
+    hasError: false
+  }
 };
