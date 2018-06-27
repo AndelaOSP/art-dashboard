@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
 import { withRouter } from 'react-router-dom';
-import { Dropdown, Menu, Icon } from 'semantic-ui-react';
+import { Dropdown, Menu, Icon, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import '../_css/NavBarComponent.css';
@@ -14,8 +14,8 @@ export class NavBarComponent extends Component {
 
   render() {
     const { title } = this.props;
-    const token = jwt.decode(localStorage.getItem('token'));
-    const { username = '' } = token || {};
+    const token = jwt.decode(localStorage.getItem('art-prod-web-token'));
+    const { name, picture } = token || {};
 
     return (
       <div className="navbar">
@@ -25,7 +25,7 @@ export class NavBarComponent extends Component {
           </Menu.Item>
           <Menu.Item name={title} />
           <Menu.Menu position="right">
-            <Dropdown item text={username} icon="user" simple>
+            <Dropdown item text={name} simple>
               <Dropdown.Menu>
                 <Dropdown.Item
                   onClick={this.handleLogout}
@@ -33,6 +33,9 @@ export class NavBarComponent extends Component {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            <Menu.Item className="user-avatar">
+              <Image src={picture} size="mini" avatar />
+            </Menu.Item>
           </Menu.Menu>
         </Menu>
       </div>
