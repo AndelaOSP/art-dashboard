@@ -12,14 +12,14 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
-    state = {
-      activePage: 1,
-      limit: 10,
-    };
+  state = {
+    activePage: 1,
+    limit: 10
+  };
 
-    componentDidMount() {
-      this.props.getAssetsAction();
-    }
+  componentDidMount() {
+    this.props.getAssetsAction();
+  }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
@@ -137,11 +137,11 @@ const mapStateToProps = ({ viewAssets }) => {
   const { assets, assetsCount } = viewAssets;
   return {
     assets,
-    assetsCount,
+    assetsCount
   };
 };
 
 export default connect(mapStateToProps, {
   getAssetsAction,
-  createModelNumbers,
+  createModelNumbers
 })(AssetsComponent);
