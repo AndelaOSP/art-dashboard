@@ -4,7 +4,7 @@ const { LOAD_ASSET_TYPE_SUCCESS, LOAD_ASSET_TYPE_FAILURE } = constants;
 
 const initialState = {
   assetTypes: [],
-  assetTypesCount: 0, 
+  isLoading: true
 };
 
 export default (state = initialState, action) => {
@@ -13,15 +13,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         assetTypes: [...action.payload.data],
-        assetTypesCount: action.payload.headers['x-total-count'],
-      }
+        isLoading: false,
+      };
     case LOAD_ASSET_TYPE_FAILURE:
       return {
         ...state,
         assetTypes: [],
-        assetTypesCount: 0,
-      }
+        isLoading: false
+      };
     default:
       return state;
   }
-}
+};

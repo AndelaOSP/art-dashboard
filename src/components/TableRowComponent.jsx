@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import { Table, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const IconStyle = {
+const iconStyle = {
   margin: 10
 };
 
 const action = (
   <span>
-    <Link to="/asset_types" data-tooltip="View"><Icon style={IconStyle} name="eye" /></Link>
-    <Link to="/asset_types" data-tooltip="Edit"><Icon style={IconStyle} name="edit" /></Link>
+    <Link to="/asset_types" data-tooltip="View"><Icon style={iconStyle} name="eye" /></Link>
+    <Link to="/asset_types" data-tooltip="Edit"><Icon style={iconStyle} name="edit" /></Link>
   </span>
 );
-
 
 const TableRowComponent = props => (
   <Table.Row>
@@ -25,14 +24,7 @@ const TableRowComponent = props => (
         )
       )
       }
-    {
-        props.action ?
-          <Table.Cell>
-            {action}
-          </Table.Cell> : null
-
-    }
-
+    {props.action && <Table.Cell>{action}</Table.Cell>}
   </Table.Row>
 );
 
@@ -44,8 +36,6 @@ TableRowComponent.propTypes = {
 TableRowComponent.defaultProps = {
   headings: [],
   data: null,
-  action: false
 };
-
 
 export default TableRowComponent;
