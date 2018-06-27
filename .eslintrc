@@ -24,7 +24,7 @@
       "error",
       "always"
     ],
-    "comma-dangle": 0,
+    "comma-dangle": ["error", "never"],
     "react/jsx-filename-extension": [
       1,
       {

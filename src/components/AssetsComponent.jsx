@@ -8,13 +8,14 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import { getAssetsAction } from '../_actions/assets.action';
 import { createModelNumbers } from '../_actions/modelNumbers.actions';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
+import CategoryContainer from '../_components/Category/CategoryContainer';
 import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
   state = {
     activePage: 1,
-    limit: 10,
-  }
+    limit: 10
+  };
 
   componentDidMount() {
     this.props.getAssetsAction();
@@ -37,14 +38,13 @@ export class AssetsComponent extends Component {
       key={asset.id}
       data={asset}
       headings={['category',
-            'sub_category',
-            'asset_type',
-            'make',
-            'model_number',
-            'asset_code']}
+        'sub_category',
+        'asset_type',
+        'make',
+        'model_number',
+        'asset_code']}
     />)));
   }
-
   render() {
     return (
       <SideMenuComponent>
@@ -55,7 +55,9 @@ export class AssetsComponent extends Component {
               <Table.HeaderCell>
                 <div className="header">
                   Category
-                  <ModalComponent />
+                  <ModalComponent modalTitle="Add Asset Category">
+                    <CategoryContainer />
+                  </ModalComponent>
                 </div>
               </Table.HeaderCell>
               <Table.HeaderCell>
@@ -78,7 +80,7 @@ export class AssetsComponent extends Component {
               </Table.HeaderCell>
               <Table.HeaderCell >
                 <div className="header">
-                Model
+                  Model
                   <ModalComponent modalTitle="Add Asset Model Number">
                     <ModelNumberContainer />
                   </ModalComponent>
@@ -135,11 +137,11 @@ const mapStateToProps = ({ viewAssets }) => {
   const { assets, assetsCount } = viewAssets;
   return {
     assets,
-    assetsCount,
+    assetsCount
   };
 };
 
 export default connect(mapStateToProps, {
   getAssetsAction,
-  createModelNumbers,
+  createModelNumbers
 })(AssetsComponent);
