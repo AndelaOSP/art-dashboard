@@ -9,7 +9,7 @@ const {
 
 const loadAllocationsAction = () => (dispatch) => {
   dispatch({ type: LOADING_ALLOCATIONS });
-  return axios.get('allocations/')
+  return axios.get('allocations')
     .then(response => dispatch({
       type: LOAD_ALLOCATIONS_SUCCESS,
       payload: response,

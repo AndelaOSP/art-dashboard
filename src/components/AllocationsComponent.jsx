@@ -42,17 +42,19 @@ export class AllocationsComponent extends Component {
       day: 'numeric',
     }
     currentAllocations.map(el => {
-      return el.created_at = new Date(el.created_at).toLocaleDateString('en-US', dateOptions);
+      return el.formatted_date = new Date(el.created_at).toLocaleDateString('en-US', dateOptions);
     });
     this.setState({
       currentAllocations: currentAllocations,
     });
   }
 
+  calculateOffset = (activePage, limit) => (activePage - 1) * limit;
+
   handlePaginationChange = (event, { activePage }) => {
     this.setState({
       activePage,
-      offset: (activePage - 1) * this.state.limit,
+      offset: this.calculateOffset(activePage, this.state.limit),
     }, () => this.setTableContent());
   }
 
@@ -90,11 +92,11 @@ export class AllocationsComponent extends Component {
 
             <Table.Body>
               {
-                this.state.currentAllocations.map((allocation, index) => (
+                this.state.currentAllocations.map(allocation => (
                   <TableRowComponent
-                    key={index}
+                    key={allocation.created_at}
                     data={allocation}
-                    headings={['asset', 'current_owner', 'previous_owner', 'created_at']}
+                    headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}
                   />
                 ))
               }
@@ -103,13 +105,12 @@ export class AllocationsComponent extends Component {
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="4">
-                  {
-                    (_.isEmpty(this.props.allAllocations)) ? '' :
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
+                  {_.isEmpty(this.props.allAllocations) ? '' :
+                    <Pagination
+                      totalPages={this.getTotalPages()}
+                      onPageChange={this.handlePaginationChange}
+                      activePage={this.state.activePage}
+                    />
                   }
                 </Table.HeaderCell>
               </Table.Row>
