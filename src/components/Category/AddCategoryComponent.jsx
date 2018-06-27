@@ -24,7 +24,7 @@ const AddCategoryComponent = props => (
 AddCategoryComponent.propTypes = {
   handleSubmit: PropTypes.func,
   onaddCategoryName: PropTypes.func,
-  toggleModal: PropTypes.func,
+  toggleModal: PropTypes.func
 };
 
 export default AddCategoryComponent;

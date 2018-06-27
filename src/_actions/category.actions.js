@@ -21,7 +21,7 @@ export const loadCategories = () => (dispatch => axios.get('categories').then((r
   dispatch(loadCategoriesSuccess(response.data));
 }).catch(error => dispatch({
   type: LOAD_CATEGORY_FAILURE,
-  payload: error,
+  payload: error
 })));
 
 /**

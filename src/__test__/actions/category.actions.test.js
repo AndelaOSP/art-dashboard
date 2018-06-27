@@ -49,7 +49,7 @@ describe('Category action tests', () => {
   it('should dispatch CREATE_CATEGORY_SUCCESS when createCategory is called successfully', () => {
     store = mockStore({ categories: [] });
     const newCategory = {
-      category_name: 'Tesy Category',
+      category_name: 'Tesy Category'
     };
 
     const expectedAction = [{
