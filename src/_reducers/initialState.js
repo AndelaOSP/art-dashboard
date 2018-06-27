@@ -9,7 +9,7 @@ export default {
     assetsCount: 0,
     errorMessage: '',
     hasError: false,
-    isLoading: false,
+    isLoading: false
   },
   toastMessage: {
     message: '',

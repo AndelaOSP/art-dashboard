@@ -22,12 +22,12 @@ const ActionComponent = ({ onViewClick, onEditClick }) => (
 
 ActionComponent.propTypes = {
   onEditClick: PropTypes.func,
-  onViewClick: PropTypes.func,
+  onViewClick: PropTypes.func
 };
 
 ActionComponent.defaultProps = {
   onEditClick: () => { },
-  onViewClick: () => { },
+  onViewClick: () => { }
 };
 
 export default ActionComponent;

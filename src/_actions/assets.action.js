@@ -11,13 +11,13 @@ export const getAssetsAction = () => (
       .then((response) => {
         dispatch({
           type: LOAD_ASSETS_SUCCESS,
-          payload: response.data,
+          payload: response.data
         });
       })
       .catch((error) => {
         dispatch({
           type: LOAD_ASSETS_FAILURE,
-          payload: error.message,
+          payload: error.message
         });
       });
   }

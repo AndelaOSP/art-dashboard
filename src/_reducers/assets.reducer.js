@@ -6,7 +6,7 @@ const {
   CREATE_ASSET_FAIL,
   LOAD_ASSETS_SUCCESS,
   LOAD_ASSETS_FAILURE,
-  LOAD_ASSETS_STARTS,
+  LOAD_ASSETS_STARTS
 } = constants;
 
 export default (state = initialState.assets, action) => {
@@ -18,7 +18,7 @@ export default (state = initialState.assets, action) => {
     case LOAD_ASSETS_STARTS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       };
     case LOAD_ASSETS_SUCCESS:
       return {
@@ -26,7 +26,7 @@ export default (state = initialState.assets, action) => {
         assetsList: [...action.payload],
         assetsCount: action.payload.length,
         hasError: false,
-        isLoading: false,
+        isLoading: false
       };
     case LOAD_ASSETS_FAILURE:
       return {
@@ -35,7 +35,7 @@ export default (state = initialState.assets, action) => {
         assetsCount: 0,
         errorMessage: action.payload,
         hasError: true,
-        isLoading: false,
+        isLoading: false
       };
     default:
       return state;

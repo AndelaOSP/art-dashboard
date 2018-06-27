@@ -22,7 +22,7 @@ const state = {
   assetsList: [],
   assetsCount: 0,
   hasError: false,
-  isLoading: false,
+  isLoading: false
 };
 let action = {
   payload: assets

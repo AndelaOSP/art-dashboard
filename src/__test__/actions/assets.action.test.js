@@ -42,7 +42,7 @@ describe('Asset Types action tests', () => {
           id: 1,
           asset_type: 'Headset',
           asset_code: 'AND/HS/0077',
-          model_number: 'Microsoft Lifechat LX-6000',
+          model_number: 'Microsoft Lifechat LX-6000'
         }
       ]
     );

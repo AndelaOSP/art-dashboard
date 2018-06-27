@@ -8,7 +8,7 @@ import TableRowComponent from '../components/TableRowComponent';
 describe('Renders <TableRowComponent /> correctly', () => {
   const props = {
     data: assets[0],
-    headings: ['asset_type', 'asset_code', 'model_number'],
+    headings: ['asset_type', 'asset_code', 'model_number']
   };
   const wrapper = shallow(<TableRowComponent {...props} />);
 

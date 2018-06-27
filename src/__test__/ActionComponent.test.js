@@ -7,7 +7,7 @@ import ActionComponent from '../components/ActionComponent';
 describe('Renders <ActionComponent /> correctly', () => {
   const props = {
     onClickView: jest.fn(),
-    onClickEdit: jest.fn(),
+    onClickEdit: jest.fn()
   };
   const wrapper = shallow(<ActionComponent {...props} />);
 

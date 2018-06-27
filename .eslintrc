@@ -82,6 +82,7 @@
     "object-curly-newline": "off",
     "react/jsx-indent": [2, 2],
     "import/extensions": 0,
+    "no-param-reassign": "off",
     "function-paren-newline": "off",
     "jsx-a11y/anchor-is-valid": [
       "error",

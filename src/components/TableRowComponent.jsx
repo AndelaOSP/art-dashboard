@@ -18,7 +18,7 @@ const TableRowComponent = props => (
 TableRowComponent.propTypes = {
   headings: PropTypes.array.isRequired,
   data: PropTypes.object.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 TableRowComponent.defaultProps = {

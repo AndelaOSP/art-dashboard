@@ -72,11 +72,11 @@ class LoginComponent extends React.Component {
 }
 
 LoginComponent.propTypes = {
-  history: PropTypes.object,
+  history: PropTypes.object
 };
 
 LoginComponent.defaultProps = {
-  history: {},
+  history: {}
 };
 
 export default withRouter(LoginComponent);

@@ -1,10 +1,13 @@
 import React from 'react';
-import { Button, Icon, Header, Table, Pagination } from 'semantic-ui-react';
+import { Button, Header, Table, Pagination } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
 import TableRowComponent from './TableRowComponent';
+import ModalComponent from './common/ModalComponent';
 import ActionComponent from './ActionComponent';
 import LoaderComponent from './LoaderComponent';
+import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
+import CategoryContainer from '../_components/Category/CategoryContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 
 const AssetsTableContent = (props) => {
@@ -27,43 +30,77 @@ const AssetsTableContent = (props) => {
 
   return (
     <div>
-      <Button icon labelPosition="left" floated="right" className="add-asset">
-        <Icon name="add" />
-        Add Asset
-      </Button>
       <Table celled>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Asset Code</Table.HeaderCell>
-            <Table.HeaderCell>Serial Number</Table.HeaderCell>
-            <Table.HeaderCell>Model Number</Table.HeaderCell>
-            <Table.HeaderCell>Checkin Status</Table.HeaderCell>
-            <Table.HeaderCell>Current Status</Table.HeaderCell>
-            <Table.HeaderCell>Asset Type</Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className="assets-header">
+                Category
+                <ModalComponent modalTitle="Add Asset Category">
+                  <CategoryContainer />
+                </ModalComponent>
+              </div>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className="assets-header">
+                Sub-category
+                <ModalComponent />
+              </div>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className="assets-header">
+                Asset Code
+                <ModalComponent />
+              </div>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className="assets-header">
+                Serial Number
+                <ModalComponent />
+              </div>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className="assets-header">
+                Model Number
+                <ModalComponent modalTitle="Add Asset Model Number">
+                  <ModelNumberContainer />
+                </ModalComponent>
+              </div>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className="assets-header">
+                Asset Type
+                <ModalComponent />
+              </div>
+            </Table.HeaderCell>
             <Table.HeaderCell>Action</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           {
-            props.activePageAssets.map(asset => (
-              <TableRowComponent
-                key={asset.id}
-                data={asset}
-                headings={[
-                  'asset_code',
-                  'serial_number',
-                  'model_number',
-                  'checkin_status',
-                  'current_status',
-                  'asset_type',
-                ]}
-              >
-                <Table.Cell>
-                  <ActionComponent />
-                </Table.Cell>
-              </TableRowComponent>
-            ))
+            props.activePageAssets.map((asset) => {
+              asset.category = 'Electronics';
+              asset.sub_category = 'Computers';
+              return (
+                <TableRowComponent
+                  key={asset.id}
+                  data={asset}
+                  headings={[
+                    'category',
+                    'sub_category',
+                    'asset_code',
+                    'serial_number',
+                    'model_number',
+                    'asset_type'
+                  ]}
+                >
+                  <Table.Cell>
+                    <ActionComponent />
+                  </Table.Cell>
+                </TableRowComponent>
+              );
+            })
           }
         </Table.Body>
 
@@ -77,6 +114,7 @@ const AssetsTableContent = (props) => {
                   activePage={props.activePage}
                 />
               )}
+              <Button circular icon="add" floated="right" size="big" />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
@@ -92,11 +130,11 @@ AssetsTableContent.propTypes = {
   handlePageTotal: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 AssetsTableContent.defaultProps = {
   activePage: 1,
-  errorMessage: '',
+  errorMessage: ''
 };
 export default AssetsTableContent;

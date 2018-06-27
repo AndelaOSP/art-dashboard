@@ -5,5 +5,10 @@
 
 .assets-heading {
   font-size: 48px !important;
-  margin-bottom: 20px !important;
+  margin-bottom: 30px !important;
+}
+
+.assets-header {
+  display: flex;
+  justify-content: space-between;
 }
