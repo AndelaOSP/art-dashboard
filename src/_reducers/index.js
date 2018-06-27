@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   assets: assetsReducer,
   feedbackReducer,
   toastMessage,
-  allocationsList: allocationsReducer,
+  allocationsList: allocationsReducer
 });
 
 export default rootReducer;

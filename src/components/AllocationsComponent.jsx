@@ -16,7 +16,7 @@ export class AllocationsComponent extends Component {
     currentAllocations: [],
     offset: 0,
     activePage: 1,
-    limit: 10,
+    limit: 10
   }
 
   componentDidMount() {
@@ -39,13 +39,11 @@ export class AllocationsComponent extends Component {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
-      day: 'numeric',
-    }
-    currentAllocations.map(el => {
-      return el.formatted_date = new Date(el.created_at).toLocaleDateString('en-US', dateOptions);
-    });
+      day: 'numeric'
+    };
+    currentAllocations.map(el => el.formatted_date = new Date(el.created_at).toLocaleDateString('en-US', dateOptions));
     this.setState({
-      currentAllocations: currentAllocations,
+      currentAllocations
     });
   }
 
@@ -54,7 +52,7 @@ export class AllocationsComponent extends Component {
   handlePaginationChange = (event, { activePage }) => {
     this.setState({
       activePage,
-      offset: this.calculateOffset(activePage, this.state.limit),
+      offset: this.calculateOffset(activePage, this.state.limit)
     }, () => this.setTableContent());
   }
 
@@ -62,7 +60,7 @@ export class AllocationsComponent extends Component {
     if (this.props.isLoading) {
       return (
         <SideMenuComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: "100vh" }} />
+          <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />
         </SideMenuComponent>
       );
     } else if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
@@ -105,7 +103,7 @@ export class AllocationsComponent extends Component {
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="4">
-                  {_.isEmpty(this.props.allAllocations) ? '' :
+                  {!_.isEmpty(this.props.allAllocations) &&
                     <Pagination
                       totalPages={this.getTotalPages()}
                       onPageChange={this.handlePaginationChange}
@@ -127,16 +125,16 @@ const mapStateToProps = ({ allocationsList }) => {
 
   return {
     allAllocations,
-    isLoading,
+    isLoading
   };
 };
 
 AllocationsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   allAllocations: PropTypes.array.isRequired,
-  loadAllocationsAction: PropTypes.func.isRequired,
+  loadAllocationsAction: PropTypes.func.isRequired
 };
 
 export default withRouter(connect(mapStateToProps, {
-  loadAllocationsAction,
+  loadAllocationsAction
 })(AllocationsComponent));

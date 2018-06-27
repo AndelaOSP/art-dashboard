@@ -8,7 +8,7 @@ const {
 
 const initialState = {
   allAllocations: [],
-  isLoading: false,
+  isLoading: false
 };
 
 export default (state = initialState, action) => {
@@ -17,18 +17,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         allAllocations: [...action.payload.data],
-        isLoading: false,
+        isLoading: false
       };
     case LOAD_ALLOCATIONS_FAILURE:
       return {
         ...state,
         allAllocations: [],
-        isLoading: false,
+        isLoading: false
       };
     case LOADING_ALLOCATIONS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       };
     default:
       return state;

@@ -10,20 +10,12 @@ describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
     getAssetsAction: jest.fn(),
     handlePaginationChange: jest.fn(),
-    assets: [],
-    assetsCount: 10,
-    errorMessage: '',
-    hasError: false,
-    isLoading: false,
-    title: 'My Assets'
+    assets,
+    assetsCount: 10
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
   />);
-  const prevProps = wrapper.props();
-
-  wrapper.setProps({ assets });
-  wrapper.instance().componentDidUpdate(prevProps);
 
   it('renders page title', () => {
     expect(wrapper.find('.assets-heading').prop('content')).toEqual('My Assets');
@@ -57,13 +49,5 @@ describe('Renders <AssetsComponent /> correctly', () => {
     );
     wrapper.instance().handlePageTotal();
     expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the emptyAssetCheck function when the next button is clicked', () => {
-    const emptyAssetsCheckSpy = jest.spyOn(
-      wrapper.instance(), 'emptyAssetsCheck'
-    );
-    wrapper.instance().emptyAssetsCheck();
-    expect(emptyAssetsCheckSpy.mock.calls.length).toEqual(1);
   });
 });
