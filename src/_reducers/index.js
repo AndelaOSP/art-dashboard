@@ -7,7 +7,7 @@ import assetTypesReducer from './assetTypes.reducer';
 import assetMake from './assetMake.reducer';
 import modelNumber from './modelNumber.reducer';
 import assetsReducer from './assets.reducer';
-import feedbackReducer from './feedback.reducer';
+import feedbackReducer from './userFeedback.reducer';
 import toastMessage from './toastMessage.reducer';
 
 const rootReducer = combineReducers({

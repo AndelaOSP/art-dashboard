@@ -6,7 +6,7 @@ import AssetTypes from '../components/AssetTypesComponent';
 import Assets from '../components/AssetsComponent';
 import LoginComponent from '../components/LoginComponent';
 import DashboardComponent from '../components/DashboardComponent';
-import Feedback from '../components/FeedbackComponent';
+import UserFeedback from '../components/UserFeedbackComponent';
 import AddAssetContainer from './AddAsset/AddAssetContainer';
 import PageNotFoundComponent from '../components/PageNotFoundComponent';
 
@@ -37,8 +37,8 @@ class RoutesComponent extends Component {
           <AuthenticateComponent
             exact
             isAuthenticated={this.checkAuthentication()}
-            path="/feedback"
-            component={Feedback}
+            path="/user-feedback"
+            component={UserFeedback}
           />
           <AuthenticateComponent
             exact

@@ -3,7 +3,7 @@ import { Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import NavBarComponent from './NavBarComponent';
+import NavBarComponent from './NavBarComponent'; //eslint-disable-line
 
 import '../_css/SideMenuComponent.css';
 
@@ -69,8 +69,8 @@ class SideMenuComponent extends Component {
             <Menu.Item name="reports">
               <span><Icon name="tasks" />Reports</span>
             </Menu.Item>
-            <Menu.Item name="feedback">
-              <span><Icon name="address card" />Feedback</span>
+            <Menu.Item name="user-feedback">
+              <Link to="/user-feedback"><Icon name="address card" /> User Feedback</Link>
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
