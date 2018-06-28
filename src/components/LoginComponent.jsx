@@ -13,14 +13,19 @@ import '../_css/LoginComponent.css';
 const provider = new firebase.auth.GoogleAuthProvider();
 
 class LoginComponent extends React.Component {
+  componentDidMount() {
+    if (localStorage.getItem('art-prod-web-token')) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
   // checks that the user used an Andela email
   validateUser = (result) => {
     if (validAndelaEmail(result.user.email)) {
       result.user.getIdToken().then((idToken) => {
         localStorage.setItem('art-prod-web-token', idToken);
+        this.props.history.push('/dashboard');
       });
-      ToastMessage.success({ message: 'Welcome to ART' });
-      this.props.history.push('/dashboard');
     } else {
       ToastMessage.error({ message: 'Please sign in with your andela email' });
     }
@@ -73,11 +78,11 @@ class LoginComponent extends React.Component {
 }
 
 LoginComponent.propTypes = {
-  history: PropTypes.object,
+  history: PropTypes.object
 };
 
 LoginComponent.defaultProps = {
-  history: {},
+  history: {}
 };
 
 export default withRouter(LoginComponent);

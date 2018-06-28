@@ -1,37 +1,53 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
 import { AssetsComponent } from '../components/AssetsComponent';
 
-import { assets } from '../_mock/assets';
+import assets from '../_mock/assets';
 
 describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
     getAssetsAction: jest.fn(),
     handlePaginationChange: jest.fn(),
     assets,
-    assetsCount: 10,
+    assetsCount: 10
   };
   const wrapper = shallow(<AssetsComponent
-      {...props}
-    />)
+    {...props}
+  />);
 
   it('renders page title', () => {
-    expect(wrapper.find('.landing-heading').prop('content')).toEqual('All Assets');
+    expect(wrapper.find('.assets-heading').prop('content')).toEqual('My Assets');
   });
 
-  it('renders Pageination component', () => {
-    expect(wrapper.find('Pagination').length).toBe(1);
+  it('renders the AssetsTableContent component', () => {
+    expect(wrapper.find('AssetsTableContent').length).toBe(1);
   });
 
-  it('renders Table component', () => {
-    expect(wrapper.find('Table').length).toBe(1);
+  it('should not rerender the component if the error message is the same', () => {
+    const componentDidUpdateSpy = jest.spyOn(
+      wrapper.instance(), 'componentDidUpdate'
+    );
+    wrapper.setProps({ hasError: true });
+    expect(componentDidUpdateSpy.mock.calls.length).toBe(1);
   });
 
-  it('renders TableRowComponent component', () => {
-    expect(wrapper.find('TableRowComponent').length).toBe(2);
+  it('calls the handlePaginationChange function when the next button is clicked', () => {
+    const handlePaginationChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handlePaginationChange'
+    );
+    const event = {};
+    const data = {};
+    wrapper.instance().handlePaginationChange(event, data);
+    expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
 
+  it('calls the handlePageTotal function when the next button is clicked', () => {
+    const handlePageTotalSpy = jest.spyOn(
+      wrapper.instance(), 'handlePageTotal'
+    );
+    wrapper.instance().handlePageTotal();
+    expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
+  });
 });

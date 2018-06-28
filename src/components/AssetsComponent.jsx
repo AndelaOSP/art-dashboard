@@ -1,145 +1,106 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Table, Pagination } from 'semantic-ui-react';
-import TableRowComponent from './TableRowComponent';
-import ModalComponent from './common/ModalComponent';
+import { Container, Header } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import SideMenuComponent from '../_components/SideMenuComponent';
+import AssetsTableContent from './AssetsTableContent';
+
+import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
-import { createModelNumbers } from '../_actions/modelNumbers.actions';
-import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
-import '../_css/AssetComponent.css';
 
 export class AssetsComponent extends Component {
   state = {
     activePage: 1,
-    limit: 10,
+    activePageAssets: [],
+    limit: 8,
+    offset: 0
   }
 
   componentDidMount() {
     this.props.getAssetsAction();
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props.hasError &&
+      (this.props.errorMessage === nextProps.errorMessage)) {
+      return false;
+    }
+    return true;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.assetsList !== prevProps.assetsList) {
+      this.handlePageContent();
+    }
+  }
+
+  handlePageContent = () => {
+    const { activePage, limit, offset } = this.state;
+    const endIndex = (limit * activePage) - 1;
+    const assets = this.props.assetsList.slice(offset, endIndex);
+    this.setState({
+      activePageAssets: assets
+    });
+  }
+
   handlePaginationChange = (e, { activePage }) => {
-    this.setState({ activePage });
-    this.props.getAssetsAction(activePage);
+    const newPageOffset = (activePage - 1) * this.state.limit;
+    this.setState({ activePage, offset: newPageOffset }, () => {
+      this.handlePageContent();
+    });
   }
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit)
 
-  emptyAssetTypeCheck = () => (this.props.assets.length === 0)
-
-  loadTableContent = () => {
-    if (this.emptyAssetTypeCheck()) {
-      return <Table.Row><Table.Cell colSpan="6">No Data found</Table.Cell></Table.Row>;
-    }
-    return (this.props.assets.map(asset => (<TableRowComponent
-      key={asset.id}
-      data={asset}
-      headings={['category',
-            'sub_category',
-            'asset_type',
-            'make',
-            'model_number',
-            'asset_code']}
-    />)));
-  }
+  emptyAssetsCheck = () => (isEmpty(this.props.assetsList))
 
   render() {
     return (
-      <SideMenuComponent>
-        <Header className="landing-heading" content="All Assets" />
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>
-                <div className="header">
-                  Category
-                  <ModalComponent />
-                </div>
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <div className="header">
-                  Sub-category
-                  <ModalComponent />
-                </div>
-              </Table.HeaderCell>
-              <Table.HeaderCell >
-                <div className="header">
-                  Type
-                  <ModalComponent />
-                </div>
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <div className="header">
-                  Make
-                  <ModalComponent />
-                </div>
-              </Table.HeaderCell>
-              <Table.HeaderCell >
-                <div className="header">
-                Model
-                  <ModalComponent modalTitle="Add Asset Model Number">
-                    <ModelNumberContainer />
-                  </ModalComponent>
-                </div>
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <div className="header">
-                  Item
-                  <ModalComponent />
-                </div>
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            {
-              this.loadTableContent()
-            }
-          </Table.Body>
-
-          <Table.Footer>
-            <Table.Row>
-              <Table.HeaderCell colSpan="6">
-                {
-                  (this.emptyAssetTypeCheck()) ? '' :
-                  <Pagination
-                    totalPages={this.handlePageTotal()}
-                    onPageChange={this.handlePaginationChange}
-                    activePage={this.state.activePage}
-                  />
-                }
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Footer>
-        </Table>
+      <SideMenuComponent title="Assets">
+        <Container>
+          <Header className="assets-heading" content="My Assets" />
+          <AssetsTableContent
+            activePage={this.state.activePage}
+            activePageAssets={this.state.activePageAssets}
+            emptyAssetsCheck={this.emptyAssetsCheck}
+            errorMessage={this.props.errorMessage}
+            handlePageTotal={this.handlePageTotal}
+            handlePaginationChange={this.handlePaginationChange}
+            hasError={this.props.hasError}
+            isLoading={this.props.isLoading}
+          />
+        </Container>
       </SideMenuComponent>
     );
   }
 }
 
 AssetsComponent.propTypes = {
-  assets: PropTypes.array,
-  assetsCount: PropTypes.number,
-  getAssetsAction: PropTypes.func
+  assetsCount: PropTypes.number.isRequired,
+  assetsList: PropTypes.arrayOf(PropTypes.object),
+  errorMessage: PropTypes.string,
+  getAssetsAction: PropTypes.func.isRequired,
+  hasError: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 AssetsComponent.defaultProps = {
-  assets: [],
-  assetsCount: 0,
-  getAssetsAction: () => {}
+  assetsList: [],
+  errorMessage: ''
 };
 
-const mapStateToProps = ({ viewAssets }) => {
-  const { assets, assetsCount } = viewAssets;
+const mapStateToProps = ({ assets }) => {
+  const { assetsList, assetsCount, errorMessage, hasError, isLoading } = assets;
   return {
-    assets,
+    assetsList,
     assetsCount,
+    errorMessage,
+    hasError,
+    isLoading
   };
 };
 
 export default connect(mapStateToProps, {
-  getAssetsAction,
-  createModelNumbers,
+  getAssetsAction
 })(AssetsComponent);

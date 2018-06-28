@@ -18,24 +18,22 @@ const TableRowComponent = props => (
   <Table.Row>
     {props.headings
       .map(heading => (
-        <Table.Cell key={heading.id}>
+        <Table.Cell key={heading}>
           {props.data[heading]}
         </Table.Cell>
-        )
       )
-      }
-    {props.action && <Table.Cell>{action}</Table.Cell>}
+      )}
+    {props.children}
   </Table.Row>
 );
 
 TableRowComponent.propTypes = {
-  headings: PropTypes.array,
-  data: PropTypes.object,
-  action: PropTypes.bool
-};
-TableRowComponent.defaultProps = {
-  headings: [],
-  data: null,
+  headings: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
+  children: PropTypes.node
 };
 
+TableRowComponent.defaultProps = {
+  children: <span />
+};
 export default TableRowComponent;

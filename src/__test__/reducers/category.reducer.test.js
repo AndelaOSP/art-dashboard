@@ -10,12 +10,20 @@ import { mockStore } from '../../_mock/mockStore';
 // mock data
 import categories from '../../_mock/categories';
 
-import { loadCategoriesSuccess } from '../../_actions/category.actions';
+import { loadCategoriesSuccess, createCategorySuccess } from '../../_actions/category.actions';
 
 describe('Category Reducer tests', () => {
   it('should handle CREATE_ASSET_SUCCESS', () => {
-    let action = loadCategoriesSuccess(categories);
+    const action = loadCategoriesSuccess(categories);
     expect(mockStore.categories.length).toEqual(0);
     expect(categoryReducer(mockStore.categories, action)).toEqual(categories);
+  });
+
+  it('should handle CREATE_CATEGORY_SUCCESS', () => {
+    const newCategory = { id: 4, category_name: 'Tesy Category' };
+    const expected = [newCategory];
+    const action = createCategorySuccess(newCategory);
+    expect(mockStore.categories.length).toEqual(0);
+    expect(categoryReducer(mockStore.categories, action)).toEqual(expected);
   });
 });
