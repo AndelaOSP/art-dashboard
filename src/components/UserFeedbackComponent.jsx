@@ -6,6 +6,7 @@ import feedbackAction from '../_actions/userFeedback.actions';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
+import ActionComponent from './ActionComponent';
 
 export class UserFeedbackComponent extends React.Component {
   constructor() {
@@ -14,7 +15,7 @@ export class UserFeedbackComponent extends React.Component {
       activePage: 1,
       limit: 10,
       offset: 0,
-      currentFeedback: []
+      feedback: []
     };
   }
 
@@ -30,26 +31,17 @@ export class UserFeedbackComponent extends React.Component {
   }
 
   setTableContent = () => {
-    const currentFeedback =
+    const feedback =
     this.props.feedback.slice(this.state.offset, (this.state.activePage * this.state.limit));
-    // format date
-    const dateOptions = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    currentFeedback.map(el => el.created_at = new Date(el.created_at).toLocaleDateString('en-US', dateOptions)); //eslint-disable-line
-
     this.setState({
-      currentFeedback
+      feedback
     });
   }
 
   handlePaginationChange = (event, { activePage }) => {
     this.setState({
       activePage,
-      offset: (activePage - 1) * this.state.limit,
+      offset: (activePage - 1) * this.state.limit
     }, () => this.setTableContent());
   }
 
@@ -64,15 +56,20 @@ export class UserFeedbackComponent extends React.Component {
   )
 
   loadFeedback = () => {
-    const feedbackRecord = this.state.currentFeedback.map((feedback, index) => (
+    const feedbackRecord = this.state.feedback.map((feedback, index) => (
       <TableRowComponent
-        key={index} // eslint-disable-line
+        key={index} //eslint-disable-line
         data={feedback}
         headings={['reported_by',
             'created_at',
             'report_type',
             'message']}
-      />
+      >
+        <Table.Cell>
+          <ActionComponent />
+        </Table.Cell>
+      </TableRowComponent>
+
     ));
     return feedbackRecord;
   }
@@ -100,6 +97,7 @@ export class UserFeedbackComponent extends React.Component {
               <Table.HeaderCell>Date Submitted</Table.HeaderCell>
               <Table.HeaderCell>Type</Table.HeaderCell>
               <Table.HeaderCell>Message</Table.HeaderCell>
+              <Table.HeaderCell>Action</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
