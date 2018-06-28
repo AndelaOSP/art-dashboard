@@ -26,7 +26,6 @@ class LoginComponent extends React.Component {
         localStorage.setItem('art-prod-web-token', idToken);
         this.props.history.push('/dashboard');
       });
-      ToastMessage.success({ message: 'Welcome to ART' });
     } else {
       ToastMessage.error({ message: 'Please sign in with your andela email' });
     }
