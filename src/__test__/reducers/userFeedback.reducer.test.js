@@ -7,7 +7,7 @@ const { LOAD_FEEDBACK_SUCCESS, LOAD_FEEDBACK_FAILURE, LOADING_FEEDBACK } = const
 
 const initialState = {
   feedback: [],
-  isLoading: false,
+  isLoading: false
 };
 
 const action = {};

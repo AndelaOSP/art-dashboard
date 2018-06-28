@@ -8,11 +8,11 @@ const feedbackAction = () => (dispatch) => {
   return axios.get('user-feedback/')
     .then(response => dispatch({
       type: LOAD_FEEDBACK_SUCCESS,
-      payload: response.data,
+      payload: response.data
     }))
     .catch(error => dispatch({
       type: LOAD_FEEDBACK_FAILURE,
-      payload: error,
+      payload: error
     }));
 };
 
