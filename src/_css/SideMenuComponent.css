@@ -1,7 +1,7 @@
- .ui.sidebar,
+.ui.sidebar,
 .ui.left.sidebar,
 .ui.wide.left.sidebar {
-    width: 17%;
+  width: 17%;
 }
 
 .ui.vertical.menu {
@@ -17,34 +17,38 @@
 }
 
 .wrapper .ui.segment {
-margin: 0;
+  margin: 0;
 }
 
 .pusher {
   padding: 1rem 0;
 }
 
-#andela-logo {
-  animation: andela-logo-spin infinite 40s linear;
-}
-
 @keyframes andela-logo-spin {
   0% {
-      transform: rotate(0);
+    transform: rotate(0);
   }
+
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 @media screen and (min-width: 960px) {
+  .ui.visible.scale.down.sidebar ~ .pusher {
+    overflow-y: auto !important;
+    margin-top: -30px;
+    transform: scale(0.8) !important;
+  }
+
   .ui.labeled.icon.menu .item {
     font-size: 1.5rem;
   }
 }
 
 @media screen and (max-width: 960px) {
-  .ui.wide.left.sidebar, .ui.wide.right.sidebar {
+  .ui.wide.left.sidebar,
+  .ui.wide.right.sidebar {
     width: 150px;
   }
 

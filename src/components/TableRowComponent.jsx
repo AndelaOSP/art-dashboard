@@ -5,18 +5,23 @@ import { Table } from 'semantic-ui-react';
 const TableRowComponent = props => (
   <Table.Row>
     {props.headings
-      .map((heading, index) => {
-        return <Table.Cell key={index}>
+      .map(heading => (
+        <Table.Cell key={heading}>
           {props.data[heading]}
         </Table.Cell>
-      }
+      )
       )}
+    {props.children}
   </Table.Row>
 );
 
 TableRowComponent.propTypes = {
-  headings: PropTypes.array,
-  data: PropTypes.object
+  headings: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
+  children: PropTypes.node
 };
 
+TableRowComponent.defaultProps = {
+  children: <span />
+};
 export default TableRowComponent;

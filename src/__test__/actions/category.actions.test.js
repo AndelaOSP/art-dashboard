@@ -66,7 +66,7 @@ describe('Category action tests', () => {
         }
       );
     return store.dispatch(createCategory(newCategory)).then(() => {
-      expect(store.getActions()).toEqual(expectedAction);
+      expect(store.getActions()[0]).toEqual(expectedAction[0]);
     });
   });
 });

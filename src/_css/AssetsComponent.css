@@ -1,0 +1,14 @@
+.add-asset {
+  margin-bottom: 10px !important;
+  color: black !important;
+}
+
+.assets-heading {
+  font-size: 48px !important;
+  margin-bottom: 30px !important;
+}
+
+.assets-header {
+  display: flex;
+  justify-content: space-between;
+}

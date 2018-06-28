@@ -4,29 +4,60 @@ import expect from 'expect';
 // reducer
 import assetReducer from '../../_reducers/assets.reducer';
 
-// initial mock State
-import { mockStore } from '../../_mock/mockStore';
-
 // mock data
 import asset from '../../_mock/asset';
+import assets from '../../_mock/assets';
 
 import {
   createAssetSuccess,
   createAssetFail
 } from '../../_actions/asset.actions';
 
+// constants
+import constants from '../../_constants';
+
+const { LOAD_ASSETS_SUCCESS, LOAD_ASSETS_FAILURE, LOAD_ASSETS_STARTS } = constants;
+
+const state = {
+  assetsList: [],
+  assetsCount: 0,
+  hasError: false,
+  isLoading: false
+};
+let action = {
+  payload: assets
+};
+
 describe('Asset Reducer tests', () => {
+  it('should return initial state when there is no action', () => {
+    expect(assetReducer(state, {})).toEqual(state);
+  });
+
+  it('should handle LOAD_ASSETS_SUCCESS', () => {
+    action.type = LOAD_ASSETS_SUCCESS;
+    expect(assetReducer(state, action).assetsList).toEqual(action.payload);
+    expect(assetReducer(state, action).isLoading).toBe(false);
+  });
+
+  it('should handle LOAD_ASSETS_FAILURE', () => {
+    action.type = LOAD_ASSETS_FAILURE;
+    expect(assetReducer(state, action).hasError).toBe(true);
+    expect(assetReducer(state, action).isLoading).toBe(false);
+  });
+
+  it('should handle LOAD_ASSETS_STARTS', () => {
+    action.type = LOAD_ASSETS_STARTS;
+    expect(assetReducer(state, action).isLoading).toBe(true);
+  });
 
   it('should handle CREATE_ASSET_SUCCESS', () => {
-    let expected = [asset];
-    let action = createAssetSuccess(asset);
-    expect(mockStore.assets.length).toEqual(0);
-    expect(assetReducer(mockStore.assets, action)).toEqual(expected);
+    const expected = [asset];
+    action = createAssetSuccess(asset);
+    expect(assetReducer(state, action)).toEqual(expected);
   });
 
   it('should handle CREATE_ASSET_FAIL', () => {
-    let action = createAssetFail();
-    expect(mockStore.assets.length).toEqual(0);
-    expect(assetReducer(mockStore.assets, action).length).toEqual(0);
+    action = createAssetFail();
+    expect(assetReducer(state, action)).toEqual(state);
   });
 });

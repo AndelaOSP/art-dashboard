@@ -3,6 +3,7 @@ import KeyMirror from '../_utils/KeyMirror';
 const CONSTANTS = KeyMirror({
   LOAD_ASSETS_SUCCESS: true,
   LOAD_ASSETS_FAILURE: true,
+  LOAD_ASSETS_STARTS: true,
   LOAD_ASSET_TYPE_SUCCESS: true,
   LOAD_ASSET_TYPE_FAILURE: true,
   LOAD_CATEGORIES_SUCCESS: true,
