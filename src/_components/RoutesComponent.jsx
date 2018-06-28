@@ -11,7 +11,8 @@ import AddAssetContainer from './AddAsset/AddAssetContainer';
 import PageNotFoundComponent from '../components/PageNotFoundComponent';
 
 class RoutesComponent extends Component {
-  checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'))
+  checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
+
   render() {
     return (
       <div>
