@@ -72,6 +72,9 @@ class SideMenuComponent extends Component {
             <Menu.Item name="user-feedback">
               <Link to="/user-feedback"><Icon name="address card" /> User Feedback</Link>
             </Menu.Item>
+            <Menu.Item name="allocations">
+              <Link to="/allocations"><Icon name="table" />Allocations</Link>
+            </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
             {this.props.children}
@@ -84,7 +87,11 @@ class SideMenuComponent extends Component {
 
 SideMenuComponent.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string
+};
+
+SideMenuComponent.defaultProps = {
+  title: ''
 };
 
 export default SideMenuComponent;
