@@ -9,7 +9,7 @@ describe('Renders <Allocations/> component', () => {
   const props = {
     loadAllocationsAction: jest.fn(),
     allAllocations: [],
-    isLoading: true,
+    isLoading: true
   };
 
   let wrapper;

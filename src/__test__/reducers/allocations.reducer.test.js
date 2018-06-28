@@ -6,12 +6,12 @@ import constants from '../../_constants';
 const {
   LOAD_ALLOCATIONS_SUCCESS,
   LOAD_ALLOCATIONS_FAILURE,
-  LOADING_ALLOCATIONS,
+  LOADING_ALLOCATIONS
 } = constants;
 
 const initialState = {
   allAllocations: [],
-  isLoading: false,
+  isLoading: false
 };
 
 const action = {};
@@ -40,4 +40,3 @@ describe.only('Allocations Reducer test', () => {
     expect(allocationReducer(initialState, action).isLoading).toEqual(true);
   });
 });
-

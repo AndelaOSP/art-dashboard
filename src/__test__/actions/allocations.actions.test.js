@@ -3,7 +3,6 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-
 import constants from '../../_constants';
 import allocations from '../../_mock/allocations';
 import loadAllocationsAction from '../../_actions/allocations.actions';
@@ -11,7 +10,7 @@ import loadAllocationsAction from '../../_actions/allocations.actions';
 const {
   LOAD_ALLOCATIONS_SUCCESS,
   LOAD_ALLOCATIONS_FAILURE,
-  LOADING_ALLOCATIONS,
+  LOADING_ALLOCATIONS
 } = constants;
 
 const middleware = [thunk];

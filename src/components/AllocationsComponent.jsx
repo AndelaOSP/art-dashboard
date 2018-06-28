@@ -33,8 +33,10 @@ export class AllocationsComponent extends Component {
   getTotalPages = () => Math.ceil(this.props.allAllocations.length / this.state.limit);
 
   setTableContent = () => {
-    const currentAllocations = this.props.allAllocations.slice(this.state.offset,
-      (this.state.activePage * this.state.limit));
+    const currentAllocations = this.props.allAllocations.slice(
+      this.state.offset,
+      (this.state.activePage * this.state.limit)
+    );
     // format date
     const dateOptions = {
       weekday: 'long',
@@ -61,10 +63,11 @@ export class AllocationsComponent extends Component {
     if (this.props.isLoading) {
       return (
         <SideMenuComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />
+          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
         </SideMenuComponent>
       );
-    } else if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
+    }
+    if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
       return (
         <SideMenuComponent>
           <Container>
