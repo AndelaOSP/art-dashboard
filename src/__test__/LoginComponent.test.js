@@ -12,9 +12,11 @@ window.localStorage = localStorageMock;
 
 
 describe('Renders <LoginComponent /> correctly', () => {
+  const props = {
+    history: { push: jest.fn() }
+  };
   const { WrappedComponent } = withRouter(connect()(LoginComponent));
-  const wrapper = shallowWithStore(<WrappedComponent />, createMockStore(null));
-
+  const wrapper = shallowWithStore(<WrappedComponent {...props} />, createMockStore(null));
   const andelaLogo = 'https://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png';
   const googleLogo = 'https://res.cloudinary.com/damc3mj5u/image/upload/v1526571608/google-logo_jjjjqs.svg';
 

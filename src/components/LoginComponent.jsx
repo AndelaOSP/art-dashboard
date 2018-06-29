@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { signInWithEmail, firebase } from '../firebase';
 import { ToastMessage } from '../_utils/ToastMessage';
 import { validAndelaEmail } from '../_utils/validAndelaEmail';
+import setAuthorizationConfig from '../_utils/setAuthorizationConfig';
 
 import '../_css/LoginComponent.css';
 
@@ -25,6 +26,7 @@ class LoginComponent extends React.Component {
       result.user.getIdToken().then((idToken) => {
         localStorage.setItem('art-prod-web-token', idToken);
         this.props.history.push('/dashboard');
+        setAuthorizationConfig();
       });
     } else {
       ToastMessage.error({ message: 'Please sign in with your andela email' });
