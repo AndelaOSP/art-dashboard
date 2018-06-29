@@ -28,6 +28,7 @@ export class NavBarComponent extends Component {
             <Dropdown item text={name || ''} simple>
               <Dropdown.Menu>
                 <Dropdown.Item
+                  id="logout"
                   onClick={this.handleLogout}
                 >Logout
                 </Dropdown.Item>

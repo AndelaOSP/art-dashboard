@@ -3,8 +3,9 @@
  */
 
 const localStorageMock = (() => {
-  const store = {};
-
+  const store = {
+    'art-prod-web-token': 'test token'
+  };
   return {
     getItem(key) {
       return store[key] || null;
@@ -14,7 +15,7 @@ const localStorageMock = (() => {
     },
     removeItem(key) {
       delete store[key];
-    },
+    }
   };
 })();
 
