@@ -25,7 +25,7 @@ export class NavBarComponent extends Component {
           </Menu.Item>
           <Menu.Item name={title} />
           <Menu.Menu position="right">
-            <Dropdown item text={name} simple>
+            <Dropdown item text={name || ''} simple>
               <Dropdown.Menu>
                 <Dropdown.Item
                   onClick={this.handleLogout}
@@ -34,7 +34,7 @@ export class NavBarComponent extends Component {
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Item className="user-avatar">
-              <Image src={picture} size="mini" avatar />
+              <Image src={picture || ''} size="mini" avatar />
             </Menu.Item>
           </Menu.Menu>
         </Menu>
@@ -47,12 +47,12 @@ NavBarComponent.propTypes = {
   title: PropTypes.string,
   toggleVisibility: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  push: PropTypes.func,
+  push: PropTypes.func
 };
 
 NavBarComponent.defaultProps = {
   title: '',
-  push: () => { },
+  push: () => { }
 };
 
 export default withRouter(NavBarComponent);
