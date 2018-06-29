@@ -22,6 +22,7 @@ export class AllocationsComponent extends Component {
 
   componentDidMount() {
     this.props.loadAllocationsAction();
+    this.setTableContent();
   }
 
   componentDidUpdate(prevProps) {
@@ -111,7 +112,7 @@ export class AllocationsComponent extends Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="4">
+                <Table.HeaderCell colSpan="5">
                   {!_.isEmpty(this.props.allAllocations) &&
                     <Pagination
                       totalPages={this.getTotalPages()}

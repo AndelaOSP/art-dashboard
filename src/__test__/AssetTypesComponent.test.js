@@ -7,13 +7,13 @@ import { AssetTypesComponent } from '../components/AssetTypesComponent';
 import { assetTypes } from '../_mock/assetType';
 
 describe('Renders <AssetTypesComponent /> correctly', () => {
-  const props = {
-    loadAssetTypeAction: jest.fn(),
+  let props = {
+    loadAssetTypes: jest.fn(),
     handlePaginationChange: jest.fn(),
-    assetTypes,
-    assetTypesCount: 20,
+    isLoading: false,
+    assetTypes
   };
-  const wrapper = shallow(<AssetTypesComponent
+  let wrapper = shallow(<AssetTypesComponent
     {...props}
   />
   );
@@ -23,7 +23,7 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
   });
 
   it('renders new-asset-types button', () => {
-    expect(wrapper.find('.ui.button').prop('data-tooltip')).toEqual('Add new asset types');
+    expect(wrapper.find('Button').prop('data-tooltip')).toEqual('Add new asset types');
   });
 
   it('renders Pagination component', () => {
@@ -34,7 +34,22 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
     expect(wrapper.find('Table').length).toBe(1);
   });
 
-  it('renders the Action field', () => {
-    expect(wrapper.find('TableCell').containsMatchingElement('span'));
+  it('renders TableRowComponent component', () => {
+    expect(wrapper.find('TableRowComponent').length).toBe(4);
+  });
+
+  it('renders Action component', () => {
+    expect(wrapper.find('ActionComponent').length).toBe(4);
+  });
+
+  it('renders Loader component if isLoading is true', () => {
+    props = {
+      loadAssetTypes: jest.fn(),
+      handlePaginationChange: jest.fn(),
+      isLoading: true,
+      assetTypes
+    };
+    wrapper = shallow(<AssetTypesComponent {...props} />);
+    expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 });

@@ -8,9 +8,10 @@ import _ from 'lodash';
 import TableRowComponent from './TableRowComponent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import LoaderComponent from '../components/LoaderComponent';
+import ActionComponent from '../components/ActionComponent';
 import '../_css/AssetTypesComponent.css';
 
-import { loadAssetTypeAction } from '../_actions/assetType.action';
+import { loadAssetTypes } from '../_actions/assetTypes.actions';
 
 export class AssetTypesComponent extends React.Component {
   state = {
@@ -20,7 +21,8 @@ export class AssetTypesComponent extends React.Component {
     currentAssetTypes: []
   }
   componentDidMount() {
-    this.props.loadAssetTypeAction();
+    this.props.loadAssetTypes();
+    this.setCurrentAssetTypes();
   }
 
   componentDidUpdate(prevProps) {
@@ -50,28 +52,11 @@ export class AssetTypesComponent extends React.Component {
 
   emptyAssetTypeCheck = () => (this.props.assetTypes.length === 0)
 
-  // loadRoles = () => {
-  //   let assetTypes = null;
-  //   if (this.emptyAssetTypeCheck()) {
-  //     assetTypes = <Table.Row><Table.Cell colSpan="2">No Data found</Table.Cell></Table.Row>;
-  //   } else {
-  //     assetTypes = this.state.currentAssetTypes.map(assetType => (
-  //       <TableRowComponent
-  //         key={assetType.id}
-  //         data={assetType}
-  //         headings={['id', 'asset_type', 'asset_sub_category']}
-  //         action
-  //       />
-  //     ));
-  //   }
-  //   return assetTypes;
-  // }
-
   render() {
     if (this.props.isLoading) {
       return (
         <SideMenuComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />
+          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
         </SideMenuComponent>
       );
     } else if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
@@ -79,7 +64,7 @@ export class AssetTypesComponent extends React.Component {
         <SideMenuComponent>
           <Container>
             <h1>
-              Unable to load Asset Types, refresh your browser or log out and in again.
+              Unable to load Asset Types, logout and in again.
             </h1>
           </Container>
         </SideMenuComponent>
@@ -87,16 +72,13 @@ export class AssetTypesComponent extends React.Component {
     }
     return (
       <SideMenuComponent>
-        {(this.emptyAssetTypeCheck()) ?
+        {_.isEmpty(this.state.currentAssetTypes) ?
           <LoaderComponent
             size="large"
             loadingText="loading..."
           /> :
           <Container>
             <Header className="landing-heading" content="Asset Types" />
-            <Button className="ui button new" data-tooltip="Add new asset types">
-              <i className="plus icon" /> New Asset Types
-            </Button>
             <Table celled>
               <Table.Header>
                 <Table.Row>
@@ -114,8 +96,11 @@ export class AssetTypesComponent extends React.Component {
                       key={assetType.id}
                       data={assetType}
                       headings={['id', 'asset_type', 'asset_sub_category']}
-                      action
-                    />
+                    >
+                      <Table.Cell>
+                        <ActionComponent />
+                      </Table.Cell>
+                    </TableRowComponent>
                   ))
                 }
               </Table.Body>
@@ -123,14 +108,14 @@ export class AssetTypesComponent extends React.Component {
               <Table.Footer>
                 <Table.Row>
                   <Table.HeaderCell colSpan="4">
-                    {
-                      (this.emptyAssetTypeCheck()) ? '' :
+                    {!_.isEmpty(this.state.currentAssetTypes) &&
                       <Pagination
                         totalPages={this.getTotalPages()}
                         onPageChange={this.handlePaginationChange}
                         activePage={this.state.activePage}
                       />
                     }
+                    <Button circular icon="add" floated="right" data-tooltip="Add new asset types" size="big" />
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Footer>
@@ -152,11 +137,10 @@ const mapStateToProps = ({ assetTypesList }) => {
 
 AssetTypesComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  loadAssetTypeAction: PropTypes.func.isRequired,
-  assetTypes: PropTypes.array.isRequired,
+  loadAssetTypes: PropTypes.func.isRequired,
+  assetTypes: PropTypes.array.isRequired
 };
 
-
 export default withRouter(connect(mapStateToProps, {
-  loadAssetTypeAction,
+  loadAssetTypes
 })(AssetTypesComponent));

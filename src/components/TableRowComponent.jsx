@@ -1,18 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-
-const iconStyle = {
-  margin: 10
-};
-
-const action = (
-  <span>
-    <Link to="/asset_types" data-tooltip="View"><Icon style={iconStyle} name="eye" /></Link>
-    <Link to="/asset_types" data-tooltip="Edit"><Icon style={iconStyle} name="edit" /></Link>
-  </span>
-);
+import { Table } from 'semantic-ui-react';
 
 const TableRowComponent = props => (
   <Table.Row>
@@ -36,4 +24,5 @@ TableRowComponent.propTypes = {
 TableRowComponent.defaultProps = {
   children: <span />
 };
+
 export default TableRowComponent;

@@ -107,7 +107,7 @@ export class UserFeedbackComponent extends React.Component {
 
           <Table.Footer>
             <Table.Row>
-              <Table.HeaderCell colSpan="4">
+              <Table.HeaderCell colSpan="5">
                 {
                   this.props.feedback.length === 0 ? '' :
                   this.pagination()
