@@ -34,8 +34,10 @@ export class AssetTypesComponent extends React.Component {
   getOffset = (activePage, limit) => (activePage - 1) * limit;
 
   setCurrentAssetTypes = () => {
-    const currentAssetTypes = this.props.assetTypes.slice(this.state.offset,
-      (this.state.activePage * this.state.limit));
+    const currentAssetTypes = this.props.assetTypes.slice(
+      this.state.offset,
+      (this.state.activePage * this.state.limit)
+    );
     this.setState({
       currentAssetTypes
     });
@@ -50,8 +52,6 @@ export class AssetTypesComponent extends React.Component {
 
   getTotalPages = () => Math.ceil(this.props.assetTypes.length / this.state.limit)
 
-  emptyAssetTypeCheck = () => (this.props.assetTypes.length === 0)
-
   render() {
     if (this.props.isLoading) {
       return (
@@ -59,7 +59,8 @@ export class AssetTypesComponent extends React.Component {
           <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
         </SideMenuComponent>
       );
-    } else if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
+    }
+    if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
       return (
         <SideMenuComponent>
           <Container>
@@ -72,56 +73,50 @@ export class AssetTypesComponent extends React.Component {
     }
     return (
       <SideMenuComponent>
-        {_.isEmpty(this.state.currentAssetTypes) ?
-          <LoaderComponent
-            size="large"
-            loadingText="loading..."
-          /> :
-          <Container>
-            <Header className="landing-heading" content="Asset Types" />
-            <Table celled>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Id</Table.HeaderCell>
-                  <Table.HeaderCell>Sub-category</Table.HeaderCell>
-                  <Table.HeaderCell>Type</Table.HeaderCell>
-                  <Table.HeaderCell>Action</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
+        <Container>
+          <Header className="landing-heading" content="Asset Types" />
+          <Table celled>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Id</Table.HeaderCell>
+                <Table.HeaderCell>Sub-category</Table.HeaderCell>
+                <Table.HeaderCell>Type</Table.HeaderCell>
+                <Table.HeaderCell>Action</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-              <Table.Body>
-                {
-                  this.state.currentAssetTypes.map(assetType => (
-                    <TableRowComponent
-                      key={assetType.id}
-                      data={assetType}
-                      headings={['id', 'asset_type', 'asset_sub_category']}
-                    >
-                      <Table.Cell>
-                        <ActionComponent />
-                      </Table.Cell>
-                    </TableRowComponent>
-                  ))
-                }
-              </Table.Body>
+            <Table.Body>
+              {
+                this.state.currentAssetTypes.map(assetType => (
+                  <TableRowComponent
+                    key={assetType.id}
+                    data={assetType}
+                    headings={['id', 'asset_type', 'asset_sub_category']}
+                  >
+                    <Table.Cell>
+                      <ActionComponent />
+                    </Table.Cell>
+                  </TableRowComponent>
+                ))
+              }
+            </Table.Body>
 
-              <Table.Footer>
-                <Table.Row>
-                  <Table.HeaderCell colSpan="4">
-                    {!_.isEmpty(this.state.currentAssetTypes) &&
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                    }
-                    <Button circular icon="add" floated="right" data-tooltip="Add new asset types" size="big" />
-                  </Table.HeaderCell>
-                </Table.Row>
-              </Table.Footer>
-            </Table>
-          </Container>
-        }
+            <Table.Footer>
+              <Table.Row>
+                <Table.HeaderCell colSpan="4">
+                  {!_.isEmpty(this.state.currentAssetTypes) &&
+                    <Pagination
+                      totalPages={this.getTotalPages()}
+                      onPageChange={this.handlePaginationChange}
+                      activePage={this.state.activePage}
+                    />
+                  }
+                  <Button circular icon="add" floated="right" data-tooltip="Add new asset types" size="big" />
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Footer>
+          </Table>
+        </Container>
       </SideMenuComponent>
     );
   }
