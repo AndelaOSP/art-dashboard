@@ -10,6 +10,7 @@ import assetsReducer from './assets.reducer';
 import feedbackReducer from './userFeedback.reducer';
 import toastMessage from './toastMessage.reducer';
 import allocationsReducer from './allocations.reducer';
+import loadIncidenceReportsReducer from './incidenceReports.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   assetMakesList: assetMake,
   modelNumbersList: modelNumber,
   assets: assetsReducer,
+  incidenceReports: loadIncidenceReportsReducer,
   feedbackReducer,
   toastMessage,
   allocationsList: allocationsReducer
