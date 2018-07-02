@@ -49,6 +49,6 @@ describe('Renders <AssetsTableContent /> correctly', () => {
       emptyAssetsCheck: () => (true),
       hasError: false
     });
-    expect(wrapper.find('#empty-assets').prop('content')).toEqual('There are no assets assigned to you');
+    expect(wrapper.find('#empty-assets').prop('content')).toEqual('No assets found');
   });
 });

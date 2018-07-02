@@ -20,7 +20,6 @@ let store;
 
 describe('Asset Types action tests', () => {
   const mock = new MockAdapter(axios);
-  const url = '/assets';
   store = mockStore({});
   let expectedActions = [
     {
@@ -36,7 +35,7 @@ describe('Asset Types action tests', () => {
   });
 
   it('should dispatch LOAD_ASSETS_SUCCESS when getAssetsActions is called successfully', () => {
-    mock.onGet(url).reply(200,
+    mock.onGet().reply(200,
       [
         {
           id: 1,
@@ -61,7 +60,7 @@ describe('Asset Types action tests', () => {
         type: LOAD_ASSETS_FAILURE
       }
     ];
-    mock.onGet(url).reply(400,
+    mock.onGet().reply(400,
       { message: 'error not found' }
     );
     return store.dispatch(getAssetsAction()).then(() => {

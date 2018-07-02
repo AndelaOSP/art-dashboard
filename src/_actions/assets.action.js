@@ -4,10 +4,10 @@ import constants from '../_constants';
 const { LOAD_ASSETS_SUCCESS, LOAD_ASSETS_FAILURE, LOAD_ASSETS_STARTS } = constants;
 
 /* eslint-disable import/prefer-default-export */
-export const getAssetsAction = () => (
+export const getAssetsAction = pageNumber => (
   (dispatch) => {
     dispatch({ type: LOAD_ASSETS_STARTS });
-    return axios.get('assets')
+    return axios.get(`assets?page=${pageNumber}`)
       .then((response) => {
         dispatch({
           type: LOAD_ASSETS_SUCCESS,

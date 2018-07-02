@@ -12,13 +12,11 @@ import { getAssetsAction } from '../_actions/assets.action';
 export class AssetsComponent extends Component {
   state = {
     activePage: 1,
-    activePageAssets: [],
-    limit: 8,
-    offset: 0
+    limit: 10
   }
 
   componentDidMount() {
-    this.props.getAssetsAction();
+    this.props.getAssetsAction(this.state.activePage);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -29,25 +27,9 @@ export class AssetsComponent extends Component {
     return true;
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.assetsList !== prevProps.assetsList) {
-      this.handlePageContent();
-    }
-  }
-
-  handlePageContent = () => {
-    const { activePage, limit, offset } = this.state;
-    const endIndex = (limit * activePage) - 1;
-    const assets = this.props.assetsList.slice(offset, endIndex);
-    this.setState({
-      activePageAssets: assets
-    });
-  }
-
   handlePaginationChange = (e, { activePage }) => {
-    const newPageOffset = (activePage - 1) * this.state.limit;
-    this.setState({ activePage, offset: newPageOffset }, () => {
-      this.handlePageContent();
+    this.setState({ activePage }, () => {
+      this.props.getAssetsAction(this.state.activePage);
     });
   }
 
@@ -59,10 +41,10 @@ export class AssetsComponent extends Component {
     return (
       <SideMenuComponent title="Assets">
         <Container>
-          <Header className="assets-heading" content="My Assets" />
+          <Header className="assets-heading" content="Assets" />
           <AssetsTableContent
             activePage={this.state.activePage}
-            activePageAssets={this.state.activePageAssets}
+            activePageAssets={this.props.assetsList}
             emptyAssetsCheck={this.emptyAssetsCheck}
             errorMessage={this.props.errorMessage}
             handlePageTotal={this.handlePageTotal}
