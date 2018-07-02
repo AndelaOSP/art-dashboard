@@ -3,7 +3,9 @@ import constants from '../_constants';
 const {
   LOAD_ASSET_TYPES_SUCCESS,
   LOAD_ASSET_TYPES_FAILURE,
-  LOADING_ASSET_TYPES
+  LOADING_ASSET_TYPES,
+  CREATE_ASSET_TYPE_SUCCESS,
+  CREATE_ASSET_TYPE_FAILURE
 } = constants;
 
 const initialState = {
@@ -31,6 +33,17 @@ export default (state = initialState, action) => {
         ...state,
         assetTypes: [],
         assetTypesCount: 0,
+        isLoading: false
+      };
+    case CREATE_ASSET_TYPE_SUCCESS:
+      return {
+        ...state,
+        assetTypes: [...state, action.payload],
+        isLoading: false
+      };
+    case CREATE_ASSET_TYPE_FAILURE:
+      return {
+        ...state,
         isLoading: false
       };
     default:
