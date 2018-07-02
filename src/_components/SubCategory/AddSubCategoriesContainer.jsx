@@ -3,22 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import ModelNumberComponent from '../../components/ModelNumber/ModelNumberComponent';
+import AddSubCategoryComponent from '../../components/SubCategory/AddSubCategoryComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
-import { loadAssetMakes } from '../../_actions/assetMakes.actions';
-import { createModelNumbers } from '../../_actions/modelNumbers.actions';
+import { loadCategories } from '../../_actions/category.actions';
+import { createSubCategory } from '../../_actions/subcategory.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
-class ModelNumberContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modelNumber: '',
-      assetMake: '',
-      saveButtonState: false
-    };
-  }
+class AddSubCategoriesContainer extends React.Component {
+  state = {
+    subCategory: '',
+    category: '',
+    saveButtonState: false
+  };
 
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.toastMessageContent.type) {
@@ -33,9 +30,10 @@ class ModelNumberContainer extends React.Component {
       }
       nextProps.resetToastMessageContent();
       nextProps.toggleModal();
+
       return {
-        modelNumber: '',
-        assetMake: '',
+        subCategory: '',
+        category: '',
         saveButtonState: false
       };
     }
@@ -43,17 +41,17 @@ class ModelNumberContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (_.isEmpty(this.props.assetMakes)) {
-      this.props.loadAssetMakes();
+    if (_.isEmpty(this.props.categoriesList)) {
+      this.props.loadCategories();
     }
   }
 
-  onAddModelNumber = (event) => {
-    this.setState({ modelNumber: event.target.value });
+  onAddSubCategory = (event) => {
+    this.setState({ subCategory: event.target.value });
   };
 
-  onSelectAssetMake = (event, data) => {
-    this.setState({ assetMake: data.value });
+  onSelectCategory = (event, data) => {
+    this.setState({ category: data.value });
   };
 
   onChangeButtonState = () => {
@@ -61,20 +59,21 @@ class ModelNumberContainer extends React.Component {
   };
 
   handleSubmit = (event) => {
-    const newModel = {
-      make_label: this.state.assetMake,
-      model_number: this.state.modelNumber
+    const newSubCategory = {
+      sub_category_name: this.state.subCategory,
+      asset_category: this.state.category
     };
-    this.props.createModelNumbers(newModel);
+
+    this.props.createSubCategory(newSubCategory);
     event.target.reset();
   };
 
   render() {
     return (
-      <ModelNumberComponent
+      <AddSubCategoryComponent
         {...this.props}
-        onAddModelNumber={this.onAddModelNumber}
-        onSelectAssetMake={this.onSelectAssetMake}
+        onAddSubCategory={this.onAddSubCategory}
+        onSelectCategory={this.onSelectCategory}
         handleSubmit={this.handleSubmit}
         onChangeButtonState={this.onChangeButtonState}
         buttonState={this.state.saveButtonState}
@@ -83,24 +82,26 @@ class ModelNumberContainer extends React.Component {
     );
   }
 }
-ModelNumberContainer.propTypes = {
-  loadAssetMakes: PropTypes.func.isRequired,
-  createModelNumbers: PropTypes.func.isRequired,
+
+AddSubCategoriesContainer.propTypes = {
+  categoriesList: PropTypes.array,
+  loadCategories: PropTypes.func.isRequired,
+  createSubCategory: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  resetToastMessageContent: PropTypes.func.isRequired,
-  assetMakes: PropTypes.array
+  resetToastMessageContent: PropTypes.func.isRequired
 };
 
-ModelNumberContainer.defaultProps = {
-  assetMakes: []
+AddSubCategoriesContainer.defaultProps = {
+  categoriesList: []
 };
 
-const mapStateToProps = ({ assetMakesList, toastMessage }) => ({
-  assetMakes: assetMakesList,
+const mapStateToProps = ({ categoriesList, toastMessage }) => ({
+  categoriesList,
   toastMessageContent: toastMessage
 });
+
 export default connect(mapStateToProps, {
-  loadAssetMakes,
-  createModelNumbers,
+  loadCategories,
+  createSubCategory,
   resetToastMessageContent
-})(ModelNumberContainer);
+})(AddSubCategoriesContainer);

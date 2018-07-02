@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CategoryComponent from '../../components/Category/AddCategoryComponent';
 import { createCategory } from '../../_actions/category.actions';
 import { ToastMessage } from '../../_utils/ToastMessage';
-import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
+import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
 class CategoryContainer extends React.Component {
   state = {

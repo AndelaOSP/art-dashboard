@@ -17,7 +17,7 @@ const {
  *
  * @return dispatch type and payload
  */
-export const loadCategories = () => (dispatch => axios.get('categories').then((response) => {
+export const loadCategories = () => (dispatch => axios.get('asset-categories/').then((response) => {
   dispatch(loadCategoriesSuccess(response.data));
 }).catch(error => dispatch({
   type: LOAD_CATEGORY_FAILURE,

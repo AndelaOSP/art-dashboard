@@ -9,6 +9,7 @@ import LoaderComponent from './LoaderComponent';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
 import CategoryContainer from '../_components/Category/CategoryContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
+import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
@@ -44,7 +45,9 @@ const AssetsTableContent = (props) => {
             <Table.HeaderCell>
               <div className="assets-header">
                 Sub-category
-                <ModalComponent />
+                <ModalComponent modalTitle="Add Sub-Category">
+                  <AddSubCategoryContainer />
+                </ModalComponent>
               </div>
             </Table.HeaderCell>
             <Table.HeaderCell>
