@@ -66,6 +66,9 @@ class SideMenuComponent extends Component {
             <Menu.Item name="assets">
               <Link to="/assets"><Icon name="tv" />Assets</Link>
             </Menu.Item>
+            <Menu.Item name="asset-types">
+              <Link to="/asset_types"><Icon name="info" />Asset Types</Link>
+            </Menu.Item>
             <Menu.Item name="reports">
               <Link to="/incidence-reports"><Icon name="tasks" />Reports</Link>
             </Menu.Item>

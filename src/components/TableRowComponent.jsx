@@ -24,4 +24,5 @@ TableRowComponent.propTypes = {
 TableRowComponent.defaultProps = {
   children: <span />
 };
+
 export default TableRowComponent;

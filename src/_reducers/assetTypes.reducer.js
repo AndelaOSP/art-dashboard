@@ -1,12 +1,35 @@
 import constants from '../_constants';
-import initialState from './initialState';
 
-const { LOAD_ASSET_TYPES_SUCCESS } = constants;
+const {
+  LOAD_ASSET_TYPES_SUCCESS,
+  LOAD_ASSET_TYPES_FAILURE,
+  LOADING_ASSET_TYPES
+} = constants;
 
-export default (state = initialState.assetTypes, action) => {
+const initialState = {
+  assetTypes: [],
+  isLoading: false
+};
+
+export default (state = initialState, action) => {
   switch (action.type) {
+    case LOADING_ASSET_TYPES:
+      return {
+        ...state,
+        isLoading: true
+      };
     case LOAD_ASSET_TYPES_SUCCESS:
-      return action.payload;
+      return {
+        ...state,
+        assetTypes: [...action.payload],
+        isLoading: false
+      };
+    case LOAD_ASSET_TYPES_FAILURE:
+      return {
+        ...state,
+        assetTypes: [],
+        isLoading: false
+      };
     default:
       return state;
   }

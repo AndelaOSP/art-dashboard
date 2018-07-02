@@ -1,33 +1,18 @@
-// third-party library
 import axios from 'axios';
-
-// constants
 import constants from '../_constants';
 
-const { LOAD_ASSET_TYPES_SUCCESS } = constants;
+const { LOAD_ASSET_TYPES_SUCCESS, LOAD_ASSET_TYPES_FAILURE, LOADING_ASSET_TYPES } = constants;
 
-/**
- * load Asset Types thunk
- *
- * @return dispatch type and payload
- */
-export const loadAssetTypes = () => {
-  return ((dispatch) => {
-    return axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/types').then((response) => {
-      dispatch(loadAssetTypesSuccess(response.data));
-    }).catch((error) => {
-      console.log(error);
-    });
-  });
-}
+export const loadAssetTypes = () => (dispatch) => {
+  dispatch({ type: LOADING_ASSET_TYPES });
+  return axios.get('asset-types')
+    .then(response => dispatch({
+      type: LOAD_ASSET_TYPES_SUCCESS,
+      payload: response.data
+    })).catch(error => dispatch({
+      type: LOAD_ASSET_TYPES_FAILURE,
+      payload: error
+    }));
+};
 
-/**
- * load AssetTypes Success action creator
- *
- * @param {array} assetTypes list of asset types
- *
- * @return {object} type and payload
- */
-export const loadAssetTypesSuccess = (assetTypes) => {
-  return { type: LOAD_ASSET_TYPES_SUCCESS, payload: assetTypes };
-}
+export default loadAssetTypes;

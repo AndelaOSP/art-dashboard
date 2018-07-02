@@ -15,8 +15,8 @@ import loadIncidenceReportsReducer from './incidenceReports.reducer';
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
   subcategoriesList: subCategoryReducer,
-  assetTypesList: assetTypeReducer,
-  assetTypeList: assetTypesReducer,
+  assetTypesList: assetTypesReducer,
+  assetTypeList: assetTypeReducer,
   assetMakesList: assetMake,
   modelNumbersList: modelNumber,
   assets: assetsReducer,
