@@ -3,9 +3,9 @@ import constants from '../_constants';
 
 const { LOAD_ASSET_TYPES_SUCCESS, LOAD_ASSET_TYPES_FAILURE, LOADING_ASSET_TYPES } = constants;
 
-export const loadAssetTypes = () => (dispatch) => {
+export const loadAssetTypes = pageNumber => (dispatch) => {
   dispatch({ type: LOADING_ASSET_TYPES });
-  return axios.get('asset-types')
+  return axios.get(`asset-types?page=${pageNumber}`)
     .then(response => dispatch({
       type: LOAD_ASSET_TYPES_SUCCESS,
       payload: response.data

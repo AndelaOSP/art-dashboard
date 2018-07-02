@@ -25,7 +25,7 @@ const AssetsTableContent = (props) => {
 
   if (props.emptyAssetsCheck()) {
     return (
-      <Header as="h3" id="empty-assets" content="No assets found" />
+      <Header as="h3" id="empty-assets" content="No Assets Found" />
     );
   }
 
