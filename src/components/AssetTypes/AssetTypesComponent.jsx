@@ -36,12 +36,14 @@ const AssetTypesComponent = props => (
       </label>
       <br />
       <ArtButton
+        className="save"
         buttonName="Save"
         color="primary"
         handleClick={props.onChangeButtonState}
         buttonState={props.buttonState}
       />
       <ArtButton
+        className="cancel"
         buttonName="Cancel"
         handleClick={props.toggleModal}
       />
