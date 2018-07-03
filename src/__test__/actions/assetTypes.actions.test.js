@@ -13,7 +13,6 @@ import { loadAssetTypes, createAssetType } from '../../_actions/assetTypes.actio
 // mock data
 import assetTypes from '../../_mock/assetTypes';
 
-
 const {
   LOAD_ASSET_TYPES_SUCCESS,
   LOAD_ASSET_TYPES_FAILURE,

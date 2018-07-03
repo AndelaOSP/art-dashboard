@@ -10,7 +10,7 @@ import { loadSubCategories } from '../../_actions/subcategory.actions';
 import { createAssetType } from '../../_actions/assetTypes.actions';
 import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
 
-class AssetTypesContainer extends React.Component {
+export class AssetTypesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
