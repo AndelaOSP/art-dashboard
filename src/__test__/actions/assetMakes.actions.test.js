@@ -6,7 +6,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 // actions
-import { loadAssetMakes } from '../../_actions/assetMakes.actions';
+import { loadAssetMakes, addAssetMakes } from '../../_actions/assetMakes.actions';
 
 // constants
 import constants from '../../_constants';
@@ -20,7 +20,7 @@ let store;
 
 describe('Asset Makes action tests', () => {
   const mock = new MockAdapter(axios);
-  const url = 'asset-makes/';
+  const url = 'makes';
   store = mockStore({});
   const expectedActions = [
     {
@@ -40,6 +40,32 @@ describe('Asset Makes action tests', () => {
     );
     return store.dispatch(loadAssetMakes()).then(() => {
       expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+    });
+  });
+
+  it('should dispatch ADD_ASSET_MAKE_SUCCESS when addAssetMakes is called successfully', () => {
+    store = mockStore({ assetMakes: [] });
+    const newMake = {
+      asset_make: 'Test asset make',
+      asset_type: 'Test asset type'
+    };
+
+    const expectedAction = [{
+      type: 'ADD_ASSET_MAKE_SUCCESS',
+      payload: { id: 5, asset_make: 'Test asset make', asset_type: 'Test asset type' }
+    }];
+
+    mock
+      .onPost(url, newMake)
+      .reply(201,
+        {
+          id: 4,
+          category_name: 'Test asset make',
+          asset_type: 'Test asset type'
+        }
+      );
+    return store.dispatch(addAssetMakes(newMake)).then(() => {
+      expect(store.getActions()[0]).toEqual(expectedAction[0]);
     });
   });
 });
