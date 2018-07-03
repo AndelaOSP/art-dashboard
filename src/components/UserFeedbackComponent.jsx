@@ -22,9 +22,8 @@ export class UserFeedbackComponent extends React.Component {
   }
 
   handlePaginationChange = (event, { activePage }) => {
-    this.setState({
-      activePage
-    }, () => this.props.feedbackAction(this.state.activePage));
+    this.setState({ activePage });
+    this.props.feedbackAction(this.state.activePage);
   }
 
   handlePageTotal = () => Math.ceil(this.props.feedbackCount / this.state.limit)
@@ -62,7 +61,7 @@ export class UserFeedbackComponent extends React.Component {
         <LoaderComponent size="small" dimmerStyle={{ height: '100vh' }} />
       );
     }
-    if (this.props.feedbackCount === 0) {
+    if (this.props.hasFeedback) {
       return (
         <Container>
           <p>No Data found</p>
@@ -91,7 +90,7 @@ export class UserFeedbackComponent extends React.Component {
             <Table.Row>
               <Table.HeaderCell colSpan="5">
                 {
-                  !(this.props.feedbackCount === 0) &&
+                  this.props.hasFeedback &&
                   this.pagination()
                 }
               </Table.HeaderCell>
@@ -116,6 +115,7 @@ const mapStateToProps = ({ feedbackReducer }) => {
   return {
     feedback,
     feedbackCount,
+    hasFeedback: !!feedbackCount,
     isLoading
   };
 };
@@ -124,11 +124,12 @@ UserFeedbackComponent.propTypes = {
   feedbackAction: PropTypes.func,
   feedback: PropTypes.arrayOf(PropTypes.object),
   feedbackCount: PropTypes.number,
+  hasFeedback: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool
 };
 
 UserFeedbackComponent.defaultProps = {
-  feedbackAction: () => {},
+  feedbackAction: () => { },
   feedback: [],
   isLoading: true
 };

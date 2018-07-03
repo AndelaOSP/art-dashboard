@@ -35,9 +35,8 @@ export class AllocationsComponent extends Component {
   }
 
   handlePaginationChange = (event, { activePage }) => {
-    this.setState({
-      activePage
-    }, () => this.props.loadAllocationsAction(this.state.activePage));
+    this.setState({ activePage });
+    this.props.loadAllocationsAction(activePage);
   }
 
   render() {

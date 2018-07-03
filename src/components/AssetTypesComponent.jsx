@@ -23,9 +23,8 @@ export class AssetTypesComponent extends React.Component {
   }
 
   handlePaginationChange = (e, { activePage }) => {
-    this.setState({
-      activePage
-    }, () => this.props.loadAssetTypes(this.state.activePage));
+    this.setState({ activePage });
+    this.props.loadAssetTypes(this.state.activePage);
   }
 
   getTotalPages = () => Math.ceil(this.props.assetTypesCount / this.state.limit)
