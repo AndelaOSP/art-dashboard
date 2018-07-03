@@ -18,24 +18,27 @@ class AddSubCategoriesContainer extends React.Component {
   };
 
   static getDerivedStateFromProps(nextProps) {
-    if (nextProps.toastMessageContent.type) {
-      if (nextProps.toastMessageContent.type === 'success') {
+    const { toastMessageContent } = nextProps;
+
+    if (toastMessageContent.type) {
+      if (toastMessageContent.type === 'success') {
         ToastMessage.success({
-          message: nextProps.toastMessageContent.message
+          message: toastMessageContent.message
         });
-      } else if (nextProps.toastMessageContent.type === 'error') {
+      } else if (toastMessageContent.type === 'error') {
         ToastMessage.error({
-          message: nextProps.toastMessageContent.message
+          message: toastMessageContent.message
         });
       }
+
       nextProps.resetToastMessageContent();
       nextProps.toggleModal();
 
-      return {
+      this.setState({
         subCategory: '',
         category: '',
         saveButtonState: false
-      };
+      });
     }
     return null;
   }
@@ -96,7 +99,7 @@ AddSubCategoriesContainer.defaultProps = {
 };
 
 const mapStateToProps = ({ categoriesList, toastMessage }) => ({
-  categoriesList,
+  categoriesList: categoriesList.results,
   toastMessageContent: toastMessage
 });
 

@@ -15,7 +15,7 @@ const {
  * @return dispatch type and payload
  */
 export const loadSubCategories = () => (dispatch =>
-  axios.get('asset-sub-categories/').then((response) => {
+  axios.get('asset-sub-categories').then((response) => {
     dispatch(loadSubCategoriesSuccess(response.data));
   }).catch((error) => {
     dispatch(loadSubCategoriesFailure(error));
@@ -45,7 +45,7 @@ export const loadSubCategoriesFailure = error => ({
  * @param {object} newSubCategory the sub-category to be created
  */
 export const createSubCategory = newSubCategory => dispatch =>
-  axios.post('asset-sub-categories/', newSubCategory).then((response) => {
+  axios.post('asset-sub-categories', newSubCategory).then((response) => {
     dispatch(createSubCategorySuccess(response.data));
     dispatch(updateToastMessageContent('Sub-Category Saved Successfully',
       'success'));
@@ -55,10 +55,10 @@ export const createSubCategory = newSubCategory => dispatch =>
       'error'));
   });
 
-export const createSubCategorySuccess = modelNumber => (
-  { type: CREATE_SUBCATEGORY_SUCCESS, payload: modelNumber }
-);
+export const createSubCategorySuccess = modelNumber => ({
+  type: CREATE_SUBCATEGORY_SUCCESS, payload: modelNumber
+});
 
-export const createSubCategoryFailure = error => (
-  { type: CREATE_SUBCATEGORY_FAILURE, payload: error }
-);
+export const createSubCategoryFailure = error => ({
+  type: CREATE_SUBCATEGORY_FAILURE, payload: error
+});
