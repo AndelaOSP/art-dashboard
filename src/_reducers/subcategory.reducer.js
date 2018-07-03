@@ -27,7 +27,6 @@ export default (state = initialState.subcategories, action) => {
         ...state,
         errorMessage: action.payload
       };
-
     default:
       return state;
   }
