@@ -7,12 +7,12 @@ const {
   LOADING_ALLOCATIONS
 } = constants;
 
-const loadAllocationsAction = () => (dispatch) => {
+const loadAllocationsAction = pageNumber => (dispatch) => {
   dispatch({ type: LOADING_ALLOCATIONS });
-  return axios.get('allocations')
+  return axios.get(`allocations?page=${pageNumber}`)
     .then(response => dispatch({
       type: LOAD_ALLOCATIONS_SUCCESS,
-      payload: response
+      payload: response.data
     })).catch(error => dispatch({
       type: LOAD_ALLOCATIONS_FAILURE,
       payload: error

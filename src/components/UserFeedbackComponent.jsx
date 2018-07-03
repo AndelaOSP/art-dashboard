@@ -43,9 +43,9 @@ export class UserFeedbackComponent extends React.Component {
         key={index} //eslint-disable-line
         data={feedback}
         headings={['reported_by',
-            'created_at',
-            'report_type',
-            'message']}
+          'created_at',
+          'report_type',
+          'message']}
       >
         <Table.Cell>
           <ActionComponent />
@@ -91,7 +91,7 @@ export class UserFeedbackComponent extends React.Component {
             <Table.Row>
               <Table.HeaderCell colSpan="5">
                 {
-                  !this.props.feedbackCount === 0 &&
+                  !(this.props.feedbackCount === 0) &&
                   this.pagination()
                 }
               </Table.HeaderCell>
