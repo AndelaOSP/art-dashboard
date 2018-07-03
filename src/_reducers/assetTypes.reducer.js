@@ -35,12 +35,14 @@ export default (state = initialState, action) => {
         assetTypesCount: 0,
         isLoading: false
       };
-    case CREATE_ASSET_TYPE_SUCCESS:
+    case CREATE_ASSET_TYPE_SUCCESS: {
+      state.assetTypes.push(action.payload);
       return {
         ...state,
-        assetTypes: [...state, action.payload],
+        assetTypes: state.assetTypes,
         isLoading: false
       };
+    }
     case CREATE_ASSET_TYPE_FAILURE:
       return {
         ...state,
