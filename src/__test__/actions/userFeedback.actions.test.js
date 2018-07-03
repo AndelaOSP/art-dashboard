@@ -23,7 +23,7 @@ describe('User Feedback action tests', () => {
   });
 
   it('should dispatch LOAD_FEEDBACK_SUCCESS when feedback are loaded successfully', () => {
-    mock.onGet('user-feedback/').reply(200, feedbackMock);
+    mock.onGet().reply(200, feedbackMock);
     return store.dispatch(feedbackAction()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_FEEDBACK);
       expect(store.getActions()[1].type).toEqual(LOAD_FEEDBACK_SUCCESS);
@@ -31,7 +31,7 @@ describe('User Feedback action tests', () => {
   });
 
   it('should dispatch LOAD_FEEDBACK_FAILURE when feedback are not loaded', () => {
-    mock.onGet('user-feedback/').reply(401);
+    mock.onGet().reply(401);
     return store.dispatch(feedbackAction()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_FEEDBACK);
       expect(store.getActions()[1].type).toEqual(LOAD_FEEDBACK_FAILURE);

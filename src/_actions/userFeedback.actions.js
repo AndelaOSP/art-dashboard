@@ -3,9 +3,9 @@ import constants from '../_constants';
 
 const { LOAD_FEEDBACK_SUCCESS, LOAD_FEEDBACK_FAILURE, LOADING_FEEDBACK } = constants;
 
-const feedbackAction = () => (dispatch) => {
+const feedbackAction = pageNumber => (dispatch) => {
   dispatch({ type: LOADING_FEEDBACK });
-  return axios.get('user-feedback/')
+  return axios.get(`user-feedback?page=${pageNumber}`)
     .then(response => dispatch({
       type: LOAD_FEEDBACK_SUCCESS,
       payload: response.data

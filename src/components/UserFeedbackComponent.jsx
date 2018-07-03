@@ -13,39 +13,21 @@ export class UserFeedbackComponent extends React.Component {
     super();
     this.state = {
       activePage: 1,
-      limit: 10,
-      offset: 0,
-      feedback: []
+      limit: 10
     };
   }
 
   componentDidMount() {
-    this.props.feedbackAction();
-    this.setTableContent();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.feedback.length !== prevProps.feedback.length) {
-      this.setTableContent();
-    }
-  }
-
-  setTableContent = () => {
-    const feedback =
-    this.props.feedback.slice(this.state.offset, (this.state.activePage * this.state.limit));
-    this.setState({
-      feedback
-    });
+    this.props.feedbackAction(this.state.activePage);
   }
 
   handlePaginationChange = (event, { activePage }) => {
     this.setState({
-      activePage,
-      offset: (activePage - 1) * this.state.limit
-    }, () => this.setTableContent());
+      activePage
+    }, () => this.props.feedbackAction(this.state.activePage));
   }
 
-  handlePageTotal = () => Math.ceil(this.props.feedback.length / this.state.limit)
+  handlePageTotal = () => Math.ceil(this.props.feedbackCount / this.state.limit)
 
   pagination = () => (
     <Pagination
@@ -56,7 +38,7 @@ export class UserFeedbackComponent extends React.Component {
   )
 
   loadFeedback = () => {
-    const feedbackRecord = this.state.feedback.map((feedback, index) => (
+    const feedbackRecord = this.props.feedback.map((feedback, index) => (
       <TableRowComponent
         key={index} //eslint-disable-line
         data={feedback}
@@ -80,7 +62,7 @@ export class UserFeedbackComponent extends React.Component {
         <LoaderComponent size="small" dimmerStyle={{ height: '100vh' }} />
       );
     }
-    if (this.props.feedback.length === 0) {
+    if (this.props.feedbackCount === 0) {
       return (
         <Container>
           <p>No Data found</p>
@@ -109,7 +91,7 @@ export class UserFeedbackComponent extends React.Component {
             <Table.Row>
               <Table.HeaderCell colSpan="5">
                 {
-                  this.props.feedback.length === 0 ? '' :
+                  !this.props.feedbackCount === 0 &&
                   this.pagination()
                 }
               </Table.HeaderCell>
@@ -130,9 +112,10 @@ export class UserFeedbackComponent extends React.Component {
 }
 
 const mapStateToProps = ({ feedbackReducer }) => {
-  const { feedback, isLoading } = feedbackReducer;
+  const { feedback, feedbackCount, isLoading } = feedbackReducer;
   return {
     feedback,
+    feedbackCount,
     isLoading
   };
 };
@@ -140,6 +123,7 @@ const mapStateToProps = ({ feedbackReducer }) => {
 UserFeedbackComponent.propTypes = {
   feedbackAction: PropTypes.func,
   feedback: PropTypes.arrayOf(PropTypes.object),
+  feedbackCount: PropTypes.number,
   isLoading: PropTypes.bool
 };
 

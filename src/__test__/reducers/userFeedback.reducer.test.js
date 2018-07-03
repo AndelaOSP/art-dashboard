@@ -10,7 +10,7 @@ const initialState = {
   isLoading: false
 };
 
-const action = {};
+const action = { payload: {} };
 
 describe.only('Feedback Reducer test', () => {
   it('should return initial state when there is no action', () => {
@@ -19,8 +19,8 @@ describe.only('Feedback Reducer test', () => {
 
   it('should handle LOAD_FEEDBACK_SUCCESS', () => {
     action.type = LOAD_FEEDBACK_SUCCESS;
-    action.payload = feedbackMock;
-    expect(userFeedbackReducer(initialState, action).feedback).toEqual(action.payload);
+    action.payload.results = feedbackMock;
+    expect(userFeedbackReducer(initialState, action).feedback).toEqual(action.payload.results);
     expect(userFeedbackReducer(initialState, action).isLoading).toEqual(false);
   });
 
