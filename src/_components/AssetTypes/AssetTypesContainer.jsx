@@ -22,9 +22,17 @@ class AssetTypesContainer extends React.Component {
 
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.toastMessageContent.type) {
-      ToastMessage.success({
-        message: nextProps.toastMessageContent.message
-      });
+      if (nextProps.toastMessageContent.type === 'success') {
+        ToastMessage.success({
+          message: nextProps.toastMessageContent.message
+        });
+      } else if (nextProps.toastMessageContent.type === 'error') {
+        ToastMessage.error({
+          message: nextProps.toastMessageContent.message
+        });
+      }
+      nextProps.resetToastMessageContent();
+      nextProps.toggleModal();
       return {
         assetType: '',
         subCategory: '',
