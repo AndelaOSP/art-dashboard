@@ -7,7 +7,7 @@ const { LOAD_ASSETS_SUCCESS, LOAD_ASSETS_FAILURE, LOAD_ASSETS_STARTS } = constan
 export const getAssetsAction = pageNumber => (
   (dispatch) => {
     dispatch({ type: LOAD_ASSETS_STARTS });
-    return axios.get(`assets?page=${pageNumber}`)
+    return axios.get(`manage-assets?page=${pageNumber}`)
       .then((response) => {
         dispatch({
           type: LOAD_ASSETS_SUCCESS,
