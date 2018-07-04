@@ -26,7 +26,7 @@ describe('Asset Types action tests', () => {
   const mock = new MockAdapter(axios);
   store = mockStore({});
   it('should dispatch LOAD_ASSET_TYPES_SUCCESS when loadAssetTypeAction is called successfully', () => {
-    mock.onGet('asset-types').reply(200);
+    mock.onGet().reply(200);
     return store.dispatch(loadAssetTypes()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_SUCCESS);
@@ -34,7 +34,7 @@ describe('Asset Types action tests', () => {
   });
 
   it('should dispatch LOAD_ASSET_TYPES_FAILURE when loadAssetTypeAction is called unsuccessfully', () => {
-    mock.onGet('asset-types').reply(401);
+    mock.onGet().reply(401);
     return store.dispatch(loadAssetTypes()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_FAILURE);

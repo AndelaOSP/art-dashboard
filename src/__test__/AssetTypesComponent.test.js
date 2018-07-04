@@ -4,14 +4,15 @@ import expect from 'expect';
 
 import { AssetTypesComponent } from '../components/AssetTypesComponent';
 
-import { assetTypes } from '../_mock/assetType';
+import assetTypes from '../_mock/assetType';
 
 describe('Renders <AssetTypesComponent /> correctly', () => {
   let props = {
     loadAssetTypes: jest.fn(),
     handlePaginationChange: jest.fn(),
     isLoading: false,
-    assetTypes
+    assetTypes,
+    assetTypesCount: 6
   };
   let wrapper = shallow(<AssetTypesComponent
     {...props}
@@ -47,9 +48,28 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
       loadAssetTypes: jest.fn(),
       handlePaginationChange: jest.fn(),
       isLoading: true,
-      assetTypes
+      assetTypes,
+      assetTypesCount: 0
     };
     wrapper = shallow(<AssetTypesComponent {...props} />);
     expect(wrapper.find('LoaderComponent').length).toBe(1);
+  });
+
+  it('calls the handlePaginationChange function when a new page is clicked', () => {
+    const handlePaginationChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handlePaginationChange'
+    );
+    const event = {};
+    const data = {};
+    wrapper.instance().handlePaginationChange(event, data);
+    expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('renders message if no asset types are returned', () => {
+    wrapper.setProps({
+      isLoading: false,
+      assetTypes: []
+    });
+    expect(wrapper.find('h1').text()).toEqual('No Asset Types Found');
   });
 });

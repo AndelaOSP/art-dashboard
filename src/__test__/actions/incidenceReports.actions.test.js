@@ -33,13 +33,15 @@ describe.only('Incidence Reports Actions', () => {
   });
 
   it('should dispatch loadIncidenceReports actions', () => {
-    mock.onGet('incidence-reports').reply(200,
-      incidenceReports
+    mock.onGet().reply(200,
+      {
+        results: incidenceReports
+      }
     );
 
     const expectedActions = [
       { type: LOAD_INCIDENCE_REPORTS_START },
-      { type: LOAD_INCIDENCE_REPORTS_SUCCESS, incidenceReports }
+      { type: LOAD_INCIDENCE_REPORTS_SUCCESS, incidenceReports: { results: incidenceReports } }
     ];
 
     return store.dispatch(loadIncidenceReports())

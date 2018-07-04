@@ -8,6 +8,7 @@ const {
 
 const initialState = {
   assetTypes: [],
+  assetTypesCount: 0,
   isLoading: false
 };
 
@@ -21,13 +22,15 @@ export default (state = initialState, action) => {
     case LOAD_ASSET_TYPES_SUCCESS:
       return {
         ...state,
-        assetTypes: [...action.payload],
+        assetTypes: [...action.payload.results],
+        assetTypesCount: action.payload.count,
         isLoading: false
       };
     case LOAD_ASSET_TYPES_FAILURE:
       return {
         ...state,
         assetTypes: [],
+        assetTypesCount: 0,
         isLoading: false
       };
     default:

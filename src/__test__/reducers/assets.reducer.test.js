@@ -25,7 +25,9 @@ const state = {
   isLoading: false
 };
 let action = {
-  payload: assets
+  payload: {
+    results: assets
+  }
 };
 
 describe('Asset Reducer tests', () => {
@@ -35,7 +37,7 @@ describe('Asset Reducer tests', () => {
 
   it('should handle LOAD_ASSETS_SUCCESS', () => {
     action.type = LOAD_ASSETS_SUCCESS;
-    expect(assetReducer(state, action).assetsList).toEqual(action.payload);
+    expect(assetReducer(state, action).assetsList).toEqual(action.payload.results);
     expect(assetReducer(state, action).isLoading).toBe(false);
   });
 

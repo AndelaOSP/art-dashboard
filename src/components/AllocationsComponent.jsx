@@ -14,50 +14,29 @@ import '../_css/AllocationsComponent.css';
 
 export class AllocationsComponent extends Component {
   state = {
-    currentAllocations: [],
-    offset: 0,
     activePage: 1,
     limit: 10
   }
 
   componentDidMount() {
-    this.props.loadAllocationsAction();
-    this.setTableContent();
+    this.props.loadAllocationsAction(this.state.activePage);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.allAllocations.length !== prevProps.allAllocations.length) {
-      this.setTableContent();
-    }
-  }
+  getTotalPages = () => Math.ceil(this.props.allocationsCount / this.state.limit);
 
-  getTotalPages = () => Math.ceil(this.props.allAllocations.length / this.state.limit);
-
-  setTableContent = () => {
-    const currentAllocations = this.props.allAllocations.slice(
-      this.state.offset,
-      (this.state.activePage * this.state.limit)
-    );
-    // format date
+  formatDate = (timeStamp) => {
     const dateOptions = {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     };
-    currentAllocations.map(el => el.formatted_date = new Date(el.created_at).toLocaleDateString('en-US', dateOptions));
-    this.setState({
-      currentAllocations
-    });
+    return new Date(timeStamp).toLocaleDateString('en-US', dateOptions);
   }
 
-  calculateOffset = (activePage, limit) => (activePage - 1) * limit;
-
   handlePaginationChange = (event, { activePage }) => {
-    this.setState({
-      activePage,
-      offset: this.calculateOffset(activePage, this.state.limit)
-    }, () => this.setTableContent());
+    this.setState({ activePage });
+    this.props.loadAllocationsAction(activePage);
   }
 
   render() {
@@ -73,7 +52,7 @@ export class AllocationsComponent extends Component {
         <SideMenuComponent>
           <Container>
             <h1>
-              Unable to load allocations
+              No Assets Currently Assigned
             </h1>
           </Container>
         </SideMenuComponent>
@@ -96,17 +75,20 @@ export class AllocationsComponent extends Component {
 
             <Table.Body>
               {
-                this.state.currentAllocations.map(allocation => (
-                  <TableRowComponent
-                    key={allocation.created_at}
-                    data={allocation}
-                    headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}
-                  >
-                    <Table.Cell>
-                      <AllocationActionComponent />
-                    </Table.Cell>
-                  </TableRowComponent>
-                ))
+                this.props.allAllocations.map((allocation) => {
+                  allocation.formatted_date = this.formatDate(allocation.created_at);
+                  return (
+                    <TableRowComponent
+                      key={allocation.created_at}
+                      data={allocation}
+                      headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}
+                    >
+                      <Table.Cell>
+                        <AllocationActionComponent />
+                      </Table.Cell>
+                    </TableRowComponent>
+                  );
+                })
               }
             </Table.Body>
 
@@ -131,10 +113,11 @@ export class AllocationsComponent extends Component {
 }
 
 const mapStateToProps = ({ allocationsList }) => {
-  const { allAllocations, isLoading } = allocationsList;
+  const { allAllocations, allocationsCount, isLoading } = allocationsList;
 
   return {
     allAllocations,
+    allocationsCount,
     isLoading
   };
 };
@@ -142,6 +125,7 @@ const mapStateToProps = ({ allocationsList }) => {
 AllocationsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   allAllocations: PropTypes.array.isRequired,
+  allocationsCount: PropTypes.number,
   loadAllocationsAction: PropTypes.func.isRequired
 };
 

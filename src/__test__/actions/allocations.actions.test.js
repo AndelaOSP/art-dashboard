@@ -26,7 +26,7 @@ describe('Allocation action tests', () => {
   });
 
   it('should dispatch LOADING_ALLOCATIONS and LOAD_ALLOCATIONS_SUCCESS when allocations are loaded successfully', () => {
-    mock.onGet('allocations').reply(200, allocations);
+    mock.onGet().reply(200, allocations);
     return store.dispatch(loadAllocationsAction()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ALLOCATIONS);
       expect(store.getActions()[1].type).toEqual(LOAD_ALLOCATIONS_SUCCESS);
@@ -34,7 +34,7 @@ describe('Allocation action tests', () => {
   });
 
   it('should dispatch LOADING_ALLOCATIONS and LOAD_ALLOCATIONS_FAILURE when allocations are not loaded', () => {
-    mock.onGet('allocations').reply(401);
+    mock.onGet().reply(401);
     return store.dispatch(loadAllocationsAction()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ALLOCATIONS);
       expect(store.getActions()[1].type).toEqual(LOAD_ALLOCATIONS_FAILURE);

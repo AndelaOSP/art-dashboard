@@ -10,6 +10,8 @@ describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
     getAssetsAction: jest.fn(),
     handlePaginationChange: jest.fn(),
+    hasError: false,
+    isLoading: false,
     assets,
     assetsCount: 10
   };
@@ -18,7 +20,7 @@ describe('Renders <AssetsComponent /> correctly', () => {
   />);
 
   it('renders page title', () => {
-    expect(wrapper.find('.assets-heading').prop('content')).toEqual('My Assets');
+    expect(wrapper.find('.assets-heading').prop('content')).toEqual('Assets');
   });
 
   it('renders the AssetsTableContent component', () => {
@@ -26,11 +28,19 @@ describe('Renders <AssetsComponent /> correctly', () => {
   });
 
   it('should not rerender the component if the error message is the same', () => {
-    const componentDidUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'componentDidUpdate'
+    const shouldComponentUpdateSpy = jest.spyOn(
+      wrapper.instance(), 'shouldComponentUpdate'
     );
     wrapper.setProps({ hasError: true });
-    expect(componentDidUpdateSpy.mock.calls.length).toBe(1);
+    expect(shouldComponentUpdateSpy.mock.calls.length).toBe(1);
+  });
+
+  it('calls the emptyAssetsCheck function to check if the assetsList is empty', () => {
+    const emptyAssetsCheckSpy = jest.spyOn(
+      wrapper.instance(), 'emptyAssetsCheck'
+    );
+    wrapper.instance().emptyAssetsCheck();
+    expect(emptyAssetsCheckSpy.mock.calls.length).toEqual(1);
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {

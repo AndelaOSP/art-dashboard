@@ -14,7 +14,7 @@ const initialState = {
   isLoading: false
 };
 
-const action = {};
+const action = { payload: {} };
 
 describe.only('Allocations Reducer test', () => {
   it('should return initial state when there is no action', () => {
@@ -23,8 +23,8 @@ describe.only('Allocations Reducer test', () => {
 
   it('should handle LOAD_ALLOCATIONS_SUCCESS', () => {
     action.type = LOAD_ALLOCATIONS_SUCCESS;
-    action.payload = allocations;
-    expect(allocationReducer(initialState, action).allAllocations).toEqual(action.payload.data);
+    action.payload.results = allocations;
+    expect(allocationReducer(initialState, action).allAllocations).toEqual(action.payload.results);
     expect(allocationReducer(initialState, action).isLoading).toEqual(false);
   });
 

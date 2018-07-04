@@ -15,7 +15,12 @@ export default {
     message: '',
     type: ''
   },
-  feedback: [],
+  userFeedback: {
+    feedback: [],
+    feedbackCount: 0,
+    isLoading: false,
+    hasError: false
+  },
   incidenceReports: {
     reports: [],
     incidenceReportsCount: 0,

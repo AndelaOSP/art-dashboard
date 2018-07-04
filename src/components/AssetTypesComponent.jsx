@@ -16,41 +16,18 @@ import { loadAssetTypes } from '../_actions/assetTypes.actions';
 export class AssetTypesComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10,
-    offset: 0,
-    currentAssetTypes: []
+    limit: 10
   }
   componentDidMount() {
-    this.props.loadAssetTypes();
-    this.setCurrentAssetTypes();
+    this.props.loadAssetTypes(this.state.activePage);
   }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.assetTypes.length !== prevProps.assetTypes.length) {
-      this.setCurrentAssetTypes();
-    }
-  }
-
-  getOffset = (activePage, limit) => (activePage - 1) * limit;
-
-  setCurrentAssetTypes = () => {
-    const currentAssetTypes = this.props.assetTypes.slice(
-      this.state.offset,
-      (this.state.activePage * this.state.limit)
-    );
-    this.setState({
-      currentAssetTypes
-    });
-  };
 
   handlePaginationChange = (e, { activePage }) => {
-    this.setState({
-      activePage,
-      offset: this.getOffset(activePage, this.state.limit)
-    }, () => this.setCurrentAssetTypes());
+    this.setState({ activePage });
+    this.props.loadAssetTypes(this.state.activePage);
   }
 
-  getTotalPages = () => Math.ceil(this.props.assetTypes.length / this.state.limit)
+  getTotalPages = () => Math.ceil(this.props.assetTypesCount / this.state.limit)
 
   render() {
     if (this.props.isLoading) {
@@ -65,7 +42,7 @@ export class AssetTypesComponent extends React.Component {
         <SideMenuComponent>
           <Container>
             <h1>
-              Unable to load Asset Types, logout and in again.
+              No Asset Types Found
             </h1>
           </Container>
         </SideMenuComponent>
@@ -87,7 +64,7 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Body>
               {
-                this.state.currentAssetTypes.map(assetType => (
+                this.props.assetTypes.map(assetType => (
                   <TableRowComponent
                     key={assetType.id}
                     data={assetType}
@@ -104,7 +81,7 @@ export class AssetTypesComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="4">
-                  {!_.isEmpty(this.state.currentAssetTypes) &&
+                  {!_.isEmpty(this.props.assetTypes) &&
                     <Pagination
                       totalPages={this.getTotalPages()}
                       onPageChange={this.handlePaginationChange}
@@ -123,9 +100,10 @@ export class AssetTypesComponent extends React.Component {
 }
 
 const mapStateToProps = ({ assetTypesList }) => {
-  const { assetTypes, isLoading } = assetTypesList;
+  const { assetTypes, assetTypesCount, isLoading } = assetTypesList;
   return {
     assetTypes,
+    assetTypesCount,
     isLoading
   };
 };
@@ -133,7 +111,8 @@ const mapStateToProps = ({ assetTypesList }) => {
 AssetTypesComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadAssetTypes: PropTypes.func.isRequired,
-  assetTypes: PropTypes.array.isRequired
+  assetTypes: PropTypes.array.isRequired,
+  assetTypesCount: PropTypes.number.isRequired
 };
 
 export default withRouter(connect(mapStateToProps, {

@@ -11,7 +11,7 @@ const initialState = {
   isLoading: false
 };
 
-const action = {};
+const action = { payload: {} };
 
 describe('Asset Type Reducer tests', () => {
   it('should return initial state when there is no action', () => {
@@ -20,8 +20,8 @@ describe('Asset Type Reducer tests', () => {
 
   it('should handle LOAD_ASSET_TYPES_SUCCESS', () => {
     action.type = LOAD_ASSET_TYPES_SUCCESS;
-    action.payload = assetTypesMock;
-    expect(assetTypesReducer(initialState, action).assetTypes).toEqual(action.payload);
+    action.payload.results = assetTypesMock;
+    expect(assetTypesReducer(initialState, action).assetTypes).toEqual(action.payload.results);
     expect(assetTypesReducer(initialState, action).isLoading).toEqual(false);
   });
 

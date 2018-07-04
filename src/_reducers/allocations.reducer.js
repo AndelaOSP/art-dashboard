@@ -8,6 +8,7 @@ const {
 
 const initialState = {
   allAllocations: [],
+  allocationsCount: 0,
   isLoading: false
 };
 
@@ -16,7 +17,8 @@ export default (state = initialState, action) => {
     case LOAD_ALLOCATIONS_SUCCESS:
       return {
         ...state,
-        allAllocations: [...action.payload.data],
+        allAllocations: [...action.payload.results],
+        allocationsCount: action.payload.count,
         isLoading: false
       };
     case LOAD_ALLOCATIONS_FAILURE:
