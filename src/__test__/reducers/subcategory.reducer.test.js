@@ -7,6 +7,8 @@ import subcategoryReducer from '../../_reducers/subcategory.reducer';
 // initial mock State
 import { mockStore } from '../../_mock/mockStore';
 
+import constants from '../../_constants';
+
 // mock data
 import subcategories from '../../_mock/subcategories';
 
@@ -16,6 +18,8 @@ import {
   createSubCategorySuccess,
   createSubCategoryFailure
 } from '../../_actions/subcategory.actions';
+
+const { LOAD_SUBCATEGORIES_FAILURE } = constants;
 
 describe('SubCategory reducer tests', () => {
   const subCategoryToCreate = {

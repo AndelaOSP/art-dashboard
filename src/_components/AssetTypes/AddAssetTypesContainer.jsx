@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import AssetTypesComponent from '../../components/AssetTypes/AssetTypesComponent';
+import AddAssetTypesComponent from '../../components/AssetTypes/AddAssetTypesComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
 import { loadSubCategories } from '../../_actions/subcategory.actions';
 import { createAssetType } from '../../_actions/assetTypes.actions';
 import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
 
-export class AssetTypesContainer extends React.Component {
+export class AddAssetTypesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,17 +60,16 @@ export class AssetTypesContainer extends React.Component {
     this.setState({ saveButtonState: !this.state.saveButtonState });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = () => {
     this.props.createAssetType({
       asset_type: this.state.assetType,
       asset_sub_category: this.state.subCategory
     });
-    event.target.reset();
   };
 
   render() {
     return (
-      <AssetTypesComponent
+      <AddAssetTypesComponent
         {...this.props}
         onAddAssetType={this.onAddAssetType}
         onSelectSubCategory={this.onSelectSubCategory}
@@ -83,16 +82,21 @@ export class AssetTypesContainer extends React.Component {
   }
 }
 
-AssetTypesContainer.propTypes = {
+AddAssetTypesContainer.propTypes = {
   loadSubCategories: PropTypes.func.isRequired,
   createAssetType: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired,
-  subcategories: PropTypes.array
+  subcategories: PropTypes.array,
+  toastMessageContent: PropTypes.object
 };
 
-AssetTypesContainer.defaultProps = {
-  subcategories: []
+AddAssetTypesContainer.defaultProps = {
+  subcategories: [],
+  toastMessageContent: {
+    type: '',
+    message: ''
+  }
 };
 
 const mapStateToProps = ({ subcategoriesList, toastMessage }) => ({
@@ -104,4 +108,4 @@ export default connect(mapStateToProps, {
   loadSubCategories,
   createAssetType,
   resetToastMessageContent
-})(AssetTypesContainer);
+})(AddAssetTypesContainer);
