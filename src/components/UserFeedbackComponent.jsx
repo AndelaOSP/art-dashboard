@@ -7,7 +7,7 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import ActionComponent from './ActionComponent';
-import TableHeaderComponent from '../_components/TableHeaderComponent';
+import TableHeaderComponent from '../components/common/TableHeaderComponent';
 
 export class UserFeedbackComponent extends React.Component {
   constructor() {
@@ -56,20 +56,13 @@ export class UserFeedbackComponent extends React.Component {
     return feedbackRecord;
   }
 
-  renderTableHeaders = () => {
-    const tableHeaders = ['Submitted by', 'Date Submitted', 'Type', 'Message', 'Action'];
-    return (
-      <TableHeaderComponent titles={tableHeaders} />
-    );
-  };
-
   display = () => {
     if (this.props.isLoading) {
       return (
         <LoaderComponent size="small" dimmerStyle={{ height: '100vh' }} />
       );
     }
-    if (this.props.hasFeedback) {
+    if (!this.props.hasFeedback) {
       return (
         <Container>
           <p>No Data found</p>
@@ -80,7 +73,15 @@ export class UserFeedbackComponent extends React.Component {
       <Container>
         <Header className="landing-heading" content="User Feedback" />
         <Table celled>
-          {this.renderTableHeaders()}
+          <TableHeaderComponent
+            titles={[
+              'Submitted by',
+              'Date Submitted',
+              'Type',
+              'Message',
+              'Action'
+            ]}
+          />
           <Table.Body>
             {this.loadFeedback()}
           </Table.Body>
