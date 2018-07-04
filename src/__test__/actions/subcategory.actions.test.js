@@ -7,10 +7,11 @@ import thunk from 'redux-thunk';
 
 // constants
 import constants from '../../_constants';
-const { LOAD_SUBCATEGORIES_SUCCESS } = constants;
 
 // actions
-import { loadSubCategories } from '../../_actions/subcategory.actions';
+import { loadSubCategories, createSubCategory } from '../../_actions/subcategory.actions';
+
+const { LOAD_SUBCATEGORIES_SUCCESS } = constants;
 
 // store
 const middleware = [thunk];
@@ -19,21 +20,26 @@ let store;
 
 describe('Subcategory action tests', () => {
   const mock = new MockAdapter(axios);
-  let url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/subcategories';
+  const url = 'asset-sub-categories/';
   store = mockStore({});
-  let expectedActions = [
+  const expectedActions = [
     {
       type: LOAD_SUBCATEGORIES_SUCCESS
     }
   ];
 
+  const subCategoryToCreate = {
+    sub_category_name: 'Asus',
+    asset_category: 1
+  };
+
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategories called successfully', () => {
     mock.onGet(url).reply(200,
       [
         {
-          "id": 1,
-          "sub_category_name": "Computer Accessories",
-          "asset_category": 1
+          id: 2,
+          sub_category_name: 'Computer Accessories',
+          asset_category: 1
         }
       ]
     );
@@ -41,4 +47,13 @@ describe('Subcategory action tests', () => {
       expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
     });
   });
-})
+
+  it('should dispatch CREATE_SUBCATEGORY_SUCCESS when createSubCategory called successfully', () => {
+    mock.onPost(url, subCategoryToCreate).reply(201,
+      subCategoryToCreate
+    );
+    return store.dispatch(createSubCategory()).then(() => {
+      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+    });
+  });
+});

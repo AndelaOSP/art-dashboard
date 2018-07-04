@@ -10,12 +10,39 @@ import { mockStore } from '../../_mock/mockStore';
 // mock data
 import subcategories from '../../_mock/subcategories';
 
-import { loadSubCategoriesSuccess } from '../../_actions/subcategory.actions';
+import {
+  loadSubCategoriesSuccess,
+  loadSubCategoriesFailure,
+  createSubCategorySuccess,
+  createSubCategoryFailure
+} from '../../_actions/subcategory.actions';
 
 describe('SubCategory reducer tests', () => {
+  const subCategoryToCreate = {
+    sub_category_name: 'Asus',
+    asset_category: 1
+  };
+
+  const error = 'Error';
+
   it('should handle LOAD_SUBCATEGORIES_SUCCESS', () => {
-    let action = loadSubCategoriesSuccess(subcategories);
+    const action = loadSubCategoriesSuccess(subcategories);
     expect(mockStore.subcategories.length).toEqual(0);
     expect(subcategoryReducer(mockStore.subcategories, action)).toEqual(subcategories);
+  });
+
+  it('should handle LOAD_SUBCATEGORIES_FAILURE', () => {
+    const action = loadSubCategoriesFailure(error);
+    expect(subcategoryReducer(mockStore.subcategories, action)).toEqual({ errorMessage: error });
+  });
+
+  it('should handle CREATE_SUBCATEGORY_SUCCESS', () => {
+    const action = createSubCategorySuccess(subCategoryToCreate);
+    expect(subcategoryReducer(mockStore.subcategories, action)).toEqual([subCategoryToCreate]);
+  });
+
+  it('should handle CREATE_SUBCATEGORY_FAILURE', () => {
+    const action = createSubCategoryFailure(error);
+    expect(subcategoryReducer(mockStore.subcategories, action)).toEqual({ errorMessage: error });
   });
 });
