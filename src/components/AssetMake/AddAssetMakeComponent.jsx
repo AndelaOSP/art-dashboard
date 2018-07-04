@@ -6,6 +6,14 @@ import InputFluid from '../common/TextInputComponent';
 import DropdownComponent from '../common/DropdownComponent';
 import '../../_css/AddAssetComponent.css';
 
+const assetTypeOptions = assetTypes =>
+  assetTypes && assetTypes
+    .map((typeOption, index) => ({
+      key: index,
+      text: typeOption.asset_type,
+      value: typeOption.id
+    }));
+
 const AddAssetMakeComponent = props => (
   <Form onSubmit={props.handleSubmit}>
     <label htmlFor="asset-make" className="label-style">
@@ -25,21 +33,27 @@ const AddAssetMakeComponent = props => (
         placeHolder="Select Asset type"
         name="asset-type"
         onChange={props.onSelectAssetType}
-        options={props.assetTypes}
+        options={assetTypeOptions(props.assetTypes)}
       />
     </label>
     <br />
-    <ArtButton buttonName="Save" color="primary" />
-    <ArtButton buttonName="Cancel" onClick={props.toggleModal} />
+    <ArtButton
+      buttonName="Save"
+      color="primary"
+    />
+    <ArtButton
+      buttonName="Cancel"
+      onClick={props.toggleModal}
+    />
   </Form>
 );
 
 AddAssetMakeComponent.propTypes = {
-  handleSubmit: PropTypes.func,
-  onaddAssetMake: PropTypes.func,
-  toggleModal: PropTypes.func,
+  handleSubmit: PropTypes.func.isRequired,
+  onaddAssetMake: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
   assetTypes: PropTypes.array,
-  onSelectAssetType: PropTypes.func
+  onSelectAssetType: PropTypes.func.isRequired
 };
 
 export default AddAssetMakeComponent;

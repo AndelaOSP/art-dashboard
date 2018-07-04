@@ -45,11 +45,11 @@ export const addAssetMakes = newMake => (dispatch =>
     })
 );
 
-export const addAssetMakesSuccess = assetMakes => (
+const addAssetMakesSuccess = assetMakes => (
   { type: ADD_ASSET_MAKE_SUCCESS, payload: assetMakes }
 );
 
-export const addAssetMakesFailure = error => (
+const addAssetMakesFailure = error => (
   { type: ADD_ASSET_MAKE_FAILURE, payload: error }
 );
 

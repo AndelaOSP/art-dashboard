@@ -1,17 +1,27 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import AddAssetMakeComponent from '../../components/AssetMake/AddAssetMakeComponent';
 import { addAssetMakes } from '../../_actions/assetMakes.actions';
-// import { loadAssetTypes } from '../../_actions/assetTypes.actions';
+import { loadAssetTypes } from '../../_actions/assetTypes.actions';
 import { ToastMessage } from '../../_utils/ToastMessage';
 import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
 
 class AssetMakeContainer extends React.Component {
-  state = {
-    assetMake: '',
-    assetType: ''
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      assetMake: '',
+      assetType: ''
+    };
+  }
+
+  componentDidMount() {
+    if (_.isEmpty(this.props.assetTypes)) {
+      this.props.loadAssetTypes();
+    }
+  }
 
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.toastMessageContent.type) {
@@ -35,6 +45,14 @@ class AssetMakeContainer extends React.Component {
     return null;
   }
 
+  onAddAssetMake = (event) => {
+    this.setState({ assetMake: event.target.value });
+  }
+
+  onSelectAssetType = (event, data) => {
+    this.setState({ assetType: data.value });
+  }
+
   handleSubmit = (event) => {
     const { assetMake, assetType } = this.state;
     const newMake = {
@@ -45,15 +63,6 @@ class AssetMakeContainer extends React.Component {
     event.target.reset();
   }
 
-  onAddAssetMake = (event) => {
-    this.setState({ assetMake: event.target.value });
-  }
-
-  onSelectAssetType = (event) => {
-    // to be changed to a drop down event listener after fix for asset types is done
-    this.setState({ assetType: event.target.value });
-  }
-
   render() {
     return (
       <AddAssetMakeComponent
@@ -61,20 +70,27 @@ class AssetMakeContainer extends React.Component {
         onaddAssetMake={this.onAddAssetMake}
         handleSubmit={this.handleSubmit}
         toggleModal={this.props.toggleModal}
+        onSelectAssetType={this.onSelectAssetType}
       />
     );
   }
 }
+
 AssetMakeContainer.propTypes = {
   addAssetMakes: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  resetToastMessageContent: PropTypes.func.isRequired
+  resetToastMessageContent: PropTypes.func.isRequired,
+  loadAssetTypes: PropTypes.func.isRequired,
+  assetTypes: PropTypes.array
 };
-const mapStateToProps = ({ assetTypes, toastMessage }) => ({
-  assetTypes,
+
+const mapStateToProps = ({ assetTypeList, toastMessage }) => ({
+  assetTypes: assetTypeList,
   toastMessageContent: toastMessage
 });
+
 export default connect(mapStateToProps, {
   addAssetMakes,
+  loadAssetTypes,
   resetToastMessageContent
 })(AssetMakeContainer);
