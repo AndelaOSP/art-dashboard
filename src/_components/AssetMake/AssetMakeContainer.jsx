@@ -9,13 +9,10 @@ import { ToastMessage } from '../../_utils/ToastMessage';
 import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
 
 class AssetMakeContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      assetMake: '',
-      assetType: ''
-    };
-  }
+  state = {
+    assetMake: '',
+    assetType: ''
+  };
 
   componentDidMount() {
     if (_.isEmpty(this.props.assetTypes)) {
