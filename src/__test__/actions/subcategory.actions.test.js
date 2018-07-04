@@ -20,7 +20,7 @@ let store;
 
 describe('Subcategory action tests', () => {
   const mock = new MockAdapter(axios);
-  const url = 'asset-sub-categories/';
+  const url = 'asset-sub-categories';
   store = mockStore({});
   const expectedActions = [
     {

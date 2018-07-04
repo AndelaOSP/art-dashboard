@@ -29,7 +29,7 @@ describe('Category action tests', () => {
   ];
 
   it('should dispatch LOAD_CATEGORIES_SUCCESS when loadCategories called successfully', () => {
-    mock.onGet(url).reply(200,
+    mock.onGet().reply(200,
       [
         {
           id: 1,
