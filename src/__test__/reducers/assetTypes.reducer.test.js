@@ -55,13 +55,14 @@ describe('Asset Type Reducer tests', () => {
       isLoading: false
     };
     action.type = LOAD_ASSET_TYPES_SUCCESS;
-    action.payload = assetTypesMock;
+    action.payload = { results: assetTypesMock };
     expect(assetTypesReducer(initialState, action)).toEqual(newState);
 
     assetTypesMock.push(newAssetType);
     newAction.type = CREATE_ASSET_TYPE_SUCCESS;
-    newAction.payload = assetTypesMock;
-    expect(assetTypesReducer(newState, newAction).assetTypes).toEqual(newAction.payload);
+    newAction.payload = { results: assetTypesMock };
+    expect(assetTypesReducer(newState, newAction).assetTypes)
+      .toEqual(newAction.payload.results);
   });
 
   it('should handle CREATE_ASSET_TYPE_FAILURE', () => {
@@ -71,7 +72,7 @@ describe('Asset Type Reducer tests', () => {
       isLoading: false
     };
     action.type = LOAD_ASSET_TYPES_SUCCESS;
-    action.payload = assetTypesMock;
+    action.payload = { results: assetTypesMock };
     expect(assetTypesReducer(initialState, action)).toEqual(newState);
 
     newAction.type = CREATE_ASSET_TYPE_FAILURE;

@@ -26,6 +26,7 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
 const url = 'asset-types';
+const url2 = 'asset-types?page=1';
 
 afterEach(() => {
   store.clearActions();
@@ -37,24 +38,24 @@ describe('Asset Types action tests', () => {
 
   store = mockStore({});
   it('dispatches LOAD_ASSET_TYPES_SUCCESS when loadAssetTypeAction is called successfully', () => {
-    moxios.stubRequest(url, {
+    moxios.stubRequest(url2, {
       status: 200,
       response: {
         results: assetTypes
       }
     });
-    return store.dispatch(loadAssetTypes()).then(() => {
+    return store.dispatch(loadAssetTypes(1)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_SUCCESS);
     });
   });
 
   it('dispatches LOAD_ASSET_TYPES_FAILURE when loadAssetTypeAction is called unsuccessfully', () => {
-    moxios.stubRequest(url, {
+    moxios.stubRequest(url2, {
       status: 404,
       response: {}
     });
-    return store.dispatch(loadAssetTypes()).then(() => {
+    return store.dispatch(loadAssetTypes(1)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_FAILURE);
     });

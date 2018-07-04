@@ -7,8 +7,6 @@ import subcategoryReducer from '../../_reducers/subcategory.reducer';
 // initial mock State
 import { mockStore } from '../../_mock/mockStore';
 
-import constants from '../../_constants';
-
 // mock data
 import subcategories from '../../_mock/subcategories';
 
@@ -19,18 +17,20 @@ import {
   createSubCategoryFailure
 } from '../../_actions/subcategory.actions';
 
-const { LOAD_SUBCATEGORIES_FAILURE } = constants;
-
 describe('SubCategory reducer tests', () => {
   const subCategoryToCreate = {
-    sub_category_name: 'Asus',
-    asset_category: 1
+    results: [
+      {
+        sub_category_name: 'Asus',
+        asset_category: 1
+      }
+    ]
   };
 
   const error = 'Error';
 
   it('should handle LOAD_SUBCATEGORIES_SUCCESS', () => {
-    const action = loadSubCategoriesSuccess(subcategories);
+    const action = loadSubCategoriesSuccess({ results: subcategories });
     expect(mockStore.subcategories.length).toEqual(0);
     expect(subcategoryReducer(mockStore.subcategories, action)).toEqual(subcategories);
   });

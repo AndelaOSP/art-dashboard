@@ -1,16 +1,15 @@
 // third-party libraries
 import expect from 'expect';
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import moxios from 'moxios';
 
 // constants
 import constants from '../../_constants';
 
 // actions
 import { loadSubCategories, createSubCategory } from '../../_actions/subcategory.actions';
-
-const { LOAD_SUBCATEGORIES_SUCCESS } = constants;
 
 const { LOAD_SUBCATEGORIES_SUCCESS, LOAD_SUBCATEGORIES_FAILURE } = constants;
 

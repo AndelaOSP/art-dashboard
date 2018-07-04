@@ -8,7 +8,7 @@ import { ToastMessage } from '../../_utils/ToastMessage';
 
 import { loadSubCategories } from '../../_actions/subcategory.actions';
 import { createAssetType } from '../../_actions/assetTypes.actions';
-import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
+import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
 export class AddAssetTypesContainer extends React.Component {
   constructor(props) {
