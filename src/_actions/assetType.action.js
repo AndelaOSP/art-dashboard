@@ -7,13 +7,13 @@ import constants from '../_constants';
 const { LOAD_ASSET_TYPE_SUCCESS, LOAD_ASSET_TYPE_FAILURE, LOADING_ASSET_TYPE } = constants;
 
 /**
- * load Asset Types thunk
+ * load Asset Type thunk
  *
  * @return dispatch type and payload
  */
-export const loadAssetTypeAction = () => (dispatch) => {
+export const loadAssetType = id => (dispatch) => {
   dispatch({ type: LOADING_ASSET_TYPE });
-  return axios.get('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/types')
+  return axios.get(`/asset-types/${id}/`)
     .then(response => dispatch({
       type: LOAD_ASSET_TYPE_SUCCESS,
       payload: response.data
@@ -24,13 +24,4 @@ export const loadAssetTypeAction = () => (dispatch) => {
     }));
 };
 
-// /**
-//  * load AssetTypes Success action creator
-//  *
-//  * @param {array} assetTypes list of asset types
-//  *
-//  * @return {object} type and payload
-//  */
-// export const loadAssetTypesSuccess = (assetTypes) =>
-// (type: LOAD_ASSET_TYPE_SUCCESS, payload: assetTypes );
-export default loadAssetTypeAction;
+export default loadAssetType;

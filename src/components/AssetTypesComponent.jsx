@@ -12,6 +12,7 @@ import ActionComponent from '../components/ActionComponent';
 import '../_css/AssetTypesComponent.css';
 
 import { loadAssetTypes } from '../_actions/assetTypes.actions';
+import { loadAssetType } from '../_actions/assetType.action';
 
 export class AssetTypesComponent extends React.Component {
   state = {
@@ -71,7 +72,7 @@ export class AssetTypesComponent extends React.Component {
                     headings={['id', 'asset_type', 'asset_sub_category']}
                   >
                     <Table.Cell>
-                      <ActionComponent />
+                      <ActionComponent onViewClick={this.handleViewClick} />
                     </Table.Cell>
                   </TableRowComponent>
                 ))
@@ -116,5 +117,5 @@ AssetTypesComponent.propTypes = {
 };
 
 export default withRouter(connect(mapStateToProps, {
-  loadAssetTypes
+  loadAssetTypes, loadAssetType
 })(AssetTypesComponent));
