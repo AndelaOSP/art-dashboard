@@ -45,7 +45,7 @@ export const addAssetMakes = newMake => (dispatch =>
     })
 );
 
-const addAssetMakesSuccess = assetMakes => (
+export const addAssetMakesSuccess = assetMakes => (
   { type: ADD_ASSET_MAKE_SUCCESS, payload: assetMakes }
 );
 

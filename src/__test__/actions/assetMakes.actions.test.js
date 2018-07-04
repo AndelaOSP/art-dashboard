@@ -59,8 +59,8 @@ describe('Asset Makes action tests', () => {
       .onPost(url, newMake)
       .reply(201,
         {
-          id: 4,
-          category_name: 'Test asset make',
+          id: 5,
+          asset_make: 'Test asset make',
           asset_type: 'Test asset type'
         }
       );
