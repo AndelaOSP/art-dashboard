@@ -8,31 +8,31 @@ import { ToastMessage } from '../../_utils/ToastMessage';
 
 import { loadSubCategories } from '../../_actions/subcategory.actions';
 import { createAssetType } from '../../_actions/assetTypes.actions';
-import resetToastMessageContent from '../../_actions/toastMessage.actions';
+import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
 
 export class AddAssetTypesContainer extends React.Component {
-  state = {
-    assetType: '',
-    subCategory: '',
-    saveButtonState: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      assetType: '',
+      subCategory: '',
+      saveButtonState: false
+    };
+  }
 
   static getDerivedStateFromProps(nextProps) {
-    const { toastMessageContent } = nextProps;
-    if (toastMessageContent.type) {
-      if (toastMessageContent.type === 'success') {
+    if (nextProps.toastMessageContent.type) {
+      if (nextProps.toastMessageContent.type === 'success') {
         ToastMessage.success({
-          message: toastMessageContent.message
+          message: nextProps.toastMessageContent.message
         });
-      } else if (toastMessageContent.type === 'error') {
+      } else if (nextProps.toastMessageContent.type === 'error') {
         ToastMessage.error({
-          message: toastMessageContent.message
+          message: nextProps.toastMessageContent.message
         });
       }
-
       nextProps.resetToastMessageContent();
       nextProps.toggleModal();
-
       return {
         assetType: '',
         subCategory: '',
