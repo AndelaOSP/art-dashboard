@@ -44,9 +44,19 @@ export const addAssetMakes = newMake => (dispatch =>
     })
 );
 
+<<<<<<< HEAD
 export const addAssetMakesSuccess = assetMakes => ({
   type: ADD_ASSET_MAKE_SUCCESS, payload: assetMakes
 });
+=======
+const addAssetMakesSuccess = assetMakes => (
+  { type: ADD_ASSET_MAKE_SUCCESS, payload: assetMakes }
+);
+
+const addAssetMakesFailure = error => (
+  { type: ADD_ASSET_MAKE_FAILURE, payload: error }
+);
+>>>>>>> ft(asset make): get asset types from state
 
 const addAssetMakesFailure = error => ({
   type: ADD_ASSET_MAKE_FAILURE, payload: error
