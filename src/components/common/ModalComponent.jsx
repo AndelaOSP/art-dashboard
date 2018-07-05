@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import '../../_css/ModalComponent.css';
 
 export default class ArtModal extends Component {
   state = { modalOpen: false }
@@ -12,20 +13,24 @@ export default class ArtModal extends Component {
     const { children } = this.props;
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child,
-        { toggleModal: this.toggleModal }
+        { }
       )
     );
     return (
-      <div>
+      <div className={this.props.className}>
         <Modal
           trigger={
-            <i
+            (
+              <span tabIndex="-1" role="button" onClick={this.toggleModal} onKeyUp={(() => {})}>
+                { this.props.trigger }
+              </span>
+            ) || (<i
               className="plus link icon"
               onClick={this.toggleModal}
               onKeyUp={() => {}}
               role="button"
               tabIndex="-1"
-            />
+            />)
           }
           open={this.state.modalOpen}
           onClose={this.toggleModal}
@@ -47,7 +52,9 @@ export default class ArtModal extends Component {
 }
 ArtModal.propTypes = {
   children: PropTypes.node,
-  modalTitle: PropTypes.string
+  modalTitle: PropTypes.string,
+  trigger: PropTypes.element,
+  className: PropTypes.string
 };
 
 ArtModal.defaultProps = {
