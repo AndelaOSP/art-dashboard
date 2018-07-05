@@ -4,22 +4,50 @@ import expect from 'expect';
 
 import { AssetSubCategoriesComponent } from '../components/AssetsSubCategoriesComponent';
 
-import subcategories from '../_mock/subcategories';
+import assetSubCategories from '../_mock/subcategories';
 
 describe('Renders <AssetsSubCategoriesComponent /> correctly', () => {
   const props = {
     loadSubCategories: jest.fn(),
     handlePaginationChange: jest.fn(),
-    isLoading: true,
-    subcategories,
+    isLoading: false,
+    assetSubCategories,
     assetSubCategoriesCount: 10
   };
-  const wrapper = shallow(<AssetSubCategoriesComponent
+  let wrapper = shallow(<AssetSubCategoriesComponent
     {...props}
   />);
 
   it('renders Loading component if isLoading is true', () => {
+    props.isLoading = true;
+    wrapper = shallow(<AssetSubCategoriesComponent
+      {...props}
+    />);
     expect(wrapper.find('LoaderComponent').length).toBe(1);
+  });
+
+  it('renders TableRowComponent component if isLoading is false', () => {
+    props.isLoading = false;
+    wrapper = shallow(<AssetSubCategoriesComponent
+      {...props}
+    />);
+    expect(wrapper.find('SideMenuComponent').length).toBe(1);
+  });
+
+  it('renders Pagination component', () => {
+    props.isLoading = false;
+    wrapper = shallow(<AssetSubCategoriesComponent
+      {...props}
+    />);
+    expect(wrapper.find('Pagination').length).toBe(1);
+  });
+
+  it('renders Table component', () => {
+    props.isLoading = false;
+    wrapper = shallow(<AssetSubCategoriesComponent
+      {...props}
+    />);
+    expect(wrapper.find('Table').length).toBe(1);
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {
