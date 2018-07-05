@@ -103,5 +103,5 @@ const mapStateToProps = ({ assetTypesList, toastMessage }) => ({
 export default connect(mapStateToProps, {
   addAssetMakes,
   loadAssetTypes,
-  updateToastMessageContent
+  resetToastMessageContent
 })(AssetMakeContainer);
