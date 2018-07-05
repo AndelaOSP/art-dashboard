@@ -1,12 +1,12 @@
-import * as React from 'react';
+import { React } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import AddAssetMakeComponent from '../../components/AssetMake/AddAssetMakeComponent';
+import { AddAssetMakeComponent } from '../../components/AssetMake/AddAssetMakeComponent';
 import { addAssetMakes } from '../../_actions/assetMakes.actions';
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
 import { ToastMessage } from '../../_utils/ToastMessage';
-import resetToastMessageContent from '../../_actions/resetToastMessage.actions';
+import { updateToastMessageContent } from '../../_actions/toastMessage.actions';
 
 class AssetMakeContainer extends React.Component {
   state = {
@@ -89,5 +89,5 @@ const mapStateToProps = ({ assetTypeList, toastMessage }) => ({
 export default connect(mapStateToProps, {
   addAssetMakes,
   loadAssetTypes,
-  resetToastMessageContent
+  updateToastMessageContent
 })(AssetMakeContainer);

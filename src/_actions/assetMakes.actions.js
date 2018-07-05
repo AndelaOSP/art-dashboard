@@ -1,12 +1,11 @@
 import axios from 'axios';
 import constants from '../_constants';
-
+import { updateToastMessageContent } from './toastMessage.actions';
 // constants
 const {
   LOAD_ASSET_MAKES_SUCCESS,
   ADD_ASSET_MAKE_SUCCESS,
-  ADD_ASSET_MAKE_FAILURE,
-  UPDATE_TOAST_MESSAGE_CONTENT
+  ADD_ASSET_MAKE_FAILURE
 } = constants;
 
 /**
@@ -52,11 +51,3 @@ export const addAssetMakesSuccess = assetMakes => (
 const addAssetMakesFailure = error => (
   { type: ADD_ASSET_MAKE_FAILURE, payload: error }
 );
-
-export const updateToastMessageContent = (message, type) => ({
-  type: UPDATE_TOAST_MESSAGE_CONTENT,
-  payload: {
-    message,
-    type
-  }
-});

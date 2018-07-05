@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { React } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 import ArtButton from '../common/ButtonComponent';
@@ -14,7 +14,7 @@ const assetTypeOptions = assetTypes =>
       value: typeOption.id
     }));
 
-const AddAssetMakeComponent = props => (
+export const AddAssetMakeComponent = props => (
   <Form onSubmit={props.handleSubmit}>
     <label htmlFor="asset-make" className="label-style">
       Asset Make
@@ -38,10 +38,12 @@ const AddAssetMakeComponent = props => (
     </label>
     <br />
     <ArtButton
+      className="save-button"
       buttonName="Save"
       color="primary"
     />
     <ArtButton
+      className="cancel-button"
       buttonName="Cancel"
       onClick={props.toggleModal}
     />
@@ -55,5 +57,3 @@ AddAssetMakeComponent.propTypes = {
   assetTypes: PropTypes.array,
   onSelectAssetType: PropTypes.func.isRequired
 };
-
-export default AddAssetMakeComponent;
