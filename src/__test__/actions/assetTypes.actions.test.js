@@ -1,43 +1,83 @@
 // third-party libraries
 import expect from 'expect';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
+import moxios from 'moxios';
 
 // constants
 import constants from '../../_constants';
 
 // actions
-import { loadAssetTypes } from '../../_actions/assetTypes.actions';
+import { loadAssetTypes, createAssetType } from '../../_actions/assetTypes.actions';
 
-const { LOAD_ASSET_TYPES_SUCCESS, LOAD_ASSET_TYPES_FAILURE, LOADING_ASSET_TYPES } = constants;
+// mock data
+import assetTypes from '../../_mock/assetTypes';
+
+const {
+  LOAD_ASSET_TYPES_SUCCESS,
+  LOAD_ASSET_TYPES_FAILURE,
+  LOADING_ASSET_TYPES,
+  CREATE_ASSET_TYPE_SUCCESS,
+  CREATE_ASSET_TYPE_FAILURE
+} = constants;
 
 // store
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
+const url = 'asset-types';
+const url2 = 'asset-types?page=1';
 
 afterEach(() => {
   store.clearActions();
 });
 
 describe('Asset Types action tests', () => {
-  const mock = new MockAdapter(axios);
+  beforeEach(() => moxios.install());
+  afterEach(() => moxios.uninstall());
+
   store = mockStore({});
-  it('should dispatch LOAD_ASSET_TYPES_SUCCESS when loadAssetTypeAction is called successfully', () => {
-    mock.onGet().reply(200);
-    return store.dispatch(loadAssetTypes()).then(() => {
+  it('dispatches LOAD_ASSET_TYPES_SUCCESS when loadAssetTypeAction is called successfully', () => {
+    moxios.stubRequest(url2, {
+      status: 200,
+      response: {
+        results: assetTypes
+      }
+    });
+    return store.dispatch(loadAssetTypes(1)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_SUCCESS);
     });
   });
 
-  it('should dispatch LOAD_ASSET_TYPES_FAILURE when loadAssetTypeAction is called unsuccessfully', () => {
-    mock.onGet().reply(401);
-    return store.dispatch(loadAssetTypes()).then(() => {
+  it('dispatches LOAD_ASSET_TYPES_FAILURE when loadAssetTypeAction is called unsuccessfully', () => {
+    moxios.stubRequest(url2, {
+      status: 404,
+      response: {}
+    });
+    return store.dispatch(loadAssetTypes(1)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_FAILURE);
+    });
+  });
+
+  it('dispatches CREATE_ASSET_TYPE_SUCCESS when createAssetType is called successfully', () => {
+    moxios.stubRequest(url, {
+      status: 201,
+      response: assetTypes[0]
+    });
+    return store.dispatch(createAssetType(assetTypes[0])).then(() => {
+      expect(store.getActions()[0].type).toEqual(CREATE_ASSET_TYPE_SUCCESS);
+    });
+  });
+
+  it('dispatches CREATE_ASSET_TYPE_FAILURE when createAssetType fails', () => {
+    moxios.stubRequest(url, {
+      status: 401,
+      response: {}
+    });
+    return store.dispatch(createAssetType(assetTypes[0])).then(() => {
+      expect(store.getActions()[0].type).toEqual(CREATE_ASSET_TYPE_FAILURE);
     });
   });
 });

@@ -11,7 +11,7 @@ import constants from '../../_constants';
 // actions
 import { loadSubCategories, createSubCategory } from '../../_actions/subcategory.actions';
 
-const { LOAD_SUBCATEGORIES_SUCCESS } = constants;
+const { LOAD_SUBCATEGORIES_SUCCESS, LOAD_SUBCATEGORIES_FAILURE } = constants;
 
 // store
 const middleware = [thunk];
@@ -25,6 +25,9 @@ describe('Subcategory action tests', () => {
   const expectedActions = [
     {
       type: LOAD_SUBCATEGORIES_SUCCESS
+    },
+    {
+      type: LOAD_SUBCATEGORIES_FAILURE
     }
   ];
 

@@ -7,6 +7,7 @@ import ModalComponent from './common/ModalComponent';
 import ActionComponent from './ActionComponent';
 import LoaderComponent from './LoaderComponent';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
+import AssetTypesContainer from '../_components/AssetTypes/AddAssetTypesContainer';
 import CategoryContainer from '../_components/Category/CategoryContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
@@ -73,7 +74,9 @@ const AssetsTableContent = (props) => {
             <Table.HeaderCell>
               <div className="assets-header">
                 Asset Type
-                <ModalComponent />
+                <ModalComponent modalTitle="Add Asset Type">
+                  <AssetTypesContainer />
+                </ModalComponent>
               </div>
             </Table.HeaderCell>
             <Table.HeaderCell>Action</Table.HeaderCell>

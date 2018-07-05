@@ -19,14 +19,18 @@ import {
 
 describe('SubCategory reducer tests', () => {
   const subCategoryToCreate = {
-    sub_category_name: 'Asus',
-    asset_category: 1
+    results: [
+      {
+        sub_category_name: 'Asus',
+        asset_category: 1
+      }
+    ]
   };
 
   const error = 'Error';
 
   it('should handle LOAD_SUBCATEGORIES_SUCCESS', () => {
-    const action = loadSubCategoriesSuccess(subcategories);
+    const action = loadSubCategoriesSuccess({ results: subcategories });
     expect(mockStore.subcategories.length).toEqual(0);
     expect(subcategoryReducer(mockStore.subcategories, action)).toEqual(subcategories);
   });
