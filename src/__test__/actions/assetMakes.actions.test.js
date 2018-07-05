@@ -6,7 +6,10 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 // actions
-import { loadAssetMakes, addAssetMakes } from '../../_actions/assetMakes.actions';
+import {
+  loadAssetMakes,
+  addAssetMakes
+} from '../../_actions/assetMakes.actions';
 
 // constants
 import constants from '../../_constants';
@@ -46,7 +49,7 @@ describe('Asset Makes action tests', () => {
   it('should dispatch ADD_ASSET_MAKE_SUCCESS when addAssetMakes is called successfully', () => {
     store = mockStore({ assetMakes: [] });
     const newMake = {
-      asset_make: 'Test asset make',
+      make_label: 'Test asset make',
       asset_type: 'Test asset type'
     };
 
@@ -66,6 +69,23 @@ describe('Asset Makes action tests', () => {
       );
     return store.dispatch(addAssetMakes(newMake)).then(() => {
       expect(store.getActions()[0]).toEqual(expectedAction[0]);
+    });
+  });
+
+  it('should dispatch ADD_ASSET_MAKE_FAILURE when addAssetMakes is called with make_label field empty', () => {
+    store = mockStore({ assetMakes: [] });
+    const newMake = {
+      make_label: '',
+      asset_type: 'Test asset type'
+    };
+
+    mock
+      .onPost(url, newMake)
+      .reply(401,
+        {}
+      );
+    return store.dispatch(addAssetMakes(newMake)).then(() => {
+      expect(store.getActions()[0].type).toEqual('ADD_ASSET_MAKE_FAILURE');
     });
   });
 });
