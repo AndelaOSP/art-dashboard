@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';
 import { spy } from 'sinon';
-import { AddAssetMakeComponent } from '../components/AssetMake/AddAssetMakeComponent';
+import AddAssetMakeComponent from '../components/AssetMake/AddAssetMakeComponent';
 import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 
 
