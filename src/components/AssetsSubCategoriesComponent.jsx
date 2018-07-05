@@ -63,10 +63,10 @@ export class AssetSubCategoriesComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetSubCategories.map(assetType => (
+                this.props.assetSubCategories.map(subCategory => (
                   <TableRowComponent
-                    key={assetType.id}
-                    data={assetType}
+                    key={subCategory.id}
+                    data={subCategory}
                     headings={['id', 'sub_category_name', 'asset_category']}
                   >
                     <Table.Cell>
