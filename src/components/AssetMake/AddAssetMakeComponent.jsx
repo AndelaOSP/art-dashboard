@@ -14,7 +14,7 @@ const assetTypeOptions = assetTypes =>
       value: typeOption.id
     }));
 
-const AddAssetMakeComponent = props => (
+export const AddAssetMakeComponent = props => (
   <Form onSubmit={props.handleSubmit}>
     <label htmlFor="asset-make" className="label-style">
       Asset Make
@@ -65,5 +65,3 @@ AddAssetMakeComponent.propTypes = {
   buttonState: PropTypes.bool.isRequired,
   onSelectAssetType: PropTypes.func.isRequired
 };
-
-export default AddAssetMakeComponent;
