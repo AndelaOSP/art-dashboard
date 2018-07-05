@@ -4,7 +4,13 @@ import constants from '../../_constants';
 import assetTypesReducer from '../../_reducers/assetTypes.reducer';
 import assetTypesMock from '../../_mock/assetTypes';
 
-const { LOAD_ASSET_TYPES_SUCCESS, LOAD_ASSET_TYPES_FAILURE, LOADING_ASSET_TYPES } = constants;
+const {
+  LOAD_ASSET_TYPES_SUCCESS,
+  LOAD_ASSET_TYPES_FAILURE,
+  LOADING_ASSET_TYPES,
+  CREATE_ASSET_TYPE_SUCCESS,
+  CREATE_ASSET_TYPE_FAILURE
+} = constants;
 
 const initialState = {
   assetTypes: [],
@@ -35,5 +41,42 @@ describe('Asset Type Reducer tests', () => {
     action.type = LOADING_ASSET_TYPES;
     expect(assetTypesReducer(initialState, action).assetTypes).toEqual([]);
     expect(assetTypesReducer(initialState, action).isLoading).toEqual(true);
+  });
+
+  it('should handle CREATE_ASSET_TYPE_SUCCESS', () => {
+    const newAction = {};
+    const newAssetType = {
+      asset_sub_category: 3,
+      asset_type: 'Adapters',
+      id: 3
+    };
+    const newState = {
+      assetTypes: assetTypesMock,
+      isLoading: false
+    };
+    action.type = LOAD_ASSET_TYPES_SUCCESS;
+    action.payload = { results: assetTypesMock };
+    expect(assetTypesReducer(initialState, action)).toEqual(newState);
+
+    assetTypesMock.push(newAssetType);
+    newAction.type = CREATE_ASSET_TYPE_SUCCESS;
+    newAction.payload = { results: assetTypesMock };
+    expect(assetTypesReducer(newState, newAction).assetTypes)
+      .toEqual(newAction.payload.results);
+  });
+
+  it('should handle CREATE_ASSET_TYPE_FAILURE', () => {
+    const newAction = {};
+    const newState = {
+      assetTypes: assetTypesMock,
+      isLoading: false
+    };
+    action.type = LOAD_ASSET_TYPES_SUCCESS;
+    action.payload = { results: assetTypesMock };
+    expect(assetTypesReducer(initialState, action)).toEqual(newState);
+
+    newAction.type = CREATE_ASSET_TYPE_FAILURE;
+    newAction.payload = assetTypesMock;
+    expect(assetTypesReducer(newState, newAction).assetTypes).toEqual(newAction.payload);
   });
 });

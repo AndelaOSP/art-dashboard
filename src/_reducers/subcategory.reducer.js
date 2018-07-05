@@ -11,7 +11,7 @@ const {
 export default (state = initialState.subcategories, action) => {
   switch (action.type) {
     case LOAD_SUBCATEGORIES_SUCCESS:
-      return action.payload;
+      return action.payload.results;
 
     case LOAD_SUBCATEGORIES_FAILURE:
       return {
@@ -27,7 +27,6 @@ export default (state = initialState.subcategories, action) => {
         ...state,
         errorMessage: action.payload
       };
-
     default:
       return state;
   }
