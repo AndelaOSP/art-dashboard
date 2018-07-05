@@ -65,3 +65,4 @@ AddAssetMakeComponent.propTypes = {
   buttonState: PropTypes.bool.isRequired,
   onSelectAssetType: PropTypes.func.isRequired
 };
+
