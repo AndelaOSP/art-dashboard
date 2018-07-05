@@ -7,8 +7,7 @@ const {
   LOAD_ASSET_TYPES_FAILURE,
   LOADING_ASSET_TYPES,
   CREATE_ASSET_TYPE_SUCCESS,
-  CREATE_ASSET_TYPE_FAILURE,
-  UPDATE_TOAST_MESSAGE_CONTENT
+  CREATE_ASSET_TYPE_FAILURE
 } = constants;
 
 export const loadAssetTypes = pageNumber => (dispatch) => {
