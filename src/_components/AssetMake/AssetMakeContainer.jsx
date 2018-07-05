@@ -11,7 +11,8 @@ import resetToastMessageContent from '../../_actions/toastMessage.actions';
 class AssetMakeContainer extends React.Component {
   state = {
     assetMake: '',
-    assetType: ''
+    assetType: '',
+    saveButtonState: false
   };
 
   componentDidMount() {
@@ -51,6 +52,10 @@ class AssetMakeContainer extends React.Component {
     this.setState({ assetType: data.value });
   }
 
+  onChangeButtonState = () => {
+    this.setState({ saveButtonState: !this.state.saveButtonState });
+  };
+
   handleSubmit = (event) => {
     const { assetMake, assetType } = this.state;
     const newMake = {
@@ -69,6 +74,8 @@ class AssetMakeContainer extends React.Component {
         handleSubmit={this.handleSubmit}
         toggleModal={this.props.toggleModal}
         onSelectAssetType={this.onSelectAssetType}
+        onChangeButtonState={this.onChangeButtonState}
+        buttonState={this.state.saveButtonState}
       />
     );
   }
@@ -76,8 +83,7 @@ class AssetMakeContainer extends React.Component {
 
 
 AssetMakeContainer.defaultProps = {
-  assetTypes: [],
-  assetMakes: []
+  assetTypes: []
 };
 
 AssetMakeContainer.propTypes = {
@@ -87,8 +93,7 @@ AssetMakeContainer.propTypes = {
   loadAssetMakes: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired,
   toastMessageContent: PropTypes.object,
-  assetTypes: PropTypes.array,
-  assetMakes: PropTypes.array
+  assetTypes: PropTypes.array
 };
 
 const mapStateToProps = ({ assetTypesList, toastMessage }) => ({

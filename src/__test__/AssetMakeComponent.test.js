@@ -1,16 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';
-import jest from 'jest-mock';
 import { spy } from 'sinon';
 import { AddAssetMakeComponent } from '../components/AssetMake/AddAssetMakeComponent';
 
 const toggleModal = spy();
+const onChangeButtonState = spy();
 
 describe('Renders <AddAssetMakeComponent /> correctly', () => {
   const props = {
     toggleModal,
     handleSubmit: jest.fn(),
+    onChangeButtonState,
     onaddAssetMake: jest.fn(),
     assetTypes: [],
     onSelectAssetType: jest.fn()
@@ -36,6 +37,8 @@ describe('Renders <AddAssetMakeComponent /> correctly', () => {
 
   it('Should find the Save Button', () => {
     expect(wrapper.find('.save-button').length).toEqual(1);
+    wrapper.find('.save-button').simulate('click');
+    expect(onChangeButtonState.callCount).toEqual(1);
   });
 
   it('Should find the Cancel Button', () => {

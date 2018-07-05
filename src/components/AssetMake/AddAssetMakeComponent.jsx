@@ -41,11 +41,13 @@ export const AddAssetMakeComponent = props => (
       className="save-button"
       buttonName="Save"
       color="primary"
+      handleClick={props.onChangeButtonState}
+      buttonState={props.buttonState}
     />
     <ArtButton
       className="cancel-button"
       buttonName="Cancel"
-      onClick={props.toggleModal}
+      handleClick={props.toggleModal}
     />
   </Form>
 );
@@ -55,5 +57,8 @@ AddAssetMakeComponent.propTypes = {
   onaddAssetMake: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   assetTypes: PropTypes.array,
+  onChangeButtonState: PropTypes.func.isRequired,
+  buttonState: PropTypes.bool.isRequired,
   onSelectAssetType: PropTypes.func.isRequired
 };
+

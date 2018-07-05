@@ -20,7 +20,7 @@ let store;
 
 describe('Asset Makes action tests', () => {
   const mock = new MockAdapter(axios);
-  const url = 'makes';
+  const url = 'asset-makes';
   store = mockStore({});
   const expectedActions = [
     {
@@ -52,7 +52,7 @@ describe('Asset Makes action tests', () => {
 
     const expectedAction = [{
       type: 'ADD_ASSET_MAKE_SUCCESS',
-      payload: { id: 5, asset_make: 'Test asset make', asset_type: 'Test asset type' }
+      payload: { id: 5, make_label: 'Test asset make', asset_type: 'Test asset type' }
     }];
 
     mock
@@ -60,7 +60,7 @@ describe('Asset Makes action tests', () => {
       .reply(201,
         {
           id: 5,
-          asset_make: 'Test asset make',
+          make_label: 'Test asset make',
           asset_type: 'Test asset type'
         }
       );
