@@ -6,7 +6,7 @@ import _ from 'lodash';
 import AddSubCategoryComponent from '../../components/SubCategory/AddSubCategoryComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
-import { loadCategories } from '../../_actions/category.actions';
+import { loadCategoriesDropdown } from '../../_actions/category.actions';
 import { createSubCategory } from '../../_actions/subcategory.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
@@ -34,18 +34,18 @@ class AddSubCategoriesContainer extends React.Component {
       nextProps.resetToastMessageContent();
       nextProps.toggleModal();
 
-      this.setState({
+      return {
         subCategory: '',
         category: '',
         saveButtonState: false
-      });
+      };
     }
     return null;
   }
 
   componentDidMount() {
     if (_.isEmpty(this.props.categoriesList)) {
-      this.props.loadCategories();
+      this.props.loadCategoriesDropdown(1);
     }
   }
 
@@ -88,7 +88,7 @@ class AddSubCategoriesContainer extends React.Component {
 
 AddSubCategoriesContainer.propTypes = {
   categoriesList: PropTypes.array,
-  loadCategories: PropTypes.func.isRequired,
+  loadCategoriesDropdown: PropTypes.func.isRequired,
   createSubCategory: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired
@@ -99,12 +99,12 @@ AddSubCategoriesContainer.defaultProps = {
 };
 
 const mapStateToProps = ({ categoriesList, toastMessage }) => ({
-  categoriesList: categoriesList.results,
+  categoriesList: categoriesList.categories,
   toastMessageContent: toastMessage
 });
 
 export default connect(mapStateToProps, {
-  loadCategories,
+  loadCategoriesDropdown,
   createSubCategory,
   resetToastMessageContent
 })(AddSubCategoriesContainer);
