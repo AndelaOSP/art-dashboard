@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { AddAssetMakeComponent } from '../../components/AssetMake/AddAssetMakeComponent';
+import AddAssetMakeComponent from '../../components/AssetMake/AddAssetMakeComponent';
 import { addAssetMakes } from '../../_actions/assetMakes.actions';
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
 import { ToastMessage } from '../../_utils/ToastMessage';
