@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -6,7 +6,7 @@ import { AddAssetMakeComponent } from '../../components/AssetMake/AddAssetMakeCo
 import { addAssetMakes } from '../../_actions/assetMakes.actions';
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
 import { ToastMessage } from '../../_utils/ToastMessage';
-import { updateToastMessageContent } from '../../_actions/toastMessage.actions';
+import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
 class AssetMakeContainer extends React.Component {
   state = {
@@ -16,19 +16,20 @@ class AssetMakeContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.assetTypes)) {
-      this.props.loadAssetTypes();
+      this.props.loadAssetTypes(1);
     }
   }
 
   static getDerivedStateFromProps(nextProps) {
-    if (nextProps.toastMessageContent.type) {
-      if (nextProps.toastMessageContent.type === 'success') {
+    const { toastMessageContent } = nextProps;
+    if (toastMessageContent.type) {
+      if (toastMessageContent.type === 'success') {
         ToastMessage.success({
-          message: nextProps.toastMessageContent.message
+          message: toastMessageContent.message
         });
-      } else if (nextProps.toastMessageContent.type === 'error') {
+      } else if (toastMessageContent.type === 'error') {
         ToastMessage.error({
-          message: nextProps.toastMessageContent.message
+          message: toastMessageContent.message
         });
       }
       nextProps.resetToastMessageContent();
@@ -53,7 +54,7 @@ class AssetMakeContainer extends React.Component {
   handleSubmit = (event) => {
     const { assetMake, assetType } = this.state;
     const newMake = {
-      asset_make: assetMake,
+      make_label: assetMake,
       asset_type: assetType
     };
     this.props.addAssetMakes(newMake);
@@ -73,21 +74,30 @@ class AssetMakeContainer extends React.Component {
   }
 }
 
+
+AssetMakeContainer.defaultProps = {
+  assetTypes: [],
+  assetMakes: []
+};
+
 AssetMakeContainer.propTypes = {
   addAssetMakes: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  resetToastMessageContent: PropTypes.func.isRequired,
   loadAssetTypes: PropTypes.func.isRequired,
-  assetTypes: PropTypes.array
+  loadAssetMakes: PropTypes.func.isRequired,
+  resetToastMessageContent: PropTypes.func.isRequired,
+  toastMessageContent: PropTypes.object,
+  assetTypes: PropTypes.array,
+  assetMakes: PropTypes.array
 };
 
-const mapStateToProps = ({ assetTypeList, toastMessage }) => ({
-  assetTypes: assetTypeList,
+const mapStateToProps = ({ assetTypesList, toastMessage }) => ({
+  assetTypes: assetTypesList.assetTypes,
   toastMessageContent: toastMessage
 });
 
 export default connect(mapStateToProps, {
   addAssetMakes,
   loadAssetTypes,
-  updateToastMessageContent
+  resetToastMessageContent
 })(AssetMakeContainer);

@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 import ArtButton from '../common/ButtonComponent';
@@ -19,7 +19,7 @@ export const AddAssetMakeComponent = props => (
     <label htmlFor="asset-make" className="label-style">
       Asset Make
       <InputFluid
-        name="asset-make"
+        name="make_label"
         id="make"
         onChange={props.onaddAssetMake}
         placeholder="Enter Asset Make"

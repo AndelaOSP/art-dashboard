@@ -14,7 +14,7 @@ const {
  * @return dispatch loadAssetMakesSuccess type and payload
  */
 export const loadAssetMakes = () => (dispatch =>
-  axios.get('makes').then((response) => {
+  axios.get('asset-makes').then((response) => {
     dispatch(loadAssetMakesSuccess(response.data));
   }));
 
@@ -31,7 +31,7 @@ export const loadAssetMakesSuccess = assetMakes => (
 
 export const addAssetMakes = newMake => (dispatch =>
   axios
-    .post('makes', newMake)
+    .post('asset-makes', newMake)
     .then((response) => {
       dispatch(addAssetMakesSuccess(response.data));
       dispatch(updateToastMessageContent('New Asset Make Saved Successfully',
