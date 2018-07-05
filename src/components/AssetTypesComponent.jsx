@@ -13,7 +13,6 @@ import ArtModal from './common/ModalComponent';
 import '../_css/AssetTypesComponent.css';
 
 import { loadAssetTypes } from '../_actions/assetTypes.actions';
-import { loadAssetType } from '../_actions/assetType.action';
 
 export class AssetTypesComponent extends React.Component {
   state = {
@@ -152,5 +151,5 @@ AssetTypesComponent.propTypes = {
 };
 
 export default withRouter(connect(mapStateToProps, {
-  loadAssetTypes, loadAssetType
+  loadAssetTypes
 })(AssetTypesComponent));
