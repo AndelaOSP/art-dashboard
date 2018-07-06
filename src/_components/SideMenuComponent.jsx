@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react';
+import { Accordion, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,10 @@ import '../_css/SideMenuComponent.css';
 
 /* eslint-disable no-undef */
 class SideMenuComponent extends Component {
-  state = { visible: true };
+  state = {
+    visible: true,
+    activeIndex: null
+  };
 
   componentWillMount() {
     window.addEventListener('resize', this.handleWindowSize);
@@ -30,8 +33,16 @@ class SideMenuComponent extends Component {
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
+  handleAccordionClick = (e, titleProps) => {
+    const { index } = titleProps;
+    const { activeIndex } = this.state;
+    const newIndex = activeIndex === index ? -1 : index;
+
+    this.setState({ activeIndex: newIndex });
+  };
+
   render() {
-    const { visible } = this.state;
+    const { visible, activeIndex } = this.state;
     const { title } = this.props;
 
     return (
@@ -63,11 +74,29 @@ class SideMenuComponent extends Component {
             <Menu.Item name="users">
               <span><Icon name="users" />Users</span>
             </Menu.Item>
-            <Menu.Item name="assets">
-              <Link to="/assets"><Icon name="tv" />Assets</Link>
-            </Menu.Item>
-            <Menu.Item name="asset-types">
-              <Link to="/asset_types"><Icon name="info" />Asset Types</Link>
+            <Menu.Item>
+              <Accordion>
+                <Menu.Item>
+                  <Accordion.Title
+                    active={activeIndex === 0}
+                    index={0}
+                    onClick={this.handleAccordionClick}
+                  >
+                    <Icon name="tv" />
+                    Assets
+                    <Icon name="dropdown" position="right" />
+                  </Accordion.Title>
+                  <Accordion.Content active={activeIndex === 0} className="no-border">
+                    <Link to="/assets"><Icon name="list ul" />Assets</Link>
+                  </Accordion.Content>
+                  <Accordion.Content active={activeIndex === 0}>
+                    <Link to="/asset_types"><Icon name="list ul" />Asset Types</Link>
+                  </Accordion.Content>
+                  <Accordion.Content active={activeIndex === 0}>
+                    <Link to="/asset_models"><Icon name="list ul" />Asset Models</Link>
+                  </Accordion.Content>
+                </Menu.Item>
+              </Accordion>
             </Menu.Item>
             <Menu.Item name="asset-sub-categories">
               <Link to="/asset-sub-categories"><Icon name="info" />Asset SubCategories</Link>
