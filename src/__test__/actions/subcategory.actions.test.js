@@ -25,8 +25,6 @@ const {
   CREATE_SUBCATEGORY_SUCCESS
 } = constants;
 
-const { LOAD_SUBCATEGORIES_SUCCESS, LOAD_SUBCATEGORIES_FAILURE } = constants;
-
 // store
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
