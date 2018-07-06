@@ -36,11 +36,11 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
   });
 
   it('renders TableRowComponent component', () => {
-    expect(wrapper.find('TableRowComponent').length).toBe(4);
+    expect(wrapper.find('TableRowComponent').length).toBe(1);
   });
 
   it('renders Action component', () => {
-    expect(wrapper.find('ActionComponent').length).toBe(4);
+    expect(wrapper.find('ActionComponent').length).toBe(1);
   });
 
   it('renders Loader component if isLoading is true', () => {

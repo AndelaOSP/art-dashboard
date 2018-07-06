@@ -13,17 +13,23 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOAD_ASSET_TYPE_SUCCESS:
-      return { ...state,
+      return {
+        ...state,
         assetType: action.payload,
         isLoading: false
       };
     case LOAD_ASSET_TYPE_FAILURE:
-      return { ...state,
-        assetType: action.payload,
+      return {
+        ...state,
+        assetType: [],
         isLoading: false
       };
     case LOADING_ASSET_TYPE:
-      return { ...state, isLoading: true };
+      return {
+        ...state,
+        assetType: [],
+        isLoading: true
+      };
     default:
       return state;
   }
