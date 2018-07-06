@@ -6,6 +6,7 @@ const {
   LOAD_SUBCATEGORIES_SUCCESS,
   LOAD_SUBCATEGORIES_FAILURE,
   CREATE_SUBCATEGORY_SUCCESS,
+  LOADING_SUBCATEGORIES,
   CREATE_SUBCATEGORY_FAILURE
 } = constants;
 
@@ -14,16 +15,16 @@ const {
  *
  * @return dispatch type and payload
  */
-export const loadSubCategories = () => (dispatch =>
-  axios.get('asset-sub-categories').then((response) => {
+export const loadSubCategories = pageNumber => (dispatch) => {
+  dispatch({ type: LOADING_SUBCATEGORIES });
+  return axios.get(`asset-sub-categories?page=${pageNumber}`).then((response) => {
     dispatch(loadSubCategoriesSuccess(response.data));
   }).catch((error) => {
     dispatch(loadSubCategoriesFailure(error));
     dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
       'error'));
-  })
-);
-
+  });
+};
 
 /**
  * load Subcategories Success action creator

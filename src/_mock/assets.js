@@ -19,4 +19,8 @@ const assets = [
   }
 ];
 
+export const titles = [
+  'Submitted by', 'Date Submitted', 'Type', 'Message', 'Action'
+];
+
 export default assets;
