@@ -81,7 +81,6 @@ class AssetMakeContainer extends React.Component {
   }
 }
 
-
 AssetMakeContainer.defaultProps = {
   assetTypes: []
 };
