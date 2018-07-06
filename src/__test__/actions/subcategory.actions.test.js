@@ -11,7 +11,12 @@ import constants from '../../_constants';
 // actions
 import { loadSubCategories, createSubCategory } from '../../_actions/subcategory.actions';
 
-const { LOAD_SUBCATEGORIES_SUCCESS, LOAD_SUBCATEGORIES_FAILURE } = constants;
+const {
+  LOAD_SUBCATEGORIES_SUCCESS,
+  LOAD_SUBCATEGORIES_FAILURE,
+  LOADING_SUBCATEGORIES,
+  CREATE_SUBCATEGORY_SUCCESS
+} = constants;
 
 // store
 const middleware = [thunk];
@@ -22,22 +27,17 @@ describe('Subcategory action tests', () => {
   const mock = new MockAdapter(axios);
   const url = 'asset-sub-categories';
   store = mockStore({});
-  const expectedActions = [
-    {
-      type: LOAD_SUBCATEGORIES_SUCCESS
-    },
-    {
-      type: LOAD_SUBCATEGORIES_FAILURE
-    }
-  ];
 
   const subCategoryToCreate = {
     sub_category_name: 'Asus',
     asset_category: 1
   };
+  afterEach(() => {
+    store.clearActions();
+  });
 
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategories called successfully', () => {
-    mock.onGet(url).reply(200,
+    mock.onGet().reply(200,
       [
         {
           id: 2,
@@ -47,7 +47,8 @@ describe('Subcategory action tests', () => {
       ]
     );
     return store.dispatch(loadSubCategories()).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+      expect(store.getActions()[0].type).toEqual(LOADING_SUBCATEGORIES);
+      expect(store.getActions()[1].type).toEqual(LOAD_SUBCATEGORIES_SUCCESS);
     });
   });
 
@@ -55,8 +56,16 @@ describe('Subcategory action tests', () => {
     mock.onPost(url, subCategoryToCreate).reply(201,
       subCategoryToCreate
     );
-    return store.dispatch(createSubCategory()).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+    return store.dispatch(createSubCategory(subCategoryToCreate)).then(() => {
+      expect(store.getActions()[0].type).toEqual(CREATE_SUBCATEGORY_SUCCESS);
+    });
+  });
+
+  it('should dispatch LOAD_SUBCATEGORIES_FEEDBACK_FAILURE when categories are not loaded', () => {
+    mock.onGet().reply(401);
+    return store.dispatch(loadSubCategories()).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOADING_SUBCATEGORIES);
+      expect(store.getActions()[1].type).toEqual(LOAD_SUBCATEGORIES_FAILURE);
     });
   });
 });

@@ -10,6 +10,7 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import AllocationActionComponent from './AllocationActionComponent';
+import formatDate from '../_utils/dateFormatter';
 import '../_css/AllocationsComponent.css';
 
 export class AllocationsComponent extends Component {
@@ -24,20 +25,10 @@ export class AllocationsComponent extends Component {
 
   getTotalPages = () => Math.ceil(this.props.allocationsCount / this.state.limit);
 
-  formatDate = (timeStamp) => {
-    const dateOptions = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    };
-    return new Date(timeStamp).toLocaleDateString('en-US', dateOptions);
-  }
-
   handlePaginationChange = (event, { activePage }) => {
     this.setState({ activePage });
     this.props.loadAllocationsAction(activePage);
-  }
+  };
 
   render() {
     if (this.props.isLoading) {
@@ -76,7 +67,7 @@ export class AllocationsComponent extends Component {
             <Table.Body>
               {
                 this.props.allAllocations.map((allocation) => {
-                  allocation.formatted_date = this.formatDate(allocation.created_at);
+                  allocation.formatted_date = formatDate(allocation.created_at);
                   return (
                     <TableRowComponent
                       key={allocation.created_at}

@@ -4,6 +4,7 @@ export default {
   assetTypes: [],
   assetMakes: [],
   modelNumbers: [],
+  assetModels: [],
   assets: {
     assetsList: [],
     assetsCount: 0,
