@@ -1,52 +1,64 @@
-// third-party library
+
 import expect from 'expect';
-
-// reducer
 import subcategoryReducer from '../../_reducers/subcategory.reducer';
-
-// initial mock State
-import { mockStore } from '../../_mock/mockStore';
-
-// mock data
 import subcategories from '../../_mock/subcategories';
+import constants from '../../_constants';
 
-import {
-  loadSubCategoriesSuccess,
-  loadSubCategoriesFailure,
-  createSubCategorySuccess,
-  createSubCategoryFailure
-} from '../../_actions/subcategory.actions';
+const {
+  LOAD_SUBCATEGORIES_SUCCESS,
+  LOAD_SUBCATEGORIES_FAILURE,
+  LOADING_SUBCATEGORIES,
+  CREATE_SUBCATEGORY_SUCCESS,
+  CREATE_SUBCATEGORY_FAILURE
+} = constants;
 
-describe('SubCategory reducer tests', () => {
-  const subCategoryToCreate = {
-    results: [
-      {
-        sub_category_name: 'Asus',
-        asset_category: 1
-      }
-    ]
-  };
+const initialState = {
+  subcategories: [],
+  assetSubCategories: [],
+  isLoading: false
+};
 
-  const error = 'Error';
+const subCategoryToCreate = {
+  sub_category_name: 'Asus',
+  asset_category: 1
+};
+
+const action = { payload: {} };
+
+describe('Sub Category Reducer test', () => {
+  it('should return initial state when there is no action', () => {
+    expect(subcategoryReducer(initialState, action)).toEqual(initialState);
+  });
 
   it('should handle LOAD_SUBCATEGORIES_SUCCESS', () => {
-    const action = loadSubCategoriesSuccess({ results: subcategories });
-    expect(mockStore.subcategories.length).toEqual(0);
-    expect(subcategoryReducer(mockStore.subcategories, action)).toEqual(subcategories);
+    action.type = LOAD_SUBCATEGORIES_SUCCESS;
+    action.payload.results = subcategories;
+    expect(subcategoryReducer(initialState, action).assetSubCategories)
+      .toEqual(action.payload.results);
+    expect(subcategoryReducer(initialState, action).isLoading).toEqual(false);
   });
 
   it('should handle LOAD_SUBCATEGORIES_FAILURE', () => {
-    const action = loadSubCategoriesFailure(error);
-    expect(subcategoryReducer(mockStore.subcategories, action)).toEqual({ errorMessage: error });
+    action.type = LOAD_SUBCATEGORIES_FAILURE;
+    expect(subcategoryReducer(initialState, action).assetSubCategories).toEqual([]);
+    expect(subcategoryReducer(initialState, action).isLoading).toEqual(false);
+  });
+
+  it('should handle LOADING_SUBCATEGORIES', () => {
+    action.type = LOADING_SUBCATEGORIES;
+    expect(subcategoryReducer(initialState, action).assetSubCategories).toEqual([]);
+    expect(subcategoryReducer(initialState, action).isLoading).toEqual(true);
   });
 
   it('should handle CREATE_SUBCATEGORY_SUCCESS', () => {
-    const action = createSubCategorySuccess(subCategoryToCreate);
-    expect(subcategoryReducer(mockStore.subcategories, action)).toEqual([subCategoryToCreate]);
+    action.type = CREATE_SUBCATEGORY_SUCCESS;
+    action.payload = subCategoryToCreate;
+    expect(subcategoryReducer(initialState, action).message).toEqual(subCategoryToCreate);
   });
 
   it('should handle CREATE_SUBCATEGORY_FAILURE', () => {
-    const action = createSubCategoryFailure(error);
-    expect(subcategoryReducer(mockStore.subcategories, action)).toEqual({ errorMessage: error });
+    action.type = CREATE_SUBCATEGORY_FAILURE;
+    action.payload = 'Unable to Create Subcategory';
+    expect(subcategoryReducer(initialState, action).errorMessage).toEqual(action.payload);
   });
 });
