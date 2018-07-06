@@ -16,6 +16,7 @@ const AssetTypesComponent = props => (
   <Form onSubmit={props.handleSubmit}>
     <label htmlFor="asset-type">
       Asset Type
+
       <InputFluid
         name="asset-type"
         onChange={props.onAddAssetType}
