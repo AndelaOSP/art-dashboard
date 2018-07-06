@@ -63,3 +63,30 @@ export const createSubCategorySuccess = modelNumber => ({
 export const createSubCategoryFailure = error => ({
   type: CREATE_SUBCATEGORY_FAILURE, payload: error
 });
+
+export const loadSubCategoriesDropdown = pageNumber => dispatch => (
+  axios.get(`asset-sub-categories?page=${pageNumber}`).then((response) => {
+    const pageLimit = Math.ceil(response.data.count / 10);
+    if (pageLimit > 1) {
+      dispatch(loadSubCategoriesSuccess(response.data));
+      while (pageNumber < pageLimit) {
+        pageNumber += 1;
+        if (response.data.next !== '') {
+          axios.get(`asset-sub-categories?page=${pageNumber}`).then((newResponse) => {
+            dispatch(loadSubCategoriesSuccess(newResponse.data));
+          }).catch((error) => {
+            dispatch(loadSubCategoriesFailure(error));
+            dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
+              'error'));
+          });
+        }
+      }
+    } else {
+      dispatch(loadSubCategoriesSuccess(response.data));
+    }
+  }).catch((error) => {
+    dispatch(loadSubCategoriesFailure(error));
+    dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
+      'error'));
+  })
+);

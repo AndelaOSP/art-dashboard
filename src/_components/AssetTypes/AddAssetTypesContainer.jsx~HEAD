@@ -6,7 +6,7 @@ import _ from 'lodash';
 import AddAssetTypesComponent from '../../components/AssetTypes/AddAssetTypesComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
-import { loadSubCategoriesDropdown } from '../../_actions/subcategory.actions';
+import { loadSubCategories } from '../../_actions/subcategory.actions';
 import { createAssetType } from '../../_actions/assetTypes.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
@@ -44,7 +44,7 @@ export class AddAssetTypesContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.subcategories)) {
-      this.props.loadSubCategoriesDropdown(1);
+      this.props.loadSubCategories();
     }
   }
 
@@ -83,7 +83,7 @@ export class AddAssetTypesContainer extends React.Component {
 }
 
 AddAssetTypesContainer.propTypes = {
-  loadSubCategoriesDropdown: PropTypes.func.isRequired,
+  loadSubCategories: PropTypes.func.isRequired,
   createAssetType: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired,
@@ -105,7 +105,7 @@ const mapStateToProps = ({ subcategoriesList, toastMessage }) => ({
 });
 
 export default connect(mapStateToProps, {
-  loadSubCategoriesDropdown,
+  loadSubCategories,
   createAssetType,
   resetToastMessageContent
 })(AddAssetTypesContainer);
