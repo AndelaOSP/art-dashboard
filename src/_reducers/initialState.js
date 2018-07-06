@@ -1,6 +1,10 @@
 export default {
   categories: [],
-  subcategories: [],
+  subcategories: {
+    assetSubCategories: [],
+    assetSubCategoriesCount: [],
+    isLoading: false
+  },
   assetTypes: [],
   assetMakes: [],
   modelNumbers: [],

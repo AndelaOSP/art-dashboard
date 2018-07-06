@@ -48,15 +48,7 @@ describe('Subcategory action tests', () => {
   };
 
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategories called successfully', () => {
-    mock.onGet().reply(200,
-      [
-        {
-          id: 2,
-          sub_category_name: 'Computer Accessories',
-          asset_category: 1
-        }
-      ]
-    );
+    mock.onGet().reply(200, mockSubcategories);
     return store.dispatch(loadSubCategories()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_SUBCATEGORIES);
       expect(store.getActions()[1].type).toEqual(LOAD_SUBCATEGORIES_SUCCESS);
@@ -81,9 +73,9 @@ describe('Subcategory action tests', () => {
   });
 
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategoriesDropdown called successfully', () => {
-    mock.onGet(url).reply(200, mockSubcategories);
-    return store.dispatch(loadSubCategoriesDropdown(1)).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+    mock.onGet().reply(200, mockSubcategories);
+    return store.dispatch(loadSubCategoriesDropdown(2)).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOAD_SUBCATEGORIES_SUCCESS);
     });
   });
 });

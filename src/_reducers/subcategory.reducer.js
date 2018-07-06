@@ -20,7 +20,7 @@ export default (state = initialState.subcategories, action) => {
     case LOAD_SUBCATEGORIES_SUCCESS:
       return {
         ...state,
-        assetSubCategories: [...action.payload.results],
+        assetSubCategories: state.assetSubCategories.concat(action.payload.results),
         assetSubCategoriesCount: action.payload.count,
         isLoading: false
       };

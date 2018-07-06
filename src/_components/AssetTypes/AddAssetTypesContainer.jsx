@@ -100,7 +100,7 @@ AddAssetTypesContainer.defaultProps = {
 };
 
 const mapStateToProps = ({ subcategoriesList, toastMessage }) => ({
-  subcategories: subcategoriesList,
+  subcategories: subcategoriesList.assetSubCategories,
   toastMessageContent: toastMessage
 });
 
