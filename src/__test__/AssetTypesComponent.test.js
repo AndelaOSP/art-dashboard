@@ -73,8 +73,16 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
     expect(wrapper.find('h1').text()).toEqual('No Asset Types Found');
   });
 
-  it('renders the  ArtModal component when the view button is clicked', () => {
-    expect(wrapper.find('ActionComponent').contains('viewWrapper'));
-    expect(wrapper.find('ArtModal').containsMatchingElement);
+  it('renders the  ArtModal component when the view button is tiggered', () => {
+    wrapper.setProps({
+      isLoading: false,
+      assetTypes
+    });
+    expect(wrapper.find('ActionComponent').length > 0).toBeTruthy();
+    const actionComponent = wrapper.find('ActionComponent');
+    const viewWrapper = actionComponent.prop('viewWrapper');
+    expect(typeof viewWrapper).toBe('function');
+    const artModal = viewWrapper(1);
+    expect(artModal.props.trigger).toBe(1);
   });
 });

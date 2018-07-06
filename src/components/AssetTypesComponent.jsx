@@ -28,11 +28,6 @@ export class AssetTypesComponent extends React.Component {
     this.props.loadAssetTypes(activePage);
   }
 
-  handleViewClick = () => {
-    this.setState({ showModal: true });
-    return <ArtModal open={this.state.showModal} />;
-  }
-
   formatDate = (assetType, key) => {
     const date = new Date(assetType[key]);
     const model = {
