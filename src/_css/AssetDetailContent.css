@@ -1,0 +1,48 @@
+.asset-details {
+  padding: 2rem 0;
+  text-align: left;
+}
+
+.asset-detail-header {
+  text-align: left;
+  margin-bottom: 1rem !important;
+}
+
+.details-headings div,
+.details-description div {
+  margin: 1.2rem auto;
+}
+
+.details-headings div {
+  margin-left: 1rem;
+}
+
+.edit-asset-detail {
+  float: right;
+  margin-right: 2rem;
+}
+
+.asset-tab {
+  margin-top: 2rem;
+}
+
+.asset-tab-pane {
+  height: 22rem;
+}
+
+.current-condition {
+  padding-top: 4rem !important;
+}
+
+@media screen and (max-width: 420px) {
+  .asset-tab .item {
+    width: 30% !important;
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+  }
+
+  .asset-tab .menu {
+    display: flex;
+    justify-content: space-between;
+  }
+}

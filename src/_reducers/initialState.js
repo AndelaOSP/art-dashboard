@@ -16,6 +16,12 @@ export default {
     hasError: false,
     isLoading: false
   },
+  asset: {
+    assetDetail: {},
+    errorMessage: '',
+    hasError: false,
+    isLoading: false
+  },
   toastMessage: {
     message: '',
     type: ''

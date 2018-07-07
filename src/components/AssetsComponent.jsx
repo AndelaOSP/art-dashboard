@@ -36,6 +36,10 @@ export class AssetsComponent extends Component {
 
   emptyAssetsCheck = () => (isEmpty(this.props.assetsList))
 
+  handleViewAsset = (assetSerialNumber) => {
+    this.props.history.push(`/assets/${assetSerialNumber}/view`);
+  };
+
   render() {
     return (
       <SideMenuComponent title="Assets">
@@ -48,6 +52,7 @@ export class AssetsComponent extends Component {
             errorMessage={this.props.errorMessage}
             handlePageTotal={this.handlePageTotal}
             handlePaginationChange={this.handlePaginationChange}
+            handleViewAsset={this.handleViewAsset}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
           />
@@ -63,6 +68,7 @@ AssetsComponent.propTypes = {
   errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
+  history: PropTypes.object,
   isLoading: PropTypes.bool.isRequired
 };
 

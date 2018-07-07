@@ -8,6 +8,7 @@ import assetMake from './assetMake.reducer';
 import modelNumber from './modelNumber.reducer';
 import assetModels from './assetModels.reducer';
 import assetsReducer from './assets.reducer';
+import assetReducer from './asset.reducer';
 import feedbackReducer from './userFeedback.reducer';
 import toastMessage from './toastMessage.reducer';
 import allocationsReducer from './allocations.reducer';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   modelNumbersList: modelNumber,
   assetModelsList: assetModels,
   assets: assetsReducer,
+  asset: assetReducer,
   incidenceReports: loadIncidenceReportsReducer,
   feedbackReducer,
   toastMessage,

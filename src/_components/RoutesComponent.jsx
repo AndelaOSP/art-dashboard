@@ -14,6 +14,7 @@ import AssetSubCategories from '../components/AssetsSubCategoriesComponent';
 import Allocations from '../components/AllocationsComponent';
 import IncidenceReports from '../components/IncidenceReportsComponent';
 import AssetCategories from '../components/AssetCategoriesComponent';
+import AssetDetailComponent from '../components/AssetDetailComponent';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -56,6 +57,11 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/assets/add"
             component={AddAssetContainer}
+          />
+          <AuthenticateComponent
+            isAuthenticated={this.checkAuthentication()}
+            path="/assets/:id/view"
+            component={AssetDetailComponent}
           />
           <AuthenticateComponent
             exact
