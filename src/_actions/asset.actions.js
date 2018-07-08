@@ -37,9 +37,10 @@ export const createAsset = assetDetail => (
  *
  * @return {object} type and payload
  */
-export const createAssetSuccess = asset => (
-  { type: CREATE_ASSET_SUCCESS, payload: asset }
-);
+export const createAssetSuccess = asset => ({
+  type: CREATE_ASSET_SUCCESS,
+  payload: asset
+});
 
 /**
  * createAssetFail - create new asset fail action creator

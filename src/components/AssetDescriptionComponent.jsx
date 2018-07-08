@@ -16,11 +16,14 @@ const AssetDescriptionComponent = props => (
         </div>
       </Grid.Column>
       <Grid.Column>
-        {isEmpty(values(props.assignedUser)) ? <Button>Assign User</Button> : (
-          <div>
-            <div className="asset-user"><b>Assigned To:</b><p>{props.assignedUser.email}</p></div>
-            <Button className="unassign-button">Unassign User</Button>
-          </div>)
+        {isEmpty(values(props.assignedUser)) ?
+          <Button id="assign-user">Assign User</Button> :
+          (
+            <div>
+              <div className="asset-user"><b>Assigned To:</b><p>{props.assignedUser.email}</p></div>
+              <Button className="unassign-button">Unassign User</Button>
+            </div>
+          )
         }
       </Grid.Column>
     </Grid>

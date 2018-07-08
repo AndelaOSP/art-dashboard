@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Grid, Segment, Icon, Tab } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Tab } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import '../_css/AssetDetailContent.css';
 import AssetAllocationHistory from './AssetAllocationHistory';
@@ -49,7 +49,6 @@ const AssetDetailContent = (props) => {
 
   return (
     <div>
-      <Header as="h1" content="Asset Detail" className="asset-detail-header" />
       <Segment raised>
         <div className="asset-details">
           <div className="edit-asset-detail">

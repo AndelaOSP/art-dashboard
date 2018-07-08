@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
 import AssetDetailContent from './AssetDetailContent';
 import SideMenuComponent from '../_components/SideMenuComponent';
 
-class AssetDetailComponent extends Component {
+export class AssetDetailComponent extends Component {
   state = {
     assignedUser: {}
   }
+
   componentDidMount() {
     this.getAssetId(this.props.location.pathname);
   }
@@ -24,8 +25,10 @@ class AssetDetailComponent extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (this.props.hasError &&
-      (this.props.errorMessage === nextProps.errorMessage)) {
+    if (
+      this.props.hasError &&
+      (this.props.errorMessage === nextProps.errorMessage)
+    ) {
       return false;
     }
     return true;
@@ -41,6 +44,7 @@ class AssetDetailComponent extends Component {
     return (
       <SideMenuComponent>
         <Container>
+          <Header as="h1" content="Asset Detail" className="asset-detail-header" />
           <AssetDetailContent
             assetDetail={this.props.assetDetail}
             assignedUser={this.state.assignedUser}
