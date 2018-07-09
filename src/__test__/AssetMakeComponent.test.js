@@ -5,7 +5,6 @@ import { spy } from 'sinon';
 import AddAssetMakeComponent from '../components/AssetMake/AddAssetMakeComponent';
 import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 
-
 const toggleModal = spy();
 const onChangeButtonState = spy();
 const props = {

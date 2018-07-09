@@ -7,7 +7,7 @@ import DropdownComponent from '../common/DropdownComponent';
 import '../../_css/AddAssetComponent.css';
 
 const assetTypeOptions = assetTypes =>
-  assetTypes && assetTypes
+  assetTypes
     .map((typeOption, index) => ({
       key: index,
       text: typeOption.asset_type,
@@ -51,6 +51,10 @@ const AddAssetMakeComponent = props => (
     />
   </Form>
 );
+
+AddAssetMakeComponent.defaultProps = {
+  assetTypes: []
+};
 
 AddAssetMakeComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
