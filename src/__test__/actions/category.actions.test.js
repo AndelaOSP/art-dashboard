@@ -1,72 +1,90 @@
 // third-party libraries
 import expect from 'expect';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
+import moxios from 'moxios';
 
 // constants
 import constants from '../../_constants';
 
 // actions
-import { loadCategories, createCategory } from '../../_actions/category.actions';
+import { loadCategoriesDropdown, createCategory } from '../../_actions/category.actions';
 
-const { LOAD_CATEGORIES_SUCCESS } = constants;
+// mock data
+import { categories } from '../../_mock/categories';
+
+const {
+  LOADING_CATEGORIES,
+  LOAD_CATEGORIES_SUCCESS,
+  LOAD_CATEGORY_FAILURE,
+  CREATE_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_FAILURE
+} = constants;
 
 // store
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
+const url = 'asset-categories';
+const url2 = 'asset-categories/?page=1';
+
+afterEach(() => {
+  store.clearActions();
+});
 
 describe('Category action tests', () => {
-  const mock = new MockAdapter(axios);
-  const url = 'categories';
-  store = mockStore({});
-  const expectedActions = [
-    {
-      type: LOAD_CATEGORIES_SUCCESS
-    }
-  ];
+  beforeEach(() => moxios.install());
+  afterEach(() => moxios.uninstall());
 
-  it('should dispatch LOAD_CATEGORIES_SUCCESS when loadCategories called successfully', () => {
-    mock.onGet().reply(200,
-      [
-        {
-          id: 1,
-          category_name: 'Accessories'
-        },
-        {
-          id: 2,
-          category_name: 'Electronics'
-        }
-      ]
-    );
-    return store.dispatch(loadCategories()).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+  store = mockStore({});
+
+  it('should dispatch LOAD_CATEGORIES_SUCCESS when loadCategoriesDropdown called successfully', () => {
+    moxios.stubRequest(url2, {
+      status: 200,
+      response: {
+        results: categories
+      }
+    });
+
+    return store.dispatch(loadCategoriesDropdown(1)).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
+      expect(store.getActions()[1].type).toEqual(LOAD_CATEGORIES_SUCCESS);
     });
   });
 
-  it('should dispatch CREATE_CATEGORY_SUCCESS when createCategory is called successfully', () => {
-    store = mockStore({ categories: [] });
-    const newCategory = {
-      category_name: 'Tesy Category'
-    };
+  it('dispatches LOAD_CATEGORY_FAILURE when loadCategoriesDropdown is called unsuccessfully', () => {
+    moxios.stubRequest(url2, {
+      status: 404,
+      response: {}
+    });
 
-    const expectedAction = [{
-      type: 'CREATE_CATEGORY_SUCCESS',
-      payload: { id: 4, category_name: 'Tesy Category' }
-    }];
+    return store.dispatch(loadCategoriesDropdown(1)).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
+      expect(store.getActions()[1].type).toEqual(LOAD_CATEGORY_FAILURE);
+    });
+  });
 
-    mock
-      .onPost(url, newCategory)
-      .reply(201,
-        {
-          id: 4,
-          category_name: 'Tesy Category'
-        }
-      );
-    return store.dispatch(createCategory(newCategory)).then(() => {
-      expect(store.getActions()[0]).toEqual(expectedAction[0]);
+  it('dispatches CREATE_CATEGORY_SUCCESS when createCategory is called successfully', () => {
+    moxios.stubRequest(url, {
+      status: 201,
+      response: categories[0]
+    });
+
+    return store.dispatch(createCategory(categories[0])).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
+      expect(store.getActions()[1].type).toEqual(CREATE_CATEGORY_SUCCESS);
+    });
+  });
+
+  it('dispatches CREATE_CATEGORY_FAILURE when createCategory fails', () => {
+    moxios.stubRequest(url, {
+      status: 401,
+      response: {}
+    });
+
+    return store.dispatch(createCategory(categories[0])).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
+      expect(store.getActions()[1].type).toEqual(CREATE_CATEGORY_FAILURE);
     });
   });
 });
