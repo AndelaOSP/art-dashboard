@@ -9,7 +9,9 @@ const {
   LOAD_ASSET_TYPES_FAILURE,
   LOADING_ASSET_TYPES,
   CREATE_ASSET_TYPE_SUCCESS,
-  CREATE_ASSET_TYPE_FAILURE
+  CREATE_ASSET_TYPE_FAILURE,
+  LOAD_DROPDOWN_ASSET_TYPES_SUCCESS,
+  LOAD_DROPDOWN_ASSET_TYPES_FAILURE
 } = constants;
 
 const initialState = {
@@ -78,5 +80,17 @@ describe('Asset Type Reducer tests', () => {
     newAction.type = CREATE_ASSET_TYPE_FAILURE;
     newAction.payload = assetTypesMock;
     expect(assetTypesReducer(newState, newAction).assetTypes).toEqual(newAction.payload);
+  });
+
+  it('should handle LOAD_DROPDOWN_ASSET_TYPES_SUCCESS', () => {
+    action.type = LOAD_DROPDOWN_ASSET_TYPES_SUCCESS;
+    action.payload = assetTypesMock;
+    expect(assetTypesReducer(initialState, action).assetTypes).toEqual(action.payload);
+  });
+
+  it('should handle LOAD_DROPDOWN_ASSET_TYPES_FAILURE', () => {
+    action.type = LOAD_DROPDOWN_ASSET_TYPES_FAILURE;
+    action.payload = assetTypesMock;
+    expect(assetTypesReducer(initialState, action).assetTypes).toEqual([]);
   });
 });

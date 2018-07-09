@@ -15,7 +15,7 @@ const props = {
   assetTypes: [],
   onSelectAssetType: jest.fn(),
   addAssetMakes: jest.fn(),
-  loadAssetTypes: jest.fn(),
+  loadDropdownAssetTypes: jest.fn(),
   loadAssetMakes: jest.fn(),
   resetToastMessageContent: jest.fn(),
   toastMessageContent: {}

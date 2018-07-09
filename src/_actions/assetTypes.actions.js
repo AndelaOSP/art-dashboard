@@ -55,19 +55,25 @@ export const loadDropdownAssetTypes = () => (dispatch) => {
       let allAssetTypes = response.data.results;
 
       pages.forEach((page) => {
-        if (page !== 1) {
-          axios
-            .get(`asset-types?page=${page}`)
-            .then((res) => {
-              allAssetTypes = [...allAssetTypes, ...res.data.results];
-              return dispatch(dropdownAssetTypeSuccess(allAssetTypes));
-            })
-            .catch((error) => {
-              dispatch(dropdownAssetTypeFailure(error));
-              dispatch(updateToastMessageContent(error, 'error'));
-            });
+        if (page === 1) {
+          return dispatch(dropdownAssetTypeSuccess(allAssetTypes));
         }
+        axios
+          .get(`asset-types?page=${page}`)
+          .then((res) => {
+            allAssetTypes = [...allAssetTypes, ...res.data.results];
+            return dispatch(dropdownAssetTypeSuccess(allAssetTypes));
+          })
+          .catch((error) => {
+            dispatch(dropdownAssetTypeFailure(error));
+            dispatch(updateToastMessageContent(error, 'error'));
+          });
+        return null;
       });
+    })
+    .catch((error) => {
+      dispatch(dropdownAssetTypeFailure(error));
+      dispatch(updateToastMessageContent(`Could not load the asset types. ${error}`, 'error'));
     });
 };
 

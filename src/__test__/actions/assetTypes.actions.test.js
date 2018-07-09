@@ -8,7 +8,7 @@ import moxios from 'moxios';
 import constants from '../../_constants';
 
 // actions
-import { loadAssetTypes, createAssetType } from '../../_actions/assetTypes.actions';
+import { loadAssetTypes, createAssetType, loadDropdownAssetTypes } from '../../_actions/assetTypes.actions';
 
 // mock data
 import assetTypes from '../../_mock/assetTypes';
@@ -18,7 +18,8 @@ const {
   LOAD_ASSET_TYPES_FAILURE,
   LOADING_ASSET_TYPES,
   CREATE_ASSET_TYPE_SUCCESS,
-  CREATE_ASSET_TYPE_FAILURE
+  CREATE_ASSET_TYPE_FAILURE,
+  LOAD_DROPDOWN_ASSET_TYPES_SUCCESS
 } = constants;
 
 // store
@@ -78,6 +79,18 @@ describe('Asset Types action tests', () => {
     });
     return store.dispatch(createAssetType(assetTypes[0])).then(() => {
       expect(store.getActions()[0].type).toEqual(CREATE_ASSET_TYPE_FAILURE);
+    });
+  });
+
+  it('dispatches LOAD_DROPDOWN_ASSET_TYPES_SUCCESS when loadDropdownAssetTypes is called successfully', () => {
+    moxios.stubRequest(url2, {
+      status: 200,
+      response: {
+        results: assetTypes
+      }
+    });
+    return store.dispatch(loadDropdownAssetTypes()).then(() => {
+      expect(store.getActions()[1].type).toEqual(LOAD_DROPDOWN_ASSET_TYPES_SUCCESS);
     });
   });
 });
