@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import AddAssetMakeComponent from '../../components/AssetMake/AddAssetMakeComponent';
 import { addAssetMakes } from '../../_actions/assetMakes.actions';
-import { loadAssetTypes } from '../../_actions/assetTypes.actions';
+import { loadDropdownAssetTypes } from '../../_actions/assetTypes.actions';
 import { ToastMessage } from '../../_utils/ToastMessage';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
@@ -17,7 +17,7 @@ class AssetMakeContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.assetTypes)) {
-      this.props.loadAssetTypes(1);
+      this.props.loadDropdownAssetTypes();
     }
   }
 
@@ -88,7 +88,7 @@ AssetMakeContainer.defaultProps = {
 AssetMakeContainer.propTypes = {
   addAssetMakes: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  loadAssetTypes: PropTypes.func.isRequired,
+  loadDropdownAssetTypes: PropTypes.func.isRequired,
   loadAssetMakes: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired,
   toastMessageContent: PropTypes.object,
@@ -102,6 +102,6 @@ const mapStateToProps = ({ assetTypesList, toastMessage }) => ({
 
 export default connect(mapStateToProps, {
   addAssetMakes,
-  loadAssetTypes,
+  loadDropdownAssetTypes,
   resetToastMessageContent
 })(AssetMakeContainer);

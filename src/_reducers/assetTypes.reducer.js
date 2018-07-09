@@ -5,7 +5,9 @@ const {
   LOAD_ASSET_TYPES_FAILURE,
   LOADING_ASSET_TYPES,
   CREATE_ASSET_TYPE_SUCCESS,
-  CREATE_ASSET_TYPE_FAILURE
+  CREATE_ASSET_TYPE_FAILURE,
+  LOAD_DROPDOWN_ASSET_TYPES_SUCCESS,
+  LOAD_DROPDOWN_ASSET_TYPES_FAILURE
 } = constants;
 
 const initialState = {
@@ -34,6 +36,16 @@ export default (state = initialState, action) => {
         assetTypes: [],
         assetTypesCount: 0,
         isLoading: false
+      };
+    case LOAD_DROPDOWN_ASSET_TYPES_SUCCESS:
+      return {
+        ...state,
+        assetTypes: [...action.payload]
+      };
+    case LOAD_DROPDOWN_ASSET_TYPES_FAILURE:
+      return {
+        ...state,
+        assetTypes: []
       };
     case CREATE_ASSET_TYPE_SUCCESS: {
       state.assetTypes.push(action.payload);
