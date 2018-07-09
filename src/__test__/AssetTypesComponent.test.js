@@ -69,7 +69,7 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
     expect(wrapper.find('h1').text()).toEqual('No Asset Types Found');
   });
 
-  it('renders the  AssetTypesAction component when the view button is tiggered', () => {
+  it('renders the AssetTypesAction component correctly', () => {
     wrapper.setProps({
       isLoading: false,
       assetTypes

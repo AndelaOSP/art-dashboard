@@ -55,7 +55,6 @@ export class AssetTypesComponent extends React.Component {
           <Table celled>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Sub-category</Table.HeaderCell>
                 <Table.HeaderCell>Type</Table.HeaderCell>
                 <Table.HeaderCell>Action</Table.HeaderCell>
@@ -68,7 +67,7 @@ export class AssetTypesComponent extends React.Component {
                   <TableRowComponent
                     key={assetType.id}
                     data={assetType}
-                    headings={['id', 'asset_sub_category', 'asset_type']}
+                    headings={['asset_sub_category', 'asset_type']}
                   >
                     <Table.Cell>
                       <AssetTypesAction details={assetType} />
@@ -80,7 +79,7 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="4">
+                <Table.HeaderCell colSpan="3">
                   {!_.isEmpty(this.props.assetTypes) &&
                     <Pagination
                       totalPages={this.getTotalPages()}
