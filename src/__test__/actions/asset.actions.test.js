@@ -4,6 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+
 // actions
 import { createAsset, getAssetDetail } from '../../_actions/asset.actions';
 
@@ -26,7 +27,7 @@ let store;
 
 describe('Asset Action tests', () => {
   const mock = new MockAdapter(axios);
-  const url = 'https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories';
+  const url = 'manage-assets';
   store = mockStore({});
 
   const assetToBeCreated = {

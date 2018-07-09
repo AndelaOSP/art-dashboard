@@ -23,7 +23,7 @@ const {
  */
 export const createAsset = assetDetail => (
   dispatch => (
-    axios.post('https://my-json-server.typicode.com/HawiCaesar/jsonplaceholders-demo/categories', assetDetail).then(() => {
+    axios.post('manage-assets', assetDetail).then(() => {
       dispatch(createAssetSuccess(mockAsset));
     }).catch((error) => {
       dispatch(createAssetFail(error));
