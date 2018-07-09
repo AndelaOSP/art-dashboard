@@ -36,11 +36,7 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
   });
 
   it('renders TableRowComponent component', () => {
-    expect(wrapper.find('TableRowComponent').length).toBe(4);
-  });
-
-  it('renders Action component', () => {
-    expect(wrapper.find('ActionComponent').length).toBe(4);
+    expect(wrapper.find('TableRowComponent').length).toBe(1);
   });
 
   it('renders Loader component if isLoading is true', () => {
@@ -71,5 +67,13 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
       assetTypes: []
     });
     expect(wrapper.find('h1').text()).toEqual('No Asset Types Found');
+  });
+
+  it('renders the AssetTypesAction component correctly', () => {
+    wrapper.setProps({
+      isLoading: false,
+      assetTypes
+    });
+    expect(wrapper.find('AssetTypesAction').length > 0).toBeTruthy();
   });
 });

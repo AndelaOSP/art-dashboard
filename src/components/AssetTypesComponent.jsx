@@ -6,9 +6,9 @@ import { Container, Header, Table, Button, Pagination } from 'semantic-ui-react'
 import _ from 'lodash';
 
 import TableRowComponent from './TableRowComponent';
+import AssetTypesAction from './AssetTypesAction';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import LoaderComponent from '../components/LoaderComponent';
-import ActionComponent from '../components/ActionComponent';
 import '../_css/AssetTypesComponent.css';
 
 import { loadAssetTypes } from '../_actions/assetTypes.actions';
@@ -55,7 +55,6 @@ export class AssetTypesComponent extends React.Component {
           <Table celled>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Sub-category</Table.HeaderCell>
                 <Table.HeaderCell>Type</Table.HeaderCell>
                 <Table.HeaderCell>Action</Table.HeaderCell>
@@ -68,10 +67,10 @@ export class AssetTypesComponent extends React.Component {
                   <TableRowComponent
                     key={assetType.id}
                     data={assetType}
-                    headings={['id', 'asset_type', 'asset_sub_category']}
+                    headings={['asset_sub_category', 'asset_type']}
                   >
                     <Table.Cell>
-                      <ActionComponent />
+                      <AssetTypesAction details={assetType} />
                     </Table.Cell>
                   </TableRowComponent>
                 ))
@@ -80,7 +79,7 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="4">
+                <Table.HeaderCell colSpan="3">
                   {!_.isEmpty(this.props.assetTypes) &&
                     <Pagination
                       totalPages={this.getTotalPages()}

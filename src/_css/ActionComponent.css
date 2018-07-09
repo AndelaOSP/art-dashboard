@@ -3,3 +3,7 @@
     margin-bottom: 0.5rem !important;
   }
 }
+
+.inline {
+  display: inline-block;
+}
