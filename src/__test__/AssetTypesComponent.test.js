@@ -39,10 +39,6 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
     expect(wrapper.find('TableRowComponent').length).toBe(1);
   });
 
-  it('renders Action component', () => {
-    expect(wrapper.find('ActionComponent').length).toBe(1);
-  });
-
   it('renders Loader component if isLoading is true', () => {
     props = {
       loadAssetTypes: jest.fn(),
@@ -73,16 +69,11 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
     expect(wrapper.find('h1').text()).toEqual('No Asset Types Found');
   });
 
-  it('renders the  ArtModal component when the view button is tiggered', () => {
+  it('renders the  AssetTypesAction component when the view button is tiggered', () => {
     wrapper.setProps({
       isLoading: false,
       assetTypes
     });
-    expect(wrapper.find('ActionComponent').length > 0).toBeTruthy();
-    const actionComponent = wrapper.find('ActionComponent');
-    const viewWrapper = actionComponent.prop('viewWrapper');
-    expect(typeof viewWrapper).toBe('function');
-    const artModal = viewWrapper(1);
-    expect(artModal.props.trigger).toBe(1);
+    expect(wrapper.find('AssetTypesAction').length > 0).toBeTruthy();
   });
 });
