@@ -9,7 +9,14 @@ import thunk from 'redux-thunk';
 import constants from '../../_constants';
 
 // actions
-import { loadSubCategories, createSubCategory } from '../../_actions/subcategory.actions';
+import {
+  loadSubCategories,
+  loadSubCategoriesDropdown,
+  createSubCategory
+} from '../../_actions/subcategory.actions';
+
+// mock data
+import subcategories from '../../_mock/subcategories';
 
 const {
   LOAD_SUBCATEGORIES_SUCCESS,
@@ -36,16 +43,12 @@ describe('Subcategory action tests', () => {
     store.clearActions();
   });
 
+  const mockSubcategories = {
+    results: subcategories
+  };
+
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategories called successfully', () => {
-    mock.onGet().reply(200,
-      [
-        {
-          id: 2,
-          sub_category_name: 'Computer Accessories',
-          asset_category: 1
-        }
-      ]
-    );
+    mock.onGet().reply(200, mockSubcategories);
     return store.dispatch(loadSubCategories()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_SUBCATEGORIES);
       expect(store.getActions()[1].type).toEqual(LOAD_SUBCATEGORIES_SUCCESS);
@@ -66,6 +69,13 @@ describe('Subcategory action tests', () => {
     return store.dispatch(loadSubCategories()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_SUBCATEGORIES);
       expect(store.getActions()[1].type).toEqual(LOAD_SUBCATEGORIES_FAILURE);
+    });
+  });
+
+  it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategoriesDropdown called successfully', () => {
+    mock.onGet().reply(200, mockSubcategories);
+    return store.dispatch(loadSubCategoriesDropdown(2)).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOAD_SUBCATEGORIES_SUCCESS);
     });
   });
 });

@@ -13,7 +13,7 @@ const props = {
   buttonState: false,
   toggleModal: jest.fn(),
   subcategories: [],
-  loadSubCategories: jest.fn(),
+  loadSubCategoriesDropdown: jest.fn(),
   createAssetType: jest.fn(),
   resetToastMessageContent: jest.fn(),
   toastMessageContent: {
