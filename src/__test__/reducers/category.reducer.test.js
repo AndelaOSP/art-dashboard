@@ -1,29 +1,82 @@
 // third-party library
 import expect from 'expect';
+import constants from '../../_constants';
 
-// reducer
 import categoryReducer from '../../_reducers/category.reducer';
 
-// initial mock State
-import { mockStore } from '../../_mock/mockStore';
+import { categories } from '../../_mock/categories';
 
-// mock data
-import categories from '../../_mock/categories';
+const {
+  LOADING_CATEGORIES,
+  LOAD_CATEGORIES_SUCCESS,
+  LOAD_CATEGORY_FAILURE,
+  CREATE_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_FAILURE
+} = constants;
 
-import { loadCategoriesSuccess, createCategorySuccess } from '../../_actions/category.actions';
+const initialState = {
+  categories: [],
+  isLoading: false
+};
+
+const action = { payload: {} };
 
 describe('Category Reducer tests', () => {
-  it('should handle CREATE_ASSET_SUCCESS', () => {
-    const action = loadCategoriesSuccess(categories);
-    expect(mockStore.categories.length).toEqual(0);
-    expect(categoryReducer(mockStore.categories, action)).toEqual(categories);
+  it('should return initial state when there is no action', () => {
+    expect(categoryReducer(initialState, action)).toEqual(initialState);
+  });
+
+  it('should handle LOAD_CATEGORIES_SUCCESS', () => {
+    action.type = LOAD_CATEGORIES_SUCCESS;
+    action.payload.results = categories;
+    expect(categoryReducer(initialState, action).categories).toEqual(action.payload.results);
+    expect(categoryReducer(initialState, action).isLoading).toEqual(false);
+  });
+
+  it('should handle LOAD_CATEGORY_FAILURE', () => {
+    action.type = LOAD_CATEGORY_FAILURE;
+    expect(categoryReducer(initialState, action).categories).toEqual([]);
+    expect(categoryReducer(initialState, action).isLoading).toEqual(false);
+  });
+
+  it('should handle LOADING_CATEGORIES', () => {
+    action.type = LOADING_CATEGORIES;
+    expect(categoryReducer(initialState, action).categories).toEqual([]);
+    expect(categoryReducer(initialState, action).isLoading).toEqual(true);
   });
 
   it('should handle CREATE_CATEGORY_SUCCESS', () => {
-    const newCategory = { id: 4, category_name: 'Tesy Category' };
-    const expected = [newCategory];
-    const action = createCategorySuccess(newCategory);
-    expect(mockStore.categories.length).toEqual(0);
-    expect(categoryReducer(mockStore.categories, action)).toEqual(expected);
+    const newAction = {};
+    const newAssetType = {
+      category_name: 'Category 1',
+      id: 4
+    };
+    const newState = {
+      categories,
+      isLoading: false
+    };
+    action.type = LOAD_CATEGORIES_SUCCESS;
+    action.payload = { results: categories };
+    expect(categoryReducer(initialState, action)).toEqual(newState);
+
+    categories.push(newAssetType);
+    newAction.type = CREATE_CATEGORY_SUCCESS;
+    newAction.payload = { results: categories };
+    expect(categoryReducer(newState, newAction).categories).toEqual(newAction.payload.results);
+  });
+
+  it('should handle CREATE_ASSET_TYPE_FAILURE', () => {
+    const newAction = {};
+    const newState = {
+      categories,
+      isLoading: false
+    };
+    action.type = LOAD_CATEGORIES_SUCCESS;
+    action.payload = { results: categories };
+    expect(categoryReducer(initialState, action)).toEqual(newState);
+
+    newAction.type = CREATE_CATEGORY_FAILURE;
+    newAction.payload = categories;
+    expect(categoryReducer(newState, newAction).categories).toEqual(newAction.payload);
   });
 });
