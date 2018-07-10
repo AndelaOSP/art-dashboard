@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import ArtButton from '../common/ButtonComponent';
 import InputFluid from '../common/TextInputComponent';
 import DropdownComponent from '../common/DropdownComponent';
-
 import '../../_css/AddAssetComponent.css';
 
-const placeMakesInSemanticUIOptions = props =>
-  props.map((option, index) => ({
+const placeMakesInSemanticUIOptions = assetMakesList =>
+  assetMakesList.map((option, index) => ({
     key: index,
     text: option.make_label,
     value: option.id
