@@ -89,7 +89,6 @@ AssetMakeContainer.propTypes = {
   addAssetMakes: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
-  loadAssetMakes: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired,
   toastMessageContent: PropTypes.object,
   assetTypes: PropTypes.array
