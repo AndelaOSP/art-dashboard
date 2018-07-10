@@ -9,6 +9,7 @@ import LoaderComponent from './LoaderComponent';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
 import AssetTypesContainer from '../_components/AssetTypes/AddAssetTypesContainer';
 import CategoryContainer from '../_components/Category/CategoryContainer';
+import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
 
@@ -65,6 +66,14 @@ const AssetsTableContent = (props) => {
             </Table.HeaderCell>
             <Table.HeaderCell>
               <div className="assets-header">
+                Asset Make
+                <ModalComponent modalTitle="Add Asset Make">
+                  <AssetMakeContainer />
+                </ModalComponent>
+              </div>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className="assets-header">
                 Model Number
                 <ModalComponent modalTitle="Add Asset Model Number">
                   <ModelNumberContainer />
@@ -97,6 +106,7 @@ const AssetsTableContent = (props) => {
                     'sub_category',
                     'asset_code',
                     'serial_number',
+                    'asset_make',
                     'model_number',
                     'asset_type'
                   ]}
@@ -112,7 +122,7 @@ const AssetsTableContent = (props) => {
 
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="7">
+            <Table.HeaderCell colSpan="8">
               {!props.emptyAssetsCheck() && (
                 <Pagination
                   totalPages={props.handlePageTotal()}
