@@ -20,7 +20,8 @@ export default (state = initialState.subcategories, action) => {
     case LOAD_SUBCATEGORIES_SUCCESS:
       return {
         ...state,
-        assetSubCategories: state.assetSubCategories.concat(action.payload.results),
+        assetSubCategoriesDropdown: state.assetSubCategories.concat(action.payload.results),
+        assetSubCategories: [...action.payload.results],
         assetSubCategoriesCount: action.payload.count,
         isLoading: false
       };
@@ -28,6 +29,7 @@ export default (state = initialState.subcategories, action) => {
     case LOAD_SUBCATEGORIES_FAILURE:
       return {
         ...state,
+        assetSubCategoriesDropdown: [],
         assetSubCategories: [],
         assetSubCategoriesCount: 0,
         isLoading: false

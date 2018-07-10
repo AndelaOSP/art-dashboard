@@ -23,7 +23,7 @@ export class AssetSubCategoriesComponent extends React.Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadSubCategories(this.state.activePage);
+    this.props.loadSubCategories(activePage);
   }
 
   getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit)
