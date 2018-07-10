@@ -31,5 +31,13 @@ export default {
     incidenceReportsCount: 0,
     isLoading: false,
     hasError: false
+  },
+  assetCategories: {
+    categories: [],
+    assetCategoriesCount: 0,
+    isLoading: false,
+    hasError: false,
+    previousUrl: '',
+    nextUrl: ''
   }
 };

@@ -95,11 +95,14 @@ class SideMenuComponent extends Component {
                   <Accordion.Content active={activeIndex === 0}>
                     <Link to="/asset_models"><Icon name="list ul" />Asset Models</Link>
                   </Accordion.Content>
+                  <Accordion.Content active={activeIndex === 0}>
+                    <Link to="/asset-categories"><Icon name="list ul" />Asset Categories</Link>
+                  </Accordion.Content>
+                  <Accordion.Content active={activeIndex === 0}>
+                    <Link to="/asset-sub-categories"><Icon name="list ul" />Sub Categories</Link>
+                  </Accordion.Content>
                 </Menu.Item>
               </Accordion>
-            </Menu.Item>
-            <Menu.Item name="asset-sub-categories">
-              <Link to="/asset-sub-categories"><Icon name="info" />Asset SubCategories</Link>
             </Menu.Item>
             <Menu.Item name="reports">
               <Link to="/incidence-reports"><Icon name="tasks" />Reports</Link>

@@ -18,6 +18,6 @@ describe('Renders <SideMenuComponent /> correctly', () => {
   it('renders links correctly', () => {
     expect(wrapper.find('Sidebar').dive()
       .find('Menu').dive()
-      .find('MenuItem').length).toBe(9);
+      .find('MenuItem').length).toBe(8);
   });
 });
