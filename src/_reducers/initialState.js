@@ -3,7 +3,7 @@ export default {
   subcategories: {
     assetSubCategoriesDropdown: [],
     assetSubCategories: [],
-    assetSubCategoriesCount: [],
+    assetSubCategoriesCount: 0,
     isLoading: false
   },
   assetTypes: [],
