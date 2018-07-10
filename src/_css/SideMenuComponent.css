@@ -1,7 +1,7 @@
 .ui.sidebar,
 .ui.left.sidebar,
 .ui.wide.left.sidebar {
-  width: 250px;
+  width: 300px;
 }
 
 .pusher {
@@ -116,6 +116,6 @@
   .ui.sidebar,
   .ui.left.sidebar,
   .ui.wide.left.sidebar {
-    width: 200px;
+    width: 250px;
   }
 }

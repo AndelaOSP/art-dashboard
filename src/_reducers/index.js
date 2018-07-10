@@ -14,6 +14,7 @@ import toastMessage from './toastMessage.reducer';
 import allocationsReducer from './allocations.reducer';
 import loadIncidenceReportsReducer from './incidenceReports.reducer';
 import loadAssetCategoriesReducer from './assetCategories.reducer';
+import assetConditionReducer from './assetCondition.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   feedbackReducer,
   toastMessage,
   allocationsList: allocationsReducer,
-  assetCategories: loadAssetCategoriesReducer
+  assetCategories: loadAssetCategoriesReducer,
+  assetConditions: assetConditionReducer
 });
 
 export default rootReducer;

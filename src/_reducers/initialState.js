@@ -46,5 +46,10 @@ export default {
     hasError: false,
     previousUrl: '',
     nextUrl: ''
+  },
+  assetConditions: {
+    assetConditionsList: [],
+    assetConditionsCount: 0,
+    isLoading: false
   }
 };
