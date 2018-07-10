@@ -19,7 +19,7 @@ const AssetsTableContent = (props) => {
     return <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />;
   }
 
-  if (props.hasError) {
+  if (props.hasError && props.errorMessage) {
     setTimeout(() => {
       ToastMessage.error({ message: props.errorMessage });
     }, 500);

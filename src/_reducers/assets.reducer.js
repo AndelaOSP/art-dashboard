@@ -12,9 +12,18 @@ const {
 export default (state = initialState.assets, action) => {
   switch (action.type) {
     case CREATE_ASSET_SUCCESS:
-      return [...state.assetsList, action.payload];
+      return {
+        ...state,
+        assetsList: state.assetsList.concat(action.payload),
+        assetsCount: action.payload.count,
+        hasError: false,
+        isLoading: false
+      };
     case CREATE_ASSET_FAIL:
-      return state;
+      return {
+        ...state,
+        hasError: true
+      };
     case LOAD_ASSETS_STARTS:
       return {
         ...state,

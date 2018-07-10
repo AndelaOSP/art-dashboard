@@ -38,6 +38,6 @@ export const filterModelNumbers = (modelNumbers, filterKey) => {
   return filteredModelNunmbers.map(modelNumber => ({
     key: modelNumber.id,
     text: modelNumber.model_number,
-    value: modelNumber.id
+    value: modelNumber.model_number
   }));
 };

@@ -11,7 +11,7 @@ import { loadSubCategories, loadSubCategoriesDropdown } from '../../_actions/sub
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 import { loadModelNumbers } from '../../_actions/modelNumbers.actions';
-import { createAsset } from '../../_actions/asset.actions';
+import { createAsset } from '../../_actions/assets.action';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
 import {
@@ -76,7 +76,8 @@ class AddAssetContainer extends React.Component {
         filteredAssetMakes: [],
         filteredModelNumbers: [],
         modelNumber: 0,
-        assets: nextProps.assets
+        serialNumber: '',
+        assetTag: ''
       };
     }
     return null;
@@ -120,6 +121,7 @@ class AddAssetContainer extends React.Component {
   };
 
   onChangeButtonState = () => {
+    console.log('**********');
     this.setState({ saveButtonState: !this.state.saveButtonState });
   };
 
@@ -148,6 +150,8 @@ class AddAssetContainer extends React.Component {
         modelNumber={this.state.modelNumber}
         serialNumber={this.state.serialNumber}
         assetTag={this.state.assetTag}
+        buttonState={this.state.saveButtonState}
+        onChangeButtonState={this.onChangeButtonState}
       />
     );
   }
@@ -191,14 +195,16 @@ const mapStateToProps = ({
   assetTypesList,
   assetMakesList,
   modelNumbersList,
-  assets
+  assets,
+  toastMessage
 }) => ({
   categories: categoriesList.categories,
   subcategories: subcategoriesList.assetSubCategories,
   assetTypes: assetTypesList.assetTypes,
   assetMakes: assetMakesList,
   modelNumbers: modelNumbersList,
-  assets: assets.assetsList
+  assets: assets.assetsList,
+  toastMessageContent: toastMessage
 });
 
 export default connect(mapStateToProps, {
