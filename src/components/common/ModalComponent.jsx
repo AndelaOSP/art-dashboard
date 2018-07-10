@@ -20,14 +20,14 @@ export default class ArtModal extends Component {
       <div className={this.props.className}>
         <Modal
           trigger={
-            (
-              <span tabIndex="-1" role="button" onClick={this.toggleModal} onKeyUp={(() => {})}>
-                { this.props.trigger }
+            this.props.trigger ? (
+              <span tabIndex="-1" role="button" onClick={this.toggleModal} onKeyUp={(() => { })}>
+                {this.props.trigger}
               </span>
-            ) || (<i
+            ) : (<i
               className="plus link icon"
               onClick={this.toggleModal}
-              onKeyUp={() => {}}
+              onKeyUp={() => { }}
               role="button"
               tabIndex="-1"
             />)
