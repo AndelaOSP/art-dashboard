@@ -112,7 +112,9 @@ const AssetsTableContent = (props) => {
                   ]}
                 >
                   <Table.Cell>
-                    <ActionComponent />
+                    <ActionComponent
+                      onViewClick={() => { props.handleViewAsset(asset.serial_number); }}
+                    />
                   </Table.Cell>
                 </TableRowComponent>
               );

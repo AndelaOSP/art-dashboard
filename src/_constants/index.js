@@ -1,6 +1,9 @@
 import KeyMirror from '../_utils/KeyMirror';
 
 const CONSTANTS = KeyMirror({
+  LOAD_ASSET_SUCCESS: true,
+  LOAD_ASSET_FAILURE: true,
+  LOADING_ASSET: true,
   LOAD_ASSETS_SUCCESS: true,
   LOAD_ASSETS_FAILURE: true,
   LOAD_ASSETS_STARTS: true,

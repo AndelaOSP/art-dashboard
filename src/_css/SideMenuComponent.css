@@ -65,7 +65,7 @@
 */
 @media (min-width: 1281px) {
   .ui.visible.scale.down.sidebar ~ .pusher {
-    transform: scale(0.9) !important;
+    transform: scale(0.8) !important;
   }
 }
 
