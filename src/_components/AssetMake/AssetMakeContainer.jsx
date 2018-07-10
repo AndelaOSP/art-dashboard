@@ -17,7 +17,7 @@ class AssetMakeContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.assetTypes)) {
-      this.props.loadAssetTypes(0);
+      this.props.loadAssetTypes(1);
     }
   }
 
