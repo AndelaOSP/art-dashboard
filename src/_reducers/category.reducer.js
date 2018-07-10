@@ -1,3 +1,4 @@
+import initialState from './initialState';
 import constants from '../_constants';
 
 const {
@@ -8,12 +9,8 @@ const {
   CREATE_CATEGORY_FAILURE
 } = constants;
 
-const initialState = {
-  categories: [],
-  isLoading: false
-};
 
-export default (state = initialState, action) => {
+export default (state = initialState.categories, action) => {
   switch (action.type) {
     case LOADING_CATEGORIES:
       return {
