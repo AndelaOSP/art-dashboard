@@ -6,7 +6,7 @@ import {
   Grid
 } from 'semantic-ui-react';
 
-import AddAssetDropdown from './AddAssetDropdown';
+import DropdownComponent from '../common/DropdownComponent';
 import ArtButton from '../common/ButtonComponent';
 
 import '../../_css/AddAssetComponent.css';
@@ -25,17 +25,17 @@ const AddAssetComponent = props => (
           <Grid.Column width={6}>
             <Form.Group widths="equal" inline>
               <label className="label-style">Category</label>
-              <AddAssetDropdown
+              <DropdownComponent
                 label="Asset Category"
-                options={placeCategoriesInSemanticUIOptions(props.categories)}
                 placeHolder="Select Asset Category"
                 name="asset-category"
+                options={placeCategoriesInSemanticUIOptions(props.categories)}
                 onChange={props.handleDropdownChanges}
               />
             </Form.Group>
             <Form.Group widths="equal" inline>
               <label className="label-style">Type</label>
-              <AddAssetDropdown
+              <DropdownComponent
                 label="Asset Type"
                 options={props.filteredAssetTypes}
                 placeholder="Select Asset Type"
@@ -45,10 +45,11 @@ const AddAssetComponent = props => (
             </Form.Group>
             <Form.Group widths="equal" inline>
               <label className="label-style">Model</label>
-              <AddAssetDropdown
+              <DropdownComponent
                 label="Asset Model Number"
                 options={props.filteredModelNumbers}
                 placeholder="Select Asset Model Number"
+                name="asset-model-number"
                 onChange={props.onSelectModelNumber}
               />
             </Form.Group>
@@ -65,7 +66,7 @@ const AddAssetComponent = props => (
           <Grid.Column width={6}>
             <Form.Group widths="equal" inline>
               <label className="label-style">Sub Category</label>
-              <AddAssetDropdown
+              <DropdownComponent
                 label="Asset Subcategory"
                 options={props.filteredSubCategories}
                 placeholder="Select Asset Subcategory"
@@ -75,7 +76,7 @@ const AddAssetComponent = props => (
             </Form.Group>
             <Form.Group widths="equal" inline>
               <label className="label-style">Make</label>
-              <AddAssetDropdown
+              <DropdownComponent
                 label="Asset Make"
                 options={props.filteredAssetMakes}
                 placeholder="Select Asset Make"

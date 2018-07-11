@@ -4,14 +4,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
-import AddAssetComponent from '../../components/AddAsset/AddAssetComponent';
+import AddAssetComponent from '../../components/Assets/AddAssetComponent';
 
 import { loadCategories, loadCategoriesDropdown } from '../../_actions/category.actions';
 import { loadSubCategories, loadSubCategoriesDropdown } from '../../_actions/subcategory.actions';
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 import { loadModelNumbers } from '../../_actions/modelNumbers.actions';
-import { createAsset } from '../../_actions/assets.action';
+import { createAsset } from '../../_actions/asset.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
 import {
@@ -121,17 +121,15 @@ class AddAssetContainer extends React.Component {
   };
 
   onChangeButtonState = () => {
-    console.log('**********');
     this.setState({ saveButtonState: !this.state.saveButtonState });
   };
 
-  onCreateAsset = (event) => {
+  onCreateAsset = () => {
     this.props.createAsset({
       asset_code: this.state.assetTag,
       serial_number: this.state.serialNumber,
       model_number: this.state.modelNumber
     });
-    event.target.reset();
   };
 
   render() {

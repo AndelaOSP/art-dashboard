@@ -15,7 +15,7 @@ export default (state = initialState.assets, action) => {
       return {
         ...state,
         assetsList: state.assetsList.concat(action.payload),
-        assetsCount: action.payload.count,
+        assetsCount: state.assetsCount + 1,
         hasError: false,
         isLoading: false
       };

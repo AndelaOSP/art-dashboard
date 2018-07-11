@@ -53,13 +53,15 @@ describe('Asset Reducer tests', () => {
   });
 
   it('should handle CREATE_ASSET_SUCCESS', () => {
-    const expected = [asset];
+    const expected = asset;
     action = createAssetSuccess(asset);
-    expect(assetReducer(state, action)).toEqual(expected);
+    expect(assetReducer(state, {})).toEqual(state);
+    expect(assetReducer(state, action).assetsList[0]).toEqual(expected);
+    expect(assetReducer(state, action).assetsCount).toEqual(1);
   });
 
   it('should handle CREATE_ASSET_FAIL', () => {
-    action = createAssetFail();
-    expect(assetReducer(state, action)).toEqual(state);
+    action = createAssetFail('400 error');
+    expect(assetReducer(state, action)).toEqual({ ...state, hasError: true });
   });
 });

@@ -40,7 +40,7 @@ describe('Renders <AssetsTableContent /> correctly', () => {
   });
 
   it('renders a toast message if there is an error', () => {
-    wrapper.setProps({ hasError: true, isLoading: false });
+    wrapper.setProps({ hasError: true, isLoading: false, errorMessage: 'An error' });
     expect(wrapper.find('SemanticToastContainer').length).toBe(1);
   });
 

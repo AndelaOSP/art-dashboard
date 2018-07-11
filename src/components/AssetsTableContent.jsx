@@ -12,7 +12,7 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
-import AddAssetComponent from '../_components/AddAsset/AddAssetContainer';
+import AddAssetComponent from '../_components/Assets/AddAssetContainer';
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
