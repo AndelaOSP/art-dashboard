@@ -13,8 +13,13 @@ import {
 
 // constants
 import constants from '../../_constants';
+import assetMakes from '../../_mock/assetMakes';
 
-const { LOAD_ASSET_MAKES_SUCCESS } = constants;
+const {
+  LOAD_ASSET_MAKES_SUCCESS,
+  LOAD_ASSET_MAKES_FAILURE,
+  LOADING_ASSET_MAKES
+} = constants;
 
 // store
 const middleware = [thunk];
@@ -25,24 +30,28 @@ describe('Asset Makes action tests', () => {
   const mock = new MockAdapter(axios);
   const url = 'asset-makes';
   store = mockStore({});
-  const expectedActions = [
-    {
-      type: LOAD_ASSET_MAKES_SUCCESS
-    }
-  ];
+
+  const mockAssetMakes = {
+    results: assetMakes
+  };
+
+  afterEach(() => {
+    store.clearActions();
+  });
 
   it('should dispatch LOAD_ASSET_MAKES_SUCCESS when loadAssetMakes called successfully', () => {
-    mock.onGet(url).reply(200,
-      [
-        {
-          id: 1,
-          make_label: 'Mircosoft',
-          asset_type: 'Headsets'
-        }
-      ]
-    );
+    mock.onGet().reply(200, mockAssetMakes);
     return store.dispatch(loadAssetMakes()).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MAKES);
+      expect(store.getActions()[1].type).toEqual(LOAD_ASSET_MAKES_SUCCESS);
+    });
+  });
+
+  it('should dispatch LOAD_ASSET_MAKES_FAILURE when AssetMakes are not loaded', () => {
+    mock.onGet().reply(401);
+    return store.dispatch(loadAssetMakes()).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MAKES);
+      expect(store.getActions()[1].type).toEqual(LOAD_ASSET_MAKES_FAILURE);
     });
   });
 

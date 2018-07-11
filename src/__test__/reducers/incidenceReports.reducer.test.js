@@ -5,7 +5,7 @@ import expect from 'expect';
 import loadIncidenceReportsReducer from '../../_reducers/incidenceReports.reducer';
 
 // initial mock state
-import { mockStore } from '../../_mock/mockStore';
+import mockStore from '../../_mock/mockStore';
 
 // mock data
 import incidenceReports from '../../_mock/incidenceReports';

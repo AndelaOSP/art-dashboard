@@ -5,7 +5,7 @@ import expect from 'expect';
 import modelNumberReducer from '../../_reducers/modelNumber.reducer';
 
 // initial mock State
-import { mockStore } from '../../_mock/mockStore';
+import mockStore from '../../_mock/mockStore';
 
 // mock data
 import { randomModelNumbers } from '../../_mock/modelNumbers';

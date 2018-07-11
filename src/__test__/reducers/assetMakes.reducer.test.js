@@ -5,29 +5,46 @@ import expect from 'expect';
 import assetMakeReducer from '../../_reducers/assetMake.reducer';
 
 // initial mock State
-import { mockStore } from '../../_mock/mockStore';
+import mockStore from '../../_mock/mockStore';
 
 // mock data
-import { randomAssetMakes } from '../../_mock/assetMakes';
+import assetMakes from '../../_mock/assetMakes';
+import constants from '../../_constants';
+import { addAssetMakesSuccess } from '../../_actions/assetMakes.actions';
 
-import { loadAssetMakesSuccess, addAssetMakesSuccess } from '../../_actions/assetMakes.actions';
+const {
+  LOAD_ASSET_MAKES_SUCCESS,
+  LOAD_ASSET_MAKES_FAILURE,
+  LOADING_ASSET_MAKES
+} = constants;
 
-const payload = {
-  results: randomAssetMakes
-};
+let action = { payload: {} };
 
 describe('Asset Makes Reducer tests', () => {
   it('should handle LOAD_ASSET_MAKES_SUCCESS', () => {
-    const action = loadAssetMakesSuccess(payload);
-    expect(mockStore.assetMakes.length).toEqual(0);
-    expect(assetMakeReducer(mockStore.assetMakes, action)).toEqual(payload.results);
+    action.type = LOAD_ASSET_MAKES_SUCCESS;
+    action.payload.results = assetMakes;
+    expect(assetMakeReducer(mockStore.assetMakes, action)
+      .assetMakes).toEqual(action.payload.results);
+  });
+
+  it('should handle LOAD_ASSET_MAKES_FAILURE', () => {
+    action.type = LOAD_ASSET_MAKES_FAILURE;
+    expect(assetMakeReducer(mockStore.assetMakes, action).assetMakes).toEqual([]);
+    expect(assetMakeReducer(mockStore.assetMakes, action).isLoading).toEqual(false);
+  });
+
+  it('should handle LOADING_SUBCATEGORIES', () => {
+    action.type = LOADING_ASSET_MAKES;
+    expect(assetMakeReducer(mockStore.assetMakes, action).assetMakes).toEqual([]);
+    expect(assetMakeReducer(mockStore.assetMakes, action).isLoading).toEqual(true);
   });
 
   it('should handle ADD_ASSET_MAKE_SUCCESS', () => {
     const newAssetMake = { id: 5, asset_make: 'Test asset make', asset_type: 'Test asset type' };
     const expected = [newAssetMake];
-    const action = addAssetMakesSuccess(newAssetMake);
-    expect(mockStore.assetMakes.length).toEqual(0);
-    expect(assetMakeReducer(mockStore.assetMakes, action)).toEqual(expected);
+    action = addAssetMakesSuccess(newAssetMake);
+    expect(mockStore.assetMakes.assetMake.length).toEqual(0);
+    expect(assetMakeReducer(mockStore.assetMakes.assetMake, action)).toEqual(expected);
   });
 });

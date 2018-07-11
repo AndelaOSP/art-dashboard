@@ -1,8 +1,13 @@
-export const mockStore = {
+export default {
   categories: [],
   subcategories: [],
   assetTypes: [],
-  assetMakes: [],
+  assetMakes: {
+    assetMake: [],
+    assetMakes: [],
+    assetMakesCount: 0,
+    isLoading: false
+  },
   modelNumbers: [],
   assets: [],
   incidenceReports: {
@@ -11,4 +16,4 @@ export const mockStore = {
     isLoading: false,
     hasError: false
   }
-}
+};
