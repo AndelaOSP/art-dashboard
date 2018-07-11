@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import '../../_css/ModalComponent.css';
 
-import '../../_css/ModalComponent.css';
-
 export default class ArtModal extends Component {
   state = { modalOpen: false }
 
