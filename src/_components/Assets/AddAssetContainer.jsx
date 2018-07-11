@@ -22,19 +22,16 @@ import {
 } from '../../_utils/filterDropdowns';
 
 class AddAssetContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filteredSubCategories: [],
-      filteredAssetTypes: [],
-      filteredAssetMakes: [],
-      filteredModelNumbers: [],
-      modelNumber: 0,
-      serialNumber: '',
-      assetTag: '',
-      saveButtonState: false
-    };
-  }
+  state = {
+    filteredSubCategories: [],
+    filteredAssetTypes: [],
+    filteredAssetMakes: [],
+    filteredModelNumbers: [],
+    modelNumber: 0,
+    serialNumber: '',
+    assetTag: '',
+    saveButtonState: false
+  };
 
   componentDidMount() {
     if (_.isEmpty(this.props.categories)) {
