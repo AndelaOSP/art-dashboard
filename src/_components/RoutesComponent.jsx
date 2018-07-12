@@ -15,7 +15,7 @@ import IncidenceReports from '../components/IncidenceReportsComponent';
 import AssetCategories from '../components/AssetCategoriesComponent';
 import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
-import { UserDetailsContainer } from '../_components/Users/UserDetailsContainer';
+import UserDetailsContainer from '../components/UserDetailsContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));

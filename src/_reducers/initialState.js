@@ -54,5 +54,12 @@ export default {
     assetConditionsList: [],
     assetConditionsCount: 0,
     isLoading: false
+  },
+  usersList: {
+    users: [],
+    usersCount: 0,
+    errorMessage: '',
+    hasError: false,
+    isLoading: false
   }
 };

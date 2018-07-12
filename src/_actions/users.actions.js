@@ -2,28 +2,21 @@ import axios from 'axios';
 import constants from '../_constants';
 
 const {
-  LOAD_USER_DETAILS_SUCCESS,
-  LOAD_USER_DETAILS_FAILURE
+  LOAD_USERS_SUCCESS,
+  LOAD_USERS_FAILURE,
+  LOADING_USERS
 } = constants;
 
-const loadUsers = () => dispatch =>
-  axios
-    .get('users')
-    .then((response) => {
-      dispatch(loadUsersSuccess(response.data));
-    })
-    .catch((error) => {
-      dispatch(loadUsersFailure(error));
-    });
-
-const loadUsersSuccess = users => ({
-  type: LOAD_USER_DETAILS_SUCCESS,
-  payload: users
-});
-
-const loadUsersFailure = error => ({
-  type: LOAD_USER_DETAILS_FAILURE,
-  payload: error
-});
+const loadUsers = pageNumber => (dispatch) => {
+  dispatch({ type: LOADING_USERS });
+  return axios.get(`users?${pageNumber}`)
+    .then(response => dispatch({
+      type: LOAD_USERS_SUCCESS,
+      payload: response.data
+    })).catch(error => dispatch({
+      type: LOAD_USERS_FAILURE,
+      payload: error.message
+    }));
+};
 
 export default loadUsers;
