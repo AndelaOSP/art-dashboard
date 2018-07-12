@@ -1,12 +1,34 @@
 import constants from '../_constants';
 import initialState from './initialState';
 
-const { LOAD_USER_DETAILS_SUCCESS } = constants;
+const {
+  LOAD_USERS_SUCCESS,
+  LOAD_USERS_FAILURE,
+  LOADING_USERS
+} = constants;
 
-export default (state = initialState.users, action) => {
+export default (state = initialState.usersList, action) => {
   switch (action.type) {
-    case LOAD_USER_DETAILS_SUCCESS:
-      return action.payload;
+    case LOAD_USERS_SUCCESS:
+      return {
+        ...state,
+        users: action.payload,
+        hasError: false,
+        isLoading: false
+      };
+    case LOAD_USERS_FAILURE:
+      return {
+        ...state,
+        users: {},
+        errorMessage: action.payload,
+        hasError: true,
+        isLoading: false
+      };
+    case LOADING_USERS:
+      return {
+        ...state,
+        isLoading: true
+      };
     default:
       return state;
   }
