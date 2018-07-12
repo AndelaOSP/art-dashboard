@@ -72,7 +72,7 @@ class SideMenuComponent extends Component {
               <span><Icon name="bar graph" />Analytics</span>
             </Menu.Item>
             <Menu.Item name="users">
-              <span><Icon name="users" />Users</span>
+              <Link to="/users"><Icon name="users" />Users</Link>
             </Menu.Item>
             <Menu.Item>
               <Accordion>

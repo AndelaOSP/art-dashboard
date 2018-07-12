@@ -15,6 +15,7 @@ import Allocations from '../components/AllocationsComponent';
 import IncidenceReports from '../components/IncidenceReportsComponent';
 import AssetCategories from '../components/AssetCategoriesComponent';
 import AssetDetailComponent from '../components/AssetDetailComponent';
+import UserDetailsContainer from '../_components/Users/UserDetailsContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -27,6 +28,12 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/dashboard"
             component={DashboardComponent}
+          />
+          <AuthenticateComponent
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/users"
+            component={UserDetailsContainer}
           />
           <AuthenticateComponent
             exact
