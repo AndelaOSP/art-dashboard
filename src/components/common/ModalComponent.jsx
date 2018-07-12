@@ -21,17 +21,23 @@ export default class ArtModal extends Component {
         <Modal
           trigger={
             this.props.trigger ? (
-              <span tabIndex="-1" role="button" onClick={this.toggleModal} onKeyUp={(() => { })}>
+              <span
+                tabIndex="-1"
+                role="button"
+                onClick={this.toggleModal}
+                onKeyUp={(() => {})}
+              >
                 {this.props.trigger}
               </span>
-            ) : (<i
-              className="plus link icon"
-              onClick={this.toggleModal}
-              onKeyUp={() => { }}
-              role="button"
-              tabIndex="-1"
-            />)
-          }
+            ) : (
+              <i
+                className="plus link icon"
+                onClick={this.toggleModal}
+                onKeyUp={() => {}}
+                role="button"
+                tabIndex="-1"
+              />
+            )}
           open={this.state.modalOpen}
           onClose={this.toggleModal}
           size={this.props.modalSize}
