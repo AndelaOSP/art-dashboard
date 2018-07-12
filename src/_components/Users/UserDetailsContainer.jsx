@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import SideMenuComponent from '../../_components/SideMenuComponent';
-import UserDetailsComponent from '../../components/Users/UserDetailsComponent';
+import UserDetailsComponent from '../../components/UserDetailsComponent';
 import loadUsers from '../../_actions/users.actions';
 
 export class UserDetailsContainer extends Component {
