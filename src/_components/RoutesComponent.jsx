@@ -8,12 +8,13 @@ import AssetModels from '../components/AssetModels/AssetModelsComponent';
 import LoginComponent from '../components/LoginComponent';
 import Dashboard from '../components/DashboardComponent';
 import UserFeedback from '../components/UserFeedbackComponent';
-import PageNotFoundComponent from '../components/PageNotFoundComponent';
+import PageNotFound from '../components/PageNotFoundComponent';
 import AssetSubCategories from '../components/AssetsSubCategoriesComponent';
 import Allocations from '../components/AllocationsComponent';
 import IncidenceReports from '../components/IncidenceReportsComponent';
 import AssetCategories from '../components/AssetCategoriesComponent';
-import { AssetDetailComponent } from '../components/AssetDetailComponent';
+import AssetDetail from '../components/AssetDetailComponent';
+import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -51,7 +52,7 @@ class RoutesComponent extends Component {
             path="/user-feedback"
             component={UserFeedback}
           />
-          <AuthenticateComponent
+          <Authenticate
             isAuthenticated={this.checkAuthentication()}
             path="/assets/:id/view"
             component={AssetDetail}
