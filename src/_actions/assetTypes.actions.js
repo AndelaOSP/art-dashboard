@@ -76,10 +76,10 @@ export const loadDropdownAssetTypes = () => (dispatch) => {
     });
 };
 
-export const dropdownAssetTypeSuccess = allAssetTypes => (
-  { type: LOAD_DROPDOWN_ASSET_TYPES_SUCCESS, payload: allAssetTypes }
-);
+export const dropdownAssetTypeSuccess = allAssetTypes => ({
+  type: LOAD_DROPDOWN_ASSET_TYPES_SUCCESS, payload: allAssetTypes
+});
 
-export const dropdownAssetTypeFailure = error => (
-  { type: LOAD_DROPDOWN_ASSET_TYPES_FAILURE, payload: error }
-);
+export const dropdownAssetTypeFailure = error => ({
+  type: LOAD_DROPDOWN_ASSET_TYPES_FAILURE, payload: error
+});
