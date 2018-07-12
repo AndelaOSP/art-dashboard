@@ -1,23 +1,9 @@
-/*
-* Styling rules that are shared across multiple files
-*
-*/
-@font-face {
-  font-family: 'DIN Pro';
-  src: url("/fonts/DINPro.otf") format("otf"); }
+@import 'sharedStyling.scss';
 
-@font-face {
-  font-family: 'Archer Pro';
-  src: url("/fonts/Archer-Book-Pro.otf") format("otf"); }
-
-body, button, input,
-.ui * {
-  font-family: "DIN Pro", "Archer Pro", Lato, Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  font-style: normal; }
+$landing_page_image: url('/images/landing_page_image.png');
 
 .background {
-  background: url("/images/landing_page_image.png") no-repeat;
+  background: $landing_page_image no-repeat;
   width: 100vw;
   min-height: 100vh;
   padding: 0;
@@ -27,13 +13,15 @@ body, button, input,
   align-items: center;
   justify-content: center;
   color: white;
-  background-size: cover; }
+  background-size: cover;
+}
 
 #login-container {
   position: absolute;
   text-align: left;
   left: 147px;
-  bottom: 210px; }
+  bottom: 210px;
+}
 
 #welcome-message {
   font-size: 25px;
@@ -44,7 +32,8 @@ body, button, input,
   letter-spacing: 0.8px;
   text-align: left;
   color: #000;
-  margin-top: 40px; }
+  margin-top: 40px;
+}
 
 #google-button {
   background-color: #fff;
@@ -53,16 +42,21 @@ body, button, input,
   padding-left: 18px;
   margin-top: 35px;
   border-radius: 10px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16); }
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+}
 
 #google-button:hover {
-  background-color: #b9b9b9; }
+  background-color: #b9b9b9;
+}
 
 .landing-heading {
   font-size: 48px !important;
   margin-top: 40px !important;
-  margin-bottom: 55px !important; }
+  margin-bottom: 55px !important;
+}
 
 @media (min-width: 320px) and (max-width: 480px) {
   #login-container {
-    position: initial; } }
+    position: initial;
+  }
+}
