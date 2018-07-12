@@ -12,14 +12,16 @@ export default (state = initialState.usersList, action) => {
     case LOAD_USERS_SUCCESS:
       return {
         ...state,
-        users: action.payload,
+        users: [...action.payload.results],
+        usersCount: action.payload.count,
         hasError: false,
         isLoading: false
       };
     case LOAD_USERS_FAILURE:
       return {
         ...state,
-        users: {},
+        users: [],
+        usersCount: 0,
         errorMessage: action.payload,
         hasError: true,
         isLoading: false
