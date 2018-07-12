@@ -62,7 +62,7 @@ describe('Asset Action tests', () => {
   it('should dispatch CREATE_ASSET_FAIL when createAsset is unsuccessful', () => {
     mock.onPost(url, assetToBeCreated).reply(400);
     return store.dispatch(createAsset(assetToBeCreated)).then(() => {
-      expect(store.getActions()[0]).toEqual(expectedActions[1]);
+      expect(store.getActions()[0].type).toEqual(expectedActions[1].type);
     });
   });
 

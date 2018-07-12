@@ -12,13 +12,14 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
+import AddAssetComponent from '../_components/Assets/AddAssetContainer';
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
     return <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />;
   }
 
-  if (props.hasError) {
+  if (props.hasError && props.errorMessage) {
     setTimeout(() => {
       ToastMessage.error({ message: props.errorMessage });
     }, 500);
@@ -132,7 +133,18 @@ const AssetsTableContent = (props) => {
                   activePage={props.activePage}
                 />
               )}
-              <Button circular icon="add" floated="right" size="big" />
+              <Button
+                circular
+                floated="right"
+                size="big"
+              >
+                <ModalComponent
+                  modalTitle="Add An Asset"
+                  modalSize="large"
+                >
+                  <AddAssetComponent />
+                </ModalComponent>
+              </Button>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>

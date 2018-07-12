@@ -34,9 +34,8 @@ export default class ArtModal extends Component {
           }
           open={this.state.modalOpen}
           onClose={this.toggleModal}
-          size="small"
+          size={this.props.modalSize}
           closeIcon
-          style={{ marginLeft: '-270px', width: '35%' }}
         >
           <Modal.Header>{this.props.modalTitle}</Modal.Header>
           <Modal.Content>
@@ -54,10 +53,12 @@ ArtModal.propTypes = {
   children: PropTypes.node,
   modalTitle: PropTypes.string,
   trigger: PropTypes.element,
-  className: PropTypes.string
+  className: PropTypes.string,
+  modalSize: PropTypes.string
 };
 
 ArtModal.defaultProps = {
   children: <br />,
-  modalTitle: ''
+  modalTitle: '',
+  modalSize: 'small'
 };

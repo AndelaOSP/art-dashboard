@@ -1,4 +1,13 @@
-.ui.fullscreen.modal {
-    width: 100%!important;
+.ui.large.modal {
+  margin-left: 200px;
+  width: 1000px;
+}
 
+.ui.modal {
+  left: 0;
+}
+
+.ui.small.modal {
+  margin-left: 25%;
+  width: 680px;
 }

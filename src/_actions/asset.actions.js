@@ -4,50 +4,28 @@ import axios from 'axios';
 // constants
 import constants from '../_constants';
 
-// mock data
-import mockAsset from '../_mock/asset';
+import { updateToastMessageContent } from './toastMessage.actions';
 
 const {
   CREATE_ASSET_SUCCESS,
   CREATE_ASSET_FAIL,
   LOADING_ASSET,
   LOAD_ASSET_FAILURE,
-  LOAD_ASSET_SUCCESS } = constants;
+  LOAD_ASSET_SUCCESS
+} = constants;
 
-/**
- * create new asset thunk
- *
- * @param {object} assetDetail details of new asset to be created
- *
- * @return {object} createAssetSuccess type and payload
- */
-export const createAsset = assetDetail => (
-  dispatch => (
-    axios.post('manage-assets', assetDetail).then(() => {
-      dispatch(createAssetSuccess(mockAsset));
-    }).catch((error) => {
-      dispatch(createAssetFail(error));
-    })
-  ));
+export const createAsset = assetDetail => (dispatch => axios.post('manage-assets', assetDetail).then((response) => {
+  dispatch(createAssetSuccess(response.data));
+  dispatch(updateToastMessageContent('Asset Saved Successfully',
+    'success'));
+}).catch((error) => {
+  dispatch(createAssetFail(error));
+  dispatch(updateToastMessageContent('Could Not Save The Asset', 'error'));
+}));
 
-/**
- * createAssetSuccess - create new asset success action creator
- *
- * @param {object} asset details of new asset created
- *
- * @return {object} type and payload
- */
-export const createAssetSuccess = asset => ({
-  type: CREATE_ASSET_SUCCESS,
-  payload: asset
-});
+export const createAssetSuccess = asset => ({ type: CREATE_ASSET_SUCCESS, payload: asset });
 
-/**
- * createAssetFail - create new asset fail action creator
- *
- * @return {type} type and payload
- */
-export const createAssetFail = () => ({ type: CREATE_ASSET_FAIL });
+export const createAssetFail = error => ({ type: CREATE_ASSET_FAIL, payload: error });
 
 /**
  * load asset detail thunk

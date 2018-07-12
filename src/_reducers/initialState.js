@@ -1,5 +1,8 @@
 export default {
-  categories: [],
+  categories: {
+    categories: [],
+    isLoading: false
+  },
   subcategories: {
     assetSubCategoriesDropdown: [],
     assetSubCategories: [],

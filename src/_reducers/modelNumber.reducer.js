@@ -10,7 +10,7 @@ const {
 export default (state = initialState.modelNumbers, action) => {
   switch (action.type) {
     case LOAD_ASSET_MODEL_NUMBERS:
-      return action.payload;
+      return action.payload.results;
     case CREATE_MODEL_NUMBER_SUCCESS:
       return [...state, action.payload];
     case CREATE_MODEL_NUMBER_FAILURE:
