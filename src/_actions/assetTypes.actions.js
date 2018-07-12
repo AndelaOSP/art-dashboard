@@ -45,7 +45,7 @@ export const createAssetTypeFailure = error => (
 
 export const loadDropdownAssetTypes = () => (dispatch) => {
   const pageNumber = 1;
-  axios
+  return axios
     .get(`asset-types?page=${pageNumber}`)
     .then((response) => {
       const pages = Array.from(
@@ -58,7 +58,7 @@ export const loadDropdownAssetTypes = () => (dispatch) => {
         if (page === 1) {
           return dispatch(dropdownAssetTypeSuccess(allAssetTypes));
         }
-        axios
+        return axios
           .get(`asset-types?page=${page}`)
           .then((res) => {
             allAssetTypes = [...allAssetTypes, ...res.data.results];
@@ -68,7 +68,6 @@ export const loadDropdownAssetTypes = () => (dispatch) => {
             dispatch(dropdownAssetTypeFailure(error));
             dispatch(updateToastMessageContent(error, 'error'));
           });
-        return null;
       });
     })
     .catch((error) => {
