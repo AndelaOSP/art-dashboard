@@ -7,7 +7,7 @@ import AddAssetContainer from '../../_components/Assets/AddAssetContainer';
 import assetCategories from '../../_mock/assetCategories';
 import assetSubCategories from '../../_mock/subcategories';
 import assetTypes from '../../_mock/assetTypes';
-import { assetMakes } from '../../_mock/assetMakes';
+import assetMakes from '../../_mock/assetMakes';
 import { modelNumbers } from '../../_mock/modelNumbers';
 
 const props = {
@@ -139,4 +139,3 @@ describe('<AddAssetContainer />', () => {
     expect(wrapper.props().toastMessageContent.type).toEqual('error');
   });
 });
-
