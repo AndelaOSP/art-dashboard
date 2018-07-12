@@ -1,0 +1,74 @@
+@import "sharedStyling.scss";
+
+#navbar {
+  height: 100px;
+  padding: 0 93px;
+  background-color: white;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+
+  #hamburger {
+    color: $andela_blue;
+    cursor: pointer;
+  }
+
+  #banner {
+    height: 30px;
+  }
+
+  #search-menu {
+    margin: 0 auto;
+
+    #nav-search {
+      color: $andela_blue;
+      width: 251px;
+      height: 45px;
+      border-radius: 10px;
+      border: solid 1px $andela_blue;
+      padding-left: 36px;
+    }
+
+    #nav-search::-webkit-input-placeholder {
+      color: $andela_blue;
+    }
+
+    #nav-search::-moz-placeholder {
+      color: $andela_blue;
+    }
+
+    #nav-search:-ms-input-placeholder {
+      color: $andela_blue;
+    }
+
+    .ui.icon.input>i.icon {
+      color: $andela_blue;
+      left: 0;
+    }
+  }
+
+  #notification-icon {
+    width: 32px;
+    height: 32px;
+    background-color: $andela_blue !important;
+    cursor: pointer;
+  }
+
+  #user-avatar {
+    width: 63px;
+    height: 63px;
+  }
+
+  i.icons .corner.icon {
+    top: auto;
+    left: 0;
+    bottom: auto;
+    right: auto;
+    width: 14px;
+    height: 14px;
+    color: $andela_orange;
+  }
+}
+
+.ui.menu:not(.vertical) .right.item,
+.ui.menu:not(.vertical) .right.menu {
+  margin-left: 0 !important;
+}

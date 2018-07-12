@@ -10,11 +10,27 @@
   font-family: 'Archer Pro';
   src: url("/fonts/Archer-Book-Pro.otf") format("otf"); }
 
-body, button, input,
+body,
+button,
+input,
 .ui * {
   font-family: "DIN Pro", "Archer Pro", Lato, Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal; }
+
+#blue-rounded-button {
+  width: 138px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #3359df;
+  border: solid 1px #3960ad;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.08;
+  letter-spacing: normal; }
 
 .background {
   background: url("/images/landing_page_image.png") no-repeat;
@@ -32,12 +48,12 @@ body, button, input,
 #login-container {
   position: absolute;
   text-align: left;
-  left: 147px;
-  bottom: 210px; }
+  left: 107px;
+  bottom: 170px; }
 
 #welcome-message {
   font-size: 25px;
-  font-weight: 300;
+  font-weight: 100;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.44;
@@ -63,6 +79,9 @@ body, button, input,
   margin-top: 40px !important;
   margin-bottom: 55px !important; }
 
+/*
+  Device = Smart phones (Portrait)
+*/
 @media (min-width: 320px) and (max-width: 480px) {
   #login-container {
     position: initial; } }

@@ -14,8 +14,12 @@ import IncidenceReports from '../components/IncidenceReportsComponent';
 import AssetCategories from '../components/AssetCategoriesComponent';
 import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
+<<<<<<< HEAD
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
 import UserContainer from '../components/UserDetailsContainer';
+=======
+import NavbarRedesignComponent from '../components/NavBarRedesignComponent';
+>>>>>>> (feature): re-design navigation bar
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -97,8 +101,13 @@ class RoutesComponent extends Component {
           <Authenticate
             exact
             isAuthenticated={this.checkAuthentication()}
+<<<<<<< HEAD
             path="/asset-makes"
             component={AssetMakes}
+=======
+            path="/dashboard-re"
+            component={NavbarRedesignComponent}
+>>>>>>> (feature): re-design navigation bar
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />

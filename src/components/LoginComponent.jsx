@@ -54,7 +54,7 @@ class LoginComponent extends React.Component {
             />
             <div id="welcome-message">
               <p>
-                Welcome to ART Admin.<br />Please sign in with
+                Welcome to <i>ART Admin</i>.<br />Please sign in with
                 <br /> your Google account<br /> to proceed
               </p>
             </div>
