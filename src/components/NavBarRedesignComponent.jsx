@@ -76,8 +76,7 @@ NavBarRedesignComponent.propTypes = {
 };
 
 NavBarRedesignComponent.defaultProps = {
-  push: () => {
-  }
+  push: () => {}
 };
 
 export default withRouter(NavBarRedesignComponent);
