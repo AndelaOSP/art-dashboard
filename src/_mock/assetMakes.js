@@ -1,12 +1,7 @@
+
 import faker from 'faker';
 
-export const randomAssetMakes = Array(3).fill({}).map((value, index) => ({
-  id: index,
-  make_label: 'Make Label Fake A',
-  asset_type: faker.random.word()
-}));
-
-export const assetMakes = [
+export default [
   {
     id: 1,
     make_label: 'Make Label Fake A',
