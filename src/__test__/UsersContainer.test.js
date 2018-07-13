@@ -23,4 +23,3 @@ describe('Renders <UserDetailsContainer /> correctly', () => {
     expect(wrapper.find('SideMenuComponent').length).toBe(1);
   });
 });
-

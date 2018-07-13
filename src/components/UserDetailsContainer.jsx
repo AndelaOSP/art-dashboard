@@ -12,6 +12,7 @@ export class UserDetailsContainer extends Component {
     activePage: 1,
     limit: 10
   }
+
   componentDidMount() {
     this.props.loadUsers(this.state.activePage);
   }

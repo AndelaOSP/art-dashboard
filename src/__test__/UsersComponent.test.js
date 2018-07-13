@@ -14,10 +14,7 @@ const props = {
 };
 
 describe('Renders <UserDetailsComponent /> correctly', () => {
-  const wrapper2 = shallow(<UserDetailsComponent
-    {...props}
-  />);
-
+  const wrapper2 = shallow(<UserDetailsComponent {...props} />);
   it('renders Table component', () => {
     expect(wrapper2.find('Table').length).toBe(1);
   });

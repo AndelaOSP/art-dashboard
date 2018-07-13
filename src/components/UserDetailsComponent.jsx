@@ -17,6 +17,7 @@ const UserDetailsComponent = (props) => {
     }, 500);
     return <SemanticToastContainer />;
   }
+
   if (props.emptyUsersList()) {
     return (
       <Header as="h3" id="empty-usersList" content="No Users Found" />
@@ -50,7 +51,6 @@ const UserDetailsComponent = (props) => {
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
         <Table.Body>
           {
             props.activePageUsers.map((user) => {
@@ -91,7 +91,8 @@ const UserDetailsComponent = (props) => {
           </Table.Row>
         </Table.Footer>
       </Table>
-    </div >);
+    </div>
+  );
 };
 
 UserDetailsComponent.propTypes = {
