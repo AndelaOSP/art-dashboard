@@ -91,7 +91,7 @@ const UserDetailsComponent = (props) => {
           </Table.Row>
         </Table.Footer>
       </Table>
-    </div>);
+    </div >);
 };
 
 UserDetailsComponent.propTypes = {

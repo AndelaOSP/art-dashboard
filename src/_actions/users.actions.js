@@ -19,7 +19,4 @@ export const loadUsers = pageNumber => (dispatch) => {
     }));
 };
 
-export const test = () => {
-
-};
-
+export default loadUsers;

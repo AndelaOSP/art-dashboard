@@ -7,7 +7,7 @@ import SideMenuComponent from '../_components/SideMenuComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
 import { loadUsers } from '../_actions/users.actions';
 
-class UserDetailsContainer extends Component {
+export class UserDetailsContainer extends Component {
   state = {
     activePage: 1,
     limit: 10
@@ -66,8 +66,7 @@ UserDetailsContainer.propTypes = {
 
 UserDetailsContainer.defaultProps = {
   users: [],
-  errorMessage: '',
-  usersCount: 0
+  errorMessage: ''
 };
 
 const mapStateToProps = ({ usersList }) => {
