@@ -7,7 +7,7 @@ const {
   LOADING_USERS
 } = constants;
 
-const loadUsers = pageNumber => (dispatch) => {
+export const loadUsers = pageNumber => (dispatch) => {
   dispatch({ type: LOADING_USERS });
   return axios.get(`users?${pageNumber}`)
     .then(response => dispatch({

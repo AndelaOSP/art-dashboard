@@ -10,7 +10,12 @@ export default {
     isLoading: false
   },
   assetTypes: [],
-  assetMakes: [],
+  assetMakes: {
+    assetMake: [],
+    assetMakes: [],
+    assetMakesCount: 0,
+    isLoading: false
+  },
   modelNumbers: [],
   assetModels: [],
   assets: {

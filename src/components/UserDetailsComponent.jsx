@@ -50,25 +50,29 @@ const UserDetailsComponent = (props) => {
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
-        <Table.Body />
-        {
-          props.activePageUsers.map(user => (
-            <TableRowComponent
-              key={user.id}
-              data={user}
-              headings={[
-                'full_name',
-                'email',
-                'cohort'
-              ]}
-            />
-          ))
-        }
+        <Table.Body>
+          {
+            props.activePageUsers.map((user) => {
+              user.assets_assigned = 1;
+              return (
+                <TableRowComponent
+                  key={user.id}
+                  data={user}
+                  headings={[
+                    'full_name',
+                    'email',
+                    'cohort',
+                    'assets_assigned'
+                  ]}
+                />
+              );
+            })
+          }
+        </Table.Body>
         <Table.Footer>
           <Table.Row>
             <Table.HeaderCell colSpan="4" >
-              { !props.emptyUsersList() && (
+              {!props.emptyUsersList() && (
                 <Pagination
                   totalPages={props.handlePageTotal()}
                   onPageChange={props.handlePaginationChange}
@@ -77,14 +81,17 @@ const UserDetailsComponent = (props) => {
               )}
               <Button
                 circular
+                icon="add"
                 floated="right"
+                data-tooltip="Add new user"
                 size="big"
               />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
       </Table>
-    </div>);
+    </div>
+  );
 };
 
 UserDetailsComponent.propTypes = {

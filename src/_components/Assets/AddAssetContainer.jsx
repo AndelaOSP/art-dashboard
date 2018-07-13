@@ -196,7 +196,7 @@ const mapStateToProps = ({
   categories: categoriesList.categories,
   subcategories: subcategoriesList.assetSubCategories,
   assetTypes: assetTypesList.assetTypes,
-  assetMakes: assetMakesList,
+  assetMakes: assetMakesList.assetMakes,
   modelNumbers: modelNumbersList,
   assets: assets.assetsList,
   toastMessageContent: toastMessage

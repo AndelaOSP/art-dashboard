@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
-
-import loadUsers from '../_actions/users.actions';
+import { loadUsers } from '../_actions/users.actions';
 
 export class UserDetailsContainer extends Component {
   state = {

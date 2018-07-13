@@ -99,6 +99,9 @@ class SideMenuComponent extends Component {
                     <Link to="/asset-categories"><Icon name="list ul" />Asset Categories</Link>
                   </Accordion.Content>
                   <Accordion.Content active={activeIndex === 0}>
+                    <Link to="/asset-makes"><Icon name="list ul" />Asset Makes</Link>
+                  </Accordion.Content>
+                  <Accordion.Content active={activeIndex === 0}>
                     <Link to="/asset-sub-categories"><Icon name="list ul" />Sub Categories</Link>
                   </Accordion.Content>
                   <Accordion.Content active={activeIndex === 0}>
