@@ -5,10 +5,9 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
+import { loadUsers } from '../_actions/users.actions';
 
-import loadUsers from '../_actions/users.actions';
-
-export class UserDetailsContainer extends Component {
+class UserDetailsContainer extends Component {
   state = {
     activePage: 1,
     limit: 10
@@ -67,7 +66,8 @@ UserDetailsContainer.propTypes = {
 
 UserDetailsContainer.defaultProps = {
   users: [],
-  errorMessage: ''
+  errorMessage: '',
+  usersCount: 0
 };
 
 const mapStateToProps = ({ usersList }) => {

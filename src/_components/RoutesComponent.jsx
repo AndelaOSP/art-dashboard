@@ -35,7 +35,7 @@ class RoutesComponent extends Component {
             path="/users"
             component={UserDetailsContainer}
           />
-          <AuthenticateComponent
+          <Authenticate
             exact
             isAuthenticated={this.checkAuthentication()}
             path="/asset_types"

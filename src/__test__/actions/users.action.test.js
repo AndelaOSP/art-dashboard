@@ -14,7 +14,8 @@ let store;
 
 describe('Asset Action tests', () => {
   const mock = new MockAdapter(axios);
-  const url = 'users?page=1';
+  const pageNumber = 1;
+  const url = `users?${pageNumber}`;
   store = mockStore({});
 
   afterEach(() => {
@@ -37,3 +38,4 @@ describe('Asset Action tests', () => {
     });
   });
 });
+

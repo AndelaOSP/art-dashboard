@@ -1,31 +1,17 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import expect from 'expect';
 import UserDetailsComponent from '../components/UserDetailsComponent';
-import UserDetails from '../components/UserDetailsContainer';
 
 const props = {
-  getAssetsAction: jest.fn(),
-  handlePaginationChange: jest.fn(),
   hasError: false,
   isLoading: false,
-  assetsCount: 10,
   activePage: 1,
   activePageUsers: [],
   emptyUsersList: jest.fn(),
   errorMessage: '',
   handlePageTotal: jest.fn()
 };
-
-describe('Renders <UserDetailsComponent /> correctly', () => {
-  const wrapper = mount(<UserDetails
-    {...props}
-  />);
-
-  it('renders the UserDetailsComponent component', () => {
-    expect(wrapper.find('UserDetailsComponent').length).toBe(1);
-  });
-});
 
 describe('Renders <UserDetailsComponent /> correctly', () => {
   const wrapper2 = shallow(<UserDetailsComponent
