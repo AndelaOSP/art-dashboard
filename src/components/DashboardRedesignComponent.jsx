@@ -6,7 +6,7 @@ import {
   Grid
 } from 'semantic-ui-react';
 import '../_css/DashboardRedesignComponent.css';
-import NavBarResignComponent from './NavBarRedesignComponent';
+import NavbarRedesignComponent from './NavBarRedesignComponent';
 import AnalyticsCardComponent from './AnalyticsCardComponent';
 
 class DashboardRedesignComponent extends Component {
@@ -18,8 +18,7 @@ class DashboardRedesignComponent extends Component {
   }
   render() {
     return (
-      <div>
-        <NavBarResignComponent />
+      <NavbarRedesignComponent>
         <div id="dashboard-content">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left">Analytics</Header>
@@ -104,7 +103,7 @@ class DashboardRedesignComponent extends Component {
             </Grid>
           </div>
         </div>
-      </div>
+      </NavbarRedesignComponent>
     );
   }
 }

@@ -5,6 +5,7 @@
   padding: 0 93px;
   background-color: white;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  margin-bottom: 10px;
 
   #hamburger {
     color: $andela_blue;
@@ -70,4 +71,42 @@
   .right.menu {
     margin-left: 0 !important;
   }
+}
+
+#nav-bar2 {
+  .pusher {
+    padding: 0;
+    height: 93vh;
+    overflow: hidden;
+  }
+
+  .ui.sidebar {
+    height: 100px !important;
+    overflow: hidden;
+  }
+
+  .ui.visible.top.sidebar~.fixed,
+  .ui.visible.top.sidebar~.pusher {
+    -webkit-transform: translate3d(0,100px,0);
+    transform: translate3d(0,100px,0);
+  }
+
+  .nav-images {
+    width: 53px;
+    height: 53px;
+    display: initial;
+    margin-right: 10px;
+  }
+
+  .grid > .column {
+    box-shadow: none;
+  }
+
+  .grid > .column a {
+    font-size: 20px;
+  }
+}
+
+.pushable {
+  overflow: hidden;
 }
