@@ -13,11 +13,18 @@
   src: url('/fonts/Archer-Book-Pro.otf') format('otf');
 }
 
+@font-face {
+  font-family: 'DIN Pro-Light';
+  src: url('/fonts/DINPro-Light.otf') format('otf');
+}
+
 // Variables
 $base-font: 'DIN Pro';
 $fallback-font: 'Archer Pro';
 $andela_blue: #3359df;
 $andela_orange: #ffb030;
+$art-divider-height: 19px;
+$art-divider-height2: 15px;
 
 body,
 button,
@@ -41,4 +48,13 @@ input,
   font-stretch: normal;
   line-height: 2.08;
   letter-spacing: normal;
+}
+
+#art-divider {
+  border-top: 5px solid;
+  border-bottom: 1px solid;
+  border-radius: 5px;
+  width: 90px;
+  margin-top: 4.7rem;
+  position: fixed;
 }

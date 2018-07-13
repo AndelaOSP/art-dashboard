@@ -101,13 +101,14 @@ class RoutesComponent extends Component {
           <Authenticate
             exact
             isAuthenticated={this.checkAuthentication()}
-<<<<<<< HEAD
-            path="/asset-makes"
-            component={AssetMakes}
-=======
             path="/dashboard-re"
             component={NavbarRedesignComponent}
->>>>>>> (feature): re-design navigation bar
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/asset-makes"
+            component={AssetMakes}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />

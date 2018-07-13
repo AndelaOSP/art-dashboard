@@ -10,6 +10,10 @@
   font-family: 'Archer Pro';
   src: url("/fonts/Archer-Book-Pro.otf") format("otf"); }
 
+@font-face {
+  font-family: 'DIN Pro-Light';
+  src: url("/fonts/DINPro-Light.otf") format("otf"); }
+
 body,
 button,
 input,
@@ -31,6 +35,14 @@ input,
   font-stretch: normal;
   line-height: 2.08;
   letter-spacing: normal; }
+
+#art-divider {
+  border-top: 5px solid;
+  border-bottom: 1px solid;
+  border-radius: 5px;
+  width: 90px;
+  margin-top: 4.7rem;
+  position: fixed; }
 
 .background {
   background: url("/images/landing_page_image.png") no-repeat;

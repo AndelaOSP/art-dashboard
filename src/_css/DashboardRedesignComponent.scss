@@ -1,0 +1,140 @@
+@import "sharedStyling.scss";
+
+#dashboard-content {
+  padding: 0 110px 0 110px;
+}
+
+#page-heading-section {
+  margin-top: 45px;
+  height: 77px;
+}
+
+#page-headings {
+  color: #3359df;
+  font-size: 47px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+}
+
+#analytics-state-selection {
+  display: flex;
+  flex: 4;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+.analytics-states {
+  width: 238px;
+  height: 129px;
+}
+.ui[class*="three column"].grid>.row>.column.analytics-states-columns {
+  width: 24%;
+}
+
+.ui.horizontal.segments {
+  border: none;
+  box-shadow: none;
+}
+.ui.horizontal.segments>.segment {
+  border: none;
+}
+
+.analytics-states-top-text, .analytics-states-bottom-text {
+  font-size: 17px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.analytics-states-top-text {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.ui.segment {
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.ui.segment.analytics-states-bottom-text {
+  border:none;
+}
+
+.ui.segments {
+  border: none;
+  box-shadow: none;
+}
+
+.analytics-state-rectangle{
+  width: 238px;
+  height: 129px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: solid 1px;
+  padding-top: 15px;
+}
+.analytics-state-rectangle.active-analytics {
+  border: solid 1px #0a26a8;
+  color: #0a26a8;
+}
+
+#circle {
+  width: 28px;
+  height: 28px;
+  background: #3359df;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  margin-top: -30px;
+  margin-right: -15px;
+  float:right;
+}
+
+.checkmark{
+  display:inline-block;
+
+  &:after{
+    content: '';
+    display: block;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    margin-top: 7px;
+    transform: rotate(45deg);
+  }
+}
+
+#damaged {
+  margin-top: -10px;
+  width: 47.2px;
+  height: 63px;
+}
+
+#lost {
+  margin-top: -10px;
+  width: 33.3px;
+  height: 63px;
+}
+
+#allocated {
+  margin-left: -59px;
+  margin-top: -10px;
+  width: 74.7px;
+  height: 62.5px;
+  position: fixed;
+}
+#available {
+  margin-left: -38px;
+  margin-top: -10px;
+  width: 63px;
+  height: 63px;
+  position: fixed;
+}
