@@ -17,7 +17,7 @@ export class NavBarRedesignComponent extends Component {
     const { picture } = token || {};
 
     return (
-      <Menu id="navbar" secondary>
+      <Menu id="nav-bar" secondary>
         <Menu.Item name="menu" onClick={this.props.toggleVisibility}>
           <Icon id="hamburger" name="bars" />
         </Menu.Item>

@@ -1,6 +1,6 @@
 @import "sharedStyling.scss";
 
-#navbar {
+#nav-bar {
   height: 100px;
   padding: 0 93px;
   background-color: white;
@@ -66,9 +66,8 @@
     height: 14px;
     color: $andela_orange;
   }
-}
 
-.ui.menu:not(.vertical) .right.item,
-.ui.menu:not(.vertical) .right.menu {
-  margin-left: 0 !important;
+  .right.menu {
+    margin-left: 0 !important;
+  }
 }
