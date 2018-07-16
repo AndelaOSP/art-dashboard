@@ -9,7 +9,7 @@ const {
 
 export const loadUsers = pageNumber => (dispatch) => {
   dispatch({ type: LOADING_USERS });
-  return axios.get(`users?${pageNumber}`)
+  return axios.get(`users?page=${pageNumber}`)
     .then(response => dispatch({
       type: LOAD_USERS_SUCCESS,
       payload: response.data
