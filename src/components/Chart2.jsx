@@ -21,10 +21,10 @@ const plotOptions = {
 
 const categories = ['10%', '25%', '50%', '85%'];
 
-const Chart1 = () => (
+const Chart2 = () => (
   <div className="graph-section">
     <HighchartsChart plotOptions={plotOptions}>
-      <Chart style={{ height: '300px', width: '300px' }} />
+      <Chart style={{ height: '400px', width: '400px' }} />
 
       <Legend />
       <XAxis id="x" categories={categories} />
@@ -37,4 +37,4 @@ const Chart1 = () => (
     </HighchartsChart>
   </div>
 );
-export default withHighcharts(Chart1, Highcharts);
+export default withHighcharts(Chart2, Highcharts);

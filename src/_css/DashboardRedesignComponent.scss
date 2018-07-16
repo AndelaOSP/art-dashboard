@@ -125,7 +125,7 @@
 
 #area-chart {
   width: 550px;
-  height: 489px;
+  height: 475px;
   border-radius: 10px;
   background-color: #ffffff;
   border: solid 1px #707070;
@@ -138,4 +138,10 @@
 .graph-section {
   height: 50%;
   padding: 30px 0px 15px 0px;
+}
+
+#right-chart-grid{
+  margin-top: 0rem;
+  margin-right: 0rem;
+  margin-bottom: 0rem;
 }

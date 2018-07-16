@@ -10,6 +10,7 @@ import NavbarRedesignComponent from './NavBarRedesignComponent';
 import AnalyticsCardComponent from './AnalyticsCardComponent';
 import Chart1 from './Chart1';
 import Chart2 from './Chart2';
+import Chart3 from './Chart3';
 
 class DashboardRedesignComponent extends Component {
   state = {
@@ -21,8 +22,7 @@ class DashboardRedesignComponent extends Component {
   }
   render() {
     return (
-      <div>
-        <NavbarRedesignComponent />
+      <NavbarRedesignComponent>
         <div id="dashboard-content">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left">Analytics</Header>
@@ -78,7 +78,7 @@ class DashboardRedesignComponent extends Component {
                           ''
                       }
                     <AnalyticsCardComponent
-                      assetNumber={1200}
+                      assetNumber={200}
                       assetState="allocated"
                       image="/images/allocated.png"
                       cssClass="allocated"
@@ -96,7 +96,7 @@ class DashboardRedesignComponent extends Component {
                           ''
                       }
                     <AnalyticsCardComponent
-                      assetNumber={1130}
+                      assetNumber={30}
                       assetState="available"
                       image="/images/available.png"
                       cssClass="available"
@@ -115,23 +115,22 @@ class DashboardRedesignComponent extends Component {
                   </div>
                 </Grid.Column>
                 <Grid.Column>
-                  <Grid.Row columns={2} style={{ border: 'solid 1px #707070', borderRadius: '10px' }}>
-                    <Grid.Column>
-                      <Chart2 />
-                    </Grid.Column>
-                    <Grid.Column>
-                        b
-                    </Grid.Column>
-                    <Grid.Column>
-                        c
-                    </Grid.Column>
-                  </Grid.Row>
+                  <Grid id="right-chart-grid">
+                    <Grid.Row columns={2} style={{ border: 'solid 1px #707070', borderRadius: '10px' }}>
+                      <Grid.Column>
+                        <Chart2 />
+                      </Grid.Column>
+                      <Grid.Column>
+                        <Chart3 />
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </div>
         </div>
-      </div>
+      </NavbarRedesignComponent>
     );
   }
 }
