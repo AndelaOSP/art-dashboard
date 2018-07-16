@@ -8,6 +8,8 @@ import {
 import '../_css/DashboardRedesignComponent.css';
 import NavbarRedesignComponent from './NavBarRedesignComponent';
 import AnalyticsCardComponent from './AnalyticsCardComponent';
+import Chart1 from './Chart1';
+import Chart2 from './Chart2';
 
 class DashboardRedesignComponent extends Component {
   state = {
@@ -15,10 +17,12 @@ class DashboardRedesignComponent extends Component {
     assetStateLost: false,
     assetStateAllocated: false,
     assetStateAvailable: false
+
   }
   render() {
     return (
-      <NavbarRedesignComponent>
+      <div>
+        <NavbarRedesignComponent />
         <div id="dashboard-content">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left">Analytics</Header>
@@ -30,13 +34,13 @@ class DashboardRedesignComponent extends Component {
                 <Grid.Column>
                   <div className={`analytics-state-rectangle ${this.state.assetStateDamaged ? 'active-analytics' : ''}`}>
                     {
-                      this.state.assetStateDamaged ?
-                        <div id="circle">
-                          <div className="checkmark" />
-                        </div>
-                        :
-                        ''
-                    }
+                        this.state.assetStateDamaged ?
+                          <div id="circle">
+                            <div className="checkmark" />
+                          </div>
+                          :
+                          ''
+                      }
                     <AnalyticsCardComponent
                       assetNumber={90}
                       assetState="damaged"
@@ -48,13 +52,13 @@ class DashboardRedesignComponent extends Component {
                 <Grid.Column>
                   <div className={`analytics-state-rectangle ${this.state.assetStateLost ? 'active-analytics' : ''}`}>
                     {
-                      this.state.assetStateLost ?
-                        <div id="circle">
-                          <div className="checkmark" />
-                        </div>
-                        :
-                        ''
-                    }
+                        this.state.assetStateLost ?
+                          <div id="circle">
+                            <div className="checkmark" />
+                          </div>
+                          :
+                          ''
+                      }
                     <AnalyticsCardComponent
                       assetNumber={20}
                       assetState="lost"
@@ -66,13 +70,13 @@ class DashboardRedesignComponent extends Component {
                 <Grid.Column>
                   <div className={`analytics-state-rectangle ${this.state.assetStateAllocated ? 'active-analytics' : ''}`}>
                     {
-                      this.state.assetStateAllocated ?
-                        <div id="circle">
-                          <div className="checkmark" />
-                        </div>
-                        :
-                        ''
-                    }
+                        this.state.assetStateAllocated ?
+                          <div id="circle">
+                            <div className="checkmark" />
+                          </div>
+                          :
+                          ''
+                      }
                     <AnalyticsCardComponent
                       assetNumber={1200}
                       assetState="allocated"
@@ -84,13 +88,13 @@ class DashboardRedesignComponent extends Component {
                 <Grid.Column>
                   <div className={`analytics-state-rectangle ${this.state.assetStateAvailable ? 'active-analytics' : ''}`}>
                     {
-                      this.state.assetStateAvailable ?
-                        <div id="circle">
-                          <div className="checkmark" />
-                        </div>
-                        :
-                        ''
-                    }
+                        this.state.assetStateAvailable ?
+                          <div id="circle">
+                            <div className="checkmark" />
+                          </div>
+                          :
+                          ''
+                      }
                     <AnalyticsCardComponent
                       assetNumber={1130}
                       assetState="available"
@@ -102,8 +106,32 @@ class DashboardRedesignComponent extends Component {
               </Grid.Row>
             </Grid>
           </div>
+          <div id="art-charts">
+            <Grid>
+              <Grid.Row columns={2}>
+                <Grid.Column>
+                  <div id="area-chart">
+                    <Chart1 />
+                  </div>
+                </Grid.Column>
+                <Grid.Column>
+                  <Grid.Row columns={2} style={{ border: 'solid 1px #707070', borderRadius: '10px' }}>
+                    <Grid.Column>
+                      <Chart2 />
+                    </Grid.Column>
+                    <Grid.Column>
+                        b
+                    </Grid.Column>
+                    <Grid.Column>
+                        c
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </div>
         </div>
-      </NavbarRedesignComponent>
+      </div>
     );
   }
 }

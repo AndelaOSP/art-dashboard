@@ -5,9 +5,7 @@
 }
 
 #analytics-state-selection {
-  display: flex;
-  flex: 4;
-  flex-wrap: wrap;
+
   margin-top: 26px;
 }
 
@@ -15,8 +13,8 @@
   width: 238px;
   height: 129px;
 }
-.ui[class*="three column"].grid>.row>.column.analytics-states-columns {
-  width: 24%;
+.ui.grid>[class*="four column"].row>.column {
+  width: 312px!important;
 }
 
 .ui.horizontal.segments {
@@ -38,9 +36,11 @@
 }
 
 .analytics-states-top-text {
-  font-size: 12px;
-  font-weight: bold;
   text-transform: uppercase;
+}
+
+.ui.segment, .ui.segments .segment.analytics-states-top-text{
+  font-weight: bold;
 }
 
 .ui.segment {
@@ -50,6 +50,7 @@
 
 .ui.segment.analytics-states-bottom-text {
   border:none;
+  font-weight: normal;
 }
 
 .ui.segments {
@@ -110,16 +111,31 @@
 }
 
 #allocated {
-  margin-left: -59px;
+  margin-left: -51px;
   margin-top: -10px;
-  width: 74.7px;
-  height: 62.5px;
-  position: fixed;
+  height: 55.5px;
+  position: absolute;
 }
 #available {
   margin-left: -38px;
   margin-top: -10px;
-  width: 63px;
   height: 63px;
-  position: fixed;
+  position: absolute;
+}
+
+#area-chart {
+  width: 550px;
+  height: 489px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: solid 1px #707070;
+  padding-bottom: 100px;
+}
+#art-charts {
+  margin-top: 74px;
+}
+
+.graph-section {
+  height: 50%;
+  padding: 30px 0px 15px 0px;
 }
