@@ -15,7 +15,7 @@ import AssetCategories from '../components/AssetCategoriesComponent';
 import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
-import UserDetailsContainer from '../components/UserDetailsContainer';
+import UserContainer from '../components/UserDetailsContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -33,7 +33,7 @@ class RoutesComponent extends Component {
             exact
             isAuthenticated={this.checkAuthentication()}
             path="/users"
-            component={UserDetailsContainer}
+            component={UserContainer}
           />
           <Authenticate
             exact

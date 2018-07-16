@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import SideMenuComponent from '../_components/SideMenuComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
-import { loadUsers } from '../_actions/users.actions';
+import Users from '../_actions/users.actions';
 
 export class UserDetailsContainer extends Component {
   state = {
@@ -13,7 +13,7 @@ export class UserDetailsContainer extends Component {
     limit: 10
   }
   componentDidMount() {
-    this.props.loadUsers(this.state.activePage);
+    this.props.Users(this.state.activePage);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -26,7 +26,7 @@ export class UserDetailsContainer extends Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadUsers(activePage);
+    this.props.Users(activePage);
   }
 
   handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit)
@@ -56,7 +56,7 @@ export class UserDetailsContainer extends Component {
 }
 
 UserDetailsContainer.propTypes = {
-  loadUsers: PropTypes.func.isRequired,
+  Users: PropTypes.func.isRequired,
   usersCount: PropTypes.number,
   users: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
@@ -81,5 +81,5 @@ const mapStateToProps = ({ usersList }) => {
 };
 
 export default connect(mapStateToProps, {
-  loadUsers
+  Users
 })(UserDetailsContainer);

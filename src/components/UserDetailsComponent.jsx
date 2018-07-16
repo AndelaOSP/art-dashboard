@@ -22,7 +22,6 @@ const UserDetailsComponent = (props) => {
       <Header as="h3" id="empty-usersList" content="No Users Found" />
     );
   }
-
   return (
     <div>
       <Table celled>
