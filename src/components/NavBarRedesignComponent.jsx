@@ -9,6 +9,7 @@ import {
   Menu,
   Icon,
   Image,
+  Popup,
   Sidebar
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -90,25 +91,57 @@ export class NavBarRedesignComponent extends Component {
             visible={visible}
           >
             <Grid textAlign="center">
-              <Grid columns={6} divided>
+              <Grid columns={6}>
                 <Grid.Column>
-                  <Link to="/dashboard"><span><Image className="nav-images" src="/images/allocated.png" /></span>Analytics</Link>
+                  <Link to="/dashboard"><span><Image className="nav-images" src="/images/analytics.png" /></span>Analytics</Link>
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to="/users"><span><Image className="nav-images" src="/images/allocated.png" /></span>Users</Link>
+                  <Link to="/users"><span><Image className="nav-images" src="/images/users.png" /></span>Users</Link>
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to="/assets"><span><Image className="nav-images" src="/images/allocated.png" /></span>Assets</Link>
+                  <Popup
+                    id="assets-popup"
+                    wide
+                    trigger={<span><Image className="nav-images" src="/images/assets.png" />Assets</span>}
+                    on="click"
+                    position="bottom center"
+                  >
+                    <Grid columns={2}>
+                      <Grid.Column>
+                        <Link to="/assets"><Icon name="list ul" />Asset List</Link>
+                      </Grid.Column>
+
+                      <Grid.Column>
+                        <Link to="/asset_types"><Icon name="list ul" />Asset Types</Link>
+                      </Grid.Column>
+
+                      <Grid.Column>
+                        <Link to="/asset_models"><Icon name="list ul" />Asset Models</Link>
+                      </Grid.Column>
+
+                      <Grid.Column>
+                        <Link to="/asset-categories"><Icon name="list ul" />Asset Categories</Link>
+                      </Grid.Column>
+
+                      <Grid.Column>
+                        <Link to="/asset-sub-categories"><Icon name="list ul" />Asset Sub-Categories</Link>
+                      </Grid.Column>
+
+                      <Grid.Column>
+                        <Link to="/asset-conditions"><Icon name="list ul" />Asset Conditions</Link>
+                      </Grid.Column>
+                    </Grid>
+                  </Popup>
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to="/incidence-reports"><span><Image className="nav-images" src="/images/allocated.png" /></span>Reports</Link>
+                  <Link to="/incidence-reports"><span><Image className="nav-images" src="/images/reports.png" /></span>Reports</Link>
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to="/user-feedback"><span><Image className="nav-images" src="/images/allocated.png" /></span>Feedback</Link>
+                  <Link to="/user-feedback"><span><Image className="nav-images" src="/images/feedback.png" /></span>Feedback</Link>
                 </Grid.Column>
 
                 <Grid.Column>
