@@ -1,0 +1,112 @@
+/*
+* Styling rules that are shared across multiple files
+*
+*/
+@font-face {
+  font-family: 'DIN Pro';
+  src: url("/fonts/DINPro.otf") format("otf"); }
+
+@font-face {
+  font-family: 'Archer Pro';
+  src: url("/fonts/Archer-Book-Pro.otf") format("otf"); }
+
+@font-face {
+  font-family: 'DIN Pro-Light';
+  src: url("/fonts/DINPro-Light.otf") format("otf"); }
+
+body,
+button,
+input,
+.ui * {
+  font-family: "DIN Pro", "Archer Pro", Lato, Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal; }
+
+#blue-rounded-button {
+  width: 138px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #3359df;
+  border: solid 1px #3960ad;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.08;
+  letter-spacing: normal; }
+
+#page-heading-section {
+  margin-top: 45px;
+  height: 77px; }
+
+#page-headings {
+  color: #3359df;
+  font-size: 47px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal; }
+
+#art-divider {
+  border-top: 5px solid;
+  border-bottom: 1px solid;
+  border-radius: 5px;
+  width: 90px;
+  margin-top: 4.7rem;
+  position: absolute; }
+
+.background {
+  background: url("/images/landing_page_image.png") no-repeat;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-size: cover; }
+
+#login-container {
+  position: absolute;
+  text-align: left;
+  left: 107px;
+  bottom: 170px; }
+
+#welcome-message {
+  font-size: 25px;
+  font-weight: 100;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.44;
+  letter-spacing: 0.8px;
+  text-align: left;
+  color: #000;
+  margin-top: 40px; }
+
+#google-button {
+  background-color: #fff;
+  width: 288px;
+  height: 55px;
+  padding-left: 18px;
+  margin-top: 35px;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16); }
+
+#google-button:hover {
+  background-color: #b9b9b9; }
+
+.landing-heading {
+  font-size: 48px !important;
+  margin-top: 40px !important;
+  margin-bottom: 55px !important; }
+
+/*
+  Device = Smart phones (Portrait)
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  #login-container {
+    position: initial; } }
