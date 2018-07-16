@@ -4,6 +4,7 @@ import expect from 'expect';
 import UserDetailsComponent from '../components/UserDetailsComponent';
 
 let props = {
+  isLoading: false,
   activePage: 1,
   activePageUsers: [],
   emptyUsersList: () => false,
