@@ -16,7 +16,7 @@ import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
 import UserContainer from '../components/UserDetailsContainer';
-import NavbarRedesignComponent from '../components/NavBarRedesignComponent';
+import DashboardRedesign from '../components/DashboardRedesignComponent';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -99,7 +99,7 @@ class RoutesComponent extends Component {
             exact
             isAuthenticated={this.checkAuthentication()}
             path="/dashboard-re"
-            component={NavbarRedesignComponent}
+            component={DashboardRedesign}
           />
           <Authenticate
             exact
