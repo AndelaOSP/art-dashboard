@@ -1,11 +1,17 @@
 @import "sharedStyling.scss";
 
+// dashboard variables
+$area-chart-background: #ffffff;
+$area-chart-border-color: #707070;
+$active-analytics-border-color: #0a26a8;
+$active-analytics-font-color: #0a26a8;
+$active-circle-background-color: #3359df;
+
 #dashboard-content {
   padding: 0 110px 0 110px;
 }
 
 #analytics-state-selection {
-
   margin-top: 26px;
 }
 
@@ -62,19 +68,19 @@
   width: 238px;
   height: 129px;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: $area-chart-background;
   border: solid 1px;
   padding-top: 15px;
 }
 .analytics-state-rectangle.active-analytics {
-  border: solid 1px #0a26a8;
-  color: #0a26a8;
+  border: solid 1px $active-analytics-border-color;
+  color: $active-analytics-font-color;
 }
 
 #circle {
   width: 28px;
   height: 28px;
-  background: #3359df;
+  background: $active-circle-background-color;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   border-radius: 50px;
@@ -127,8 +133,8 @@
   width: 550px;
   height: 475px;
   border-radius: 10px;
-  background-color: #ffffff;
-  border: solid 1px #707070;
+  background-color: $area-chart-background;
+  border: solid 1px $area-chart-border-color;
   padding-bottom: 100px;
 }
 #art-charts {
