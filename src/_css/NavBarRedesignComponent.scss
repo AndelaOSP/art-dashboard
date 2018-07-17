@@ -17,7 +17,7 @@
   }
 
   #hamburger {
-    color: $andela_blue;
+    color: $andela-blue;
     cursor: pointer;
   }
 
@@ -29,28 +29,28 @@
     margin: 0 auto;
 
     #nav-search {
-      color: $andela_blue;
+      color: $andela-blue;
       width: 251px;
       height: 45px;
       border-radius: 10px;
-      border: solid 1px $andela_blue;
+      border: solid 1px $andela-blue;
       padding-left: 36px;
     }
 
     #nav-search::-webkit-input-placeholder {
-      color: $andela_blue;
+      color: $andela-blue;
     }
 
     #nav-search::-moz-placeholder {
-      color: $andela_blue;
+      color: $andela-blue;
     }
 
     #nav-search:-ms-input-placeholder {
-      color: $andela_blue;
+      color: $andela-blue;
     }
 
     .ui.icon.input>i.icon {
-      color: $andela_blue;
+      color: $andela-blue;
       left: 0;
     }
   }
@@ -58,7 +58,7 @@
   #notification-icon {
     width: 32px;
     height: 32px;
-    background-color: $andela_blue !important;
+    background-color: $andela-blue !important;
     cursor: pointer;
   }
 
@@ -74,7 +74,7 @@
     right: auto;
     width: 14px;
     height: 14px;
-    color: $andela_orange;
+    color: $andela-orange;
   }
 
   .right.menu {

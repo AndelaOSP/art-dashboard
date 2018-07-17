@@ -19,10 +19,12 @@
 }
 
 // Variables
-$base-font: 'DIN Pro';
-$fallback-font: 'Archer Pro';
-$andela_blue: #3359df;
-$andela_orange: #ffb030;
+$base-font: "DIN Pro";
+$fallback-font: "Archer Pro";
+$andela-blue: #3359df;
+$andela-orange: #ffb030;
+$heading-color: #3359df;
+$border-color: #3960ad;
 $art-divider-height: 19px;
 $art-divider-height2: 15px;
 
@@ -36,40 +38,40 @@ input,
 }
 
 #blue-rounded-button {
-  width: 138px;
-  height: 45px;
+  background-color: $andela-blue;
+  border: solid 1px $border-color;
   border-radius: 10px;
-  background-color: $andela_blue;
-  border: solid 1px #3960ad;
-  color: white;
+  color: #ffffff;
   font-size: 12px;
-  font-weight: 500;
-  font-style: normal;
   font-stretch: normal;
-  line-height: 2.08;
+  font-style: normal;
+  font-weight: 500;
+  height: 45px;
   letter-spacing: normal;
+  line-height: 2.08;
+  width: 138px;
 }
 
 #page-heading-section {
-  margin-top: 45px;
   height: 77px;
+  margin-top: 45px;
 }
 
 #page-headings {
-  color: #3359df;
+  color: $heading-color;
   font-size: 47px;
-  font-weight: 300;
-  font-style: normal;
   font-stretch: normal;
-  line-height: 1.29;
+  font-style: normal;
+  font-weight: 300;
   letter-spacing: normal;
+  line-height: 1.29;
 }
 
 #art-divider {
-  border-top: 5px solid;
   border-bottom: 1px solid;
   border-radius: 5px;
-  width: 90px;
+  border-top: 5px solid;
   margin-top: 4.7rem;
   position: absolute;
+  width: 90px;
 }
