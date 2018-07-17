@@ -14,12 +14,9 @@ import IncidenceReports from '../components/IncidenceReportsComponent';
 import AssetCategories from '../components/AssetCategoriesComponent';
 import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
-<<<<<<< HEAD
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
 import UserContainer from '../components/UserDetailsContainer';
-=======
 import NavbarRedesignComponent from '../components/NavBarRedesignComponent';
->>>>>>> (feature): re-design navigation bar
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
