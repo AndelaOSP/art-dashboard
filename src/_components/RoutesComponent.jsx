@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-
 import Authenticate from './AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
 import Assets from '../components/AssetsComponent';
@@ -16,6 +15,7 @@ import AssetCategories from '../components/AssetCategoriesComponent';
 import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
+import UserContainer from '../components/UserDetailsContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -28,6 +28,12 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/dashboard"
             component={Dashboard}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/users"
+            component={UserContainer}
           />
           <Authenticate
             exact
