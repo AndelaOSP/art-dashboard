@@ -1,0 +1,13 @@
+options:
+  formatter: stylish
+files:
+  include: '**/*.s+(a|c)ss'
+rules:
+  # Disallows
+  no-ids: 0
+  no-important: 0
+
+  # Style Guide
+  property-sort-order: 0
+  quotes: 0
+  url-quotes: 0
