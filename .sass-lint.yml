@@ -15,9 +15,11 @@ rules:
   force-pseudo-nesting: 0
 
   # Style Guide
+  clean-import-paths: 0
   hex-length: 0
   leading-zero: 0
   nesting-depth: 0
   property-sort-order: 0
   quotes: 0
+  shorthand-values: 0
   url-quotes: 0
