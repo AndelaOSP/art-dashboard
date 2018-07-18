@@ -15,7 +15,8 @@ let store;
 describe('Asset Action tests', () => {
   const mock = new MockAdapter(axios);
   const pageNumber = 1;
-  const url = `users?page=${pageNumber}`;
+  const limit = 10;
+  const url = `users?page=${pageNumber}&page_size=${limit}`;
   store = mockStore({});
 
   afterEach(() => {
@@ -24,7 +25,7 @@ describe('Asset Action tests', () => {
 
   it('should dispatch LOAD_USERS_SUCCESS when loadUsers is called successfully', () => {
     mock.onGet(url).reply(200, users);
-    return store.dispatch(loadUsers(1)).then(() => {
+    return store.dispatch(loadUsers(pageNumber, limit)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_USERS);
       expect(store.getActions()[1].type).toEqual(LOAD_USERS_SUCCESS);
     });
@@ -32,7 +33,7 @@ describe('Asset Action tests', () => {
 
   it('should dispatch LOAD_USERS_FAILURE when loadUsers is called unsuccessfully', () => {
     mock.onGet(url).reply(404, {});
-    return store.dispatch(loadUsers(1)).then(() => {
+    return store.dispatch(loadUsers(pageNumber, limit)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_USERS);
       expect(store.getActions()[1].type).toEqual(LOAD_USERS_FAILURE);
     });

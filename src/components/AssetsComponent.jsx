@@ -16,7 +16,7 @@ export class AssetsComponent extends Component {
   }
 
   componentDidMount() {
-    this.props.getAssetsAction(this.state.activePage);
+    this.props.getAssetsAction(this.state.activePage, this.state.limit);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -29,7 +29,7 @@ export class AssetsComponent extends Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.getAssetsAction(activePage);
+    this.props.getAssetsAction(activePage, this.state.limit);
   }
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit)

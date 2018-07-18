@@ -13,20 +13,12 @@ export class UserDetailsContainer extends Component {
     limit: 10
   }
   componentDidMount() {
-    this.props.Users(this.state.activePage);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    if (this.props.hasError &&
-      (this.props.errorMessage === nextProps.errorMessage)) {
-      return false;
-    }
-    return true;
+    this.props.Users(this.state.activePage, this.state.limit);
   }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.Users(activePage);
+    this.props.Users(activePage, this.state.limit);
   }
 
   handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit)

@@ -8,10 +8,10 @@ const {
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
-export const getAssetsAction = pageNumber => (
+export const getAssetsAction = (pageNumber, limit) => (
   (dispatch) => {
     dispatch({ type: LOAD_ASSETS_STARTS });
-    return axios.get(`manage-assets?page=${pageNumber}`)
+    return axios.get(`manage-assets?page=${pageNumber}&page_size=${limit}`)
       .then((response) => {
         dispatch({
           type: LOAD_ASSETS_SUCCESS,

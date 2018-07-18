@@ -7,9 +7,9 @@ const {
   LOADING_USERS
 } = constants;
 
-export const loadUsers = pageNumber => (dispatch) => {
+export const loadUsers = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_USERS });
-  return axios.get(`users?page=${pageNumber}`)
+  return axios.get(`users?page=${pageNumber}&page_size=${limit}`)
     .then(response => dispatch({
       type: LOAD_USERS_SUCCESS,
       payload: response.data

@@ -28,7 +28,8 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
 const url = 'asset-types';
-const url2 = 'asset-types?page=1';
+const url1 = `asset-types?page=${1}`;
+const url2 = `asset-types?page=${1}&page_size=${10}`;
 
 afterEach(() => {
   store.clearActions();
@@ -46,7 +47,7 @@ describe('Asset Types action tests', () => {
         results: assetTypes
       }
     });
-    return store.dispatch(loadAssetTypes(1)).then(() => {
+    return store.dispatch(loadAssetTypes(1, 10)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_SUCCESS);
     });
@@ -57,7 +58,7 @@ describe('Asset Types action tests', () => {
       status: 404,
       response: {}
     });
-    return store.dispatch(loadAssetTypes(1)).then(() => {
+    return store.dispatch(loadAssetTypes(1, 10)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_FAILURE);
     });
@@ -84,7 +85,7 @@ describe('Asset Types action tests', () => {
   });
 
   it('dispatches LOAD_DROPDOWN_ASSET_TYPES_SUCCESS when loadDropdownAssetTypes is called successfully', () => {
-    moxios.stubRequest(url2, {
+    moxios.stubRequest(url1, {
       status: 200,
       response: {
         results: assetTypes,
@@ -97,7 +98,7 @@ describe('Asset Types action tests', () => {
   });
 
   it('dispatches LOAD_DROPDOWN_ASSET_TYPES_FAILURE when loadDropdownAssetTypes gets error', () => {
-    moxios.stubRequest(url2, {
+    moxios.stubRequest(url1, {
       status: 401,
       response: {}
     });
