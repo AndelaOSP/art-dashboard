@@ -19,19 +19,22 @@ $active-circle-background-color: #3359df;
   width: 238px;
   height: 129px;
 }
-.ui.grid>[class*="four column"].row>.column {
+
+.ui.grid > [class*="four column"].row > .column {
   width: 312px!important;
 }
 
 .ui.horizontal.segments {
-  border: none;
+  border: 0;
   box-shadow: none;
 }
-.ui.horizontal.segments>.segment {
-  border: none;
+
+.ui.horizontal.segments > .segment {
+  border: 0;
 }
 
-.analytics-states-top-text, .analytics-states-bottom-text {
+.analytics-states-top-text,
+.analytics-states-bottom-text {
   font-size: 17px;
   font-weight: normal;
   font-style: normal;
@@ -45,22 +48,23 @@ $active-circle-background-color: #3359df;
   text-transform: uppercase;
 }
 
-.ui.segment, .ui.segments .segment.analytics-states-top-text{
+.ui.segment,
+.ui.segments .segment.analytics-states-top-text {
   font-weight: bold;
 }
 
 .ui.segment {
   border-radius: 10px;
-  border: 1px solid black;
+  border: 1px solid #000;
 }
 
 .ui.segment.analytics-states-bottom-text {
-  border:none;
+  border: 0;
   font-weight: normal;
 }
 
 .ui.segments {
-  border: none;
+  border: 0;
   box-shadow: none;
 }
 
@@ -72,6 +76,7 @@ $active-circle-background-color: #3359df;
   border: solid 1px;
   padding-top: 15px;
 }
+
 .analytics-state-rectangle.active-analytics {
   border: solid 1px $active-analytics-border-color;
   color: $active-analytics-font-color;
@@ -86,19 +91,19 @@ $active-circle-background-color: #3359df;
   border-radius: 50px;
   margin-top: -30px;
   margin-right: -15px;
-  float:right;
+  float: right;
 }
 
 .checkmark {
-  display:inline-block;
+  display: inline-block;
 
-  &:after{
+  &:after {
     content: '';
     display: block;
     width: 6px;
     height: 12px;
-    border: solid white;
-    border-width: 0 1px 1px 0;
+    border: solid #fff;
+    border-width: 0 1px 1px;
     margin-top: 7px;
     transform: rotate(45deg);
   }
@@ -122,6 +127,7 @@ $active-circle-background-color: #3359df;
   height: 55.5px;
   position: absolute;
 }
+
 #available {
   margin-left: -38px;
   margin-top: -10px;
@@ -137,13 +143,14 @@ $active-circle-background-color: #3359df;
   border: solid 1px $area-chart-border-color;
   padding-bottom: 100px;
 }
+
 #art-charts {
   margin-top: 74px;
 }
 
 .graph-section {
   height: 50%;
-  padding: 30px 0 15px 0;
+  padding: 30px 0 15px;
 }
 
 #right-chart-grid {
