@@ -26,14 +26,6 @@ describe('Renders <AssetMakeComponent /> correctly', () => {
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 
-  it('renders TableRowComponent component if isLoading is false', () => {
-    props.isLoading = false;
-    wrapper = shallow(<AssetMakeComponent
-      {...props}
-    />);
-    expect(wrapper.find('SideMenuComponent').length).toBe(1);
-  });
-
   it('renders Pagination component', () => {
     props.isLoading = false;
     wrapper = shallow(<AssetMakeComponent

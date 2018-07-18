@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Container, Header, Image } from 'semantic-ui-react';
+import { Button, Image } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
 
@@ -44,24 +44,23 @@ class LoginComponent extends React.Component {
     return (
       <div>
         <SemanticToastContainer />
-        <div className="app landing-overlay background">
-          <Container>
+        <div className="app background">
+          <div id="login-container">
             <Image
-              centered
-              src="https://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png"
+              height="70px"
+              src="/images/andela_logo_blue_landscape.png"
               alt="Andela logo"
               id="andela-logo"
             />
-            <Header className="landing-heading" inverted content="ART" />
-            <Header
-              as="h1"
-              className="description"
-              inverted
-              content="Andela Resource Tracker"
-            />
+            <div id="welcome-message">
+              <p>
+                Welcome to <i>ART Admin</i>.<br />Please sign in with
+                <br /> your Google account<br /> to proceed
+              </p>
+            </div>
             <Button
               onClick={this.handleLogin}
-              className="google-button"
+              id="google-button"
               size="large"
             >
               <Image
@@ -72,7 +71,7 @@ class LoginComponent extends React.Component {
               />
               Sign in with Google
             </Button>
-          </Container>
+          </div>
         </div>
       </div>
     );

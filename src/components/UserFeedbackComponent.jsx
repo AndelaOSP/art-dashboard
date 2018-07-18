@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container, Header, Table, Pagination } from 'semantic-ui-react';
 import feedbackAction from '../_actions/userFeedback.actions';
-import SideMenuComponent from '../_components/SideMenuComponent';
+import NavbarComponent from './NavBarComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import ActionComponent from './ActionComponent';
@@ -103,9 +103,9 @@ export class UserFeedbackComponent extends React.Component {
 
   render() {
     return [
-      <SideMenuComponent title="User Feedback">
+      <NavbarComponent title="User Feedback">
         {this.display()}
-      </SideMenuComponent>
+      </NavbarComponent>
     ];
   }
 }

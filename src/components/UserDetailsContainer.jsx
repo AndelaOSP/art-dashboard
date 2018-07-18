@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import SideMenuComponent from '../_components/SideMenuComponent';
+import NavbarComponent from './NavBarComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
 import Users from '../_actions/users.actions';
 
@@ -35,7 +35,7 @@ export class UserDetailsContainer extends Component {
 
   render() {
     return (
-      <SideMenuComponent title="Users">
+      <NavbarComponent title="Users">
         <Container>
           <Header className="landing-heading" content="Users" />
           <UserDetailsComponent
@@ -50,7 +50,7 @@ export class UserDetailsContainer extends Component {
             isLoading={this.props.isLoading}
           />
         </Container>
-      </SideMenuComponent>
+      </NavbarComponent>
     );
   }
 }

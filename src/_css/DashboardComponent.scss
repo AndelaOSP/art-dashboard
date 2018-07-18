@@ -1,0 +1,160 @@
+@import "sharedStyling.scss";
+
+// dashboard variables
+$area-chart-background: #ffffff;
+$area-chart-border-color: #707070;
+$active-analytics-border-color: #0a26a8;
+$active-analytics-font-color: #0a26a8;
+$active-circle-background-color: #3359df;
+
+#dashboard-content {
+  padding: 0 110px;
+}
+
+#analytics-state-selection {
+  margin-top: 26px;
+}
+
+.analytics-states {
+  width: 238px;
+  height: 129px;
+}
+
+.ui.grid > [class*="four column"].row > .column {
+  width: 312px !important;
+}
+
+.ui.horizontal.segments {
+  border: 0;
+  box-shadow: none;
+}
+
+.ui.horizontal.segments > .segment {
+  border: 0;
+}
+
+.analytics-states-top-text,
+.analytics-states-bottom-text {
+  font-size: 17px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.analytics-states-top-text {
+  text-transform: uppercase;
+}
+
+.ui.segment,
+.ui.segments .segment.analytics-states-top-text {
+  font-weight: bold;
+}
+
+.ui.segment {
+  border-radius: 10px;
+  border: 1px solid #000;
+}
+
+.ui.segment.analytics-states-bottom-text {
+  border: 0;
+  font-weight: normal;
+}
+
+.ui.segments {
+  border: 0;
+  box-shadow: none;
+}
+
+.analytics-state-rectangle {
+  width: 238px;
+  height: 129px;
+  border-radius: 10px;
+  background-color: $area-chart-background;
+  border: solid 1px;
+  padding-top: 15px;
+}
+
+.analytics-state-rectangle.active-analytics {
+  border: solid 1px $active-analytics-border-color;
+  color: $active-analytics-font-color;
+}
+
+#circle {
+  width: 28px;
+  height: 28px;
+  background: $active-circle-background-color;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  margin-top: -30px;
+  margin-right: -15px;
+  float: right;
+}
+
+.checkmark {
+  display: inline-block;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 1px 1px 0;
+    margin-top: 7px;
+    transform: rotate(45deg);
+  }
+}
+
+#damaged {
+  margin-top: -10px;
+  width: 47.2px;
+  height: 63px;
+}
+
+#lost {
+  margin-top: -10px;
+  width: 33.3px;
+  height: 63px;
+}
+
+#allocated {
+  margin-left: -51px;
+  margin-top: -10px;
+  height: 55.5px;
+  position: absolute;
+}
+
+#available {
+  margin-left: -38px;
+  margin-top: -10px;
+  height: 63px;
+  position: absolute;
+}
+
+#area-chart {
+  width: 550px;
+  height: 475px;
+  border-radius: 10px;
+  background-color: $area-chart-background;
+  border: solid 1px $area-chart-border-color;
+  padding-bottom: 100px;
+}
+
+#art-charts {
+  margin-top: 74px;
+}
+
+.graph-section {
+  height: 50%;
+  padding: 30px 0 15px 0;
+}
+
+#right-chart-grid {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}

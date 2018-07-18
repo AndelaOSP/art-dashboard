@@ -6,7 +6,7 @@ import { Container, Header, Table, Button, Pagination } from 'semantic-ui-react'
 import _ from 'lodash';
 
 import TableRowComponent from '../TableRowComponent';
-import SideMenuComponent from '../../_components/SideMenuComponent';
+import NavbarComponent from '../NavBarComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import ActionComponent from '../../components/ActionComponent';
 
@@ -31,24 +31,24 @@ export class AssetMakeComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     if (!this.props.isLoading && _.isEmpty(this.props.assetMakes)) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <Container>
             <h1>
               No Asset Make Found
             </h1>
           </Container>
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     return (
-      <SideMenuComponent>
+      <NavbarComponent>
         <Container>
           <Header className="landing-heading" content="Asset Makes" />
           <Table celled>
@@ -93,7 +93,7 @@ export class AssetMakeComponent extends React.Component {
             </Table.Footer>
           </Table>
         </Container>
-      </SideMenuComponent>
+      </NavbarComponent>
     );
   }
 }
