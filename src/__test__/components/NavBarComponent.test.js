@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { NavBarRedesignComponent } from '../../components/NavBarRedesignComponent';
+import { NavBarComponent } from '../../components/NavBarComponent';
 
 import localStorageMock from '../../_mock/localStorage';
 
@@ -15,9 +15,9 @@ const props = {
   toggleVisibility: true
 };
 
-const wrapper = shallow(<NavBarRedesignComponent {...props} />);
+const wrapper = shallow(<NavBarComponent {...props} />);
 
-describe('renders <NavBarRedesignComponent />', () => {
+describe('renders <NavBarComponent />', () => {
   it('should render navbar menu component', () => {
     expect(wrapper.find('Menu').length).toEqual(1);
   });
@@ -53,5 +53,14 @@ describe('renders <NavBarRedesignComponent />', () => {
     wrapper.find('#logout').simulate('click');
     wrapper.instance().handleLogout();
     expect(handleLogoutSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('toggle visibility of secondary menu', () => {
+    const toggleVisibilitySpy = jest.spyOn(
+      wrapper.instance(), 'toggleVisibility'
+    );
+    wrapper.find('#toggle-menu').simulate('click');
+    wrapper.instance().toggleVisibility();
+    expect(toggleVisibilitySpy.mock.calls.length).toEqual(1);
   });
 });

@@ -16,7 +16,6 @@ import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
 import UserContainer from '../components/UserDetailsContainer';
-import DashboardRedesign from '../components/DashboardRedesignComponent';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -94,12 +93,6 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/asset-conditions"
             component={AssetConditions}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/dashboard-re"
-            component={DashboardRedesign}
           />
           <Authenticate
             exact

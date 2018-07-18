@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
 import AssetDetailContent from './AssetDetailContent';
-import SideMenuComponent from '../_components/SideMenuComponent';
+import NavbarComponent from './NavBarComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
@@ -42,7 +42,7 @@ export class AssetDetailComponent extends Component {
 
   render() {
     return (
-      <SideMenuComponent>
+      <NavbarComponent>
         <Container>
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
           <AssetDetailContent
@@ -53,7 +53,7 @@ export class AssetDetailComponent extends Component {
             isLoading={this.props.isLoading}
           />
         </Container >
-      </SideMenuComponent>
+      </NavbarComponent>
     );
   }
 }

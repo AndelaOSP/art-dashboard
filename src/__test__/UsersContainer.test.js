@@ -18,10 +18,8 @@ describe('Renders <UserDetailsContainer /> correctly', () => {
   it('renders the UserDetailsComponent component', () => {
     expect(wrapper.find('UserDetailsComponent').length).toBe(1);
   });
+
   it('renders page title', () => {
     expect(wrapper.find('.landing-heading').prop('content')).toEqual('Users');
-  });
-  it('renders the SideMenuComponent component', () => {
-    expect(wrapper.find('SideMenuComponent').length).toBe(1);
   });
 });

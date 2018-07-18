@@ -14,9 +14,9 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import '../_css/NavBarRedesignComponent.css';
+import '../_css/NavBarComponent.css';
 
-export class NavBarRedesignComponent extends Component {
+export class NavBarComponent extends Component {
   state = {
     visible: false
   };
@@ -36,7 +36,7 @@ export class NavBarRedesignComponent extends Component {
     return (
       <div>
         <Menu id="nav-bar" secondary stackable>
-          <Menu.Item name="menu" onClick={this.toggleVisibility}>
+          <Menu.Item id="toggle-menu" name="menu" onClick={this.toggleVisibility}>
             <Icon id="hamburger" name="bars" />
           </Menu.Item>
 
@@ -159,15 +159,15 @@ export class NavBarRedesignComponent extends Component {
   }
 }
 
-NavBarRedesignComponent.propTypes = {
-  children: PropTypes.node.isRequired,
+NavBarComponent.propTypes = {
+  children: PropTypes.node,
   history: PropTypes.object.isRequired,
   push: PropTypes.func
 };
 
-NavBarRedesignComponent.defaultProps = {
+NavBarComponent.defaultProps = {
   push: () => {
   }
 };
 
-export default withRouter(NavBarRedesignComponent);
+export default withRouter(NavBarComponent);
