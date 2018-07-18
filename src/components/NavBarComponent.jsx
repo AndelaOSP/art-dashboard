@@ -150,6 +150,7 @@ export class NavBarComponent extends Component {
               </Grid>
             </Grid>
           </Sidebar>
+
           <Sidebar.Pusher>
             {this.props.children}
           </Sidebar.Pusher>
