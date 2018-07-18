@@ -16,6 +16,7 @@ import loadIncidenceReportsReducer from './incidenceReports.reducer';
 import loadAssetCategoriesReducer from './assetCategories.reducer';
 import assetConditionReducer from './assetCondition.reducer';
 import usersReducer from './users.reducer';
+import loadAssetSpecsReducer from './assetSpecs.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
   allocationsList: allocationsReducer,
   assetCategories: loadAssetCategoriesReducer,
   assetConditions: assetConditionReducer,
-  usersList: usersReducer
+  usersList: usersReducer,
+  assetSpecs: loadAssetSpecsReducer
 });
 
 export default rootReducer;
