@@ -27,7 +27,6 @@ AnalyticsCardComponent.propTypes = {
   assetState: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   cssClass: PropTypes.string
-
 };
 
 AnalyticsCardComponent.default = {
