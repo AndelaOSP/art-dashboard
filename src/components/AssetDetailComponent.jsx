@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
+import { loadDropDownUsers } from '../_actions/users.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
 
@@ -13,6 +15,9 @@ export class AssetDetailComponent extends Component {
 
   componentDidMount() {
     this.getAssetId(this.props.location.pathname);
+    if (_.isEmpty(this.props.users)) {
+      this.props.loadDropDownUsers();
+    }
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -40,12 +45,17 @@ export class AssetDetailComponent extends Component {
     this.props.getAssetDetail(serialNumber);
   }
 
+  onSelectUserEmail() {
+    this.setState({});
+  }
+
   render() {
     return (
       <NavbarComponent>
         <Container>
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
           <AssetDetailContent
+            {...this.props}
             assetDetail={this.props.assetDetail}
             assignedUser={this.state.assignedUser}
             errorMessage={this.props.errorMessage}
@@ -59,17 +69,21 @@ export class AssetDetailComponent extends Component {
 }
 
 AssetDetailComponent.propTypes = {
+  loadDropDownUsers: PropTypes.func,
   assetDetail: PropTypes.object,
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
-  location: PropTypes.object
+  location: PropTypes.object,
+  users: PropTypes.array
 };
 
-const mapStateToProps = ({ asset }) => {
+const mapStateToProps = ({ asset, usersList }) => {
   const { assetDetail, errorMessage, hasError, isLoading } = asset;
+  const { users } = usersList;
   return {
+    users,
     assetDetail,
     errorMessage,
     hasError,
@@ -77,4 +91,6 @@ const mapStateToProps = ({ asset }) => {
   };
 };
 
-export default connect(mapStateToProps, { getAssetDetail })(AssetDetailComponent);
+export default connect(mapStateToProps, {
+  getAssetDetail, loadDropDownUsers
+})(AssetDetailComponent);

@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Container, Header, Grid } from 'semantic-ui-react';
 import { isEmpty, values } from 'lodash';
+import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AssetDescriptionComponent.css';
+
+const userEmailsOptions = usersList => usersList.map((typeOption, index) => ({
+  key: index,
+  text: typeOption.email,
+  value: typeOption.id
+}));
 
 const AssetDescriptionComponent = props => (
   <Container>
@@ -17,7 +24,21 @@ const AssetDescriptionComponent = props => (
       </Grid.Column>
       <Grid.Column>
         {isEmpty(values(props.assignedUser)) ?
-          <Button id="assign-user">Assign User</Button> :
+          (
+            <div>
+              <Header as="h3" content="Assign this asset to:" />
+              <DropdownComponent
+                label="Assign this asset to:"
+                placeHolder="Select Andela Email"
+                name="assign-user"
+                search
+                // onChange={props.onSelectUserEmail}
+                options={userEmailsOptions(props.users)}
+              />
+              <br />
+              <Button id="assign-user">Assign User</Button>
+            </div>
+          ) :
           (
             <div>
               <div className="asset-user"><b>Assigned To:</b><p>{props.assignedUser.email}</p></div>
@@ -27,11 +48,16 @@ const AssetDescriptionComponent = props => (
         }
       </Grid.Column>
     </Grid>
-  </Container>
+  </Container >
 );
 
 AssetDescriptionComponent.propTypes = {
-  assignedUser: PropTypes.object
+  assignedUser: PropTypes.object,
+  users: PropTypes.array
+};
+
+AssetDescriptionComponent.defaultProps = {
+  users: []
 };
 
 export default AssetDescriptionComponent;

@@ -28,7 +28,10 @@ const AssetDetailContent = (props) => {
       menuItem: 'Description',
       render: () => (
         <Tab.Pane attached={false} className="asset-tab-pane">
-          <AssetDescriptionComponent assignedUser={assignedUser} />
+          <AssetDescriptionComponent
+            {...props}
+            assignedUser={assignedUser}
+          />
         </Tab.Pane>)
     },
     {
