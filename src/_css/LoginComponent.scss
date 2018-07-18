@@ -1,4 +1,4 @@
-@import 'sharedStyling.scss';
+@import 'sharedStyling';
 
 $landing_page_image: url('/images/landing_page_image.png');
 
@@ -55,9 +55,7 @@ $landing_page_image: url('/images/landing_page_image.png');
   margin-bottom: 55px !important;
 }
 
-/*
-  Device = Smart phones (Portrait)
-*/
+// Device = Smart phones (Portrait)
 @media (min-width: 320px) and (max-width: 480px) {
   #login-container {
     position: initial;

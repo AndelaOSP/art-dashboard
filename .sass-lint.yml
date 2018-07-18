@@ -16,6 +16,7 @@ rules:
 
   # Style Guide
   hex-length: 0
+  leading-zero: 0
   nesting-depth: 0
   property-sort-order: 0
   quotes: 0
