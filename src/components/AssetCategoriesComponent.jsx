@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Button, Container, Pagination, Table, Header } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent';
-import SideMenuComponent from '../_components/SideMenuComponent';
+import NavbarComponent from './NavBarComponent';
 import LoaderComponent from './LoaderComponent';
 import ActionComponent from './ActionComponent';
 
@@ -33,14 +33,14 @@ export class AssetCategoriesComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     if (!this.props.isLoading && this.props.hasError) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <Container>
             <h1>
               An Error Occurred While Trying To Display The Asset Categories
@@ -49,22 +49,22 @@ export class AssetCategoriesComponent extends React.Component {
               Try Again
             </Button>
           </Container>
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     if (!this.props.isLoading && this.emptyCategoriesCheck()) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <Container>
             <h1>
               No Asset Categories Found.
             </h1>
           </Container>
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     return (
-      <SideMenuComponent>
+      <NavbarComponent>
         <Container>
           <Header className="landing-heading" content="Asset Categories" />
           <Table celled>
@@ -109,7 +109,7 @@ export class AssetCategoriesComponent extends React.Component {
             </Table.Footer>
           </Table>
         </Container>
-      </SideMenuComponent>
+      </NavbarComponent>
     );
   }
 }

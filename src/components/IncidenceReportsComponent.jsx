@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Container, Table, Header, Pagination } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent.jsx';
-import SideMenuComponent from '../_components/SideMenuComponent.jsx';
+import NavbarComponent from './NavBarComponent';
 
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
 
@@ -30,7 +30,7 @@ export class IncidenceReportsComponent extends React.Component {
 
   render() {
     return (
-      <SideMenuComponent>
+      <NavbarComponent>
         <Container>
           <Header className="landing-heading" content="Incidence Reports" />
           <Table celled>
@@ -85,7 +85,7 @@ export class IncidenceReportsComponent extends React.Component {
             </Table.Footer>
           </Table>
         </Container>
-      </SideMenuComponent>
+      </NavbarComponent>
     );
   }
 }

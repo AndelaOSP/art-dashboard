@@ -189,5 +189,9 @@ tags
 !.vscode/extensions.json
 .history
 
+# Build files
+src/**/*.css
+src/**/*.css.map
+
 
 # End of https://www.gitignore.io/api/vim,venv,node,macos,intellij,visualstudiocode

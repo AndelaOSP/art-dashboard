@@ -1,0 +1,132 @@
+@import "sharedStyling.scss";
+
+#nav-bar {
+  height: 100px;
+  padding: 0 93px;
+  background-color: #fff;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  margin-bottom: 10px;
+
+  a:hover,
+  .right > .item {
+    background: none;
+  }
+
+  .right > .active > span > img {
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  #hamburger {
+    color: $andela-blue;
+    cursor: pointer;
+  }
+
+  #banner {
+    height: 30px;
+  }
+
+  #search-menu {
+    margin: 0 auto;
+
+    #nav-search {
+      color: $andela-blue;
+      width: 251px;
+      height: 45px;
+      border-radius: 10px;
+      border: solid 1px $andela-blue;
+      padding-left: 36px;
+    }
+
+    #nav-search::-webkit-input-placeholder {
+      color: $andela-blue;
+    }
+
+    #nav-search::-moz-placeholder {
+      color: $andela-blue;
+    }
+
+    #nav-search:-ms-input-placeholder {
+      color: $andela-blue;
+    }
+
+    .ui.icon.input>i.icon {
+      color: $andela-blue;
+      left: 0;
+    }
+  }
+
+  #notification-icon {
+    width: 32px;
+    height: 32px;
+    background-color: $andela-blue !important;
+    cursor: pointer;
+  }
+
+  #user-avatar {
+    width: 63px;
+    height: 63px;
+  }
+
+  i.icons .corner.icon {
+    top: auto;
+    left: 0;
+    bottom: auto;
+    right: auto;
+    width: 14px;
+    height: 14px;
+    color: $andela-orange;
+  }
+
+  .right.menu {
+    margin-left: 0 !important;
+  }
+}
+
+#nav-bar2 {
+  .push .grid .column > span {
+    font-size: 20px;
+    color: #4183c4;
+    cursor: pointer;
+  }
+
+  .pusher {
+    padding: 0 0 30px;
+    min-height: 93vh;
+    overflow: hidden;
+  }
+
+  .ui.sidebar {
+    height: 100px !important;
+    overflow: hidden;
+  }
+
+  .ui.visible.top.sidebar~.fixed,
+  .ui.visible.top.sidebar~.pusher {
+    -webkit-transform: translate3d(0, 100px, 0);
+    transform: translate3d(0, 100px, 0);
+  }
+
+  .nav-images {
+    height: 53px;
+    display: initial;
+    margin-right: 10px;
+  }
+
+  .grid > .column {
+    box-shadow: none;
+  }
+
+  .grid > .column a {
+    font-size: 20px;
+  }
+}
+
+.pushable {
+  overflow: hidden;
+}
+
+#assets-popup {
+  max-width: 400px;
+  margin-top: 1.5rem;
+  font-size: 15px;
+}

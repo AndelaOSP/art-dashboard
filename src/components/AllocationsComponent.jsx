@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import loadAllocationsAction from '../_actions/allocations.actions';
-import SideMenuComponent from '../_components/SideMenuComponent';
+import NavbarComponent from './NavBarComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import AllocationActionComponent from './AllocationActionComponent';
@@ -33,24 +33,24 @@ export class AllocationsComponent extends Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <Container>
             <h1>
               No Assets Currently Assigned
             </h1>
           </Container>
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     return (
-      <SideMenuComponent>
+      <NavbarComponent>
         <Container>
           <Header content="All Allocations" className="allocations-heading" />
           <Table celled>
@@ -98,7 +98,7 @@ export class AllocationsComponent extends Component {
             </Table.Footer>
           </Table>
         </Container>
-      </SideMenuComponent>
+      </NavbarComponent>
     );
   }
 }

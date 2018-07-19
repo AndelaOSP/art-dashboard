@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import SideMenuComponent from '../_components/SideMenuComponent';
+import NavbarComponent from './NavBarComponent';
 import AssetsTableContent from './AssetsTableContent';
 
 import '../_css/AssetsComponent.css';
@@ -42,7 +42,7 @@ export class AssetsComponent extends Component {
 
   render() {
     return (
-      <SideMenuComponent title="Assets">
+      <NavbarComponent title="Assets">
         <Container>
           <Header className="assets-heading" content="Assets" />
           <AssetsTableContent
@@ -57,7 +57,7 @@ export class AssetsComponent extends Component {
             isLoading={this.props.isLoading}
           />
         </Container>
-      </SideMenuComponent>
+      </NavbarComponent>
     );
   }
 }

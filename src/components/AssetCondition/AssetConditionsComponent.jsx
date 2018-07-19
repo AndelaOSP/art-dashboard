@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Button, Container, Table, Header, Pagination } from 'semantic-ui-react';
 
 import TableRowComponent from '../TableRowComponent.jsx';
-import SideMenuComponent from '../../_components/SideMenuComponent.jsx';
+import NavbarComponent from '../NavBarComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import AssetConditionActionComponent from './AssetConditionActionComponent';
 
@@ -32,24 +32,24 @@ export class AssetConditionsComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     if (!this.props.isLoading && _.isEmpty(this.props.assetConditionsList)) {
       return (
-        <SideMenuComponent>
+        <NavbarComponent>
           <Container>
             <h1>
               No Asset Conditions Found
             </h1>
           </Container>
-        </SideMenuComponent>
+        </NavbarComponent>
       );
     }
     return (
-      <SideMenuComponent>
+      <NavbarComponent>
         <Container>
           <Header className="landing-heading" content="Asset Conditions" />
           <Table celled>
@@ -103,7 +103,7 @@ export class AssetConditionsComponent extends React.Component {
             </Table.Footer>
           </Table>
         </Container>
-      </SideMenuComponent>
+      </NavbarComponent>
     );
   }
 }
