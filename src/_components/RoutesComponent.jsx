@@ -16,6 +16,7 @@ import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
 import UserContainer from '../components/UserDetailsContainer';
+import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -99,6 +100,12 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/asset-makes"
             component={AssetMakes}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/asset-specs"
+            component={AssetSpecs}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />
