@@ -47,6 +47,17 @@ export class AssetSpecsComponent extends React.Component {
         </NavbarComponent>
       );
     }
+    if (!this.props.isLoading && this.props.hasError) {
+      return (
+        <NavbarComponent>
+          <Container>
+            <h1>
+              An Error Occured
+            </h1>
+          </Container>
+        </NavbarComponent>
+      );
+    }
     return (
       <NavbarComponent>
         <Container>
@@ -61,6 +72,7 @@ export class AssetSpecsComponent extends React.Component {
                 <Table.HeaderCell>Processor Type</Table.HeaderCell>
                 <Table.HeaderCell>Storage</Table.HeaderCell>
                 <Table.HeaderCell>Memory</Table.HeaderCell>
+                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -90,7 +102,7 @@ export class AssetSpecsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="4">
+                <Table.HeaderCell colSpan="8">
                   {!_.isEmpty(this.props.specs) &&
                     <Pagination
                       totalPages={this.getTotalPages()}
@@ -110,11 +122,12 @@ export class AssetSpecsComponent extends React.Component {
 }
 
 const mapStateToProps = ({ assetSpecs }) => {
-  const { specs, assetSpecsCount, isLoading } = assetSpecs;
+  const { specs, assetSpecsCount, isLoading, hasError } = assetSpecs;
   return {
     specs,
     assetSpecsCount,
-    isLoading
+    isLoading,
+    hasError
   };
 };
 
@@ -122,7 +135,8 @@ AssetSpecsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadAssetSpecs: PropTypes.func.isRequired,
   specs: PropTypes.array.isRequired,
-  assetSpecsCount: PropTypes.number.isRequired
+  assetSpecsCount: PropTypes.number.isRequired,
+  hasError: PropTypes.bool.isRequired
 };
 
 export default withRouter(connect(mapStateToProps, {
