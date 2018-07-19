@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import _, { isEmpty, values } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
 import { loadDropDownUsers } from '../_actions/users.actions';
@@ -22,19 +22,21 @@ export class AssetDetailComponent extends Component {
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.assetDetail.assigned_to !== prevState.assigned_to) {
+  static getDerivedStateFromProps(nextProps) {
+    if (!isEmpty(values(nextProps.assetDetail.assigned_to))) {
       return {
         assignedUser: nextProps.assetDetail.assigned_to
+      };
+    }
+    if (!isEmpty(values(nextProps.allAllocations))) {
+      return {
+        assignedUser: { email: nextProps.allAllocations.current_owner }
       };
     }
     return null;
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.allAllocations.length !== 0) {
-      this.getAssetId(this.props.location.pathname);
-    }
     if (
       this.props.hasError &&
       (this.props.errorMessage === nextProps.errorMessage)
@@ -95,7 +97,7 @@ AssetDetailComponent.propTypes = {
   isLoading: PropTypes.bool,
   location: PropTypes.object,
   users: PropTypes.array,
-  allAllocations: PropTypes.array
+  allAllocations: PropTypes.object
 };
 
 const mapStateToProps = ({ asset, usersList, allocationsList }) => {
