@@ -20,14 +20,14 @@ export class AllocationsComponent extends Component {
   }
 
   componentDidMount() {
-    this.props.loadAllocationsAction(this.state.activePage);
+    this.props.loadAllocationsAction(this.state.activePage, this.state.limit);
   }
 
   getTotalPages = () => Math.ceil(this.props.allocationsCount / this.state.limit);
 
   handlePaginationChange = (event, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAllocationsAction(activePage);
+    this.props.loadAllocationsAction(activePage, this.state.limit);
   };
 
   render() {

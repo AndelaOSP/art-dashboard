@@ -12,9 +12,9 @@ const {
   LOAD_DROPDOWN_ASSET_TYPES_SUCCESS
 } = constants;
 
-export const loadAssetTypes = pageNumber => (dispatch) => {
+export const loadAssetTypes = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_ASSET_TYPES });
-  return axios.get(`asset-types?page=${pageNumber}`)
+  return axios.get(`asset-types?page=${pageNumber}&page_size=${limit}`)
     .then(response => dispatch({
       type: LOAD_ASSET_TYPES_SUCCESS,
       payload: response.data
@@ -49,7 +49,7 @@ export const loadDropdownAssetTypes = () => (dispatch) => {
     .get(`asset-types?page=${pageNumber}`)
     .then((response) => {
       const pages = Array.from(
-        { length: Math.ceil(response.data.count / 10) },
+        { length: Math.ceil(response.data.count / 20) },
         (page, key) => key + 1
       );
       let allAssetTypes = response.data.results;

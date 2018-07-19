@@ -66,7 +66,7 @@ export const createSubCategoryFailure = error => ({
 
 export const loadSubCategoriesDropdown = pageNumber => dispatch => (
   axios.get(`asset-sub-categories?page=${pageNumber}`).then((response) => {
-    const pageLimit = Math.ceil(response.data.count / 10);
+    const pageLimit = Math.ceil(response.data.count / 20);
     if (pageLimit > 1) {
       dispatch(loadSubCategoriesSuccess(response.data));
       while (pageNumber < pageLimit) {
