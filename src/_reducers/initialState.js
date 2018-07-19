@@ -77,6 +77,7 @@ export default {
   },
   allocations: {
     allAllocations: [],
+    newAllocation: [],
     allocationsCount: 0,
     isLoading: false
   }

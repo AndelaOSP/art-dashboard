@@ -32,7 +32,7 @@ export default (state = initialState.allocations, action) => {
     case NEW_ALLOCATION_SUCCESS:
       return {
         ...state,
-        allAllocations: action.payload.data
+        newAllocation: [...state.newAllocation, action.payload.data]
       };
     case NEW_ALLOCATION_FAILURE:
       return {

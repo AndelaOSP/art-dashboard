@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _, { isEmpty, values } from 'lodash';
+import _ from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
 import { loadDropDownUsers } from '../_actions/users.actions';
@@ -11,7 +11,7 @@ import NavbarComponent from './NavBarComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
-    assignedUser: {},
+    assignedUser: null,
     selectedUser: ''
   }
 
@@ -23,17 +23,25 @@ export class AssetDetailComponent extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-    if (!isEmpty(values(nextProps.assetDetail.assigned_to))) {
+    // if (!isEmpty(nextProps.assetDetail.assigned_to)) {
+    //   return {
+    //     assignedUser: nextProps.assetDetail.assigned_to
+    //   };
+    // }
+    // if (!isEmpty(nextProps.newAllocation)) {
+    //   return {
+    //     assignedUser: { email: nextProps.newAllocation.current_owner }
+    //   };
+    // }
+    // return null;
+    if (nextProps.assetDetail.assigned_to) {
       return {
         assignedUser: nextProps.assetDetail.assigned_to
       };
     }
-    if (!isEmpty(values(nextProps.allAllocations))) {
-      return {
-        assignedUser: { email: nextProps.allAllocations.current_owner }
-      };
-    }
-    return null;
+    return {
+      assignedUser: null
+    };
   }
 
   shouldComponentUpdate(nextProps) {
@@ -97,17 +105,17 @@ AssetDetailComponent.propTypes = {
   isLoading: PropTypes.bool,
   location: PropTypes.object,
   users: PropTypes.array,
-  allAllocations: PropTypes.object
+  newAllocation: PropTypes.array
 };
 
 const mapStateToProps = ({ asset, usersList, allocationsList }) => {
   const { assetDetail, errorMessage, hasError, isLoading } = asset;
-  const { allAllocations } = allocationsList;
+  const { newAllocation } = allocationsList;
   const { users } = usersList;
   return {
     users,
     assetDetail,
-    allAllocations,
+    newAllocation,
     errorMessage,
     hasError,
     isLoading

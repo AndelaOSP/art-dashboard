@@ -14,7 +14,7 @@ export class UserDetailsContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.loadUsers(this.state.activePage);
+    this.props.loadUsers(this.state.activePage, this.state.limit);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -27,7 +27,7 @@ export class UserDetailsContainer extends Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadUsers(activePage);
+    this.props.loadUsers(activePage, this.state.limit);
   }
 
   handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit)
