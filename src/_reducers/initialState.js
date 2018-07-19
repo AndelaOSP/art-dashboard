@@ -66,5 +66,13 @@ export default {
     errorMessage: '',
     hasError: false,
     isLoading: false
+  },
+  assetSpecs: {
+    specs: [],
+    assetSpecsCount: 0,
+    isLoading: false,
+    hasError: false,
+    previousUrl: '',
+    nextUrl: ''
   }
 };

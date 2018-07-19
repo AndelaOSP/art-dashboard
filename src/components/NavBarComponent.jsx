@@ -132,6 +132,9 @@ export class NavBarComponent extends Component {
                       <Grid.Column>
                         <Link to="/asset-conditions"><Icon name="list ul" />Asset Conditions</Link>
                       </Grid.Column>
+                      <Grid.Column>
+                        <Link to="/asset-specs"><Icon name="list ul" />Asset Specs</Link>
+                      </Grid.Column>
                     </Grid>
                   </Popup>
                 </Grid.Column>
