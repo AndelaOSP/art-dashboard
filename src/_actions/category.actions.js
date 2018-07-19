@@ -18,7 +18,7 @@ export const loadCategoriesDropdown = pageNumber => (dispatch) => {
 
   return axios.get(`asset-categories/?page=${pageNumber}`)
     .then((response) => {
-      const pageLimit = Math.ceil(response.data.count / 10);
+      const pageLimit = Math.ceil(response.data.count / 20);
 
       if (pageLimit > 1) {
         dispatch(loadCategoriesSuccess(response.data));

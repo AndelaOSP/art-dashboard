@@ -16,12 +16,12 @@ export class IncidenceReportsComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadIncidenceReports(this.state.activePage);
+    this.props.loadIncidenceReports(this.state.activePage, this.state.limit);
   }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadIncidenceReports(activePage);
+    this.props.loadIncidenceReports(activePage, this.state.limit);
   }
 
   handlePageTotal = () => Math.ceil(this.props.incidenceReportsCount / this.state.limit)

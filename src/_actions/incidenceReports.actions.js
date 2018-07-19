@@ -23,10 +23,10 @@ export const loadIncidenceReportsSuccess = incidenceReports => (
  *
  * @return {(dispatch:any)=>Promise<TResult2|TResult1>}
  */
-export const loadIncidenceReports = pageNumber =>
+export const loadIncidenceReports = (pageNumber, limit) =>
   (dispatch) => {
     dispatch({ type: LOAD_INCIDENCE_REPORTS_START });
-    return axios.get(`incidence-reports?page=${pageNumber}`)
+    return axios.get(`incidence-reports?page=${pageNumber}&page_size=${limit}`)
       .then((response) => {
         dispatch(loadIncidenceReportsSuccess(response.data));
       })

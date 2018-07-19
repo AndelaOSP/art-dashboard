@@ -7,9 +7,9 @@ const {
   LOADING_ALLOCATIONS
 } = constants;
 
-const loadAllocationsAction = pageNumber => (dispatch) => {
+const loadAllocationsAction = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_ALLOCATIONS });
-  return axios.get(`allocations?page=${pageNumber}`)
+  return axios.get(`allocations?page=${pageNumber}&page_size=${limit}`)
     .then(response => dispatch({
       type: LOAD_ALLOCATIONS_SUCCESS,
       payload: response.data

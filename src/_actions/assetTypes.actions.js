@@ -49,7 +49,7 @@ export const loadDropdownAssetTypes = () => (dispatch) => {
     .get(`asset-types?page=${pageNumber}`)
     .then((response) => {
       const pages = Array.from(
-        { length: Math.ceil(response.data.count / 10) },
+        { length: Math.ceil(response.data.count / 20) },
         (page, key) => key + 1
       );
       let allAssetTypes = response.data.results;

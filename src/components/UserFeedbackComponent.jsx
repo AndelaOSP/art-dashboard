@@ -19,12 +19,12 @@ export class UserFeedbackComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.feedbackAction(this.state.activePage);
+    this.props.feedbackAction(this.state.activePage, this.state.limit);
   }
 
   handlePaginationChange = (event, { activePage }) => {
     this.setState({ activePage });
-    this.props.feedbackAction(activePage);
+    this.props.feedbackAction(activePage, this.state.limit);
   }
 
   handlePageTotal = () => Math.ceil(this.props.feedbackCount / this.state.limit)
