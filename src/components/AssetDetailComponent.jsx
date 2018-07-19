@@ -5,12 +5,14 @@ import _ from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
 import { loadDropDownUsers } from '../_actions/users.actions';
+import { allocateAsset } from '../_actions/allocations.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
-    assignedUser: {}
+    assignedUser: {},
+    selectedUser: ''
   }
 
   componentDidMount() {
@@ -20,16 +22,19 @@ export class AssetDetailComponent extends Component {
     }
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.assetDetail.assigned_to !== state.assignedUser) {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.assetDetail.assigned_to !== prevState.assigned_to) {
       return {
-        assignedUser: props.assetDetail.assigned_to
+        assignedUser: nextProps.assetDetail.assigned_to
       };
     }
     return null;
   }
 
   shouldComponentUpdate(nextProps) {
+    if (nextProps.allAllocations.length !== 0) {
+      this.getAssetId(this.props.location.pathname);
+    }
     if (
       this.props.hasError &&
       (this.props.errorMessage === nextProps.errorMessage)
@@ -45,8 +50,18 @@ export class AssetDetailComponent extends Component {
     this.props.getAssetDetail(serialNumber);
   }
 
-  onSelectUserEmail() {
-    this.setState({});
+  onSelectUserEmail = (event, data) => {
+    this.setState({ selectedUser: data.value });
+  }
+
+  handleSubmit = () => {
+    const { selectedUser } = this.state;
+    const { id } = this.props.assetDetail;
+    const assetAllocated = {
+      asset: id,
+      current_owner: selectedUser
+    };
+    this.props.allocateAsset(assetAllocated);
   }
 
   render() {
@@ -61,6 +76,8 @@ export class AssetDetailComponent extends Component {
             errorMessage={this.props.errorMessage}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
+            onSelectUserEmail={this.onSelectUserEmail}
+            handleSubmit={this.handleSubmit}
           />
         </Container >
       </NavbarComponent>
@@ -70,21 +87,25 @@ export class AssetDetailComponent extends Component {
 
 AssetDetailComponent.propTypes = {
   loadDropDownUsers: PropTypes.func,
+  allocateAsset: PropTypes.func,
   assetDetail: PropTypes.object,
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
   location: PropTypes.object,
-  users: PropTypes.array
+  users: PropTypes.array,
+  allAllocations: PropTypes.array
 };
 
-const mapStateToProps = ({ asset, usersList }) => {
+const mapStateToProps = ({ asset, usersList, allocationsList }) => {
   const { assetDetail, errorMessage, hasError, isLoading } = asset;
+  const { allAllocations } = allocationsList;
   const { users } = usersList;
   return {
     users,
     assetDetail,
+    allAllocations,
     errorMessage,
     hasError,
     isLoading
@@ -92,5 +113,5 @@ const mapStateToProps = ({ asset, usersList }) => {
 };
 
 export default connect(mapStateToProps, {
-  getAssetDetail, loadDropDownUsers
+  getAssetDetail, loadDropDownUsers, allocateAsset
 })(AssetDetailComponent);

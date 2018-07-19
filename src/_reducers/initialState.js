@@ -74,5 +74,10 @@ export default {
     hasError: false,
     previousUrl: '',
     nextUrl: ''
+  },
+  allocations: {
+    allAllocations: [],
+    allocationsCount: 0,
+    isLoading: false
   }
 };

@@ -32,16 +32,25 @@ const AssetDescriptionComponent = props => (
                 placeHolder="Select Andela Email"
                 name="assign-user"
                 search
-                // onChange={props.onSelectUserEmail}
+                onChange={props.onSelectUserEmail}
                 options={userEmailsOptions(props.users)}
               />
               <br />
-              <Button id="assign-user">Assign User</Button>
+              <Button
+                id="assign-user"
+                onClick={props.handleSubmit}
+              >
+                Assign User
+              </Button>
             </div>
           ) :
           (
             <div>
-              <div className="asset-user"><b>Assigned To:</b><p>{props.assignedUser.email}</p></div>
+              <Header as="h3" content="Assigned To:" />
+              <div className="asset-specs">
+                {props.assignedUser.email}
+              </div>
+              <br />
               <Button className="unassign-button">Unassign User</Button>
             </div>
           )
@@ -52,6 +61,8 @@ const AssetDescriptionComponent = props => (
 );
 
 AssetDescriptionComponent.propTypes = {
+  onSelectUserEmail: PropTypes.func,
+  handleSubmit: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array
 };
