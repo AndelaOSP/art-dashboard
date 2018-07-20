@@ -10,9 +10,7 @@ $table-row-color: #4aabb0;
 .assets-heading {
   font-size: 15px;
   float: left;
-  //width: 19px;
   text-align: left;
-  border: 1px solid blue;
   text-transform: uppercase;
 }
 
@@ -44,15 +42,13 @@ $table-row-color: #4aabb0;
   text-align: left;
 }
 .modal-holder {
-  border: 1px solid green;
   width: 18px;
   float: right;
 }
 
 #table-heading-section {
-  border: 1px solid brown;
   padding: 0px;
-  width: 98px;
+  width: 100px;
   height: 24px;
 }
 
@@ -66,11 +62,27 @@ $table-row-color: #4aabb0;
 
 .model-number-section {
   padding-left: 9px !important;
+  padding-right: 35px !important;
 }
 
 .make-label-section {
-  padding-left: 9px !important;
+  padding-left: 4px !important;
+  padding-right: 50px !important;
 }
+
+.asset-type-section {
+  padding-left: 4px !important;
+  padding-right: 57px !important;
+}
+
+.subcategory-section {
+  padding-right: 4px !important;
+}
+
+.category-section {
+  padding-right: 37px !important;
+}
+
 
 #asset-type-group {
   border: 1px solid brown;
@@ -79,19 +91,7 @@ $table-row-color: #4aabb0;
   height: 24px;
 }
 
-//
-//.ui.table thead th {
-//  background: $andela-white;
-//}
-//
-//.ui.celled.table tr th {
-//  border-left: 0;
-//}
-//
-//.ui.celled.table tbody tr {
-//  border:1px solid black;
-//}
-//.ui.celled.table tr td {
-//  border-left: 0;
-//
-//}
+#asset-list-data {
+  border: 1px solid $table-row-color;
+  border-radius: 5px;
+}

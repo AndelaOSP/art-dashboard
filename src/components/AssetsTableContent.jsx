@@ -65,7 +65,7 @@ const AssetsTableContent = (props) => {
               </ModalComponent>
             </div>
           </Segment>
-          <Segment id="table-heading-section">
+          <Segment className="asset-type-section" id="table-heading-section">
             <p className="assets-heading">Type</p>
             <div className="modal-holder">
               <ModalComponent modalTitle="Add Asset Type">
@@ -73,7 +73,7 @@ const AssetsTableContent = (props) => {
               </ModalComponent>
             </div>
           </Segment>
-          <Segment id="table-heading-section">
+          <Segment className="subcategory-section" id="table-heading-section">
             <p className="assets-heading">Sub-category</p>
             <div className="modal-holder">
               <ModalComponent modalTitle="Add Sub-Category">
@@ -81,7 +81,7 @@ const AssetsTableContent = (props) => {
               </ModalComponent>
             </div>
           </Segment>
-          <Segment id="table-heading-section">
+          <Segment className="category-section" id="table-heading-section">
             <p className="assets-heading">Category</p>
             <div className="modal-holder">
               <ModalComponent modalTitle="Add Asset Category">
@@ -95,7 +95,7 @@ const AssetsTableContent = (props) => {
         </Segment.Group>
         {
         props.activePageAssets.map(asset => (
-          <Segment.Group horizontal key={asset.id} style={{ border: '1px solid green' }}>
+          <Segment.Group horizontal key={asset.id} id="asset-list-data">
             <Segment><p className="asset-content-details-width">{asset.asset_code}</p></Segment>
             <Segment><p className="asset-content-details-width">{asset.serial_number}</p></Segment>
             <Segment><p className="asset-content-details-width">{asset.model_number}</p></Segment>
