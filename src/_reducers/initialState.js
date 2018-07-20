@@ -76,10 +76,11 @@ export default {
     nextUrl: ''
   },
   allocations: {
-    newAllocation: [],
     allAllocations: [],
     newAllocation: [],
     allocationsCount: 0,
+    errorMessage: '',
+    hasError: false,
     isLoading: false
   }
 };

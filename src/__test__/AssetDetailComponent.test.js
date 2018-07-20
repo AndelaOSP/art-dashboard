@@ -9,6 +9,8 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
   const props = {
     assetDetail: asset,
     errorMessage: '',
+    loadDropDownUsers: jest.fn(),
+    allocateAsset: jest.fn(),
     getAssetDetail: jest.fn(),
     hasError: false,
     isLoading: false,
@@ -40,5 +42,23 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     );
     wrapper.setProps({ hasError: true, errorMessage: 'error' });
     expect(shouldComponentUpdateSpy.mock.calls.length).toBe(2);
+  });
+
+  it('should mock the onSelectUserEmail function call', () => {
+    const onSelectUserEmailSpy = jest.spyOn(
+      wrapper.instance(), 'onSelectUserEmail'
+    );
+    const event = {};
+    const data = {};
+    wrapper.instance().onSelectUserEmail(event, data);
+    expect(onSelectUserEmailSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('should mock the handleSubmit function call', () => {
+    const handleSubmitSpy = jest.spyOn(
+      wrapper.instance(), 'handleSubmit'
+    );
+    wrapper.instance().handleSubmit();
+    expect(handleSubmitSpy.mock.calls.length).toEqual(1);
   });
 });

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Container, Header, Grid } from 'semantic-ui-react';
-import { isEmpty, values } from 'lodash';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AssetDescriptionComponent.css';
 
@@ -23,46 +22,85 @@ const AssetDescriptionComponent = props => (
         </div>
       </Grid.Column>
       <Grid.Column>
-        {
-          !isEmpty(values(props.assignedUser)) ?
-            <div>
-              <Header as="h3" content="Assigned To:" />
-              <div className="asset-specs">
-                {props.assignedUser.email}
-              </div>
-              <br />
-              <Button className="unassign-button">Unassign User</Button>
+        {(props.toggleState === 'assignedUser') &&
+          <div id="allocate-asset">
+            <Header as="h3" content="Assigned To:" />
+            <div
+              id="email"
+              className="asset-specs"
+            >
+              {props.assignedUser.email}
             </div>
-            :
-            !isEmpty(values(props.assignedAsset)) ?
-              (props.assignedAsset.serialNumber === props.assetDetail.serial_number) &&
-              <div>
-                <Header as="h3" content="Assigned To:" />
-                <div className="asset-specs">
-                  {props.assignedAsset.email}
-                </div>
-                <br />
-                <Button className="unassign-button">Unassign User</Button>
-              </div>
-              :
-              <div>
-                <Header as="h3" content="Assign this asset to:" />
-                <DropdownComponent
-                  label="Assign this asset to:"
-                  placeHolder="Select Andela Email"
-                  name="assign-user"
-                  search
-                  onChange={props.onSelectUserEmail}
-                  options={userEmailsOptions(props.users)}
-                />
-                <br />
-                <Button
-                  id="assign-user"
-                  onClick={props.handleSubmit}
-                >
-                  Assign User
-                </Button>
-              </div>
+            <br />
+            <Button
+              id="assign-user"
+              className="unassign-asset"
+            >
+              Unassign Asset
+            </Button>
+          </div>
+        }
+        {(props.toggleState === 'assignedAsset') &&
+          (props.assignedAsset.serialNumber === props.assetDetail.serial_number) &&
+          <div id="allocate-asset">
+            <Header as="h3" content="Assigned To:" />
+            <div
+              id="email"
+              className="asset-specs"
+            >
+              {props.assignedAsset.email}
+            </div>
+            <br />
+            <Button
+              id="assign-user"
+              className="unassign-asset"
+            >
+              Unassign Asset
+            </Button>
+          </div>
+        }
+        {(props.toggleState === 'assignedAsset') &&
+          (props.assignedAsset.serialNumber !== props.assetDetail.serial_number) &&
+          <div id="allocate-asset">
+            <Header as="h3" content="Assign this asset to:" />
+            <DropdownComponent
+              label="Assign this asset to:"
+              placeHolder="Select Andela Email"
+              name="assign-user"
+              search
+              onChange={props.onSelectUserEmail}
+              options={userEmailsOptions(props.users)}
+            />
+            <br />
+            <Button
+              id="assign-user"
+              className="assign-asset"
+              onClick={props.handleSubmit}
+            >
+              Assign Asset
+            </Button>
+          </div>
+        }
+        {(props.toggleState === '') &&
+          <div id="allocate-asset">
+            <Header as="h3" content="Assign this asset to:" />
+            <DropdownComponent
+              label="Assign this asset to:"
+              placeHolder="Select Andela Email"
+              name="assign-user"
+              search
+              onChange={props.onSelectUserEmail}
+              options={userEmailsOptions(props.users)}
+            />
+            <br />
+            <Button
+              id="assign-user"
+              className="assign-asset"
+              onClick={props.handleSubmit}
+            >
+              Assign Asset
+            </Button>
+          </div>
         }
       </Grid.Column>
     </Grid>
@@ -75,7 +113,8 @@ AssetDescriptionComponent.propTypes = {
   assignedUser: PropTypes.object,
   users: PropTypes.array,
   assignedAsset: PropTypes.object,
-  assetDetail: PropTypes.object
+  assetDetail: PropTypes.object,
+  toggleState: PropTypes.string
 };
 
 AssetDescriptionComponent.defaultProps = {

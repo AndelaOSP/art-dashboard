@@ -5,7 +5,7 @@ import { Header, Table, Pagination, Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import loadAllocationsAction from '../_actions/allocations.actions';
+import { loadAllocationsAction } from '../_actions/allocations.actions';
 import NavbarComponent from './NavBarComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';

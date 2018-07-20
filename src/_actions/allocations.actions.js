@@ -30,5 +30,5 @@ export const allocateAsset = newAllocation => dispatch =>
     }))
     .catch(error => dispatch({
       type: NEW_ALLOCATION_FAILURE,
-      payload: error
+      payload: error.message
     }));

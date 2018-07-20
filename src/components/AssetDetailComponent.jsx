@@ -12,6 +12,7 @@ import NavbarComponent from './NavBarComponent';
 export class AssetDetailComponent extends Component {
   state = {
     assignedUser: {},
+    toggleState: '',
     selectedUser: '',
     allocationsCount: 0,
     assignedAsset: {}
@@ -27,7 +28,8 @@ export class AssetDetailComponent extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!isEmpty(values(nextProps.assetDetail.assigned_to))) {
       return {
-        assignedUser: nextProps.assetDetail.assigned_to
+        assignedUser: nextProps.assetDetail.assigned_to,
+        toggleState: 'assignedUser'
       };
     }
     if (!isEmpty(values(nextProps.newAllocation))) {
@@ -36,21 +38,23 @@ export class AssetDetailComponent extends Component {
       }
       const recentAssignment = _.last(nextProps.newAllocation);
       return {
-        assignedAsset: { email: recentAssignment.current_owner, serialNumber: recentAssignment.asset.split('-') },
-        allocationsCount: nextProps.newAllocation.length
+        assignedAsset: {
+          email: recentAssignment.current_owner,
+          serialNumber: recentAssignment.asset.split(' -')[0]
+        },
+        allocationsCount: nextProps.newAllocation.length,
+        toggleState: 'assignedAsset'
       };
     }
     return null;
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.newAllocation) {
-      if (
-        this.props.hasError &&
-        (this.props.errorMessage === nextProps.errorMessage)
-      ) {
-        return false;
-      }
+    if (
+      this.props.hasError &&
+      (this.props.errorMessage === nextProps.errorMessage)
+    ) {
+      return false;
     }
     return true;
   }
@@ -82,6 +86,7 @@ export class AssetDetailComponent extends Component {
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
           <AssetDetailContent
             {...this.props}
+            toggleState={this.state.toggleState}
             assignedAsset={this.state.assignedAsset}
             assetDetail={this.props.assetDetail}
             assignedUser={this.state.assignedUser}

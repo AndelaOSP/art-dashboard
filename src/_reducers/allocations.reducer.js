@@ -37,7 +37,9 @@ export default (state = initialState.allocations, action) => {
     case NEW_ALLOCATION_FAILURE:
       return {
         ...state,
-        allAllocations: []
+        hasError: true,
+        errorMessage: action.payload,
+        newAllocation: []
       };
     default:
       return state;
