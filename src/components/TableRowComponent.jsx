@@ -6,7 +6,7 @@ const TableRowComponent = props => (
   <Table.Row>
     {props.headings
       .map(heading => (
-        <Table.Cell key={heading}>
+        <Table.Cell key={heading} id="table-body-rows">
           {props.data[heading]}
         </Table.Cell>
       )

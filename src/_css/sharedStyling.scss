@@ -25,6 +25,8 @@ $heading-color: #3359df;
 $border-color: #3960ad;
 $art-divider-height: 19px;
 $art-divider-height2: 15px;
+$table-row-color: #4aabb0;
+$assets-divider: #ffb030;
 
 body,
 button,
@@ -72,4 +74,49 @@ input,
   margin-top: 4.7rem;
   position: absolute;
   width: 90px;
+}
+
+#table-body-rows {
+  border-top: 1px solid $table-row-color;
+  border-bottom: 1px solid $table-row-color;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#table-body-rows:first-child {
+  border-left: 1px solid $table-row-color;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#table-body-rows:last-child {
+  border-right: 1px solid $table-row-color;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+#art-table {
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0 20px;
+}
+
+#table-headers {
+  border: 0;
+}
+#table-footers {
+  border: 0;
+}
+
+#table-heading-section {
+  padding: 0px;
+  width: 100px;
+  height: 24px;
+}
+
+.assets-heading {
+  font-size: 15px;
+  text-align: left;
+  text-transform: uppercase;
+  margin-right: 5px;
 }
