@@ -10,9 +10,9 @@ $assets-divider: #ffb030;
 
 .assets-heading {
   font-size: 15px;
-  float: left;
   text-align: left;
   text-transform: uppercase;
+  margin-right: 20px;
 }
 
 .action-text {
@@ -29,13 +29,35 @@ $assets-divider: #ffb030;
 
 .ui.basic.table {
   border: 0;
-  border-collapse: collapse;
-  line-height: 4.3em;
+  border-collapse: separate;
+  border-spacing: 0 20px;
 }
 
-.ui.basic.table tbody tr {
-  border: 2px solid $table-row-color;
-  border-radius: 5px;
+.ui.basic.table thead th {
+  border: 0;
+}
+
+.ui.basic.table tbody td {
+  border-top: 1px solid $table-row-color;
+  border-bottom: 1px solid $table-row-color;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.ui.basic.table tbody td:first-child {
+  border-left: 1px solid $table-row-color;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.ui.basic.table tbody td:last-child {
+  border-right: 1px solid $table-row-color;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.ui.basic.table tfoot th {
+  border: none;
 }
 
 .asset-content-details-width {
