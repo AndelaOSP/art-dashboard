@@ -1,6 +1,7 @@
 @import "sharedStyling.scss";
 
 $table-row-color: #4aabb0;
+$assets-divider: #ffb030;
 
 .add-asset {
   margin-bottom: 10px !important;
@@ -94,4 +95,17 @@ $table-row-color: #4aabb0;
 #asset-list-data {
   border: 1px solid $table-row-color;
   border-radius: 5px;
+}
+
+#content-alignment {
+  padding-left: 5px;
+}
+
+#assets-divider {
+  border-bottom: 1px solid $assets-divider;
+  border-radius: 5px;
+  border-top: 2px solid $assets-divider;
+  margin-top: 4.7rem;
+  position: absolute;
+  width: 90px;
 }

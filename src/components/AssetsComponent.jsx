@@ -46,7 +46,7 @@ export class AssetsComponent extends Component {
         <Container style={{ width: '1224px' }}>
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left">Assets List</Header>
-            <Divider id="art-divider" />
+            <Divider id="assets-divider" />
           </div>
           <AssetsTableContent
             activePage={this.state.activePage}

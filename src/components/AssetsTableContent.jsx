@@ -101,8 +101,12 @@ const AssetsTableContent = (props) => {
             <Segment><p className="asset-content-details-width">{asset.model_number}</p></Segment>
             <Segment><p className="asset-content-details-width">{asset.make_label}</p></Segment>
             <Segment><p className="asset-content-details-width">{asset.asset_type}</p></Segment>
-            <Segment><p className="asset-content-details-width">{asset.asset_sub_category}</p></Segment>
-            <Segment><p className="asset-content-details-width">{asset.asset_category}</p></Segment>
+            <Segment>
+              <p className="asset-content-details-width" id="content-alignment">{asset.asset_sub_category}</p>
+            </Segment>
+            <Segment>
+              <p className="asset-content-details-width" id="content-alignment">{asset.asset_category}</p>
+            </Segment>
             <Segment>
               <ActionComponent
                 onViewClick={() => { props.handleViewAsset(asset.serial_number); }}
