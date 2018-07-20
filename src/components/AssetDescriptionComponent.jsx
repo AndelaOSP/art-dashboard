@@ -104,7 +104,7 @@ const AssetDescriptionComponent = props => (
         }
       </Grid.Column>
     </Grid>
-  </Container >
+  </Container>
 );
 
 AssetDescriptionComponent.propTypes = {

@@ -14,7 +14,6 @@ export class AssetDetailComponent extends Component {
     assignedUser: {},
     toggleState: '',
     selectedUser: '',
-    allocationsCount: 0,
     assignedAsset: {}
   }
 
@@ -96,7 +95,7 @@ export class AssetDetailComponent extends Component {
             onSelectUserEmail={this.onSelectUserEmail}
             handleSubmit={this.handleSubmit}
           />
-        </Container >
+        </Container>
       </NavbarComponent>
     );
   }
