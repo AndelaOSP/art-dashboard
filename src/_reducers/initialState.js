@@ -76,6 +76,7 @@ export default {
     nextUrl: ''
   },
   allocations: {
+    newAllocation: [],
     allAllocations: [],
     newAllocation: [],
     allocationsCount: 0,

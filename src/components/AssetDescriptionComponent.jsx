@@ -23,28 +23,8 @@ const AssetDescriptionComponent = props => (
         </div>
       </Grid.Column>
       <Grid.Column>
-        {isEmpty(values(props.assignedUser)) ?
-          (
-            <div>
-              <Header as="h3" content="Assign this asset to:" />
-              <DropdownComponent
-                label="Assign this asset to:"
-                placeHolder="Select Andela Email"
-                name="assign-user"
-                search
-                onChange={props.onSelectUserEmail}
-                options={userEmailsOptions(props.users)}
-              />
-              <br />
-              <Button
-                id="assign-user"
-                onClick={props.handleSubmit}
-              >
-                Assign User
-              </Button>
-            </div>
-          ) :
-          (
+        {
+          !isEmpty(values(props.assignedUser)) ?
             <div>
               <Header as="h3" content="Assigned To:" />
               <div className="asset-specs">
@@ -53,7 +33,36 @@ const AssetDescriptionComponent = props => (
               <br />
               <Button className="unassign-button">Unassign User</Button>
             </div>
-          )
+            :
+            !isEmpty(values(props.assignedAsset)) ?
+              (props.assignedAsset.serialNumber === props.assetDetail.serial_number) &&
+              <div>
+                <Header as="h3" content="Assigned To:" />
+                <div className="asset-specs">
+                  {props.assignedAsset.email}
+                </div>
+                <br />
+                <Button className="unassign-button">Unassign User</Button>
+              </div>
+              :
+              <div>
+                <Header as="h3" content="Assign this asset to:" />
+                <DropdownComponent
+                  label="Assign this asset to:"
+                  placeHolder="Select Andela Email"
+                  name="assign-user"
+                  search
+                  onChange={props.onSelectUserEmail}
+                  options={userEmailsOptions(props.users)}
+                />
+                <br />
+                <Button
+                  id="assign-user"
+                  onClick={props.handleSubmit}
+                >
+                  Assign User
+                </Button>
+              </div>
         }
       </Grid.Column>
     </Grid>
@@ -64,7 +73,9 @@ AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
   handleSubmit: PropTypes.func,
   assignedUser: PropTypes.object,
-  users: PropTypes.array
+  users: PropTypes.array,
+  assignedAsset: PropTypes.object,
+  assetDetail: PropTypes.object
 };
 
 AssetDescriptionComponent.defaultProps = {

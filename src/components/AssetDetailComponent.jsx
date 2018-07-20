@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import _, { isEmpty, values } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
 import { loadDropDownUsers } from '../_actions/users.actions';
@@ -11,8 +11,10 @@ import NavbarComponent from './NavBarComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
-    assignedUser: null,
-    selectedUser: ''
+    assignedUser: {},
+    selectedUser: '',
+    allocationsCount: 0,
+    assignedAsset: {}
   }
 
   componentDidMount() {
@@ -22,34 +24,33 @@ export class AssetDetailComponent extends Component {
     }
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    // if (!isEmpty(nextProps.assetDetail.assigned_to)) {
-    //   return {
-    //     assignedUser: nextProps.assetDetail.assigned_to
-    //   };
-    // }
-    // if (!isEmpty(nextProps.newAllocation)) {
-    //   return {
-    //     assignedUser: { email: nextProps.newAllocation.current_owner }
-    //   };
-    // }
-    // return null;
-    if (nextProps.assetDetail.assigned_to) {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!isEmpty(values(nextProps.assetDetail.assigned_to))) {
       return {
         assignedUser: nextProps.assetDetail.assigned_to
       };
     }
-    return {
-      assignedUser: null
-    };
+    if (!isEmpty(values(nextProps.newAllocation))) {
+      if (nextProps.newAllocation.length === prevState.allocationsCount) {
+        return null;
+      }
+      const recentAssignment = _.last(nextProps.newAllocation);
+      return {
+        assignedAsset: { email: recentAssignment.current_owner, serialNumber: recentAssignment.asset.split('-') },
+        allocationsCount: nextProps.newAllocation.length
+      };
+    }
+    return null;
   }
 
   shouldComponentUpdate(nextProps) {
-    if (
-      this.props.hasError &&
-      (this.props.errorMessage === nextProps.errorMessage)
-    ) {
-      return false;
+    if (nextProps.newAllocation) {
+      if (
+        this.props.hasError &&
+        (this.props.errorMessage === nextProps.errorMessage)
+      ) {
+        return false;
+      }
     }
     return true;
   }
@@ -81,6 +82,7 @@ export class AssetDetailComponent extends Component {
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
           <AssetDetailContent
             {...this.props}
+            assignedAsset={this.state.assignedAsset}
             assetDetail={this.props.assetDetail}
             assignedUser={this.state.assignedUser}
             errorMessage={this.props.errorMessage}
