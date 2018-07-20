@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavbarComponent from './NavBarComponent';
@@ -43,8 +43,11 @@ export class AssetsComponent extends Component {
   render() {
     return (
       <NavbarComponent title="Assets">
-        <Container>
-          <Header className="assets-heading" content="Assets" />
+        <Container style={{ width: '1224px' }}>
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left">Assets List</Header>
+            <Divider id="art-divider" />
+          </div>
           <AssetsTableContent
             activePage={this.state.activePage}
             activePageAssets={this.props.assetsList}

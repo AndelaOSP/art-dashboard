@@ -1,0 +1,97 @@
+@import "sharedStyling.scss";
+
+$table-row-color: #4aabb0;
+
+.add-asset {
+  margin-bottom: 10px !important;
+  color: black !important;
+}
+
+.assets-heading {
+  font-size: 15px;
+  float: left;
+  //width: 19px;
+  text-align: left;
+  border: 1px solid blue;
+  text-transform: uppercase;
+}
+
+.action-text {
+  text-align: center;
+}
+
+.assets-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* Assets Table */
+
+.ui.basic.table {
+  border: 0;
+  border-collapse: collapse;
+  line-height: 4.3em;
+}
+
+.ui.basic.table tbody tr {
+  border: 2px solid $table-row-color;
+  border-radius: 5px;
+}
+
+.asset-content-details-width {
+  width: 103px;
+  text-align: left;
+}
+.modal-holder {
+  border: 1px solid green;
+  width: 18px;
+  float: right;
+}
+
+#table-heading-section {
+  border: 1px solid brown;
+  padding: 0px;
+  width: 98px;
+  height: 24px;
+}
+
+.asset-code-section {
+  padding-left: 14px !important;
+}
+
+.serial-number-section {
+  padding-left: 10px !important;
+}
+
+.model-number-section {
+  padding-left: 9px !important;
+}
+
+.make-label-section {
+  padding-left: 9px !important;
+}
+
+#asset-type-group {
+  border: 1px solid brown;
+  padding: 5px;
+  width: 45px;
+  height: 24px;
+}
+
+//
+//.ui.table thead th {
+//  background: $andela-white;
+//}
+//
+//.ui.celled.table tr th {
+//  border-left: 0;
+//}
+//
+//.ui.celled.table tbody tr {
+//  border:1px solid black;
+//}
+//.ui.celled.table tr td {
+//  border-left: 0;
+//
+//}
