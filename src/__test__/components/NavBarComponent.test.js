@@ -34,10 +34,6 @@ describe('renders <NavBarComponent />', () => {
     expect(wrapper.find('#nav-search').length).toEqual(1);
   });
 
-  it('should render add asset button', () => {
-    expect(wrapper.find('#blue-rounded-button').length).toEqual(1);
-  });
-
   it('should render notification icon', () => {
     expect(wrapper.find('#notification-icon').length).toEqual(1);
   });
