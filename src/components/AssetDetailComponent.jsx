@@ -13,7 +13,8 @@ export class AssetDetailComponent extends Component {
     assignedUser: {},
     toggleState: '',
     selectedUser: '',
-    assignedAsset: {}
+    assignedAsset: {},
+    serialNumber: ''
   }
 
   componentDidMount() {
@@ -61,6 +62,7 @@ export class AssetDetailComponent extends Component {
     const stringArray = pathName.split('/');
     const serialNumber = stringArray[2];
     this.props.getAssetDetail(serialNumber);
+    this.setState({ serialNumber });
   }
 
   onSelectUserEmail = (event, data) => {
@@ -74,7 +76,7 @@ export class AssetDetailComponent extends Component {
       asset: id,
       current_owner: selectedUser
     };
-    this.props.allocateAsset(assetAllocated);
+    this.props.allocateAsset(assetAllocated, this.state.serialNumber);
   }
 
   render() {
