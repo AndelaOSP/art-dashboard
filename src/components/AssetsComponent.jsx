@@ -43,7 +43,7 @@ export class AssetsComponent extends Component {
   render() {
     return (
       <NavbarComponent title="Assets">
-        <div style={{ padding: '0 110px' }}>
+        <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left">Assets List</Header>
             <Divider id="assets-divider" />

@@ -27,6 +27,7 @@ $art-divider-height: 19px;
 $art-divider-height2: 15px;
 $table-row-color: #4aabb0;
 $assets-divider: #ffb030;
+$pagination-color: #0a26a8;
 
 body,
 button,
@@ -76,20 +77,22 @@ input,
   width: 90px;
 }
 
-#table-body-rows {
+#table-body-cells {
   border-top: 1px solid $table-row-color;
   border-bottom: 1px solid $table-row-color;
   padding-top: 20px;
   padding-bottom: 20px;
+  padding-left: 10px;
 }
 
-#table-body-rows:first-child {
+#table-body-cells:first-child {
   border-left: 1px solid $table-row-color;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  padding-left: 10px;
 }
 
-#table-body-rows:last-child {
+#table-body-cells:last-child {
   border-right: 1px solid $table-row-color;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
@@ -101,22 +104,20 @@ input,
   border-spacing: 0 20px;
 }
 
-#table-headers {
+#table-column {
   border: 0;
-}
-#table-footers {
-  border: 0;
+  padding-left: 10px;
 }
 
-#table-heading-section {
-  padding: 0px;
-  width: 100px;
-  height: 24px;
-}
-
-.assets-heading {
+.table-column-text {
   font-size: 15px;
   text-align: left;
   text-transform: uppercase;
   margin-right: 5px;
 }
+
+#table-footer-cell {
+  border: 0;
+  padding-left: 38%;
+}
+
