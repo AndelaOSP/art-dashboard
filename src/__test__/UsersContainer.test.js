@@ -4,7 +4,7 @@ import expect from 'expect';
 import UserContainer from '../components/UserDetailsContainer';
 
 const props = {
-  Users: jest.fn(),
+  loadUsers: jest.fn(),
   hasError: false,
   isLoading: false,
   usersCount: 10,

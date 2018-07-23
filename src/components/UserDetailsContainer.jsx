@@ -5,20 +5,29 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavbarComponent from './NavBarComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
-import Users from '../_actions/users.actions';
+import { loadUsers } from '../_actions/users.actions';
 
 export class UserDetailsContainer extends Component {
   state = {
     activePage: 1,
     limit: 10
   }
+
   componentDidMount() {
-    this.props.Users(this.state.activePage, this.state.limit);
+    this.props.loadUsers(this.state.activePage, this.state.limit);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (this.props.hasError &&
+      (this.props.errorMessage === nextProps.errorMessage)) {
+      return false;
+    }
+    return true;
   }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.Users(activePage, this.state.limit);
+    this.props.loadUsers(activePage, this.state.limit);
   }
 
   handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit)
@@ -48,7 +57,7 @@ export class UserDetailsContainer extends Component {
 }
 
 UserDetailsContainer.propTypes = {
-  Users: PropTypes.func.isRequired,
+  loadUsers: PropTypes.func.isRequired,
   usersCount: PropTypes.number,
   users: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
@@ -73,5 +82,5 @@ const mapStateToProps = ({ usersList }) => {
 };
 
 export default connect(mapStateToProps, {
-  Users
+  loadUsers
 })(UserDetailsContainer);

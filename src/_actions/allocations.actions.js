@@ -4,10 +4,12 @@ import constants from '../_constants';
 const {
   LOAD_ALLOCATIONS_SUCCESS,
   LOAD_ALLOCATIONS_FAILURE,
-  LOADING_ALLOCATIONS
+  LOADING_ALLOCATIONS,
+  NEW_ALLOCATION_SUCCESS,
+  NEW_ALLOCATION_FAILURE
 } = constants;
 
-const loadAllocationsAction = (pageNumber, limit) => (dispatch) => {
+export const loadAllocationsAction = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_ALLOCATIONS });
   return axios.get(`allocations?page=${pageNumber}&page_size=${limit}`)
     .then(response => dispatch({
@@ -19,4 +21,14 @@ const loadAllocationsAction = (pageNumber, limit) => (dispatch) => {
     }));
 };
 
-export default loadAllocationsAction;
+export const allocateAsset = newAllocation => dispatch =>
+  axios
+    .post('allocations', newAllocation)
+    .then(response => dispatch({
+      type: NEW_ALLOCATION_SUCCESS,
+      payload: response
+    }))
+    .catch(error => dispatch({
+      type: NEW_ALLOCATION_FAILURE,
+      payload: error.message
+    }));

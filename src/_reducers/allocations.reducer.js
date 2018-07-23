@@ -1,18 +1,15 @@
 import constants from '../_constants';
+import initialState from './initialState';
 
 const {
   LOAD_ALLOCATIONS_SUCCESS,
   LOAD_ALLOCATIONS_FAILURE,
-  LOADING_ALLOCATIONS
+  LOADING_ALLOCATIONS,
+  NEW_ALLOCATION_SUCCESS,
+  NEW_ALLOCATION_FAILURE
 } = constants;
 
-const initialState = {
-  allAllocations: [],
-  allocationsCount: 0,
-  isLoading: false
-};
-
-export default (state = initialState, action) => {
+export default (state = initialState.allocations, action) => {
   switch (action.type) {
     case LOAD_ALLOCATIONS_SUCCESS:
       return {
@@ -31,6 +28,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: true
+      };
+    case NEW_ALLOCATION_SUCCESS:
+      return {
+        ...state,
+        newAllocation: [...state.newAllocation, action.payload.data]
+      };
+    case NEW_ALLOCATION_FAILURE:
+      return {
+        ...state,
+        hasError: true,
+        errorMessage: action.payload,
+        newAllocation: []
       };
     default:
       return state;

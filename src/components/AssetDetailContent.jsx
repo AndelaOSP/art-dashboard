@@ -22,13 +22,18 @@ const AssetDetailContent = (props) => {
     return <SemanticToastContainer />;
   }
 
-  const { assetDetail, assignedUser } = props;
+  const { assetDetail, assignedUser, assignedAsset } = props;
   const assetTabPanes = [
     {
       menuItem: 'Description',
       render: () => (
         <Tab.Pane attached={false} className="asset-tab-pane">
-          <AssetDescriptionComponent assignedUser={assignedUser} />
+          <AssetDescriptionComponent
+            {...props}
+            assignedAsset={assignedAsset}
+            assetDetail={assetDetail}
+            assignedUser={assignedUser}
+          />
         </Tab.Pane>)
     },
     {
@@ -100,6 +105,7 @@ const AssetDetailContent = (props) => {
 };
 
 AssetDetailContent.propTypes = {
+  assignedAsset: PropTypes.object,
   assetDetail: PropTypes.object,
   assignedUser: PropTypes.object,
   errorMessage: PropTypes.string,

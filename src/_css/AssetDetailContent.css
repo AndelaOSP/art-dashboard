@@ -34,6 +34,10 @@
   padding-top: 4rem !important;
 }
 
+#assign-user{
+  margin-left: none;
+}
+
 @media screen and (max-width: 420px) {
   .asset-tab .item {
     width: 30% !important;
