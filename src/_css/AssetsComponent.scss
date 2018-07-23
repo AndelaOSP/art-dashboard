@@ -16,7 +16,19 @@
   width: 90px;
 }
 
-#art-pagination {
+#art-pagination-section {
+  width: 680px;
+}
+
+#art-pagination-component {
   box-shadow: none;
   border: 0.5px solid $pagination-color
+}
+
+.defined-row-limt {
+  float:left;
+
+  #dropdown-limit {
+    border: 0.5px solid $pagination-color
+  }
 }

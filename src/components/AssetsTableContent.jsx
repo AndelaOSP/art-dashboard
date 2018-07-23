@@ -2,7 +2,9 @@ import React from 'react';
 import {
   Header,
   Table,
-  Pagination
+  Pagination,
+  Dropdown,
+  Segment
 } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
@@ -16,6 +18,33 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
+
+const rowOptions = [
+  {
+    text: '10 Rows',
+    value: 10
+  },
+  {
+    text: '20 Rows',
+    value: 20
+  },
+  {
+    text: '30 Rows',
+    value: 30
+  }
+];
+
+const definedPageLimits = () => (
+  <span className="defined-row-limt">
+    <Dropdown
+      id="dropdown-limit"
+      placeholder="Show Rows"
+      fluid
+      selection
+      options={rowOptions}
+    />
+  </span>
+);
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
@@ -113,14 +142,21 @@ const AssetsTableContent = (props) => {
         <Table.Footer>
           <Table.Row>
             <Table.HeaderCell colSpan="8" id="table-footer-cell">
-              {!props.emptyAssetsCheck() && (
-                <Pagination
-                  id="art-pagination"
-                  totalPages={props.handlePageTotal()}
-                  onPageChange={props.handlePaginationChange}
-                  activePage={props.activePage}
-                />
-              )}
+              {!props.emptyAssetsCheck() ? (
+                <Segment.Group horizontal id="art-pagination-section">
+                  <Segment>
+                    <Pagination
+                      id="art-pagination-component"
+                      totalPages={props.handlePageTotal()}
+                      onPageChange={props.handlePaginationChange}
+                      activePage={props.activePage}
+                    />
+                  </Segment>
+                  <Segment>
+                    {definedPageLimits()}
+                  </Segment>
+                </Segment.Group>
+              ) : ''}
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
