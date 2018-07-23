@@ -27,6 +27,7 @@ export default {
   },
   asset: {
     assetDetail: {},
+    newAllocation: [],
     errorMessage: '',
     hasError: false,
     isLoading: false
@@ -77,7 +78,6 @@ export default {
   },
   allocations: {
     allAllocations: [],
-    newAllocation: [],
     allocationsCount: 0,
     errorMessage: '',
     hasError: false,

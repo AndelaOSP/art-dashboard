@@ -6,10 +6,11 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 // actions
-import { createAsset, getAssetDetail } from '../../_actions/asset.actions';
+import { createAsset, getAssetDetail, allocateAsset } from '../../_actions/asset.actions';
 
 // mock data
 import asset from '../../_mock/asset';
+import newAllocation from '../../_mock/newAllocation';
 
 // constants
 import constants from '../../_constants';
@@ -18,7 +19,9 @@ const { CREATE_ASSET_SUCCESS,
   CREATE_ASSET_FAIL,
   LOADING_ASSET,
   LOAD_ASSET_FAILURE,
-  LOAD_ASSET_SUCCESS } = constants;
+  LOAD_ASSET_SUCCESS,
+  NEW_ALLOCATION_SUCCESS,
+  NEW_ALLOCATION_FAILURE } = constants;
 
 // store
 const middleware = [thunk];
@@ -98,6 +101,20 @@ describe('Asset Action tests', () => {
     return store.dispatch(getAssetDetail()).then(() => {
       expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
       expect(store.getActions()[1].type).toEqual(expectedActions[1].type);
+    });
+  });
+
+  it('should dispatch NEW_ALLOCATION_SUCCESS when allocateAsset is successfully called', () => {
+    mock.onPost().reply(201, newAllocation);
+    return store.dispatch(allocateAsset()).then(() => {
+      expect(store.getActions()[0].type).toEqual(NEW_ALLOCATION_SUCCESS);
+    });
+  });
+
+  it('should dispatch NEW_ALLOCATION_FAILURE when allocateAsset gets an error', () => {
+    mock.onPost().reply(401);
+    return store.dispatch(allocateAsset()).then(() => {
+      expect(store.getActions()[0].type).toEqual(NEW_ALLOCATION_FAILURE);
     });
   });
 });

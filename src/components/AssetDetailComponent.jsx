@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _, { isEmpty, values } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
-import { getAssetDetail } from '../_actions/asset.actions';
+import { getAssetDetail, allocateAsset } from '../_actions/asset.actions';
 import { loadDropDownUsers } from '../_actions/users.actions';
-import { allocateAsset } from '../_actions/allocations.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
 
@@ -114,9 +113,8 @@ AssetDetailComponent.propTypes = {
   newAllocation: PropTypes.array
 };
 
-const mapStateToProps = ({ asset, usersList, allocationsList }) => {
-  const { assetDetail, errorMessage, hasError, isLoading } = asset;
-  const { newAllocation } = allocationsList;
+const mapStateToProps = ({ asset, usersList }) => {
+  const { assetDetail, errorMessage, hasError, isLoading, newAllocation } = asset;
   const { users } = usersList;
   return {
     users,
