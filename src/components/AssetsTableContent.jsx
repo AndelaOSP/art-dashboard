@@ -66,46 +66,46 @@ const AssetsTableContent = (props) => {
 
   return (
     <div>
-      <Table basic id="art-table">
+      <Table basic>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell id="table-column">
+            <Table.HeaderCell>
               <span className="table-column-text">Asset Code</span>
             </Table.HeaderCell>
-            <Table.HeaderCell id="table-column">
+            <Table.HeaderCell>
               <span className="table-column-text">Serial Number</span>
             </Table.HeaderCell>
-            <Table.HeaderCell id="table-column">
+            <Table.HeaderCell>
               <span className="table-column-text">Model Number</span>
               <ModalComponent modalTitle="Add Asset Model Number">
                 <ModelNumberContainer />
               </ModalComponent>
             </Table.HeaderCell>
-            <Table.HeaderCell id="table-column">
+            <Table.HeaderCell>
               <span className="table-column-text">Asset Make</span>
               <ModalComponent modalTitle="Add Asset Make">
                 <AssetMakeContainer />
               </ModalComponent>
             </Table.HeaderCell>
-            <Table.HeaderCell id="table-column">
+            <Table.HeaderCell>
               <span className="table-column-text">Asset Type</span>
               <ModalComponent modalTitle="Add Asset Type">
                 <AssetTypesContainer />
               </ModalComponent>
             </Table.HeaderCell>
-            <Table.HeaderCell id="table-column">
+            <Table.HeaderCell>
               <span className="table-column-text">Sub-category</span>
               <ModalComponent modalTitle="Add Sub-Category">
                 <AddSubCategoryContainer />
               </ModalComponent>
             </Table.HeaderCell>
-            <Table.HeaderCell id="table-column">
+            <Table.HeaderCell>
               <span className="table-column-text">Category</span>
               <ModalComponent modalTitle="Add Asset Category">
                 <CategoryContainer />
               </ModalComponent>
             </Table.HeaderCell>
-            <Table.HeaderCell id="table-column">
+            <Table.HeaderCell>
               <span className="table-column-text">Action</span>
             </Table.HeaderCell>
           </Table.Row>
@@ -127,7 +127,7 @@ const AssetsTableContent = (props) => {
                     'asset_sub_category'
                   ]}
               >
-                <Table.Cell id="table-body-cells">
+                <Table.Cell>
                   <ActionComponent
                     onViewClick={() => {
                         props.handleViewAsset(asset.serial_number);
@@ -141,7 +141,7 @@ const AssetsTableContent = (props) => {
 
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="8" id="table-footer-cell">
+            <Table.HeaderCell colSpan="8">
               {!props.emptyAssetsCheck() ? (
                 <Segment.Group horizontal id="art-pagination-section">
                   <Segment>
