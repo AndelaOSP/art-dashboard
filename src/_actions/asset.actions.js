@@ -55,13 +55,16 @@ export const getAssetDetail = assetSerialNumber => (
   }
 );
 
-export const allocateAsset = newAllocation => dispatch =>
+export const allocateAsset = (newAllocation, serialNumber) => dispatch =>
   axios
     .post('allocations', newAllocation)
-    .then(response => dispatch({
-      type: NEW_ALLOCATION_SUCCESS,
-      payload: response
-    }))
+    .then((response) => {
+      dispatch({
+        type: NEW_ALLOCATION_SUCCESS,
+        payload: response
+      });
+      dispatch(getAssetDetail(serialNumber));
+    })
     .catch(error => dispatch({
       type: NEW_ALLOCATION_FAILURE,
       payload: error.message
