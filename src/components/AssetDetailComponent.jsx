@@ -11,9 +11,7 @@ import NavbarComponent from './NavBarComponent';
 export class AssetDetailComponent extends Component {
   state = {
     assignedUser: {},
-    toggleState: '',
     selectedUser: '',
-    assignedAsset: {},
     serialNumber: ''
   }
 
@@ -24,25 +22,10 @@ export class AssetDetailComponent extends Component {
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps) {
     if (!isEmpty(values(nextProps.assetDetail.assigned_to))) {
       return {
-        assignedUser: nextProps.assetDetail.assigned_to,
-        toggleState: 'assignedUser'
-      };
-    }
-    if (!isEmpty(values(nextProps.newAllocation))) {
-      if (nextProps.newAllocation.length === prevState.allocationsCount) {
-        return null;
-      }
-      const recentAssignment = _.last(nextProps.newAllocation);
-      return {
-        assignedAsset: {
-          email: recentAssignment.current_owner,
-          serialNumber: recentAssignment.asset.split(' -')[0]
-        },
-        allocationsCount: nextProps.newAllocation.length,
-        toggleState: 'assignedAsset'
+        assignedUser: nextProps.assetDetail.assigned_to
       };
     }
     return null;
@@ -86,8 +69,6 @@ export class AssetDetailComponent extends Component {
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
           <AssetDetailContent
             {...this.props}
-            toggleState={this.state.toggleState}
-            assignedAsset={this.state.assignedAsset}
             assetDetail={this.props.assetDetail}
             assignedUser={this.state.assignedUser}
             errorMessage={this.props.errorMessage}
