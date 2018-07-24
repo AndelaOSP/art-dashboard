@@ -13,7 +13,9 @@ const {
   LOAD_ASSET_FAILURE,
   LOAD_ASSET_SUCCESS,
   NEW_ALLOCATION_SUCCESS,
-  NEW_ALLOCATION_FAILURE
+  NEW_ALLOCATION_FAILURE,
+  UNASSIGN_SUCCESS,
+  UNASSIGN_FAILURE
 } = constants;
 
 export const createAsset = assetDetail => (dispatch => axios.post('manage-assets', assetDetail).then((response) => {
@@ -67,5 +69,20 @@ export const allocateAsset = (newAllocation, serialNumber) => dispatch =>
     })
     .catch(error => dispatch({
       type: NEW_ALLOCATION_FAILURE,
+      payload: error.message
+    }));
+
+export const UnassignAsset = (asset, serialNumber) => dispatch =>
+  axios
+    .post('asset-status', asset)
+    .then((response) => {
+      dispatch({
+        type: UNASSIGN_SUCCESS,
+        payload: response
+      });
+      dispatch(getAssetDetail(serialNumber));
+    })
+    .catch(error => dispatch({
+      type: UNASSIGN_FAILURE,
       payload: error.message
     }));

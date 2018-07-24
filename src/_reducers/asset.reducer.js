@@ -6,7 +6,9 @@ const {
   LOAD_ASSET_FAILURE,
   LOAD_ASSET_SUCCESS,
   NEW_ALLOCATION_SUCCESS,
-  NEW_ALLOCATION_FAILURE
+  NEW_ALLOCATION_FAILURE,
+  UNASSIGN_SUCCESS,
+  UNASSIGN_FAILURE
 } = constants;
 
 export default (state = initialState.asset, action) => {
@@ -34,14 +36,26 @@ export default (state = initialState.asset, action) => {
     case NEW_ALLOCATION_SUCCESS:
       return {
         ...state,
-        newAllocation: [...state.newAllocation, action.payload.data]
+        newAllocation: action.payload.data
       };
     case NEW_ALLOCATION_FAILURE:
       return {
         ...state,
         hasError: true,
         errorMessage: action.payload,
-        newAllocation: []
+        newAllocation: {}
+      };
+    case UNASSIGN_SUCCESS:
+      return {
+        ...state,
+        unAssignedAsset: action.payload.data
+      };
+    case UNASSIGN_FAILURE:
+      return {
+        ...state,
+        hasError: true,
+        errorMessage: action.payload,
+        unAssignedAsset: {}
       };
     default:
       return state;

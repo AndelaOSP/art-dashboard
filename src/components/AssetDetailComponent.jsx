@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _, { isEmpty, values } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
-import { getAssetDetail, allocateAsset } from '../_actions/asset.actions';
+import { getAssetDetail, allocateAsset, UnassignAsset } from '../_actions/asset.actions';
 import { loadDropDownUsers } from '../_actions/users.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
@@ -28,7 +28,9 @@ export class AssetDetailComponent extends Component {
         assignedUser: nextProps.assetDetail.assigned_to
       };
     }
-    return null;
+    return {
+      assignedUser: nextProps.assetDetail.assigned_to
+    };
   }
 
   shouldComponentUpdate(nextProps) {
@@ -52,7 +54,7 @@ export class AssetDetailComponent extends Component {
     this.setState({ selectedUser: data.value });
   }
 
-  handleSubmit = () => {
+  handleAssign = () => {
     const { selectedUser } = this.state;
     const { id } = this.props.assetDetail;
     const assetAllocated = {
@@ -60,6 +62,15 @@ export class AssetDetailComponent extends Component {
       current_owner: selectedUser
     };
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
+  }
+
+  handleUnassign =() => {
+    const { id } = this.props.assetDetail;
+    const assetAssigned = {
+      asset: id,
+      current_status: 'Available'
+    };
+    this.props.UnassignAsset(assetAssigned, this.state.serialNumber);
   }
 
   render() {
@@ -75,7 +86,8 @@ export class AssetDetailComponent extends Component {
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
             onSelectUserEmail={this.onSelectUserEmail}
-            handleSubmit={this.handleSubmit}
+            handleAssign={this.handleAssign}
+            handleUnassign={this.handleUnassign}
           />
         </Container>
       </NavbarComponent>
@@ -86,6 +98,7 @@ export class AssetDetailComponent extends Component {
 AssetDetailComponent.propTypes = {
   loadDropDownUsers: PropTypes.func,
   allocateAsset: PropTypes.func,
+  UnassignAsset: PropTypes.func,
   assetDetail: PropTypes.object,
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
@@ -93,16 +106,18 @@ AssetDetailComponent.propTypes = {
   isLoading: PropTypes.bool,
   location: PropTypes.object,
   users: PropTypes.array,
-  newAllocation: PropTypes.array
+  newAllocation: PropTypes.object,
+  unAssignedAsset: PropTypes.object
 };
 
 const mapStateToProps = ({ asset, usersList }) => {
-  const { assetDetail, errorMessage, hasError, isLoading, newAllocation } = asset;
+  const { assetDetail, errorMessage, hasError, isLoading, newAllocation, unAssignedAsset } = asset;
   const { users } = usersList;
   return {
     users,
     assetDetail,
     newAllocation,
+    unAssignedAsset,
     errorMessage,
     hasError,
     isLoading
@@ -110,5 +125,5 @@ const mapStateToProps = ({ asset, usersList }) => {
 };
 
 export default connect(mapStateToProps, {
-  getAssetDetail, loadDropDownUsers, allocateAsset
+  getAssetDetail, loadDropDownUsers, allocateAsset, UnassignAsset
 })(AssetDetailComponent);
