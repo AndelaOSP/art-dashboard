@@ -1,5 +1,11 @@
 import React from 'react';
-import { Button, Header, Table, Pagination } from 'semantic-ui-react';
+import {
+  Header,
+  Table,
+  Pagination,
+  Dropdown,
+  Segment
+} from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
 import TableRowComponent from './TableRowComponent';
@@ -12,7 +18,33 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
-import AddAssetComponent from '../_components/Assets/AddAssetContainer';
+
+const rowOptions = [
+  {
+    text: '10 Rows',
+    value: 10
+  },
+  {
+    text: '20 Rows',
+    value: 20
+  },
+  {
+    text: '30 Rows',
+    value: 30
+  }
+];
+
+const definedPageLimits = () => (
+  <span className="defined-row-limt">
+    <Dropdown
+      id="dropdown-limit"
+      placeholder="Show Rows"
+      fluid
+      selection
+      options={rowOptions}
+    />
+  </span>
+);
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
@@ -34,117 +66,97 @@ const AssetsTableContent = (props) => {
 
   return (
     <div>
-      <Table celled>
+      <Table basic>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <div className="assets-header">
-                Category
-                <ModalComponent modalTitle="Add Asset Category">
-                  <CategoryContainer />
-                </ModalComponent>
-              </div>
+              <span className="table-column-text">Asset Code</span>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
-                Sub-category
-                <ModalComponent modalTitle="Add Sub-Category">
-                  <AddSubCategoryContainer />
-                </ModalComponent>
-              </div>
+              <span className="table-column-text">Serial Number</span>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
-                Asset Code
-                <ModalComponent />
-              </div>
+              <span className="table-column-text">Model Number</span>
+              <ModalComponent modalTitle="Add Asset Model Number">
+                <ModelNumberContainer />
+              </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
-                Serial Number
-                <ModalComponent />
-              </div>
+              <span className="table-column-text">Asset Make</span>
+              <ModalComponent modalTitle="Add Asset Make">
+                <AssetMakeContainer />
+              </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
-                Asset Make
-                <ModalComponent modalTitle="Add Asset Make">
-                  <AssetMakeContainer />
-                </ModalComponent>
-              </div>
+              <span className="table-column-text">Asset Type</span>
+              <ModalComponent modalTitle="Add Asset Type">
+                <AssetTypesContainer />
+              </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
-                Model Number
-                <ModalComponent modalTitle="Add Asset Model Number">
-                  <ModelNumberContainer />
-                </ModalComponent>
-              </div>
+              <span className="table-column-text">Sub-category</span>
+              <ModalComponent modalTitle="Add Sub-Category">
+                <AddSubCategoryContainer />
+              </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
-                Asset Type
-                <ModalComponent modalTitle="Add Asset Type">
-                  <AssetTypesContainer />
-                </ModalComponent>
-              </div>
+              <span className="table-column-text">Category</span>
+              <ModalComponent modalTitle="Add Asset Category">
+                <CategoryContainer />
+              </ModalComponent>
             </Table.HeaderCell>
-            <Table.HeaderCell>Action</Table.HeaderCell>
+            <Table.HeaderCell>
+              <span className="table-column-text">Action</span>
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           {
-            props.activePageAssets.map((asset) => {
-              asset.category = 'Electronics';
-              asset.sub_category = 'Computers';
-              return (
-                <TableRowComponent
-                  key={asset.id}
-                  data={asset}
-                  headings={[
-                    'category',
-                    'sub_category',
+            props.activePageAssets.map(asset => (
+              <TableRowComponent
+                key={asset.id}
+                data={asset}
+                headings={[
                     'asset_code',
                     'serial_number',
-                    'asset_make',
                     'model_number',
-                    'asset_type'
+                    'make_label',
+                    'asset_type',
+                    'asset_category',
+                    'asset_sub_category'
                   ]}
-                >
-                  <Table.Cell>
-                    <ActionComponent
-                      onViewClick={() => { props.handleViewAsset(asset.serial_number); }}
-                    />
-                  </Table.Cell>
-                </TableRowComponent>
-              );
-            })
+              >
+                <Table.Cell>
+                  <ActionComponent
+                    onViewClick={() => {
+                        props.handleViewAsset(asset.serial_number);
+                      }}
+                  />
+                </Table.Cell>
+              </TableRowComponent>
+              ))
           }
         </Table.Body>
 
         <Table.Footer>
           <Table.Row>
             <Table.HeaderCell colSpan="8">
-              {!props.emptyAssetsCheck() && (
-                <Pagination
-                  totalPages={props.handlePageTotal()}
-                  onPageChange={props.handlePaginationChange}
-                  activePage={props.activePage}
-                />
-              )}
-              <Button
-                circular
-                floated="right"
-                size="big"
-              >
-                <ModalComponent
-                  modalTitle="Add An Asset"
-                  modalSize="large"
-                >
-                  <AddAssetComponent />
-                </ModalComponent>
-              </Button>
+              {!props.emptyAssetsCheck() ? (
+                <Segment.Group horizontal id="art-pagination-section">
+                  <Segment>
+                    <Pagination
+                      id="art-pagination-component"
+                      totalPages={props.handlePageTotal()}
+                      onPageChange={props.handlePaginationChange}
+                      activePage={props.activePage}
+                    />
+                  </Segment>
+                  <Segment>
+                    {definedPageLimits()}
+                  </Segment>
+                </Segment.Group>
+              ) : ''}
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>

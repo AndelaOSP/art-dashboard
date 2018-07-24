@@ -17,7 +17,7 @@ export default class ArtModal extends Component {
       )
     );
     return (
-      <div className={this.props.className}>
+      <span className={this.props.className}>
         <Modal
           trigger={
             this.props.trigger ? (
@@ -51,7 +51,7 @@ export default class ArtModal extends Component {
           </Modal.Content>
         </Modal>
         <SemanticToastContainer />
-      </div>
+      </span>
     );
   }
 }
