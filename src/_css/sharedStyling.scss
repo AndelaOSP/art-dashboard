@@ -28,6 +28,7 @@ $art-divider-height2: 15px;
 $border-color2: #4aabb0;
 $assets-divider: #ffb030;
 $pagination-color: #0a26a8;
+$andela-black: #000;
 
 body,
 button,
@@ -157,25 +158,19 @@ input,
 
 .ui.pagination.menu a:nth-last-child(2) {
   border: 0.5px solid $pagination-color;
-  color: black;
+  color: $andela-black;
 }
 
 .ui.pagination.menu a:last-child {
   border: 0.5px solid $pagination-color;
-  color: black;
-}
-
-.ui.pagination.menu a:first-child {
-  margin-right: 10px;
-}
-
-.ui.pagination.menu a:last-child {
+  color: $andela-black;
   margin-left: 10px;
 }
 
 .ui.pagination.menu a:first-child,
 .ui.pagination.menu a:last-child {
   position: relative;
+  margin-right: 10px;
 }
 
 .ui.pagination.menu a:first-child::after {
