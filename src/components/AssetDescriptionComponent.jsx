@@ -36,6 +36,7 @@ const AssetDescriptionComponent = props => (
             <Button
               id="assign-user"
               className="unassign-asset"
+              onClick={props.handleUnassign}
             >
               Unassign Asset
             </Button>
@@ -55,7 +56,7 @@ const AssetDescriptionComponent = props => (
             <Button
               id="assign-user"
               className="assign-asset"
-              onClick={props.handleSubmit}
+              onClick={props.handleAssign}
             >
               Assign Asset
             </Button>
@@ -68,7 +69,8 @@ const AssetDescriptionComponent = props => (
 
 AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
-  handleSubmit: PropTypes.func,
+  handleAssign: PropTypes.func,
+  handleUnassign: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array
 };

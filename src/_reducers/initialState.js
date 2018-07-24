@@ -27,7 +27,8 @@ export default {
   },
   asset: {
     assetDetail: {},
-    newAllocation: [],
+    newAllocation: {},
+    unAssignedAsset: {},
     errorMessage: '',
     hasError: false,
     isLoading: false
