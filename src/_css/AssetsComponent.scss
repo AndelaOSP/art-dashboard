@@ -22,8 +22,8 @@
   border: 0.5px solid $pagination-color;
 }
 
-#art-pagination-component a::first-child,
-#art-pagination-component a::last-child {
+#art-pagination-component a:first-child,
+#art-pagination-component a:last-child {
   position: relative;
 }
 
