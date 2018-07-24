@@ -6,7 +6,8 @@ const {
   LOAD_SUBCATEGORIES_FAILURE,
   LOADING_SUBCATEGORIES,
   CREATE_SUBCATEGORY_SUCCESS,
-  CREATE_SUBCATEGORY_FAILURE
+  CREATE_SUBCATEGORY_FAILURE,
+  DROPDOWN_SUBCATEGORIES_SUCCESS
 } = constants;
 
 export default (state = initialState.subcategories, action) => {
@@ -20,9 +21,15 @@ export default (state = initialState.subcategories, action) => {
     case LOAD_SUBCATEGORIES_SUCCESS:
       return {
         ...state,
-        assetSubCategoriesDropdown: state.assetSubCategories.concat(action.payload.results),
         assetSubCategories: [...action.payload.results],
         assetSubCategoriesCount: action.payload.count,
+        isLoading: false
+      };
+
+    case DROPDOWN_SUBCATEGORIES_SUCCESS:
+      return {
+        ...state,
+        assetSubCategoriesDropdown: action.payload,
         isLoading: false
       };
 

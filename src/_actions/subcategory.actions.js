@@ -7,7 +7,8 @@ const {
   LOAD_SUBCATEGORIES_FAILURE,
   CREATE_SUBCATEGORY_SUCCESS,
   LOADING_SUBCATEGORIES,
-  CREATE_SUBCATEGORY_FAILURE
+  CREATE_SUBCATEGORY_FAILURE,
+  DROPDOWN_SUBCATEGORIES_SUCCESS
 } = constants;
 
 /**
@@ -15,15 +16,16 @@ const {
  *
  * @return dispatch type and payload
  */
-export const loadSubCategories = pageNumber => (dispatch) => {
+export const loadSubCategories = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_SUBCATEGORIES });
-  return axios.get(`asset-sub-categories?page=${pageNumber}`).then((response) => {
-    dispatch(loadSubCategoriesSuccess(response.data));
-  }).catch((error) => {
-    dispatch(loadSubCategoriesFailure(error));
-    dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
-      'error'));
-  });
+  return axios.get(`asset-sub-categories?page=${pageNumber}&page_size=${limit}`)
+    .then((response) => {
+      dispatch(loadSubCategoriesSuccess(response.data));
+    }).catch((error) => {
+      dispatch(loadSubCategoriesFailure(error));
+      dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
+        'error'));
+    });
 };
 
 /**
@@ -35,6 +37,10 @@ export const loadSubCategories = pageNumber => (dispatch) => {
  */
 export const loadSubCategoriesSuccess = subcategories => ({
   type: LOAD_SUBCATEGORIES_SUCCESS, payload: subcategories
+});
+
+export const dropdownSubCategoriesSuccess = subcategories => ({
+  type: DROPDOWN_SUBCATEGORIES_SUCCESS, payload: subcategories
 });
 
 export const loadSubCategoriesFailure = error => ({
@@ -64,29 +70,12 @@ export const createSubCategoryFailure = error => ({
   type: CREATE_SUBCATEGORY_FAILURE, payload: error
 });
 
-export const loadSubCategoriesDropdown = pageNumber => dispatch => (
-  axios.get(`asset-sub-categories?page=${pageNumber}`).then((response) => {
-    const pageLimit = Math.ceil(response.data.count / 20);
-    if (pageLimit > 1) {
-      dispatch(loadSubCategoriesSuccess(response.data));
-      while (pageNumber < pageLimit) {
-        pageNumber += 1;
-        if (response.data.next !== '') {
-          axios.get(`asset-sub-categories?page=${pageNumber}`).then((newResponse) => {
-            dispatch(loadSubCategoriesSuccess(newResponse.data));
-          }).catch((error) => {
-            dispatch(loadSubCategoriesFailure(error));
-            dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
-              'error'));
-          });
-        }
-      }
-    } else {
-      dispatch(loadSubCategoriesSuccess(response.data));
-    }
-  }).catch((error) => {
-    dispatch(loadSubCategoriesFailure(error));
-    dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
-      'error'));
-  })
-);
+export const loadSubCategoriesDropdown = () => dispatch =>
+  axios.get('asset-sub-categories/?paginate=false')
+    .then((response) => {
+      dispatch(dropdownSubCategoriesSuccess(response.data));
+    }).catch((error) => {
+      dispatch(loadSubCategoriesFailure(error));
+      dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
+        'error'));
+    });
