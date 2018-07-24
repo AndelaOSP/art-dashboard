@@ -22,7 +22,8 @@ const {
   LOAD_SUBCATEGORIES_SUCCESS,
   LOAD_SUBCATEGORIES_FAILURE,
   LOADING_SUBCATEGORIES,
-  CREATE_SUBCATEGORY_SUCCESS
+  CREATE_SUBCATEGORY_SUCCESS,
+  DROPDOWN_SUBCATEGORIES_SUCCESS
 } = constants;
 
 // store
@@ -75,7 +76,7 @@ describe('Subcategory action tests', () => {
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategoriesDropdown called successfully', () => {
     mock.onGet().reply(200, mockSubcategories);
     return store.dispatch(loadSubCategoriesDropdown(2)).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOAD_SUBCATEGORIES_SUCCESS);
+      expect(store.getActions()[0].type).toEqual(DROPDOWN_SUBCATEGORIES_SUCCESS);
     });
   });
 });
