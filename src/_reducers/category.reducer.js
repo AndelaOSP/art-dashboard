@@ -21,7 +21,7 @@ export default (state = initialState.categories, action) => {
     case LOAD_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: state.categories.concat(action.payload.results),
+        categories: action.payload,
         isLoading: false
       };
 

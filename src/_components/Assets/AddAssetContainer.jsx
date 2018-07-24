@@ -35,7 +35,7 @@ class AddAssetContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.categories)) {
-      this.props.loadCategoriesDropdown(1);
+      this.props.loadCategoriesDropdown();
     }
     if (_.isEmpty(this.props.subcategories)) {
       this.props.loadSubCategoriesDropdown();
