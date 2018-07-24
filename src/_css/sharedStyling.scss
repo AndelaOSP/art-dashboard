@@ -20,10 +20,15 @@ $base-font: "DIN Pro";
 $fallback-font: "Archer Pro";
 $andela-blue: #3359df;
 $andela-orange: #ffb030;
+$andela-white: #ffffff;
 $heading-color: #3359df;
 $border-color: #3960ad;
 $art-divider-height: 19px;
 $art-divider-height2: 15px;
+$border-color2: #4aabb0;
+$assets-divider: #ffb030;
+$pagination-color: #0a26a8;
+$andela-black: #000;
 
 body,
 button,
@@ -71,4 +76,129 @@ input,
   margin-top: 4.7rem;
   position: absolute;
   width: 90px;
+}
+.ui.basic.table tbody td {
+  border-top: 1px solid $border-color2;
+  border-bottom: 1px solid $border-color2;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.ui.basic.table tbody td:first-child {
+  border-left: 1px solid $border-color2;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.ui.basic.table tbody td:last-child {
+  border-right: 1px solid $border-color2;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.ui.basic.table {
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0 20px;
+}
+
+.ui.basic.table thead th {
+  border: 0;
+  padding-left: 10px;
+}
+
+.table-column-text {
+  font-size: 15px;
+  text-align: left;
+  text-transform: uppercase;
+  margin-right: 5px;
+}
+
+.ui.basic.table tfoot th {
+  border: 0;
+  padding-left: 33%;
+}
+
+#art-pagination-section {
+  width: 680px;
+}
+
+@mixin first-last-pagination {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 1px;
+  top: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  background: $andela-white;
+}
+
+.ui.pagination.menu {
+  box-shadow: none;
+  border: 0;
+}
+
+.ui.pagination.menu .item {
+  border: 0.5px solid $pagination-color;
+}
+
+.ui.pagination.menu .active.item {
+  border-top: solid 0.5px #d6d6d6;
+}
+
+.ui.pagination.menu a:nth-child(n+3) {
+  border-top: solid 0.5px #d6d6d6;
+  border-bottom: solid 0.5px #d6d6d6;
+  border-left: 0;
+  border-right: 0;
+}
+
+.ui.pagination.menu a:nth-last-child(2) {
+  border: 0.5px solid $pagination-color;
+  color: $andela-black;
+}
+
+.ui.pagination.menu a:last-child {
+  border: 0.5px solid $pagination-color;
+  color: $andela-black;
+  margin-left: 10px;
+}
+
+.ui.pagination.menu a:first-child,
+.ui.pagination.menu a:last-child {
+  position: relative;
+  margin-right: 10px;
+}
+
+.ui.pagination.menu a:first-child::after {
+  border-radius: 0;
+  content: "First";
+}
+
+.ui.pagination.menu a:last-child::after {
+  content: "Last";
+}
+
+.ui.pagination.menu .item:last-child {
+  border-radius: 0;
+}
+
+.ui.pagination.menu .item:first-child {
+  border-radius: 0;
+}
+
+.ui.pagination.menu a:first-child::after,
+.ui.pagination.menu a:last-child::after {
+  @include first-last-pagination
+}
+
+.defined-row-limt {
+  float: left;
+
+  #dropdown-limit {
+    border: 0.5px solid $pagination-color;
+    border-radius: 0;
+  }
 }
