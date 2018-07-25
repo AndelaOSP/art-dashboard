@@ -43,38 +43,15 @@ export const createAssetTypeFailure = error => (
   { type: CREATE_ASSET_TYPE_FAILURE, payload: error }
 );
 
-export const loadDropdownAssetTypes = () => (dispatch) => {
-  const pageNumber = 1;
-  return axios
-    .get(`asset-types?page=${pageNumber}`)
+export const loadDropdownAssetTypes = () => dispatch =>
+  axios
+    .get('asset-types/?paginate=false')
     .then((response) => {
-      const pages = Array.from(
-        { length: Math.ceil(response.data.count / 20) },
-        (page, key) => key + 1
-      );
-      let allAssetTypes = response.data.results;
-
-      pages.forEach((page) => {
-        if (page === 1) {
-          return dispatch(dropdownAssetTypeSuccess(allAssetTypes));
-        }
-        return axios
-          .get(`asset-types?page=${page}`)
-          .then((res) => {
-            allAssetTypes = [...allAssetTypes, ...res.data.results];
-            return dispatch(dropdownAssetTypeSuccess(allAssetTypes));
-          })
-          .catch((error) => {
-            dispatch(dropdownAssetTypeFailure(error));
-            dispatch(updateToastMessageContent(error, 'error'));
-          });
-      });
-    })
-    .catch((error) => {
+      dispatch(dropdownAssetTypeSuccess(response.data));
+    }).catch((error) => {
       dispatch(dropdownAssetTypeFailure(error));
-      dispatch(updateToastMessageContent(`Could not load the asset types. ${error}`, 'error'));
+      dispatch(updateToastMessageContent(error.message, 'error'));
     });
-};
 
 export const dropdownAssetTypeSuccess = allAssetTypes => ({
   type: LOAD_DROPDOWN_ASSET_TYPES_SUCCESS, payload: allAssetTypes

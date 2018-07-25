@@ -8,7 +8,8 @@ import thunk from 'redux-thunk';
 // actions
 import {
   loadAssetMakes,
-  addAssetMakes
+  addAssetMakes,
+  loadAssetMakesDropdown
 } from '../../_actions/assetMakes.actions';
 
 // constants
@@ -18,7 +19,8 @@ import assetMakes from '../../_mock/assetMakes';
 const {
   LOAD_ASSET_MAKES_SUCCESS,
   LOAD_ASSET_MAKES_FAILURE,
-  LOADING_ASSET_MAKES
+  LOADING_ASSET_MAKES,
+  DROPDOWN_ASSET_MAKES_SUCCESS
 } = constants;
 
 // store
@@ -44,6 +46,13 @@ describe('Asset Makes action tests', () => {
     return store.dispatch(loadAssetMakes()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MAKES);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_MAKES_SUCCESS);
+    });
+  });
+
+  it('should dispatch DROPDOWN_ASSET_MAKES_SUCCESS when loadAssetMakesDropdown called successfully', () => {
+    mock.onGet().reply(200, mockAssetMakes);
+    return store.dispatch(loadAssetMakesDropdown()).then(() => {
+      expect(store.getActions()[0].type).toEqual(DROPDOWN_ASSET_MAKES_SUCCESS);
     });
   });
 
