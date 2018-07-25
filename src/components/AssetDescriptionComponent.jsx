@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, values } from 'lodash';
-import { Button, Container, Header, Grid } from 'semantic-ui-react';
+import { Button, Container, Header, Grid, Confirm } from 'semantic-ui-react';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AssetDescriptionComponent.css';
 
@@ -23,6 +23,13 @@ const AssetDescriptionComponent = props => (
         </div>
       </Grid.Column>
       <Grid.Column>
+        <Confirm
+          open={props.open}
+          cancelButton="Cancel"
+          confirmButton="Confirm"
+          onCancel={props.handleCancel}
+          onConfirm={props.handleConfirm()}
+        />
         {(!isEmpty(values(props.assignedUser))) ?
           <div id="allocate-asset">
             <Header as="h3" content="Assigned To:" />
@@ -36,7 +43,7 @@ const AssetDescriptionComponent = props => (
             <Button
               id="assign-user"
               className="unassign-asset"
-              onClick={props.handleUnassign}
+              onClick={props.show}
             >
               Unassign Asset
             </Button>
@@ -56,7 +63,7 @@ const AssetDescriptionComponent = props => (
             <Button
               id="assign-user"
               className="assign-asset"
-              onClick={props.handleAssign}
+              onClick={props.show}
             >
               Assign Asset
             </Button>
@@ -69,8 +76,10 @@ const AssetDescriptionComponent = props => (
 
 AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
-  handleAssign: PropTypes.func,
-  handleUnassign: PropTypes.func,
+  show: PropTypes.func,
+  open: PropTypes.bool,
+  handleCancel: PropTypes.func,
+  handleConfirm: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array
 };

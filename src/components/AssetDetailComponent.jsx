@@ -12,7 +12,8 @@ export class AssetDetailComponent extends Component {
   state = {
     assignedUser: {},
     selectedUser: '',
-    serialNumber: ''
+    serialNumber: '',
+    open: false
   }
 
   componentDidMount() {
@@ -23,11 +24,6 @@ export class AssetDetailComponent extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-    if (!isEmpty(values(nextProps.assetDetail.assigned_to))) {
-      return {
-        assignedUser: nextProps.assetDetail.assigned_to
-      };
-    }
     return {
       assignedUser: nextProps.assetDetail.assigned_to
     };
@@ -62,6 +58,7 @@ export class AssetDetailComponent extends Component {
       current_owner: selectedUser
     };
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
+    this.setState({ open: false });
   }
 
   handleUnassign =() => {
@@ -71,7 +68,17 @@ export class AssetDetailComponent extends Component {
       current_status: 'Available'
     };
     this.props.UnassignAsset(assetAssigned, this.state.serialNumber);
+    this.setState({ open: false });
   }
+
+  show = () => this.setState({ open: true })
+  handleConfirm = () => {
+    if (isEmpty(values(this.state.assignedUser))) {
+      return this.handleAssign;
+    }
+    return this.handleUnassign;
+  };
+  handleCancel = () => this.setState({ open: false })
 
   render() {
     return (
@@ -88,6 +95,10 @@ export class AssetDetailComponent extends Component {
             onSelectUserEmail={this.onSelectUserEmail}
             handleAssign={this.handleAssign}
             handleUnassign={this.handleUnassign}
+            open={this.state.open}
+            show={this.show}
+            handleConfirm={this.handleConfirm}
+            handleCancel={this.handleCancel}
           />
         </Container>
       </NavbarComponent>
