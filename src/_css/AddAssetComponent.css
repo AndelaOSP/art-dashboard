@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-.ui.form .inline.fields .label-style {
+.ui.form .inline.fields {
   width: 100px;
   text-align: left;
 }

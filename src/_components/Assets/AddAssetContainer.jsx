@@ -20,6 +20,7 @@ import {
   filterAssetMakes,
   filterModelNumbers
 } from '../../_utils/filterDropdowns';
+import FilterAssetComponent from '../../components/Assets/FilterAssetComponent';
 
 class AddAssetContainer extends React.Component {
   state = {
@@ -30,7 +31,8 @@ class AddAssetContainer extends React.Component {
     modelNumber: 0,
     serialNumber: '',
     assetTag: '',
-    saveButtonState: false
+    saveButtonState: false,
+    page: 0
   };
 
   componentDidMount() {
@@ -127,6 +129,14 @@ class AddAssetContainer extends React.Component {
     this.setState({ saveButtonState: !this.state.saveButtonState });
   };
 
+  onNextClicked = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
+  }
+
+  goBack = () => {
+    this.setState(({ page }) => ({ page: page - 1 }));
+  }
+
   onCreateAsset = () => {
     this.props.createAsset({
       asset_code: this.state.assetTag,
@@ -137,24 +147,30 @@ class AddAssetContainer extends React.Component {
 
   render() {
     return (
-      <AddAssetComponent
-        {...this.props}
-        handleDropdownChanges={this.handleDropdownChanges}
-        onSelectModelNumber={this.onSelectModelNumber}
-        onAddSerialNumber={this.onAddSerialNumber}
-        onAddAssetTag={this.onAddAssetTag}
-        onCreateAsset={this.onCreateAsset}
-        filteredSubCategories={this.state.filteredSubCategories}
-        filteredAssetTypes={this.state.filteredAssetTypes}
-        filteredAssetMakes={this.state.filteredAssetMakes}
-        filteredModelNumbers={this.state.filteredModelNumbers}
-        modelNumber={this.state.modelNumber}
-        serialNumber={this.state.serialNumber}
-        assetTag={this.state.assetTag}
-        buttonState={this.state.saveButtonState}
-        onChangeButtonState={this.onChangeButtonState}
-      />
-    );
+      <div>{this.state.page === 1 ?
+        <AddAssetComponent
+          {...this.props}
+          handleDropdownChanges={this.handleDropdownChanges}
+          onSelectModelNumber={this.onSelectModelNumber}
+          onAddSerialNumber={this.onAddSerialNumber}
+          onAddAssetTag={this.onAddAssetTag}
+          onCreateAsset={this.onCreateAsset}
+          goBack={this.goBack}
+          filteredSubCategories={this.state.filteredSubCategories}
+          filteredAssetTypes={this.state.filteredAssetTypes}
+          filteredAssetMakes={this.state.filteredAssetMakes}
+          filteredModelNumbers={this.state.filteredModelNumbers}
+          modelNumber={this.state.modelNumber}
+          serialNumber={this.state.serialNumber}
+          assetTag={this.state.assetTag}
+          buttonState={this.state.saveButtonState}
+          onChangeButtonState={this.onChangeButtonState}
+        /> : <FilterAssetComponent
+          {...this.props}
+          onNextClicked={this.onNextClicked}
+        />
+      }
+      </div>);
   }
 }
 
