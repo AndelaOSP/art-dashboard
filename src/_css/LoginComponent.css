@@ -22,7 +22,7 @@ input,
   background-color: #3359df;
   border: solid 1px #3960ad;
   border-radius: 10px;
-  color: #ffffff;
+  color: #fff;
   font-size: 12px;
   font-stretch: normal;
   font-style: normal;
@@ -144,7 +144,7 @@ input,
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  background: #ffffff; }
+  background: #fff; }
 
 .defined-row-limt {
   float: left; }
