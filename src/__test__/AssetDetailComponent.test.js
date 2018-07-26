@@ -54,11 +54,11 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     expect(onSelectUserEmailSpy.mock.calls.length).toEqual(1);
   });
 
-  it('should mock the handleSubmit function call', () => {
-    const handleSubmitSpy = jest.spyOn(
-      wrapper.instance(), 'handleSubmit'
+  it('should mock the handleAssign function call', () => {
+    const handleAssignSpy = jest.spyOn(
+      wrapper.instance(), 'handleAssign'
     );
-    wrapper.instance().handleSubmit();
-    expect(handleSubmitSpy.mock.calls.length).toEqual(1);
+    wrapper.instance().handleAssign();
+    expect(handleAssignSpy.mock.calls.length).toEqual(1);
   });
 });
