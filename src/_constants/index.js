@@ -69,7 +69,8 @@ const CONSTANTS = KeyMirror({
   NEW_ALLOCATION_SUCCESS: true,
   NEW_ALLOCATION_FAILURE: true,
   UNASSIGN_SUCCESS: true,
-  UNASSIGN_FAILURE: true
+  UNASSIGN_FAILURE: true,
+  BUTTON_LOADING: true
 });
 
 export default CONSTANTS;

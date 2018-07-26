@@ -13,8 +13,7 @@ export class AssetDetailComponent extends Component {
     assignedUser: {},
     selectedUser: '',
     serialNumber: '',
-    open: false,
-    buttonLoadingState: false
+    open: false
   }
 
   componentDidMount() {
@@ -27,8 +26,7 @@ export class AssetDetailComponent extends Component {
   static getDerivedStateFromProps(nextProps) {
     return {
       assignedUser: nextProps.assetDetail.assigned_to,
-      buttonLoadingState: false,
-      open: false
+      open: nextProps.buttonLoading
     };
   }
 
@@ -62,7 +60,7 @@ export class AssetDetailComponent extends Component {
     };
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
 
-    if (this.state.buttonLoadingState) this.setState({ open: false });
+    if (!this.props.buttonLoading) this.setState({ open: false });
   }
 
   handleUnassign = () => {
@@ -73,19 +71,17 @@ export class AssetDetailComponent extends Component {
     };
     this.props.UnassignAsset(assetAssigned, this.state.serialNumber);
 
-    if (this.state.buttonLoadingState) this.setState({ open: false });
+    if (!this.props.buttonLoading) this.setState({ open: false });
   }
 
   show = () => this.setState({ open: true })
 
   handleConfirm = (event) => {
     event.preventDefault();
-    this.setState({ buttonLoadingState: !this.state.buttonLoadingState });
-
     if (isEmpty(values(this.state.assignedUser))) {
-      return this.handleAssign;
+      return this.handleAssign();
     }
-    return this.handleUnassign;
+    return this.handleUnassign();
   };
 
   handleCancel = () => this.setState({ open: false })
@@ -109,7 +105,7 @@ export class AssetDetailComponent extends Component {
             show={this.show}
             handleConfirm={this.handleConfirm}
             handleCancel={this.handleCancel}
-            buttonState={this.state.buttonLoadingState}
+            buttonState={this.props.buttonLoading}
           />
         </Container>
       </NavbarComponent>
@@ -126,6 +122,7 @@ AssetDetailComponent.propTypes = {
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
+  buttonLoading: PropTypes.bool,
   location: PropTypes.object,
   users: PropTypes.array,
   newAllocation: PropTypes.object,
@@ -135,7 +132,8 @@ AssetDetailComponent.propTypes = {
 const mapStateToProps = ({ asset, usersList }) => {
   const {
     assetDetail, errorMessage, hasError,
-    isLoading, newAllocation, unAssignedAsset
+    isLoading, newAllocation, unAssignedAsset,
+    buttonLoading
   } = asset;
   const { users } = usersList;
   return {
@@ -145,7 +143,8 @@ const mapStateToProps = ({ asset, usersList }) => {
     unAssignedAsset,
     errorMessage,
     hasError,
-    isLoading
+    isLoading,
+    buttonLoading
   };
 };
 

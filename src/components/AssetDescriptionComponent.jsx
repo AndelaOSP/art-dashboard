@@ -25,6 +25,7 @@ const AssetDescriptionComponent = props => (
       </Grid.Column>
       <Grid.Column>
         <Confirm
+          content="Are you sure you want to make this change?"
           open={props.open}
           cancelButton={
             <ButtonComponent
@@ -39,7 +40,7 @@ const AssetDescriptionComponent = props => (
               buttonName="Save"
               color="primary"
               buttonState={props.buttonState}
-              handleClick={event => props.handleConfirm(event)()}
+              handleClick={event => props.handleConfirm(event)}
             />
           }
         />
@@ -54,7 +55,7 @@ const AssetDescriptionComponent = props => (
             </div>
             <br />
             <Button
-              id="assign-user"
+              id="blue-rounded-button"
               className="unassign-asset"
               onClick={props.show}
             >
@@ -74,7 +75,7 @@ const AssetDescriptionComponent = props => (
             />
             <br />
             <Button
-              id="assign-user"
+              id="blue-rounded-button"
               className="assign-asset"
               onClick={props.show}
             >
