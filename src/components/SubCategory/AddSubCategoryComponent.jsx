@@ -37,15 +37,16 @@ const AddSubCategoryComponent = props => (
 
     <br />
     <ArtButton
+      buttonName="Cancel"
+      onClick={props.toggleModal}
+    />
+    <ArtButton
       buttonName="Save"
       color="primary"
       handleClick={props.onChangeButtonState}
       buttonState={props.buttonState}
     />
-    <ArtButton
-      buttonName="Cancel"
-      onClick={props.toggleModal}
-    />
+
   </Form>
 );
 

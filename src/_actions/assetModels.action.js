@@ -8,10 +8,10 @@ const {
   LOAD_ASSET_MODELS_FAILURE
 } = constants;
 
-export const loadAssetModels = pageNumber => (dispatch) => {
+export const loadAssetModels = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_ASSET_MODELS });
 
-  return axios.get(`asset-models/?page=${pageNumber}`).then((response) => {
+  return axios.get(`asset-models/?page=${pageNumber}&page_size=${limit}`).then((response) => {
     dispatch(loadAssetModelsSuccess(response.data));
   }).catch((error) => {
     dispatch(loadAssetModelsFailure(error));

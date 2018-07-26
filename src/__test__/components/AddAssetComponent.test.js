@@ -60,8 +60,8 @@ instance.setState({
 });
 
 describe('<AddAssetContainer />', () => {
-  it('should render 5 dropdown fields', () => {
-    expect(wrapper.find('DropdownComponent').length).toEqual(5);
+  it('should render 4 dropdown fields', () => {
+    expect(wrapper.find('DropdownComponent').length).toEqual(4);
   });
 
   it('should render save button on add asset types component', () => {

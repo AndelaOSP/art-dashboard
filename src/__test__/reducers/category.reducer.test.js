@@ -29,7 +29,7 @@ describe('Category Reducer tests', () => {
   it('should handle LOAD_CATEGORIES_SUCCESS', () => {
     action.type = LOAD_CATEGORIES_SUCCESS;
     action.payload.results = categories;
-    expect(categoryReducer(initialState, action).categories).toEqual(action.payload.results);
+    expect(categoryReducer(initialState, action).categories).toEqual(action.payload);
     expect(categoryReducer(initialState, action).isLoading).toEqual(false);
   });
 
@@ -56,7 +56,7 @@ describe('Category Reducer tests', () => {
       isLoading: false
     };
     action.type = LOAD_CATEGORIES_SUCCESS;
-    action.payload = { results: categories };
+    action.payload = categories;
     expect(categoryReducer(initialState, action)).toEqual(newState);
 
     categories.push(newAssetType);
@@ -72,7 +72,7 @@ describe('Category Reducer tests', () => {
       isLoading: false
     };
     action.type = LOAD_CATEGORIES_SUCCESS;
-    action.payload = { results: categories };
+    action.payload = categories;
     expect(categoryReducer(initialState, action)).toEqual(newState);
 
     newAction.type = CREATE_CATEGORY_FAILURE;

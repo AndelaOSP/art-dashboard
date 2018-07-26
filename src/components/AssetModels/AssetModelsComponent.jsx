@@ -20,12 +20,12 @@ export class AssetModelsComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadAssetModels(this.state.activePage);
+    this.props.loadAssetModels(this.state.activePage, this.state.limit);
   }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetModels(activePage);
+    this.props.loadAssetModels(activePage, this.state.limit);
   };
 
   getTotalPages = () => Math.ceil(this.props.assetModelsCount / this.state.limit);
@@ -88,11 +88,11 @@ export class AssetModelsComponent extends React.Component {
               <Table.Row>
                 <Table.HeaderCell colSpan="4">
                   {!_.isEmpty(this.props.assetModels) &&
-                  <Pagination
-                    totalPages={this.getTotalPages()}
-                    onPageChange={this.handlePaginationChange}
-                    activePage={this.state.activePage}
-                  />
+                    <Pagination
+                      totalPages={this.getTotalPages()}
+                      onPageChange={this.handlePaginationChange}
+                      activePage={this.state.activePage}
+                    />
                   }
                   <Button circular icon="add" floated="right" data-tooltip="Add new asset model" size="big" />
                 </Table.HeaderCell>

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import ModelNumberComponent from '../../components/ModelNumber/ModelNumberComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
-import { loadAssetMakes } from '../../_actions/assetMakes.actions';
+import { loadAssetMakesDropdown } from '../../_actions/assetMakes.actions';
 import { createModelNumbers } from '../../_actions/modelNumbers.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
@@ -44,7 +44,7 @@ class ModelNumberContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.assetMakes)) {
-      this.props.loadAssetMakes();
+      this.props.loadAssetMakesDropdown();
     }
   }
 
@@ -84,7 +84,7 @@ class ModelNumberContainer extends React.Component {
   }
 }
 ModelNumberContainer.propTypes = {
-  loadAssetMakes: PropTypes.func.isRequired,
+  loadAssetMakesDropdown: PropTypes.func.isRequired,
   createModelNumbers: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired,
@@ -96,11 +96,11 @@ ModelNumberContainer.defaultProps = {
 };
 
 const mapStateToProps = ({ assetMakesList, toastMessage }) => ({
-  assetMakes: assetMakesList,
+  assetMakes: assetMakesList.assetMakes,
   toastMessageContent: toastMessage
 });
 export default connect(mapStateToProps, {
-  loadAssetMakes,
+  loadAssetMakesDropdown,
   createModelNumbers,
   resetToastMessageContent
 })(ModelNumberContainer);

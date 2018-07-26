@@ -45,7 +45,7 @@ class AddSubCategoriesContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.categoriesList)) {
-      this.props.loadCategoriesDropdown(1);
+      this.props.loadCategoriesDropdown();
     }
   }
 
