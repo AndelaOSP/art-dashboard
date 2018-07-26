@@ -25,7 +25,8 @@ export class AssetDetailComponent extends Component {
 
   static getDerivedStateFromProps(nextProps) {
     return {
-      assignedUser: nextProps.assetDetail.assigned_to
+      assignedUser: nextProps.assetDetail.assigned_to,
+      open: nextProps.buttonLoading
     };
   }
 
@@ -58,26 +59,31 @@ export class AssetDetailComponent extends Component {
       current_owner: selectedUser
     };
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
-    this.setState({ open: false });
+
+    if (!this.props.buttonLoading) this.setState({ open: false });
   }
 
-  handleUnassign =() => {
+  handleUnassign = () => {
     const { id } = this.props.assetDetail;
     const assetAssigned = {
       asset: id,
       current_status: 'Available'
     };
     this.props.UnassignAsset(assetAssigned, this.state.serialNumber);
-    this.setState({ open: false });
+
+    if (!this.props.buttonLoading) this.setState({ open: false });
   }
 
   show = () => this.setState({ open: true })
-  handleConfirm = () => {
+
+  handleConfirm = (event) => {
+    event.preventDefault();
     if (isEmpty(values(this.state.assignedUser))) {
-      return this.handleAssign;
+      return this.handleAssign();
     }
-    return this.handleUnassign;
+    return this.handleUnassign();
   };
+
   handleCancel = () => this.setState({ open: false })
 
   render() {
@@ -99,6 +105,7 @@ export class AssetDetailComponent extends Component {
             show={this.show}
             handleConfirm={this.handleConfirm}
             handleCancel={this.handleCancel}
+            buttonState={this.props.buttonLoading}
           />
         </Container>
       </NavbarComponent>
@@ -115,6 +122,7 @@ AssetDetailComponent.propTypes = {
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
+  buttonLoading: PropTypes.bool,
   location: PropTypes.object,
   users: PropTypes.array,
   newAllocation: PropTypes.object,
@@ -122,7 +130,11 @@ AssetDetailComponent.propTypes = {
 };
 
 const mapStateToProps = ({ asset, usersList }) => {
-  const { assetDetail, errorMessage, hasError, isLoading, newAllocation, unAssignedAsset } = asset;
+  const {
+    assetDetail, errorMessage, hasError,
+    isLoading, newAllocation, unAssignedAsset,
+    buttonLoading
+  } = asset;
   const { users } = usersList;
   return {
     users,
@@ -131,7 +143,8 @@ const mapStateToProps = ({ asset, usersList }) => {
     unAssignedAsset,
     errorMessage,
     hasError,
-    isLoading
+    isLoading,
+    buttonLoading
   };
 };
 

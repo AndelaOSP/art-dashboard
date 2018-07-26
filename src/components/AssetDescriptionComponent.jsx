@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, values } from 'lodash';
 import { Button, Container, Header, Grid, Confirm } from 'semantic-ui-react';
+import ButtonComponent from '../components/common/ButtonComponent';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AssetDescriptionComponent.css';
 
@@ -24,11 +25,24 @@ const AssetDescriptionComponent = props => (
       </Grid.Column>
       <Grid.Column>
         <Confirm
+          content="Are you sure you want to make this change?"
           open={props.open}
-          cancelButton="Cancel"
-          confirmButton="Confirm"
-          onCancel={props.handleCancel}
-          onConfirm={props.handleConfirm()}
+          cancelButton={
+            <ButtonComponent
+              className="cancel"
+              buttonName="Cancel"
+              handleClick={props.handleCancel}
+            />
+          }
+          confirmButton={
+            <ButtonComponent
+              className="save"
+              buttonName="Save"
+              color="primary"
+              buttonState={props.buttonState}
+              handleClick={event => props.handleConfirm(event)}
+            />
+          }
         />
         {(!isEmpty(values(props.assignedUser))) ?
           <div id="allocate-asset">
@@ -41,7 +55,7 @@ const AssetDescriptionComponent = props => (
             </div>
             <br />
             <Button
-              id="assign-user"
+              id="blue-rounded-button"
               className="unassign-asset"
               onClick={props.show}
             >
@@ -61,7 +75,7 @@ const AssetDescriptionComponent = props => (
             />
             <br />
             <Button
-              id="assign-user"
+              id="blue-rounded-button"
               className="assign-asset"
               onClick={props.show}
             >
@@ -81,7 +95,8 @@ AssetDescriptionComponent.propTypes = {
   handleCancel: PropTypes.func,
   handleConfirm: PropTypes.func,
   assignedUser: PropTypes.object,
-  users: PropTypes.array
+  users: PropTypes.array,
+  buttonState: PropTypes.bool
 };
 
 AssetDescriptionComponent.defaultProps = {

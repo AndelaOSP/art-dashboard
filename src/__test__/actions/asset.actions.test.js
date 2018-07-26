@@ -6,7 +6,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 // actions
-import { createAsset, getAssetDetail, allocateAsset } from '../../_actions/asset.actions';
+import { createAsset, getAssetDetail, allocateAsset, reloadAssetDetail } from '../../_actions/asset.actions';
 
 // mock data
 import asset from '../../_mock/asset';
@@ -105,9 +105,12 @@ describe('Asset Action tests', () => {
   });
 
   it('should dispatch NEW_ALLOCATION_SUCCESS when allocateAsset is successfully called', () => {
-    mock.onPost().reply(201, newAllocation);
+    mock.onPost().reply(201, newAllocation, 'test-serial');
     return store.dispatch(allocateAsset()).then(() => {
       expect(store.getActions()[0].type).toEqual(NEW_ALLOCATION_SUCCESS);
+      return store.dispatch(reloadAssetDetail()).then(() => {
+        expect(store.getActions()[1].type).toEqual(LOAD_ASSET_SUCCESS);
+      });
     });
   });
 
