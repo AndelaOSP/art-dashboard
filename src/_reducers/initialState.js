@@ -31,7 +31,8 @@ export default {
     unAssignedAsset: {},
     errorMessage: '',
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    buttonLoading: false
   },
   toastMessage: {
     message: '',
