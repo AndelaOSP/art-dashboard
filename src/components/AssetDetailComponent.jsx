@@ -13,7 +13,8 @@ export class AssetDetailComponent extends Component {
     assignedUser: {},
     selectedUser: '',
     serialNumber: '',
-    open: false
+    open: false,
+    buttonLoadingState: false
   }
 
   componentDidMount() {
@@ -25,7 +26,9 @@ export class AssetDetailComponent extends Component {
 
   static getDerivedStateFromProps(nextProps) {
     return {
-      assignedUser: nextProps.assetDetail.assigned_to
+      assignedUser: nextProps.assetDetail.assigned_to,
+      buttonLoadingState: false,
+      open: false
     };
   }
 
@@ -58,26 +61,33 @@ export class AssetDetailComponent extends Component {
       current_owner: selectedUser
     };
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
-    this.setState({ open: false });
+
+    if (this.state.buttonLoadingState) this.setState({ open: false });
   }
 
-  handleUnassign =() => {
+  handleUnassign = () => {
     const { id } = this.props.assetDetail;
     const assetAssigned = {
       asset: id,
       current_status: 'Available'
     };
     this.props.UnassignAsset(assetAssigned, this.state.serialNumber);
-    this.setState({ open: false });
+
+    if (this.state.buttonLoadingState) this.setState({ open: false });
   }
 
   show = () => this.setState({ open: true })
-  handleConfirm = () => {
+
+  handleConfirm = (event) => {
+    event.preventDefault();
+    this.setState({ buttonLoadingState: !this.state.buttonLoadingState });
+
     if (isEmpty(values(this.state.assignedUser))) {
       return this.handleAssign;
     }
     return this.handleUnassign;
   };
+
   handleCancel = () => this.setState({ open: false })
 
   render() {
@@ -99,6 +109,7 @@ export class AssetDetailComponent extends Component {
             show={this.show}
             handleConfirm={this.handleConfirm}
             handleCancel={this.handleCancel}
+            buttonState={this.state.buttonLoadingState}
           />
         </Container>
       </NavbarComponent>
@@ -122,7 +133,10 @@ AssetDetailComponent.propTypes = {
 };
 
 const mapStateToProps = ({ asset, usersList }) => {
-  const { assetDetail, errorMessage, hasError, isLoading, newAllocation, unAssignedAsset } = asset;
+  const {
+    assetDetail, errorMessage, hasError,
+    isLoading, newAllocation, unAssignedAsset
+  } = asset;
   const { users } = usersList;
   return {
     users,
