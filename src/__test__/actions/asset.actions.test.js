@@ -120,8 +120,7 @@ describe('Asset Action tests', () => {
     const expectedPayload = assetMocks.newAllocation;
     const loadedAsset = assetMocks.assetDetails;
 
-    mock.onPost()
-      .reply(201, expectedPayload);
+    mock.onPost().reply(201, expectedPayload);
     return store.dispatch(allocateAsset(newAssignment, serialNumber))
       .then(() => {
         expect(store.getActions()[0].type).toEqual(BUTTON_LOADING);
@@ -147,16 +146,16 @@ describe('Asset Action tests', () => {
     const expectedPayload = assetMocks.unassignedAsset;
     const loadedAsset = assetMocks.assetDetails;
 
-    mock.onPost()
-      .reply(200, expectedPayload);
-    return store.dispatch(unassignAsset(newUnassignment, serialNumber)).then(() => {
-      expect(store.getActions()[0].type).toEqual(BUTTON_LOADING);
-      expect(store.getActions()[1].type).toEqual(UNASSIGN_SUCCESS);
-      mock.onGet().reply(200, loadedAsset);
-      return store.dispatch(reloadAssetDetail(serialNumber)).then(() => {
-        expect(store.getActions()[2].type).toEqual(LOAD_ASSET_SUCCESS);
+    mock.onPost().reply(200, expectedPayload);
+    return store.dispatch(unassignAsset(newUnassignment, serialNumber))
+      .then(() => {
+        expect(store.getActions()[0].type).toEqual(BUTTON_LOADING);
+        expect(store.getActions()[1].type).toEqual(UNASSIGN_SUCCESS);
+        mock.onGet().reply(200, loadedAsset);
+        return store.dispatch(reloadAssetDetail(serialNumber)).then(() => {
+          expect(store.getActions()[2].type).toEqual(LOAD_ASSET_SUCCESS);
+        });
       });
-    });
   });
 
   it('should dispatch UNASSIGN_FAILURE when unassignAsset gets an error', () => {
