@@ -6,11 +6,17 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 // actions
-import { createAsset, getAssetDetail, allocateAsset, reloadAssetDetail } from '../../_actions/asset.actions';
+import {
+  createAsset,
+  getAssetDetail,
+  allocateAsset,
+  reloadAssetDetail,
+  unassignAsset
+} from '../../_actions/asset.actions';
 
 // mock data
 import asset from '../../_mock/asset';
-import newAllocation from '../../_mock/newAllocation';
+import assetMocks from '../../_mock/newAllocation';
 
 // constants
 import constants from '../../_constants';
@@ -21,7 +27,11 @@ const { CREATE_ASSET_SUCCESS,
   LOAD_ASSET_FAILURE,
   LOAD_ASSET_SUCCESS,
   NEW_ALLOCATION_SUCCESS,
-  NEW_ALLOCATION_FAILURE } = constants;
+  NEW_ALLOCATION_FAILURE,
+  BUTTON_LOADING,
+  UNASSIGN_FAILURE,
+  UNASSIGN_SUCCESS
+} = constants;
 
 // store
 const middleware = [thunk];
@@ -105,19 +115,53 @@ describe('Asset Action tests', () => {
   });
 
   it('should dispatch NEW_ALLOCATION_SUCCESS when allocateAsset is successfully called', () => {
-    mock.onPost().reply(201, newAllocation, 'test-serial');
-    return store.dispatch(allocateAsset()).then(() => {
-      expect(store.getActions()[0].type).toEqual(NEW_ALLOCATION_SUCCESS);
-      return store.dispatch(reloadAssetDetail()).then(() => {
-        expect(store.getActions()[1].type).toEqual(LOAD_ASSET_SUCCESS);
+    const serialNumber = 'SN1231';
+    const newAssignment = assetMocks.assignAsset;
+    const expectedPayload = assetMocks.newAllocation;
+    const loadedAsset = assetMocks.assetDetails;
+
+    mock.onPost().reply(201, expectedPayload);
+    return store.dispatch(allocateAsset(newAssignment, serialNumber))
+      .then(() => {
+        expect(store.getActions()[0].type).toEqual(BUTTON_LOADING);
+        expect(store.getActions()[1].type).toEqual(NEW_ALLOCATION_SUCCESS);
+        mock.onGet().reply(200, loadedAsset);
+        return store.dispatch(reloadAssetDetail()).then(() => {
+          expect(store.getActions()[2].type).toEqual(LOAD_ASSET_SUCCESS);
+        });
       });
-    });
   });
+
 
   it('should dispatch NEW_ALLOCATION_FAILURE when allocateAsset gets an error', () => {
     mock.onPost().reply(401);
     return store.dispatch(allocateAsset()).then(() => {
-      expect(store.getActions()[0].type).toEqual(NEW_ALLOCATION_FAILURE);
+      expect(store.getActions()[1].type).toEqual(NEW_ALLOCATION_FAILURE);
+    });
+  });
+
+  it('should dispatch UNASSIGN_SUCCESS when unassignAsset is successfully called', () => {
+    const serialNumber = 'SN1231';
+    const newUnassignment = assetMocks.unassignAsset;
+    const expectedPayload = assetMocks.unassignedAsset;
+    const loadedAsset = assetMocks.assetDetails;
+
+    mock.onPost().reply(200, expectedPayload);
+    return store.dispatch(unassignAsset(newUnassignment, serialNumber))
+      .then(() => {
+        expect(store.getActions()[0].type).toEqual(BUTTON_LOADING);
+        expect(store.getActions()[1].type).toEqual(UNASSIGN_SUCCESS);
+        mock.onGet().reply(200, loadedAsset);
+        return store.dispatch(reloadAssetDetail(serialNumber)).then(() => {
+          expect(store.getActions()[2].type).toEqual(LOAD_ASSET_SUCCESS);
+        });
+      });
+  });
+
+  it('should dispatch UNASSIGN_FAILURE when unassignAsset gets an error', () => {
+    mock.onPost().reply(400);
+    return store.dispatch(unassignAsset()).then(() => {
+      expect(store.getActions()[1].type).toEqual(UNASSIGN_FAILURE);
     });
   });
 });

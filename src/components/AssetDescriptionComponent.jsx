@@ -40,7 +40,7 @@ const AssetDescriptionComponent = props => (
               buttonName="Save"
               color="primary"
               buttonState={props.buttonState}
-              handleClick={event => props.handleConfirm(event)}
+              handleClick={props.handleConfirm}
             />
           }
         />
