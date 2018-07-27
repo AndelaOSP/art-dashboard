@@ -12,6 +12,7 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     loadDropDownUsers: jest.fn(),
     allocateAsset: jest.fn(),
     getAssetDetail: jest.fn(),
+    unassignAsset: jest.fn(),
     hasError: false,
     isLoading: false,
     location: {
@@ -60,5 +61,37 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     );
     wrapper.instance().handleAssign();
     expect(handleAssignSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('should mock the handleUnassign function call', () => {
+    const handleUnassignSpy = jest.spyOn(
+      wrapper.instance(), 'handleUnassign'
+    );
+    wrapper.instance().handleUnassign();
+    expect(handleUnassignSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('should mock the handleConfirm function call', () => {
+    const handleConfirmSpy = jest.spyOn(
+      wrapper.instance(), 'handleConfirm'
+    );
+    wrapper.instance().handleConfirm();
+    expect(handleConfirmSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('should mock the handleCancel function call', () => {
+    const handleCancelSpy = jest.spyOn(
+      wrapper.instance(), 'handleCancel'
+    );
+    wrapper.instance().handleCancel();
+    expect(handleCancelSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('should mock the show function call', () => {
+    const showSpy = jest.spyOn(
+      wrapper.instance(), 'show'
+    );
+    wrapper.instance().show();
+    expect(showSpy.mock.calls.length).toEqual(1);
   });
 });

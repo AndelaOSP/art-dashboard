@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _, { isEmpty, values } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
-import { getAssetDetail, allocateAsset, UnassignAsset } from '../_actions/asset.actions';
+import { getAssetDetail, allocateAsset, unassignAsset } from '../_actions/asset.actions';
 import { loadDropDownUsers } from '../_actions/users.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
@@ -69,15 +69,14 @@ export class AssetDetailComponent extends Component {
       asset: id,
       current_status: 'Available'
     };
-    this.props.UnassignAsset(assetAssigned, this.state.serialNumber);
+    this.props.unassignAsset(assetAssigned, this.state.serialNumber);
 
     if (!this.props.buttonLoading) this.setState({ open: false });
   }
 
   show = () => this.setState({ open: true })
 
-  handleConfirm = (event) => {
-    event.preventDefault();
+  handleConfirm = () => {
     if (isEmpty(values(this.state.assignedUser))) {
       return this.handleAssign();
     }
@@ -116,7 +115,7 @@ export class AssetDetailComponent extends Component {
 AssetDetailComponent.propTypes = {
   loadDropDownUsers: PropTypes.func,
   allocateAsset: PropTypes.func,
-  UnassignAsset: PropTypes.func,
+  unassignAsset: PropTypes.func,
   assetDetail: PropTypes.object,
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
@@ -149,5 +148,5 @@ const mapStateToProps = ({ asset, usersList }) => {
 };
 
 export default connect(mapStateToProps, {
-  getAssetDetail, loadDropDownUsers, allocateAsset, UnassignAsset
+  getAssetDetail, loadDropDownUsers, allocateAsset, unassignAsset
 })(AssetDetailComponent);
