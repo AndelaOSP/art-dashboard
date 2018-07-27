@@ -3,11 +3,11 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 
 import { AssetDetailComponent } from '../components/AssetDetailComponent';
-import asset from '../_mock/asset';
+import assetMocks from '../_mock/newAllocation';
 
 describe('Renders <AssetDetailComponent /> correctly', () => {
   const props = {
-    assetDetail: asset,
+    assetDetail: assetMocks.assetDetails,
     errorMessage: '',
     loadDropDownUsers: jest.fn(),
     allocateAsset: jest.fn(),
