@@ -91,7 +91,7 @@ export const allocateAsset = (newAllocation, serialNumber) =>
       }));
   };
 
-export const UnassignAsset = (asset, serialNumber) =>
+export const unassignAsset = (asset, serialNumber) =>
   (dispatch) => {
     dispatch({ type: BUTTON_LOADING });
     return axios
