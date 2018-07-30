@@ -10,7 +10,8 @@ const {
   LOAD_CATEGORIES_SUCCESS,
   LOAD_CATEGORY_FAILURE,
   CREATE_CATEGORY_SUCCESS,
-  CREATE_CATEGORY_FAILURE
+  CREATE_CATEGORY_FAILURE,
+  DROPDOWN_CATEGORIES_SUCCESS
 } = constants;
 
 export const loadCategoriesDropdown = () => (dispatch) => {
@@ -18,7 +19,7 @@ export const loadCategoriesDropdown = () => (dispatch) => {
 
   return axios.get('asset-categories/?paginate=false')
     .then(response =>
-      dispatch(loadCategoriesSuccess(response.data))
+      dispatch(loadCategoriesDropdownSuccess(response.data))
     )
     .catch((error) => {
       dispatch(loadCategoriesFailure(error));
@@ -26,11 +27,10 @@ export const loadCategoriesDropdown = () => (dispatch) => {
     });
 };
 
-/**
- * load Categories thunk
- *
- * @return dispatch type and payload
- */
+export const loadCategoriesDropdownSuccess = categories => ({
+  type: DROPDOWN_CATEGORIES_SUCCESS, payload: categories
+});
+
 export const loadCategories = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_CATEGORIES });
 
@@ -43,13 +43,6 @@ export const loadCategories = (pageNumber, limit) => (dispatch) => {
     });
 };
 
-/**
- * load Categories Success action creator
- *
- * @param {array} categories list of asset categories
- *
- * @return {object} type and payload
- */
 export const loadCategoriesSuccess = categories => ({
   type: LOAD_CATEGORIES_SUCCESS, payload: categories
 });

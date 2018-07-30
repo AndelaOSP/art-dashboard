@@ -51,6 +51,7 @@ export default {
     hasError: false
   },
   assetCategories: {
+    categoriesDropdown: [],
     categories: [],
     assetCategoriesCount: 0,
     isLoading: false,

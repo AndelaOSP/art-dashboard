@@ -6,11 +6,12 @@ const {
   LOAD_CATEGORIES_SUCCESS,
   LOAD_CATEGORIES_FAILURE,
   CREATE_CATEGORY_SUCCESS,
-  CREATE_CATEGORY_FAILURE
+  CREATE_CATEGORY_FAILURE,
+  DROPDOWN_CATEGORIES_SUCCESS
 } = constants;
 
 
-export default (state = initialState.categories, action) => {
+export default (state = initialState.assetCategories, action) => {
   switch (action.type) {
     case LOADING_CATEGORIES:
       return {
@@ -21,7 +22,17 @@ export default (state = initialState.categories, action) => {
     case LOAD_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: action.payload,
+        categories: action.payload.results,
+        assetCategoriesCount: (state.assetCategoriesCount === 0 ?
+          action.payload.count : state.assetCategoriesCount),
+        isLoading: false
+      };
+
+    case DROPDOWN_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        categoriesDropdown: action.payload,
+        assetCategoriesCount: action.payload.length,
         isLoading: false
       };
 

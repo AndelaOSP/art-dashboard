@@ -8,7 +8,7 @@ import '../../_css/AddAssetComponent.css';
 const placeCategoriesInSemanticUIOptions = props => props.map((option, index) => ({
   key: index,
   text: option.category_name,
-  value: option.id
+  value: option.category_name
 }));
 
 const FilterAssetComponent = props => (
