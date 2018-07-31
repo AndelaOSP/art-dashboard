@@ -23,8 +23,7 @@ export default (state = initialState.assetCategories, action) => {
       return {
         ...state,
         categories: action.payload.results,
-        assetCategoriesCount: (state.assetCategoriesCount === 0 ?
-          action.payload.count : state.assetCategoriesCount),
+        assetCategoriesCount: action.payload.count,
         isLoading: false
       };
 
