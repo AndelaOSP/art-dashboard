@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Segment, Icon, Tab } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import '../_css/AssetDetailContent.css';
-import { AssetAllocationHistory } from './AssetAllocationHistory';
+import AssetAllocationHistory from './AssetAllocationHistory';
 import AssetDescriptionComponent from './AssetDescriptionComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
 import LoaderComponent from './LoaderComponent';
@@ -45,7 +45,7 @@ const AssetDetailContent = (props) => {
     {
       menuItem: 'Asset Allocation History',
       render: () => (
-        <Tab.Pane attached={false} className="asset-tab-pane">
+        <Tab.Pane attached={false} className="asset-tab-pane allocation-history">
           <AssetAllocationHistory allocationHistory={assetDetail.allocation_history} />
         </Tab.Pane>)
     }
