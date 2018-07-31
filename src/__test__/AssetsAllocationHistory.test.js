@@ -14,17 +14,14 @@ describe('Renders <AssetAllocationHistory /> correctly', () => {
     expect(wrapper.find('.history-unavailable').length).toBe(1);
   });
 
-  it('renders the allocation history if allocation history is available', () => {
+  it('renders the allocation history table if allocation history is available', () => {
     wrapper.setProps({
       allocationHistory: [{
-        condition: 'good condition',
         created_at: 'test date',
-        email: 'email@email',
-        picture: 'picture',
-        slackHandle: 'slack',
-        status: 'allocated'
+        current_owner: 'email2@gmail.com',
+        previous_owner: 'email@email.com'
       }]
     });
-    expect(wrapper.find('.history-list').length).toBe(1);
+    expect(wrapper.find('Table').length).toBe(1);
   });
 });

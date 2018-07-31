@@ -9,7 +9,9 @@ import '../_css/AssetAllocationHistory.css';
 const AssetAllocationHistory = ({ allocationHistory }) => {
   if (isEmpty(allocationHistory)) {
     return (
-      <p className="history-unavailable" > Allocation history is not available for this asset</p>
+      <p className="history-unavailable">
+        Allocation history is not available for this asset
+      </p>
     );
   }
 
