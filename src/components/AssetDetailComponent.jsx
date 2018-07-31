@@ -130,8 +130,12 @@ AssetDetailComponent.propTypes = {
 
 const mapStateToProps = ({ asset, usersList }) => {
   const {
-    assetDetail, errorMessage, hasError,
-    isLoading, newAllocation, unAssignedAsset,
+    assetDetail,
+    errorMessage,
+    hasError,
+    isLoading,
+    newAllocation,
+    unAssignedAsset,
     buttonLoading
   } = asset;
   const { users } = usersList;
