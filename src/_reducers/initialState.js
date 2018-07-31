@@ -27,9 +27,12 @@ export default {
   },
   asset: {
     assetDetail: {},
+    newAllocation: {},
+    unAssignedAsset: {},
     errorMessage: '',
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    buttonLoading: false
   },
   toastMessage: {
     message: '',
@@ -77,7 +80,6 @@ export default {
   },
   allocations: {
     allAllocations: [],
-    newAllocation: [],
     allocationsCount: 0,
     errorMessage: '',
     hasError: false,

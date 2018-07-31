@@ -3,12 +3,12 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 
 import AssetDetailContent from '../components/AssetDetailContent';
-import asset from '../_mock/asset';
+import assetMocks from '../_mock/newAllocation';
 
 describe('Renders <AssetDetailContent /> correctly', () => {
   const props = {
-    assetDetail: asset,
-    assignedUser: asset.assigned_to,
+    assetDetail: assetMocks,
+    assignedUser: assetMocks ? assetMocks.assigned_to : {},
     errorMessage: '',
     hasError: false,
     isLoading: false

@@ -4,9 +4,7 @@ import initialState from './initialState';
 const {
   LOAD_ALLOCATIONS_SUCCESS,
   LOAD_ALLOCATIONS_FAILURE,
-  LOADING_ALLOCATIONS,
-  NEW_ALLOCATION_SUCCESS,
-  NEW_ALLOCATION_FAILURE
+  LOADING_ALLOCATIONS
 } = constants;
 
 export default (state = initialState.allocations, action) => {
@@ -28,18 +26,6 @@ export default (state = initialState.allocations, action) => {
       return {
         ...state,
         isLoading: true
-      };
-    case NEW_ALLOCATION_SUCCESS:
-      return {
-        ...state,
-        newAllocation: [...state.newAllocation, action.payload.data]
-      };
-    case NEW_ALLOCATION_FAILURE:
-      return {
-        ...state,
-        hasError: true,
-        errorMessage: action.payload,
-        newAllocation: []
       };
     default:
       return state;

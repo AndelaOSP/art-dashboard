@@ -3,18 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _, { isEmpty, values } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
-import { getAssetDetail } from '../_actions/asset.actions';
+import { getAssetDetail, allocateAsset, unassignAsset } from '../_actions/asset.actions';
 import { loadDropDownUsers } from '../_actions/users.actions';
-import { allocateAsset } from '../_actions/allocations.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
     assignedUser: {},
-    toggleState: '',
     selectedUser: '',
-    assignedAsset: {}
+    serialNumber: '',
+    open: false
   }
 
   componentDidMount() {
@@ -24,28 +23,11 @@ export class AssetDetailComponent extends Component {
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (!isEmpty(values(nextProps.assetDetail.assigned_to))) {
-      return {
-        assignedUser: nextProps.assetDetail.assigned_to,
-        toggleState: 'assignedUser'
-      };
-    }
-    if (!isEmpty(values(nextProps.newAllocation))) {
-      if (nextProps.newAllocation.length === prevState.allocationsCount) {
-        return null;
-      }
-      const recentAssignment = _.last(nextProps.newAllocation);
-      return {
-        assignedAsset: {
-          email: recentAssignment.current_owner,
-          serialNumber: recentAssignment.asset.split(' -')[0]
-        },
-        allocationsCount: nextProps.newAllocation.length,
-        toggleState: 'assignedAsset'
-      };
-    }
-    return null;
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      assignedUser: nextProps.assetDetail.assigned_to,
+      open: nextProps.buttonLoading
+    };
   }
 
   shouldComponentUpdate(nextProps) {
@@ -62,21 +44,46 @@ export class AssetDetailComponent extends Component {
     const stringArray = pathName.split('/');
     const serialNumber = stringArray[2];
     this.props.getAssetDetail(serialNumber);
+    this.setState({ serialNumber });
   }
 
   onSelectUserEmail = (event, data) => {
     this.setState({ selectedUser: data.value });
   }
 
-  handleSubmit = () => {
+  handleAssign = () => {
     const { selectedUser } = this.state;
     const { id } = this.props.assetDetail;
     const assetAllocated = {
       asset: id,
       current_owner: selectedUser
     };
-    this.props.allocateAsset(assetAllocated);
+    this.props.allocateAsset(assetAllocated, this.state.serialNumber);
+
+    if (!this.props.buttonLoading) this.setState({ open: false });
   }
+
+  handleUnassign = () => {
+    const { id } = this.props.assetDetail;
+    const assetAssigned = {
+      asset: id,
+      current_status: 'Available'
+    };
+    this.props.unassignAsset(assetAssigned, this.state.serialNumber);
+
+    if (!this.props.buttonLoading) this.setState({ open: false });
+  }
+
+  show = () => this.setState({ open: true })
+
+  handleConfirm = () => {
+    if (isEmpty(values(this.state.assignedUser))) {
+      return this.handleAssign();
+    }
+    return this.handleUnassign();
+  };
+
+  handleCancel = () => this.setState({ open: false })
 
   render() {
     return (
@@ -85,15 +92,19 @@ export class AssetDetailComponent extends Component {
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
           <AssetDetailContent
             {...this.props}
-            toggleState={this.state.toggleState}
-            assignedAsset={this.state.assignedAsset}
             assetDetail={this.props.assetDetail}
             assignedUser={this.state.assignedUser}
             errorMessage={this.props.errorMessage}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
             onSelectUserEmail={this.onSelectUserEmail}
-            handleSubmit={this.handleSubmit}
+            handleAssign={this.handleAssign}
+            handleUnassign={this.handleUnassign}
+            open={this.state.open}
+            show={this.show}
+            handleConfirm={this.handleConfirm}
+            handleCancel={this.handleCancel}
+            buttonState={this.props.buttonLoading}
           />
         </Container>
       </NavbarComponent>
@@ -104,30 +115,42 @@ export class AssetDetailComponent extends Component {
 AssetDetailComponent.propTypes = {
   loadDropDownUsers: PropTypes.func,
   allocateAsset: PropTypes.func,
+  unassignAsset: PropTypes.func,
   assetDetail: PropTypes.object,
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
+  buttonLoading: PropTypes.bool,
   location: PropTypes.object,
   users: PropTypes.array,
-  newAllocation: PropTypes.array
+  newAllocation: PropTypes.object,
+  unAssignedAsset: PropTypes.object
 };
 
-const mapStateToProps = ({ asset, usersList, allocationsList }) => {
-  const { assetDetail, errorMessage, hasError, isLoading } = asset;
-  const { newAllocation } = allocationsList;
+const mapStateToProps = ({ asset, usersList }) => {
+  const {
+    assetDetail,
+    errorMessage,
+    hasError,
+    isLoading,
+    newAllocation,
+    unAssignedAsset,
+    buttonLoading
+  } = asset;
   const { users } = usersList;
   return {
     users,
     assetDetail,
     newAllocation,
+    unAssignedAsset,
     errorMessage,
     hasError,
-    isLoading
+    isLoading,
+    buttonLoading
   };
 };
 
 export default connect(mapStateToProps, {
-  getAssetDetail, loadDropDownUsers, allocateAsset
+  getAssetDetail, loadDropDownUsers, allocateAsset, unassignAsset
 })(AssetDetailComponent);
