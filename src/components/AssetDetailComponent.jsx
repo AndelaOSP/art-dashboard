@@ -136,8 +136,7 @@ const mapStateToProps = ({ asset, usersList }) => {
     isLoading,
     newAllocation,
     unAssignedAsset,
-    buttonLoading
-  } = asset;
+    buttonLoading } = asset;
   const { users } = usersList;
   return {
     users,
