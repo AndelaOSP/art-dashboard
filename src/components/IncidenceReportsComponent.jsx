@@ -10,7 +10,6 @@ import NavbarComponent from './NavBarComponent';
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
 import '../_css/IncidenceReportsComponent.css';
 
-
 const rowOptions = [
   {
     text: '10 Rows',
@@ -102,7 +101,7 @@ export class IncidenceReportsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="8">
+                <Table.HeaderCell colSpan="8" id="pagination-header">
                   {
                     !this.emptyReportsCheck() && (
                     <Segment.Group horizontal id="art-pagination-section">

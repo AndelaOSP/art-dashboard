@@ -89,7 +89,11 @@ input,
   padding-left: 33%; }
 
 #art-pagination-section {
-  width: 680px; }
+  width: 680px;
+  margin: 0; }
+
+#pagination-header {
+  padding-left: 300px; }
 
 .ui.pagination.menu {
   box-shadow: none;

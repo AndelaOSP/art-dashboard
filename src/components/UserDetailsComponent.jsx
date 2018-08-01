@@ -97,7 +97,7 @@ const UserDetailsComponent = (props) => {
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="4" >
+            <Table.HeaderCell colSpan="4" id="pagination-header">
               {!props.emptyUsersList() && (
                 <Segment.Group horizontal id="art-pagination-section">
                   <Segment>

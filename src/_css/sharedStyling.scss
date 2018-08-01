@@ -124,6 +124,11 @@ input,
 
 #art-pagination-section {
   width: 680px;
+  margin:0;
+}
+
+#pagination-header {
+  padding-left: 300px;
 }
 
 @mixin first-last-pagination {

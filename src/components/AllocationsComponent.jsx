@@ -115,7 +115,7 @@ export class AllocationsComponent extends Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="5">
+                <Table.HeaderCell colSpan="5" id="pagination-header">
                   {!_.isEmpty(this.props.allAllocations) && (
                   <Segment.Group horizontal id="art-pagination-section">
                     <Segment>
