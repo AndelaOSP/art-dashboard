@@ -1,37 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Header, Pagination, Segment, Dropdown } from 'semantic-ui-react';
+import { Table, Header, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import DropdownComponent from '../_components/DropdownComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
-
-const rowOptions = [
-  {
-    text: '10 Rows',
-    value: 10
-  },
-  {
-    text: '20 Rows',
-    value: 20
-  },
-  {
-    text: '30 Rows',
-    value: 30
-  }
-];
-
-const definedPageLimits = () => (
-  <span className="defined-row-limt">
-    <Dropdown
-      id="dropdown-limit"
-      placeholder="Show Rows"
-      fluid
-      selection
-      options={rowOptions}
-    />
-  </span>
-);
 
 const UserDetailsComponent = (props) => {
   if (props.isLoading) {
@@ -109,7 +83,7 @@ const UserDetailsComponent = (props) => {
                     />
                   </Segment>
                   <Segment>
-                    {definedPageLimits()}
+                    <DropdownComponent />
                   </Segment>
                 </Segment.Group>
               )}
