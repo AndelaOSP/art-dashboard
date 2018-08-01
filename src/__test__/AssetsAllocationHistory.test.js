@@ -22,7 +22,7 @@ describe('Renders <AssetAllocationHistory /> correctly', () => {
       }]
     });
     expect(wrapper.find('Table').length).toBe(1);
-    expect(wrapper.find('TableRowComponent').length).toBe(1);
+    expect(typeof wrapper.find('TableRowComponent').props().data).toBe('object');
   });
 
   it('sets the allocation history previous_owner or current_owner to - if null and formats date', () => {
