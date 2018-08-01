@@ -142,37 +142,37 @@ describe('<AddAssetContainer />', () => {
   it('should have data about the year when selecting year on manufacture', () => {
     const event = { data: { value: '2015' } };
     instance.onSelectYearOfManufacture(event, event.data);
-    expect(instance.state.year).toEqual('2015');
+    expect(instance.state.specs.year).toEqual('2015');
   });
 
   it('should have data about the processor type when selecting processor type', () => {
     wrapper.find('.save').simulate('click');
     wrapper.find('input[type="radio"][name="processorType"]').at(0).simulate('change');
-    expect(wrapper.state().processorType).toEqual('Intel core i3');
+    expect(wrapper.state().specs.processorType).toEqual('Intel core i3');
   });
 
   it('should have data about the processor speed when selecting processor speed', () => {
     wrapper.find('.save').simulate('click');
     wrapper.find('input[type="radio"][name="processorSpeed"]').at(1).simulate('change');
-    expect(wrapper.state().processorSpeed).toEqual('2.3');
+    expect(wrapper.state().specs.processorSpeed).toEqual('2.3');
   });
 
   it('should have data about the screen size when selecting screen size', () => {
     wrapper.find('.save').simulate('click');
     wrapper.find('input[type="radio"][name="screenSize"]').at(1).simulate('change');
-    expect(wrapper.state().screenSize).toEqual('15');
+    expect(wrapper.state().specs.screenSize).toEqual('15');
   });
 
   it('should have data about the storage when selecting storage', () => {
     wrapper.find('.save').simulate('click');
     wrapper.find('input[type="radio"][name="storage"]').at(2).simulate('change');
-    expect(wrapper.state().storage).toEqual('512');
+    expect(wrapper.state().specs.storage).toEqual('512');
   });
 
   it('should have data about the memory when selecting memory', () => {
     wrapper.find('.save').simulate('click');
     wrapper.find('input[type="radio"][name="memory"]').at(2).simulate('change');
-    expect(wrapper.state().memory).toEqual('16');
+    expect(wrapper.state().specs.memory).toEqual('16');
   });
 
   it('can receive a success prop when getDerivedStateFromProps runs', () => {

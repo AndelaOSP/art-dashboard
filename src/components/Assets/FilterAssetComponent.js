@@ -14,7 +14,7 @@ const placeCategoriesInSemanticUIOptions = props => props.map((option, index) =>
 const FilterAssetComponent = props => (
   <div>
     <div className="page-indicator">
-      <div className={props.page === 0 ? 'circle shade-1' : 'circle shade-2'}>1</div>
+      <div className={props.page === 0 ? 'circle shade-2' : 'circle shade-1'}>1</div>
       Identify your device
       <div className="line" />
       <div className="circle">2</div>
