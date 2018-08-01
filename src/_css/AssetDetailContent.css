@@ -30,6 +30,10 @@
   height: 22rem;
 }
 
+.asset-tab .allocation-history {
+  overflow-y:auto;
+}
+
 .current-condition {
   padding-top: 4rem !important;
 }

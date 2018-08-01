@@ -43,9 +43,9 @@ const AssetDetailContent = (props) => {
         </Tab.Pane>)
     },
     {
-      menuItem: 'Asset History',
+      menuItem: 'Asset Allocation History',
       render: () => (
-        <Tab.Pane attached={false} className="asset-tab-pane">
+        <Tab.Pane attached={false} className="asset-tab-pane allocation-history">
           <AssetAllocationHistory allocationHistory={assetDetail.allocation_history} />
         </Tab.Pane>)
     }
