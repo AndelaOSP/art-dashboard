@@ -16,7 +16,12 @@ const yearOfManufacture = Array(numberOfYears()).fill({}).map((value, index) => 
 
 const SpecsComponent = props => (
   <div>
-    <label className="label-style">Year Of Manufacture</label>
+    <div className="optional-label-text">
+      <label>Optional Fields</label>
+    </div>
+    <div className="optional-label-text">
+      <label>Year Of Manufacture</label>
+    </div>
     <DropdownComponent
       className="input-style"
       placeholder="Enter Year Of Manufacture"
@@ -24,8 +29,8 @@ const SpecsComponent = props => (
       options={yearOfManufacture}
       onChange={props.onSelectYearOfManufacture}
     />
-    <label className="label-style">Processor Type (Intel)</label>
     <Form.Group inline>
+      <label>Processor Type (Intel)</label>
       <Form.Radio
         label="Core i3"
         value="Intel core i3"
@@ -48,8 +53,8 @@ const SpecsComponent = props => (
         checked={props.specs.processorType === 'Intel core i7'}
       />
     </Form.Group>
-    <label className="label-style">Processor Speed (GHz)</label>
-    <Form.Group inline>
+    <Form.Group inline id="processor-speed">
+      <label>Processor Speed (GHz)</label>
       <Form.Radio
         label="1.8"
         value="1.8"
@@ -79,8 +84,8 @@ const SpecsComponent = props => (
         checked={props.specs.processorSpeed === '3.4'}
       />
     </Form.Group>
-    <label className="label-style">Screen Size (inches)</label>
     <Form.Group inline>
+      <label>Screen Size (inches)</label>
       <Form.Radio
         label="13"
         value="13"
@@ -103,8 +108,8 @@ const SpecsComponent = props => (
         checked={props.specs.screenSize === '17'}
       />
     </Form.Group>
-    <label className="label-style">Storage (GB)</label>
     <Form.Group inline>
+      <label>Storage (GB)</label>
       <Form.Radio
         label="128"
         value="128"
@@ -127,8 +132,8 @@ const SpecsComponent = props => (
         checked={props.specs.storage === '512'}
       />
     </Form.Group>
-    <label className="label-style">Memory (GB)</label>
     <Form.Group inline>
+      <label>Memory (GB)</label>
       <Form.Radio
         label="4"
         value="4"

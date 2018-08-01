@@ -152,8 +152,14 @@ input,
     border: 0.5px solid #0a26a8;
     border-radius: 0; }
 
+<<<<<<< HEAD
 .ui-alerts {
   z-index: 4060; }
+=======
+.ui.form .inline.fields {
+  width: 340px;
+  padding: 3% 0; }
+>>>>>>> chore(asset-specs): align radio buttons
 
 .ui.form .inline.fields > label {
   width: 13%; }
