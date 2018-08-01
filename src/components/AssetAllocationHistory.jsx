@@ -1,30 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'semantic-ui-react';
 import { isEmpty } from 'lodash';
+import { Container, Table } from 'semantic-ui-react';
+import FormatDate from '../_utils/dateFormatter';
+import TableRowComponent from './TableRowComponent';
 import '../_css/AssetAllocationHistory.css';
 
 const AssetAllocationHistory = ({ allocationHistory }) => {
   if (isEmpty(allocationHistory)) {
     return (
-      <p className="history-unavailable">Allocation history is not available for this asset</p>
+      <p className="history-unavailable">
+        Allocation history is not available for this asset
+      </p>
     );
   }
 
   return (
-    <ul>
-      {allocationHistory.map(allocationRecord => (
-        <li className="history-list" key={allocationRecord.created_at}>
-          <Image avatar src={allocationRecord.picture} />
-          <p>{allocationRecord.email}</p>
-          <p>{allocationRecord.slackHandle}</p>
-          <p>{allocationRecord.created_at}</p>
-          <p>{allocationRecord.status}</p>
-          <p>{allocationRecord.condition}</p>
-        </li>
-      ))
-      }
-    </ul>
+    <Container>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Date</Table.HeaderCell>
+            <Table.HeaderCell>Current Owner</Table.HeaderCell>
+            <Table.HeaderCell>Previous Owner</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          {
+            allocationHistory.map((allocationRecord) => {
+              if (allocationRecord.previous_owner === null) {
+                allocationRecord.previous_owner = ' - ';
+              }
+              if (allocationRecord.current_owner === null) {
+                allocationRecord.current_owner = ' - ';
+              }
+              allocationRecord.created_at = FormatDate(allocationRecord.created_at);
+              return (
+                <TableRowComponent
+                  key={allocationRecord.id}
+                  data={allocationRecord}
+                  headings={['created_at', 'current_owner', 'previous_owner']}
+                />
+              );
+            })
+          }
+        </Table.Body>
+      </Table>
+    </Container>
   );
 };
 
