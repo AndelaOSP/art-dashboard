@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Container } from 'semantic-ui-react';
+import { Header, Table, Pagination, Container, Segment, Dropdown, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -12,6 +12,33 @@ import LoaderComponent from './LoaderComponent';
 import AllocationActionComponent from './AllocationActionComponent';
 import formatDate from '../_utils/dateFormatter';
 import '../_css/AllocationsComponent.css';
+
+const rowOptions = [
+  {
+    text: '10 Rows',
+    value: 10
+  },
+  {
+    text: '20 Rows',
+    value: 20
+  },
+  {
+    text: '30 Rows',
+    value: 30
+  }
+];
+
+const definedPageLimits = () => (
+  <span className="defined-row-limt">
+    <Dropdown
+      id="dropdown-limit"
+      placeholder="Show Rows"
+      fluid
+      selection
+      options={rowOptions}
+    />
+  </span>
+);
 
 export class AllocationsComponent extends Component {
   state = {
@@ -51,9 +78,12 @@ export class AllocationsComponent extends Component {
     }
     return (
       <NavbarComponent>
-        <Container>
-          <Header content="All Allocations" className="allocations-heading" />
-          <Table celled>
+        <div className="allocations-list">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="All Allocations" />
+            <Divider id="assets-divider" />
+          </div>
+          <Table basic>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Asset</Table.HeaderCell>
@@ -86,18 +116,25 @@ export class AllocationsComponent extends Component {
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="5">
-                  {!_.isEmpty(this.props.allAllocations) &&
-                    <Pagination
-                      totalPages={this.getTotalPages()}
-                      onPageChange={this.handlePaginationChange}
-                      activePage={this.state.activePage}
-                    />
-                  }
+                  {!_.isEmpty(this.props.allAllocations) && (
+                  <Segment.Group horizontal id="art-pagination-section">
+                    <Segment>
+                      <Pagination
+                        totalPages={this.getTotalPages()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    </Segment>
+                    <Segment>
+                      {definedPageLimits()}
+                    </Segment>
+                  </Segment.Group>
+                  )}
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>
-        </Container>
+        </div>
       </NavbarComponent>
     );
   }

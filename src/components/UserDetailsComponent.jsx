@@ -1,10 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Header, Pagination, Button } from 'semantic-ui-react';
+import { Table, Header, Pagination, Segment, Dropdown } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
+
+const rowOptions = [
+  {
+    text: '10 Rows',
+    value: 10
+  },
+  {
+    text: '20 Rows',
+    value: 20
+  },
+  {
+    text: '30 Rows',
+    value: 30
+  }
+];
+
+const definedPageLimits = () => (
+  <span className="defined-row-limt">
+    <Dropdown
+      id="dropdown-limit"
+      placeholder="Show Rows"
+      fluid
+      selection
+      options={rowOptions}
+    />
+  </span>
+);
 
 const UserDetailsComponent = (props) => {
   if (props.isLoading) {
@@ -24,28 +51,28 @@ const UserDetailsComponent = (props) => {
   }
   return (
     <div>
-      <Table celled>
+      <Table basic>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <div className="assets-header">
+              <span className="table-column-text">
                 Name
-              </div>
+              </span>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
+              <span className="table-column-text">
                 Email Address
-              </div>
+              </span>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
+              <span className="table-column-text">
                 Cohort
-              </div>
+              </span>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
+              <span className="table-column-text">
                 Assets Assigned
-              </div>
+              </span>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -72,19 +99,20 @@ const UserDetailsComponent = (props) => {
           <Table.Row>
             <Table.HeaderCell colSpan="4" >
               {!props.emptyUsersList() && (
-                <Pagination
-                  totalPages={props.handlePageTotal()}
-                  onPageChange={props.handlePaginationChange}
-                  activePage={props.activePage}
-                />
+                <Segment.Group horizontal id="art-pagination-section">
+                  <Segment>
+                    <Pagination
+                      id="art-pagination-component"
+                      totalPages={props.handlePageTotal()}
+                      onPageChange={props.handlePaginationChange}
+                      activePage={props.activePage}
+                    />
+                  </Segment>
+                  <Segment>
+                    {definedPageLimits()}
+                  </Segment>
+                </Segment.Group>
               )}
-              <Button
-                circular
-                icon="add"
-                floated="right"
-                data-tooltip="Add new user"
-                size="big"
-              />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
