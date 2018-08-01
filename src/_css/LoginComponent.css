@@ -155,6 +155,9 @@ input,
 .ui-alerts {
   z-index: 4060; }
 
+.ui.form .inline.fields > label {
+  width: 13%; }
+
 .background {
   background: url("/images/landing_page_image.png") no-repeat;
   width: 100vw;

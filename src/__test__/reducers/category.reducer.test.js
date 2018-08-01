@@ -11,11 +11,13 @@ const {
   LOAD_CATEGORIES_SUCCESS,
   LOAD_CATEGORY_FAILURE,
   CREATE_CATEGORY_SUCCESS,
-  CREATE_CATEGORY_FAILURE
+  CREATE_CATEGORY_FAILURE,
+  DROPDOWN_CATEGORIES_SUCCESS
 } = constants;
 
 const initialState = {
   assetCategoriesCount: 0,
+  categoriesDropdown: [],
   categories: [],
   isLoading: false
 };
@@ -54,6 +56,7 @@ describe('Category Reducer tests', () => {
     };
     const newState = {
       assetCategoriesCount: 3,
+      categoriesDropdown: [],
       categories,
       isLoading: false
     };
@@ -70,7 +73,6 @@ describe('Category Reducer tests', () => {
     newAction.payload = newCategory;
     expect(categoryReducer(newState, newAction).categories).toEqual(categories);
   });
-
 
   it('should handle CREATE_ASSET_TYPE_FAILURE', () => {
     const newAction = {};
@@ -94,6 +96,12 @@ describe('Category Reducer tests', () => {
     expect(categoryReducer(newState, newAction).categories).toEqual(newAction.payload.results);
     expect(categoryReducer(newState, newAction).assetCategoriesCount)
       .toEqual(newAction.payload.count);
+  });
+
+  it('should handle DROPDOWN_CATEGORIES_SUCCESS', () => {
+    action.type = DROPDOWN_CATEGORIES_SUCCESS;
+    action.payload = categories;
+    expect(categoryReducer(initialState, action).categoriesDropdown).toEqual(categories);
   });
 
   afterEach(() => {

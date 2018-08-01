@@ -3,7 +3,7 @@ import * as React from 'react';
 import DropdownComponent from '../common/DropdownComponent';
 import ArtButton from '../common/ButtonComponent';
 
-import '../../_css/AddAssetComponent.css';
+import '../../_css/ModalComponent.css';
 
 const placeCategoriesInSemanticUIOptions = props => props.map((option, index) => ({
   key: index,
