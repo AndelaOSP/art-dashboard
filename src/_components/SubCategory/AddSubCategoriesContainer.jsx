@@ -25,6 +25,7 @@ class AddSubCategoriesContainer extends React.Component {
         ToastMessage.success({
           message: toastMessageContent.message
         });
+        nextProps.toggleModal();
       } else if (toastMessageContent.type === 'error') {
         ToastMessage.error({
           message: toastMessageContent.message
@@ -32,8 +33,6 @@ class AddSubCategoriesContainer extends React.Component {
       }
 
       nextProps.resetToastMessageContent();
-      nextProps.toggleModal();
-
       return {
         subCategory: '',
         category: '',
