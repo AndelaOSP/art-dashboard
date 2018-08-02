@@ -52,6 +52,10 @@ describe('Renders <AssetsSubCategoriesComponent /> correctly', () => {
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
 
+  it('renders page title', () => {
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Asset Sub-Categories');
+  });
+
   it('calls the getTotalPages function when the next button is clicked', () => {
     const getTotalPagesSpy = jest.spyOn(
       wrapper.instance(), 'getTotalPages'

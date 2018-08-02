@@ -32,4 +32,8 @@ describe('Renders <Allocations/> component', () => {
     expect(wrapper.find('Header').prop('content')).toEqual('All Allocations');
     expect(wrapper.find('Table').length).toBe(1);
   });
+
+  it('renders page title', () => {
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('All Allocations');
+  });
 });
