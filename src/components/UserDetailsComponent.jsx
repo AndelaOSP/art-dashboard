@@ -63,23 +63,23 @@ const UserDetailsComponent = (props) => {
         </Table.Body>
         <Table.Footer>
           <Table.Row>
+            {!props.emptyUsersList() && (
             <Table.HeaderCell colSpan="4" id="pagination-header">
-              {!props.emptyUsersList() && (
-                <Segment.Group horizontal id="art-pagination-section">
-                  <Segment>
-                    <Pagination
-                      id="art-pagination-component"
-                      totalPages={props.handlePageTotal()}
-                      onPageChange={props.handlePaginationChange}
-                      activePage={props.activePage}
-                    />
-                  </Segment>
-                  <Segment>
-                    <DropdownComponent />
-                  </Segment>
-                </Segment.Group>
-              )}
+              <Segment.Group horizontal id="art-pagination-section">
+                <Segment>
+                  <Pagination
+                    id="art-pagination-component"
+                    totalPages={props.handlePageTotal()}
+                    onPageChange={props.handlePaginationChange}
+                    activePage={props.activePage}
+                  />
+                </Segment>
+                <Segment>
+                  <DropdownComponent />
+                </Segment>
+              </Segment.Group>
             </Table.HeaderCell>
+              )}
           </Table.Row>
         </Table.Footer>
       </Table>

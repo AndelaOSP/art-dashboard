@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Container, Segment, Dropdown, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Container, Segment, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -11,34 +11,8 @@ import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import AllocationActionComponent from './AllocationActionComponent';
 import formatDate from '../_utils/dateFormatter';
+import DropdownComponent from '../_components/DropdownComponent';
 import '../_css/AllocationsComponent.css';
-
-const rowOptions = [
-  {
-    text: '10 Rows',
-    value: 10
-  },
-  {
-    text: '20 Rows',
-    value: 20
-  },
-  {
-    text: '30 Rows',
-    value: 30
-  }
-];
-
-const definedPageLimits = () => (
-  <span className="defined-row-limt">
-    <Dropdown
-      id="dropdown-limit"
-      placeholder="Show Rows"
-      fluid
-      selection
-      options={rowOptions}
-    />
-  </span>
-);
 
 export class AllocationsComponent extends Component {
   state = {
@@ -115,8 +89,8 @@ export class AllocationsComponent extends Component {
 
             <Table.Footer>
               <Table.Row>
+                {!_.isEmpty(this.props.allAllocations) && (
                 <Table.HeaderCell colSpan="5" id="pagination-header">
-                  {!_.isEmpty(this.props.allAllocations) && (
                   <Segment.Group horizontal id="art-pagination-section">
                     <Segment>
                       <Pagination
@@ -126,11 +100,11 @@ export class AllocationsComponent extends Component {
                       />
                     </Segment>
                     <Segment>
-                      {definedPageLimits()}
+                      <DropdownComponent />
                     </Segment>
                   </Segment.Group>
-                  )}
                 </Table.HeaderCell>
+                  )}
               </Table.Row>
             </Table.Footer>
           </Table>

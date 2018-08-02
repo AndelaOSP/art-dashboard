@@ -2,40 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { Table, Header, Pagination, Segment, Dropdown, Divider } from 'semantic-ui-react';
+import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent.jsx';
 import NavbarComponent from './NavBarComponent';
-
+import DropdownComponent from '../_components/DropdownComponent';
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
 import '../_css/IncidenceReportsComponent.css';
-
-const rowOptions = [
-  {
-    text: '10 Rows',
-    value: 10
-  },
-  {
-    text: '20 Rows',
-    value: 20
-  },
-  {
-    text: '30 Rows',
-    value: 30
-  }
-];
-
-const definedPageLimits = () => (
-  <span className="defined-row-limt">
-    <Dropdown
-      id="dropdown-limit"
-      placeholder="Show Rows"
-      fluid
-      selection
-      options={rowOptions}
-    />
-  </span>
-);
 
 export class IncidenceReportsComponent extends React.Component {
   state = {
@@ -101,24 +74,24 @@ export class IncidenceReportsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="8" id="pagination-header">
-                  {
+                {
                     !this.emptyReportsCheck() && (
-                    <Segment.Group horizontal id="art-pagination-section">
-                      <Segment>
-                        <Pagination
-                          totalPages={this.handlePageTotal()}
-                          onPageChange={this.handlePaginationChange}
-                          activePage={this.state.activePage}
-                        />
-                      </Segment>
-                      <Segment>
-                        {definedPageLimits()}
-                      </Segment>
-                    </Segment.Group>
+                    <Table.HeaderCell colSpan="8" id="pagination-header">
+                      <Segment.Group horizontal id="art-pagination-section">
+                        <Segment>
+                          <Pagination
+                            totalPages={this.handlePageTotal()}
+                            onPageChange={this.handlePaginationChange}
+                            activePage={this.state.activePage}
+                          />
+                        </Segment>
+                        <Segment>
+                          <DropdownComponent />
+                        </Segment>
+                      </Segment.Group>
+                    </Table.HeaderCell>
                     )
                   }
-                </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>

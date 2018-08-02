@@ -83,23 +83,22 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
+                {!_.isEmpty(this.props.assetTypes) && (
                 <Table.HeaderCell colSpan="3" id="pagination-header">
-                  {!_.isEmpty(this.props.assetTypes) &&
-                   (
-                   <Segment.Group horizontal id="art-pagination-section">
-                     <Segment>
-                       <Pagination
-                         totalPages={this.getTotalPages()}
-                         onPageChange={this.handlePaginationChange}
-                         activePage={this.state.activePage}
-                       />
-                     </Segment>
-                     <Segment>
-                       <DropdownComponent />
-                     </Segment>
-                   </Segment.Group>
-                  )}
+                  <Segment.Group horizontal id="art-pagination-section">
+                    <Segment>
+                      <Pagination
+                        totalPages={this.getTotalPages()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    </Segment>
+                    <Segment>
+                      <DropdownComponent />
+                    </Segment>
+                  </Segment.Group>
                 </Table.HeaderCell>
+                  )}
               </Table.Row>
             </Table.Footer>
           </Table>

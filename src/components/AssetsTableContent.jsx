@@ -114,8 +114,8 @@ const AssetsTableContent = (props) => {
 
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="8" id="pagination-header">
-              {!props.emptyAssetsCheck() ? (
+            {!props.emptyAssetsCheck() ? (
+              <Table.HeaderCell colSpan="8" id="pagination-header">
                 <Segment.Group horizontal id="art-pagination-section">
                   <Segment>
                     <Pagination
@@ -129,8 +129,8 @@ const AssetsTableContent = (props) => {
                     <DropdownComponent />
                   </Segment>
                 </Segment.Group>
+              </Table.HeaderCell>
               ) : ''}
-            </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
       </Table>

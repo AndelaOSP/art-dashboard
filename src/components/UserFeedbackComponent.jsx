@@ -1,41 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Container, Header, Table, Pagination, Segment, Dropdown, Divider } from 'semantic-ui-react';
+import { Container, Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import feedbackAction from '../_actions/userFeedback.actions';
 import NavbarComponent from './NavBarComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
+import DropdownComponent from '../_components/DropdownComponent';
 import ActionComponent from './ActionComponent';
 import TableHeaderComponent from '../components/common/TableHeaderComponent';
 import '../_css/UserFeedback.css';
-
-const rowOptions = [
-  {
-    text: '10 Rows',
-    value: 10
-  },
-  {
-    text: '20 Rows',
-    value: 20
-  },
-  {
-    text: '30 Rows',
-    value: 30
-  }
-];
-
-const definedPageLimits = () => (
-  <span className="defined-row-limt">
-    <Dropdown
-      id="dropdown-limit"
-      placeholder="Show Rows"
-      fluid
-      selection
-      options={rowOptions}
-    />
-  </span>
-);
 
 export class UserFeedbackComponent extends React.Component {
   constructor() {
@@ -119,21 +93,20 @@ export class UserFeedbackComponent extends React.Component {
 
           <Table.Footer>
             <Table.Row>
-              <Table.HeaderCell colSpan="5" id="pagination-header">
-                {
-                  this.props.hasFeedback &&
-                  (
+              {
+                  this.props.hasFeedback && (
+                  <Table.HeaderCell colSpan="5" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
                         {this.pagination()}
                       </Segment>
                       <Segment>
-                        {definedPageLimits()}
+                        <DropdownComponent />
                       </Segment>
                     </Segment.Group>
+                  </Table.HeaderCell>
                   )
                 }
-              </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
         </Table>

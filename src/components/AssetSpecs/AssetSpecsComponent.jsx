@@ -107,8 +107,8 @@ export class AssetSpecsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
+                {!_.isEmpty(this.props.specs) && (
                 <Table.HeaderCell colSpan="8" id="pagination-header">
-                  {!_.isEmpty(this.props.specs) && (
                   <Segment.Group horizontal id="art-pagination-section">
                     <Segment>
                       <Pagination
@@ -121,8 +121,8 @@ export class AssetSpecsComponent extends React.Component {
                       <DropdownComponent />
                     </Segment>
                   </Segment.Group>
-                  )}
                 </Table.HeaderCell>
+                  )}
               </Table.Row>
             </Table.Footer>
           </Table>
