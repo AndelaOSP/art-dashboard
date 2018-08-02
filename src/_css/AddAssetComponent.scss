@@ -1,4 +1,5 @@
 // styling for add asset component
+@import "sharedStyling.scss";
 
 .optional-label-text {
   margin: 3% 0;
@@ -9,5 +10,9 @@
 }
 
 #processor-speed .field {
-  padding: 0 3.48em 0 0;
+  padding: 0 3.09em 0 0;
+}
+
+.label-style {
+  margin-top: 4%;
 }

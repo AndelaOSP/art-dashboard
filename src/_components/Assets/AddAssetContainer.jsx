@@ -140,46 +140,27 @@ class AddAssetContainer extends React.Component {
     this.setState(({ page }) => ({ page: page - 1 }));
   }
 
-<<<<<<< HEAD
-=======
-  onSelectYearOfManufacture = (event, data) => {
-    const specs = { ...this.state.specs };
-    specs.year = data.value;
-    this.setState({ specs });
+  pickRadioValuesFromSpecsComponent = (data) => {
+    this.setState({ specs: data });
   }
 
-  handleRadioChanges = (event, data) => {
-    const { name, value } = data;
-    const specs = { ...this.state.specs };
-    if (name === 'processorType') {
-      specs.processorType = value;
-      this.setState({ specs });
-    } else if (name === 'processorSpeed') {
-      specs.processorSpeed = value;
-      this.setState({ specs });
-    } else if (name === 'screenSize') {
-      specs.screenSize = value;
-      this.setState({ specs });
-    } else if (name === 'storage') {
-      specs.storage = value;
-      this.setState({ specs });
-    } else if (name === 'memory') {
-      specs.memory = value;
-      this.setState({ specs });
-    }
-  }
->>>>>>> feat(asset-specs)refactor add asset component
   onCreateAsset = () => {
     this.props.createAsset({
       asset_code: this.state.assetTag,
       serial_number: this.state.serialNumber,
-      model_number: this.state.modelNumber
+      model_number: this.state.modelNumber,
+      year: this.state.specs.year,
+      processor_type: this.state.specs.processorType,
+      processor_speed: this.state.specs.processorSpeed,
+      screen_size: this.state.specs.screenSize,
+      storage: this.state.specs.storage,
+      memory: this.state.specs.memory
     });
   };
 
   render() {
-    return (
-      <div>{this.state.page === 1 ?
+    if (this.state.page === 1) {
+      return (
         <AddAssetComponent
           {...this.props}
           onSelectModelNumber={this.onSelectModelNumber}
@@ -193,29 +174,26 @@ class AddAssetContainer extends React.Component {
           assetTag={this.state.assetTag}
           buttonState={this.state.saveButtonState}
           onChangeButtonState={this.onChangeButtonState}
-<<<<<<< HEAD
-        /> : <FilterAssetComponent
-=======
         >
           <SpecsComponent
             {...this.props}
             specs={this.state.specs}
-            handleRadioChanges={this.handleRadioChanges}
-            onSelectYearOfManufacture={this.onSelectYearOfManufacture}
+            pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
           />
         </AddAssetComponent>
-        : <FilterAssetComponent
->>>>>>> feat(asset-specs)refactor add asset component
-          {...this.props}
-          handleDropdownChanges={this.handleDropdownChanges}
-          filteredSubCategories={this.state.filteredSubCategories}
-          filteredAssetTypes={this.state.filteredAssetTypes}
-          filteredAssetMakes={this.state.filteredAssetMakes}
-          page={this.state.page}
-          onNextClicked={this.onNextClicked}
-        />
-      }
-      </div>);
+      );
+    }
+    return (
+      <FilterAssetComponent
+        {...this.props}
+        handleDropdownChanges={this.handleDropdownChanges}
+        filteredSubCategories={this.state.filteredSubCategories}
+        filteredAssetTypes={this.state.filteredAssetTypes}
+        filteredAssetMakes={this.state.filteredAssetMakes}
+        page={this.state.page}
+        onNextClicked={this.onNextClicked}
+      />
+    );
   }
 }
 

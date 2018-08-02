@@ -55,12 +55,14 @@ instance.setState({
   serialNumber: '',
   assetTag: '',
   page: 0,
-  year: '',
-  processorType: '',
-  processorSpeed: '',
-  screenSize: '',
-  storage: '',
-  memory: '',
+  specs: {
+    year: '',
+    processorType: '',
+    processorSpeed: '',
+    screenSize: '',
+    storage: '',
+    memory: ''
+  },
   saveButtonState: false,
   filteredSubCategories: [],
   filteredAssetTypes: [],
@@ -140,9 +142,9 @@ describe('<AddAssetContainer />', () => {
   });
 
   it('should have data about the year when selecting year on manufacture', () => {
-    const event = { data: { value: '2015' } };
-    instance.onSelectYearOfManufacture(event, event.data);
-    expect(instance.state.specs.year).toEqual('2015');
+    wrapper.find('.save').simulate('click');
+    wrapper.find('DropdownComponent .item').at(3).simulate('click');
+    expect(wrapper.state().specs.year).toEqual(2015);
   });
 
   it('should have data about the processor type when selecting processor type', () => {

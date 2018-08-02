@@ -24,7 +24,7 @@ const AddAssetComponent = props => (
       <div className="page-text">Fill out device specs</div>
     </div>
     <Form onSubmit={props.onCreateAsset}>
-      <label className="label-style">Model Number</label>
+      <div className="label-style">Model Number</div>
       <DropdownComponent
         label="Asset Model Number"
         options={props.filteredModelNumbers}
@@ -32,14 +32,14 @@ const AddAssetComponent = props => (
         name="asset-model-number"
         onChange={props.onSelectModelNumber}
       />
-      <label className="label-style">Asset Tag</label>
+      <div className="label-style">Asset Tag</div>
       <InputFluid
         className="input-style"
         placeholder="Enter Asset Tag"
         name="asset-tag"
         onChange={props.onAddAssetTag}
       />
-      <label className="label-style">Serial Number</label>
+      <div className="label-style">Serial Number</div>
       <InputFluid
         className="input-style"
         placeholder="Enter Serial Number"
