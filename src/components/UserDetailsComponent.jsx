@@ -29,24 +29,16 @@ const UserDetailsComponent = (props) => {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <span className="table-column-text">
                 Name
-              </span>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">
                 Email Address
-              </span>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">
                 Cohort
-              </span>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">
                 Assets Assigned
-              </span>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

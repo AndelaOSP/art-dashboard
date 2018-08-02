@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { Button, Container, Pagination, Table, Header } from 'semantic-ui-react';
+import { Button, Pagination, Table, Header, Segment, Divider } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent';
 import NavbarComponent from './NavBarComponent';
+import DropdownComponent from '../_components/DropdownComponent';
 import LoaderComponent from './LoaderComponent';
 import ActionComponent from './ActionComponent';
 
+import '../_css/AssetsComponent.css';
 import { loadAssetCategories } from '../_actions/assetCategories.actions';
 
 export class AssetCategoriesComponent extends React.Component {
@@ -18,12 +20,12 @@ export class AssetCategoriesComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadAssetCategories(this.state.activePage);
+    this.props.loadAssetCategories(this.state.activePage, this.state.limit);
   }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetCategories(activePage);
+    this.props.loadAssetCategories(activePage, this.state.limit);
   }
 
   handlePageTotal = () => Math.ceil(this.props.assetCategoriesCount / this.state.limit)
@@ -41,33 +43,36 @@ export class AssetCategoriesComponent extends React.Component {
     if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
-          <Container>
+          <div className="assets-list">
             <h1>
               An Error Occurred While Trying To Display The Asset Categories
             </h1>
             <Button onClick={() => { this.props.loadAssetCategories(this.state.activePage); }}>
               Try Again
             </Button>
-          </Container>
+          </div>
         </NavbarComponent>
       );
     }
     if (!this.props.isLoading && this.emptyCategoriesCheck()) {
       return (
         <NavbarComponent>
-          <Container>
+          <div className="assets-list">
             <h1>
               No Asset Categories Found.
             </h1>
-          </Container>
+          </div>
         </NavbarComponent>
       );
     }
     return (
       <NavbarComponent>
-        <Container>
-          <Header className="landing-heading" content="Asset Categories" />
-          <Table celled>
+        <div className="assets-list">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Asset Categories" />
+            <Divider id="assets-divider" />
+          </div>
+          <Table basic>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Id</Table.HeaderCell>
@@ -94,21 +99,28 @@ export class AssetCategoriesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="3">
+                <Table.HeaderCell colSpan="3" id="pagination-header">
                   {
                     !this.emptyCategoriesCheck() && (
-                      <Pagination
-                        totalPages={this.handlePageTotal()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
+                    <Segment.Group horizontal id="art-pagination-section">
+                      <Segment>
+                        <Pagination
+                          totalPages={this.handlePageTotal()}
+                          onPageChange={this.handlePaginationChange}
+                          activePage={this.state.activePage}
+                        />
+                      </Segment>
+                      <Segment>
+                        <DropdownComponent />
+                      </Segment>
+                    </Segment.Group>
                     )
                   }
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>
-        </Container>
+        </div>
       </NavbarComponent>
     );
   }
