@@ -6,7 +6,8 @@ import { Button, Pagination, Table, Header, Segment, Divider } from 'semantic-ui
 
 import TableRowComponent from './TableRowComponent';
 import NavbarComponent from './NavBarComponent';
-import DropdownComponent from '../_components/DropdownComponent';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from './LoaderComponent';
 import ActionComponent from './ActionComponent';
 
@@ -111,7 +112,12 @@ export class AssetCategoriesComponent extends React.Component {
                         />
                       </Segment>
                       <Segment>
-                        <DropdownComponent />
+                        <DropdownComponent
+                          id="page-limit"
+                          placeHolder="Show Rows"
+                          options={rowOptions}
+                          upward
+                        />
                       </Segment>
                     </Segment.Group>
                     )

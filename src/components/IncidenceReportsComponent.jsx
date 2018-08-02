@@ -6,7 +6,8 @@ import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent.jsx';
 import NavbarComponent from './NavBarComponent';
-import DropdownComponent from '../_components/DropdownComponent';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
 import '../_css/IncidenceReportsComponent.css';
 
@@ -86,7 +87,12 @@ export class IncidenceReportsComponent extends React.Component {
                           />
                         </Segment>
                         <Segment>
-                          <DropdownComponent />
+                          <DropdownComponent
+                            id="page-limit"
+                            placeHolder="Show Rows"
+                            options={rowOptions}
+                            upward
+                          />
                         </Segment>
                       </Segment.Group>
                     </Table.HeaderCell>

@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
 
 import TableRowComponent from '../TableRowComponent.jsx';
-import DropdownComponent from '../../_components/DropdownComponent';
+import rowOptions from '../../_utils/pageRowOptions';
+import DropdownComponent from '../../components/common/DropdownComponent';
 import NavbarComponent from '../NavBarComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import AssetConditionActionComponent from './AssetConditionActionComponent';
@@ -99,7 +100,12 @@ export class AssetConditionsComponent extends React.Component {
                       />
                     </Segment>
                     <Segment>
-                      <DropdownComponent />
+                      <DropdownComponent
+                        id="page-limit"
+                        placeHolder="Show Rows"
+                        options={rowOptions}
+                        upward
+                      />
                     </Segment>
                   </Segment.Group>
                 </Table.HeaderCell>

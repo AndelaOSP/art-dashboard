@@ -11,7 +11,8 @@ import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import AllocationActionComponent from './AllocationActionComponent';
 import formatDate from '../_utils/dateFormatter';
-import DropdownComponent from '../_components/DropdownComponent';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AllocationsComponent.css';
 
 export class AllocationsComponent extends Component {
@@ -100,7 +101,12 @@ export class AllocationsComponent extends Component {
                       />
                     </Segment>
                     <Segment>
-                      <DropdownComponent />
+                      <DropdownComponent
+                        id="page-limit"
+                        placeHolder="Show Rows"
+                        options={rowOptions}
+                        upward
+                      />
                     </Segment>
                   </Segment.Group>
                 </Table.HeaderCell>

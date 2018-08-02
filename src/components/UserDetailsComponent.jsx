@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Header, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
-import DropdownComponent from '../_components/DropdownComponent';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
@@ -75,7 +76,12 @@ const UserDetailsComponent = (props) => {
                   />
                 </Segment>
                 <Segment>
-                  <DropdownComponent />
+                  <DropdownComponent
+                    id="page-limit"
+                    placeHolder="Show Rows"
+                    options={rowOptions}
+                    upward
+                  />
                 </Segment>
               </Segment.Group>
             </Table.HeaderCell>

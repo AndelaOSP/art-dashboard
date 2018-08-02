@@ -6,7 +6,8 @@ import feedbackAction from '../_actions/userFeedback.actions';
 import NavbarComponent from './NavBarComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
-import DropdownComponent from '../_components/DropdownComponent';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import ActionComponent from './ActionComponent';
 import TableHeaderComponent from '../components/common/TableHeaderComponent';
 import '../_css/UserFeedback.css';
@@ -101,7 +102,12 @@ export class UserFeedbackComponent extends React.Component {
                         {this.pagination()}
                       </Segment>
                       <Segment>
-                        <DropdownComponent />
+                        <DropdownComponent
+                          id="page-limit"
+                          placeHolder="Show Rows"
+                          options={rowOptions}
+                          upward
+                        />
                       </Segment>
                     </Segment.Group>
                   </Table.HeaderCell>

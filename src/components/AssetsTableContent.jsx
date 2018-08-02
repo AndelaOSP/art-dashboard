@@ -17,7 +17,8 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
-import DropdownComponent from '../_components/DropdownComponent';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
@@ -126,7 +127,12 @@ const AssetsTableContent = (props) => {
                     />
                   </Segment>
                   <Segment>
-                    <DropdownComponent />
+                    <DropdownComponent
+                      id="page-limit"
+                      placeHolder="Show Rows"
+                      options={rowOptions}
+                      upward
+                    />
                   </Segment>
                 </Segment.Group>
               </Table.HeaderCell>

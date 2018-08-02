@@ -157,6 +157,12 @@ input,
     border-radius: 0;
     margin: 0; }
 
+#page-limit {
+  width: 45%;
+  margin-top: 0px;
+  border-radius: 0px;
+  border: 0.5px solid #0a26a8; }
+
 .background {
   background: url("/images/landing_page_image.png") no-repeat;
   width: 100vw;

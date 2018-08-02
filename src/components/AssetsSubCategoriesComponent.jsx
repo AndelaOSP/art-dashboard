@@ -7,7 +7,8 @@ import _ from 'lodash';
 
 import TableRowComponent from './TableRowComponent';
 import NavbarComponent from './NavBarComponent';
-import DropdownComponent from '../_components/DropdownComponent';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from '../components/LoaderComponent';
 import ActionComponent from '../components/ActionComponent';
 
@@ -95,7 +96,12 @@ export class AssetSubCategoriesComponent extends React.Component {
                       />
                     </Segment>
                     <Segment>
-                      <DropdownComponent />
+                      <DropdownComponent
+                        id="page-limit"
+                        placeHolder="Show Rows"
+                        options={rowOptions}
+                        upward
+                      />
                     </Segment>
                   </Segment.Group>
                 </Table.HeaderCell>
