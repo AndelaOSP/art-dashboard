@@ -163,6 +163,9 @@ input,
   border-radius: 0;
   border: 0.5px solid #0a26a8; }
 
+.ui-alerts {
+  z-index: 4060; }
+
 .background {
   background: url("/images/landing_page_image.png") no-repeat;
   width: 100vw;
