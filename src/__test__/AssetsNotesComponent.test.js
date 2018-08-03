@@ -17,7 +17,6 @@ describe('Renders <AssetAllocationHistory /> correctly', () => {
     wrapper.setProps({
       assetNotes: ' This is a sample note '
     });
-    expect(wrapper.find('Grid').length).toBe(1);
     expect(wrapper.find('Container').length).toBe(1);
   });
 });

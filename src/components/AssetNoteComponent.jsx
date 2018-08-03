@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Container, Header, Grid } from 'semantic-ui-react/dist/commonjs';
+import { Container, Header } from 'semantic-ui-react/dist/commonjs';
 
 
 const AssetNoteComponent = ({ assetNotes }) => {
@@ -14,14 +14,10 @@ const AssetNoteComponent = ({ assetNotes }) => {
   }
   return (
     <Container>
-      <Grid columns={2} stackable className="asset-notes">
-        <Grid.Column>
-          <Header as="h3" content="Asset Notes" />
-          <div className="asset-notes">
-            {assetNotes}
-          </div>
-        </Grid.Column>
-      </Grid>
+      <Header as="h3" content="Asset Notes" />
+      <div className="asset-notes">
+        {assetNotes}
+      </div>
     </Container>
   );
 };
