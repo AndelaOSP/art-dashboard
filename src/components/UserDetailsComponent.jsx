@@ -26,20 +26,20 @@ const UserDetailsComponent = (props) => {
   }
   return (
     <div>
-      <Table basic>
+      <Table basic selectable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-                Name
+              Name
             </Table.HeaderCell>
             <Table.HeaderCell>
-                Email Address
+              Email Address
             </Table.HeaderCell>
             <Table.HeaderCell>
-                Cohort
+              Cohort
             </Table.HeaderCell>
             <Table.HeaderCell>
-                Assets Assigned
+              Assets Assigned
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -65,27 +65,27 @@ const UserDetailsComponent = (props) => {
         <Table.Footer>
           <Table.Row>
             {!props.emptyUsersList() && (
-            <Table.HeaderCell colSpan="4" id="pagination-header">
-              <Segment.Group horizontal id="art-pagination-section">
-                <Segment>
-                  <Pagination
-                    id="art-pagination-component"
-                    totalPages={props.handlePageTotal()}
-                    onPageChange={props.handlePaginationChange}
-                    activePage={props.activePage}
-                  />
-                </Segment>
-                <Segment>
-                  <DropdownComponent
-                    id="page-limit"
-                    placeHolder="Show Rows"
-                    options={rowOptions}
-                    upward
-                  />
-                </Segment>
-              </Segment.Group>
-            </Table.HeaderCell>
-              )}
+              <Table.HeaderCell colSpan="4" id="pagination-header">
+                <Segment.Group horizontal id="art-pagination-section">
+                  <Segment>
+                    <Pagination
+                      id="art-pagination-component"
+                      totalPages={props.handlePageTotal()}
+                      onPageChange={props.handlePaginationChange}
+                      activePage={props.activePage}
+                    />
+                  </Segment>
+                  <Segment>
+                    <DropdownComponent
+                      id="page-limit"
+                      placeHolder="Show Rows"
+                      options={rowOptions}
+                      upward
+                    />
+                  </Segment>
+                </Segment.Group>
+              </Table.HeaderCell>
+            )}
           </Table.Row>
         </Table.Footer>
       </Table>

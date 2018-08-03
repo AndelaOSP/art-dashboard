@@ -56,7 +56,7 @@ export class AssetConditionsComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Conditions" />
             <Divider id="assets-divider" />
           </div>
-          <Table basic>
+          <Table basic selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Asset</Table.HeaderCell>

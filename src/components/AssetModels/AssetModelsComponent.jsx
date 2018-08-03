@@ -58,14 +58,13 @@ export class AssetModelsComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Models" />
             <Divider id="assets-divider" />
           </div>
-          <Table basic>
+          <Table basic selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Model Number</Table.HeaderCell>
                 <Table.HeaderCell>Make</Table.HeaderCell>
                 <Table.HeaderCell>Created</Table.HeaderCell>
                 <Table.HeaderCell>Modified</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -89,7 +88,7 @@ export class AssetModelsComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 {!_.isEmpty(this.props.assetModels) &&
-                    (
+                  (
                     <Table.HeaderCell colSpan="5" id="pagination-header">
                       <Segment.Group horizontal id="art-pagination-section">
                         <Segment>
@@ -109,7 +108,7 @@ export class AssetModelsComponent extends React.Component {
                         </Segment>
                       </Segment.Group>
                     </Table.HeaderCell>
-                    )}
+                  )}
               </Table.Row>
             </Table.Footer>
           </Table>

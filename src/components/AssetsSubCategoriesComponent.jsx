@@ -55,7 +55,7 @@ export class AssetSubCategoriesComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Sub-Categories" />
             <Divider id="assets-divider" />
           </div>
-          <Table basic>
+          <Table basic selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Id</Table.HeaderCell>
