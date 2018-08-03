@@ -98,7 +98,7 @@ AddSubCategoriesContainer.defaultProps = {
 };
 
 const mapStateToProps = ({ categoriesList, toastMessage }) => ({
-  categoriesList: categoriesList.categories,
+  categoriesList: categoriesList.categoriesDropdown,
   toastMessageContent: toastMessage
 });
 

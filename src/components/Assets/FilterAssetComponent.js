@@ -3,24 +3,24 @@ import * as React from 'react';
 import DropdownComponent from '../common/DropdownComponent';
 import ArtButton from '../common/ButtonComponent';
 
-import '../../_css/AddAssetComponent.css';
+import '../../_css/ModalComponent.css';
 
 const placeCategoriesInSemanticUIOptions = props => props.map((option, index) => ({
   key: index,
   text: option.category_name,
-  value: option.id
+  value: option.category_name
 }));
 
 const FilterAssetComponent = props => (
   <div>
     <div className="page-indicator">
-      <div className={props.page === 0 ? 'circle shade-1' : 'circle shade-2'}>1</div>
+      <div className={props.page === 0 ? 'circle shade-2' : 'circle shade-1'}>1</div>
       Identify your device
       <div className="line" />
       <div className="circle">2</div>
       Fill out device specs
     </div>
-    <label className="label-style">Category</label>
+    <div className="label-style">Category</div>
     <DropdownComponent
       label="Asset Category"
       placeHolder="Select Asset Category"
@@ -28,7 +28,7 @@ const FilterAssetComponent = props => (
       options={placeCategoriesInSemanticUIOptions(props.categories)}
       onChange={props.handleDropdownChanges}
     />
-    <label className="label-style">Sub Category</label>
+    <div className="label-style">Sub Category</div>
     <DropdownComponent
       label="Asset Subcategory"
       options={props.filteredSubCategories}
@@ -36,7 +36,7 @@ const FilterAssetComponent = props => (
       name="asset-subcategory"
       onChange={props.handleDropdownChanges}
     />
-    <label className="label-style">Type</label>
+    <div className="label-style">Type</div>
     <DropdownComponent
       label="Asset Type"
       options={props.filteredAssetTypes}
@@ -44,7 +44,7 @@ const FilterAssetComponent = props => (
       name="asset-types"
       onChange={props.handleDropdownChanges}
     />
-    <label className="label-style">Make</label>
+    <div className="label-style">Make</div>
     <DropdownComponent
       label="Asset Make"
       options={props.filteredAssetMakes}
