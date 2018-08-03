@@ -17,7 +17,7 @@ describe('IncidenceReportsComponent is rendered correctly', () => {
   const wrapper = shallow(<IncidenceReportsComponent {...props} />);
 
   it('renders page title', () => {
-    expect(wrapper.find('.landing-heading').prop('content')).toEqual('Incidence Reports');
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Incidence Reports');
   });
 
   it('renders Pagination component', () => {

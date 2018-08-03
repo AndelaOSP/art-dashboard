@@ -17,7 +17,7 @@ describe('Asset Categories Component', () => {
   const wrapper = shallow(<AssetCategoriesComponent {...props} />);
 
   it('renders page heading', () => {
-    expect(wrapper.find('.landing-heading').prop('content')).toEqual('Asset Categories');
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Asset Categories');
   });
 
   it('renders Pagination component', () => {

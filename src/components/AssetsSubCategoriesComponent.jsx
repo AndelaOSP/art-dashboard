@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Container, Header, Table, Button, Pagination } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRowComponent from './TableRowComponent';
 import NavbarComponent from './NavBarComponent';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from '../components/LoaderComponent';
 import ActionComponent from '../components/ActionComponent';
 
+import '../_css/AssetsComponent.css';
 import { loadSubCategories } from '../_actions/subcategory.actions';
 
 export class AssetSubCategoriesComponent extends React.Component {
@@ -39,19 +42,22 @@ export class AssetSubCategoriesComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetSubCategories)) {
       return (
         <NavbarComponent>
-          <Container>
+          <div className="">
             <h1>
               No Asset Sub Category Found
             </h1>
-          </Container>
+          </div>
         </NavbarComponent>
       );
     }
     return (
       <NavbarComponent>
-        <Container>
-          <Header className="landing-heading" content="Asset Sub-Categories" />
-          <Table celled>
+        <div className="assets-list">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Asset Sub-Categories" />
+            <Divider id="assets-divider" />
+          </div>
+          <Table basic>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Id</Table.HeaderCell>
@@ -79,20 +85,31 @@ export class AssetSubCategoriesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="4">
-                  {!_.isEmpty(this.props.assetSubCategories) &&
-                    <Pagination
-                      totalPages={this.getTotalPages()}
-                      onPageChange={this.handlePaginationChange}
-                      activePage={this.state.activePage}
-                    />
-                  }
-                  <Button circular icon="add" floated="right" data-tooltip="Add new sub category" size="big" />
+                {!_.isEmpty(this.props.assetSubCategories) && (
+                <Table.HeaderCell colSpan="4" id="pagination-header">
+                  <Segment.Group horizontal id="art-pagination-section">
+                    <Segment>
+                      <Pagination
+                        totalPages={this.getTotalPages()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    </Segment>
+                    <Segment>
+                      <DropdownComponent
+                        id="page-limit"
+                        placeHolder="Show Rows"
+                        options={rowOptions}
+                        upward
+                      />
+                    </Segment>
+                  </Segment.Group>
                 </Table.HeaderCell>
+                  )}
               </Table.Row>
             </Table.Footer>
           </Table>
-        </Container>
+        </div>
       </NavbarComponent>
     );
   }

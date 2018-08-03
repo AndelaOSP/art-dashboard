@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { Container, Table, Header, Pagination } from 'semantic-ui-react';
+import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent.jsx';
 import NavbarComponent from './NavBarComponent';
-
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
+import '../_css/IncidenceReportsComponent.css';
 
 export class IncidenceReportsComponent extends React.Component {
   state = {
@@ -31,9 +33,12 @@ export class IncidenceReportsComponent extends React.Component {
   render() {
     return (
       <NavbarComponent>
-        <Container>
-          <Header className="landing-heading" content="Incidence Reports" />
-          <Table celled>
+        <div className="incidence-list">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Incidence Reports" />
+            <Divider id="assets-divider" />
+          </div>
+          <Table basic>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Asset</Table.HeaderCell>
@@ -70,21 +75,33 @@ export class IncidenceReportsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="8">
-                  {
+                {
                     !this.emptyReportsCheck() && (
-                      <Pagination
-                        totalPages={this.handlePageTotal()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
+                    <Table.HeaderCell colSpan="8" id="pagination-header">
+                      <Segment.Group horizontal id="art-pagination-section">
+                        <Segment>
+                          <Pagination
+                            totalPages={this.handlePageTotal()}
+                            onPageChange={this.handlePaginationChange}
+                            activePage={this.state.activePage}
+                          />
+                        </Segment>
+                        <Segment>
+                          <DropdownComponent
+                            id="page-limit"
+                            placeHolder="Show Rows"
+                            options={rowOptions}
+                            upward
+                          />
+                        </Segment>
+                      </Segment.Group>
+                    </Table.HeaderCell>
                     )
                   }
-                </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>
-        </Container>
+        </div>
       </NavbarComponent>
     );
   }

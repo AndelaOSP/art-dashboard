@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Container, Header, Table, Button, Pagination } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRowComponent from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
+import DropdownComponent from '../../_components/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import ActionComponent from '../../components/ActionComponent';
 
@@ -39,19 +40,22 @@ export class AssetMakeComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetMakes)) {
       return (
         <NavbarComponent>
-          <Container>
+          <div>
             <h1>
               No Asset Make Found
             </h1>
-          </Container>
+          </div>
         </NavbarComponent>
       );
     }
     return (
       <NavbarComponent>
-        <Container>
-          <Header className="landing-heading" content="Asset Makes" />
-          <Table celled>
+        <div className="incidence-list">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Asset Makes" />
+            <Divider id="assets-divider" />
+          </div>
+          <Table basic>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Id</Table.HeaderCell>
@@ -79,20 +83,26 @@ export class AssetMakeComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="4">
-                  {!_.isEmpty(this.props.assetMakes) &&
-                    <Pagination
-                      totalPages={this.getTotalPages()}
-                      onPageChange={this.handlePaginationChange}
-                      activePage={this.state.activePage}
-                    />
-                  }
-                  <Button circular icon="add" floated="right" data-tooltip="Add new asset make" size="big" />
+                {!_.isEmpty(this.props.assetMakes) && (
+                <Table.HeaderCell colSpan="4" id="pagination-header">
+                  <Segment.Group horizontal id="art-pagination-section">
+                    <Segment>
+                      <Pagination
+                        totalPages={this.getTotalPages()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    </Segment>
+                    <Segment>
+                      <DropdownComponent />
+                    </Segment>
+                  </Segment.Group>
                 </Table.HeaderCell>
+                  )}
               </Table.Row>
             </Table.Footer>
           </Table>
-        </Container>
+        </div>
       </NavbarComponent>
     );
   }

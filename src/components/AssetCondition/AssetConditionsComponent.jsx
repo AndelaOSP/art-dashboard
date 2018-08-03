@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { Button, Container, Table, Header, Pagination } from 'semantic-ui-react';
+import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
 
 import TableRowComponent from '../TableRowComponent.jsx';
+import rowOptions from '../../_utils/pageRowOptions';
+import DropdownComponent from '../../components/common/DropdownComponent';
 import NavbarComponent from '../NavBarComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import AssetConditionActionComponent from './AssetConditionActionComponent';
 
+import '../../_css/AssetsComponent.css';
 import { loadAssetConditions } from '../../_actions/assetCondition.actions';
 import formatDate from '../../_utils/dateFormatter';
 
@@ -40,19 +43,22 @@ export class AssetConditionsComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetConditionsList)) {
       return (
         <NavbarComponent>
-          <Container>
+          <div className="assets-list">
             <h1>
               No Asset Conditions Found
             </h1>
-          </Container>
+          </div>
         </NavbarComponent>
       );
     }
     return (
       <NavbarComponent>
-        <Container>
-          <Header className="landing-heading" content="Asset Conditions" />
-          <Table celled>
+        <div className="assets-list">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Asset Conditions" />
+            <Divider id="assets-divider" />
+          </div>
+          <Table basic>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Asset</Table.HeaderCell>
@@ -83,26 +89,31 @@ export class AssetConditionsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="4">
-                  {!_.isEmpty(this.props.assetConditionsList) &&
-                  <Pagination
-                    totalPages={this.getTotalPages()}
-                    onPageChange={this.handlePaginationChange}
-                    activePage={this.state.activePage}
-                  />
-                  }
-                  <Button
-                    circular
-                    icon="add"
-                    floated="right"
-                    data-tooltip="Add new asset condition"
-                    size="big"
-                  />
+                {!_.isEmpty(this.props.assetConditionsList) && (
+                <Table.HeaderCell colSpan="4" id="pagination-header">
+                  <Segment.Group horizontal id="art-pagination-section">
+                    <Segment>
+                      <Pagination
+                        totalPages={this.getTotalPages()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    </Segment>
+                    <Segment>
+                      <DropdownComponent
+                        id="page-limit"
+                        placeHolder="Show Rows"
+                        options={rowOptions}
+                        upward
+                      />
+                    </Segment>
+                  </Segment.Group>
                 </Table.HeaderCell>
+                  )}
               </Table.Row>
             </Table.Footer>
           </Table>
-        </Container>
+        </div>
       </NavbarComponent>
     );
   }
