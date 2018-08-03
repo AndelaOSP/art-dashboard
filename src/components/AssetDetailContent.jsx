@@ -5,6 +5,7 @@ import { SemanticToastContainer } from 'react-semantic-toasts';
 import '../_css/AssetDetailContent.css';
 import AssetAllocationHistory from './AssetAllocationHistory';
 import AssetDescriptionComponent from './AssetDescriptionComponent';
+import AssetNotes from './AssetNoteComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
 import LoaderComponent from './LoaderComponent';
 
@@ -36,10 +37,10 @@ const AssetDetailContent = (props) => {
         </Tab.Pane>)
     },
     {
-      menuItem: 'Current Condition',
+      menuItem: 'Asset Note',
       render: () => (
         <Tab.Pane attached={false} className="asset-tab-pane current-condition">
-          Current condition is not available for this asset
+          <AssetNotes assetNotes={assetDetail.notes} />
         </Tab.Pane>)
     },
     {
