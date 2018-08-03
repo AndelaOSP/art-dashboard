@@ -10,7 +10,6 @@ import NavbarComponent from '../NavBarComponent';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
-import ActionComponent from '../../components/ActionComponent';
 import formatDate from '../../_utils/dateFormatter';
 
 import { loadAssetModels } from '../../_actions/assetModels.action';
@@ -81,11 +80,7 @@ export class AssetModelsComponent extends React.Component {
                       key={assetModel.id}
                       data={assetModel}
                       headings={['model_number', 'make_label', 'formatted_create', 'formatted_modified']}
-                    >
-                      <Table.Cell>
-                        <ActionComponent />
-                      </Table.Cell>
-                    </TableRowComponent>
+                    />
                   );
                 })
               }

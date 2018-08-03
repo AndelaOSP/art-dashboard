@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 
 const TableRowComponent = props => (
-  <Table.Row>
+  <Table.Row onClick={props.handleViewClick}>
     {props.headings
       .map(heading => (
         <Table.Cell key={heading}>
@@ -16,6 +16,7 @@ const TableRowComponent = props => (
 );
 
 TableRowComponent.propTypes = {
+  handleViewClick: PropTypes.func,
   headings: PropTypes.array.isRequired,
   data: PropTypes.object.isRequired,
   children: PropTypes.node

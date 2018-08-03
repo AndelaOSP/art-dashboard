@@ -10,8 +10,6 @@ import NavbarComponent from '../NavBarComponent';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
-import ActionComponent from '../../components/ActionComponent';
-
 import '../../_css/AssetsComponent.css';
 import { loadAssetSpecs } from '../../_actions/assetSpecs.actions';
 
@@ -78,7 +76,6 @@ export class AssetSpecsComponent extends React.Component {
                 <Table.HeaderCell>Processor Type</Table.HeaderCell>
                 <Table.HeaderCell>Storage</Table.HeaderCell>
                 <Table.HeaderCell>Memory</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -97,11 +94,7 @@ export class AssetSpecsComponent extends React.Component {
                       'storage',
                       'memory'
                     ]}
-                  >
-                    <Table.Cell>
-                      <ActionComponent />
-                    </Table.Cell>
-                  </TableRowComponent>
+                  />
                 ))
               }
             </Table.Body>

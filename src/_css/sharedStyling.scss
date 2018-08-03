@@ -122,6 +122,10 @@ input,
   padding-left: 33%;
 }
 
+.ui.basic.table tbody tr{
+  cursor: pointer;
+}
+
 #art-pagination-section {
   width: 680px;
   margin: 0;

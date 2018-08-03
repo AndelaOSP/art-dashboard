@@ -10,8 +10,6 @@ import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from '../components/LoaderComponent';
-import ActionComponent from '../components/ActionComponent';
-
 import '../_css/AssetsComponent.css';
 import { loadSubCategories } from '../_actions/subcategory.actions';
 
@@ -63,7 +61,6 @@ export class AssetSubCategoriesComponent extends React.Component {
                 <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Sub-Category</Table.HeaderCell>
                 <Table.HeaderCell>Category</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -74,11 +71,7 @@ export class AssetSubCategoriesComponent extends React.Component {
                     key={subCategory.id}
                     data={subCategory}
                     headings={['id', 'sub_category_name', 'asset_category']}
-                  >
-                    <Table.Cell>
-                      <ActionComponent />
-                    </Table.Cell>
-                  </TableRowComponent>
+                  />
                 ))
               }
             </Table.Body>
@@ -86,26 +79,26 @@ export class AssetSubCategoriesComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 {!_.isEmpty(this.props.assetSubCategories) && (
-                <Table.HeaderCell colSpan="4" id="pagination-header">
-                  <Segment.Group horizontal id="art-pagination-section">
-                    <Segment>
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                    </Segment>
-                    <Segment>
-                      <DropdownComponent
-                        id="page-limit"
-                        placeHolder="Show Rows"
-                        options={rowOptions}
-                        upward
-                      />
-                    </Segment>
-                  </Segment.Group>
-                </Table.HeaderCell>
-                  )}
+                  <Table.HeaderCell colSpan="4" id="pagination-header">
+                    <Segment.Group horizontal id="art-pagination-section">
+                      <Segment>
+                        <Pagination
+                          totalPages={this.getTotalPages()}
+                          onPageChange={this.handlePaginationChange}
+                          activePage={this.state.activePage}
+                        />
+                      </Segment>
+                      <Segment>
+                        <DropdownComponent
+                          id="page-limit"
+                          placeHolder="Show Rows"
+                          options={rowOptions}
+                          upward
+                        />
+                      </Segment>
+                    </Segment.Group>
+                  </Table.HeaderCell>
+                )}
               </Table.Row>
             </Table.Footer>
           </Table>

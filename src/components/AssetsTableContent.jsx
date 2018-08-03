@@ -9,7 +9,6 @@ import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
 import TableRowComponent from './TableRowComponent';
 import ModalComponent from './common/ModalComponent';
-import ActionComponent from './ActionComponent';
 import LoaderComponent from './LoaderComponent';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
 import AssetTypesContainer from '../_components/AssetTypes/AddAssetTypesContainer';
@@ -40,7 +39,7 @@ const AssetsTableContent = (props) => {
 
   return (
     <div>
-      <Table basic>
+      <Table basic selectable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
@@ -79,9 +78,6 @@ const AssetsTableContent = (props) => {
                 <CategoryContainer />
               </ModalComponent>
             </Table.HeaderCell>
-            <Table.HeaderCell>
-              Action
-            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -89,27 +85,20 @@ const AssetsTableContent = (props) => {
           {
             props.activePageAssets.map(asset => (
               <TableRowComponent
+                handleViewClick={() => props.handleViewAsset(asset.serial_number)}
                 key={asset.id}
                 data={asset}
                 headings={[
-                    'asset_code',
-                    'serial_number',
-                    'model_number',
-                    'make_label',
-                    'asset_type',
-                    'asset_category',
-                    'asset_sub_category'
-                  ]}
-              >
-                <Table.Cell>
-                  <ActionComponent
-                    onViewClick={() => {
-                        props.handleViewAsset(asset.serial_number);
-                      }}
-                  />
-                </Table.Cell>
-              </TableRowComponent>
-              ))
+                  'asset_code',
+                  'serial_number',
+                  'model_number',
+                  'make_label',
+                  'asset_type',
+                  'asset_category',
+                  'asset_sub_category'
+                ]}
+              />
+            ))
           }
         </Table.Body>
 
@@ -136,7 +125,7 @@ const AssetsTableContent = (props) => {
                   </Segment>
                 </Segment.Group>
               </Table.HeaderCell>
-              ) : ''}
+            ) : ''}
           </Table.Row>
         </Table.Footer>
       </Table>
