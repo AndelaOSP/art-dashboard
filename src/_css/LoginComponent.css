@@ -166,6 +166,17 @@ input,
 .ui-alerts {
   z-index: 4060; }
 
+.ui.form .inline.fields {
+  width: 56%;
+  padding: 3% 0; }
+
+.ui.form .inline.fields > label {
+  width: 13%;
+  padding-right: 63px; }
+
+.ui.fluid {
+  margin-top: 10px; }
+
 .background {
   background: url("/images/landing_page_image.png") no-repeat;
   width: 100vw;

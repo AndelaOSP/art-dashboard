@@ -12,6 +12,8 @@ import { modelNumbers } from '../../_mock/modelNumbers';
 
 const props = {
   handleDropdownChanges: jest.fn(),
+  onSelectYearOfManufacture: jest.fn(),
+  onSelectProcessorType: jest.fn(),
   onSelectModelNumber: jest.fn(),
   onAddSerialNumber: jest.fn(),
   onAddAssetTag: jest.fn(),
@@ -52,6 +54,15 @@ instance.setState({
   modelNumber: 0,
   serialNumber: '',
   assetTag: '',
+  page: 0,
+  specs: {
+    year: '',
+    processorType: '',
+    processorSpeed: '',
+    screenSize: '',
+    storage: '',
+    memory: ''
+  },
   saveButtonState: false,
   filteredSubCategories: [],
   filteredAssetTypes: [],
@@ -117,6 +128,53 @@ describe('<AddAssetContainer />', () => {
   it('should run onChangeButtonState when Save Button is clicked', () => {
     instance.onChangeButtonState();
     expect(instance.state.saveButtonState).toEqual(true);
+  });
+
+  it('should move to next page of add asset when next button clicked', () => {
+    wrapper.find('.save').simulate('click');
+    expect(wrapper.find('AddAssetComponent').length).toEqual(1);
+  });
+
+  it('should go back to the previous back when the circular one icon is clicked', () => {
+    wrapper.find('.save').simulate('click');
+    wrapper.find('.no-shade').simulate('click');
+    expect(wrapper.find('FilterAssetComponent').length).toEqual(1);
+  });
+
+  it('should have data about the year when selecting year on manufacture', () => {
+    wrapper.find('.save').simulate('click');
+    wrapper.find('DropdownComponent .item').at(3).simulate('click');
+    expect(wrapper.state().specs.year).toEqual(2015);
+  });
+
+  it('should have data about the processor type when selecting processor type', () => {
+    wrapper.find('.save').simulate('click');
+    wrapper.find('input[type="radio"][name="processorType"]').at(0).simulate('change');
+    expect(wrapper.state().specs.processorType).toEqual('Intel core i3');
+  });
+
+  it('should have data about the processor speed when selecting processor speed', () => {
+    wrapper.find('.save').simulate('click');
+    wrapper.find('input[type="radio"][name="processorSpeed"]').at(1).simulate('change');
+    expect(wrapper.state().specs.processorSpeed).toEqual('2.3');
+  });
+
+  it('should have data about the screen size when selecting screen size', () => {
+    wrapper.find('.save').simulate('click');
+    wrapper.find('input[type="radio"][name="screenSize"]').at(1).simulate('change');
+    expect(wrapper.state().specs.screenSize).toEqual('15');
+  });
+
+  it('should have data about the storage when selecting storage', () => {
+    wrapper.find('.save').simulate('click');
+    wrapper.find('input[type="radio"][name="storage"]').at(2).simulate('change');
+    expect(wrapper.state().specs.storage).toEqual('512');
+  });
+
+  it('should have data about the memory when selecting memory', () => {
+    wrapper.find('.save').simulate('click');
+    wrapper.find('input[type="radio"][name="memory"]').at(2).simulate('change');
+    expect(wrapper.state().specs.memory).toEqual('16');
   });
 
   it('can receive a success prop when getDerivedStateFromProps runs', () => {

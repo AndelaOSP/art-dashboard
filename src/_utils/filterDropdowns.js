@@ -5,7 +5,7 @@ export const filterSubCategories = (subcategories, filterKey) => {
   return filteredSubCategories.map(subcategory => ({
     key: subcategory.id,
     text: subcategory.sub_category_name,
-    value: subcategory.id
+    value: subcategory.sub_category_name
   }));
 };
 

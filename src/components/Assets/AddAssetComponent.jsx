@@ -6,6 +6,7 @@ import DropdownComponent from '../common/DropdownComponent';
 import InputFluid from '../common/TextInputComponent';
 import ArtButton from '../common/ButtonComponent';
 
+import '../../_css/AddAssetComponent.css';
 
 const AddAssetComponent = props => (
   <div>
@@ -23,7 +24,7 @@ const AddAssetComponent = props => (
       <div className="page-text">Fill out device specs</div>
     </div>
     <Form onSubmit={props.onCreateAsset}>
-      <label className="label-style">Model</label>
+      <div className="label-style">Model Number</div>
       <DropdownComponent
         label="Asset Model Number"
         options={props.filteredModelNumbers}
@@ -31,28 +32,23 @@ const AddAssetComponent = props => (
         name="asset-model-number"
         onChange={props.onSelectModelNumber}
       />
-      <label className="label-style">Asset Tag</label>
+      <div className="label-style">Asset Tag</div>
       <InputFluid
         className="input-style"
         placeholder="Enter Asset Tag"
         name="asset-tag"
         onChange={props.onAddAssetTag}
       />
-      <label className="label-style">Serial Number</label>
+      <div className="label-style">Serial Number</div>
       <InputFluid
         className="input-style"
         placeholder="Enter Serial Number"
         name="serial-number"
         onChange={props.onAddSerialNumber}
       />
-      <Form.TextArea
-        label="Asset Specs"
-        placeholder="Indepth details about asset..."
-      />
-      <Form.TextArea
-        label="Condition"
-        placeholder="..."
-      />
+      <div className="optional-fields">
+        { props.children }
+      </div>
       <ArtButton
         className="cancel"
         buttonName="Discard"
@@ -78,6 +74,7 @@ AddAssetComponent.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   goBack: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
   buttonState: PropTypes.bool,
   page: PropTypes.number
 };
