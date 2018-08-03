@@ -100,29 +100,29 @@ export class AssetCategoriesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="3" id="pagination-header">
-                  {
+                {
                     !this.emptyCategoriesCheck() && (
-                    <Segment.Group horizontal id="art-pagination-section">
-                      <Segment>
-                        <Pagination
-                          totalPages={this.handlePageTotal()}
-                          onPageChange={this.handlePaginationChange}
-                          activePage={this.state.activePage}
-                        />
-                      </Segment>
-                      <Segment>
-                        <DropdownComponent
-                          id="page-limit"
-                          placeHolder="Show Rows"
-                          options={rowOptions}
-                          upward
-                        />
-                      </Segment>
-                    </Segment.Group>
+                    <Table.HeaderCell colSpan="3" id="pagination-header">
+                      <Segment.Group horizontal id="art-pagination-section">
+                        <Segment>
+                          <Pagination
+                            totalPages={this.handlePageTotal()}
+                            onPageChange={this.handlePaginationChange}
+                            activePage={this.state.activePage}
+                          />
+                        </Segment>
+                        <Segment>
+                          <DropdownComponent
+                            id="page-limit"
+                            placeHolder="Show Rows"
+                            options={rowOptions}
+                            upward
+                          />
+                        </Segment>
+                      </Segment.Group>
+                    </Table.HeaderCell>
                     )
                   }
-                </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>

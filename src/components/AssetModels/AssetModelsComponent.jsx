@@ -93,28 +93,28 @@ export class AssetModelsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="5" id="pagination-header">
-                  {!_.isEmpty(this.props.assetModels) &&
+                {!_.isEmpty(this.props.assetModels) &&
                     (
-                    <Segment.Group horizontal id="art-pagination-section">
-                      <Segment>
-                        <Pagination
-                          totalPages={this.getTotalPages()}
-                          onPageChange={this.handlePaginationChange}
-                          activePage={this.state.activePage}
-                        />
-                      </Segment>
-                      <Segment>
-                        <DropdownComponent
-                          id="page-limit"
-                          placeHolder="Show Rows"
-                          options={rowOptions}
-                          upward
-                        />
-                      </Segment>
-                    </Segment.Group>
+                    <Table.HeaderCell colSpan="5" id="pagination-header">
+                      <Segment.Group horizontal id="art-pagination-section">
+                        <Segment>
+                          <Pagination
+                            totalPages={this.getTotalPages()}
+                            onPageChange={this.handlePaginationChange}
+                            activePage={this.state.activePage}
+                          />
+                        </Segment>
+                        <Segment>
+                          <DropdownComponent
+                            id="page-limit"
+                            placeHolder="Show Rows"
+                            options={rowOptions}
+                            upward
+                          />
+                        </Segment>
+                      </Segment.Group>
+                    </Table.HeaderCell>
                     )}
-                </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>
