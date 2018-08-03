@@ -9,6 +9,7 @@
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+.idea/**
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -187,6 +188,10 @@ tags
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
+# Build files
+src/**/*.css
+src/**/*.css.map
 
 
 # End of https://www.gitignore.io/api/vim,venv,node,macos,intellij,visualstudiocode

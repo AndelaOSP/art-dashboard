@@ -4,33 +4,85 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "coveralls": "^3.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "expect": "^22.4.3",
-    "firebase": "^5.0.3",
+    "faker": "^4.1.0",
+    "firebase": "^5.0.4",
+    "fusioncharts": "^3.12.2",
+    "highcharts": "^6.1.1",
     "history": "^4.7.2",
+    "jest-mock": "^23.2.0",
+    "jsonwebtoken": "^8.2.2",
+    "lodash": "^4.17.10",
+    "moxios": "^0.4.0",
+    "node-sass-chokidar": "^1.3.0",
+    "npm-run-all": "^4.1.3",
     "prop-types": "^15.6.1",
-    "react": "^16.3.2",
+    "react": "^16.4.1",
     "react-dom": "^16.3.2",
+    "react-fusioncharts": "^1.0.5",
+    "react-highcharts": "^16.0.2",
+    "react-jsx-highcharts": "^3.1.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "react-semantic-toasts": "^0.3.2",
+    "react-test-renderer": "^16.4.0",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.9.1",
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.3.1",
-    "semantic-ui-react": "^0.80.0"
+    "semantic-ui-react": "^0.80.0",
+    "sinon": "^6.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom --silent",
-    "eject": "react-scripts eject"
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test-js": "react-scripts test --env=jsdom --silent",
+    "test": "npm-run-all build-css test-js",
+    "coverage-js": "react-scripts test --env=jsdom --coverage",
+    "coverage": "npm-run-all build-css coverage-js",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "eject": "react-scripts eject",
+    "precommit": "lint-staged",
+    "eslint-check": "./node_modules/.bin/eslint --fix",
+    "css-style-check": "./node_modules/.bin/stylelint --fix"
+  },
+  "lint-staged": {
+    "concurrent": false,
+    "subTaskConcurrency": 1,
+    "linters": {
+      "*{.js,jsx}": [
+        "npm run eslint-check",
+        "git add"
+      ],
+      "*{scss}": [
+        "npm run css-style-check",
+        "git add"
+      ]
+    }
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "enzyme-redux": "^0.2.1",
-    "redux-test-utils": "^0.2.2"
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-react": "^7.9.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
+    "redux-mock-store": "^1.5.3",
+    "redux-test-utils": "^0.2.2",
+    "stylelint": "^9.3.0",
+    "stylelint-config-standard": "^18.2.0"
   }
 }

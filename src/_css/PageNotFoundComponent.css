@@ -1,0 +1,95 @@
+.page-404 {
+  background-image: url(/images/andela_scatter_background.png);
+  background-color: #0A21A8;
+  background-position: left 0px bottom 5px;
+  height: 100vh;
+}
+
+.para-404 {
+  margin-bottom: 50px;
+  font-family: archer;
+  font-size: 19px;
+  color: #ADB6E1;
+}
+
+.or-404 {
+  margin: 40px;
+  font-family: archer;
+  font-size: 19px;
+  font-style: italic;
+  color: #FFFFFF;
+}
+
+.button-404 {
+  background-color: #FFFFFF;
+}
+
+#andela-logo-404 {
+  padding-top: 35px;
+  padding-left: 35px;
+}
+
+#sad-face-404 {
+  padding-top: 150px;
+}
+
+.title-404 {
+  margin-top: 50px;
+  margin-bottom: 15px;
+  font-family: archer;
+  font-size: 27px;
+  letter-spacing: 1.3px;
+  color: #FFFFFF;
+}
+
+.back-button-404 {
+  background: #FFFFFF !important;
+  width: 175px;
+  height: 46px;
+  font-family: archer !important;
+  font-size: 15px !important;
+  font-weight: normal !important;
+  letter-spacing: 1px;
+  color: #5D6DC2 !important;
+}
+
+.back-button-404:hover {
+  width: 180px;
+  height: 51px;
+  animation-duration: 450ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-name: wiggle;
+}
+
+.home-button-404 {
+  width: 175px;
+  height: 46px;
+  background: #0A21A8 !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-color: #FFFFFF !important;
+  font-family: archer !important;
+  font-size: 15px !important;
+  font-weight: lighter !important;
+  letter-spacing: 1px;
+  color: #FFFFFF !important;
+}
+
+.home-button-404:hover {
+  width: 180px;
+  height: 51px;
+  animation-duration: 450ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-name: wiggle;
+}
+
+@keyframes wiggle {
+  0% { transform: translate(1px, 0); }
+  20% { transform: translate(-1px, 0); }
+  40% { transform: translate(1px, 0); }
+  60% { transform: translate(-1px, 0); }
+  80% { transform: translate(1px, 0); }
+  100% { transform: translate(0, 0); }
+}

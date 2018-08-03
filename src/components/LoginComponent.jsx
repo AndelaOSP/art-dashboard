@@ -1,89 +1,89 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Container, Header, Image } from 'semantic-ui-react';
+import { Button, Image } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import PropTypes from 'prop-types';
 
-import { loginAction } from '../_actions/login.action';
 import { signInWithEmail, firebase } from '../firebase';
 import { ToastMessage } from '../_utils/ToastMessage';
 import { validAndelaEmail } from '../_utils/validAndelaEmail';
+import setAuthorizationConfig from '../_utils/setAuthorizationConfig';
 
 import '../_css/LoginComponent.css';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
 class LoginComponent extends React.Component {
-
-  redirectToDashboard(props) {
-    if (props.isAuthenticated) {
-      this.props.history.push('/');
-    }
-  }
-
   componentDidMount() {
-    this.redirectToDashboard(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.redirectToDashboard(nextProps);
+    if (localStorage.getItem('art-prod-web-token')) {
+      this.props.history.push('/dashboard');
+    }
   }
 
   // checks that the user used an Andela email
   validateUser = (result) => {
     if (validAndelaEmail(result.user.email)) {
-      this.props.loginAction();
-      localStorage.set('token', result.credential.accessToken);
-      ToastMessage.success({ message: 'Welcome to ART' });
+      result.user.getIdToken().then((idToken) => {
+        localStorage.setItem('art-prod-web-token', idToken);
+        this.props.history.push('/dashboard');
+        setAuthorizationConfig();
+      });
     } else {
       ToastMessage.error({ message: 'Please sign in with your andela email' });
     }
-  }
+  };
 
-  // authenticates user
+  // authenticates user`
   handleLogin = () => {
     signInWithEmail(provider)
       .then(this.validateUser)
       .catch(ToastMessage.error);
-  }
+  };
 
   render() {
     return (
       <div>
         <SemanticToastContainer />
-        <div className='app landing-overlay background'>
-          <Container>
+        <div className="app background">
+          <div id="login-container">
             <Image
-              centered
-              src='http://res.cloudinary.com/damc3mj5u/image/upload/v1526571584/logo_uw39tc.png'
-              alt='Andela logo'
+              height="70px"
+              src="/images/andela_logo_blue_landscape.png"
+              alt="Andela logo"
               id="andela-logo"
             />
-            <Header className='landing-heading' inverted content='ART' />
-            <Header as='h1' className='description' inverted content='Andela Resource Tracker' />
-            <Button onClick={this.handleLogin} className='google-button' size='large'>
+            <div id="welcome-message">
+              <p>
+                Welcome to <i>ART Admin</i>.<br />Please sign in with
+                <br /> your Google account<br /> to proceed
+              </p>
+            </div>
+            <Button
+              onClick={this.handleLogin}
+              id="google-button"
+              size="large"
+            >
               <Image
-                floated='left'
-                src='http://res.cloudinary.com/damc3mj5u/image/upload/v1526571608/google-logo_jjjjqs.svg'
-                alt='Google logo'
-                id='google-logo'
+                floated="left"
+                src="https://res.cloudinary.com/damc3mj5u/image/upload/v1526571608/google-logo_jjjjqs.svg"
+                alt="Google logo"
+                id="google-logo"
               />
               Sign in with Google
-          </Button>
-          </Container>
+            </Button>
+          </div>
         </div>
       </div>
-    )
-  }
-};
-
-const mapStateToProps = ({ loginReducer }) => {
-  const { isAuthenticated } = loginReducer;
-  return {
-    isAuthenticated,
+    );
   }
 }
 
-export default withRouter(connect(mapStateToProps, {
-  loginAction,
-})(LoginComponent));
+LoginComponent.propTypes = {
+  history: PropTypes.object
+};
+
+LoginComponent.defaultProps = {
+  history: {}
+};
+
+export default withRouter(LoginComponent);

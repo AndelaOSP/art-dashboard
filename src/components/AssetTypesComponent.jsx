@@ -1,94 +1,135 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Container, Header, Table, Pagination } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import _ from 'lodash';
 
 import TableRowComponent from './TableRowComponent';
+import AssetTypesAction from './AssetTypesAction';
+import rowOptions from '../_utils/pageRowOptions';
+import NavbarComponent from './NavBarComponent';
+import DropdownComponent from '../components/common/DropdownComponent';
+import LoaderComponent from '../components/LoaderComponent';
 
-import { loadAssetTypeAction } from '../_actions/assetType.action';
+import '../_css/AssetsComponent.css';
+import { loadAssetTypes } from '../_actions/assetTypes.actions';
 
 export class AssetTypesComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10,
+    limit: 10
   }
   componentDidMount() {
-    this.props.loadAssetTypeAction(this.state.activePage);
+    this.props.loadAssetTypes(this.state.activePage, this.state.limit);
   }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetTypeAction(activePage);
+    this.props.loadAssetTypes(activePage, this.state.limit);
   }
 
-  handlePageTotal = () => {
-    return Math.ceil(this.props.assetTypesCount / this.state.limit);
-  }
-
-  emptyAssetTypeCheck = () => {
-    return (this.props.assetTypes.length === 0);
-  }
-
-  loadRoles = () => {
-    if (this.emptyAssetTypeCheck()) {
-      return <Table.Row><Table.Cell colSpan="3">No Data found</Table.Cell></Table.Row>
-    } else {
-      const assetTypes = this.props.assetTypes.map((assetType, index) => {
-        return <TableRowComponent key={index} data={assetType} />
-      });
-      return assetTypes;
-    }
-  }
+  getTotalPages = () => Math.ceil(this.props.assetTypesCount / this.state.limit)
 
   render() {
+    if (this.props.isLoading) {
+      return (
+        <NavbarComponent>
+          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
+        </NavbarComponent>
+      );
+    }
+    if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
+      return (
+        <NavbarComponent>
+          <div>
+            <h1>
+              No Asset Types Found
+            </h1>
+          </div>
+        </NavbarComponent>
+      );
+    }
     return (
-      <div className=''>
-      <Container>
-        <Header className='landing-heading' content='Asset Types' />
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Category</Table.HeaderCell>
-              <Table.HeaderCell>Sub-category</Table.HeaderCell>
-              <Table.HeaderCell>Type</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
+      <NavbarComponent>
+        <div className="assets-list">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Asset Types" />
+            <Divider id="assets-divider" />
+          </div>
+          <Table basic>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Sub-category</Table.HeaderCell>
+                <Table.HeaderCell>Type</Table.HeaderCell>
+                <Table.HeaderCell>Action</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-          <Table.Body>
-            {
-              this.loadRoles()
-            }
-          </Table.Body>
+            <Table.Body>
+              {
+                this.props.assetTypes.map(assetType => (
+                  <TableRowComponent
+                    key={assetType.id}
+                    data={assetType}
+                    headings={['asset_sub_category', 'asset_type']}
+                  >
+                    <Table.Cell>
+                      <AssetTypesAction details={assetType} />
+                    </Table.Cell>
+                  </TableRowComponent>
+                ))
+              }
+            </Table.Body>
 
-          <Table.Footer>
-            <Table.Row>
-              <Table.HeaderCell colSpan='3'>
-                {
-                  (this.emptyAssetTypeCheck()) ? '' :
-                    <Pagination
-                      totalPages={this.handlePageTotal()}
-                      onPageChange={this.handlePaginationChange}
-                      activePage={this.state.activePage}
-                    />
-                }
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Footer>
-        </Table>
-      </Container>
-    </div>
-    )
-  }
-};
-
-const mapStateToProps = ({ assetReducer }) => {
-  const { assetTypes, assetTypesCount } = assetReducer;
-  return {
-    assetTypes,
-    assetTypesCount,
+            <Table.Footer>
+              <Table.Row>
+                {!_.isEmpty(this.props.assetTypes) && (
+                <Table.HeaderCell colSpan="3" id="pagination-header">
+                  <Segment.Group horizontal id="art-pagination-section">
+                    <Segment>
+                      <Pagination
+                        totalPages={this.getTotalPages()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    </Segment>
+                    <Segment>
+                      <DropdownComponent
+                        id="page-limit"
+                        placeHolder="Show Rows"
+                        options={rowOptions}
+                        upward
+                      />
+                    </Segment>
+                  </Segment.Group>
+                </Table.HeaderCell>
+                  )}
+              </Table.Row>
+            </Table.Footer>
+          </Table>
+        </div>
+      </NavbarComponent>
+    );
   }
 }
 
+const mapStateToProps = ({ assetTypesList }) => {
+  const { assetTypes, assetTypesCount, isLoading } = assetTypesList;
+  return {
+    assetTypes,
+    assetTypesCount,
+    isLoading
+  };
+};
+
+AssetTypesComponent.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  loadAssetTypes: PropTypes.func.isRequired,
+  assetTypes: PropTypes.array.isRequired,
+  assetTypesCount: PropTypes.number.isRequired
+};
+
 export default withRouter(connect(mapStateToProps, {
-  loadAssetTypeAction,
+  loadAssetTypes
 })(AssetTypesComponent));

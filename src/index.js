@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
-import './index.css';
 import 'semantic-ui-css/semantic.min.css';
+import setAuthorizationConfig from '../src/_utils/setAuthorizationConfig';
+import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
+if (localStorage.getItem('art-prod-web-token')) {
+  setAuthorizationConfig();
+}
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

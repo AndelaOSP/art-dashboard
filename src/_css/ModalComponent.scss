@@ -1,0 +1,189 @@
+@import 'sharedStyling.scss';
+
+.header {
+  text-transform: uppercase;
+  color: $andela-blue;
+}
+
+.ui.small.modal {
+  margin-left: 30%;
+  width: 100%;
+  max-width: 473px;
+}
+
+.ui.modal > .content > .description {
+  margin-right: -45%;
+  margin-left: 20px;
+}
+
+.ui.label {
+  background-color: $andela-white;
+  margin-bottom: 10px;
+  font-weight: 100;
+}
+
+.ui.form .field > label {
+  display: inline-block;
+  background-color: $andela-white;
+  margin-bottom: 20px;
+  font-weight: 100;
+}
+
+.ui.form {
+  input[type="text"] {
+    border-color: $border-color2;
+    width: 340px;
+
+    &:focus {
+      border-color: $border-color2;
+      width: 340px;
+      color: $border-color2;
+      font-weight: lighter;
+    }
+  }
+}
+
+.ui.form textarea {
+  border-color: $border-color2;
+
+  &:focus {
+    border-color: $border-color2;
+    color: $border-color2;
+    font-weight: lighter;
+  }
+}
+
+.ui.dropdown {
+  border-color: $border-color2;
+}
+
+.ui.fluid.dropdown {
+  border-color: $border-color2;
+  color: $border-color2;
+  font-weight: lighter;
+}
+
+.ui.form .field {
+  width: 66%;
+}
+
+.ui.dropdown:focus {
+  border-color: $border-color2;
+  color: $border-color2;
+  font-weight: lighter;
+}
+
+.ui.fluid.dropdown:focus {
+  border-color: $border-color2;
+}
+
+.underline {
+  background-color: $andela-orange;
+  height: 4px;
+  width: 86px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.ui.large.modal {
+  margin-left: 30%;
+  width: 473px;
+}
+
+.ui.modal {
+  left: 0;
+}
+
+.ui.secondary.button {
+  margin-left: 30%;
+  width: 98px;
+  margin-right: 22px;
+  border: 1px solid $andela-blue;
+  border-radius: 0;
+  background: transparent;
+  color: $andela-black;
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 13px;
+}
+
+.ui.secondary.button:hover {
+  background: transparent;
+  border: 1px solid $andela-blue;
+  color: $andela-black;
+}
+
+.ui.primary.button {
+  width: 98px;
+  border-radius: 0;
+  background-color: $andela-blue;
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.ui.primary.button:hover {
+  background-color: $andela-blue;
+}
+
+.ui.modal > .header:not(.ui) {
+  color: $andela-blue;
+  font-weight: 100;
+  font-size: 20px;
+}
+
+.ui.fluid {
+  margin-top: 24px;
+}
+
+.circle {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-indicator {
+  display: flex;
+  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 200px;
+}
+
+.line {
+  height: 1px;
+  width: 60px;
+  background-color: $gray;
+  margin: 10px;
+}
+
+.shade-1 {
+  font-weight: 400;
+  background-color: $andela-orange;
+  color: $andela-white;
+}
+
+.shade-2 {
+  font-weight: 400;
+  color: $andela-white;
+  background-color: $modal-purple;
+}
+
+.no-shade {
+  background-color: $andela-white;
+  border-color: $gray;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.page-text {
+  display: flex;
+  justify-content: center;
+}

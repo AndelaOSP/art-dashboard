@@ -1,0 +1,8 @@
+.history-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.history-unavailable {
+  margin-top: 3rem !important;
+}
