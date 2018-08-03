@@ -58,12 +58,4 @@ describe('Renders <AssetConditionsComponent/> component', () => {
     wrapper.instance().handlePaginationChange(event, data);
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
-
-  it('renders the AssetConditionActionComponent component correctly', () => {
-    wrapper.setProps({
-      isLoading: false,
-      assetConditionsList: assetConditions
-    });
-    expect(wrapper.find('AssetConditionActionComponent').length > 0).toBeTruthy();
-  });
 });

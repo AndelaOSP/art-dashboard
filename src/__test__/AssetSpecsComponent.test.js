@@ -42,6 +42,15 @@ describe('Renders < AssetSpecsComponent /> correctly', () => {
     expect(wrapper.find('Table').length).toBe(1);
   });
 
+  it('displays No Asset Spec Found', () => {
+    props.isLoading = false;
+    props.specs = [];
+    wrapper = shallow(<AssetSpecsComponent
+      {...props}
+    />);
+    expect(wrapper.find('h1').text()).toBe('No Asset Spec Found');
+  });
+
   it('calls the handlePaginationChange function when the next button is clicked', () => {
     const handlePaginationChangeSpy = jest.spyOn(
       wrapper.instance(), 'handlePaginationChange'
