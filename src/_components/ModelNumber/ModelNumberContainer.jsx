@@ -26,13 +26,13 @@ class ModelNumberContainer extends React.Component {
         ToastMessage.success({
           message: nextProps.toastMessageContent.message
         });
+        nextProps.toggleModal();
       } else if (nextProps.toastMessageContent.type === 'error') {
         ToastMessage.error({
           message: nextProps.toastMessageContent.message
         });
       }
       nextProps.resetToastMessageContent();
-      nextProps.toggleModal();
       return {
         modelNumber: '',
         assetMake: '',
