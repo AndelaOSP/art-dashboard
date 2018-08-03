@@ -28,13 +28,13 @@ class AssetMakeContainer extends React.Component {
         ToastMessage.success({
           message: toastMessageContent.message
         });
+        nextProps.toggleModal();
       } else if (toastMessageContent.type === 'error') {
         ToastMessage.error({
           message: toastMessageContent.message
         });
       }
       nextProps.resetToastMessageContent();
-      nextProps.toggleModal();
       return {
         assetMake: '',
         assetType: '',
