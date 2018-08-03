@@ -18,11 +18,7 @@ describe('Renders <AssetModelsComponent /> correctly', () => {
   let wrapper = shallow(<AssetModelsComponent{...props} />);
 
   it('renders page title', () => {
-    expect(wrapper.find('.landing-heading').prop('content')).toEqual('Asset Models');
-  });
-
-  it('renders new-asset-types button', () => {
-    expect(wrapper.find('Button').prop('data-tooltip')).toEqual('Add new asset model');
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Asset Models');
   });
 
   it('renders Pagination component', () => {

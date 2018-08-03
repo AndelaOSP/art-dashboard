@@ -28,7 +28,7 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
 const url = 'asset-types';
-const url1 = `asset-types?page=${1}`;
+const url1 = 'asset-types/?paginate=false';
 const url2 = `asset-types?page=${1}&page_size=${10}`;
 
 afterEach(() => {

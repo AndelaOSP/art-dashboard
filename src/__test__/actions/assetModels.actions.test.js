@@ -18,7 +18,9 @@ const {
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
-const url = 'asset-models/?page=1';
+const pageNumber = 1;
+const limit = 5;
+const url = `asset-models/?page=${pageNumber}&page_size=${limit}`;
 
 afterEach(() => {
   store.clearActions();
@@ -41,7 +43,7 @@ describe('Asset Models action tests', () => {
       }
     });
 
-    return store.dispatch(loadAssetModels(1)).then(() => {
+    return store.dispatch(loadAssetModels(pageNumber, limit)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MODELS);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_MODELS_SUCCESS);
     });
@@ -53,7 +55,7 @@ describe('Asset Models action tests', () => {
       response: {}
     });
 
-    return store.dispatch(loadAssetModels(1)).then(() => {
+    return store.dispatch(loadAssetModels(pageNumber, limit)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MODELS);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_MODELS_FAILURE);
     });

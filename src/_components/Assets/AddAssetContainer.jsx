@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
 import AddAssetComponent from '../../components/Assets/AddAssetComponent';
+import FilterAssetComponent from '../../components/Assets/FilterAssetComponent';
+import SpecsComponent from '../../components/Assets/SpecsComponent';
 
-import { loadCategories, loadCategoriesDropdown } from '../../_actions/category.actions';
-import { loadSubCategories, loadSubCategoriesDropdown } from '../../_actions/subcategory.actions';
+import { loadCategoriesDropdown } from '../../_actions/category.actions';
+import { loadSubCategoriesDropdown } from '../../_actions/subcategory.actions';
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
-import { loadAssetMakes } from '../../_actions/assetMakes.actions';
+import { loadAssetMakes, loadAssetMakesDropdown } from '../../_actions/assetMakes.actions';
 import { loadModelNumbers } from '../../_actions/modelNumbers.actions';
 import { createAsset } from '../../_actions/asset.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
@@ -30,21 +32,30 @@ class AddAssetContainer extends React.Component {
     modelNumber: 0,
     serialNumber: '',
     assetTag: '',
-    saveButtonState: false
+    saveButtonState: false,
+    page: 0,
+    specs: {
+      year: '',
+      processorType: '',
+      processorSpeed: '',
+      screenSize: '',
+      storage: '',
+      memory: ''
+    }
   };
 
   componentDidMount() {
     if (_.isEmpty(this.props.categories)) {
-      this.props.loadCategoriesDropdown(1);
+      this.props.loadCategoriesDropdown();
     }
     if (_.isEmpty(this.props.subcategories)) {
-      this.props.loadSubCategoriesDropdown(1);
+      this.props.loadSubCategoriesDropdown();
     }
     if (_.isEmpty(this.props.assetTypes)) {
       this.props.loadAssetTypes(1);
     }
     if (_.isEmpty(this.props.assetMakes)) {
-      this.props.loadAssetMakes();
+      this.props.loadAssetMakesDropdown();
     }
     if (_.isEmpty(this.props.modelNumbers)) {
       this.props.loadModelNumbers();
@@ -87,21 +98,15 @@ class AddAssetContainer extends React.Component {
 
     if (name === 'asset-category') {
       this.setState({
-        filteredSubCategories: filterSubCategories(subcategories, value),
-        filteredAssetTypes: filterAssetTypes(assetTypes, value),
-        filteredAssetMakes: filterAssetMakes(assetMakes, value),
-        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
+        filteredSubCategories: filterSubCategories(subcategories, value)
       });
     } else if (name === 'asset-subcategory') {
       this.setState({
-        filteredAssetTypes: filterAssetTypes(assetTypes, value),
-        filteredAssetMakes: filterAssetMakes(assetMakes, value),
-        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
+        filteredAssetTypes: filterAssetTypes(assetTypes, value)
       });
     } else if (name === 'asset-types') {
       this.setState({
-        filteredAssetMakes: filterAssetMakes(assetMakes, value),
-        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
+        filteredAssetMakes: filterAssetMakes(assetMakes, value)
       });
     } else if (name === 'asset-makes') {
       this.setState({
@@ -127,32 +132,66 @@ class AddAssetContainer extends React.Component {
     this.setState({ saveButtonState: !this.state.saveButtonState });
   };
 
+  onNextClicked = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
+  }
+
+  goBack = () => {
+    this.setState(({ page }) => ({ page: page - 1 }));
+  }
+
+  pickRadioValuesFromSpecsComponent = (data) => {
+    this.setState({ specs: data });
+  }
+
   onCreateAsset = () => {
     this.props.createAsset({
       asset_code: this.state.assetTag,
       serial_number: this.state.serialNumber,
-      model_number: this.state.modelNumber
+      model_number: this.state.modelNumber,
+      year: this.state.specs.year,
+      processor_type: this.state.specs.processorType,
+      processor_speed: this.state.specs.processorSpeed,
+      screen_size: this.state.specs.screenSize,
+      storage: this.state.specs.storage,
+      memory: this.state.specs.memory
     });
   };
 
   render() {
+    if (this.state.page === 1) {
+      return (
+        <AddAssetComponent
+          {...this.props}
+          onSelectModelNumber={this.onSelectModelNumber}
+          onAddSerialNumber={this.onAddSerialNumber}
+          onAddAssetTag={this.onAddAssetTag}
+          onCreateAsset={this.onCreateAsset}
+          goBack={this.goBack}
+          filteredModelNumbers={this.state.filteredModelNumbers}
+          modelNumber={this.state.modelNumber}
+          serialNumber={this.state.serialNumber}
+          assetTag={this.state.assetTag}
+          buttonState={this.state.saveButtonState}
+          onChangeButtonState={this.onChangeButtonState}
+        >
+          <SpecsComponent
+            {...this.props}
+            specs={this.state.specs}
+            pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
+          />
+        </AddAssetComponent>
+      );
+    }
     return (
-      <AddAssetComponent
+      <FilterAssetComponent
         {...this.props}
         handleDropdownChanges={this.handleDropdownChanges}
-        onSelectModelNumber={this.onSelectModelNumber}
-        onAddSerialNumber={this.onAddSerialNumber}
-        onAddAssetTag={this.onAddAssetTag}
-        onCreateAsset={this.onCreateAsset}
         filteredSubCategories={this.state.filteredSubCategories}
         filteredAssetTypes={this.state.filteredAssetTypes}
         filteredAssetMakes={this.state.filteredAssetMakes}
-        filteredModelNumbers={this.state.filteredModelNumbers}
-        modelNumber={this.state.modelNumber}
-        serialNumber={this.state.serialNumber}
-        assetTag={this.state.assetTag}
-        buttonState={this.state.saveButtonState}
-        onChangeButtonState={this.onChangeButtonState}
+        page={this.state.page}
+        onNextClicked={this.onNextClicked}
       />
     );
   }
@@ -166,12 +205,11 @@ AddAssetContainer.propTypes = {
   modelNumbers: PropTypes.array,
   assets: PropTypes.array,
   toastMessageContent: PropTypes.object,
-  loadCategories: PropTypes.func.isRequired,
   loadCategoriesDropdown: PropTypes.func.isRequired,
   loadSubCategoriesDropdown: PropTypes.func.isRequired,
-  loadSubCategories: PropTypes.func.isRequired,
   loadAssetTypes: PropTypes.func.isRequired,
   loadAssetMakes: PropTypes.func.isRequired,
+  loadAssetMakesDropdown: PropTypes.func.isRequired,
   loadModelNumbers: PropTypes.func.isRequired,
   createAsset: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired
@@ -199,8 +237,8 @@ const mapStateToProps = ({
   assets,
   toastMessage
 }) => ({
-  categories: categoriesList.categories,
-  subcategories: subcategoriesList.assetSubCategories,
+  categories: categoriesList.categoriesDropdown,
+  subcategories: subcategoriesList.assetSubCategoriesDropdown,
   assetTypes: assetTypesList.assetTypes,
   assetMakes: assetMakesList.assetMakes,
   modelNumbers: modelNumbersList,
@@ -209,12 +247,11 @@ const mapStateToProps = ({
 });
 
 export default connect(mapStateToProps, {
-  loadCategories,
   loadCategoriesDropdown,
-  loadSubCategories,
   loadSubCategoriesDropdown,
   loadAssetTypes,
   loadAssetMakes,
+  loadAssetMakesDropdown,
   loadModelNumbers,
   createAsset,
   resetToastMessageContent

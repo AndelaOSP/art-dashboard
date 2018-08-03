@@ -7,26 +7,48 @@ const {
   LOAD_ASSET_MAKES_FAILURE,
   LOADING_ASSET_MAKES,
   ADD_ASSET_MAKE_SUCCESS,
-  ADD_ASSET_MAKE_FAILURE
+  ADD_ASSET_MAKE_FAILURE,
+  DROPDOWN_ASSET_MAKES_SUCCESS
 } = constants;
 
 /**
  * load asset makes thunk
  * @return dispatch loadAssetMakesSuccess type and payload
  */
-export const loadAssetMakes = pageNumber => (dispatch) => {
+export const loadAssetMakes = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_ASSET_MAKES });
-  return axios.get(`asset-makes?page=${pageNumber}`).then(response =>
-    dispatch({
-      type: LOAD_ASSET_MAKES_SUCCESS,
-      payload: response.data
-    })).catch(error =>
-    dispatch({
-      type: LOAD_ASSET_MAKES_FAILURE,
-      payload: error
-    })
-  );
+  return axios.get(`asset-makes?page=${pageNumber}&page_size=${limit}`)
+    .then(response =>
+      dispatch({
+        type: LOAD_ASSET_MAKES_SUCCESS,
+        payload: response.data
+      }))
+    .catch((error) => {
+      dispatch({
+        type: LOAD_ASSET_MAKES_FAILURE,
+        payload: error
+      });
+      dispatch(updateToastMessageContent(error.message, 'error'));
+    }
+    );
 };
+
+export const loadAssetMakesDropdown = () => dispatch =>
+  axios.get('asset-makes/?paginate=false')
+    .then(response =>
+      dispatch({
+        type: DROPDOWN_ASSET_MAKES_SUCCESS,
+        payload: response.data
+      }))
+    .catch((error) => {
+      dispatch({
+        type: LOAD_ASSET_MAKES_FAILURE,
+        payload: error
+      });
+      dispatch(updateToastMessageContent(error.message, 'error'));
+    }
+    );
+
 
 export const addAssetMakes = newMake => (dispatch =>
   axios

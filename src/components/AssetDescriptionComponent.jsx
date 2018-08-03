@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Container, Header, Grid } from 'semantic-ui-react';
+import { isEmpty, values } from 'lodash';
+import { Button, Container, Header, Grid, Confirm } from 'semantic-ui-react';
+import ButtonComponent from '../components/common/ButtonComponent';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AssetDescriptionComponent.css';
 
@@ -22,7 +24,27 @@ const AssetDescriptionComponent = props => (
         </div>
       </Grid.Column>
       <Grid.Column>
-        {(props.toggleState === 'assignedUser') &&
+        <Confirm
+          content="Are you sure you want to make this change?"
+          open={props.open}
+          cancelButton={
+            <ButtonComponent
+              className="cancel"
+              buttonName="Cancel"
+              handleClick={props.handleCancel}
+            />
+          }
+          confirmButton={
+            <ButtonComponent
+              className="save"
+              buttonName="Save"
+              color="primary"
+              buttonState={props.buttonState}
+              handleClick={props.handleConfirm}
+            />
+          }
+        />
+        {(!isEmpty(values(props.assignedUser))) ?
           <div id="allocate-asset">
             <Header as="h3" content="Assigned To:" />
             <div
@@ -33,34 +55,14 @@ const AssetDescriptionComponent = props => (
             </div>
             <br />
             <Button
-              id="assign-user"
+              id="blue-rounded-button"
               className="unassign-asset"
+              onClick={props.show}
             >
               Unassign Asset
             </Button>
           </div>
-        }
-        {(props.toggleState === 'assignedAsset') &&
-          (props.assignedAsset.serialNumber === props.assetDetail.serial_number) &&
-          <div id="allocate-asset">
-            <Header as="h3" content="Assigned To:" />
-            <div
-              id="email"
-              className="asset-specs"
-            >
-              {props.assignedAsset.email}
-            </div>
-            <br />
-            <Button
-              id="assign-user"
-              className="unassign-asset"
-            >
-              Unassign Asset
-            </Button>
-          </div>
-        }
-        {(props.toggleState === 'assignedAsset') &&
-          (props.assignedAsset.serialNumber !== props.assetDetail.serial_number) &&
+          :
           <div id="allocate-asset">
             <Header as="h3" content="Assign this asset to:" />
             <DropdownComponent
@@ -73,30 +75,9 @@ const AssetDescriptionComponent = props => (
             />
             <br />
             <Button
-              id="assign-user"
+              id="blue-rounded-button"
               className="assign-asset"
-              onClick={props.handleSubmit}
-            >
-              Assign Asset
-            </Button>
-          </div>
-        }
-        {(props.toggleState === '') &&
-          <div id="allocate-asset">
-            <Header as="h3" content="Assign this asset to:" />
-            <DropdownComponent
-              label="Assign this asset to:"
-              placeHolder="Select Andela Email"
-              name="assign-user"
-              search
-              onChange={props.onSelectUserEmail}
-              options={userEmailsOptions(props.users)}
-            />
-            <br />
-            <Button
-              id="assign-user"
-              className="assign-asset"
-              onClick={props.handleSubmit}
+              onClick={props.show}
             >
               Assign Asset
             </Button>
@@ -109,12 +90,13 @@ const AssetDescriptionComponent = props => (
 
 AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
-  handleSubmit: PropTypes.func,
+  show: PropTypes.func,
+  open: PropTypes.bool,
+  handleCancel: PropTypes.func,
+  handleConfirm: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array,
-  assignedAsset: PropTypes.object,
-  assetDetail: PropTypes.object,
-  toggleState: PropTypes.string
+  buttonState: PropTypes.bool
 };
 
 AssetDescriptionComponent.defaultProps = {

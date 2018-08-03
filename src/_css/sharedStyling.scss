@@ -20,7 +20,7 @@ $base-font: "DIN Pro";
 $fallback-font: "Archer Pro";
 $andela-blue: #3359df;
 $andela-orange: #ffb030;
-$andela-white: #ffffff;
+$andela-white: #fff;
 $heading-color: #3359df;
 $border-color: #3960ad;
 $art-divider-height: 19px;
@@ -29,6 +29,8 @@ $border-color2: #4aabb0;
 $assets-divider: #ffb030;
 $pagination-color: #0a26a8;
 $andela-black: #000;
+$gray: #d3d3d3;
+$modal-purple: #6435db;
 
 body,
 button,
@@ -43,7 +45,7 @@ input,
   background-color: $andela-blue;
   border: solid 1px $border-color;
   border-radius: 10px;
-  color: #ffffff;
+  color: $andela-white;
   font-size: 12px;
   font-stretch: normal;
   font-style: normal;
@@ -77,6 +79,7 @@ input,
   position: absolute;
   width: 90px;
 }
+
 .ui.basic.table tbody td {
   border-top: 1px solid $border-color2;
   border-bottom: 1px solid $border-color2;
@@ -121,6 +124,11 @@ input,
 
 #art-pagination-section {
   width: 680px;
+  margin: 0;
+}
+
+#pagination-header {
+  padding-left: 300px;
 }
 
 @mixin first-last-pagination {
@@ -200,5 +208,30 @@ input,
   #dropdown-limit {
     border: 0.5px solid $pagination-color;
     border-radius: 0;
+    margin: 0;
   }
+}
+
+#page-limit {
+  width: 45%;
+  margin-top: 0;
+  border-radius: 0;
+  border: 0.5px solid $pagination-color;
+}
+
+.ui-alerts {
+  z-index: 4060;
+}
+.ui.form .inline.fields {
+  width: 56%;
+  padding: 3% 0;
+}
+
+.ui.form .inline.fields > label {
+  width: 13%;
+  padding-right: 63px;
+}
+
+.ui.fluid {
+  margin-top: 10px;
 }

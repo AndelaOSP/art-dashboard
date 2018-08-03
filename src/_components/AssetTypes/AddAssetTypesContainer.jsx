@@ -24,6 +24,7 @@ export class AddAssetTypesContainer extends React.Component {
         ToastMessage.success({
           message: toastMessageContent.message
         });
+        nextProps.toggleModal();
       } else if (toastMessageContent.type === 'error') {
         ToastMessage.error({
           message: toastMessageContent.message
@@ -31,8 +32,6 @@ export class AddAssetTypesContainer extends React.Component {
       }
 
       nextProps.resetToastMessageContent();
-      nextProps.toggleModal();
-
       return {
         assetType: '',
         subCategory: '',
@@ -44,7 +43,7 @@ export class AddAssetTypesContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.subcategories)) {
-      this.props.loadSubCategoriesDropdown(1);
+      this.props.loadSubCategoriesDropdown();
     }
   }
 

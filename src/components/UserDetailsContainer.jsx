@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header } from 'semantic-ui-react';
+import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavbarComponent from './NavBarComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
 import { loadUsers } from '../_actions/users.actions';
+import '../_css/UsersComponent.css';
 
 export class UserDetailsContainer extends Component {
   state = {
@@ -37,8 +38,11 @@ export class UserDetailsContainer extends Component {
   render() {
     return (
       <NavbarComponent title="Users">
-        <Container>
-          <Header className="landing-heading" content="Users" />
+        <div className="users-list">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Users List" />
+            <Divider id="assets-divider" />
+          </div>
           <UserDetailsComponent
             activePage={this.state.activePage}
             activePageUsers={this.props.users}
@@ -50,7 +54,7 @@ export class UserDetailsContainer extends Component {
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
           />
-        </Container>
+        </div>
       </NavbarComponent>
     );
   }

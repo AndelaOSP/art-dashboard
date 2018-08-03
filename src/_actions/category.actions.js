@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // constants
 import constants from '../_constants';
+import { updateToastMessageContent } from './toastMessage.actions';
 
 const {
   LOADING_CATEGORIES,
@@ -10,64 +11,38 @@ const {
   LOAD_CATEGORY_FAILURE,
   CREATE_CATEGORY_SUCCESS,
   CREATE_CATEGORY_FAILURE,
-  UPDATE_TOAST_MESSAGE_CONTENT
+  DROPDOWN_CATEGORIES_SUCCESS
 } = constants;
 
-export const loadCategoriesDropdown = pageNumber => (dispatch) => {
+export const loadCategoriesDropdown = () => (dispatch) => {
   dispatch({ type: LOADING_CATEGORIES });
 
-  return axios.get(`asset-categories/?page=${pageNumber}`)
-    .then((response) => {
-      const pageLimit = Math.ceil(response.data.count / 20);
-
-      if (pageLimit > 1) {
-        dispatch(loadCategoriesSuccess(response.data));
-        while (pageNumber < pageLimit) {
-          pageNumber += 1;
-
-          if (response.data.next !== '') {
-            axios.get(`asset-categories/?page=${pageNumber}`)
-              .then((newResponse) => {
-                dispatch(loadCategoriesSuccess(newResponse.data));
-              })
-              .catch((error) => {
-                dispatch(loadCategoriesFailure(error));
-                dispatch(updateToastMessageContent('Could Not Fetch The Categories', 'error'));
-              });
-          }
-        }
-      } else {
-        dispatch(loadCategoriesSuccess(response.data));
-      }
-    })
+  return axios.get('asset-categories/?paginate=false')
+    .then(response =>
+      dispatch(loadCategoriesDropdownSuccess(response.data))
+    )
     .catch((error) => {
       dispatch(loadCategoriesFailure(error));
-      dispatch(updateToastMessageContent('Could Not Fetch The Categories', 'error'));
+      dispatch(updateToastMessageContent(error.message, 'error'));
     });
 };
 
-/**
- * load Categories thunk
- *
- * @return dispatch type and payload
- */
-export const loadCategories = pageNumber => (dispatch) => {
+export const loadCategoriesDropdownSuccess = categories => ({
+  type: DROPDOWN_CATEGORIES_SUCCESS, payload: categories
+});
+
+export const loadCategories = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_CATEGORIES });
 
-  return axios.get(`asset-categories/?page=${pageNumber}`).then((response) => {
-    dispatch(loadCategoriesSuccess(response.data));
-  }).catch((error) => {
-    dispatch(loadCategoriesFailure(error));
-  });
+  return axios.get(`asset-categories/?page=${pageNumber}&page_size=${limit}`)
+    .then((response) => {
+      dispatch(loadCategoriesSuccess(response.data));
+    }).catch((error) => {
+      dispatch(loadCategoriesFailure(error));
+      dispatch(updateToastMessageContent(error.message, 'error'));
+    });
 };
 
-/**
- * load Categories Success action creator
- *
- * @param {array} categories list of asset categories
- *
- * @return {object} type and payload
- */
 export const loadCategoriesSuccess = categories => ({
   type: LOAD_CATEGORIES_SUCCESS, payload: categories
 });
@@ -86,7 +61,7 @@ export const createCategory = newCategory => (dispatch) => {
     })
     .catch((error) => {
       dispatch(createCategoryFailure(error));
-      dispatch(updateToastMessageContent('Could Not Save The Category', 'error'));
+      dispatch(updateToastMessageContent(error.message, 'error'));
     });
 };
 
@@ -100,10 +75,3 @@ export const createCategoryFailure = error => ({
   payload: error
 });
 
-export const updateToastMessageContent = (message, type) => ({
-  type: UPDATE_TOAST_MESSAGE_CONTENT,
-  payload: {
-    message,
-    type
-  }
-});

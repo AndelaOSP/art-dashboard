@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 import ArtButton from '../common/ButtonComponent';
 import InputFluid from '../common/TextInputComponent';
-import DropdownComponent from '../common/DropdownComponent';
+import DropdownComponent from '../../components/common/DropdownComponent';
 import '../../_css/AddAssetComponent.css';
 
 const assetTypeOptions = assetTypes =>

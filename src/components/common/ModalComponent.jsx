@@ -43,7 +43,7 @@ export default class ArtModal extends Component {
           size={this.props.modalSize}
           closeIcon
         >
-          <Modal.Header>{this.props.modalTitle}</Modal.Header>
+          <Modal.Header>{this.props.modalTitle} <div className="underline" /></Modal.Header>
           <Modal.Content>
             <Modal.Description>
               {childrenWithProps}

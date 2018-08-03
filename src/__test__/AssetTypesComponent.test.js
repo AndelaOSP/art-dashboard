@@ -20,11 +20,7 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
   );
 
   it('renders page title', () => {
-    expect(wrapper.find('.landing-heading').prop('content')).toEqual('Asset Types');
-  });
-
-  it('renders new-asset-types button', () => {
-    expect(wrapper.find('Button').prop('data-tooltip')).toEqual('Add new asset types');
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Asset Types');
   });
 
   it('renders Pagination component', () => {

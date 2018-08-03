@@ -27,9 +27,12 @@ export default {
   },
   asset: {
     assetDetail: {},
+    newAllocation: {},
+    unAssignedAsset: {},
     errorMessage: '',
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    buttonLoading: false
   },
   toastMessage: {
     message: '',
@@ -48,6 +51,7 @@ export default {
     hasError: false
   },
   assetCategories: {
+    categoriesDropdown: [],
     categories: [],
     assetCategoriesCount: 0,
     isLoading: false,
@@ -77,7 +81,6 @@ export default {
   },
   allocations: {
     allAllocations: [],
-    newAllocation: [],
     allocationsCount: 0,
     errorMessage: '',
     hasError: false,

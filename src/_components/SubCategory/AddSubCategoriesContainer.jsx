@@ -25,6 +25,7 @@ class AddSubCategoriesContainer extends React.Component {
         ToastMessage.success({
           message: toastMessageContent.message
         });
+        nextProps.toggleModal();
       } else if (toastMessageContent.type === 'error') {
         ToastMessage.error({
           message: toastMessageContent.message
@@ -32,8 +33,6 @@ class AddSubCategoriesContainer extends React.Component {
       }
 
       nextProps.resetToastMessageContent();
-      nextProps.toggleModal();
-
       return {
         subCategory: '',
         category: '',
@@ -45,7 +44,7 @@ class AddSubCategoriesContainer extends React.Component {
 
   componentDidMount() {
     if (_.isEmpty(this.props.categoriesList)) {
-      this.props.loadCategoriesDropdown(1);
+      this.props.loadCategoriesDropdown();
     }
   }
 
@@ -99,7 +98,7 @@ AddSubCategoriesContainer.defaultProps = {
 };
 
 const mapStateToProps = ({ categoriesList, toastMessage }) => ({
-  categoriesList: categoriesList.categories,
+  categoriesList: categoriesList.categoriesDropdown,
   toastMessageContent: toastMessage
 });
 

@@ -3,7 +3,6 @@ import {
   Header,
   Table,
   Pagination,
-  Dropdown,
   Segment
 } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
@@ -18,33 +17,8 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
-
-const rowOptions = [
-  {
-    text: '10 Rows',
-    value: 10
-  },
-  {
-    text: '20 Rows',
-    value: 20
-  },
-  {
-    text: '30 Rows',
-    value: 30
-  }
-];
-
-const definedPageLimits = () => (
-  <span className="defined-row-limt">
-    <Dropdown
-      id="dropdown-limit"
-      placeholder="Show Rows"
-      fluid
-      selection
-      options={rowOptions}
-    />
-  </span>
-);
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
@@ -70,43 +44,43 @@ const AssetsTableContent = (props) => {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <span className="table-column-text">Asset Code</span>
+              Asset Code
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">Serial Number</span>
+              Serial Number
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">Model Number</span>
+              Model Number
               <ModalComponent modalTitle="Add Asset Model Number">
                 <ModelNumberContainer />
               </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">Asset Make</span>
+              Asset Make
               <ModalComponent modalTitle="Add Asset Make">
                 <AssetMakeContainer />
               </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">Asset Type</span>
+              Asset Type
               <ModalComponent modalTitle="Add Asset Type">
                 <AssetTypesContainer />
               </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">Sub-category</span>
+              Sub-category
               <ModalComponent modalTitle="Add Sub-Category">
                 <AddSubCategoryContainer />
               </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">Category</span>
+              Category
               <ModalComponent modalTitle="Add Asset Category">
                 <CategoryContainer />
               </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <span className="table-column-text">Action</span>
+              Action
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -141,8 +115,8 @@ const AssetsTableContent = (props) => {
 
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="8">
-              {!props.emptyAssetsCheck() ? (
+            {!props.emptyAssetsCheck() ? (
+              <Table.HeaderCell colSpan="8" id="pagination-header">
                 <Segment.Group horizontal id="art-pagination-section">
                   <Segment>
                     <Pagination
@@ -153,11 +127,16 @@ const AssetsTableContent = (props) => {
                     />
                   </Segment>
                   <Segment>
-                    {definedPageLimits()}
+                    <DropdownComponent
+                      id="page-limit"
+                      placeHolder="Show Rows"
+                      options={rowOptions}
+                      upward
+                    />
                   </Segment>
                 </Segment.Group>
+              </Table.HeaderCell>
               ) : ''}
-            </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
       </Table>

@@ -23,10 +23,6 @@ describe('Renders <UserDetailsComponent /> correctly when no errors or loading p
   it('renders Pagination component', () => {
     expect(wrapper1.find('Pagination').length).toBe(1);
   });
-
-  it('renders Add User Button', () => {
-    expect(wrapper1.find('Button').prop('data-tooltip')).toEqual('Add new user');
-  });
 });
 
 describe('Renders UserDetailsComponent with the LoadingComponent', () => {

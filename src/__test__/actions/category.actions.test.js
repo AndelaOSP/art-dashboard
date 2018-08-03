@@ -11,14 +11,14 @@ import constants from '../../_constants';
 import { loadCategoriesDropdown, createCategory } from '../../_actions/category.actions';
 
 // mock data
-import { categories } from '../../_mock/categories';
+import categories from '../../_mock/categories';
 
 const {
   LOADING_CATEGORIES,
-  LOAD_CATEGORIES_SUCCESS,
   LOAD_CATEGORY_FAILURE,
   CREATE_CATEGORY_SUCCESS,
-  CREATE_CATEGORY_FAILURE
+  CREATE_CATEGORY_FAILURE,
+  DROPDOWN_CATEGORIES_SUCCESS
 } = constants;
 
 // store
@@ -26,7 +26,7 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
 const url = 'asset-categories';
-const url2 = 'asset-categories/?page=1';
+const url2 = 'asset-categories/?paginate=false';
 
 afterEach(() => {
   store.clearActions();
@@ -46,9 +46,9 @@ describe('Category action tests', () => {
       }
     });
 
-    return store.dispatch(loadCategoriesDropdown(1)).then(() => {
+    return store.dispatch(loadCategoriesDropdown()).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
-      expect(store.getActions()[1].type).toEqual(LOAD_CATEGORIES_SUCCESS);
+      expect(store.getActions()[1].type).toEqual(DROPDOWN_CATEGORIES_SUCCESS);
     });
   });
 

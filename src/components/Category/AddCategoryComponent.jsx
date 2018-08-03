@@ -16,8 +16,8 @@ const AddCategoryComponent = props => (
       placeholder="Enter Category Name"
     />
     <br />
-    <ArtButton buttonName="Save" color="primary" />
     <ArtButton buttonName="Cancel" onClick={props.toggleModal} />
+    <ArtButton buttonName="Save" color="primary" />
   </Form>
 );
 

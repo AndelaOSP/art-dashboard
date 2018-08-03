@@ -11,7 +11,12 @@ const {
   CREATE_ASSET_FAIL,
   LOADING_ASSET,
   LOAD_ASSET_FAILURE,
-  LOAD_ASSET_SUCCESS
+  LOAD_ASSET_SUCCESS,
+  NEW_ALLOCATION_SUCCESS,
+  NEW_ALLOCATION_FAILURE,
+  UNASSIGN_SUCCESS,
+  UNASSIGN_FAILURE,
+  BUTTON_LOADING
 } = constants;
 
 export const createAsset = assetDetail => (dispatch => axios.post('manage-assets', assetDetail).then((response) => {
@@ -52,3 +57,54 @@ export const getAssetDetail = assetSerialNumber => (
       });
   }
 );
+
+export const reloadAssetDetail = assetSerialNumber => dispatch =>
+  axios.get(`manage-assets/${assetSerialNumber}`)
+    .then((response) => {
+      dispatch({
+        type: LOAD_ASSET_SUCCESS,
+        payload: response.data
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: LOAD_ASSET_FAILURE,
+        payload: error.message
+      });
+    });
+
+export const allocateAsset = (newAllocation, serialNumber) =>
+  (dispatch) => {
+    dispatch({ type: BUTTON_LOADING });
+    return axios
+      .post('allocations', newAllocation)
+      .then((response) => {
+        dispatch({
+          type: NEW_ALLOCATION_SUCCESS,
+          payload: response
+        });
+        dispatch(reloadAssetDetail(serialNumber));
+      })
+      .catch(error => dispatch({
+        type: NEW_ALLOCATION_FAILURE,
+        payload: error.message
+      }));
+  };
+
+export const unassignAsset = (asset, serialNumber) =>
+  (dispatch) => {
+    dispatch({ type: BUTTON_LOADING });
+    return axios
+      .post('asset-status', asset)
+      .then((response) => {
+        dispatch({
+          type: UNASSIGN_SUCCESS,
+          payload: response
+        });
+        dispatch(reloadAssetDetail(serialNumber));
+      })
+      .catch(error => dispatch({
+        type: UNASSIGN_FAILURE,
+        payload: error.message
+      }));
+  };

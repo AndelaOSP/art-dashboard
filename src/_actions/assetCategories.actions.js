@@ -23,10 +23,10 @@ export const loadAssetCategoriesSuccess = assetCategories => ({
  *
  * @return {(dispatch:any)=>Promise<TResult2|TResult1>}
  */
-export const loadAssetCategories = pageNumber =>
+export const loadAssetCategories = (pageNumber, limit) =>
   (dispatch) => {
     dispatch({ type: LOAD_ASSET_CATEGORIES_START });
-    return axios.get(`asset-categories?page=${pageNumber}`)
+    return axios.get(`asset-categories?page=${pageNumber}&page_size=${limit}`)
       .then((response) => {
         dispatch(loadAssetCategoriesSuccess(response.data));
       })

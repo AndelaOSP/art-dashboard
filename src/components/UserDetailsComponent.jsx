@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Header, Pagination, Button } from 'semantic-ui-react';
+import { Table, Header, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import rowOptions from '../_utils/pageRowOptions';
+import DropdownComponent from '../components/common/DropdownComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
@@ -24,28 +26,20 @@ const UserDetailsComponent = (props) => {
   }
   return (
     <div>
-      <Table celled>
+      <Table basic>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <div className="assets-header">
                 Name
-              </div>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
                 Email Address
-              </div>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
                 Cohort
-              </div>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className="assets-header">
                 Assets Assigned
-              </div>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -70,22 +64,28 @@ const UserDetailsComponent = (props) => {
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="4" >
-              {!props.emptyUsersList() && (
-                <Pagination
-                  totalPages={props.handlePageTotal()}
-                  onPageChange={props.handlePaginationChange}
-                  activePage={props.activePage}
-                />
-              )}
-              <Button
-                circular
-                icon="add"
-                floated="right"
-                data-tooltip="Add new user"
-                size="big"
-              />
+            {!props.emptyUsersList() && (
+            <Table.HeaderCell colSpan="4" id="pagination-header">
+              <Segment.Group horizontal id="art-pagination-section">
+                <Segment>
+                  <Pagination
+                    id="art-pagination-component"
+                    totalPages={props.handlePageTotal()}
+                    onPageChange={props.handlePaginationChange}
+                    activePage={props.activePage}
+                  />
+                </Segment>
+                <Segment>
+                  <DropdownComponent
+                    id="page-limit"
+                    placeHolder="Show Rows"
+                    options={rowOptions}
+                    upward
+                  />
+                </Segment>
+              </Segment.Group>
             </Table.HeaderCell>
+              )}
           </Table.Row>
         </Table.Footer>
       </Table>

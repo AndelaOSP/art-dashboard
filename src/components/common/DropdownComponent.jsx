@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 
 const DropdownComponent = props => (
   <Dropdown
+    id={props.id}
     style={{ width: '65%' }}
     fluid
     search
     selection
+    upward
     label={props.label}
     options={props.options}
     placeholder={props.placeHolder}
@@ -17,6 +19,7 @@ const DropdownComponent = props => (
 );
 
 DropdownComponent.propTypes = {
+  id: PropTypes.string,
   label: PropTypes.string,
   options: PropTypes.array.isRequired,
   placeHolder: PropTypes.string,
@@ -25,9 +28,10 @@ DropdownComponent.propTypes = {
 };
 
 DropdownComponent.defaultProps = {
+  id: '',
   label: '',
   placeHolder: '',
-  onChange: () => {},
+  onChange: () => {}
 };
 
 export default DropdownComponent;
