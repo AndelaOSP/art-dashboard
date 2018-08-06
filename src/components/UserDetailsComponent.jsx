@@ -65,27 +65,29 @@ const UserDetailsComponent = (props) => {
         <Table.Footer>
           <Table.Row>
             {!props.emptyUsersList() && (
-              <Table.HeaderCell colSpan="4" id="pagination-header">
-                <Segment.Group horizontal id="art-pagination-section">
-                  <Segment>
-                    <Pagination
-                      id="art-pagination-component"
-                      totalPages={props.handlePageTotal()}
-                      onPageChange={props.handlePaginationChange}
-                      activePage={props.activePage}
-                    />
-                  </Segment>
-                  <Segment>
-                    <DropdownComponent
-                      id="page-limit"
-                      placeHolder="Show Rows"
-                      options={rowOptions}
-                      upward
-                    />
-                  </Segment>
-                </Segment.Group>
-              </Table.HeaderCell>
-            )}
+            <Table.HeaderCell colSpan="4" id="pagination-header">
+              <Segment.Group horizontal id="art-pagination-section">
+                <Segment>
+                  <Pagination
+                    id="art-pagination-component"
+                    totalPages={props.handlePageTotal()}
+                    onPageChange={props.handlePaginationChange}
+                    activePage={props.activePage}
+                  />
+                </Segment>
+                <Segment>
+                  <DropdownComponent
+                    id="page-limit"
+                    placeHolder="Show Rows"
+                    options={rowOptions}
+                    onChange={props.handleRowChange}
+                    upward
+                    value={props.limit}
+                  />
+                </Segment>
+              </Segment.Group>
+            </Table.HeaderCell>
+              )}
           </Table.Row>
         </Table.Footer>
       </Table>
@@ -99,9 +101,11 @@ UserDetailsComponent.propTypes = {
   emptyUsersList: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   handlePageTotal: PropTypes.func,
+  handleRowChange: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  limit: PropTypes.number
 };
 
 UserDetailsComponent.defaultProps = {
