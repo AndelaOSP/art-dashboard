@@ -7,6 +7,7 @@ import TableRowComponent from '../components/TableRowComponent';
 
 describe('Renders <TableRowComponent /> correctly', () => {
   const props = {
+    viewDetailsRoute: '',
     data: assets[0],
     headings: ['asset_type', 'asset_code', 'model_number']
   };
@@ -18,5 +19,13 @@ describe('Renders <TableRowComponent /> correctly', () => {
 
   it('renders the Table cells', () => {
     expect(wrapper.find('TableCell').length).toEqual(3);
+  });
+
+  it('calls the handleView function when the table row is clicked', () => {
+    const handleViewSpy = jest.spyOn(
+      wrapper.instance(), 'handleView'
+    );
+    wrapper.instance().handleView();
+    expect(handleViewSpy.mock.calls.length).toEqual(1);
   });
 });

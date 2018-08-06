@@ -85,7 +85,8 @@ const AssetsTableContent = (props) => {
           {
             props.activePageAssets.map(asset => (
               <TableRowComponent
-                handleViewClick={() => props.handleViewAsset(asset.serial_number)}
+                {...props}
+                viewDetailsRoute={`assets/${asset.serial_number}/view`}
                 key={asset.id}
                 data={asset}
                 headings={[

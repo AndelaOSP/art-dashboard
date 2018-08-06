@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
-
 import TableRowComponent from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
 import rowOptions from '../../_utils/pageRowOptions';
@@ -87,28 +86,27 @@ export class AssetModelsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                {!_.isEmpty(this.props.assetModels) &&
-                  (
-                    <Table.HeaderCell colSpan="5" id="pagination-header">
-                      <Segment.Group horizontal id="art-pagination-section">
-                        <Segment>
-                          <Pagination
-                            totalPages={this.getTotalPages()}
-                            onPageChange={this.handlePaginationChange}
-                            activePage={this.state.activePage}
-                          />
-                        </Segment>
-                        <Segment>
-                          <DropdownComponent
-                            id="page-limit"
-                            placeHolder="Show Rows"
-                            options={rowOptions}
-                            upward
-                          />
-                        </Segment>
-                      </Segment.Group>
-                    </Table.HeaderCell>
-                  )}
+                {!_.isEmpty(this.props.assetModels) && (
+                  <Table.HeaderCell colSpan="5" id="pagination-header">
+                    <Segment.Group horizontal id="art-pagination-section">
+                      <Segment>
+                        <Pagination
+                          totalPages={this.getTotalPages()}
+                          onPageChange={this.handlePaginationChange}
+                          activePage={this.state.activePage}
+                        />
+                      </Segment>
+                      <Segment>
+                        <DropdownComponent
+                          id="page-limit"
+                          placeHolder="Show Rows"
+                          options={rowOptions}
+                          upward
+                        />
+                      </Segment>
+                    </Segment.Group>
+                  </Table.HeaderCell>
+                )}
               </Table.Row>
             </Table.Footer>
           </Table>
