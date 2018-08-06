@@ -13,7 +13,7 @@ export class AssetsComponent extends Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
 
   componentDidMount() {
     this.props.getAssetsAction(this.state.activePage, this.state.limit);
@@ -27,14 +27,19 @@ export class AssetsComponent extends Component {
     return true;
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.getAssetsAction(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.getAssetsAction(activePage, this.state.limit);
-  }
+  };
 
-  handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit)
+  handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
 
-  emptyAssetsCheck = () => (isEmpty(this.props.assetsList))
+  emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
 
   render() {
     return (
@@ -51,9 +56,11 @@ export class AssetsComponent extends Component {
             emptyAssetsCheck={this.emptyAssetsCheck}
             errorMessage={this.props.errorMessage}
             handlePageTotal={this.handlePageTotal}
+            handleRowChange={this.handleRowChange}
             handlePaginationChange={this.handlePaginationChange}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
+            limit={this.state.limit}
           />
         </div>
       </NavbarComponent>

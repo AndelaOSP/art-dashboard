@@ -17,17 +17,23 @@ export class AssetSubCategoriesComponent extends React.Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
+
   componentDidMount() {
     this.props.loadSubCategories(this.state.activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadSubCategories(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadSubCategories(activePage, this.state.limit);
-  }
+  };
 
-  getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit)
+  getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit);
 
   render() {
     if (this.props.isLoading) {
@@ -79,6 +85,7 @@ export class AssetSubCategoriesComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 {!_.isEmpty(this.props.assetSubCategories) && (
+<<<<<<< HEAD
                   <Table.HeaderCell colSpan="4" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
@@ -99,6 +106,30 @@ export class AssetSubCategoriesComponent extends React.Component {
                     </Segment.Group>
                   </Table.HeaderCell>
                 )}
+=======
+                <Table.HeaderCell colSpan="4" id="pagination-header">
+                  <Segment.Group horizontal id="art-pagination-section">
+                    <Segment>
+                      <Pagination
+                        totalPages={this.getTotalPages()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    </Segment>
+                    <Segment>
+                      <DropdownComponent
+                        id="page-limit"
+                        placeHolder="Show Rows"
+                        options={rowOptions}
+                        upward
+                        value={this.state.limit}
+                        onChange={this.handleRowChange}
+                      />
+                    </Segment>
+                  </Segment.Group>
+                </Table.HeaderCell>
+                  )}
+>>>>>>> implement rows per page changes
               </Table.Row>
             </Table.Footer>
           </Table>

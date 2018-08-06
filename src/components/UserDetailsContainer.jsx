@@ -12,7 +12,7 @@ export class UserDetailsContainer extends Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
 
   componentDidMount() {
     this.props.loadUsers(this.state.activePage, this.state.limit);
@@ -29,12 +29,12 @@ export class UserDetailsContainer extends Component {
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
     this.props.loadUsers(this.state.activePage, data.value);
-  }
+  };
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadUsers(activePage, this.state.limit);
-  }
+  };
 
   handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit);
 

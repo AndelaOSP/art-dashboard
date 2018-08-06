@@ -80,9 +80,9 @@ const UserDetailsComponent = (props) => {
                     id="page-limit"
                     placeHolder="Show Rows"
                     options={rowOptions}
-                    onChange={props.handleRowChange}
                     upward
                     value={props.limit}
+                    onChange={props.handleRowChange}
                   />
                 </Segment>
               </Segment.Group>
