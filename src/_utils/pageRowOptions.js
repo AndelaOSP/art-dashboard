@@ -1,10 +1,5 @@
 const rowOptions = [
   {
-    key: 5,
-    text: '5 Rows',
-    value: 5
-  },
-  {
     key: 10,
     text: '10 Rows',
     value: 10
@@ -38,6 +33,16 @@ const rowOptions = [
     key: 40,
     text: '40 Rows',
     value: 40
+  },
+  {
+    key: 45,
+    text: '45 Rows',
+    value: 45
+  },
+  {
+    key: 50,
+    text: '50 Rows',
+    value: 50
   }
 ];
 
