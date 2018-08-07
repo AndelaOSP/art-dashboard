@@ -98,15 +98,21 @@ class AddAssetContainer extends React.Component {
 
     if (name === 'asset-category') {
       this.setState({
-        filteredSubCategories: filterSubCategories(subcategories, value)
+        filteredSubCategories: filterSubCategories(subcategories, value),
+        filteredAssetTypes: filterAssetTypes(assetTypes, value),
+        filteredAssetMakes: filterAssetMakes(assetMakes, value),
+        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-subcategory') {
       this.setState({
-        filteredAssetTypes: filterAssetTypes(assetTypes, value)
+        filteredAssetTypes: filterAssetTypes(assetTypes, value),
+        filteredAssetMakes: filterAssetMakes(assetMakes, value),
+        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-types') {
       this.setState({
-        filteredAssetMakes: filterAssetMakes(assetMakes, value)
+        filteredAssetMakes: filterAssetMakes(assetMakes, value),
+        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-makes') {
       this.setState({
