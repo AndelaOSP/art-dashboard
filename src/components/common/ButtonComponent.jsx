@@ -7,13 +7,13 @@ const ButtonComponent = ({
 }) => {
   if (color === 'primary') {
     return (
-      <Button primary onClick={handleClick} loading={buttonState} id={customCss}>
+      <Button primary onClick={handleClick} loading={buttonState} className={customCss}>
         {buttonName}
       </Button>
     );
   }
   return (
-    <Button secondary type="reset" onClick={handleClick} id={customCss}>
+    <Button secondary type="reset" onClick={handleClick} className={customCss}>
       {buttonName}
     </Button>
   );
