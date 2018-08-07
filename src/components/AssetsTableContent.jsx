@@ -83,23 +83,25 @@ const AssetsTableContent = (props) => {
 
         <Table.Body>
           {
-            props.activePageAssets.map(asset => (
-              <TableRowComponent
-                {...props}
-                viewDetailsRoute={`assets/${asset.serial_number}/view`}
-                key={asset.id}
-                data={asset}
-                headings={[
-                  'asset_code',
-                  'serial_number',
-                  'model_number',
-                  'make_label',
-                  'asset_type',
-                  'asset_category',
-                  'asset_sub_category'
-                ]}
-              />
-            ))
+            props.activePageAssets.map((asset) => {
+              const assetViewUrl = `assets/${asset.serial_number}/view`;
+              return (
+                <TableRowComponent
+                  viewDetailsRoute={assetViewUrl}
+                  key={asset.id}
+                  data={asset}
+                  headings={[
+                    'asset_code',
+                    'serial_number',
+                    'model_number',
+                    'make_label',
+                    'asset_type',
+                    'asset_category',
+                    'asset_sub_category'
+                  ]}
+                />
+              );
+            })
           }
         </Table.Body>
 

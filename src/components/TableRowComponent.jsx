@@ -1,14 +1,15 @@
 import React from 'react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 
 class TableRowComponent extends React.Component {
   handleView = () => {
-    if (_.isEmpty(this.props.viewDetailsRoute)) {
+    const { viewDetailsRoute, history } = this.props;
+    if (!viewDetailsRoute) {
       return null;
     }
-    return this.props.history.push(this.props.viewDetailsRoute);
+    return history.push(viewDetailsRoute);
   };
 
   render() {
@@ -35,4 +36,4 @@ TableRowComponent.propTypes = {
   viewDetailsRoute: PropTypes.string
 };
 
-export default TableRowComponent;
+export default withRouter(TableRowComponent);
