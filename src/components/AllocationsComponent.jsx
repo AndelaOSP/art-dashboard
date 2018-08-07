@@ -9,7 +9,6 @@ import { loadAllocationsAction } from '../_actions/allocations.actions';
 import NavbarComponent from './NavBarComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
-import AllocationActionComponent from './AllocationActionComponent';
 import formatDate from '../_utils/dateFormatter';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
@@ -65,7 +64,6 @@ export class AllocationsComponent extends Component {
                 <Table.HeaderCell>Current Owner</Table.HeaderCell>
                 <Table.HeaderCell>Previous Owner</Table.HeaderCell>
                 <Table.HeaderCell>Created At</Table.HeaderCell>
-                <Table.HeaderCell>Actions</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -78,11 +76,7 @@ export class AllocationsComponent extends Component {
                       key={allocation.created_at}
                       data={allocation}
                       headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}
-                    >
-                      <Table.Cell>
-                        <AllocationActionComponent />
-                      </Table.Cell>
-                    </TableRowComponent>
+                    />
                   );
                 })
               }

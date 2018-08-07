@@ -9,8 +9,6 @@ import TableRowComponent from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
 import DropdownComponent from '../../_components/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
-import ActionComponent from '../../components/ActionComponent';
-
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 
 export class AssetMakeComponent extends React.Component {
@@ -61,7 +59,6 @@ export class AssetMakeComponent extends React.Component {
                 <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Type</Table.HeaderCell>
                 <Table.HeaderCell>Make</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -72,11 +69,7 @@ export class AssetMakeComponent extends React.Component {
                     key={asset.id}
                     data={asset}
                     headings={['id', 'asset_type', 'make_label']}
-                  >
-                    <Table.Cell>
-                      <ActionComponent />
-                    </Table.Cell>
-                  </TableRowComponent>
+                  />
                 ))
               }
             </Table.Body>
