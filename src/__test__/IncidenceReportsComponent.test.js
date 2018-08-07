@@ -31,4 +31,8 @@ describe('IncidenceReportsComponent is rendered correctly', () => {
   it('renders TableRowComponent component', () => {
     expect(wrapper.find('TableRowComponent').length).toBe(2);
   });
+
+  it('renders a Dropdown component', () => {
+    expect(wrapper.find('DropdownComponent').length).toBe(1);
+  });
 });

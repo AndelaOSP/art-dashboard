@@ -28,6 +28,11 @@ export class AssetCategoriesComponent extends React.Component {
     this.props.loadAssetCategories(activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAssetCategories(this.state.activePage, data.value);
+  }
+
   handlePageTotal = () => Math.ceil(this.props.assetCategoriesCount / this.state.limit)
 
   emptyCategoriesCheck = () => (_.isEmpty(this.props.categories))
@@ -110,6 +115,8 @@ export class AssetCategoriesComponent extends React.Component {
                             id="page-limit"
                             placeHolder="Show Rows"
                             options={rowOptions}
+                            onChange={this.handleRowChange}
+                            value={this.state.limit}
                             upward
                           />
                         </Segment>

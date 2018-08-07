@@ -36,4 +36,8 @@ describe('Renders <Allocations/> component', () => {
   it('renders page title', () => {
     expect(wrapper.find('#page-headings').prop('content')).toEqual('All Allocations');
   });
+
+  it('renders Dropdown Component', () => {
+    expect(wrapper.find('DropdownComponent').length).toBe(1);
+  });
 });

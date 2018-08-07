@@ -29,6 +29,11 @@ export class UserFeedbackComponent extends React.Component {
     this.props.feedbackAction(activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.feedbackAction(this.state.activePage, data.value);
+  }
+
   handlePageTotal = () => Math.ceil(this.props.feedbackCount / this.state.limit)
 
   pagination = () => (
@@ -100,6 +105,8 @@ export class UserFeedbackComponent extends React.Component {
                           id="page-limit"
                           placeHolder="Show Rows"
                           options={rowOptions}
+                          onChange={this.handleRowChange}
+                          value={this.state.limit}
                           upward
                         />
                       </Segment>
