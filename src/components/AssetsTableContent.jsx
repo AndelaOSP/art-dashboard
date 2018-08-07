@@ -87,6 +87,7 @@ const AssetsTableContent = (props) => {
               const assetViewUrl = `assets/${asset.serial_number}/view`;
               return (
                 <TableRowComponent
+                  {...props}
                   viewDetailsRoute={assetViewUrl}
                   key={asset.id}
                   data={asset}
