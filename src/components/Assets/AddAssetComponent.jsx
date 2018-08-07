@@ -13,7 +13,6 @@ const AddAssetComponent = props => (
     <div className="page-indicator">
       <div
         className={props.page === 0 ? 'circle shade-1' : 'circle no-shade'}
-        onClick={props.goBack}
         onKeyDown={() => {}}
         role="presentation"
       >1
@@ -50,9 +49,9 @@ const AddAssetComponent = props => (
         { props.children }
       </div>
       <ArtButton
-        className="cancel"
-        buttonName="Discard"
-        handleClick={props.toggleModal}
+        customCss="previous-button"
+        buttonName="Previous"
+        handleClick={props.goBack}
       />
       <ArtButton
         className="save"
@@ -71,7 +70,6 @@ AddAssetComponent.propTypes = {
   onAddAssetTag: PropTypes.func.isRequired,
   onCreateAsset: PropTypes.func.isRequired,
   filteredModelNumbers: PropTypes.array,
-  toggleModal: PropTypes.func.isRequired,
   goBack: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,

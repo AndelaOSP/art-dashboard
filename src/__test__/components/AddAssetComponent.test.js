@@ -137,7 +137,7 @@ describe('<AddAssetContainer />', () => {
 
   it('should go back to the previous back when the circular one icon is clicked', () => {
     wrapper.find('.save').simulate('click');
-    wrapper.find('.no-shade').simulate('click');
+    wrapper.find('.ui.secondary.button.previous-button').simulate('click');
     expect(wrapper.find('FilterAssetComponent').length).toEqual(1);
   });
 
