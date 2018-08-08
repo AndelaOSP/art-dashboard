@@ -8,6 +8,7 @@ import AssetsTableContent from './AssetsTableContent';
 
 import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
+import FilterComponent from './FilterComponent';
 
 export class AssetsComponent extends Component {
   state = {
@@ -72,6 +73,7 @@ export class AssetsComponent extends Component {
               FILTERS
             </div>
           </div>
+          {this.state.toggleOn ? <FilterComponent /> : null}
           <AssetsTableContent
             {...this.props}
             activePage={this.state.activePage}

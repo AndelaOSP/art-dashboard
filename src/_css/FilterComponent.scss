@@ -1,0 +1,36 @@
+@import "sharedStyling.scss";
+
+#filter-container {
+  display: flex;
+  flex-direction: row;
+  color: $filter-font-color;
+  font-weight: 200;
+}
+
+#funnel {
+  background-image: url("");
+  background-size: 35px 45px;
+}
+
+#letters {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-color: $gray;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px $gray;
+  border-radius: 3px;
+  color: black;
+  padding: 10px;
+}
+
+#filter-text {
+  line-height: 3;
+}
+
+.letter {
+  margin-right: 10px;
+}
