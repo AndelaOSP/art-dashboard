@@ -31,7 +31,7 @@ export class AssetConditionsComponent extends React.Component {
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
     this.props.loadAssetConditions(this.state.activePage, data.value);
-  }
+  };
 
   getTotalPages = () => Math.ceil(this.props.assetConditionsCount / this.state.limit);
 
@@ -88,7 +88,6 @@ export class AssetConditionsComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 {!_.isEmpty(this.props.assetConditionsList) && (
-<<<<<<< HEAD
                   <Table.HeaderCell colSpan="4" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
@@ -103,36 +102,14 @@ export class AssetConditionsComponent extends React.Component {
                           id="page-limit"
                           placeHolder="Show Rows"
                           options={rowOptions}
+                          onChange={this.handleRowChange}
+                          value={this.state.limit}
                           upward
                         />
                       </Segment>
                     </Segment.Group>
                   </Table.HeaderCell>
                 )}
-=======
-                <Table.HeaderCell colSpan="4" id="pagination-header">
-                  <Segment.Group horizontal id="art-pagination-section">
-                    <Segment>
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                    </Segment>
-                    <Segment>
-                      <DropdownComponent
-                        id="page-limit"
-                        placeHolder="Show Rows"
-                        options={rowOptions}
-                        onChange={this.handleRowChange}
-                        value={this.state.limit}
-                        upward
-                      />
-                    </Segment>
-                  </Segment.Group>
-                </Table.HeaderCell>
-                  )}
->>>>>>> feat(rows-per-page): enable selecting rows per page
               </Table.Row>
             </Table.Footer>
           </Table>

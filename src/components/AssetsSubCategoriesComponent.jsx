@@ -85,7 +85,6 @@ export class AssetSubCategoriesComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 {!_.isEmpty(this.props.assetSubCategories) && (
-<<<<<<< HEAD
                   <Table.HeaderCell colSpan="4" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
@@ -101,35 +100,13 @@ export class AssetSubCategoriesComponent extends React.Component {
                           placeHolder="Show Rows"
                           options={rowOptions}
                           upward
+                          value={this.state.limit}
+                          onChange={this.handleRowChange}
                         />
                       </Segment>
                     </Segment.Group>
                   </Table.HeaderCell>
                 )}
-=======
-                <Table.HeaderCell colSpan="4" id="pagination-header">
-                  <Segment.Group horizontal id="art-pagination-section">
-                    <Segment>
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                    </Segment>
-                    <Segment>
-                      <DropdownComponent
-                        id="page-limit"
-                        placeHolder="Show Rows"
-                        options={rowOptions}
-                        upward
-                        value={this.state.limit}
-                        onChange={this.handleRowChange}
-                      />
-                    </Segment>
-                  </Segment.Group>
-                </Table.HeaderCell>
-                  )}
->>>>>>> implement rows per page changes
               </Table.Row>
             </Table.Footer>
           </Table>
