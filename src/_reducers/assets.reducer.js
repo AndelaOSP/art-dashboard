@@ -14,7 +14,7 @@ export default (state = initialState.assets, action) => {
     case CREATE_ASSET_SUCCESS:
       return {
         ...state,
-        assetsList: state.assetsList.concat(action.payload),
+        assetsList: [action.payload, ...state.assetsList],
         assetsCount: state.assetsCount + 1,
         hasError: false,
         isLoading: false

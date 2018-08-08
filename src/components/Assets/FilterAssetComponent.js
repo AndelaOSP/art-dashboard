@@ -13,7 +13,7 @@ const placeCategoriesInSemanticUIOptions = props => props.map((option, index) =>
 }));
 
 const FilterAssetComponent = props => (
-  <div className="modal-container">
+  <div className="modal-container" >
     <div className="page-indicator">
       <div className={props.page === 0 ? 'circle shade-2' : 'circle shade-1'}>1</div>
       Identify your device
@@ -26,6 +26,7 @@ const FilterAssetComponent = props => (
       label="Asset Category"
       placeHolder="Select Asset Category"
       name="asset-category"
+      value={props.selectedCategory}
       options={placeCategoriesInSemanticUIOptions(props.categories)}
       onChange={props.handleDropdownChanges}
       customCss="add-asset-dropdown"
@@ -36,6 +37,7 @@ const FilterAssetComponent = props => (
       options={props.filteredSubCategories}
       placeholder="Select Asset Subcategory"
       name="asset-subcategory"
+      value={props.selectedSubcategory}
       onChange={props.handleDropdownChanges}
       customCss="add-asset-dropdown"
     />
@@ -45,6 +47,7 @@ const FilterAssetComponent = props => (
       options={props.filteredAssetTypes}
       placeholder="Select Asset Type"
       name="asset-types"
+      value={props.selectedAssetType}
       onChange={props.handleDropdownChanges}
       customCss="add-asset-dropdown"
     />
@@ -54,6 +57,7 @@ const FilterAssetComponent = props => (
       options={props.filteredAssetMakes}
       placeholder="Select Asset Make"
       name="asset-makes"
+      value={props.selectedAssetMake}
       onChange={props.handleDropdownChanges}
       customCss="add-asset-dropdown"
     />
@@ -81,7 +85,11 @@ FilterAssetComponent.propTypes = {
   onNextClicked: PropTypes.func.isRequired,
   buttonState: PropTypes.bool,
   categories: PropTypes.array,
-  page: PropTypes.number.isRequired
+  page: PropTypes.number.isRequired,
+  selectedCategory: PropTypes.string,
+  selectedSubcategory: PropTypes.string,
+  selectedAssetType: PropTypes.string,
+  selectedAssetMake: PropTypes.string
 };
 
 FilterAssetComponent.defaultTypes = {

@@ -75,6 +75,7 @@ class SpecsComponent extends React.Component {
             className="input-style"
             placeholder="Enter Year Of Manufacture"
             name="year"
+            value={this.state.specs.year}
             options={yearOfManufacture}
             onChange={this.onSelectYearOfManufacture}
             customCss="add-asset-dropdown"
@@ -240,7 +241,8 @@ SpecsComponent.defaultTypes = {
     processorSpeed: '',
     screenSize: '',
     storage: '',
-    memory: ''
+    memory: '',
+    year: ''
   },
   buttonState: false
 };

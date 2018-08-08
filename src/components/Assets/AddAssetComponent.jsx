@@ -11,9 +11,9 @@ import '../../_css/ModalComponent.css';
 import '../../_css/AddAssetComponent.css';
 
 const specsComponentCheck = (assetTypes) => {
-  const filteredAssetType = assetTypes.find(assetType => assetType.text === 'Laptops' || 'Phones' || 'Tablets');
+  const filteredAssetType = assetTypes.find(assetType => assetType.text === 'Laptops' || 'Extension Cord' || 'Phones' || 'Tablets');
 
-  if (filteredAssetType.text !== 'undefined') {
+  if (filteredAssetType && filteredAssetType.text !== 'undefined') {
     return filteredAssetType.text;
   }
   return {};
@@ -24,7 +24,7 @@ const AddAssetComponent = props => (
     <div className="page-indicator">
       <div
         className={props.page === 0 ? 'circle shade-1' : 'circle no-shade'}
-        onKeyDown={() => {}}
+        onKeyDown={() => { }}
         role="presentation"
       >1
       </div>
@@ -40,6 +40,7 @@ const AddAssetComponent = props => (
         options={props.filteredModelNumbers}
         placeholder="Select Asset Model Number"
         name="asset-model-number"
+        value={props.modelNumber}
         onChange={props.onSelectModelNumber}
         customCss="add-asset-dropdown"
       />
@@ -48,6 +49,7 @@ const AddAssetComponent = props => (
         customCss="input-style"
         placeholder="Enter Asset Tag"
         name="asset-tag"
+        value={props.assetTag}
         onChange={props.onAddAssetTag}
       />
       <div className="label-style">Serial Number</div>
@@ -55,6 +57,7 @@ const AddAssetComponent = props => (
         customCss="input-style"
         placeholder="Enter Serial Number"
         name="serial-number"
+        value={props.serialNumber}
         onChange={props.onAddSerialNumber}
       />
       <ArtButton
@@ -64,21 +67,21 @@ const AddAssetComponent = props => (
       />
       {
         specsComponentCheck(props.filteredAssetTypes) ===
-        'Extension Cord' || 'Laptops' || 'Phones' || 'Tablets' ?
-          <ArtButton
-            className="save"
-            buttonName="Next"
-            color="primary"
-            handleClick={props.onNextClicked}
-          />
+          'Extension Cord' || 'Laptops' || 'Phones' || 'Tablets' ?
+            <ArtButton
+              className="save"
+              buttonName="Next"
+              color="primary"
+              handleClick={props.onNextClicked}
+            />
           :
-          <ArtButton
-            className="save"
-            buttonName="save"
-            color="primary"
-            handleClick={props.onChangeButtonState}
-            buttonState={props.buttonState}
-          />
+            <ArtButton
+              className="save"
+              buttonName="save"
+              color="primary"
+              handleClick={props.onChangeButtonState}
+              buttonState={props.buttonState}
+            />
       }
     </Form>
   </div>
@@ -96,7 +99,10 @@ AddAssetComponent.propTypes = {
   onNextClicked: PropTypes.func.isRequired,
   // children: PropTypes.node.isRequired,
   buttonState: PropTypes.bool,
-  page: PropTypes.number
+  page: PropTypes.number,
+  modelNumber: PropTypes.string,
+  assetTag: PropTypes.string,
+  serialNumber: PropTypes.string
 };
 
 AddAssetComponent.defaultTypes = {
@@ -106,7 +112,9 @@ AddAssetComponent.defaultTypes = {
   filteredModelNumbers: [],
   categories: [],
   buttonState: false,
-  page: 1
+  page: 1,
+  assetTag: '',
+  serialNumber: ''
 };
 
 export default AddAssetComponent;

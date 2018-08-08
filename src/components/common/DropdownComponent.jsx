@@ -9,6 +9,7 @@ const DropdownComponent = props => (
     search
     selection
     upward
+    value={props.value}
     label={props.label}
     options={props.options}
     placeholder={props.placeHolder}
@@ -25,7 +26,8 @@ DropdownComponent.propTypes = {
   placeHolder: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string.isRequired,
-  customCss: PropTypes.string
+  customCss: PropTypes.string,
+  value: PropTypes.string
 };
 
 DropdownComponent.defaultProps = {
