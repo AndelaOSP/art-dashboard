@@ -41,6 +41,10 @@ export class AssetsComponent extends Component {
 
   emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
 
+  toggleFilter = () => {
+    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
+  }
+
   render() {
     return (
       <NavbarComponent title="Assets">
@@ -48,6 +52,25 @@ export class AssetsComponent extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
+            <div
+              className={this.state.toggleOn ? 'clicked' : 'unclicked'}
+              id="filter-button"
+              onClick={this.toggleFilter}
+              role="presentation"
+            >
+              {this.state.toggleOn ?
+                <div id="close-filter">
+                  close X
+                </div> :
+                <div id="lines">
+                  <div className="line" />
+                  <div className="line" />
+                  <div className="line" />
+                </div>
+              }
+
+              FILTERS
+            </div>
           </div>
           <AssetsTableContent
             {...this.props}
