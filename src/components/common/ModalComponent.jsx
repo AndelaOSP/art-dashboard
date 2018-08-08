@@ -44,8 +44,8 @@ export default class ArtModal extends Component {
           closeIcon
         >
           <Modal.Header>{this.props.modalTitle} <div className="underline" /></Modal.Header>
-          <Modal.Content>
-            <Modal.Description>
+          <Modal.Content style={{ overflowY: 'auto' }}>
+            <Modal.Description style={{ width: '100%' }}>
               {childrenWithProps}
             </Modal.Description>
           </Modal.Content>

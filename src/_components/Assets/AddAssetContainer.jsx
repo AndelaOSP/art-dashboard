@@ -174,19 +174,27 @@ class AddAssetContainer extends React.Component {
           onAddAssetTag={this.onAddAssetTag}
           onCreateAsset={this.onCreateAsset}
           goBack={this.goBack}
+          onNextClicked={this.onNextClicked}
           filteredModelNumbers={this.state.filteredModelNumbers}
+          filteredAssetTypes={this.state.filteredAssetTypes}
           modelNumber={this.state.modelNumber}
           serialNumber={this.state.serialNumber}
           assetTag={this.state.assetTag}
           buttonState={this.state.saveButtonState}
           onChangeButtonState={this.onChangeButtonState}
-        >
-          <SpecsComponent
-            {...this.props}
-            specs={this.state.specs}
-            pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
-          />
-        </AddAssetComponent>
+        />
+      );
+    } else if (this.state.page === 2) {
+      return (
+        <SpecsComponent
+          {...this.props}
+          specs={this.state.specs}
+          goBack={this.goBack}
+          onChangeButtonState={this.onChangeButtonState}
+          page={this.state.page}
+          onCreateAsset={this.onCreateAsset}
+          pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
+        />
       );
     }
     return (

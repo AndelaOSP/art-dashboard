@@ -4,6 +4,7 @@ import DropdownComponent from '../common/DropdownComponent';
 import ArtButton from '../common/ButtonComponent';
 
 import '../../_css/ModalComponent.css';
+import '../../_css/AddAssetComponent.css';
 
 const placeCategoriesInSemanticUIOptions = props => props.map((option, index) => ({
   key: index,
@@ -12,7 +13,7 @@ const placeCategoriesInSemanticUIOptions = props => props.map((option, index) =>
 }));
 
 const FilterAssetComponent = props => (
-  <div>
+  <div className="modal-container">
     <div className="page-indicator">
       <div className={props.page === 0 ? 'circle shade-2' : 'circle shade-1'}>1</div>
       Identify your device
@@ -27,6 +28,7 @@ const FilterAssetComponent = props => (
       name="asset-category"
       options={placeCategoriesInSemanticUIOptions(props.categories)}
       onChange={props.handleDropdownChanges}
+      customCss="add-asset-dropdown"
     />
     <div className="label-style">Sub Category</div>
     <DropdownComponent
@@ -35,6 +37,7 @@ const FilterAssetComponent = props => (
       placeholder="Select Asset Subcategory"
       name="asset-subcategory"
       onChange={props.handleDropdownChanges}
+      customCss="add-asset-dropdown"
     />
     <div className="label-style">Type</div>
     <DropdownComponent
@@ -43,6 +46,7 @@ const FilterAssetComponent = props => (
       placeholder="Select Asset Type"
       name="asset-types"
       onChange={props.handleDropdownChanges}
+      customCss="add-asset-dropdown"
     />
     <div className="label-style">Make</div>
     <DropdownComponent
@@ -51,6 +55,7 @@ const FilterAssetComponent = props => (
       placeholder="Select Asset Make"
       name="asset-makes"
       onChange={props.handleDropdownChanges}
+      customCss="add-asset-dropdown"
     />
     <ArtButton
       className="cancel"
