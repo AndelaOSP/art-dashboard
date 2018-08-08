@@ -12,3 +12,57 @@
   position: absolute;
   width: 90px;
 }
+
+#page-headings {
+  align-self: flex-start;
+}
+
+#filter-button {
+  display: flex;
+  align-self: flex-end;
+  margin-bottom: 10%;
+  border-color: $andela-blue;
+  border-width: 1px;
+  padding: 20px;
+  line-height: 0.1;
+  border-style: solid;
+  font-size: small;
+  color: $filter-font-color;
+  font-weight: 500;
+  width: 150px;
+}
+
+#lines {
+  margin-right: 5px;
+  margin-top: -5px;
+}
+
+#page-heading-section {
+  height: 77px;
+  margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+}
+
+#close-filter {
+  color: $filter-font-color;
+  margin-right: 5px;
+}
+
+.line {
+  width: 15px;
+  height: 2px;
+  background-color: $filter-font-color;
+  margin-right: 1px;
+  margin-top: 1px;
+  margin-bottom: 2px;
+}
+
+.clicked {
+  background-color: $andela-white;
+}
+
+.unclicked {
+  background-color: $filter-blue;
+}
+
