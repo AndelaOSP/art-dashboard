@@ -69,7 +69,6 @@ export class AssetsComponent extends Component {
                   <div className="line" />
                 </div>
               }
-
               FILTERS
             </div>
           </div>

@@ -1,6 +1,7 @@
 @import "sharedStyling.scss";
 
 #filter-container {
+  margin: 40px 0 40px 0;
   display: flex;
   flex-direction: row;
   color: $filter-font-color;
@@ -8,12 +9,12 @@
 }
 
 #funnel {
-  background-image: url("");
-  background-size: 35px 45px;
+  margin: 0 20px 0 40px;
+  width: 45px;
+  height: 45px;
 }
 
 #letters {
-  margin-left: 10px;
   display: flex;
   flex-direction: row;
   text-transform: uppercase;
@@ -23,12 +24,13 @@
   border-width: 1px;
   box-shadow: 0 1px $gray;
   border-radius: 3px;
-  color: black;
+  color: $andela-black;
   padding: 10px;
 }
 
 #filter-text {
   line-height: 3;
+  margin-right: 15px;
 }
 
 .letter {
