@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Image } from 'semantic-ui-react';
 import '../_css/FilterComponent.css';
 
 const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -6,7 +7,7 @@ const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm
 
 const FilterComponent = () => (
   <div id="filter-container">
-    <div id="funnel" />
+    <Image id="funnel" src="images/funnel.png" />
     <div id="filter-text">Filter by</div>
     <div id="letters">
       {alphabet.map(letter => (<div className="letter">{letter}</div>))}
