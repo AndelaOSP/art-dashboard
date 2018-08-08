@@ -8,7 +8,6 @@ import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
-import ActionComponent from './ActionComponent';
 import TableHeaderComponent from '../components/common/TableHeaderComponent';
 import '../_css/UserFeedback.css';
 
@@ -49,11 +48,7 @@ export class UserFeedbackComponent extends React.Component {
           'created_at',
           'report_type',
           'message']}
-      >
-        <Table.Cell>
-          <ActionComponent />
-        </Table.Cell>
-      </TableRowComponent>
+      />
 
     ));
     return feedbackRecord;
@@ -84,8 +79,7 @@ export class UserFeedbackComponent extends React.Component {
               'Submitted by',
               'Date Submitted',
               'Type',
-              'Message',
-              'Action'
+              'Message'
             ]}
           />
           <Table.Body>

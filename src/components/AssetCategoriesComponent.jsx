@@ -9,7 +9,6 @@ import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from './LoaderComponent';
-import ActionComponent from './ActionComponent';
 
 import '../_css/AssetsComponent.css';
 import { loadAssetCategories } from '../_actions/assetCategories.actions';
@@ -73,12 +72,11 @@ export class AssetCategoriesComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Categories" />
             <Divider id="assets-divider" />
           </div>
-          <Table basic>
+          <Table basic selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Category</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -89,11 +87,7 @@ export class AssetCategoriesComponent extends React.Component {
                     key={category.id}
                     data={category}
                     headings={['id', 'category_name']}
-                  >
-                    <Table.Cell>
-                      <ActionComponent />
-                    </Table.Cell>
-                  </TableRowComponent>
+                  />
                 ))
               }
             </Table.Body>
