@@ -7,8 +7,8 @@ import NavbarComponent from './NavBarComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
 import { loadUsers } from '../_actions/users.actions';
 import '../_css/UsersComponent.css';
-import FilterComponent from './FilterComponent';
-
+import FilterUserComponent from './FilterUserComponent';
+import FilterButton from './common/FilterButton';
 
 export class UserContainer extends Component {
   state = {
@@ -42,10 +42,6 @@ export class UserContainer extends Component {
 
   emptyUsersList = () => (isEmpty(this.props.users));
 
-  toggleFilter = () => {
-    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
-  }
-
   render() {
     return (
       <NavbarComponent title="Users">
@@ -53,26 +49,14 @@ export class UserContainer extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
-            <div
-              className={this.state.toggleOn ? 'clicked' : 'unclicked'}
-              id="filter-button"
-              onClick={this.toggleFilter}
-              role="presentation"
-            >
-              {this.state.toggleOn ?
-                <div id="close-filter">
-                  close X
-                </div> :
-                <div id="lines">
-                  <div className="burger-line" />
-                  <div className="burger-line" />
-                  <div className="burger-line" />
-                </div>
-              }
-              FILTERS
-            </div>
+            <FilterButton
+              render={toggleOn =>
+                (<FilterUserComponent
+                  toggleOn={toggleOn}
+                  filterUser={this.filterUser}
+                />)}
+            />
           </div>
-          {this.state.toggleOn ? <FilterComponent /> : null}
           <UserDetailsComponent
             activePage={this.state.activePage}
             activePageUsers={this.props.users}
