@@ -46,8 +46,8 @@ export class UserContainer extends Component {
     return (
       <NavbarComponent title="Users">
         <div className="users-list">
-          <div id="page-heading-section">
-            <Header as="h1" id="page-headings" floated="left" content="Users List" />
+          <div className="page-heading-section">
+            <Header as="h1" className="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
             <FilterButton
               render={toggleOn =>

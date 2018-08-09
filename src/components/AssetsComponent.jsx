@@ -41,10 +41,6 @@ export class AssetsComponent extends Component {
 
   emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
 
-  toggleFilter = () => {
-    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
-  }
-
   render() {
     return (
       <NavbarComponent title="Assets">
