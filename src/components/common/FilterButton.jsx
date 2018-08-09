@@ -14,8 +14,7 @@ class FilterButton extends React.Component {
     return (
       <div>
         <div
-          className={this.state.toggleOn ? 'clicked' : 'unclicked'}
-          id="filter-button"
+          className={this.state.toggleOn ? 'clicked filter-button' : 'unclicked filter-button'}
           onClick={this.toggleFilter}
           role="presentation"
         >
@@ -23,7 +22,7 @@ class FilterButton extends React.Component {
             <div id="close-filter">
             close
             </div> :
-            <div id="lines">
+            <div className="lines">
               <div className="burger-line" />
               <div className="burger-line" />
               <div className="burger-line" />

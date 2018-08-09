@@ -13,11 +13,11 @@
   width: 90px;
 }
 
-#page-headings {
+.page-headings {
   align-self: flex-start;
 }
 
-#filter-button {
+.filter-button {
   display: flex;
   align-self: flex-end;
   margin-bottom: 10%;
@@ -33,12 +33,12 @@
   float: right;
 }
 
-#lines {
+.lines {
   margin-right: 5px;
   margin-top: -5px;
 }
 
-#page-heading-section {
+.page-heading-section {
   height: 77px;
   margin-top: 45px;
   display: flex;
