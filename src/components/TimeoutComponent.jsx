@@ -5,8 +5,13 @@ import ArtModal from './common/ModalComponent';
 
 const useTimeouts = (SingleComponent) => {
   class TimeoutComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      this.addTimeout();
+    }
+
     state = {
-      timeouts: []
+      timeout: 0
     }
 
     timeoutAlert = () => (
@@ -26,11 +31,15 @@ const useTimeouts = (SingleComponent) => {
     }
 
     addTimeout() {
-      this.state.timeouts.push(setTimeout(this.timeoutAlert, 5000));
+      if (this.state.timeout) {
+        this.clearTimeout();
+      }
+      this.state.timeout = setTimeout(() => this.handleLogout(), 10000);
     }
 
-    clearTimeouts() {
-      this.state.timeouts.forEach(clearTimeout);
+    clearTimeout() {
+      clearTimeout(this.state.timeout);
+      this.state.timeout = 0;
     }
 
     render() {
