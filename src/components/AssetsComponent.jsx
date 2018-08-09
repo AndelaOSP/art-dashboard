@@ -5,15 +5,14 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavbarComponent from './NavBarComponent';
 import AssetsTableContent from './AssetsTableContent';
-
 import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
+import FilterButton from './common/FilterButton';
 
 export class AssetsComponent extends Component {
   state = {
     activePage: 1,
-    limit: 10,
-    toggleOn: false
+    limit: 10
   }
 
   componentDidMount() {
@@ -48,24 +47,7 @@ export class AssetsComponent extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
-            <div
-              className={this.state.toggleOn ? 'clicked' : 'unclicked'}
-              id="filter-button"
-              onClick={this.toggleFilter}
-              role="presentation"
-            >
-              {this.state.toggleOn ?
-                <div id="close-filter">
-                  close X
-                </div> :
-                <div id="lines">
-                  <div className="burger-line" />
-                  <div className="burger-line" />
-                  <div className="burger-line" />
-                </div>
-              }
-              FILTERS
-            </div>
+            <FilterButton render={() => {}} />
           </div>
           <AssetsTableContent
             {...this.props}

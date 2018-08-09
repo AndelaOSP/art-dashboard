@@ -30,6 +30,7 @@
   color: $filter-font-color;
   font-weight: 500;
   width: 150px;
+  float: right;
 }
 
 #lines {
@@ -42,6 +43,7 @@
   margin-top: 45px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 30px;
 }
 
 #close-filter {
