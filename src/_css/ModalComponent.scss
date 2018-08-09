@@ -13,7 +13,7 @@
 
 .ui.modal > .content > .description {
   margin-right: -45%;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .ui.label {
@@ -32,11 +32,9 @@
 .ui.form {
   input[type="text"] {
     border-color: $border-color2;
-    width: 340px;
 
     &:focus {
       border-color: $border-color2;
-      width: 340px;
       color: $border-color2;
       font-weight: lighter;
     }
@@ -97,7 +95,7 @@
 }
 
 .ui.secondary.button {
-  margin-left: 30%;
+  margin-left: 40%;
   width: 98px;
   margin-right: 22px;
   border: 1px solid $andela-blue;
@@ -154,7 +152,11 @@
   margin-bottom: 30px;
   justify-content: center;
   align-items: center;
-  margin-right: 200px;
+  margin-right: 26px;
+}
+
+.page-indicator.specs-component {
+  margin-right: 18px;
 }
 
 .line {
@@ -186,4 +188,8 @@
 .page-text {
   display: flex;
   justify-content: center;
+}
+
+.modal-container {
+  height: 450px;
 }
