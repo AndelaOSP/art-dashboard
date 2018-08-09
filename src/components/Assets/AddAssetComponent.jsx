@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { Form } from 'semantic-ui-react';
-// import _ from 'lodash';
 
 import DropdownComponent from '../common/DropdownComponent';
 import InputFluid from '../common/TextInputComponent';
@@ -10,13 +9,16 @@ import ArtButton from '../common/ButtonComponent';
 import '../../_css/ModalComponent.css';
 import '../../_css/AddAssetComponent.css';
 
-const specsComponentCheck = (assetTypes) => {
-  const filteredAssetType = assetTypes.find(assetType => assetType.text === 'Laptops' || 'Extension Cord' || 'Phones' || 'Tablets');
+const specsAssetTypes = [
+  'Extension Cord', 'Laptops', 'Phones', 'Tablets'
+];
 
-  if (filteredAssetType && filteredAssetType.text !== 'undefined') {
-    return filteredAssetType.text;
+const specsComponentCheck = (userDefinedassetType) => {
+  const foundAssetType = specsAssetTypes.find(assetType => assetType === userDefinedassetType);
+  if (foundAssetType !== undefined) {
+    return true;
   }
-  return {};
+  return false;
 };
 
 const AddAssetComponent = props => (
@@ -66,22 +68,21 @@ const AddAssetComponent = props => (
         handleClick={props.goBack}
       />
       {
-        specsComponentCheck(props.filteredAssetTypes) ===
-          'Extension Cord' || 'Laptops' || 'Phones' || 'Tablets' ?
-            <ArtButton
-              className="save"
-              buttonName="Next"
-              color="primary"
-              handleClick={props.onNextClicked}
-            />
+        specsComponentCheck(props.selectedAssetType) === true ?
+          <ArtButton
+            className="save"
+            buttonName="Next"
+            color="primary"
+            handleClick={props.onNextClicked}
+          />
           :
-            <ArtButton
-              className="save"
-              buttonName="save"
-              color="primary"
-              handleClick={props.onChangeButtonState}
-              buttonState={props.buttonState}
-            />
+          <ArtButton
+            className="save"
+            buttonName="save"
+            color="primary"
+            handleClick={props.onChangeButtonState}
+            buttonState={props.buttonState}
+          />
       }
     </Form>
   </div>
@@ -93,11 +94,10 @@ AddAssetComponent.propTypes = {
   onAddAssetTag: PropTypes.func.isRequired,
   onCreateAsset: PropTypes.func.isRequired,
   filteredModelNumbers: PropTypes.array,
-  filteredAssetTypes: PropTypes.array,
   goBack: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
   onNextClicked: PropTypes.func.isRequired,
-  // children: PropTypes.node.isRequired,
+  selectedAssetType: PropTypes.string.isRequired,
   buttonState: PropTypes.bool,
   page: PropTypes.number,
   modelNumber: PropTypes.string,
@@ -107,7 +107,6 @@ AddAssetComponent.propTypes = {
 
 AddAssetComponent.defaultTypes = {
   filteredSubCategories: [],
-  filteredAssetTypes: [],
   filteredAssetMakes: [],
   filteredModelNumbers: [],
   categories: [],

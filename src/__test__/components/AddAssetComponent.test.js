@@ -135,7 +135,8 @@ describe('<AddAssetContainer />', () => {
     expect(wrapper.find('AddAssetComponent').length).toEqual(1);
   });
 
-  it('should go back to the previous back when the circular one icon is clicked', () => {
+  it('should go back to the previous back when the previous button is clicked', () => {
+    wrapper.setState({ page: 0 });
     wrapper.find('.save').simulate('click');
     wrapper.find('.ui.secondary.button.previous-button').simulate('click');
     expect(wrapper.find('FilterAssetComponent').length).toEqual(1);

@@ -188,6 +188,7 @@ class AddAssetContainer extends React.Component {
           modelNumber={this.state.modelNumber}
           serialNumber={this.state.serialNumber}
           assetTag={this.state.assetTag}
+          selectedAssetType={this.state.selectedAssetType}
           buttonState={this.state.saveButtonState}
           onChangeButtonState={this.onChangeButtonState}
         />
