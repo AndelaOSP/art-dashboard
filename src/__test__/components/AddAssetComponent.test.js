@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import expect from 'expect';
 
 import AddAssetContainer from '../../_components/Assets/AddAssetContainer';
-
 import assetCategories from '../../_mock/assetCategories';
 import assetSubCategories from '../../_mock/subcategories';
 import assetTypes from '../../_mock/assetTypes';
@@ -70,6 +69,17 @@ instance.setState({
   filteredModelNumbers: []
 });
 
+const specsComponentSetup = () => {
+  wrapper.setState({ selectedAssetType: 'Laptops' });
+  wrapper.find('.save').simulate('click');
+  wrapper.setState({ modelNumber: 'MacBook Pro' });
+  wrapper.setState({ serialNumber: 'S/N-878778' });
+  wrapper.setState({ assetTag: 'TMAC/AND-90' });
+
+  // move on to specs component
+  wrapper.find('.save').simulate('click');
+};
+
 describe('<AddAssetContainer />', () => {
   it('should render 4 dropdown fields', () => {
     expect(wrapper.find('DropdownComponent').length).toEqual(4);
@@ -135,44 +145,45 @@ describe('<AddAssetContainer />', () => {
     expect(wrapper.find('AddAssetComponent').length).toEqual(1);
   });
 
-  it('should go back to the previous back when the circular one icon is clicked', () => {
+  it('should go back to the previous back when the previous button is clicked', () => {
+    wrapper.setState({ page: 0 });
     wrapper.find('.save').simulate('click');
-    wrapper.find('.no-shade').simulate('click');
+    wrapper.find('.ui.secondary.button.previous-button').simulate('click');
     expect(wrapper.find('FilterAssetComponent').length).toEqual(1);
   });
 
   it('should have data about the year when selecting year on manufacture', () => {
-    wrapper.find('.save').simulate('click');
+    specsComponentSetup();
     wrapper.find('DropdownComponent .item').at(3).simulate('click');
-    expect(wrapper.state().specs.year).toEqual(2015);
+    expect(wrapper.state().specs.year).toEqual(2016);
   });
 
   it('should have data about the processor type when selecting processor type', () => {
-    wrapper.find('.save').simulate('click');
+    specsComponentSetup();
     wrapper.find('input[type="radio"][name="processorType"]').at(0).simulate('change');
     expect(wrapper.state().specs.processorType).toEqual('Intel core i3');
   });
 
   it('should have data about the processor speed when selecting processor speed', () => {
-    wrapper.find('.save').simulate('click');
+    specsComponentSetup();
     wrapper.find('input[type="radio"][name="processorSpeed"]').at(1).simulate('change');
     expect(wrapper.state().specs.processorSpeed).toEqual('2.3');
   });
 
   it('should have data about the screen size when selecting screen size', () => {
-    wrapper.find('.save').simulate('click');
+    specsComponentSetup();
     wrapper.find('input[type="radio"][name="screenSize"]').at(1).simulate('change');
     expect(wrapper.state().specs.screenSize).toEqual('15');
   });
 
   it('should have data about the storage when selecting storage', () => {
-    wrapper.find('.save').simulate('click');
+    specsComponentSetup();
     wrapper.find('input[type="radio"][name="storage"]').at(2).simulate('change');
     expect(wrapper.state().specs.storage).toEqual('512');
   });
 
   it('should have data about the memory when selecting memory', () => {
-    wrapper.find('.save').simulate('click');
+    specsComponentSetup();
     wrapper.find('input[type="radio"][name="memory"]').at(2).simulate('change');
     expect(wrapper.state().specs.memory).toEqual('16');
   });
@@ -195,5 +206,28 @@ describe('<AddAssetContainer />', () => {
       }
     });
     expect(wrapper.props().toastMessageContent.type).toEqual('error');
+  });
+
+  afterEach(() => {
+    wrapper.setState({
+      modelNumber: 0,
+      serialNumber: '',
+      selectedAssetType: '',
+      assetTag: '',
+      page: 0,
+      specs: {
+        year: '',
+        processorType: '',
+        processorSpeed: '',
+        screenSize: '',
+        storage: '',
+        memory: ''
+      },
+      saveButtonState: false,
+      filteredSubCategories: [],
+      filteredAssetTypes: [],
+      filteredAssetMakes: [],
+      filteredModelNumbers: []
+    });
   });
 });

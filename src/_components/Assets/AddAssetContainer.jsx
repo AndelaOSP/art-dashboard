@@ -29,7 +29,11 @@ class AddAssetContainer extends React.Component {
     filteredAssetTypes: [],
     filteredAssetMakes: [],
     filteredModelNumbers: [],
-    modelNumber: 0,
+    selectedCategory: '',
+    selectedSubcategory: '',
+    selectedAssetType: '',
+    selectedAssetMake: '',
+    modelNumber: '',
     serialNumber: '',
     assetTag: '',
     saveButtonState: false,
@@ -98,18 +102,28 @@ class AddAssetContainer extends React.Component {
 
     if (name === 'asset-category') {
       this.setState({
-        filteredSubCategories: filterSubCategories(subcategories, value)
+        selectedCategory: value,
+        filteredSubCategories: filterSubCategories(subcategories, value),
+        filteredAssetTypes: filterAssetTypes(assetTypes, value),
+        filteredAssetMakes: filterAssetMakes(assetMakes, value),
+        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-subcategory') {
       this.setState({
-        filteredAssetTypes: filterAssetTypes(assetTypes, value)
+        selectedSubcategory: value,
+        filteredAssetTypes: filterAssetTypes(assetTypes, value),
+        filteredAssetMakes: filterAssetMakes(assetMakes, value),
+        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-types') {
       this.setState({
-        filteredAssetMakes: filterAssetMakes(assetMakes, value)
+        selectedAssetType: value,
+        filteredAssetMakes: filterAssetMakes(assetMakes, value),
+        filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-makes') {
       this.setState({
+        selectedAssetMake: value,
         filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     }
@@ -168,19 +182,29 @@ class AddAssetContainer extends React.Component {
           onAddAssetTag={this.onAddAssetTag}
           onCreateAsset={this.onCreateAsset}
           goBack={this.goBack}
+          onNextClicked={this.onNextClicked}
           filteredModelNumbers={this.state.filteredModelNumbers}
+          filteredAssetTypes={this.state.filteredAssetTypes}
           modelNumber={this.state.modelNumber}
           serialNumber={this.state.serialNumber}
           assetTag={this.state.assetTag}
+          selectedAssetType={this.state.selectedAssetType}
           buttonState={this.state.saveButtonState}
           onChangeButtonState={this.onChangeButtonState}
-        >
-          <SpecsComponent
-            {...this.props}
-            specs={this.state.specs}
-            pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
-          />
-        </AddAssetComponent>
+        />
+      );
+    } else if (this.state.page === 2) {
+      return (
+        <SpecsComponent
+          {...this.props}
+          specs={this.state.specs}
+          goBack={this.goBack}
+          buttonState={this.state.saveButtonState}
+          onChangeButtonState={this.onChangeButtonState}
+          page={this.state.page}
+          onCreateAsset={this.onCreateAsset}
+          pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
+        />
       );
     }
     return (
@@ -191,6 +215,10 @@ class AddAssetContainer extends React.Component {
         filteredAssetTypes={this.state.filteredAssetTypes}
         filteredAssetMakes={this.state.filteredAssetMakes}
         page={this.state.page}
+        selectedCategory={this.state.selectedCategory}
+        selectedSubcategory={this.state.selectedSubcategory}
+        selectedAssetType={this.state.selectedAssetType}
+        selectedAssetMake={this.state.selectedAssetMake}
         onNextClicked={this.onNextClicked}
       />
     );

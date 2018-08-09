@@ -6,15 +6,27 @@ import DropdownComponent from '../common/DropdownComponent';
 import InputFluid from '../common/TextInputComponent';
 import ArtButton from '../common/ButtonComponent';
 
+import '../../_css/ModalComponent.css';
 import '../../_css/AddAssetComponent.css';
 
+const specsAssetTypes = [
+  'Extension Cord', 'Laptops', 'Phones', 'Tablets'
+];
+
+const specsComponentCheck = (userDefinedassetType) => {
+  const foundAssetType = specsAssetTypes.find(assetType => assetType === userDefinedassetType);
+  if (foundAssetType !== undefined) {
+    return true;
+  }
+  return false;
+};
+
 const AddAssetComponent = props => (
-  <div>
+  <div className="modal-container">
     <div className="page-indicator">
       <div
         className={props.page === 0 ? 'circle shade-1' : 'circle no-shade'}
-        onClick={props.goBack}
-        onKeyDown={() => {}}
+        onKeyDown={() => { }}
         role="presentation"
       >1
       </div>
@@ -30,37 +42,48 @@ const AddAssetComponent = props => (
         options={props.filteredModelNumbers}
         placeholder="Select Asset Model Number"
         name="asset-model-number"
+        value={props.modelNumber}
         onChange={props.onSelectModelNumber}
+        customCss="add-asset-dropdown"
       />
       <div className="label-style">Asset Tag</div>
       <InputFluid
-        className="input-style"
+        customCss="input-style"
         placeholder="Enter Asset Tag"
         name="asset-tag"
+        value={props.assetTag}
         onChange={props.onAddAssetTag}
       />
       <div className="label-style">Serial Number</div>
       <InputFluid
-        className="input-style"
+        customCss="input-style"
         placeholder="Enter Serial Number"
         name="serial-number"
+        value={props.serialNumber}
         onChange={props.onAddSerialNumber}
       />
-      <div className="optional-fields">
-        { props.children }
-      </div>
       <ArtButton
-        className="cancel"
-        buttonName="Discard"
-        handleClick={props.toggleModal}
+        customCss="previous-button"
+        buttonName="Previous"
+        handleClick={props.goBack}
       />
-      <ArtButton
-        className="save"
-        buttonName="Save"
-        color="primary"
-        handleClick={props.onChangeButtonState}
-        buttonState={props.buttonState}
-      />
+      {
+        specsComponentCheck(props.selectedAssetType) === true ?
+          <ArtButton
+            className="save"
+            buttonName="Next"
+            color="primary"
+            handleClick={props.onNextClicked}
+          />
+          :
+          <ArtButton
+            className="save"
+            buttonName="save"
+            color="primary"
+            handleClick={props.onChangeButtonState}
+            buttonState={props.buttonState}
+          />
+      }
     </Form>
   </div>
 );
@@ -71,22 +94,26 @@ AddAssetComponent.propTypes = {
   onAddAssetTag: PropTypes.func.isRequired,
   onCreateAsset: PropTypes.func.isRequired,
   filteredModelNumbers: PropTypes.array,
-  toggleModal: PropTypes.func.isRequired,
   goBack: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  onNextClicked: PropTypes.func.isRequired,
+  selectedAssetType: PropTypes.string.isRequired,
   buttonState: PropTypes.bool,
-  page: PropTypes.number
+  page: PropTypes.number,
+  modelNumber: PropTypes.string,
+  assetTag: PropTypes.string,
+  serialNumber: PropTypes.string
 };
 
 AddAssetComponent.defaultTypes = {
   filteredSubCategories: [],
-  filteredAssetTypes: [],
   filteredAssetMakes: [],
   filteredModelNumbers: [],
   categories: [],
   buttonState: false,
-  page: 1
+  page: 1,
+  assetTag: '',
+  serialNumber: ''
 };
 
 export default AddAssetComponent;
