@@ -121,7 +121,7 @@ const AssetsTableContent = (props) => {
                   </Segment>
                   <Segment>
                     <DropdownComponent
-                      id="page-limit"
+                      customClass="page-limit"
                       placeHolder="Show Rows"
                       options={rowOptions}
                       upward

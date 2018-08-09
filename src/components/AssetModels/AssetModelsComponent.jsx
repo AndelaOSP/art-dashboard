@@ -91,8 +91,7 @@ export class AssetModelsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                {!_.isEmpty(this.props.assetModels) &&
-                (
+                {!_.isEmpty(this.props.assetModels) && (
                   <Table.HeaderCell colSpan="5" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
@@ -104,7 +103,7 @@ export class AssetModelsComponent extends React.Component {
                       </Segment>
                       <Segment>
                         <DropdownComponent
-                          id="page-limit"
+                          customClass="page-limit"
                           placeHolder="Show Rows"
                           options={rowOptions}
                           upward

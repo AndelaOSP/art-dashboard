@@ -72,13 +72,12 @@ class SpecsComponent extends React.Component {
         </div>
         <Form onSubmit={this.props.onCreateAsset} className="add-asset-form">
           <DropdownComponent
-            className="input-style"
             placeholder="Enter Year Of Manufacture"
             name="year"
             value={this.state.specs.year}
             options={yearOfManufacture}
             onChange={this.onSelectYearOfManufacture}
-            customCss="add-asset-dropdown"
+            customClass="input-style add-asset-dropdown"
           />
           <Form.Group inline>
             <label>Screen Size (inches)</label>

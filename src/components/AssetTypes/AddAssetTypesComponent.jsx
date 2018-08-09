@@ -26,6 +26,7 @@ const AssetTypesComponent = props => (
     <label htmlFor="subcategory" className="label-style">
       Asset Sub Category
       <DropdownComponent
+        customClass="form-dropdown"
         label="Sub Category"
         placeHolder="Select Sub Category"
         name="subcategory"

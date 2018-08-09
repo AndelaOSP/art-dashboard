@@ -10,22 +10,29 @@ import NavbarComponent from '../NavBarComponent';
 import DropdownComponent from '../../_components/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
+import rowOptions from '../../_utils/pageRowOptions';
 
 export class AssetMakeComponent extends React.Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
+
   componentDidMount() {
     this.props.loadAssetMakes(this.state.activePage);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAssetConditions(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadAssetMakes(activePage);
-  }
+  };
 
-  getTotalPages = () => Math.ceil(this.props.assetMakesCount / this.state.limit)
+  getTotalPages = () => Math.ceil(this.props.assetMakesCount / this.state.limit);
 
   render() {
     if (this.props.isLoading) {
@@ -77,21 +84,28 @@ export class AssetMakeComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 {!_.isEmpty(this.props.assetMakes) && (
-                <Table.HeaderCell colSpan="4" id="pagination-header">
-                  <Segment.Group horizontal id="art-pagination-section">
-                    <Segment>
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                    </Segment>
-                    <Segment>
-                      <DropdownComponent />
-                    </Segment>
-                  </Segment.Group>
-                </Table.HeaderCell>
-                  )}
+                  <Table.HeaderCell colSpan="4" id="pagination-header">
+                    <Segment.Group horizontal id="art-pagination-section">
+                      <Segment>
+                        <Pagination
+                          totalPages={this.getTotalPages()}
+                          onPageChange={this.handlePaginationChange}
+                          activePage={this.state.activePage}
+                        />
+                      </Segment>
+                      <Segment>
+                        <DropdownComponent
+                          customClass="page-limit"
+                          placeHolder="Show Rows"
+                          options={rowOptions}
+                          upward
+                          value={this.state.limit}
+                          onChange={this.handleRowChange}
+                        />
+                      </Segment>
+                    </Segment.Group>
+                  </Table.HeaderCell>
+                )}
               </Table.Row>
             </Table.Footer>
           </Table>
@@ -113,6 +127,7 @@ const mapStateToProps = ({ assetMakesList }) => {
 AssetMakeComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadAssetMakes: PropTypes.func.isRequired,
+  loadAssetConditions: PropTypes.func.isRequired,
   assetMakes: PropTypes.array.isRequired,
   assetMakesCount: PropTypes.number.isRequired
 };

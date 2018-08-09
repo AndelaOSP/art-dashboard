@@ -66,6 +66,7 @@ const AssetDescriptionComponent = props => (
           <div id="allocate-asset">
             <Header as="h3" content="Assign this asset to:" />
             <DropdownComponent
+              customClass="form-dropdown"
               label="Assign this asset to:"
               placeHolder="Select Andela Email"
               name="assign-user"

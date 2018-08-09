@@ -29,6 +29,7 @@ const AddAssetMakeComponent = props => (
     <label htmlFor="asset-type" className="label-style">
       Asset Type
       <DropdownComponent
+        customClass="form-dropdown"
         label="Asset type"
         placeHolder="Select Asset type"
         name="asset-type"

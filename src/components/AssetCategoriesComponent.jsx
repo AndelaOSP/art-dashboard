@@ -112,7 +112,7 @@ export class AssetCategoriesComponent extends React.Component {
                         </Segment>
                         <Segment>
                           <DropdownComponent
-                            id="page-limit"
+                            customClass="page-limit"
                             placeHolder="Show Rows"
                             options={rowOptions}
                             onChange={this.handleRowChange}

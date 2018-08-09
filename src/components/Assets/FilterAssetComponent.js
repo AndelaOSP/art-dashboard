@@ -23,6 +23,7 @@ const FilterAssetComponent = props => (
     </div>
     <div className="label-style">Category</div>
     <DropdownComponent
+      customClass="form-dropdown"
       label="Asset Category"
       placeHolder="Select Asset Category"
       name="asset-category"
@@ -33,6 +34,7 @@ const FilterAssetComponent = props => (
     />
     <div className="label-style">Sub Category</div>
     <DropdownComponent
+      customClass="form-dropdown"
       label="Asset Subcategory"
       options={props.filteredSubCategories}
       placeholder="Select Asset Subcategory"
@@ -43,6 +45,7 @@ const FilterAssetComponent = props => (
     />
     <div className="label-style">Type</div>
     <DropdownComponent
+      customClass="form-dropdown"
       label="Asset Type"
       options={props.filteredAssetTypes}
       placeholder="Select Asset Type"
@@ -53,6 +56,7 @@ const FilterAssetComponent = props => (
     />
     <div className="label-style">Make</div>
     <DropdownComponent
+      customClass="form-dropdown"
       label="Asset Make"
       options={props.filteredAssetMakes}
       placeholder="Select Asset Make"
@@ -102,4 +106,3 @@ FilterAssetComponent.defaultTypes = {
 };
 
 export default FilterAssetComponent;
-

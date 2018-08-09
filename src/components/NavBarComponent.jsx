@@ -124,6 +124,10 @@ export class NavBarComponent extends Component {
                       </Grid.Column>
 
                       <Grid.Column>
+                        <Link to="/asset_makes"><Icon name="list ul" />Asset Makes</Link>
+                      </Grid.Column>
+
+                      <Grid.Column>
                         <Link to="/asset_types"><Icon name="list ul" />Asset Types</Link>
                       </Grid.Column>
 

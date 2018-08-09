@@ -67,29 +67,29 @@ const UserComponent = (props) => {
         <Table.Footer>
           <Table.Row>
             {!props.emptyUsersList() && (
-            <Table.HeaderCell colSpan="4" id="pagination-header">
-              <Segment.Group horizontal id="art-pagination-section">
-                <Segment>
-                  <Pagination
-                    id="art-pagination-component"
-                    totalPages={props.handlePageTotal()}
-                    onPageChange={props.handlePaginationChange}
-                    activePage={props.activePage}
-                  />
-                </Segment>
-                <Segment>
-                  <DropdownComponent
-                    id="page-limit"
-                    placeHolder="Show Rows"
-                    options={rowOptions}
-                    upward
-                    value={props.limit}
-                    onChange={props.handleRowChange}
-                  />
-                </Segment>
-              </Segment.Group>
-            </Table.HeaderCell>
-              )}
+              <Table.HeaderCell colSpan="4" id="pagination-header">
+                <Segment.Group horizontal id="art-pagination-section">
+                  <Segment>
+                    <Pagination
+                      id="art-pagination-component"
+                      totalPages={props.handlePageTotal()}
+                      onPageChange={props.handlePaginationChange}
+                      activePage={props.activePage}
+                    />
+                  </Segment>
+                  <Segment>
+                    <DropdownComponent
+                      customClass="page-limit"
+                      placeHolder="Show Rows"
+                      options={rowOptions}
+                      upward
+                      value={props.limit}
+                      onChange={props.handleRowChange}
+                    />
+                  </Segment>
+                </Segment.Group>
+              </Table.HeaderCell>
+            )}
           </Table.Row>
         </Table.Footer>
       </Table>
