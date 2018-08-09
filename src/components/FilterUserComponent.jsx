@@ -9,10 +9,10 @@ const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm
 const FilterUserComponent = props => (
   <div>
     {props.toggleOn ?
-      <div id="filter-container">
-        <Image id="funnel" src="images/funnel.png" />
-        <div id="filter-text">Filter by</div>
-        <div id="letters">
+      <div className="filter-container">
+        <Image className="funnel" src="images/funnel.png" />
+        <div className="filter-text">Filter by</div>
+        <div className="letters">
           {alphabet.map(letter => (<div key={letter} className="letter">{letter}</div>))}
         </div>
       </div> : null}

@@ -21,7 +21,7 @@ describe('Renders <AssetsComponent /> correctly', () => {
   />);
 
   it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Assets List');
+    expect(wrapper.find('.page-headings').prop('content')).toEqual('Assets List');
   });
 
   it('renders the AssetsTableContent component', () => {
