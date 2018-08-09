@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import expect from 'expect';
 
 import AddAssetContainer from '../../_components/Assets/AddAssetContainer';
-
 import assetCategories from '../../_mock/assetCategories';
 import assetSubCategories from '../../_mock/subcategories';
 import assetTypes from '../../_mock/assetTypes';
