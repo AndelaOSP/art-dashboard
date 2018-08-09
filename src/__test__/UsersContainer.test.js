@@ -20,6 +20,6 @@ describe('Renders <UserDetailsContainer /> correctly', () => {
   });
 
   it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Users List');
+    expect(wrapper.find('.page-headings').prop('content')).toEqual('Users List');
   });
 });
