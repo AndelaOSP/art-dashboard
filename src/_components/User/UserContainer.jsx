@@ -10,7 +10,6 @@ import '../../_css/UsersComponent.css';
 import FilterComponent from '../../components/FilterUserComponent';
 import FilterButton from '../../components/common/FilterButton';
 
-
 export class UserContainer extends Component {
   state = {
     activePage: 1,
