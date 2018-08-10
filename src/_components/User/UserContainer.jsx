@@ -54,7 +54,10 @@ export class UserContainer extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
-            <FilterButton render={toggleOn => (<FilterComponent toggleOn={toggleOn} />)} />
+            <FilterButton
+              render={toggleOn =>
+                (<FilterComponent toggleOn={toggleOn} />)}
+            />
           </div>
           <UserComponent
             activePage={this.state.activePage}
