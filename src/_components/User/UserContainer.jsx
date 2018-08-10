@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import NavbarComponent from './NavBarComponent';
-import UserDetailsComponent from '../components/UserDetailsComponent';
-import { loadUsers } from '../_actions/users.actions';
-import '../_css/UsersComponent.css';
-import FilterUserComponent from './FilterUserComponent';
-import FilterButton from './common/FilterButton';
+import NavbarComponent from '../../components/NavBarComponent';
+import UserDetailsComponent from '../../components/User/UserComponent';
+import { loadUsers } from '../../_actions/users.actions';
+import '../../_css/UsersComponent.css';
+import FilterComponent from '../../components/FilterUserComponent';
+
 
 export class UserContainer extends Component {
   state = {
@@ -42,21 +42,37 @@ export class UserContainer extends Component {
 
   emptyUsersList = () => (isEmpty(this.props.users));
 
+  toggleFilter = () => {
+    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
+  }
+
   render() {
     return (
       <NavbarComponent title="Users">
         <div className="users-list">
-          <div className="page-heading-section">
-            <Header as="h1" className="page-headings" floated="left" content="Users List" />
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
-            <FilterButton
-              render={toggleOn =>
-                (<FilterUserComponent
-                  toggleOn={toggleOn}
-                  filterUser={this.filterUser}
-                />)}
-            />
+            <div
+              className={this.state.toggleOn ? 'clicked' : 'unclicked'}
+              id="filter-button"
+              onClick={this.toggleFilter}
+              role="presentation"
+            >
+              {this.state.toggleOn ?
+                <div id="close-filter">
+                  close X
+                </div> :
+                <div id="lines">
+                  <div className="burger-line" />
+                  <div className="burger-line" />
+                  <div className="burger-line" />
+                </div>
+              }
+              FILTERS
+            </div>
           </div>
+          {this.state.toggleOn ? <FilterComponent /> : null}
           <UserDetailsComponent
             activePage={this.state.activePage}
             activePageUsers={this.props.users}
