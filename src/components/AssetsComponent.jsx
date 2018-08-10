@@ -48,7 +48,7 @@ export class AssetsComponent extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
-            <FilterButton render={() => {}} />
+            <FilterButton />
           </div>
           <AssetsTableContent
             {...this.props}
