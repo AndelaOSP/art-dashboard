@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavbarComponent from './NavBarComponent';
 import AssetsTableContent from './AssetsTableContent';
-
 import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
+import FilterButton from './common/FilterButton';
 
 export class AssetsComponent extends Component {
   state = {
@@ -48,6 +48,7 @@ export class AssetsComponent extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
+            <FilterButton />
           </div>
           <AssetsTableContent
             {...this.props}

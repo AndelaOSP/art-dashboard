@@ -7,6 +7,8 @@ import NavbarComponent from '../../components/NavBarComponent';
 import UserComponent from '../../components/User/UserComponent';
 import { loadUsers } from '../../_actions/users.actions';
 import '../../_css/UsersComponent.css';
+import FilterComponent from '../../components/FilterUserComponent';
+import FilterButton from '../../components/common/FilterButton';
 
 export class UserContainer extends Component {
   state = {
@@ -40,6 +42,10 @@ export class UserContainer extends Component {
 
   emptyUsersList = () => (isEmpty(this.props.users));
 
+  toggleFilter = () => {
+    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
+  }
+
   render() {
     return (
       <NavbarComponent title="Users">
@@ -47,6 +53,10 @@ export class UserContainer extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
+            <FilterButton
+              render={toggleOn =>
+                (<FilterComponent toggleOn={toggleOn} />)}
+            />
           </div>
           <UserComponent
             activePage={this.state.activePage}
