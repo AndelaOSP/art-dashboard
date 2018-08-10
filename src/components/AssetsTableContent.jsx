@@ -121,10 +121,12 @@ const AssetsTableContent = (props) => {
                   </Segment>
                   <Segment>
                     <DropdownComponent
-                      id="page-limit"
+                      customClass="page-limit"
                       placeHolder="Show Rows"
                       options={rowOptions}
                       upward
+                      value={props.limit}
+                      onChange={props.handleRowChange}
                     />
                   </Segment>
                 </Segment.Group>
@@ -142,9 +144,11 @@ AssetsTableContent.propTypes = {
   emptyAssetsCheck: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   handlePageTotal: PropTypes.func,
+  handleRowChange: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  limit: PropTypes.number
 };
 
 AssetsTableContent.defaultProps = {

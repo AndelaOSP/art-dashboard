@@ -38,6 +38,7 @@ const AddAssetComponent = props => (
     <Form onSubmit={props.onCreateAsset}>
       <div className="label-style">Model Number</div>
       <DropdownComponent
+        customClass="form-dropdown"
         label="Asset Model Number"
         options={props.filteredModelNumbers}
         placeholder="Select Asset Model Number"

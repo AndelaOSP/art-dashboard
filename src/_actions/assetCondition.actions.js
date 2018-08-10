@@ -8,9 +8,9 @@ const {
   LOAD_ASSET_CONDITION_FAILURE
 } = constants;
 
-export const loadAssetConditions = pageNumber => (dispatch) => {
+export const loadAssetConditions = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOADING_ASSET_CONDITION });
-  return axios.get(`asset-condition/?page=${pageNumber}`).then((response) => {
+  return axios.get(`asset-condition/?page=${pageNumber}&page_size=${limit}`).then((response) => {
     dispatch(loadAssetConditionsSuccess(response.data));
   }).catch((error) => {
     dispatch(loadAssetConditionsFailure(error));

@@ -17,6 +17,7 @@ const AddSubCategoryComponent = props => (
     <label htmlFor="category" className="label-style">
       Category
       <DropdownComponent
+        customClass="form-dropdown"
         label="Categories"
         placeHolder="Select A Category"
         name="category"

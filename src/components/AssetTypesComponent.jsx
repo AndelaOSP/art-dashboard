@@ -18,17 +18,23 @@ export class AssetTypesComponent extends React.Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
+
   componentDidMount() {
     this.props.loadAssetTypes(this.state.activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAssetTypes(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadAssetTypes(activePage, this.state.limit);
-  }
+  };
 
-  getTotalPages = () => Math.ceil(this.props.assetTypesCount / this.state.limit)
+  getTotalPages = () => Math.ceil(this.props.assetTypesCount / this.state.limit);
 
   render() {
     if (this.props.isLoading) {
@@ -90,10 +96,12 @@ export class AssetTypesComponent extends React.Component {
                       </Segment>
                       <Segment>
                         <DropdownComponent
-                          id="page-limit"
+                          customClass="page-limit"
                           placeHolder="Show Rows"
                           options={rowOptions}
                           upward
+                          value={this.state.limit}
+                          onChange={this.handleRowChange}
                         />
                       </Segment>
                     </Segment.Group>

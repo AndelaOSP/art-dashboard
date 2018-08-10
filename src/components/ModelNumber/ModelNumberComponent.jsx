@@ -28,6 +28,7 @@ const ModelNumberComponent = props => (
       <label htmlFor="asset-make" className="label-style">
         Asset Make
         <DropdownComponent
+          customClass="form-dropdown"
           label="Asset Makes"
           placeHolder="Select Asset Makes"
           name="asset-make"

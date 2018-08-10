@@ -20,7 +20,7 @@ const {
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
-const url = 'asset-condition/?page=1';
+const url = 'asset-condition/?page=1&page_size=10';
 
 afterEach(() => {
   store.clearActions();
@@ -39,7 +39,7 @@ describe('Asset Condition action tests', () => {
         results: assetConditions
       }
     });
-    return store.dispatch(loadAssetConditions(1)).then(() => {
+    return store.dispatch(loadAssetConditions(1, 10)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_CONDITION);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_CONDITION_SUCCESS);
     });
@@ -50,7 +50,7 @@ describe('Asset Condition action tests', () => {
       status: 404,
       response: {}
     });
-    return store.dispatch(loadAssetConditions(1)).then(() => {
+    return store.dispatch(loadAssetConditions(1, 10)).then(() => {
       expect(store.getActions()[0].type).toEqual(LOADING_ASSET_CONDITION);
       expect(store.getActions()[1].type).toEqual(LOAD_ASSET_CONDITION_FAILURE);
     });

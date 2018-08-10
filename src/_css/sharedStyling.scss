@@ -216,8 +216,14 @@ input,
   }
 }
 
-#page-limit {
-  width: 45%;
+.ui.fluid.input,
+.ui.fluid.search.selection.upward.dropdown.form-dropdown {
+  width: 90%;
+}
+
+.ui.fluid.search.selection.upward.dropdown.page-limit {
+  width: 100px;
+  height: 41px;
   margin-top: 0;
   border-radius: 0;
   border: 0.5px solid $pagination-color;

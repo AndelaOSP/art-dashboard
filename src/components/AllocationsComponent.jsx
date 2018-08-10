@@ -31,6 +31,11 @@ export class AllocationsComponent extends Component {
     this.props.loadAllocationsAction(activePage, this.state.limit);
   };
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAllocationsAction(this.state.activePage, data.value);
+  }
+
   render() {
     if (this.props.isLoading) {
       return (
@@ -96,9 +101,11 @@ export class AllocationsComponent extends Component {
                     </Segment>
                     <Segment>
                       <DropdownComponent
-                        id="page-limit"
+                        customClass="page-limit"
                         placeHolder="Show Rows"
                         options={rowOptions}
+                        onChange={this.handleRowChange}
+                        value={this.state.limit}
                         upward
                       />
                     </Segment>

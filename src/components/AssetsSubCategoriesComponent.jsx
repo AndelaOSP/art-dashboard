@@ -17,17 +17,23 @@ export class AssetSubCategoriesComponent extends React.Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
+
   componentDidMount() {
     this.props.loadSubCategories(this.state.activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadSubCategories(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadSubCategories(activePage, this.state.limit);
-  }
+  };
 
-  getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit)
+  getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit);
 
   render() {
     if (this.props.isLoading) {
@@ -90,10 +96,12 @@ export class AssetSubCategoriesComponent extends React.Component {
                       </Segment>
                       <Segment>
                         <DropdownComponent
-                          id="page-limit"
+                          customClass="page-limit"
                           placeHolder="Show Rows"
                           options={rowOptions}
                           upward
+                          value={this.state.limit}
+                          onChange={this.handleRowChange}
                         />
                       </Segment>
                     </Segment.Group>

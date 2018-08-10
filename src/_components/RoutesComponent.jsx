@@ -6,7 +6,7 @@ import Assets from '../components/AssetsComponent';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
 import LoginComponent from '../components/LoginComponent';
 import Dashboard from '../components/DashboardComponent';
-import UserFeedback from '../components/UserFeedbackComponent';
+import UserFeedback from '../components/User/UserFeedbackComponent';
 import PageNotFound from '../components/PageNotFoundComponent';
 import AssetSubCategories from '../components/AssetsSubCategoriesComponent';
 import Allocations from '../components/AllocationsComponent';
@@ -15,7 +15,7 @@ import AssetCategories from '../components/AssetCategoriesComponent';
 import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
-import UserContainer from '../components/UserDetailsContainer';
+import User from './User/UserContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 
 class RoutesComponent extends Component {
@@ -34,7 +34,7 @@ class RoutesComponent extends Component {
             exact
             isAuthenticated={this.checkAuthentication()}
             path="/users"
-            component={UserContainer}
+            component={User}
           />
           <Authenticate
             exact

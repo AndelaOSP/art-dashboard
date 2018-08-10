@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import NavbarComponent from './NavBarComponent';
-import UserDetailsComponent from '../components/UserDetailsComponent';
-import { loadUsers } from '../_actions/users.actions';
-import '../_css/UsersComponent.css';
+import NavbarComponent from '../../components/NavBarComponent';
+import UserComponent from '../../components/User/UserComponent';
+import { loadUsers } from '../../_actions/users.actions';
+import '../../_css/UsersComponent.css';
 
-export class UserDetailsContainer extends Component {
+export class UserContainer extends Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
 
   componentDidMount() {
     this.props.loadUsers(this.state.activePage, this.state.limit);
@@ -26,12 +26,17 @@ export class UserDetailsContainer extends Component {
     return true;
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadUsers(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadUsers(activePage, this.state.limit);
-  }
+  };
 
-  handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit)
+  handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit);
 
   emptyUsersList = () => (isEmpty(this.props.users));
 
@@ -43,16 +48,18 @@ export class UserDetailsContainer extends Component {
             <Header as="h1" id="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
           </div>
-          <UserDetailsComponent
+          <UserComponent
             activePage={this.state.activePage}
             activePageUsers={this.props.users}
             emptyUsersList={this.emptyUsersList}
             errorMessage={this.props.errorMessage}
             handlePageTotal={this.handlePageTotal}
+            handleRowChange={this.handleRowChange}
             handlePaginationChange={this.handlePaginationChange}
             handleViewAsset={this.handleViewAsset}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
+            limit={this.state.limit}
           />
         </div>
       </NavbarComponent>
@@ -60,7 +67,7 @@ export class UserDetailsContainer extends Component {
   }
 }
 
-UserDetailsContainer.propTypes = {
+UserContainer.propTypes = {
   loadUsers: PropTypes.func.isRequired,
   usersCount: PropTypes.number,
   users: PropTypes.arrayOf(PropTypes.object),
@@ -69,7 +76,7 @@ UserDetailsContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired
 };
 
-UserDetailsContainer.defaultProps = {
+UserContainer.defaultProps = {
   users: [],
   errorMessage: ''
 };
@@ -87,4 +94,4 @@ const mapStateToProps = ({ usersList }) => {
 
 export default connect(mapStateToProps, {
   loadUsers
-})(UserDetailsContainer);
+})(UserContainer);

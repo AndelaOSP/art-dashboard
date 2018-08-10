@@ -24,6 +24,11 @@ export class AssetModelsComponent extends React.Component {
     this.props.loadAssetModels(this.state.activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAssetModels(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadAssetModels(activePage, this.state.limit);
@@ -98,10 +103,12 @@ export class AssetModelsComponent extends React.Component {
                       </Segment>
                       <Segment>
                         <DropdownComponent
-                          id="page-limit"
+                          customClass="page-limit"
                           placeHolder="Show Rows"
                           options={rowOptions}
                           upward
+                          value={this.state.limit}
+                          onChange={this.handleRowChange}
                         />
                       </Segment>
                     </Segment.Group>

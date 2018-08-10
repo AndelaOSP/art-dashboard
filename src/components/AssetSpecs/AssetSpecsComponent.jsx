@@ -17,17 +17,23 @@ export class AssetSpecsComponent extends React.Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
+
   componentDidMount() {
     this.props.loadAssetSpecs(this.state.activePage);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAssetSpecs(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadAssetSpecs(activePage);
-  }
+  };
 
-  getTotalPages = () => Math.ceil(this.props.assetSpecsCount / this.state.limit)
+  getTotalPages = () => Math.ceil(this.props.assetSpecsCount / this.state.limit);
 
   render() {
     if (this.props.isLoading) {
@@ -113,10 +119,12 @@ export class AssetSpecsComponent extends React.Component {
                       </Segment>
                       <Segment>
                         <DropdownComponent
-                          id="page-limit"
+                          customClass="page-limit"
                           placeHolder="Show Rows"
                           options={rowOptions}
                           upward
+                          value={this.state.limit}
+                          onChange={this.handleRowChange}
                         />
                       </Segment>
                     </Segment.Group>
