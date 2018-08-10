@@ -36,11 +36,6 @@ class FilterButton extends React.Component {
   }
 }
 FilterButton.propTypes = {
-  render: PropTypes.func
+  render: PropTypes.func.isRequired
 };
-
-FilterButton.defaultProps = {
-  render: () => {}
-};
-
 export default FilterButton;
