@@ -4,10 +4,11 @@ import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavbarComponent from '../../components/NavBarComponent';
-import UserDetailsComponent from '../../components/User/UserComponent';
+import UserComponent from '../../components/User/UserComponent';
 import { loadUsers } from '../../_actions/users.actions';
 import '../../_css/UsersComponent.css';
 import FilterComponent from '../../components/FilterUserComponent';
+import FilterButton from '../../components/common/FilterButton';
 
 
 export class UserContainer extends Component {
@@ -53,27 +54,9 @@ export class UserContainer extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
-            <div
-              className={this.state.toggleOn ? 'clicked' : 'unclicked'}
-              id="filter-button"
-              onClick={this.toggleFilter}
-              role="presentation"
-            >
-              {this.state.toggleOn ?
-                <div id="close-filter">
-                  close X
-                </div> :
-                <div id="lines">
-                  <div className="burger-line" />
-                  <div className="burger-line" />
-                  <div className="burger-line" />
-                </div>
-              }
-              FILTERS
-            </div>
+            <FilterButton render={toggleOn => (<FilterComponent toggleOn={toggleOn} />)} />
           </div>
-          {this.state.toggleOn ? <FilterComponent /> : null}
-          <UserDetailsComponent
+          <UserComponent
             activePage={this.state.activePage}
             activePageUsers={this.props.users}
             emptyUsersList={this.emptyUsersList}

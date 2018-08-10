@@ -58,12 +58,12 @@ input,
   width: 138px;
 }
 
-.page-heading-section {
+#page-heading-section {
   height: 77px;
   margin-top: 45px;
 }
 
-h1.ui.left.floated.header.page-headings {
+#page-headings {
   color: $heading-color;
   font-size: 47px;
   font-stretch: normal;
