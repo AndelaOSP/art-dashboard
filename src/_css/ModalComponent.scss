@@ -30,13 +30,15 @@
 }
 
 .ui.form {
-  input[type="text"] {
-    border-color: $border-color2;
-
-    &:focus {
+  input {
+    &[type="text"] {
       border-color: $border-color2;
-      color: $border-color2;
-      font-weight: lighter;
+
+      &:focus {
+        border-color: $border-color2;
+        color: $border-color2;
+        font-weight: lighter;
+      }
     }
   }
 }

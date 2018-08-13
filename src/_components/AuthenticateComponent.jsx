@@ -6,10 +6,9 @@ const AuthenticateComponent = ({ component: Component, isAuthenticated, ...optio
   <Route
     {...options}
     render={props => (
-      isAuthenticated ?
-        <Component {...props} />
-        :
-        <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+      isAuthenticated
+        ? <Component {...props} />
+        : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
     )}
   />
 );
