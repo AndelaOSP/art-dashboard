@@ -43,6 +43,7 @@
   }
 }
 
-.ui.primary.button.assign-asset, .ui.primary.button.unassign-asset {
+.ui.primary.button.assign-asset,
+.ui.primary.button.unassign-asset {
   @include blue-rounded-buttons
 }
