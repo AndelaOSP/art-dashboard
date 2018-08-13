@@ -72,7 +72,7 @@ export class NavBarComponent extends Component {
               <ArtModal
                 trigger={
                   <Button
-                    id="blue-rounded-button"
+                    className="add-asset"
                     size="small"
                   >
                     + ADD ASSET

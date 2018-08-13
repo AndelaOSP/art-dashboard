@@ -43,7 +43,7 @@ input,
   font-style: normal;
 }
 
-#blue-rounded-button {
+@mixin blue-rounded-buttons {
   background-color: $andela-blue;
   border: solid 1px $border-color;
   border-radius: 10px;
@@ -56,6 +56,10 @@ input,
   letter-spacing: normal;
   line-height: 2.08;
   width: 138px;
+}
+
+.ui.small.button.add-asset {
+  @include blue-rounded-buttons
 }
 
 #page-heading-section {
