@@ -14,14 +14,14 @@ LoaderComponent.propTypes = {
   loadingText: PropTypes.string,
   size: PropTypes.string,
   showDimmer: PropTypes.bool,
-  dimmerStyle: PropTypes.object,
+  dimmerStyle: PropTypes.object
 };
 
 LoaderComponent.defaultProps = {
   loadingText: 'Loading',
   size: 'small',
   showDimmer: true,
-  dimmerStyle: {},
+  dimmerStyle: {}
 };
 
 export default LoaderComponent;

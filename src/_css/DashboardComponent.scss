@@ -97,7 +97,7 @@ $active-circle-background-color: #3359df;
 .checkmark {
   display: inline-block;
 
-  &:after {
+  &::after {
     content: '';
     display: block;
     width: 6px;
