@@ -37,7 +37,7 @@ export class NavBarComponent extends Component {
 
     if (visible) {
       return (
-        <Label className="navButton">
+        <Label className="nav-button">
           Close <Icon name="delete" />
         </Label>
       );
