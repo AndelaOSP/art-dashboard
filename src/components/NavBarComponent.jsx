@@ -42,7 +42,7 @@ export class NavBarComponent extends Component {
         </Label>
       );
     }
-    return (<Icon id="hamburger" name="bars" />);
+    return <Icon id="hamburger" name="bars" />;
   };
 
   render() {
