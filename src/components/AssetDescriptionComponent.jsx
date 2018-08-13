@@ -56,7 +56,7 @@ const AssetDescriptionComponent = props => (
             <br />
             <ButtonComponent
               buttonName="Unassign Asset"
-              customClass="unassign-asset"
+              customCss="unassign-asset"
               handleClick={props.show}
               color="primary"
             />
@@ -76,7 +76,7 @@ const AssetDescriptionComponent = props => (
             <br />
             <ButtonComponent
               buttonName="Assign Asset"
-              customClass="assign-asset"
+              customCss="assign-asset"
               handleClick={props.show}
               disabledState={props.assignAssetButtonState}
               color="primary"

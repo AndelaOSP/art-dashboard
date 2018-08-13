@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const ButtonComponent = ({
-  buttonName, color, handleClick, buttonState, customClass, disabledState
+  buttonName, color, handleClick, buttonState, customCss, disabledState
 }) => {
   if (color === 'primary') {
     return (
@@ -12,7 +12,7 @@ const ButtonComponent = ({
         onClick={handleClick}
         disabled={disabledState}
         loading={buttonState}
-        className={customClass}
+        className={customCss}
       >
         {buttonName}
       </Button>
@@ -24,7 +24,7 @@ const ButtonComponent = ({
       type="reset"
       onClick={handleClick}
       disabled={disabledState}
-      className={customClass}
+      className={customCss}
     >
       {buttonName}
     </Button>
@@ -36,7 +36,7 @@ ButtonComponent.propTypes = {
   color: PropTypes.string,
   handleClick: PropTypes.func,
   buttonState: PropTypes.bool,
-  customClass: PropTypes.string,
+  customCss: PropTypes.string,
   disabledState: PropTypes.bool
 };
 
@@ -44,7 +44,7 @@ ButtonComponent.defaultProps = {
   color: '',
   handleClick: () => {},
   buttonState: false,
-  customClass: '',
+  customCss: '',
   disabledState: false
 };
 
