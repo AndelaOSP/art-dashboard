@@ -80,7 +80,6 @@ export class AssetCategoriesComponent extends React.Component {
           <Table basic selectable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Category</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -91,7 +90,7 @@ export class AssetCategoriesComponent extends React.Component {
                   <TableRowComponent
                     key={category.id}
                     data={category}
-                    headings={['id', 'category_name']}
+                    headings={['category_name']}
                   />
                 ))
               }

@@ -64,7 +64,6 @@ export class AssetSubCategoriesComponent extends React.Component {
           <Table basic selectable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Sub-Category</Table.HeaderCell>
                 <Table.HeaderCell>Category</Table.HeaderCell>
               </Table.Row>
@@ -76,7 +75,7 @@ export class AssetSubCategoriesComponent extends React.Component {
                   <TableRowComponent
                     key={subCategory.id}
                     data={subCategory}
-                    headings={['id', 'sub_category_name', 'asset_category']}
+                    headings={['sub_category_name', 'asset_category']}
                   />
                 ))
               }

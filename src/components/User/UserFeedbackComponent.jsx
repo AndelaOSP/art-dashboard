@@ -5,6 +5,7 @@ import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import feedbackAction from '../../_actions/userFeedback.actions';
+import formatDate from '../../_utils/dateFormatter';
 import NavbarComponent from '../NavBarComponent';
 import TableRowComponent from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
@@ -76,20 +77,24 @@ export class UserFeedbackComponent extends React.Component {
             />
             <Table.Body>
               {
-                this.props.feedback.map((feedback, index) => (
-                  <TableRowComponent
-                    key={index} //eslint-disable-line
-                    data={feedback}
-                    headings={['reported_by',
+                this.props.feedback.map((feedback, index) => {
+                  feedback.created_at = formatDate(feedback.created_at);
+
+                  return (
+                    <TableRowComponent
+                      key={index} //eslint-disable-line
+                      data={feedback}
+                      headings={['reported_by',
                       'created_at',
                       'report_type',
                       'message']}
-                  >
-                    <Table.Cell>
-                      <ActionComponent />
-                    </Table.Cell>
-                  </TableRowComponent>
-                ))
+                    >
+                      <Table.Cell>
+                        <ActionComponent />
+                      </Table.Cell>
+                    </TableRowComponent>
+                );
+                })
               }
             </Table.Body>
 
