@@ -41,14 +41,14 @@ describe('Renders <AddAssetMakeComponent /> correctly', () => {
   });
 
   it('Should find the Save Button', () => {
-    expect(wrapper.find('.save-button').length).toEqual(1);
-    wrapper.find('.save-button').simulate('click');
+    expect(wrapper.find('.save').length).toEqual(1);
+    wrapper.find('.save').simulate('click');
     expect(onChangeButtonState.callCount).toEqual(1);
   });
 
   it('Should find the Cancel Button', () => {
-    expect(wrapper.find('.cancel-button').length).toEqual(1);
-    wrapper.find('.cancel-button').simulate('click');
+    expect(wrapper.find('.cancel').length).toEqual(1);
+    wrapper.find('.cancel').simulate('click');
     expect(toggleModal.callCount).toEqual(1);
   });
 });
