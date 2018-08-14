@@ -8,9 +8,9 @@ export default class PieChartComponent extends Component {
   myDataSource = {
     chart: {
       caption: 'Asset Statistics',
-      subCaption: 'Assets status breakdown',
+      subCaption: 'Assets status breakdown'
     },
-    data: this.statistics,
+    data: this.statistics
   }
 
   chartConfigs = {
@@ -19,7 +19,7 @@ export default class PieChartComponent extends Component {
     width: '35%',
     height: 400,
     dataFormat: 'json',
-    dataSource: this.myDataSource,
+    dataSource: this.myDataSource
   }
 
   render() {
