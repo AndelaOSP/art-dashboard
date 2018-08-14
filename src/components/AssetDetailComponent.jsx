@@ -15,7 +15,7 @@ export class AssetDetailComponent extends Component {
     serialNumber: '',
     open: false,
     assignAssetButtonState: true
-  }
+  };
 
   componentDidMount() {
     this.getAssetId(this.props.location.pathname);
@@ -32,13 +32,7 @@ export class AssetDetailComponent extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (
-      this.props.hasError &&
-      (this.props.errorMessage === nextProps.errorMessage)
-    ) {
-      return false;
-    }
-    return true;
+    return this.props.hasError && (this.props.errorMessage !== nextProps.errorMessage);
   }
 
   getAssetId(pathName) {
@@ -50,7 +44,7 @@ export class AssetDetailComponent extends Component {
 
   onSelectUserEmail = (event, data) => {
     this.setState({ selectedUser: data.value, assignAssetButtonState: false });
-  }
+  };
 
   handleAssign = () => {
     const { selectedUser } = this.state;
@@ -62,7 +56,7 @@ export class AssetDetailComponent extends Component {
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
 
     if (!this.props.buttonLoading) this.setState({ open: false });
-  }
+  };
 
   handleUnassign = () => {
     const { id } = this.props.assetDetail;
@@ -73,9 +67,9 @@ export class AssetDetailComponent extends Component {
     this.props.unassignAsset(assetAssigned, this.state.serialNumber);
 
     if (!this.props.buttonLoading) this.setState({ open: false });
-  }
+  };
 
-  show = () => this.setState({ open: true })
+  show = () => this.setState({ open: true });
 
   handleConfirm = () => {
     if (isEmpty(values(this.state.assignedUser))) {
@@ -84,7 +78,7 @@ export class AssetDetailComponent extends Component {
     return this.handleUnassign();
   };
 
-  handleCancel = () => this.setState({ open: false })
+  handleCancel = () => this.setState({ open: false });
 
   render() {
     return (

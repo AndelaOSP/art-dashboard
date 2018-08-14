@@ -67,15 +67,15 @@ const AssetsTableContent = (props) => {
               </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              Sub-category
-              <ModalComponent modalTitle="Add Sub-Category">
-                <AddSubCategoryContainer />
-              </ModalComponent>
-            </Table.HeaderCell>
-            <Table.HeaderCell>
               Category
               <ModalComponent modalTitle="Add Asset Category">
                 <CategoryContainer />
+              </ModalComponent>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              Sub-category
+              <ModalComponent modalTitle="Add Sub-Category">
+                <AddSubCategoryContainer />
               </ModalComponent>
             </Table.HeaderCell>
           </Table.Row>
@@ -85,6 +85,11 @@ const AssetsTableContent = (props) => {
           {
             props.activePageAssets.map((asset) => {
               const assetViewUrl = `assets/${asset.serial_number}/view`;
+
+              asset.asset_code = asset.asset_code ? asset.asset_code : '-';
+              asset.serial_number = asset.serial_number ? asset.serial_number : '-';
+              asset.model_number = asset.model_number ? asset.model_number : '-';
+
               return (
                 <TableRowComponent
                   {...props}
