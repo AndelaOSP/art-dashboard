@@ -98,12 +98,12 @@ AssetDescriptionComponent.propTypes = {
   users: PropTypes.array,
   buttonState: PropTypes.bool,
   assignAssetButtonState: PropTypes.bool.isRequired,
-  selectedUser: PropTypes.string
+  selectedUser: PropTypes.number
 };
 
 AssetDescriptionComponent.defaultProps = {
   users: [],
-  selectedUser: ''
+  selectedUser: 0
 };
 
 export default AssetDescriptionComponent;
