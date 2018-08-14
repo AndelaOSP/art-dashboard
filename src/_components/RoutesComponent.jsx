@@ -98,7 +98,7 @@ class RoutesComponent extends Component {
           <Authenticate
             exact
             isAuthenticated={this.checkAuthentication()}
-            path="/asset_makes"
+            path="/asset-makes"
             component={AssetMakes}
           />
           <Authenticate
