@@ -13,7 +13,8 @@ const {
 const initialState = {
   assetTypes: [],
   assetTypesCount: 0,
-  isLoading: false
+  isLoading: false,
+  hasError: false
 };
 
 export default (state = initialState, action) => {
@@ -28,14 +29,16 @@ export default (state = initialState, action) => {
         ...state,
         assetTypes: [...action.payload.results],
         assetTypesCount: action.payload.count,
-        isLoading: false
+        isLoading: false,
+        hasError: false
       };
     case LOAD_ASSET_TYPES_FAILURE:
       return {
         ...state,
         assetTypes: [],
         assetTypesCount: 0,
-        isLoading: false
+        isLoading: false,
+        hasError: true
       };
     case LOAD_DROPDOWN_ASSET_TYPES_SUCCESS:
       return {

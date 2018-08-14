@@ -9,7 +9,8 @@ const {
 const initialState = {
   assetModels: [],
   assetModelsCount: 0,
-  isLoading: false
+  isLoading: false,
+  hasError: false
 };
 
 export default (state = initialState, action) => {
@@ -25,7 +26,8 @@ export default (state = initialState, action) => {
         ...state,
         assetModels: [...action.payload.results],
         assetModelsCount: action.payload.count,
-        isLoading: false
+        isLoading: false,
+        hasError: false
       };
 
     case LOAD_ASSET_MODELS_FAILURE:
@@ -33,7 +35,8 @@ export default (state = initialState, action) => {
         ...state,
         assetModels: [],
         assetModelsCount: 0,
-        isLoading: false
+        isLoading: false,
+        hasError: true
       };
 
     default:

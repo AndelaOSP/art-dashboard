@@ -38,14 +38,6 @@ describe('Asset Categories Component', () => {
     expect(wrapper.find('DropdownComponent').length).toBe(1);
   });
 
-  it('renders error message if there are no asset categories', () => {
-    wrapper.setProps({
-      isLoading: false,
-      categories: []
-    });
-    expect(wrapper.find('h1').text()).toEqual('No Asset Categories Found.');
-  });
-
   it('renders a Loading Component if isLoading is true', () => {
     wrapper.setProps({
       isLoading: true
@@ -58,6 +50,6 @@ describe('Asset Categories Component', () => {
       hasError: true,
       isLoading: false
     });
-    expect(wrapper.find('h1').text()).toEqual('An Error Occurred While Trying To Display The Asset Categories');
+    expect(wrapper.find('h1').text()).toEqual('An Error Occurred While Trying To Display The Asset Categories.');
   });
 });

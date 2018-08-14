@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Table, Header, Pagination, Segment, Divider, Container, Button } from 'semantic-ui-react';
 
 import TableRowComponent from '../TableRowComponent.jsx';
 import rowOptions from '../../_utils/pageRowOptions';
@@ -43,14 +43,17 @@ export class AssetConditionsComponent extends React.Component {
         </NavbarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.assetConditionsList)) {
+    if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
-          <div className="assets-list">
+          <Container>
             <h1>
-              No Asset Conditions Found
+              An Error Occurred While Trying To Display The Asset Conditions.
             </h1>
-          </div>
+            <Button onClick={() => { this.props.loadAssetConditions(this.state.activePage); }}>
+              Try Again.
+            </Button>
+          </Container>
         </NavbarComponent>
       );
     }
@@ -72,16 +75,18 @@ export class AssetConditionsComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetConditionsList.map((assetCondition) => {
-                  assetCondition.formatted_date = formatDate(assetCondition.created_at);
-                  return (
-                    <TableRowComponent
-                      key={assetCondition.id}
-                      data={assetCondition}
-                      headings={['asset', 'asset_condition', 'formatted_date']}
-                    />
-                  );
-                })
+                (_.isEmpty(this.props.assetConditionsList))
+                ? <Table.Row><Table.Cell colSpan="3">No Asset Conditions Found</Table.Cell></Table.Row>
+                : this.props.assetConditionsList.map((assetCondition) => {
+                   assetCondition.formatted_date = formatDate(assetCondition.created_at);
+                   return (
+                     <TableRowComponent
+                       key={assetCondition.id}
+                       data={assetCondition}
+                       headings={['asset', 'asset_condition', 'formatted_date']}
+                     />
+                   );
+                   })
               }
             </Table.Body>
 
@@ -123,16 +128,18 @@ AssetConditionsComponent.propTypes = {
   assetConditionsList: PropTypes.array.isRequired,
   assetConditionsCount: PropTypes.number.isRequired,
   loadAssetConditions: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  hasError: PropTypes.bool
 };
 
 const mapStateToProps = ({ assetConditions }) => {
-  const { assetConditionsList, assetConditionsCount, isLoading } = assetConditions;
+  const { assetConditionsList, assetConditionsCount, isLoading, hasError } = assetConditions;
 
   return {
     assetConditionsList,
     assetConditionsCount,
-    isLoading
+    isLoading,
+    hasError
   };
 };
 

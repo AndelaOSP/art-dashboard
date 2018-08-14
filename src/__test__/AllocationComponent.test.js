@@ -9,7 +9,8 @@ describe('Renders <Allocations/> component', () => {
   const props = {
     loadAllocationsAction: jest.fn(),
     allAllocations: [],
-    isLoading: true
+    isLoading: true,
+    hasError: false
   };
 
   let wrapper;
@@ -19,14 +20,16 @@ describe('Renders <Allocations/> component', () => {
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 
-  it('renders error if allocations fail to load', () => {
+  it('renders a message is hasError is true', () => {
     props.isLoading = false;
+    props.hasError = true;
     wrapper = shallow(<AllocationsComponent {...props} />);
-    expect(wrapper.find('h1').text()).toEqual('No Assets Currently Assigned');
+    expect(wrapper.find('h1').text()).toEqual('An Error Occurred While Trying To Display Allocations.');
   });
 
   it('renders table when allocations are loaded successfully', () => {
     props.isLoading = false;
+    props.hasError = false;
     props.allAllocations = allocations;
     wrapper = shallow(<AllocationsComponent {...props} />);
     expect(wrapper.find('Header').prop('content')).toEqual('All Allocations');

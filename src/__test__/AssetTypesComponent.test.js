@@ -11,6 +11,7 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
     loadAssetTypes: jest.fn(),
     handlePaginationChange: jest.fn(),
     isLoading: false,
+    hasError: false,
     assetTypes,
     assetTypesCount: 6
   };
@@ -57,11 +58,12 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
 
-  it('renders message if no asset types are returned', () => {
+  it('renders message if an error occurs', () => {
     wrapper.setProps({
       isLoading: false,
+      hasError: true,
       assetTypes: []
     });
-    expect(wrapper.find('h1').text()).toEqual('No Asset Types Found');
+    expect(wrapper.find('h1').text()).toEqual('An Error Occurred While Trying To Display The Asset Types.');
   });
 });

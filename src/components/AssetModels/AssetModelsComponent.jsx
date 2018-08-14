@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider, Container, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 import TableRowComponent from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
@@ -44,14 +44,17 @@ export class AssetModelsComponent extends React.Component {
         </NavbarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.assetModels)) {
+    if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
-          <div className="assets-list">
+          <Container>
             <h1>
-              No Asset Models Found
+              An Error Occurred While Trying To Display The Incidence Reports.
             </h1>
-          </div>
+            <Button onClick={() => { this.props.loadAssetModels(this.state.activePage); }}>
+              Try Again.
+            </Button>
+          </Container>
         </NavbarComponent>
       );
     }
@@ -74,18 +77,20 @@ export class AssetModelsComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetModels.map((assetModel) => {
-                  assetModel.formatted_create = formatDate(assetModel.created_at);
-                  assetModel.formatted_modified = formatDate(assetModel.last_modified);
+                (_.isEmpty(this.props.assetModels))
+                ? <Table.Row><Table.Cell colSpan="4">No Asset Models Found</Table.Cell></Table.Row>
+                : this.props.assetModels.map((assetModel) => {
+                   assetModel.formatted_create = formatDate(assetModel.created_at);
+                   assetModel.formatted_modified = formatDate(assetModel.last_modified);
 
-                  return (
-                    <TableRowComponent
-                      key={assetModel.id}
-                      data={assetModel}
-                      headings={['model_number', 'make_label', 'formatted_create', 'formatted_modified']}
-                    />
-                  );
-                })
+                   return (
+                     <TableRowComponent
+                       key={assetModel.id}
+                       data={assetModel}
+                       headings={['model_number', 'make_label', 'formatted_create', 'formatted_modified']}
+                     />
+                   );
+                   })
               }
             </Table.Body>
 
@@ -124,12 +129,13 @@ export class AssetModelsComponent extends React.Component {
 }
 
 const mapStateToProps = ({ assetModelsList }) => {
-  const { assetModels, assetModelsCount, isLoading } = assetModelsList;
+  const { assetModels, assetModelsCount, isLoading, hasError } = assetModelsList;
 
   return {
     assetModels,
     assetModelsCount,
-    isLoading
+    isLoading,
+    hasError
   };
 };
 
@@ -137,7 +143,8 @@ AssetModelsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadAssetModels: PropTypes.func.isRequired,
   assetModels: PropTypes.array.isRequired,
-  assetModelsCount: PropTypes.number.isRequired
+  assetModelsCount: PropTypes.number.isRequired,
+  hasError: PropTypes.bool
 };
 
 export default withRouter(connect(mapStateToProps, {

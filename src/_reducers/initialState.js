@@ -7,14 +7,16 @@ export default {
     assetSubCategoriesDropdown: [],
     assetSubCategories: [],
     assetSubCategoriesCount: 0,
-    isLoading: false
+    isLoading: false,
+    hasError: false
   },
   assetTypes: [],
   assetMakes: {
     assetMake: [],
     assetMakes: [],
     assetMakesCount: 0,
-    isLoading: false
+    isLoading: false,
+    hasError: false
   },
   modelNumbers: [],
   assetModels: [],
@@ -62,7 +64,8 @@ export default {
   assetConditions: {
     assetConditionsList: [],
     assetConditionsCount: 0,
-    isLoading: false
+    isLoading: false,
+    hasError: false
   },
   usersList: {
     users: [],

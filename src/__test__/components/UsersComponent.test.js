@@ -36,17 +36,6 @@ describe('Renders UserComponent with the LoadingComponent', () => {
   });
 });
 
-describe('Renders UserComponent with the Header Component', () => {
-  props = {
-    emptyUsersList: () => true
-  };
-  const wrapper3 = shallow(<UserComponent {...props} />);
-
-  it('renders Header Component if there are no users on the backend', () => {
-    expect(wrapper3.find('Header').length).toBe(1);
-  });
-});
-
 describe('Renders UserComponent with the SemanticToastContainer', () => {
   props = {
     hasError: true,

@@ -11,6 +11,7 @@ describe('Renders < AssetSpecsComponent /> correctly', () => {
     loadAssetSpecs: jest.fn(),
     handlePaginationChange: jest.fn(),
     isLoading: false,
+    hasError: false,
     specs,
     assetSpecsCount: 10
   };
@@ -42,13 +43,14 @@ describe('Renders < AssetSpecsComponent /> correctly', () => {
     expect(wrapper.find('Table').length).toBe(1);
   });
 
-  it('displays No Asset Spec Found', () => {
+  it('displays An Error Occured if hasError is true', () => {
     props.isLoading = false;
+    props.hasError = true;
     props.specs = [];
     wrapper = shallow(<AssetSpecsComponent
       {...props}
     />);
-    expect(wrapper.find('h1').text()).toBe('No Asset Spec Found');
+    expect(wrapper.find('h1').text()).toBe('An Error Occured');
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {

@@ -43,17 +43,6 @@ export class AssetSpecsComponent extends React.Component {
         </NavbarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.specs)) {
-      return (
-        <NavbarComponent>
-          <div className="assets-list">
-            <h1>
-              No Asset Spec Found
-            </h1>
-          </div>
-        </NavbarComponent>
-      );
-    }
     if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
@@ -87,21 +76,23 @@ export class AssetSpecsComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.specs.map(spec => (
+                (_.isEmpty(this.props.specs))
+                ? <Table.Row><Table.Cell colSpan="7">No Asset Spec Found</Table.Cell></Table.Row>
+                : this.props.specs.map(spec => (
                   <TableRowComponent
                     key={spec.id}
                     data={spec}
                     headings={[
-                      'id',
-                      'year_of_manufacture',
-                      'processor_speed',
-                      'screen_size',
-                      'processor_type',
-                      'storage',
-                      'memory'
-                    ]}
+                       'id',
+                       'year_of_manufacture',
+                       'processor_speed',
+                       'screen_size',
+                       'processor_type',
+                       'storage',
+                       'memory'
+                     ]}
                   />
-                ))
+                   ))
               }
             </Table.Body>
 

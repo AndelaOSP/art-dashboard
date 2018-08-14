@@ -19,6 +19,7 @@ const loadIncidenceReportsReducer = (state = initialState.incidenceReports, acti
       return {
         ...state,
         isLoading: false,
+        hasError: false,
         reports: action.incidenceReports.results,
         incidenceReportsCount: action.incidenceReports.count
       };

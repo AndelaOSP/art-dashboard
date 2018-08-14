@@ -14,13 +14,15 @@ export default (state = initialState.allocations, action) => {
         ...state,
         allAllocations: [...action.payload.results],
         allocationsCount: action.payload.count,
-        isLoading: false
+        isLoading: false,
+        hasError: false
       };
     case LOAD_ALLOCATIONS_FAILURE:
       return {
         ...state,
         allAllocations: [],
-        isLoading: false
+        isLoading: false,
+        hasError: true
       };
     case LOADING_ALLOCATIONS:
       return {

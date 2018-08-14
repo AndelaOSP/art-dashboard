@@ -43,12 +43,4 @@ describe('Renders <AssetsTableContent /> correctly', () => {
     wrapper.setProps({ hasError: true, isLoading: false, errorMessage: 'An error' });
     expect(wrapper.find('SemanticToastContainer').length).toBe(1);
   });
-
-  it('renders message if there are no assets returned', () => {
-    wrapper.setProps({
-      emptyAssetsCheck: () => (true),
-      hasError: false
-    });
-    expect(wrapper.find('#empty-assets').prop('content')).toEqual('No Assets Found');
-  });
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider, Container, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import feedbackAction from '../../_actions/userFeedback.actions';
@@ -43,20 +43,25 @@ export class UserFeedbackComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <LoaderComponent size="small" dimmerStyle={{ height: '100vh' }} />
-      );
-    }
-
-    if (!this.props.isLoading && this.props.feedbackCount <= 0) {
-      return (
         <NavbarComponent>
-          <div className="">
-            <h1>No Feedback Found</h1>
-          </div>
+          <LoaderComponent size="small" dimmerStyle={{ height: '100vh' }} />
         </NavbarComponent>
       );
     }
-
+    if (!this.props.isLoading && this.props.hasError) {
+      return (
+        <NavbarComponent>
+          <Container>
+            <h1>
+              An Error Occurred While Trying To Display User Feedback.
+            </h1>
+            <Button onClick={() => { this.props.feedbackAction(this.state.activePage); }}>
+              Try Again.
+            </Button>
+          </Container>
+        </NavbarComponent>
+      );
+    }
     return (
       <NavbarComponent title="User Feedback">
         <div className="feedback-list">
@@ -76,20 +81,22 @@ export class UserFeedbackComponent extends React.Component {
             />
             <Table.Body>
               {
-                this.props.feedback.map((feedback, index) => (
+                (_.isEmpty(this.props.feedback))
+                ? <Table.Row><Table.Cell colSpan="5">No Feedback Found</Table.Cell></Table.Row>
+                : this.props.feedback.map((feedback, index) => (
                   <TableRowComponent
-                    key={index} //eslint-disable-line
+                      key={index} //eslint-disable-line
                     data={feedback}
                     headings={['reported_by',
-                      'created_at',
-                      'report_type',
-                      'message']}
+                        'created_at',
+                        'report_type',
+                        'message']}
                   >
                     <Table.Cell>
                       <ActionComponent />
                     </Table.Cell>
                   </TableRowComponent>
-                ))
+                    ))
               }
             </Table.Body>
 
@@ -130,11 +137,12 @@ export class UserFeedbackComponent extends React.Component {
 }
 
 const mapStateToProps = ({ feedbackReducer }) => {
-  const { feedback, feedbackCount, isLoading } = feedbackReducer;
+  const { feedback, feedbackCount, isLoading, hasError } = feedbackReducer;
   return {
     feedback,
     feedbackCount,
-    isLoading
+    isLoading,
+    hasError
   };
 };
 
@@ -142,7 +150,8 @@ UserFeedbackComponent.propTypes = {
   feedbackAction: PropTypes.func,
   feedback: PropTypes.arrayOf(PropTypes.object),
   feedbackCount: PropTypes.number,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  hasError: PropTypes.bool
 };
 
 UserFeedbackComponent.defaultProps = {

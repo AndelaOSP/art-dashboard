@@ -11,6 +11,7 @@ describe('Renders <AssetModelsComponent /> correctly', () => {
     loadAssetModels: jest.fn(),
     handlePaginationChange: jest.fn(),
     isLoading: false,
+    hasError: false,
     assetModels,
     assetModelsCount: 3
   };
@@ -55,11 +56,13 @@ describe('Renders <AssetModelsComponent /> correctly', () => {
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
 
-  it('renders message if no asset models are returned', () => {
+  it('renders message if an error occus', () => {
     wrapper.setProps({
       isLoading: false,
+      hasError: true,
       assetModels: []
     });
-    expect(wrapper.find('h1').text()).toEqual('No Asset Models Found');
+    expect(wrapper.find('h1').text())
+      .toEqual('An Error Occurred While Trying To Display The Incidence Reports.');
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Header, Pagination, Segment } from 'semantic-ui-react';
+import { Table, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
@@ -18,12 +18,6 @@ const UserComponent = (props) => {
       ToastMessage.error({ message: props.errorMessage });
     }, 500);
     return <SemanticToastContainer />;
-  }
-
-  if (props.emptyUsersList()) {
-    return (
-      <Header as="h3" id="empty-usersList" content="No Users Found" />
-    );
   }
 
   return (
@@ -47,21 +41,23 @@ const UserComponent = (props) => {
         </Table.Header>
         <Table.Body>
           {
-            props.activePageUsers.map((user) => {
-              user.assets_assigned = 1;
-              return (
-                <TableRowComponent
-                  key={user.id}
-                  data={user}
-                  headings={[
-                    'full_name',
-                    'email',
-                    'cohort',
-                    'assets_assigned'
-                  ]}
-                />
-              );
-            })
+            (props.emptyUsersList())
+            ? <Table.Row><Table.Cell colSpan="4">No Users Found</Table.Cell></Table.Row>
+            : props.activePageUsers.map((user) => {
+               user.assets_assigned = 1;
+               return (
+                 <TableRowComponent
+                   key={user.id}
+                   data={user}
+                   headings={[
+                     'full_name',
+                     'email',
+                     'cohort',
+                     'assets_assigned'
+                   ]}
+                 />
+               );
+               })
           }
         </Table.Body>
         <Table.Footer>
