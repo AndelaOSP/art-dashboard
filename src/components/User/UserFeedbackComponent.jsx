@@ -77,13 +77,13 @@ export class UserFeedbackComponent extends React.Component {
             />
             <Table.Body>
               {
-                this.props.feedback.map((feedback, index) => {
-                  feedback.created_at = formatDate(feedback.created_at);
+                this.props.feedback.map((feedback) => {
+                  const updatedData = { ...feedback, created_at: formatDate(feedback.created_at) };
 
                   return (
                     <TableRowComponent
-                      key={index} //eslint-disable-line
-                      data={feedback}
+                      key={feedback.created_at}
+                      data={updatedData}
                       headings={['reported_by',
                       'created_at',
                       'report_type',
