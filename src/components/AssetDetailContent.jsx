@@ -12,7 +12,7 @@ import LoaderComponent from './LoaderComponent';
 const AssetDetailContent = (props) => {
   if (props.isLoading) {
     return (
-      <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />
+      <LoaderComponent />
     );
   }
 

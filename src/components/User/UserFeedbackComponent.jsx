@@ -44,7 +44,9 @@ export class UserFeedbackComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <LoaderComponent size="small" dimmerStyle={{ height: '100vh' }} />
+        <NavbarComponent>
+          <LoaderComponent />
+        </NavbarComponent>
       );
     }
 

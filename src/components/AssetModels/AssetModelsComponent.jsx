@@ -40,7 +40,7 @@ export class AssetModelsComponent extends React.Component {
     if (this.props.isLoading) {
       return (
         <NavbarComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
+          <LoaderComponent />
         </NavbarComponent>
       );
     }
