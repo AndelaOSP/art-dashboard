@@ -13,7 +13,8 @@ export class AssetDetailComponent extends Component {
     assignedUser: {},
     selectedUser: '',
     serialNumber: '',
-    open: false
+    open: false,
+    assignAssetButtonState: true
   }
 
   componentDidMount() {
@@ -48,7 +49,7 @@ export class AssetDetailComponent extends Component {
   }
 
   onSelectUserEmail = (event, data) => {
-    this.setState({ selectedUser: data.value });
+    this.setState({ selectedUser: data.value, assignAssetButtonState: false });
   }
 
   handleAssign = () => {
@@ -105,6 +106,8 @@ export class AssetDetailComponent extends Component {
             handleConfirm={this.handleConfirm}
             handleCancel={this.handleCancel}
             buttonState={this.props.buttonLoading}
+            assignAssetButtonState={this.state.assignAssetButtonState}
+            selectedUser={this.state.selectedUser}
           />
         </Container>
       </NavbarComponent>

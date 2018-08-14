@@ -1,3 +1,5 @@
+@import "sharedStyling.scss";
+
 .asset-description {
   padding: 4rem 2rem !important;
   text-align: left;
@@ -39,4 +41,9 @@
   .unassign-button {
     margin-left: 0 !important;
   }
+}
+
+.ui.primary.button.assign-asset,
+.ui.primary.button.unassign-asset {
+  @include blue-rounded-buttons
 }
