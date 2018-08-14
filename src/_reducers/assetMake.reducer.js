@@ -16,7 +16,8 @@ export default (state = initialState.assetMakes, action) => {
         ...state,
         assetMakes: action.payload.results,
         assetMakesCount: action.payload.count,
-        isLoading: false
+        isLoading: false,
+        hasError: false
       };
     case DROPDOWN_ASSET_MAKES_SUCCESS:
       return {
@@ -27,7 +28,8 @@ export default (state = initialState.assetMakes, action) => {
     case LOAD_ASSET_MAKES_FAILURE:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        hasError: true
       };
     case LOADING_ASSET_MAKES:
       return {

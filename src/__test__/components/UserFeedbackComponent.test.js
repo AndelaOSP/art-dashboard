@@ -12,6 +12,7 @@ describe('<UserFeedbackComponent /> tests', () => {
     handlePaginationChange: jest.fn(),
     handleRowChange: jest.fn(),
     isLoading: false,
+    hasError: false,
     feedback,
     feedbackCount: 3
   };
@@ -59,14 +60,15 @@ describe('<UserFeedbackComponent /> tests', () => {
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
 
-  it('renders message if no user feedback is returned', () => {
+  it('renders message if hasError is true', () => {
     wrapper.setProps({
       isLoading: false,
+      hasError: true,
       feedback: [],
       feedbackCount: 0
     });
 
-    expect(wrapper.find('h1').text()).toEqual('No Feedback Found');
+    expect(wrapper.find('h1').text()).toEqual('An Error Occurred While Trying To Display User Feedback.');
   });
 
   it('calls the handleRowChange function when the row dropdown is changed', () => {

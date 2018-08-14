@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider, Container, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRowComponent from './TableRowComponent';
@@ -43,14 +43,17 @@ export class AssetSubCategoriesComponent extends React.Component {
         </NavbarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.assetSubCategories)) {
+    if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
-          <div className="">
+          <Container>
             <h1>
-              No Asset Sub Category Found
+              An Error Occurred While Trying To Display The Asset SubCategories.
             </h1>
-          </div>
+            <Button onClick={() => { this.props.loadSubCategories(this.state.activePage); }}>
+              Try Again.
+            </Button>
+          </Container>
         </NavbarComponent>
       );
     }
@@ -72,13 +75,15 @@ export class AssetSubCategoriesComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetSubCategories.map(subCategory => (
+                (_.isEmpty(this.props.assetSubCategories))
+                ? <Table.Row><Table.Cell colSpan="3">No Asset Sub Category Found</Table.Cell></Table.Row>
+                : this.props.assetSubCategories.map(subCategory => (
                   <TableRowComponent
                     key={subCategory.id}
                     data={subCategory}
                     headings={['id', 'sub_category_name', 'asset_category']}
                   />
-                ))
+                   ))
               }
             </Table.Body>
 
@@ -117,11 +122,12 @@ export class AssetSubCategoriesComponent extends React.Component {
 }
 
 const mapStateToProps = ({ subcategoriesList }) => {
-  const { assetSubCategories, assetSubCategoriesCount, isLoading } = subcategoriesList;
+  const { assetSubCategories, assetSubCategoriesCount, isLoading, hasError } = subcategoriesList;
   return {
     assetSubCategories,
     assetSubCategoriesCount,
-    isLoading
+    isLoading,
+    hasError
   };
 };
 
@@ -129,7 +135,8 @@ AssetSubCategoriesComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadSubCategories: PropTypes.func.isRequired,
   assetSubCategories: PropTypes.array.isRequired,
-  assetSubCategoriesCount: PropTypes.number.isRequired
+  assetSubCategoriesCount: PropTypes.number.isRequired,
+  hasError: PropTypes.bool
 };
 
 export default withRouter(connect(mapStateToProps, {

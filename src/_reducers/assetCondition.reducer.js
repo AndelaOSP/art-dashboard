@@ -20,7 +20,8 @@ export default (state = initialState.assetConditions, action) => {
         ...state,
         assetConditionsList: action.payload.results,
         assetConditionsCount: action.payload.count,
-        isLoading: false
+        isLoading: false,
+        hasError: false
       };
 
     case LOAD_ASSET_CONDITION_FAILURE:
@@ -28,7 +29,8 @@ export default (state = initialState.assetConditions, action) => {
         ...state,
         assetConditionsList: [],
         assetConditionsCount: 0,
-        isLoading: false
+        isLoading: false,
+        hasError: true
       };
 
     default:

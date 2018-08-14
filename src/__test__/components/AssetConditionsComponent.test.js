@@ -11,22 +11,25 @@ describe('Renders <AssetConditionsComponent/> component', () => {
     handlePaginationChange: jest.fn(),
     assetConditionsList: assetConditions,
     assetConditionsCount: 3,
-    isLoading: false
+    isLoading: false,
+    hasError: false
   };
 
   const wrapper = shallow(<AssetConditionsComponent {...props} />);
 
-  it('renders error if no asset conditions are found', () => {
+  it('renders message if an error occurs', () => {
     wrapper.setProps({
       isLoading: false,
+      hasError: true,
       assetConditionsList: []
     });
-    expect(wrapper.find('h1').text()).toEqual('No Asset Conditions Found');
+    expect(wrapper.find('h1').text()).toEqual('An Error Occurred While Trying To Display The Asset Conditions.');
   });
 
   it('renders table when asset conditions are loaded successfully', () => {
     wrapper.setProps({
       isLoading: false,
+      hasError: false,
       assetConditionsList: assetConditions,
       assetConditionsCount: 3
     });

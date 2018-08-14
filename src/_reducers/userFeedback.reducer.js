@@ -11,12 +11,14 @@ export default (state = initialState.userFeedback, action) => {
         ...state,
         feedback: action.payload.results,
         feedbackCount: action.payload.count,
-        isLoading: false
+        isLoading: false,
+        hasError: false
       };
     case LOAD_FEEDBACK_FAILURE:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        hasError: true
       };
     case LOADING_FEEDBACK:
       return {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider, Button, Container } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRowComponent from './TableRowComponent';
@@ -44,14 +44,17 @@ export class AssetTypesComponent extends React.Component {
         </NavbarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
+    if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
-          <div>
+          <Container>
             <h1>
-              No Asset Types Found
+              An Error Occurred While Trying To Display The Asset Types.
             </h1>
-          </div>
+            <Button onClick={() => { this.props.loadAssetTypes(this.state.activePage); }}>
+              Try Again.
+            </Button>
+          </Container>
         </NavbarComponent>
       );
     }
@@ -72,13 +75,15 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetTypes.map(assetType => (
+                (_.isEmpty(this.props.assetTypes))
+                ? <Table.Row><Table.Cell colSpan="2">No Asset Types Found</Table.Cell></Table.Row>
+                : this.props.assetTypes.map(assetType => (
                   <TableRowComponent
                     key={assetType.id}
                     data={assetType}
                     headings={['asset_sub_category', 'asset_type']}
                   />
-                ))
+                   ))
               }
             </Table.Body>
 
@@ -117,11 +122,12 @@ export class AssetTypesComponent extends React.Component {
 }
 
 const mapStateToProps = ({ assetTypesList }) => {
-  const { assetTypes, assetTypesCount, isLoading } = assetTypesList;
+  const { assetTypes, assetTypesCount, isLoading, hasError } = assetTypesList;
   return {
     assetTypes,
     assetTypesCount,
-    isLoading
+    isLoading,
+    hasError
   };
 };
 
@@ -129,7 +135,8 @@ AssetTypesComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadAssetTypes: PropTypes.func.isRequired,
   assetTypes: PropTypes.array.isRequired,
-  assetTypesCount: PropTypes.number.isRequired
+  assetTypesCount: PropTypes.number.isRequired,
+  hasError: PropTypes.bool
 };
 
 export default withRouter(connect(mapStateToProps, {

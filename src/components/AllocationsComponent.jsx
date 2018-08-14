@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Container, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Container, Segment, Divider, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -44,13 +44,16 @@ export class AllocationsComponent extends Component {
         </NavbarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
+    if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
           <Container>
             <h1>
-              No Assets Currently Assigned
+              An Error Occurred While Trying To Display Allocations.
             </h1>
+            <Button onClick={() => { this.props.loadAllocationsAction(this.state.activePage); }}>
+              Try Again.
+            </Button>
           </Container>
         </NavbarComponent>
       );
@@ -74,16 +77,18 @@ export class AllocationsComponent extends Component {
 
             <Table.Body>
               {
-                this.props.allAllocations.map((allocation) => {
-                  allocation.formatted_date = formatDate(allocation.created_at);
-                  return (
-                    <TableRowComponent
-                      key={allocation.created_at}
-                      data={allocation}
-                      headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}
-                    />
-                  );
-                })
+                (_.isEmpty(this.props.allAllocations))
+                ? <Table.Row><Table.Cell colSpan="4">No Assets Currently Assigned</Table.Cell></Table.Row>
+                : (this.props.allAllocations.map((allocation) => {
+                    allocation.formatted_date = formatDate(allocation.created_at);
+                    return (
+                      <TableRowComponent
+                        key={allocation.created_at}
+                        data={allocation}
+                        headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}
+                      />
+                    );
+                    }))
               }
             </Table.Body>
 
@@ -122,12 +127,13 @@ export class AllocationsComponent extends Component {
 }
 
 const mapStateToProps = ({ allocationsList }) => {
-  const { allAllocations, allocationsCount, isLoading } = allocationsList;
+  const { allAllocations, allocationsCount, isLoading, hasError } = allocationsList;
 
   return {
     allAllocations,
     allocationsCount,
-    isLoading
+    isLoading,
+    hasError
   };
 };
 
@@ -135,7 +141,8 @@ AllocationsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   allAllocations: PropTypes.array.isRequired,
   allocationsCount: PropTypes.number,
-  loadAllocationsAction: PropTypes.func.isRequired
+  loadAllocationsAction: PropTypes.func.isRequired,
+  hasError: PropTypes.bool
 };
 
 export default withRouter(connect(mapStateToProps, {

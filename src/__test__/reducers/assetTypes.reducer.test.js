@@ -16,7 +16,8 @@ const {
 
 const initialState = {
   assetTypes: [],
-  isLoading: false
+  isLoading: false,
+  hasError: false
 };
 
 const action = { payload: {} };
@@ -54,7 +55,8 @@ describe('Asset Type Reducer tests', () => {
     };
     const newState = {
       assetTypes: assetTypesMock,
-      isLoading: false
+      isLoading: false,
+      hasError: false
     };
     action.type = LOAD_ASSET_TYPES_SUCCESS;
     action.payload = { results: assetTypesMock };
@@ -71,7 +73,8 @@ describe('Asset Type Reducer tests', () => {
     const newAction = {};
     const newState = {
       assetTypes: assetTypesMock,
-      isLoading: false
+      isLoading: false,
+      hasError: false
     };
     action.type = LOAD_ASSET_TYPES_SUCCESS;
     action.payload = { results: assetTypesMock };

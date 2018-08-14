@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Table, Header, Pagination, Segment, Divider, Container, Button } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent.jsx';
 import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
+import LoaderComponent from './LoaderComponent';
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
 import '../_css/IncidenceReportsComponent.css';
 
@@ -36,6 +37,27 @@ export class IncidenceReportsComponent extends React.Component {
   emptyReportsCheck = () => (_.isEmpty(this.props.reports))
 
   render() {
+    if (this.props.isLoading) {
+      return (
+        <NavbarComponent>
+          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
+        </NavbarComponent>
+      );
+    }
+    if (!this.props.isLoading && this.props.hasError) {
+      return (
+        <NavbarComponent>
+          <Container>
+            <h1>
+              An Error Occurred While Trying To Display The Incidence Reports.
+            </h1>
+            <Button onClick={() => { this.props.loadIncidenceReports(this.state.activePage); }}>
+              Try Again.
+            </Button>
+          </Container>
+        </NavbarComponent>
+      );
+    }
     return (
       <NavbarComponent>
         <div className="incidence-list">
@@ -117,14 +139,18 @@ export class IncidenceReportsComponent extends React.Component {
 IncidenceReportsComponent.propTypes = {
   reports: PropTypes.array,
   incidenceReportsCount: PropTypes.number,
-  loadIncidenceReports: PropTypes.func
+  loadIncidenceReports: PropTypes.func,
+  isLoading: PropTypes.bool,
+  hasError: PropTypes.bool
 };
 
 const mapStateToProps = ({ incidenceReports }) => {
-  const { incidenceReportsCount, reports } = incidenceReports;
+  const { incidenceReportsCount, reports, isLoading, hasError } = incidenceReports;
   return {
     incidenceReportsCount,
-    reports
+    reports,
+    isLoading,
+    hasError
   };
 };
 

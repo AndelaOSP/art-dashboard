@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider, Container, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRowComponent from '../TableRowComponent';
@@ -19,17 +19,17 @@ export class AssetMakeComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadAssetMakes(this.state.activePage);
+    this.props.loadAssetMakes(this.state.activePage, this.state.limit);
   }
 
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
-    this.props.loadAssetConditions(this.state.activePage, data.value);
+    this.props.loadAssetMakes(this.state.activePage, data.value);
   };
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetMakes(activePage);
+    this.props.loadAssetMakes(activePage, this.state.limit);
   };
 
   getTotalPages = () => Math.ceil(this.props.assetMakesCount / this.state.limit);
@@ -42,14 +42,17 @@ export class AssetMakeComponent extends React.Component {
         </NavbarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.assetMakes)) {
+    if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
-          <div>
+          <Container>
             <h1>
-              No Asset Make Found
+              An Error Occurred While Trying To Display The Asset Makes.
             </h1>
-          </div>
+            <Button onClick={() => { this.props.loadAssetMakes(this.state.activePage); }}>
+              Try Again.
+            </Button>
+          </Container>
         </NavbarComponent>
       );
     }
@@ -71,13 +74,15 @@ export class AssetMakeComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetMakes.map(asset => (
+                (_.isEmpty(this.props.assetMakes))
+                ? <Table.Row><Table.Cell colSpan="3">No Asset Make Found</Table.Cell></Table.Row>
+                : this.props.assetMakes.map(asset => (
                   <TableRowComponent
                     key={asset.id}
                     data={asset}
                     headings={['id', 'asset_type', 'make_label']}
                   />
-                ))
+                   ))
               }
             </Table.Body>
 
@@ -116,20 +121,21 @@ export class AssetMakeComponent extends React.Component {
 }
 
 const mapStateToProps = ({ assetMakesList }) => {
-  const { assetMakes, assetMakesCount, isLoading } = assetMakesList;
+  const { assetMakes, assetMakesCount, isLoading, hasError } = assetMakesList;
   return {
     assetMakes,
     assetMakesCount,
-    isLoading
+    isLoading,
+    hasError
   };
 };
 
 AssetMakeComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadAssetMakes: PropTypes.func.isRequired,
-  loadAssetConditions: PropTypes.func.isRequired,
   assetMakes: PropTypes.array.isRequired,
-  assetMakesCount: PropTypes.number.isRequired
+  assetMakesCount: PropTypes.number.isRequired,
+  hasError: PropTypes.bool
 };
 
 export default withRouter(connect(mapStateToProps, {

@@ -23,7 +23,8 @@ export default (state = initialState.subcategories, action) => {
         ...state,
         assetSubCategories: [...action.payload.results],
         assetSubCategoriesCount: action.payload.count,
-        isLoading: false
+        isLoading: false,
+        hasError: false
       };
 
     case DROPDOWN_SUBCATEGORIES_SUCCESS:
@@ -39,7 +40,8 @@ export default (state = initialState.subcategories, action) => {
         assetSubCategoriesDropdown: [],
         assetSubCategories: [],
         assetSubCategoriesCount: 0,
-        isLoading: false
+        isLoading: false,
+        hasError: true
       };
 
     case CREATE_SUBCATEGORY_SUCCESS:

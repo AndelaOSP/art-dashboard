@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Header,
   Table,
   Pagination,
   Segment
@@ -29,12 +28,6 @@ const AssetsTableContent = (props) => {
       ToastMessage.error({ message: props.errorMessage });
     }, 500);
     return <SemanticToastContainer />;
-  }
-
-  if (props.emptyAssetsCheck()) {
-    return (
-      <Header as="h3" id="empty-assets" content="No Assets Found" />
-    );
   }
 
   return (
@@ -83,26 +76,28 @@ const AssetsTableContent = (props) => {
 
         <Table.Body>
           {
-            props.activePageAssets.map((asset) => {
-              const assetViewUrl = `assets/${asset.serial_number}/view`;
-              return (
-                <TableRowComponent
-                  {...props}
-                  viewDetailsRoute={assetViewUrl}
-                  key={asset.id}
-                  data={asset}
-                  headings={[
-                    'asset_code',
-                    'serial_number',
-                    'model_number',
-                    'make_label',
-                    'asset_type',
-                    'asset_category',
-                    'asset_sub_category'
-                  ]}
-                />
-              );
-            })
+            (props.emptyAssetsCheck())
+            ? <Table.Row><Table.Cell colSpan="7">No Assets Found</Table.Cell></Table.Row>
+            : props.activePageAssets.map((asset) => {
+               const assetViewUrl = `assets/${asset.serial_number}/view`;
+               return (
+                 <TableRowComponent
+                   {...props}
+                   viewDetailsRoute={assetViewUrl}
+                   key={asset.id}
+                   data={asset}
+                   headings={[
+                     'asset_code',
+                     'serial_number',
+                     'model_number',
+                     'make_label',
+                     'asset_type',
+                     'asset_category',
+                     'asset_sub_category'
+                   ]}
+                 />
+               );
+               })
           }
         </Table.Body>
 

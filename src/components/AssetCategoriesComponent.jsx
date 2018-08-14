@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { Button, Pagination, Table, Header, Segment, Divider } from 'semantic-ui-react';
+import { Button, Pagination, Table, Header, Segment, Divider, Container } from 'semantic-ui-react';
 
 import TableRowComponent from './TableRowComponent';
 import NavbarComponent from './NavBarComponent';
@@ -48,25 +48,14 @@ export class AssetCategoriesComponent extends React.Component {
     if (!this.props.isLoading && this.props.hasError) {
       return (
         <NavbarComponent>
-          <div className="assets-list">
+          <Container>
             <h1>
-              An Error Occurred While Trying To Display The Asset Categories
+              An Error Occurred While Trying To Display The Asset Categories.
             </h1>
             <Button onClick={() => { this.props.loadAssetCategories(this.state.activePage); }}>
               Try Again
             </Button>
-          </div>
-        </NavbarComponent>
-      );
-    }
-    if (!this.props.isLoading && this.emptyCategoriesCheck()) {
-      return (
-        <NavbarComponent>
-          <div className="assets-list">
-            <h1>
-              No Asset Categories Found.
-            </h1>
-          </div>
+          </Container>
         </NavbarComponent>
       );
     }
@@ -87,13 +76,15 @@ export class AssetCategoriesComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.categories.map(category => (
+                (this.emptyCategoriesCheck())
+                ? <Table.Row><Table.Cell colSpan="2">No Asset Categories Found</Table.Cell></Table.Row>
+                : this.props.categories.map(category => (
                   <TableRowComponent
                     key={category.id}
                     data={category}
                     headings={['id', 'category_name']}
                   />
-                ))
+                   ))
               }
             </Table.Body>
 
