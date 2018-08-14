@@ -83,6 +83,7 @@ class ModelNumberContainer extends React.Component {
     );
   }
 }
+
 ModelNumberContainer.propTypes = {
   loadAssetMakesDropdown: PropTypes.func.isRequired,
   createModelNumbers: PropTypes.func.isRequired,
@@ -99,6 +100,7 @@ const mapStateToProps = ({ assetMakesList, toastMessage }) => ({
   assetMakes: assetMakesList.assetMakes,
   toastMessageContent: toastMessage
 });
+
 export default connect(mapStateToProps, {
   loadAssetMakesDropdown,
   createModelNumbers,

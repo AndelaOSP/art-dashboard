@@ -33,6 +33,7 @@ class CategoryContainer extends React.Component {
     }
     return null;
   }
+
   onChangeButtonState = () => {
     this.setState({ saveButtonState: !this.state.saveButtonState });
   };
@@ -43,11 +44,11 @@ class CategoryContainer extends React.Component {
     };
     this.props.createCategory(newCategory);
     event.target.reset();
-  }
+  };
 
   onAddCategory = (event) => {
     this.setState({ categoryName: event.target.value });
-  }
+  };
 
   render() {
     return (
@@ -63,15 +64,18 @@ class CategoryContainer extends React.Component {
     );
   }
 }
+
 CategoryContainer.propTypes = {
   createCategory: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   resetToastMessageContent: PropTypes.func.isRequired
 };
+
 const mapStateToProps = ({ categories, toastMessage }) => ({
   categories,
   toastMessageContent: toastMessage
 });
+
 export default connect(mapStateToProps, {
   createCategory,
   resetToastMessageContent
