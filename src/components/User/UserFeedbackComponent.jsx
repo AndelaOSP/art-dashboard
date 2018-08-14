@@ -93,7 +93,7 @@ export class UserFeedbackComponent extends React.Component {
                         <ActionComponent />
                       </Table.Cell>
                     </TableRowComponent>
-                );
+                  );
                 })
               }
             </Table.Body>

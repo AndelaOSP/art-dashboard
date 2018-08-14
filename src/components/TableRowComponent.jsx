@@ -17,9 +17,7 @@ class TableRowComponent extends React.Component {
         {this.props.headings
           .map(heading => (
             <Table.Cell key={heading}>
-              {
-                 this.props.data[heading]
-              }
+              {this.props.data[heading]}
             </Table.Cell>
           )
           )}
