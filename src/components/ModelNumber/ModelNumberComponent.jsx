@@ -32,20 +32,23 @@ const ModelNumberComponent = props => (
           label="Asset Makes"
           placeHolder="Select Asset Makes"
           name="asset-make"
+          value={props.assetMakeSelectedId}
           onChange={props.onSelectAssetMake}
           options={placeMakesInSemanticUIOptions(props.assetMakes)}
         />
       </label>
       <br />
       <ArtButton
+        className="cancel"
+        buttonName="Cancel"
+        handleClick={props.toggleModal}
+      />
+      <ArtButton
+        className="save"
         buttonName="Save"
         color="primary"
         handleClick={props.onChangeButtonState}
         buttonState={props.buttonState}
-      />
-      <ArtButton
-        buttonName="Cancel"
-        onClick={props.toggleModal}
       />
     </Form>
   </div>
@@ -58,6 +61,7 @@ ModelNumberComponent.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
   assetMakes: PropTypes.array,
+  assetMakeSelectedId: PropTypes.number,
   buttonState: PropTypes.bool.isRequired
 };
 

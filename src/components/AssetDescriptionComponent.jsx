@@ -69,6 +69,7 @@ const AssetDescriptionComponent = props => (
               label="Assign this asset to:"
               placeHolder="Select Andela Email To Assign This Asset"
               name="assign-user"
+              search
               onChange={props.onSelectUserEmail}
               options={userEmailsOptions(props.users)}
               value={props.selectedUser}

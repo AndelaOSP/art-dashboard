@@ -15,31 +15,31 @@ const populateCategories = props =>
 const AddSubCategoryComponent = props => (
   <Form onSubmit={props.handleSubmit}>
     <label htmlFor="category" className="label-style">
+      <label htmlFor="sub-category" className="label-style">
+        Sub-Category
+        <InputFluid
+          name="sub-category"
+          onChange={props.onAddSubCategory}
+          placeHolder="Enter Sub-Category"
+        />
+      </label>
+      <br />
       Category
       <DropdownComponent
         customClass="form-dropdown"
         label="Categories"
         placeHolder="Select A Category"
         name="category"
+        value={props.categorySelectedId}
         onChange={props.onSelectCategory}
         options={populateCategories(props.categoriesList)}
       />
     </label>
 
     <br />
-    <label htmlFor="sub-category" className="label-style">
-      Sub-Category
-      <InputFluid
-        name="sub-category"
-        onChange={props.onAddSubCategory}
-        placeHolder="Enter Sub-Category"
-      />
-    </label>
-
-    <br />
     <ArtButton
       buttonName="Cancel"
-      onClick={props.toggleModal}
+      handleClick={props.toggleModal}
     />
     <ArtButton
       buttonName="Save"
@@ -53,6 +53,7 @@ const AddSubCategoryComponent = props => (
 
 AddSubCategoryComponent.propTypes = {
   categoriesList: PropTypes.array,
+  categorySelectedId: PropTypes.number,
   buttonState: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onAddSubCategory: PropTypes.func.isRequired,

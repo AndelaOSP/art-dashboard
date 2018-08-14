@@ -30,6 +30,7 @@ const AssetTypesComponent = props => (
         label="Sub Category"
         placeHolder="Select Sub Category"
         name="subcategory"
+        value={props.subCategorySelectedId}
         onChange={props.onSelectSubCategory}
         options={placeMakesInSemanticUIOptions(props.subcategories)}
       />
@@ -58,7 +59,8 @@ AssetTypesComponent.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
   subcategories: PropTypes.array,
-  buttonState: PropTypes.bool.isRequired
+  buttonState: PropTypes.bool.isRequired,
+  subCategorySelectedId: PropTypes.number
 };
 
 AssetTypesComponent.defaultProps = {

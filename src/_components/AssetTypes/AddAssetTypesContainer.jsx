@@ -13,7 +13,7 @@ import resetToastMessageContent from '../../_actions/toastMessage.actions';
 export class AddAssetTypesContainer extends React.Component {
   state = {
     assetType: '',
-    subCategory: '',
+    subCategory: 0,
     saveButtonState: false
   };
 
@@ -34,7 +34,7 @@ export class AddAssetTypesContainer extends React.Component {
       nextProps.resetToastMessageContent();
       return {
         assetType: '',
-        subCategory: '',
+        subCategory: 0,
         saveButtonState: false
       };
     }
@@ -75,6 +75,7 @@ export class AddAssetTypesContainer extends React.Component {
         handleSubmit={this.handleSubmit}
         onChangeButtonState={this.onChangeButtonState}
         buttonState={this.state.saveButtonState}
+        subCategorySelectedId={this.state.subCategory}
         toggleModal={this.props.toggleModal}
       />
     );
