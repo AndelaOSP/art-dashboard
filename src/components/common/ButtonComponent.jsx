@@ -2,26 +2,30 @@ import React from 'react';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+const PRIMARY_COLOR = 'primary';
+
 const ButtonComponent = ({
-  buttonName, color, handleClick, buttonState, customCss, disabledState
+  buttonName,
+  color,
+  handleClick,
+  buttonState,
+  customCss,
+  disabledState
 }) => {
-  if (color === 'primary') {
-    return (
-      <Button
-        primary
-        onClick={handleClick}
-        disabled={disabledState}
-        loading={buttonState}
-        className={customCss}
-      >
-        {buttonName}
-      </Button>
-    );
+  let additionalProps = {
+    secondary: true,
+    type: 'reset'
+  };
+  if (color === PRIMARY_COLOR) {
+    additionalProps = {
+      primary: true,
+      loading: buttonState
+    };
   }
+
   return (
     <Button
-      secondary
-      type="reset"
+      {...additionalProps}
       onClick={handleClick}
       disabled={disabledState}
       className={customCss}
