@@ -85,5 +85,8 @@ export default {
     errorMessage: '',
     hasError: false,
     isLoading: false
+  },
+  session: {
+    sessionExpired: false
   }
 };
