@@ -7,7 +7,6 @@ const props = {
   loadingText: 'Loading stuff'
 };
 
-
 describe('Renders <LoaderComponent /> tests', () => {
   const wrapper = shallow(<Loader {...props} />);
 

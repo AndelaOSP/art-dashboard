@@ -3,10 +3,8 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 import Filter from '../../components/common/FilterButton';
 
-
 describe('Renders <FilterButton /> tests', () => {
   const wrapper = shallow(<Filter />);
-
 
   it('changes toggle state', () => {
     wrapper.setState({ toggleOn: false });
