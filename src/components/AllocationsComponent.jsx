@@ -68,7 +68,7 @@ export class AllocationsComponent extends Component {
                 <Table.HeaderCell>Asset</Table.HeaderCell>
                 <Table.HeaderCell>Current Owner</Table.HeaderCell>
                 <Table.HeaderCell>Previous Owner</Table.HeaderCell>
-                <Table.HeaderCell>Created At</Table.HeaderCell>
+                <Table.HeaderCell>Date</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 

@@ -75,7 +75,6 @@ export class AssetSpecsComponent extends React.Component {
           <Table basic selectable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Year of Manufacture</Table.HeaderCell>
                 <Table.HeaderCell>Processor Speed</Table.HeaderCell>
                 <Table.HeaderCell>Screen Size</Table.HeaderCell>
@@ -92,7 +91,6 @@ export class AssetSpecsComponent extends React.Component {
                     key={spec.id}
                     data={spec}
                     headings={[
-                      'id',
                       'year_of_manufacture',
                       'processor_speed',
                       'screen_size',

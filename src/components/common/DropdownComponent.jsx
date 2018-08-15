@@ -25,7 +25,7 @@ DropdownComponent.propTypes = {
   options: PropTypes.array.isRequired,
   placeHolder: PropTypes.string,
   onChange: PropTypes.func,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   customClass: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -39,7 +39,8 @@ DropdownComponent.defaultProps = {
   placeHolder: '',
   onChange: () => {},
   customClass: '',
-  value: 10
+  value: 10,
+  name: ''
 };
 
 export default DropdownComponent;
