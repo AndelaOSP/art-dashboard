@@ -85,10 +85,10 @@ const AssetDetailContent = (props) => {
                   <div><p>Asset Status</p></div>
                 </Grid.Column>
                 <Grid.Column className="details-description">
-                  <div><p>{assetDetail.asset_code}</p></div>
-                  <div><p>{assetDetail.serial_number}</p></div>
-                  <div><p>{assetDetail.model_number}</p></div>
-                  <div><p>{assetDetail.current_status}</p></div>
+                  <div><p>{assetDetail.asset_code || '-'}</p></div>
+                  <div><p>{assetDetail.serial_number || '-'}</p></div>
+                  <div><p>{assetDetail.model_number || '-'}</p></div>
+                  <div><p>{assetDetail.current_status || '-'}</p></div>
                 </Grid.Column>
               </Grid>
             </Grid.Column>
