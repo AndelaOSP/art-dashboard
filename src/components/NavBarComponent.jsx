@@ -9,7 +9,6 @@ import {
   Menu,
   Icon,
   Image,
-  Label,
   Popup,
   Sidebar
 } from 'semantic-ui-react';
@@ -36,11 +35,7 @@ export class NavBarComponent extends Component {
     const { visible } = this.state;
 
     if (visible) {
-      return (
-        <Label className="nav-button">
-          Close <Icon name="delete" />
-        </Label>
-      );
+      return <Icon id="hamburger" name="angle double up" />;
     }
     return <Icon id="hamburger" name="bars" />;
   };

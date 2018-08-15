@@ -39,7 +39,6 @@ const AssetsTableContent = (props) => {
 
   return (
     <div>
-      <LoaderComponent />
       <Table basic selectable>
         <Table.Header>
           <Table.Row>
