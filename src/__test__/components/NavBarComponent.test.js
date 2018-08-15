@@ -22,10 +22,6 @@ describe('renders <NavBarComponent />', () => {
     expect(wrapper.find('Menu').length).toEqual(1);
   });
 
-  it('should render close label when open', () => {
-    expect(wrapper.find('.nav-button').length).toEqual(1);
-  });
-
   it('should render andela banner icon', () => {
     expect(wrapper.find('#banner').length).toEqual(1);
   });
