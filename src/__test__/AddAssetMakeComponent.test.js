@@ -51,6 +51,13 @@ describe('Renders <AddAssetMakeComponent /> correctly', () => {
     wrapper.find('.cancel').simulate('click');
     expect(toggleModal.callCount).toEqual(1);
   });
+
+  it('Should simulate form submit', () => {
+    const form = wrapper.find('Form');
+    expect(form.length).toEqual(1);
+    form.simulate('submit');
+    expect(props.handleSubmit.mock.calls.length).toEqual(1);
+  });
 });
 
 describe('Renders <AssetMakeContainer /> correctly', () => {
@@ -91,5 +98,15 @@ describe('Renders <AssetMakeContainer /> correctly', () => {
       }
     });
     expect(wrapper.props().toastMessageContent.type).toEqual('success');
+  });
+
+  it('should receive a message type prop when getDerivedStateFromProps loads', () => {
+    wrapper.setProps({
+      toastMessageContent: {
+        type: 'error',
+        message: 'An error occured'
+      }
+    });
+    expect(wrapper.props().toastMessageContent.type).toEqual('error');
   });
 });
