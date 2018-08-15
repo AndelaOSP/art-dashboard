@@ -10,7 +10,7 @@ import { ToastMessage } from '../../_utils/ToastMessage';
 
 const UserComponent = (props) => {
   if (props.isLoading) {
-    return <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />;
+    return <LoaderComponent />;
   }
 
   if (props.hasError && props.errorMessage) {

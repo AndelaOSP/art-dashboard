@@ -21,7 +21,7 @@ import DropdownComponent from '../components/common/DropdownComponent';
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
-    return <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />;
+    return <LoaderComponent />;
   }
 
   if (props.hasError && props.errorMessage) {
@@ -39,6 +39,7 @@ const AssetsTableContent = (props) => {
 
   return (
     <div>
+      <LoaderComponent />
       <Table basic selectable>
         <Table.Header>
           <Table.Row>
