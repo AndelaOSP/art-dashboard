@@ -5,7 +5,7 @@ import { SemanticToastContainer } from 'react-semantic-toasts';
 import '../../_css/ModalComponent.css';
 
 export default class ArtModal extends Component {
-  state = { modalOpen: false }
+  state = { modalOpen: this.props.open || false }
 
   toggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
@@ -60,11 +60,13 @@ ArtModal.propTypes = {
   modalTitle: PropTypes.string,
   trigger: PropTypes.element,
   className: PropTypes.string,
-  modalSize: PropTypes.string
+  modalSize: PropTypes.string,
+  open: PropTypes.bool
 };
 
 ArtModal.defaultProps = {
   children: <br />,
   modalTitle: '',
-  modalSize: 'small'
+  modalSize: 'small',
+  open: false
 };

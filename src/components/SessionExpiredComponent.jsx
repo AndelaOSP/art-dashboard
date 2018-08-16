@@ -10,8 +10,7 @@ import ArtModal from './common/ModalComponent';
 
 export class SessionExpiredComponent extends React.Component {
   state ={
-    // open: false,
-    // close: false
+    timeout: 0
   }
 
   componentDidMount() {
@@ -25,13 +24,18 @@ export class SessionExpiredComponent extends React.Component {
 
   tokenValid = () => {
     const now = Date.now();
-    const token = jwt.decode(localStorage.getItem('art-prod-web-token'));
-    const { exp: tokenExpiry } = token || {};
-    // const tokenExpiry = localStorage.getItem('token-exp');
-    const timeout = (tokenExpiry * 1000) - now;
-    setTimeout(() => {
-      this.props.expireSession();
-    }, timeout);
+    const jwToken = localStorage.getItem('art-prod-web-token');
+    if (jwToken) {
+      const token = jwt.decode(jwToken);
+      const { exp: tokenExpiry } = token || {};
+      const timeout = (tokenExpiry * 1000) - now;
+      if (this.state.timeout) {
+        clearTimeout(this.state.timeout);
+      }
+      setTimeout(() => {
+        this.props.expireSession();
+      }, timeout);
+    }
   };
 
   handleLogout = () => {
@@ -40,24 +44,18 @@ export class SessionExpiredComponent extends React.Component {
     this.props.history.push('/');
   };
 
-  // closeModal = () => {
-  //   this.setState({
-  //     close: true
-  //   });
-  // }
-
   render() {
-    // console.log(this.props.sessionExpired, '<<==Expired');
     return (
       <div>
         { this.props.sessionExpired &&
         <ArtModal
           trigger={null}
-          open={this.props.sessionExpired}
-          onClose={this.props.unexpireSession}
+          open
+          onClose={this.handleLogout}
           modalTitle="Session Expired"
         >
           <h3>Session Expired</h3>
+          <p>Your Sign In session has timed out. Please Sign In again.</p>
           <Button onClick={this.handleLogout}>OK</Button>
         </ArtModal>
         }
@@ -76,12 +74,10 @@ SessionExpiredComponent.propTypes = {
   push: PropTypes.func
 };
 
-// SessionExpiredComponent.defaultProps = {
-//   // expireSession: () => {},
-//   unexpireSession: () => {},
-//   push: () => {
-//   }
-// };
+SessionExpiredComponent.defaultProps = {
+  push: () => {
+  }
+};
 
 
 export default withRouter(connect(mapStateToProps, {
