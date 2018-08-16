@@ -9,16 +9,11 @@ import ArtModal from './common/ModalComponent';
 
 
 export class SessionExpiredComponent extends React.Component {
-  state ={
-    timeout: 0
-  }
-
   componentDidMount() {
     this.tokenValid();
   }
 
   componentDidUpdate() {
-  // console.log('Component just updated');
     this.tokenValid();
   }
 
@@ -28,13 +23,9 @@ export class SessionExpiredComponent extends React.Component {
     if (jwToken) {
       const token = jwt.decode(jwToken);
       const { exp: tokenExpiry } = token || {};
-      const timeout = (tokenExpiry * 1000) - now;
-      if (this.state.timeout) {
-        clearTimeout(this.state.timeout);
-      }
-      setTimeout(() => {
+      if (now >= tokenExpiry * 1000) {
         this.props.expireSession();
-      }, timeout);
+      }
     }
   };
 
@@ -53,8 +44,10 @@ export class SessionExpiredComponent extends React.Component {
           open
           onClose={this.handleLogout}
           modalTitle="Session Expired"
+          closeIcon={false}
+          closeOnEscape={false}
+          closeOnDimmerClick={false}
         >
-          <h3>Session Expired</h3>
           <p>Your Sign In session has timed out. Please Sign In again.</p>
           <Button onClick={this.handleLogout}>OK</Button>
         </ArtModal>
