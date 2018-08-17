@@ -98,7 +98,7 @@ FilterAssetComponent.propTypes = {
   filteredAssetMakes: PropTypes.array,
   toggleModal: PropTypes.func.isRequired,
   onNextClicked: PropTypes.func.isRequired,
-  buttonState: PropTypes.bool,
+  pageValidator: PropTypes.func.isRequired,
   categories: PropTypes.array,
   page: PropTypes.number.isRequired,
   selectedCategory: PropTypes.string,
@@ -113,8 +113,7 @@ FilterAssetComponent.defaultTypes = {
   filteredAssetTypes: [],
   filteredAssetMakes: [],
   filteredModelNumbers: [],
-  categories: [],
-  buttonState: false
+  categories: []
 };
 
 export default FilterAssetComponent;

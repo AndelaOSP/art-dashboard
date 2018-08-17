@@ -95,6 +95,18 @@ class AddAssetContainer extends React.Component {
     return null;
   }
 
+  pageValidator = () => {
+    if (this.state.page === 0) {
+      return (!_.isEmpty(this.state.selectedAssetMake));
+    } else if (this.state.page === 1) {
+      return (!_.isEmpty(this.state.modelNumber)
+        && !_.isEmpty(this.state.serialNumber)
+        && !_.isEmpty(this.state.assetTag)
+      );
+    }
+    return false;
+  }
+
   handleDropdownChanges = (event, data) => {
     event.stopPropagation();
     const { name, value } = data;
@@ -103,6 +115,9 @@ class AddAssetContainer extends React.Component {
     if (name === 'asset-category') {
       this.setState({
         selectedCategory: value,
+        selectedSubcategory: '',
+        selectedAssetType: '',
+        selectedAssetMake: '',
         filteredSubCategories: filterSubCategories(subcategories, value),
         filteredAssetTypes: filterAssetTypes(assetTypes, value),
         filteredAssetMakes: filterAssetMakes(assetMakes, value),
@@ -111,6 +126,8 @@ class AddAssetContainer extends React.Component {
     } else if (name === 'asset-subcategory') {
       this.setState({
         selectedSubcategory: value,
+        selectedAssetType: '',
+        selectedAssetMake: '',
         filteredAssetTypes: filterAssetTypes(assetTypes, value),
         filteredAssetMakes: filterAssetMakes(assetMakes, value),
         filteredModelNumbers: filterModelNumbers(modelNumbers, value)
@@ -118,12 +135,14 @@ class AddAssetContainer extends React.Component {
     } else if (name === 'asset-types') {
       this.setState({
         selectedAssetType: value,
+        selectedAssetMake: '',
         filteredAssetMakes: filterAssetMakes(assetMakes, value),
         filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-makes') {
       this.setState({
         selectedAssetMake: value,
+        modelNumber: '',
         filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     }
@@ -191,6 +210,7 @@ class AddAssetContainer extends React.Component {
           selectedAssetType={this.state.selectedAssetType}
           buttonState={this.state.saveButtonState}
           onChangeButtonState={this.onChangeButtonState}
+          pageValidator={this.pageValidator}
         />
       );
     } else if (this.state.page === 2) {
@@ -219,6 +239,7 @@ class AddAssetContainer extends React.Component {
         selectedSubcategory={this.state.selectedSubcategory}
         selectedAssetType={this.state.selectedAssetType}
         selectedAssetMake={this.state.selectedAssetMake}
+        pageValidator={this.pageValidator}
         onNextClicked={this.onNextClicked}
       />
     );
