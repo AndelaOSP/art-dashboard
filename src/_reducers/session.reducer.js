@@ -1,14 +1,12 @@
 import constants from '../_constants';
 import initialState from './initialState';
 
-const { SESSION_EXPIRED, SESSION_UNEXPIRED } = constants;
+const { SESSION_EXPIRED } = constants;
 
 export default (state = initialState.session, action) => {
   switch (action.type) {
     case SESSION_EXPIRED:
-      return { ...state, sessionExpired: true };
-    case SESSION_UNEXPIRED:
-      return { ...state, sessionExpired: false };
+      return { ...state, sessionExpired: action.isSessionExpired };
     default:
       return state;
   }

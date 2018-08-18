@@ -4,9 +4,8 @@ import jwt from 'jsonwebtoken';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
-import { expireSession, unexpireSession } from '../_actions/session.action';
+import { expireSession } from '../_actions/session.action';
 import ArtModal from './common/ModalComponent';
-
 
 export class SessionExpiredComponent extends React.Component {
   componentDidMount() {
@@ -24,23 +23,22 @@ export class SessionExpiredComponent extends React.Component {
       const token = jwt.decode(jwToken);
       const { exp: tokenExpiry } = token || {};
       if (now >= tokenExpiry * 1000) {
-        this.props.expireSession();
+        this.props.expireSession(true);
       }
     }
   };
 
   handleLogout = () => {
     localStorage.removeItem('art-prod-web-token');
-    this.props.unexpireSession();
+    this.props.expireSession(false);
     this.props.history.push('/');
   };
 
   render() {
     return (
       <div>
-        { this.props.sessionExpired &&
+        {this.props.sessionExpired && (
         <ArtModal
-          trigger={null}
           open
           onClose={this.handleLogout}
           modalTitle="Session Expired"
@@ -48,10 +46,12 @@ export class SessionExpiredComponent extends React.Component {
           closeOnEscape={false}
           closeOnDimmerClick={false}
         >
-          <p>Your Sign In session has timed out. Please Sign In again.</p>
-          <Button onClick={this.handleLogout}>OK</Button>
+          <div>
+            <p>Your Sign In session has timed out. Please Sign In again.</p>
+            <Button onClick={this.handleLogout}>OK</Button>
+          </div>
         </ArtModal>
-        }
+        )}
       </div>
     );
   }
@@ -61,18 +61,15 @@ const mapStateToProps = ({ session: { sessionExpired } }) => ({ sessionExpired }
 
 SessionExpiredComponent.propTypes = {
   expireSession: PropTypes.func,
-  unexpireSession: PropTypes.func,
   sessionExpired: PropTypes.bool,
   history: PropTypes.object.isRequired,
   push: PropTypes.func
 };
 
 SessionExpiredComponent.defaultProps = {
-  push: () => {
-  }
+  push: () => {}
 };
 
-
 export default withRouter(connect(mapStateToProps, {
-  expireSession, unexpireSession
+  expireSession
 })(SessionExpiredComponent));

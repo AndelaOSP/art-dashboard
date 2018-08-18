@@ -13,7 +13,7 @@ export default class ArtModal extends Component {
     const { children } = this.props;
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child,
-        { close: this.close }
+        { onClose: this.close }
       )
     );
     return (

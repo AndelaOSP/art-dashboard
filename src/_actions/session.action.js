@@ -1,14 +1,12 @@
 import constants from '../_constants';
 
-const { SESSION_EXPIRED, SESSION_UNEXPIRED } = constants;
+const { SESSION_EXPIRED } = constants;
 
 /**
  * load Asset Type thunk
  *
  * @return dispatch type and payload
  */
-export const expireSession = () => ({ type: SESSION_EXPIRED });
+export const expireSession = isSessionExpired => ({ type: SESSION_EXPIRED, isSessionExpired });
 
-export const unexpireSession = () => ({ type: SESSION_UNEXPIRED });
-
-export default { expireSession, unexpireSession };
+export default expireSession;
