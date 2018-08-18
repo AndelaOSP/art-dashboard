@@ -11,7 +11,7 @@ import resetToastMessageContent from '../../_actions/toastMessage.actions';
 class AssetMakeContainer extends React.Component {
   state = {
     assetMake: '',
-    assetType: '',
+    assetType: 0,
     saveButtonState: false
   };
 
@@ -37,7 +37,7 @@ class AssetMakeContainer extends React.Component {
       nextProps.resetToastMessageContent();
       return {
         assetMake: '',
-        assetType: '',
+        assetType: 0,
         saveButtonState: false
       };
     }
@@ -76,6 +76,7 @@ class AssetMakeContainer extends React.Component {
         onSelectAssetType={this.onSelectAssetType}
         onChangeButtonState={this.onChangeButtonState}
         buttonState={this.state.saveButtonState}
+        assetTypeSelectedId={this.state.assetType}
       />
     );
   }

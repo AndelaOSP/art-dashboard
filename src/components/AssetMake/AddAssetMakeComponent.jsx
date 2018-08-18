@@ -33,22 +33,23 @@ const AddAssetMakeComponent = props => (
         label="Asset type"
         placeHolder="Select Asset type"
         name="asset-type"
+        value={props.assetTypeSelectedId}
         onChange={props.onSelectAssetType}
         options={assetTypeOptions(props.assetTypes)}
       />
     </label>
     <br />
     <ArtButton
-      className="save-button"
+      className="cancel"
+      buttonName="Cancel"
+      handleClick={props.toggleModal}
+    />
+    <ArtButton
+      className="save"
       buttonName="Save"
       color="primary"
       handleClick={props.onChangeButtonState}
       buttonState={props.buttonState}
-    />
-    <ArtButton
-      className="cancel-button"
-      buttonName="Cancel"
-      handleClick={props.toggleModal}
     />
   </Form>
 );
@@ -62,6 +63,7 @@ AddAssetMakeComponent.propTypes = {
   onaddAssetMake: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   assetTypes: PropTypes.array,
+  assetTypeSelectedId: PropTypes.number,
   onChangeButtonState: PropTypes.func.isRequired,
   buttonState: PropTypes.bool.isRequired,
   onSelectAssetType: PropTypes.func.isRequired

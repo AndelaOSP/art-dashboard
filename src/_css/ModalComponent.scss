@@ -194,4 +194,6 @@
 
 .modal-container {
   height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
