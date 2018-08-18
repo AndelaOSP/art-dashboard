@@ -11,7 +11,7 @@ import NavbarComponent from './NavBarComponent';
 export class AssetDetailComponent extends Component {
   state = {
     assignedUser: {},
-    selectedUser: '',
+    selectedUser: 0,
     serialNumber: '',
     open: false,
     assignAssetButtonState: true
@@ -96,6 +96,7 @@ export class AssetDetailComponent extends Component {
             handleAssign={this.handleAssign}
             handleUnassign={this.handleUnassign}
             open={this.state.open}
+            selectedUserId={this.state.selectedUser}
             show={this.show}
             handleConfirm={this.handleConfirm}
             handleCancel={this.handleCancel}

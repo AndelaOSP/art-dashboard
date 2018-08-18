@@ -13,7 +13,7 @@ import resetToastMessageContent from '../../_actions/toastMessage.actions';
 class AddSubCategoriesContainer extends React.Component {
   state = {
     subCategory: '',
-    category: '',
+    category: 0,
     saveButtonState: false
   };
 
@@ -35,7 +35,7 @@ class AddSubCategoriesContainer extends React.Component {
       nextProps.resetToastMessageContent();
       return {
         subCategory: '',
-        category: '',
+        category: 0,
         saveButtonState: false
       };
     }
@@ -79,6 +79,7 @@ class AddSubCategoriesContainer extends React.Component {
         handleSubmit={this.handleSubmit}
         onChangeButtonState={this.onChangeButtonState}
         buttonState={this.state.saveButtonState}
+        categorySelectedId={this.state.category}
         toggleModal={this.props.toggleModal}
       />
     );

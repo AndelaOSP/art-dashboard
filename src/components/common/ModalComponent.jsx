@@ -46,7 +46,7 @@ export default class ArtModal extends Component {
           closeOnDimmerClick={this.props.closeOnDimmerClick}
         >
           <Modal.Header>{this.props.modalTitle} <div className="underline" /></Modal.Header>
-          <Modal.Content style={{ overflowY: 'auto' }}>
+          <Modal.Content>
             <Modal.Description style={{ width: '100%' }}>
               {childrenWithProps}
             </Modal.Description>
