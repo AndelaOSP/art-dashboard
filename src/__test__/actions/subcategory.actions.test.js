@@ -75,8 +75,9 @@ describe('Subcategory action tests', () => {
 
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategoriesDropdown called successfully', () => {
     mock.onGet().reply(200, mockSubcategories);
-    return store.dispatch(loadSubCategoriesDropdown(2)).then(() => {
-      expect(store.getActions()[0].type).toEqual(DROPDOWN_SUBCATEGORIES_SUCCESS);
+    return store.dispatch(loadSubCategoriesDropdown()).then(() => {
+      expect(store.getActions()[0].type).toEqual(LOADING_SUBCATEGORIES);
+      expect(store.getActions()[1].type).toEqual(DROPDOWN_SUBCATEGORIES_SUCCESS);
     });
   });
 });

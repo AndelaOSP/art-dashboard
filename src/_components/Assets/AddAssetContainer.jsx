@@ -271,7 +271,13 @@ const mapStateToProps = ({
   assetMakes: assetMakesList.assetMakes,
   modelNumbers: modelNumbersList,
   assets: assets.assetsList,
-  toastMessageContent: toastMessage
+  toastMessageContent: toastMessage,
+  isLoadingState: {
+    isLoadingCategories: categoriesList.isLoading,
+    isLoadingSubcategories: subcategoriesList.isLoading,
+    isLoadingAssetTypes: assetTypesList.isLoading,
+    isLoadingAssetMakes: assetMakesList.isLoading
+  }
 });
 
 export default connect(mapStateToProps, {

@@ -93,7 +93,8 @@ describe('Asset Types action tests', () => {
       }
     });
     return store.dispatch(loadDropdownAssetTypes()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOAD_DROPDOWN_ASSET_TYPES_SUCCESS);
+      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
+      expect(store.getActions()[1].type).toEqual(LOAD_DROPDOWN_ASSET_TYPES_SUCCESS);
     });
   });
 
@@ -103,7 +104,8 @@ describe('Asset Types action tests', () => {
       response: {}
     });
     return store.dispatch(loadDropdownAssetTypes()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOAD_DROPDOWN_ASSET_TYPES_FAILURE);
+      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
+      expect(store.getActions()[1].type).toEqual(LOAD_DROPDOWN_ASSET_TYPES_FAILURE);
     });
   });
 });

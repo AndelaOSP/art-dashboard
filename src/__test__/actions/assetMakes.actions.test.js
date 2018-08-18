@@ -52,7 +52,8 @@ describe('Asset Makes action tests', () => {
   it('should dispatch DROPDOWN_ASSET_MAKES_SUCCESS when loadAssetMakesDropdown called successfully', () => {
     mock.onGet().reply(200, mockAssetMakes);
     return store.dispatch(loadAssetMakesDropdown()).then(() => {
-      expect(store.getActions()[0].type).toEqual(DROPDOWN_ASSET_MAKES_SUCCESS);
+      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MAKES);
+      expect(store.getActions()[1].type).toEqual(DROPDOWN_ASSET_MAKES_SUCCESS);
     });
   });
 

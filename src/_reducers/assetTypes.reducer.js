@@ -40,12 +40,14 @@ export default (state = initialState, action) => {
     case LOAD_DROPDOWN_ASSET_TYPES_SUCCESS:
       return {
         ...state,
-        assetTypes: [...action.payload]
+        assetTypes: [...action.payload],
+        isLoading: false
       };
     case LOAD_DROPDOWN_ASSET_TYPES_FAILURE:
       return {
         ...state,
-        assetTypes: []
+        assetTypes: [],
+        isLoading: false
       };
     case CREATE_ASSET_TYPE_SUCCESS: {
       state.assetTypes.push(action.payload);

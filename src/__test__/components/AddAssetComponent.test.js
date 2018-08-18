@@ -37,6 +37,7 @@ const props = {
     type: '',
     message: ''
   },
+  isLoadingState: {},
   categories: assetCategories,
   subcategories: assetSubCategories,
   assetTypes,

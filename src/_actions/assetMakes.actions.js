@@ -33,8 +33,10 @@ export const loadAssetMakes = (pageNumber, limit) => (dispatch) => {
     );
 };
 
-export const loadAssetMakesDropdown = () => dispatch =>
-  axios.get('asset-makes/?paginate=false')
+export const loadAssetMakesDropdown = () => (dispatch) => {
+  dispatch({ type: LOADING_ASSET_MAKES });
+
+  return axios.get('asset-makes/?paginate=false')
     .then(response =>
       dispatch({
         type: DROPDOWN_ASSET_MAKES_SUCCESS,
@@ -46,8 +48,8 @@ export const loadAssetMakesDropdown = () => dispatch =>
         payload: error
       });
       dispatch(updateToastMessageContent(error.message, 'error'));
-    }
-    );
+    });
+};
 
 
 export const addAssetMakes = newMake => (dispatch =>

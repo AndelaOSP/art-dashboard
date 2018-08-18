@@ -100,7 +100,8 @@ AddSubCategoriesContainer.defaultProps = {
 
 const mapStateToProps = ({ categoriesList, toastMessage }) => ({
   categoriesList: categoriesList.categoriesDropdown,
-  toastMessageContent: toastMessage
+  toastMessageContent: toastMessage,
+  isLoading: categoriesList.isLoading
 });
 
 export default connect(mapStateToProps, {

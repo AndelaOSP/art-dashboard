@@ -70,8 +70,10 @@ export const createSubCategoryFailure = error => ({
   type: CREATE_SUBCATEGORY_FAILURE, payload: error
 });
 
-export const loadSubCategoriesDropdown = () => dispatch =>
-  axios.get('asset-sub-categories/?paginate=false')
+export const loadSubCategoriesDropdown = () => (dispatch) => {
+  dispatch({ type: LOADING_SUBCATEGORIES });
+
+  return axios.get('asset-sub-categories/?paginate=false')
     .then((response) => {
       dispatch(dropdownSubCategoriesSuccess(response.data));
     }).catch((error) => {
@@ -79,3 +81,4 @@ export const loadSubCategoriesDropdown = () => dispatch =>
       dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
         'error'));
     });
+};

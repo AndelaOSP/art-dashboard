@@ -99,7 +99,8 @@ ModelNumberContainer.defaultProps = {
 
 const mapStateToProps = ({ assetMakesList, toastMessage }) => ({
   assetMakes: assetMakesList.assetMakes,
-  toastMessageContent: toastMessage
+  toastMessageContent: toastMessage,
+  isLoading: assetMakesList.isLoading
 });
 
 export default connect(mapStateToProps, {

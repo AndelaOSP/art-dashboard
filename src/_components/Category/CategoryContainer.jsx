@@ -71,9 +71,10 @@ CategoryContainer.propTypes = {
   resetToastMessageContent: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ categories, toastMessage }) => ({
+const mapStateToProps = ({ categories, toastMessage, isLoading }) => ({
   categories,
-  toastMessageContent: toastMessage
+  toastMessageContent: toastMessage,
+  isLoading
 });
 
 export default connect(mapStateToProps, {

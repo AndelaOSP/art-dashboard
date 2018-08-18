@@ -43,8 +43,10 @@ export const createAssetTypeFailure = error => (
   { type: CREATE_ASSET_TYPE_FAILURE, payload: error }
 );
 
-export const loadDropdownAssetTypes = () => dispatch =>
-  axios
+export const loadDropdownAssetTypes = () => (dispatch) => {
+  dispatch({ type: LOADING_ASSET_TYPES });
+
+  return axios
     .get('asset-types/?paginate=false')
     .then((response) => {
       dispatch(dropdownAssetTypeSuccess(response.data));
@@ -52,6 +54,7 @@ export const loadDropdownAssetTypes = () => dispatch =>
       dispatch(dropdownAssetTypeFailure(error));
       dispatch(updateToastMessageContent(error.message, 'error'));
     });
+};
 
 export const dropdownAssetTypeSuccess = allAssetTypes => ({
   type: LOAD_DROPDOWN_ASSET_TYPES_SUCCESS, payload: allAssetTypes
