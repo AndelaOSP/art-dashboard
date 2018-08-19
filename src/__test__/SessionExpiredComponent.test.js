@@ -11,8 +11,7 @@ describe('Renders <SessionExpiredComponent /> correctly', () => {
   const props = {
     expireSession: jest.fn(),
     sessionExpired: false,
-    history: {},
-    push: jest.fn()
+    history: { push: jest.fn() }
   };
   const wrapper = shallow(<SessionExpiredComponent
     {...props}
@@ -31,5 +30,14 @@ describe('Renders <SessionExpiredComponent /> correctly', () => {
   it('renders Button component if sessionExpired is true', () => {
     wrapper.setProps({ sessionExpired: true });
     expect(wrapper.find('Button').length).toBe(1);
+  });
+
+  it('should call the handleLogout function when the OK button is clicked', () => {
+    const handleLogoutSpy = jest.spyOn(
+      wrapper.instance(), 'handleLogout'
+    );
+    wrapper.find('Button').simulate('click');
+    wrapper.instance().handleLogout();
+    expect(handleLogoutSpy.mock.calls.length).toEqual(1);
   });
 });
