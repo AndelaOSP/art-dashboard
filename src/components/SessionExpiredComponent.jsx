@@ -40,7 +40,7 @@ export class SessionExpiredComponent extends React.Component {
         {this.props.sessionExpired && (
         <ArtModal
           open
-          onClose={this.handleLogout}
+          onClose
           modalTitle="Session Expired"
           closeIcon={false}
           closeOnEscape={false}
