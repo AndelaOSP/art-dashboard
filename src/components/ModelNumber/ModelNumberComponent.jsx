@@ -16,7 +16,11 @@ const placeMakesInSemanticUIOptions = assetMakesList =>
 
 const ModelNumberComponent = (props) => {
   if (props.isLoading) {
-    return (<LoaderComponent />);
+    return (
+      <div className="loader-container" >
+        <LoaderComponent />
+      </div>
+    );
   }
 
   return (
@@ -56,8 +60,8 @@ const ModelNumberComponent = (props) => {
           handleClick={props.onChangeButtonState}
           buttonState={props.buttonState}
         />
-      </Form >
-    </div >
+      </Form>
+    </div>
   );
 };
 

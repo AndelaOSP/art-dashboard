@@ -15,7 +15,11 @@ const placeCategoriesInSemanticUIOptions = props => props.map((option, index) =>
 
 const FilterAssetComponent = (props) => {
   if (Object.values(props.isLoadingState).find(loading => loading === true)) {
-    return (<LoaderComponent />);
+    return (
+      <div className="modal-container" >
+        <LoaderComponent />
+      </div>
+    );
   }
 
   return (

@@ -15,7 +15,11 @@ const populateCategories = props =>
 
 const AddSubCategoryComponent = (props) => {
   if (props.isLoading) {
-    return (<LoaderComponent />);
+    return (
+      <div className="loader-container" >
+        <LoaderComponent />
+      </div>
+    );
   }
 
   return (

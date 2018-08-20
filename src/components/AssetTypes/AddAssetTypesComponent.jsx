@@ -15,7 +15,11 @@ const placeMakesInSemanticUIOptions = props =>
 
 const AssetTypesComponent = (props) => {
   if (props.isLoading) {
-    return (<LoaderComponent />);
+    return (
+      <div className="loader-container" >
+        <LoaderComponent />
+      </div>
+    );
   }
 
   return (
