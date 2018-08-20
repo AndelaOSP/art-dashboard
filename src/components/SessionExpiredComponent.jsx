@@ -38,19 +38,19 @@ export class SessionExpiredComponent extends React.Component {
     return (
       <div>
         {this.props.sessionExpired && (
-        <ArtModal
-          open
-          onClose
-          modalTitle="Session Expired"
-          closeIcon={false}
-          closeOnEscape={false}
-          closeOnDimmerClick={false}
-        >
-          <div>
-            <p>Your Sign In session has timed out. Please Sign In again.</p>
-            <Button onClick={this.handleLogout}>OK</Button>
-          </div>
-        </ArtModal>
+          <ArtModal
+            open
+            onClose
+            modalTitle="Session Expired"
+            closeIcon={false}
+            closeOnEscape={false}
+            closeOnDimmerClick={false}
+          >
+            <div>
+              <p>Your Sign In session has timed out. Please Sign In again.</p>
+              <Button onClick={this.handleLogout}>OK</Button>
+            </div>
+          </ArtModal>
         )}
       </div>
     );

@@ -11,9 +11,7 @@ import { expireSession } from '../../_actions/session.action';
 // mock data
 let isSessionExpired = false;
 
-const {
-  SESSION_EXPIRED
-} = constants;
+const { SESSION_EXPIRED } = constants;
 
 // store
 const middleware = [thunk];

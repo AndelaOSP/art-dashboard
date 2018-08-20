@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
@@ -11,26 +11,21 @@ import store from './_store';
 
 const history = createBrowserHistory();
 
-// eslint-disable-next-line react/prefer-stateless-function
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Provider store={store}>
+const App = () => (
+  <div className="App">
+    <Provider store={store}>
+      <div>
+        <Router history={history}>
           <div>
-            <Router history={history}>
-              <div>
-                <Switch>
-                  <Route path="/" component={RoutesComponent} />
-                </Switch>
-                <SessionExpired history={history} />
-              </div>
-            </Router>
+            <Switch>
+              <Route path="/" component={RoutesComponent} />
+            </Switch>
+            <SessionExpired history={history} />
           </div>
-        </Provider>
+        </Router>
       </div>
-    );
-  }
-}
+    </Provider>
+  </div>
+);
 
 export default App;
