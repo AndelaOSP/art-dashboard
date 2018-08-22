@@ -16,37 +16,27 @@ const {
  * @return dispatch loadAssetMakesSuccess type and payload
  */
 export const loadAssetMakes = (pageNumber, limit) => (dispatch) => {
-  dispatch({ type: LOADING_ASSET_MAKES });
+  dispatch(loading(true));
   return axios.get(`asset-makes?page=${pageNumber}&page_size=${limit}`)
-    .then(response =>
-      dispatch({
-        type: LOAD_ASSET_MAKES_SUCCESS,
-        payload: response.data
-      }))
+    .then((response) => {
+      dispatch(loading(false));
+      dispatch(loadAssetMakesSuccess(response.data));
+    })
     .catch((error) => {
-      dispatch({
-        type: LOAD_ASSET_MAKES_FAILURE,
-        payload: error
-      });
+      dispatch(loadAssetMakesFailure(error));
       dispatch(updateToastMessageContent(error.message, 'error'));
-    }
-    );
+    });
 };
 
 export const loadAssetMakesDropdown = () => (dispatch) => {
-  dispatch({ type: LOADING_ASSET_MAKES });
-
+  dispatch(loading(true));
   return axios.get('asset-makes/?paginate=false')
-    .then(response =>
-      dispatch({
-        type: DROPDOWN_ASSET_MAKES_SUCCESS,
-        payload: response.data
-      }))
+    .then((response) => {
+      dispatch(loading(false));
+      dispatch(loadDropdownSuccess(response.data));
+    })
     .catch((error) => {
-      dispatch({
-        type: LOAD_ASSET_MAKES_FAILURE,
-        payload: error
-      });
+      dispatch(loadAssetMakesFailure(error));
       dispatch(updateToastMessageContent(error.message, 'error'));
     });
 };
@@ -72,5 +62,22 @@ export const addAssetMakesSuccess = assetMakes => ({
 });
 
 const addAssetMakesFailure = error => ({
-  type: ADD_ASSET_MAKE_FAILURE, payload: error
+  type: ADD_ASSET_MAKE_FAILURE, payload: error.message
+});
+
+const loading = loadState => ({
+  type: LOADING_ASSET_MAKES,
+  loadState
+});
+
+const loadAssetMakesSuccess = makes => ({
+  type: LOAD_ASSET_MAKES_SUCCESS, payload: makes
+});
+
+const loadAssetMakesFailure = error => ({
+  type: LOAD_ASSET_MAKES_FAILURE, payload: error.message
+});
+
+const loadDropdownSuccess = makes => ({
+  type: DROPDOWN_ASSET_MAKES_SUCCESS, payload: makes
 });

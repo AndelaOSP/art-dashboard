@@ -16,7 +16,7 @@ import assetTypes from '../../_mock/assetTypes';
 const {
   LOAD_ASSET_TYPES_SUCCESS,
   LOAD_ASSET_TYPES_FAILURE,
-  LOADING_ASSET_TYPES,
+  // LOADING_ASSET_TYPES,
   CREATE_ASSET_TYPE_SUCCESS,
   CREATE_ASSET_TYPE_FAILURE,
   LOAD_DROPDOWN_ASSET_TYPES_SUCCESS,
@@ -47,10 +47,15 @@ describe('Asset Types action tests', () => {
         results: assetTypes
       }
     });
-    return store.dispatch(loadAssetTypes(1, 10)).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
-      expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_SUCCESS);
-    });
+    return store.dispatch(loadAssetTypes(1, 10))
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: {
+            results: assetTypes
+          },
+          type: LOAD_ASSET_TYPES_SUCCESS
+        });
+      });
   });
 
   it('dispatches LOAD_ASSET_TYPES_FAILURE when loadAssetTypeAction is called unsuccessfully', () => {
@@ -58,10 +63,13 @@ describe('Asset Types action tests', () => {
       status: 404,
       response: {}
     });
-    return store.dispatch(loadAssetTypes(1, 10)).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
-      expect(store.getActions()[1].type).toEqual(LOAD_ASSET_TYPES_FAILURE);
-    });
+    return store.dispatch(loadAssetTypes(1, 10))
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: 'Request failed with status code 404',
+          type: LOAD_ASSET_TYPES_FAILURE
+        });
+      });
   });
 
   it('dispatches CREATE_ASSET_TYPE_SUCCESS when createAssetType is called successfully', () => {
@@ -69,9 +77,13 @@ describe('Asset Types action tests', () => {
       status: 201,
       response: assetTypes[0]
     });
-    return store.dispatch(createAssetType(assetTypes[0])).then(() => {
-      expect(store.getActions()[0].type).toEqual(CREATE_ASSET_TYPE_SUCCESS);
-    });
+    return store.dispatch(createAssetType(assetTypes[0]))
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: assetTypes[0],
+          type: CREATE_ASSET_TYPE_SUCCESS
+        });
+      });
   });
 
   it('dispatches CREATE_ASSET_TYPE_FAILURE when createAssetType fails', () => {
@@ -79,9 +91,13 @@ describe('Asset Types action tests', () => {
       status: 401,
       response: {}
     });
-    return store.dispatch(createAssetType(assetTypes[0])).then(() => {
-      expect(store.getActions()[0].type).toEqual(CREATE_ASSET_TYPE_FAILURE);
-    });
+    return store.dispatch(createAssetType(assetTypes[0]))
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: 'Request failed with status code 401',
+          type: CREATE_ASSET_TYPE_FAILURE
+        });
+      });
   });
 
   it('dispatches LOAD_DROPDOWN_ASSET_TYPES_SUCCESS when loadDropdownAssetTypes is called successfully', () => {
@@ -92,10 +108,16 @@ describe('Asset Types action tests', () => {
         count: assetTypes.length
       }
     });
-    return store.dispatch(loadDropdownAssetTypes()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
-      expect(store.getActions()[1].type).toEqual(LOAD_DROPDOWN_ASSET_TYPES_SUCCESS);
-    });
+    return store.dispatch(loadDropdownAssetTypes())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: {
+            count: 3,
+            results: assetTypes
+          },
+          type: LOAD_DROPDOWN_ASSET_TYPES_SUCCESS
+        });
+      });
   });
 
   it('dispatches LOAD_DROPDOWN_ASSET_TYPES_FAILURE when loadDropdownAssetTypes gets error', () => {
@@ -103,9 +125,12 @@ describe('Asset Types action tests', () => {
       status: 401,
       response: {}
     });
-    return store.dispatch(loadDropdownAssetTypes()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_TYPES);
-      expect(store.getActions()[1].type).toEqual(LOAD_DROPDOWN_ASSET_TYPES_FAILURE);
-    });
+    return store.dispatch(loadDropdownAssetTypes())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: 'Request failed with status code 401',
+          type: LOAD_DROPDOWN_ASSET_TYPES_FAILURE
+        });
+      });
   });
 });

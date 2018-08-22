@@ -19,8 +19,9 @@ import assetMakes from '../../_mock/assetMakes';
 const {
   LOAD_ASSET_MAKES_SUCCESS,
   LOAD_ASSET_MAKES_FAILURE,
-  LOADING_ASSET_MAKES,
-  DROPDOWN_ASSET_MAKES_SUCCESS
+  // LOADING_ASSET_MAKES,
+  DROPDOWN_ASSET_MAKES_SUCCESS,
+  ADD_ASSET_MAKE_FAILURE
 } = constants;
 
 // store
@@ -43,25 +44,33 @@ describe('Asset Makes action tests', () => {
 
   it('should dispatch LOAD_ASSET_MAKES_SUCCESS when loadAssetMakes called successfully', () => {
     mock.onGet().reply(200, mockAssetMakes);
-    return store.dispatch(loadAssetMakes()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MAKES);
-      expect(store.getActions()[1].type).toEqual(LOAD_ASSET_MAKES_SUCCESS);
-    });
+    return store.dispatch(loadAssetMakes())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: mockAssetMakes,
+          type: LOAD_ASSET_MAKES_SUCCESS
+        });
+      });
   });
 
   it('should dispatch DROPDOWN_ASSET_MAKES_SUCCESS when loadAssetMakesDropdown called successfully', () => {
     mock.onGet().reply(200, mockAssetMakes);
-    return store.dispatch(loadAssetMakesDropdown()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MAKES);
-      expect(store.getActions()[1].type).toEqual(DROPDOWN_ASSET_MAKES_SUCCESS);
-    });
+    return store.dispatch(loadAssetMakesDropdown())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: mockAssetMakes,
+          type: DROPDOWN_ASSET_MAKES_SUCCESS
+        });
+      });
   });
 
   it('should dispatch LOAD_ASSET_MAKES_FAILURE when AssetMakes are not loaded', () => {
     mock.onGet().reply(401);
     return store.dispatch(loadAssetMakes()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_ASSET_MAKES);
-      expect(store.getActions()[1].type).toEqual(LOAD_ASSET_MAKES_FAILURE);
+      expect(store.getActions()).toContainEqual({
+        payload: 'Request failed with status code 401',
+        type: LOAD_ASSET_MAKES_FAILURE
+      });
     });
   });
 
@@ -86,9 +95,10 @@ describe('Asset Makes action tests', () => {
           asset_type: 'Test asset type'
         }
       );
-    return store.dispatch(addAssetMakes(newMake)).then(() => {
-      expect(store.getActions()[0]).toEqual(expectedAction[0]);
-    });
+    return store.dispatch(addAssetMakes(newMake))
+      .then(() => {
+        expect(store.getActions()).toContainEqual(expectedAction[0]);
+      });
   });
 
   it('should dispatch ADD_ASSET_MAKE_FAILURE when addAssetMakes is called with make_label field empty', () => {
@@ -104,7 +114,10 @@ describe('Asset Makes action tests', () => {
         {}
       );
     return store.dispatch(addAssetMakes(newMake)).then(() => {
-      expect(store.getActions()[0].type).toEqual('ADD_ASSET_MAKE_FAILURE');
+      expect(store.getActions()).toContainEqual({
+        payload: 'Request failed with status code 401',
+        type: ADD_ASSET_MAKE_FAILURE
+      });
     });
   });
 });
