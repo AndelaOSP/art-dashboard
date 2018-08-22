@@ -14,7 +14,7 @@ const placeCategoriesInSemanticUIOptions = props => props.map((option, index) =>
 }));
 
 const FilterAssetComponent = (props) => {
-  if (Object.values(props.isLoadingState).find(loading => loading === true)) {
+  if (Object.values(props.isLoadingState).find(loading => loading)) {
     return (
       <div className="modal-container" >
         <LoaderComponent />
@@ -25,7 +25,7 @@ const FilterAssetComponent = (props) => {
   return (
     <div className="modal-container" >
       <div className="page-indicator">
-        <div className={props.page === 0 ? 'circle shade-2' : 'circle shade-1'}>1</div>
+        <div className={props.page ? 'circle shade-1' : 'circle shade-2'}>1</div>
         Identify your device
         <div className="line" />
         <div className="circle">2</div>

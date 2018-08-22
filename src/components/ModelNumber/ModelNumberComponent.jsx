@@ -24,44 +24,42 @@ const ModelNumberComponent = (props) => {
   }
 
   return (
-    <div>
-      <Form onSubmit={props.handleSubmit}>
-        <label htmlFor="model-number" className="label-style">
-          Model Number
-          <InputFluid
-            name="model-number"
-            onChange={props.onAddModelNumber}
-            placeHolder="Enter Model Number"
-          />
-        </label>
-        <br />
-        <label htmlFor="asset-make" className="label-style">
-          Asset Make
-          <DropdownComponent
-            customClass="form-dropdown"
-            label="Asset Makes"
-            placeHolder="Select Asset Makes"
-            name="asset-make"
-            value={props.assetMakeSelectedId}
-            onChange={props.onSelectAssetMake}
-            options={placeMakesInSemanticUIOptions(props.assetMakes)}
-          />
-        </label>
-        <br />
-        <ArtButton
-          className="cancel"
-          buttonName="Cancel"
-          handleClick={props.toggleModal}
+    <Form onSubmit={props.handleSubmit}>
+      <label htmlFor="model-number" className="label-style">
+        Model Number
+        <InputFluid
+          name="model-number"
+          onChange={props.onAddModelNumber}
+          placeHolder="Enter Model Number"
         />
-        <ArtButton
-          className="save"
-          buttonName="Save"
-          color="primary"
-          handleClick={props.onChangeButtonState}
-          buttonState={props.buttonState}
+      </label>
+      <br />
+      <label htmlFor="asset-make" className="label-style">
+        Asset Make
+        <DropdownComponent
+          customClass="form-dropdown"
+          label="Asset Makes"
+          placeHolder="Select Asset Makes"
+          name="asset-make"
+          value={props.assetMakeSelectedId}
+          onChange={props.onSelectAssetMake}
+          options={placeMakesInSemanticUIOptions(props.assetMakes)}
         />
-      </Form>
-    </div>
+      </label>
+      <br />
+      <ArtButton
+        className="cancel"
+        buttonName="Cancel"
+        handleClick={props.toggleModal}
+      />
+      <ArtButton
+        className="save"
+        buttonName="Save"
+        color="primary"
+        handleClick={props.onChangeButtonState}
+        buttonState={props.buttonState}
+      />
+    </Form>
   );
 };
 
