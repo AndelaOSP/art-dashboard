@@ -114,8 +114,6 @@ class AddAssetContainer extends React.Component {
     if (name === 'asset-category') {
       this.setState({
         selectedCategory: value,
-        selectedSubcategory: '',
-        selectedAssetType: '',
         selectedAssetMake: '',
         filteredSubCategories: filterSubCategories(subcategories, value),
         filteredAssetTypes: filterAssetTypes(assetTypes, value),
@@ -125,7 +123,6 @@ class AddAssetContainer extends React.Component {
     } else if (name === 'asset-subcategory') {
       this.setState({
         selectedSubcategory: value,
-        selectedAssetType: '',
         selectedAssetMake: '',
         filteredAssetTypes: filterAssetTypes(assetTypes, value),
         filteredAssetMakes: filterAssetMakes(assetMakes, value),
