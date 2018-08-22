@@ -97,14 +97,13 @@ class AddAssetContainer extends React.Component {
 
   pageValidator = () => {
     if (this.state.page === 0) {
-      return (!_.isEmpty(this.state.selectedAssetMake));
-    } else if (this.state.page === 1) {
-      return (!_.isEmpty(this.state.modelNumber)
-        && !_.isEmpty(this.state.serialNumber)
-        && !_.isEmpty(this.state.assetTag)
-      );
+      return (_.isEmpty(this.state.selectedAssetMake));
     }
-    return false;
+    return (
+      _.isEmpty(this.state.modelNumber) ||
+      _.isEmpty(this.state.serialNumber) ||
+      _.isEmpty(this.state.assetTag)
+    );
   }
 
   handleDropdownChanges = (event, data) => {
@@ -192,6 +191,8 @@ class AddAssetContainer extends React.Component {
   };
 
   render() {
+    const isDisabled = this.pageValidator();
+
     if (this.state.page === 1) {
       return (
         <AddAssetComponent
@@ -210,7 +211,7 @@ class AddAssetContainer extends React.Component {
           selectedAssetType={this.state.selectedAssetType}
           buttonState={this.state.saveButtonState}
           onChangeButtonState={this.onChangeButtonState}
-          pageValidator={this.pageValidator}
+          isDisabled={isDisabled}
         />
       );
     } else if (this.state.page === 2) {
@@ -239,7 +240,7 @@ class AddAssetContainer extends React.Component {
         selectedSubcategory={this.state.selectedSubcategory}
         selectedAssetType={this.state.selectedAssetType}
         selectedAssetMake={this.state.selectedAssetMake}
-        pageValidator={this.pageValidator}
+        isDisabled={isDisabled}
         onNextClicked={this.onNextClicked}
       />
     );

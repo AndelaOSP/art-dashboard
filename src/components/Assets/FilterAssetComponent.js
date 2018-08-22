@@ -86,6 +86,7 @@ const FilterAssetComponent = (props) => {
         color="primary"
         handleClick={props.onNextClicked}
         buttonState={props.buttonState}
+        disabledState={props.isDisabled}
       />
     </div>
   );
@@ -98,7 +99,7 @@ FilterAssetComponent.propTypes = {
   filteredAssetMakes: PropTypes.array,
   toggleModal: PropTypes.func.isRequired,
   onNextClicked: PropTypes.func.isRequired,
-  pageValidator: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   categories: PropTypes.array,
   page: PropTypes.number.isRequired,
   selectedCategory: PropTypes.string,

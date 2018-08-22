@@ -21,8 +21,6 @@ const specsComponentCheck = (userDefinedassetType) => {
   return false;
 };
 
-const isEnabled = props => props();
-
 const AddAssetComponent = props => (
   <div className="modal-container">
     <div className="page-indicator">
@@ -77,7 +75,7 @@ const AddAssetComponent = props => (
             buttonName="Next"
             color="primary"
             handleClick={props.onNextClicked}
-            disabledState={!isEnabled(props.pageValidator)}
+            disabledState={props.isDisabled}
           />
           :
           <ArtButton
@@ -86,7 +84,7 @@ const AddAssetComponent = props => (
             color="primary"
             handleClick={props.onChangeButtonState}
             buttonState={props.buttonState}
-            disabledState={!isEnabled(props.pageValidator)}
+            disabledState={props.isDisabled}
           />
       }
     </Form>
@@ -103,7 +101,7 @@ AddAssetComponent.propTypes = {
   onChangeButtonState: PropTypes.func.isRequired,
   onNextClicked: PropTypes.func.isRequired,
   selectedAssetType: PropTypes.string.isRequired,
-  pageValidator: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   buttonState: PropTypes.bool,
   page: PropTypes.number,
   modelNumber: PropTypes.string,
