@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
 import { withRouter } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
 import { expireSession } from '../_actions/session.action';
 import ArtModal from './common/ModalComponent';
 
