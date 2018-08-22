@@ -7,13 +7,13 @@ import '../../_css/ModalComponent.css';
 export default class ArtModal extends Component {
   state = { modalOpen: this.props.open || false }
 
-  close = () => this.setState({ modalOpen: !this.state.modalOpen });
+  toggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   render() {
     const { children } = this.props;
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child,
-        { onClose: this.close }
+        { toggleModal: this.toggleModal }
       )
     );
     return (
@@ -24,7 +24,7 @@ export default class ArtModal extends Component {
               <span
                 tabIndex="-1"
                 role="button"
-                onClick={this.close}
+                onClick={this.toggleModal}
                 onKeyUp={(() => {})}
               >
                 {this.props.trigger}
@@ -32,14 +32,14 @@ export default class ArtModal extends Component {
             ) : (
               <i
                 className="plus link icon"
-                onClick={this.close}
+                onClick={this.toggleModal}
                 onKeyUp={() => {}}
                 role="button"
                 tabIndex="-1"
               />
             )}
           open={this.state.modalOpen}
-          onClose={this.close}
+          onClose={this.toggleModal}
           size={this.props.modalSize}
           closeIcon={this.props.closeIcon}
           closeOnEscape={this.props.closeOnEscape}
