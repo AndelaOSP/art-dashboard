@@ -41,7 +41,6 @@ describe('Asset Types action tests', () => {
 
   store = mockStore({});
 
-
   it('should dispatch LOADING_ASSET_TYPES with isLoading true when fetching asset types', () => {
     moxios.stubRequest(url2, {
       status: 200,

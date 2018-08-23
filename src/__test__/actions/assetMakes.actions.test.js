@@ -42,7 +42,6 @@ describe('Asset Makes action tests', () => {
     store.clearActions();
   });
 
-
   it('should dispatch LOADING_ASSET_MAKES with isLoading true when fetching asset makes', () => {
     mock.onGet().reply(200, mockAssetMakes);
     return store.dispatch(loadAssetMakes())

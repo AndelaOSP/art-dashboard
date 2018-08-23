@@ -48,7 +48,6 @@ describe('Subcategory action tests', () => {
     results: subcategories
   };
 
-
   it('should dispatch LOADING_SUBCATEGORIES with isLoading true when fetching SubCategories', () => {
     mock.onGet().reply(200, mockSubcategories);
     return store.dispatch(loadSubCategories())

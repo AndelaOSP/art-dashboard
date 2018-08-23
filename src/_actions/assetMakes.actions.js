@@ -60,11 +60,13 @@ export const addAssetMakes = newMake => (dispatch =>
 );
 
 export const addAssetMakesSuccess = assetMakes => ({
-  type: ADD_ASSET_MAKE_SUCCESS, payload: assetMakes
+  type: ADD_ASSET_MAKE_SUCCESS,
+  payload: assetMakes
 });
 
 const addAssetMakesFailure = error => ({
-  type: ADD_ASSET_MAKE_FAILURE, payload: error.message
+  type: ADD_ASSET_MAKE_FAILURE,
+  payload: error.message
 });
 
 const loading = isLoading => ({
@@ -73,13 +75,16 @@ const loading = isLoading => ({
 });
 
 const loadAssetMakesSuccess = makes => ({
-  type: LOAD_ASSET_MAKES_SUCCESS, payload: makes
+  type: LOAD_ASSET_MAKES_SUCCESS,
+  payload: makes
 });
 
 const loadAssetMakesFailure = error => ({
-  type: LOAD_ASSET_MAKES_FAILURE, payload: error.message
+  type: LOAD_ASSET_MAKES_FAILURE,
+  payload: error.message
 });
 
 const loadDropdownSuccess = makes => ({
-  type: DROPDOWN_ASSET_MAKES_SUCCESS, payload: makes
+  type: DROPDOWN_ASSET_MAKES_SUCCESS,
+  payload: makes
 });

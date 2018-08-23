@@ -18,7 +18,8 @@ const props = {
   loadDropdownAssetTypes: jest.fn(),
   loadAssetMakes: jest.fn(),
   resetToastMessageContent: jest.fn(),
-  toastMessageContent: {}
+  toastMessageContent: {},
+  isLoading: false
 };
 
 describe('Renders <AddAssetMakeComponent /> correctly', () => {
@@ -57,6 +58,13 @@ describe('Renders <AddAssetMakeComponent /> correctly', () => {
     expect(form.length).toEqual(1);
     form.simulate('submit');
     expect(props.handleSubmit.mock.calls.length).toEqual(1);
+  });
+
+  it('renders Loading component if isLoading is true', () => {
+    wrapper.setProps({
+      isLoading: true
+    });
+    expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 });
 

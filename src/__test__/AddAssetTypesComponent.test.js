@@ -50,6 +50,13 @@ describe('renders <AddAssetTypesComponent />', () => {
     wrapper.setProps({ buttonState: true });
     expect(wrapper.find('.save').props().buttonState).toEqual(true);
   });
+
+  it('renders Loading component if isLoading is true', () => {
+    wrapper.setProps({
+      isLoading: true
+    });
+    expect(wrapper.find('LoaderComponent').length).toBe(1);
+  });
 });
 
 describe('AddAssetTypeContainer', () => {
