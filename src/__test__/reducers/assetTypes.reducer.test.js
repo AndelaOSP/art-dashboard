@@ -41,6 +41,7 @@ describe('Asset Type Reducer tests', () => {
 
   it('should handle LOADING_ASSET_TYPES', () => {
     action.type = LOADING_ASSET_TYPES;
+    action.isLoading = true;
     expect(assetTypesReducer(initialState, action).assetTypes).toEqual([]);
     expect(assetTypesReducer(initialState, action).isLoading).toEqual(true);
   });

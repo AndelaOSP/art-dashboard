@@ -23,6 +23,7 @@ export const loadAssetMakes = (pageNumber, limit) => (dispatch) => {
       dispatch(loadAssetMakesSuccess(response.data));
     })
     .catch((error) => {
+      dispatch(loading(false));
       dispatch(loadAssetMakesFailure(error));
       dispatch(updateToastMessageContent(error.message, 'error'));
     });
@@ -36,6 +37,7 @@ export const loadAssetMakesDropdown = () => (dispatch) => {
       dispatch(loadDropdownSuccess(response.data));
     })
     .catch((error) => {
+      dispatch(loading(false));
       dispatch(loadAssetMakesFailure(error));
       dispatch(updateToastMessageContent(error.message, 'error'));
     });
@@ -65,9 +67,9 @@ const addAssetMakesFailure = error => ({
   type: ADD_ASSET_MAKE_FAILURE, payload: error.message
 });
 
-const loading = loadState => ({
+const loading = isLoading => ({
   type: LOADING_ASSET_MAKES,
-  loadState
+  isLoading
 });
 
 const loadAssetMakesSuccess = makes => ({

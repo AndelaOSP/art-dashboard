@@ -19,7 +19,10 @@ export const loadAssetTypes = (pageNumber, limit) => (dispatch) => {
       dispatch(loading(false));
       dispatch(loadAssetTypeSuccess(response.data));
     })
-    .catch(error => dispatch(loadAssetTypeFailure(error.message)));
+    .catch((error) => {
+      dispatch(loading(false));
+      dispatch(loadAssetTypeFailure(error.message));
+    });
 };
 
 export const createAssetType = newAssetType => dispatch =>
@@ -49,6 +52,7 @@ export const loadDropdownAssetTypes = () => (dispatch) => {
       dispatch(loading(false));
       dispatch(dropdownAssetTypeSuccess(response.data));
     }).catch((error) => {
+      dispatch(loading(false));
       dispatch(dropdownAssetTypeFailure(error.message));
       dispatch(updateToastMessageContent(error.message, 'error'));
     });
@@ -70,7 +74,7 @@ const loadAssetTypeFailure = error => ({
   type: LOAD_ASSET_TYPES_FAILURE, payload: error
 });
 
-const loading = loadState => ({
+const loading = isLoading => ({
   type: LOADING_ASSET_TYPES,
-  loadState
+  isLoading
 });

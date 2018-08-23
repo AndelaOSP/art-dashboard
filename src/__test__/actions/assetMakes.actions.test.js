@@ -19,7 +19,7 @@ import assetMakes from '../../_mock/assetMakes';
 const {
   LOAD_ASSET_MAKES_SUCCESS,
   LOAD_ASSET_MAKES_FAILURE,
-  // LOADING_ASSET_MAKES,
+  LOADING_ASSET_MAKES,
   DROPDOWN_ASSET_MAKES_SUCCESS,
   ADD_ASSET_MAKE_FAILURE
 } = constants;
@@ -40,6 +40,29 @@ describe('Asset Makes action tests', () => {
 
   afterEach(() => {
     store.clearActions();
+  });
+
+
+  it('should dispatch LOADING_ASSET_MAKES with isLoading true when fetching asset makes', () => {
+    mock.onGet().reply(200, mockAssetMakes);
+    return store.dispatch(loadAssetMakes())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          isLoading: true,
+          type: LOADING_ASSET_MAKES
+        });
+      });
+  });
+
+  it('should dispatch LOADING_ASSET_MAKES with isLoading false when done fetching asset makes', () => {
+    mock.onGet().reply(200, mockAssetMakes);
+    return store.dispatch(loadAssetMakes())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          isLoading: false,
+          type: LOADING_ASSET_MAKES
+        });
+      });
   });
 
   it('should dispatch LOAD_ASSET_MAKES_SUCCESS when loadAssetMakes called successfully', () => {

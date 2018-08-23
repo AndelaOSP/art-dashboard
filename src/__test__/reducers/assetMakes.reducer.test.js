@@ -34,8 +34,9 @@ describe('Asset Makes Reducer tests', () => {
     expect(assetMakeReducer(mockStore.assetMakes, action).isLoading).toEqual(false);
   });
 
-  it('should handle LOADING_SUBCATEGORIES', () => {
+  it('should handle LOADING_ASSET_MAKES', () => {
     action.type = LOADING_ASSET_MAKES;
+    action.isLoading = true;
     expect(assetMakeReducer(mockStore.assetMakes, action).assetMakes).toEqual([]);
     expect(assetMakeReducer(mockStore.assetMakes, action).isLoading).toEqual(true);
   });

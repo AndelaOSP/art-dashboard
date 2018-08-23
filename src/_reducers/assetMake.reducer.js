@@ -15,24 +15,19 @@ export default (state = initialState.assetMakes, action) => {
       return {
         ...state,
         assetMakes: action.payload.results,
-        assetMakesCount: action.payload.count,
-        isLoading: false
+        assetMakesCount: action.payload.count
       };
     case DROPDOWN_ASSET_MAKES_SUCCESS:
       return {
         ...state,
-        assetMakes: action.payload,
-        isLoading: false
+        assetMakes: action.payload
       };
     case LOAD_ASSET_MAKES_FAILURE:
-      return {
-        ...state,
-        isLoading: false
-      };
+      return state;
     case LOADING_ASSET_MAKES:
       return {
         ...state,
-        isLoading: true
+        isLoading: action.isLoading
       };
     case ADD_ASSET_MAKE_SUCCESS:
       return [...state, action.payload];

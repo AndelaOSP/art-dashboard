@@ -21,7 +21,7 @@ import subcategories from '../../_mock/subcategories';
 const {
   LOAD_SUBCATEGORIES_SUCCESS,
   LOAD_SUBCATEGORIES_FAILURE,
-  // LOADING_SUBCATEGORIES,
+  LOADING_SUBCATEGORIES,
   CREATE_SUBCATEGORY_SUCCESS,
   DROPDOWN_SUBCATEGORIES_SUCCESS
 } = constants;
@@ -47,6 +47,29 @@ describe('Subcategory action tests', () => {
   const mockSubcategories = {
     results: subcategories
   };
+
+
+  it('should dispatch LOADING_SUBCATEGORIES with isLoading true when fetching SubCategories', () => {
+    mock.onGet().reply(200, mockSubcategories);
+    return store.dispatch(loadSubCategories())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          isLoading: true,
+          type: LOADING_SUBCATEGORIES
+        });
+      });
+  });
+
+  it('should dispatch LOADING_SUBCATEGORIES with isLoading false when done fetching SubCategories', () => {
+    mock.onGet().reply(200, mockSubcategories);
+    return store.dispatch(loadSubCategories())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          isLoading: false,
+          type: LOADING_SUBCATEGORIES
+        });
+      });
+  });
 
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategories called successfully', () => {
     mock.onGet().reply(200, mockSubcategories);
@@ -83,7 +106,7 @@ describe('Subcategory action tests', () => {
       });
   });
 
-  it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategoriesDropdown called successfully', () => {
+  it('should dispatch DROPDOWN_SUBCATEGORIES_SUCCESS when loadSubCategoriesDropdown called successfully', () => {
     mock.onGet().reply(200, mockSubcategories);
     return store.dispatch(loadSubCategoriesDropdown())
       .then(() => {

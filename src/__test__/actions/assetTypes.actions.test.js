@@ -16,7 +16,7 @@ import assetTypes from '../../_mock/assetTypes';
 const {
   LOAD_ASSET_TYPES_SUCCESS,
   LOAD_ASSET_TYPES_FAILURE,
-  // LOADING_ASSET_TYPES,
+  LOADING_ASSET_TYPES,
   CREATE_ASSET_TYPE_SUCCESS,
   CREATE_ASSET_TYPE_FAILURE,
   LOAD_DROPDOWN_ASSET_TYPES_SUCCESS,
@@ -40,6 +40,40 @@ describe('Asset Types action tests', () => {
   afterEach(() => moxios.uninstall());
 
   store = mockStore({});
+
+
+  it('should dispatch LOADING_ASSET_TYPES with isLoading true when fetching asset types', () => {
+    moxios.stubRequest(url2, {
+      status: 200,
+      response: {
+        results: assetTypes
+      }
+    });
+    return store.dispatch(loadAssetTypes(1, 10))
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          isLoading: true,
+          type: LOADING_ASSET_TYPES
+        });
+      });
+  });
+
+  it('should dispatch LOADING_ASSET_TYPES with isLoading false when done fetching asset types', () => {
+    moxios.stubRequest(url2, {
+      status: 200,
+      response: {
+        results: assetTypes
+      }
+    });
+    return store.dispatch(loadAssetTypes(1, 10))
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          isLoading: false,
+          type: LOADING_ASSET_TYPES
+        });
+      });
+  });
+
   it('dispatches LOAD_ASSET_TYPES_SUCCESS when loadAssetTypeAction is called successfully', () => {
     moxios.stubRequest(url2, {
       status: 200,

@@ -23,6 +23,7 @@ export const loadSubCategories = (pageNumber, limit) => (dispatch) => {
       dispatch(loading(false));
       dispatch(loadSubCategoriesSuccess(response.data));
     }).catch((error) => {
+      dispatch(loading(false));
       dispatch(loadSubCategoriesFailure(error));
       dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
         'error'));
@@ -84,13 +85,14 @@ export const loadSubCategoriesDropdown = () => (dispatch) => {
       dispatch(loading(false));
       dispatch(dropdownSubCategoriesSuccess(response.data));
     }).catch((error) => {
+      dispatch(loading(false));
       dispatch(loadSubCategoriesFailure(error));
       dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
         'error'));
     });
 };
 
-const loading = loadState => ({
+const loading = isLoading => ({
   type: LOADING_SUBCATEGORIES,
-  loadState
+  isLoading
 });
