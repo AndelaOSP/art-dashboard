@@ -97,6 +97,16 @@ describe('Asset Makes action tests', () => {
     });
   });
 
+  it('should dispatch LOAD_ASSET_MAKES_FAILURE when loadAssetMakesDropdown are not loaded', () => {
+    mock.onGet().reply(404);
+    return store.dispatch(loadAssetMakesDropdown()).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: 'Request failed with status code 404',
+        type: LOAD_ASSET_MAKES_FAILURE
+      });
+    });
+  });
+
   it('should dispatch ADD_ASSET_MAKE_SUCCESS when addAssetMakes is called successfully', () => {
     store = mockStore({ assetMakes: [] });
     const newMake = {
