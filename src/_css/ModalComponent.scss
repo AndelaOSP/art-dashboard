@@ -197,3 +197,14 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.loader-container {
+  height: 231px;
+}
+
+.modal-container,
+.loader-container {
+  & .column.loader-column {
+    padding-right: 16% !important;
+  }
+}

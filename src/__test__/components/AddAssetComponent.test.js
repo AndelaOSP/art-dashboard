@@ -37,6 +37,7 @@ const props = {
     type: '',
     message: ''
   },
+  isLoadingState: {},
   categories: assetCategories,
   subcategories: assetSubCategories,
   assetTypes,
@@ -206,6 +207,16 @@ describe('<AddAssetContainer />', () => {
       }
     });
     expect(wrapper.props().toastMessageContent.type).toEqual('error');
+  });
+
+  it('renders Loading component if isLoading object has true value', () => {
+    wrapper.setProps({
+      isLoadingState: { test: true }
+    });
+    expect(wrapper.find('LoaderComponent').length).toBe(1);
+    wrapper.setProps({
+      isLoadingState: {}
+    });
   });
 
   afterEach(() => {

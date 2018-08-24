@@ -5,6 +5,7 @@ import ArtButton from '../common/ButtonComponent';
 import InputFluid from '../common/TextInputComponent';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import '../../_css/AddAssetComponent.css';
+import LoaderComponent from '../LoaderComponent';
 
 const assetTypeOptions = assetTypes =>
   assetTypes
@@ -14,45 +15,55 @@ const assetTypeOptions = assetTypes =>
       value: typeOption.id
     }));
 
-const AddAssetMakeComponent = props => (
-  <Form onSubmit={props.handleSubmit}>
-    <label htmlFor="asset-make" className="label-style">
-      Asset Make
-      <InputFluid
-        name="make_label"
-        id="make"
-        onChange={props.onaddAssetMake}
-        placeholder="Enter Asset Make"
+const AddAssetMakeComponent = (props) => {
+  if (props.isLoading) {
+    return (
+      <div className="loader-container" >
+        <LoaderComponent />
+      </div>
+    );
+  }
+
+  return (
+    <Form onSubmit={props.handleSubmit}>
+      <label htmlFor="asset-make" className="label-style">
+        Asset Make
+        <InputFluid
+          name="make_label"
+          id="make"
+          onChange={props.onaddAssetMake}
+          placeholder="Enter Asset Make"
+        />
+      </label>
+      <br />
+      <label htmlFor="asset-type" className="label-style">
+        Asset Type
+        <DropdownComponent
+          customClass="form-dropdown"
+          label="Asset type"
+          placeHolder="Select Asset type"
+          name="asset-type"
+          value={props.assetTypeSelectedId}
+          onChange={props.onSelectAssetType}
+          options={assetTypeOptions(props.assetTypes)}
+        />
+      </label>
+      <br />
+      <ArtButton
+        className="cancel"
+        buttonName="Cancel"
+        handleClick={props.toggleModal}
       />
-    </label>
-    <br />
-    <label htmlFor="asset-type" className="label-style">
-      Asset Type
-      <DropdownComponent
-        customClass="form-dropdown"
-        label="Asset type"
-        placeHolder="Select Asset type"
-        name="asset-type"
-        value={props.assetTypeSelectedId}
-        onChange={props.onSelectAssetType}
-        options={assetTypeOptions(props.assetTypes)}
+      <ArtButton
+        className="save"
+        buttonName="Save"
+        color="primary"
+        handleClick={props.onChangeButtonState}
+        buttonState={props.buttonState}
       />
-    </label>
-    <br />
-    <ArtButton
-      className="cancel"
-      buttonName="Cancel"
-      handleClick={props.toggleModal}
-    />
-    <ArtButton
-      className="save"
-      buttonName="Save"
-      color="primary"
-      handleClick={props.onChangeButtonState}
-      buttonState={props.buttonState}
-    />
-  </Form>
-);
+    </Form>
+  );
+};
 
 AddAssetMakeComponent.defaultProps = {
   assetTypes: []
@@ -66,7 +77,8 @@ AddAssetMakeComponent.propTypes = {
   assetTypeSelectedId: PropTypes.number,
   onChangeButtonState: PropTypes.func.isRequired,
   buttonState: PropTypes.bool.isRequired,
-  onSelectAssetType: PropTypes.func.isRequired
+  onSelectAssetType: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default AddAssetMakeComponent;

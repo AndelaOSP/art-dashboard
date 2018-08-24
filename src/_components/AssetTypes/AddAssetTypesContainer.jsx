@@ -101,7 +101,8 @@ AddAssetTypesContainer.defaultProps = {
 
 const mapStateToProps = ({ subcategoriesList, toastMessage }) => ({
   subcategories: subcategoriesList.assetSubCategoriesDropdown,
-  toastMessageContent: toastMessage
+  toastMessageContent: toastMessage,
+  isLoading: subcategoriesList.isLoading
 });
 
 export default connect(mapStateToProps, {

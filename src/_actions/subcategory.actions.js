@@ -17,11 +17,13 @@ const {
  * @return dispatch type and payload
  */
 export const loadSubCategories = (pageNumber, limit) => (dispatch) => {
-  dispatch({ type: LOADING_SUBCATEGORIES });
+  dispatch(loading(true));
   return axios.get(`asset-sub-categories?page=${pageNumber}&page_size=${limit}`)
     .then((response) => {
+      dispatch(loading(false));
       dispatch(loadSubCategoriesSuccess(response.data));
     }).catch((error) => {
+      dispatch(loading(false));
       dispatch(loadSubCategoriesFailure(error));
       dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
         'error'));
@@ -35,16 +37,19 @@ export const loadSubCategories = (pageNumber, limit) => (dispatch) => {
  *
  * @return {object} type and payload
  */
-export const loadSubCategoriesSuccess = subcategories => ({
-  type: LOAD_SUBCATEGORIES_SUCCESS, payload: subcategories
+const loadSubCategoriesSuccess = subcategories => ({
+  type: LOAD_SUBCATEGORIES_SUCCESS,
+  payload: subcategories
 });
 
-export const dropdownSubCategoriesSuccess = subcategories => ({
-  type: DROPDOWN_SUBCATEGORIES_SUCCESS, payload: subcategories
+const dropdownSubCategoriesSuccess = subcategories => ({
+  type: DROPDOWN_SUBCATEGORIES_SUCCESS,
+  payload: subcategories
 });
 
-export const loadSubCategoriesFailure = error => ({
-  type: LOAD_SUBCATEGORIES_FAILURE, payload: error
+const loadSubCategoriesFailure = error => ({
+  type: LOAD_SUBCATEGORIES_FAILURE,
+  payload: error.message
 });
 
 /**
@@ -62,20 +67,32 @@ export const createSubCategory = newSubCategory => dispatch =>
       'error'));
   });
 
-export const createSubCategorySuccess = modelNumber => ({
-  type: CREATE_SUBCATEGORY_SUCCESS, payload: modelNumber
+const createSubCategorySuccess = modelNumber => ({
+  type: CREATE_SUBCATEGORY_SUCCESS,
+  payload: modelNumber
 });
 
-export const createSubCategoryFailure = error => ({
-  type: CREATE_SUBCATEGORY_FAILURE, payload: error
+const createSubCategoryFailure = error => ({
+  type: CREATE_SUBCATEGORY_FAILURE,
+  payload: error
 });
 
-export const loadSubCategoriesDropdown = () => dispatch =>
-  axios.get('asset-sub-categories/?paginate=false')
+export const loadSubCategoriesDropdown = () => (dispatch) => {
+  dispatch(loading(true));
+
+  return axios.get('asset-sub-categories/?paginate=false')
     .then((response) => {
+      dispatch(loading(false));
       dispatch(dropdownSubCategoriesSuccess(response.data));
     }).catch((error) => {
+      dispatch(loading(false));
       dispatch(loadSubCategoriesFailure(error));
       dispatch(updateToastMessageContent('Could Not Fetch The Sub-Categories',
         'error'));
     });
+};
+
+const loading = isLoading => ({
+  type: LOADING_SUBCATEGORIES,
+  isLoading
+});

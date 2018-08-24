@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ArtButton from '../common/ButtonComponent';
 import InputFluid from '../common/TextInputComponent';
 import DropdownComponent from '../common/DropdownComponent';
+import LoaderComponent from '../LoaderComponent';
 
 const populateCategories = props =>
   props.map((option, index) => ({
@@ -12,44 +13,53 @@ const populateCategories = props =>
     value: option.id
   }));
 
-const AddSubCategoryComponent = props => (
-  <Form onSubmit={props.handleSubmit}>
-    <label htmlFor="category" className="label-style">
-      <label htmlFor="sub-category" className="label-style">
-        Sub-Category
-        <InputFluid
-          name="sub-category"
-          onChange={props.onAddSubCategory}
-          placeHolder="Enter Sub-Category"
+const AddSubCategoryComponent = (props) => {
+  if (props.isLoading) {
+    return (
+      <div className="loader-container" >
+        <LoaderComponent />
+      </div>
+    );
+  }
+
+  return (
+    <Form onSubmit={props.handleSubmit}>
+      <label htmlFor="category" className="label-style">
+        <label htmlFor="sub-category" className="label-style">
+          Sub-Category
+          <InputFluid
+            name="sub-category"
+            onChange={props.onAddSubCategory}
+            placeHolder="Enter Sub-Category"
+          />
+        </label>
+        <br />
+        Category
+        <DropdownComponent
+          customClass="form-dropdown"
+          label="Categories"
+          placeHolder="Select A Category"
+          name="category"
+          value={props.categorySelectedId}
+          onChange={props.onSelectCategory}
+          options={populateCategories(props.categoriesList)}
         />
       </label>
+
       <br />
-      Category
-      <DropdownComponent
-        customClass="form-dropdown"
-        label="Categories"
-        placeHolder="Select A Category"
-        name="category"
-        value={props.categorySelectedId}
-        onChange={props.onSelectCategory}
-        options={populateCategories(props.categoriesList)}
+      <ArtButton
+        buttonName="Cancel"
+        handleClick={props.toggleModal}
       />
-    </label>
-
-    <br />
-    <ArtButton
-      buttonName="Cancel"
-      handleClick={props.toggleModal}
-    />
-    <ArtButton
-      buttonName="Save"
-      color="primary"
-      handleClick={props.onChangeButtonState}
-      buttonState={props.buttonState}
-    />
-
-  </Form>
-);
+      <ArtButton
+        buttonName="Save"
+        color="primary"
+        handleClick={props.onChangeButtonState}
+        buttonState={props.buttonState}
+      />
+    </Form>
+  );
+};
 
 AddSubCategoryComponent.propTypes = {
   categoriesList: PropTypes.array,
@@ -59,7 +69,8 @@ AddSubCategoryComponent.propTypes = {
   onAddSubCategory: PropTypes.func.isRequired,
   onSelectCategory: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  onChangeButtonState: PropTypes.func.isRequired
+  onChangeButtonState: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 AddSubCategoryComponent.defaultProps = {

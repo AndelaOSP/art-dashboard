@@ -13,50 +13,74 @@ const {
 } = constants;
 
 export const loadAssetTypes = (pageNumber, limit) => (dispatch) => {
-  dispatch({ type: LOADING_ASSET_TYPES });
+  dispatch(loading(true));
   return axios.get(`asset-types?page=${pageNumber}&page_size=${limit}`)
-    .then(response => dispatch({
-      type: LOAD_ASSET_TYPES_SUCCESS,
-      payload: response.data
-    })).catch(error => dispatch({
-      type: LOAD_ASSET_TYPES_FAILURE,
-      payload: error
-    }));
+    .then((response) => {
+      dispatch(loading(false));
+      dispatch(loadAssetTypeSuccess(response.data));
+    })
+    .catch((error) => {
+      dispatch(loading(false));
+      dispatch(loadAssetTypeFailure(error.message));
+    });
 };
 
-export const createAssetType = newAssetType =>
-  dispatch => axios.post('asset-types', newAssetType).then((response) => {
-    dispatch(createAssetTypeSuccess(response.data));
-    dispatch(updateToastMessageContent('Asset Type Saved Successfully',
-      'success'));
-  }).catch((error) => {
-    dispatch(createAssetTypeFailure(error));
-    dispatch(updateToastMessageContent('Could Not Save The Asset Type',
-      'error'));
-  });
-
-export const createAssetTypeSuccess = assetType => (
-  { type: CREATE_ASSET_TYPE_SUCCESS, payload: assetType }
-);
-
-export const createAssetTypeFailure = error => (
-  { type: CREATE_ASSET_TYPE_FAILURE, payload: error }
-);
-
-export const loadDropdownAssetTypes = () => dispatch =>
-  axios
-    .get('asset-types/?paginate=false')
+export const createAssetType = newAssetType => dispatch =>
+  axios.post('asset-types', newAssetType)
     .then((response) => {
-      dispatch(dropdownAssetTypeSuccess(response.data));
-    }).catch((error) => {
-      dispatch(dropdownAssetTypeFailure(error));
-      dispatch(updateToastMessageContent(error.message, 'error'));
+      dispatch(createAssetTypeSuccess(response.data));
+      dispatch(updateToastMessageContent('Asset Type Saved Successfully', 'success'));
+    })
+    .catch((error) => {
+      dispatch(createAssetTypeFailure(error.message));
+      dispatch(updateToastMessageContent('Could Not Save The Asset Type', 'error'));
     });
 
-export const dropdownAssetTypeSuccess = allAssetTypes => ({
-  type: LOAD_DROPDOWN_ASSET_TYPES_SUCCESS, payload: allAssetTypes
+export const createAssetTypeSuccess = assetType => ({
+  type: CREATE_ASSET_TYPE_SUCCESS,
+  payload: assetType
 });
 
-export const dropdownAssetTypeFailure = error => ({
-  type: LOAD_DROPDOWN_ASSET_TYPES_FAILURE, payload: error
+export const createAssetTypeFailure = error => ({
+  type: CREATE_ASSET_TYPE_FAILURE,
+  payload: error
+});
+
+export const loadDropdownAssetTypes = () => (dispatch) => {
+  dispatch(loading(true));
+  return axios
+    .get('asset-types/?paginate=false')
+    .then((response) => {
+      dispatch(loading(false));
+      dispatch(dropdownAssetTypeSuccess(response.data));
+    }).catch((error) => {
+      dispatch(loading(false));
+      dispatch(dropdownAssetTypeFailure(error.message));
+      dispatch(updateToastMessageContent(error.message, 'error'));
+    });
+};
+
+const dropdownAssetTypeSuccess = allAssetTypes => ({
+  type: LOAD_DROPDOWN_ASSET_TYPES_SUCCESS,
+  payload: allAssetTypes
+});
+
+const dropdownAssetTypeFailure = error => ({
+  type: LOAD_DROPDOWN_ASSET_TYPES_FAILURE,
+  payload: error
+});
+
+const loadAssetTypeSuccess = allAssetTypes => ({
+  type: LOAD_ASSET_TYPES_SUCCESS,
+  payload: allAssetTypes
+});
+
+const loadAssetTypeFailure = error => ({
+  type: LOAD_ASSET_TYPES_FAILURE,
+  payload: error
+});
+
+const loading = isLoading => ({
+  type: LOADING_ASSET_TYPES,
+  isLoading
 });
