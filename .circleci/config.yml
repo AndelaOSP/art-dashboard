@@ -62,7 +62,18 @@ jobs:
       - run:
           name: deploying application to production 
           command: |
-            bash script/deploy.sh                  
+            bash script/deploy.sh
+  release_notes:
+    <<: *default
+    steps:
+      - add_ssh_keys
+      - checkout
+      - run:
+          name: release notes
+          command: |
+            git config user.email "${GIT_EMAIL}"
+            git config user.name "${GIT_USER}"
+            bash scripts/release.sh               
 workflows:
   version: 2
   build_test_deploy:
@@ -82,5 +93,8 @@ workflows:
             - tests 
           filters:
             branches:
-              only: master          
+              only: master
+      - release_notes:
+          requires:
+            - deploy_production
               
