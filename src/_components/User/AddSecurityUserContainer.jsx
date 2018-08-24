@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AddUserComponent from '../../components/User/AddUserComponent';
+import AddUserComponent from '../../components/User/AddSecurityUserComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 import { addSecurityUser } from '../../_actions/users.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 
-class AddUserContainer extends React.Component {
+class AddSecurityUserContainer extends React.Component {
   state = {
     firstName: '',
     lastName: '',
@@ -95,7 +95,7 @@ class AddUserContainer extends React.Component {
   }
 }
 
-AddUserContainer.propTypes = {
+AddSecurityUserContainer.propTypes = {
   addSecurityUser: PropTypes.func.isRequired,
   toastMessageContent: PropTypes.object,
   resetToastMessageContent: PropTypes.func
@@ -110,4 +110,4 @@ const mapStateToProps = ({ usersList, toastMessage }) => ({
 export default connect(mapStateToProps, {
   addSecurityUser,
   resetToastMessageContent
-})(AddUserContainer);
+})(AddSecurityUserContainer);

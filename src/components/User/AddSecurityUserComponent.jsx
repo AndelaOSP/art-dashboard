@@ -4,7 +4,7 @@ import { Form } from 'semantic-ui-react';
 import InputField from '../common/TextInputComponent';
 import ArtButton from '../common/ButtonComponent';
 
-const AddUserComponent = props => (
+const AddSecurityUserComponent = props => (
   <Form onSubmit={props.handleSubmit}>
     <label htmlFor="first-name">
       First Name
@@ -68,7 +68,7 @@ const AddUserComponent = props => (
   </Form>
 );
 
-AddUserComponent.propTypes = {
+AddSecurityUserComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
@@ -84,4 +84,4 @@ AddUserComponent.propTypes = {
   buttonState: PropTypes.bool
 };
 
-export default AddUserComponent;
+export default AddSecurityUserComponent;
