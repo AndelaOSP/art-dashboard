@@ -14,7 +14,8 @@ export const loadUsers = (pageNumber, limit) => (dispatch) => {
     .then((response) => {
       dispatch(loading(false));
       dispatch(loadUsersSuccess(response.data));
-    }).catch((error) => {
+    })
+    .catch((error) => {
       dispatch(loading(false));
       dispatch(loadUsersFailure(error.message));
     });
@@ -26,7 +27,8 @@ export const loadDropDownUsers = () => (dispatch) => {
     .then((response) => {
       dispatch(loading(false));
       dispatch(loadDropdownSuccess(response.data));
-    }).catch((error) => {
+    })
+    .catch((error) => {
       dispatch(loading(false));
       dispatch(loadUsersFailure(error.message));
     });

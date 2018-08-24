@@ -39,7 +39,7 @@ describe('Asset Action tests', () => {
     });
   });
 
-  it('should dispatch LOADING_USERS with payload false when done fetching users', () => {
+  it('should dispatch LOADING_USERS with isLoading false when done fetching users', () => {
     mock.onGet(url).reply(200, users);
     return store.dispatch(loadUsers(pageNumber, limit)).then(() => {
       expect(store.getActions()).toContainEqual({
@@ -52,7 +52,6 @@ describe('Asset Action tests', () => {
   it('should dispatch LOAD_USERS_SUCCESS when loadUsers is called successfully', () => {
     mock.onGet(url).reply(200, users);
     return store.dispatch(loadUsers(pageNumber, limit)).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_USERS);
       expect(store.getActions()).toContainEqual({
         payload: users,
         type: LOAD_USERS_SUCCESS
