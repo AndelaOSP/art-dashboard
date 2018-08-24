@@ -8,6 +8,9 @@ import AssetsTableContent from './AssetsTableContent';
 import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
 import FilterButton from './common/FilterButton';
+import FilterComponent from './common/FilterComponent';
+
+import assetsFilter from '../_mock/assetsFilter';
 
 export class AssetsComponent extends Component {
   state = {
@@ -41,6 +44,10 @@ export class AssetsComponent extends Component {
 
   emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
 
+  toggleFilter = () => {
+    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
+  };
+
   render() {
     return (
       <NavbarComponent title="Assets">
@@ -48,7 +55,11 @@ export class AssetsComponent extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
-            <FilterButton />
+            <FilterButton
+              render={toggleOn => (
+                <FilterComponent options={assetsFilter} toggleOn={toggleOn} />
+              )}
+            />
           </div>
           <AssetsTableContent
             {...this.props}
