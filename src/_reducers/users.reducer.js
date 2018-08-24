@@ -5,7 +5,9 @@ const {
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
   LOADING_USERS,
-  LOAD_DROPDOWN_USERS_SUCCESS
+  LOAD_DROPDOWN_USERS_SUCCESS,
+  CREATE_SECURITY_USER_SUCCESS,
+  CREATE_SECURITY_USER_FAILURE
 } = constants;
 
 export default (state = initialState.usersList, action) => {
@@ -35,8 +37,17 @@ export default (state = initialState.usersList, action) => {
         ...state,
         usersDropdown: action.payload
       };
+    case CREATE_SECURITY_USER_SUCCESS:
+      return {
+        ...state,
+        securityUser: action.payload
+      };
+    case CREATE_SECURITY_USER_FAILURE:
+      return {
+        ...state,
+        errorMessage: action.payload
+      };
     default:
       return state;
   }
 };
-

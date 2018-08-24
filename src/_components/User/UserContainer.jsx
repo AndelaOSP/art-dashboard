@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, Divider } from 'semantic-ui-react';
+import { Header, Divider, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavbarComponent from '../../components/NavBarComponent';
@@ -9,6 +9,9 @@ import { loadUsers } from '../../_actions/users.actions';
 import '../../_css/UsersComponent.css';
 import FilterComponent from '../../components/FilterUserComponent';
 import FilterButton from '../../components/common/FilterButton';
+import AddUserContainer from '../../_components/User/AddUserContainer';
+import ModalComponent from '../../components/common/ModalComponent';
+
 
 export class UserContainer extends Component {
   state = {
@@ -53,6 +56,19 @@ export class UserContainer extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
+            <ModalComponent
+              trigger={
+                <Button
+                  className="add-user"
+                  size="small"
+                >
+                + ADD SECURITY USER
+                </Button>
+              }
+              modalTitle="Add Security User"
+            >
+              <AddUserContainer />
+            </ModalComponent>
             <FilterButton
               render={toggleOn =>
                 (<FilterComponent toggleOn={toggleOn} />)}
