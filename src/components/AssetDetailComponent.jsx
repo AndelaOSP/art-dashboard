@@ -14,12 +14,14 @@ export class AssetDetailComponent extends Component {
     selectedUser: 0,
     serialNumber: '',
     open: false,
-    assignAssetButtonState: true
+    assignAssetButtonState: true,
+    hasError: this.props.hasError,
+    errorMessage: this.props.errorMessage
   };
 
   componentDidMount() {
     this.getAssetId(this.props.location.pathname);
-    if (_.isEmpty(this.props.users)) {
+    if (_.isEmpty(this.props.usersDropdown)) {
       this.props.loadDropDownUsers();
     }
   }
@@ -27,19 +29,17 @@ export class AssetDetailComponent extends Component {
   static getDerivedStateFromProps(nextProps) {
     return {
       assignedUser: nextProps.assetDetail.assigned_to,
-      open: nextProps.buttonLoading
+      open: nextProps.buttonLoading,
+      hasError: nextProps.hasError,
+      errorMessage: nextProps.errorMessage
     };
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return this.props.hasError && (this.props.errorMessage !== nextProps.errorMessage);
   }
 
   getAssetId(pathName) {
     const stringArray = pathName.split('/');
     const serialNumber = stringArray[2];
-    this.props.getAssetDetail(serialNumber);
     this.setState({ serialNumber });
+    this.props.getAssetDetail(serialNumber);
   }
 
   onSelectUserEmail = (event, data) => {
@@ -89,8 +89,8 @@ export class AssetDetailComponent extends Component {
             {...this.props}
             assetDetail={this.props.assetDetail}
             assignedUser={this.state.assignedUser}
-            errorMessage={this.props.errorMessage}
-            hasError={this.props.hasError}
+            errorMessage={this.state.errorMessage}
+            hasError={this.state.hasError}
             isLoading={this.props.isLoading}
             onSelectUserEmail={this.onSelectUserEmail}
             handleAssign={this.handleAssign}
@@ -103,6 +103,7 @@ export class AssetDetailComponent extends Component {
             buttonState={this.props.buttonLoading}
             assignAssetButtonState={this.state.assignAssetButtonState}
             selectedUser={this.state.selectedUser}
+            users={this.props.usersDropdown}
           />
         </Container>
       </NavbarComponent>
@@ -118,10 +119,10 @@ AssetDetailComponent.propTypes = {
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool,
+  isLoading: PropTypes.object,
   buttonLoading: PropTypes.bool,
   location: PropTypes.object,
-  users: PropTypes.array,
+  usersDropdown: PropTypes.array,
   newAllocation: PropTypes.object,
   unAssignedAsset: PropTypes.object
 };
@@ -131,14 +132,17 @@ const mapStateToProps = ({ asset, usersList }) => {
     assetDetail,
     errorMessage,
     hasError,
-    isLoading,
     newAllocation,
     unAssignedAsset,
     buttonLoading
   } = asset;
-  const { users } = usersList;
+  const { usersDropdown } = usersList;
+  const isLoading = {
+    assetsLoading: asset.isLoading,
+    usersLoading: usersList.isLoading
+  };
   return {
-    users,
+    usersDropdown,
     assetDetail,
     newAllocation,
     unAssignedAsset,

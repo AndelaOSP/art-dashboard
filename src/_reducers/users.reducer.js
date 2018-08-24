@@ -5,20 +5,22 @@ const {
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
   LOADING_USERS,
-  LOAD_DROPDOWN_USERS_SUCCESS,
-  LOAD_DROPDOWN_USERS_FAILURE,
-  LOADING_DROPDOWN_USERS
+  LOAD_DROPDOWN_USERS_SUCCESS
 } = constants;
 
 export default (state = initialState.usersList, action) => {
   switch (action.type) {
+    case LOADING_USERS:
+      return {
+        ...state,
+        isLoading: action.isLoading
+      };
     case LOAD_USERS_SUCCESS:
       return {
         ...state,
-        users: [...action.payload.results],
+        users: action.payload.results,
         usersCount: action.payload.count,
-        hasError: false,
-        isLoading: false
+        hasError: false
       };
     case LOAD_USERS_FAILURE:
       return {
@@ -26,32 +28,12 @@ export default (state = initialState.usersList, action) => {
         users: [],
         usersCount: 0,
         errorMessage: action.payload,
-        hasError: true,
-        isLoading: false
-      };
-    case LOADING_USERS:
-      return {
-        ...state,
-        isLoading: true
+        hasError: true
       };
     case LOAD_DROPDOWN_USERS_SUCCESS:
       return {
         ...state,
-        users: [...action.payload],
-        isLoading: false
-      };
-    case LOAD_DROPDOWN_USERS_FAILURE:
-      return {
-        ...state,
-        users: [],
-        errorMessage: action.payload,
-        hasError: true,
-        isLoading: false
-      };
-    case LOADING_DROPDOWN_USERS:
-      return {
-        ...state,
-        isLoading: true
+        usersDropdown: action.payload
       };
     default:
       return state;

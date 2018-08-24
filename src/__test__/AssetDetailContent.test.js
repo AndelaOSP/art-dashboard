@@ -24,7 +24,7 @@ describe('Renders <AssetDetailContent /> correctly', () => {
   });
 
   it('renders LoaderComponent if page is loading', () => {
-    wrapper.setProps({ isLoading: true });
+    wrapper.setProps({ isLoading: { test: true } });
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 

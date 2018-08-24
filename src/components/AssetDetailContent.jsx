@@ -10,7 +10,7 @@ import { ToastMessage } from '../_utils/ToastMessage';
 import LoaderComponent from './LoaderComponent';
 
 const AssetDetailContent = (props) => {
-  if (props.isLoading) {
+  if (Object.values(props.isLoading).find(loading => loading)) {
     return (
       <LoaderComponent />
     );
@@ -109,7 +109,7 @@ AssetDetailContent.propTypes = {
   assignedUser: PropTypes.object,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.object
 };
 
 export default AssetDetailContent;

@@ -29,22 +29,6 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     expect(wrapper.find('AssetDetailContent').length).toBe(1);
   });
 
-  it('should not rerender the component if the error message is the same', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    wrapper.setProps({ hasError: true });
-    expect(shouldComponentUpdateSpy.mock.calls.length).toBe(1);
-  });
-
-  it('should rerender the component if the error message changes', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    wrapper.setProps({ hasError: true, errorMessage: 'error' });
-    expect(shouldComponentUpdateSpy.mock.calls.length).toBe(2);
-  });
-
   it('should mock the onSelectUserEmail function call', () => {
     const onSelectUserEmailSpy = jest.spyOn(
       wrapper.instance(), 'onSelectUserEmail'

@@ -66,6 +66,7 @@ export default {
   },
   usersList: {
     users: [],
+    usersDropdown: [],
     usersCount: 0,
     errorMessage: '',
     hasError: false,

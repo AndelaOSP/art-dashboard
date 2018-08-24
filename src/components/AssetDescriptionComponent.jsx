@@ -70,9 +70,9 @@ const AssetDescriptionComponent = props => (
               placeHolder="Select Andela Email To Assign This Asset"
               name="assign-user"
               search
+              value={props.selectedUserId}
               onChange={props.onSelectUserEmail}
               options={userEmailsOptions(props.users)}
-              value={props.selectedUser}
             />
             <br />
             <ButtonComponent
@@ -99,12 +99,12 @@ AssetDescriptionComponent.propTypes = {
   users: PropTypes.array,
   buttonState: PropTypes.bool,
   assignAssetButtonState: PropTypes.bool.isRequired,
-  selectedUser: PropTypes.number
+  selectedUserId: PropTypes.number
 };
 
 AssetDescriptionComponent.defaultProps = {
   users: [],
-  selectedUser: 0
+  selectedUserId: 0
 };
 
 export default AssetDescriptionComponent;
