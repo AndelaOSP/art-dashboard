@@ -14,7 +14,7 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     getAssetDetail: jest.fn(),
     unassignAsset: jest.fn(),
     hasError: false,
-    isLoading: false,
+    isLoading: {},
     location: {
       pathname: ''
     }
@@ -43,6 +43,7 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     const handleAssignSpy = jest.spyOn(
       wrapper.instance(), 'handleAssign'
     );
+    wrapper.setProps({ buttonLoading: false });
     wrapper.instance().handleAssign();
     expect(handleAssignSpy.mock.calls.length).toEqual(1);
   });
@@ -61,6 +62,15 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     );
     wrapper.instance().handleConfirm();
     expect(handleConfirmSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('should mock the handleUnassign function call if assignedUser is empty', () => {
+    const handleUnassignSpy = jest.spyOn(
+      wrapper.instance(), 'handleUnassign'
+    );
+    wrapper.setState({ assignedUser: {} });
+    wrapper.instance().handleConfirm();
+    expect(handleUnassignSpy.mock.calls.length).toEqual(1);
   });
 
   it('should mock the handleCancel function call', () => {
