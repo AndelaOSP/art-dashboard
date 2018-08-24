@@ -84,7 +84,7 @@ const AssetsTableContent = (props) => {
         <Table.Body>
           {
             props.activePageAssets.map((asset) => {
-              const assetViewUrl = `assets/${asset.serial_number}/view`;
+              const assetViewUrl = `assets/${asset.id}/view`;
 
               const updatedAsset = {
                 ...asset,
