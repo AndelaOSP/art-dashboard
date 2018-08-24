@@ -75,6 +75,7 @@ const AddAssetComponent = props => (
             buttonName="Next"
             color="primary"
             handleClick={props.onNextClicked}
+            disabledState={props.isDisabled}
           />
           :
           <ArtButton
@@ -83,6 +84,7 @@ const AddAssetComponent = props => (
             color="primary"
             handleClick={props.onChangeButtonState}
             buttonState={props.buttonState}
+            disabledState={props.isDisabled}
           />
       }
     </Form>
@@ -99,6 +101,7 @@ AddAssetComponent.propTypes = {
   onChangeButtonState: PropTypes.func.isRequired,
   onNextClicked: PropTypes.func.isRequired,
   selectedAssetType: PropTypes.string.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   buttonState: PropTypes.bool,
   page: PropTypes.number,
   modelNumber: PropTypes.string,
@@ -114,7 +117,8 @@ AddAssetComponent.defaultTypes = {
   buttonState: false,
   page: 1,
   assetTag: '',
-  serialNumber: ''
+  serialNumber: '',
+  modelNumber: ''
 };
 
 export default AddAssetComponent;
