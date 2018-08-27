@@ -9,7 +9,7 @@ import { loadUsers } from '../../_actions/users.actions';
 import '../../_css/UsersComponent.css';
 import FilterComponent from '../../components/FilterUserComponent';
 import FilterButton from '../../components/common/FilterButton';
-import AddUserContainer from '../../_components/User/AddSecurityUserContainer';
+import AddSecurityUserContainer from '../../_components/User/AddSecurityUserContainer';
 import ModalComponent from '../../components/common/ModalComponent';
 
 
@@ -67,7 +67,7 @@ export class UserContainer extends Component {
               }
               modalTitle="Add Security User"
             >
-              <AddUserContainer />
+              <AddSecurityUserContainer />
             </ModalComponent>
             <FilterButton
               render={toggleOn =>
