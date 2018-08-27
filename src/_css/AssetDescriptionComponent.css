@@ -1,0 +1,42 @@
+.asset-description {
+  padding: 4rem 2rem !important;
+  text-align: left;
+}
+
+.asset-specs {
+  width: 25rem;
+}
+
+.asset-user {
+  display: flex;
+  justify-content: space-around;
+}
+
+.unassign-button {
+  margin-top: 1.3rem !important;
+  margin-left: 20rem !important;
+}
+
+@media screen and (max-width: 990px) {
+  .asset-specs {
+    width: 20rem;
+  }
+
+  .unassign-button {
+    margin-left: 10rem !important;
+  }
+
+  .asset-description {
+    padding: 2rem 1rem !important;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .asset-specs {
+    width: 15rem;
+  }
+
+  .unassign-button {
+    margin-left: 0 !important;
+  }
+}
