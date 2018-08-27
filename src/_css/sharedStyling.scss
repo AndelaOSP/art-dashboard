@@ -31,6 +31,8 @@ $pagination-color: #0a26a8;
 $andela-black: #000;
 $gray: #d3d3d3;
 $modal-purple: #6435db;
+$filter-blue: #e4ebf1;
+$filter-font-color: #0a26a8;
 
 body,
 button,
@@ -41,7 +43,7 @@ input,
   font-style: normal;
 }
 
-#blue-rounded-button {
+@mixin blue-rounded-buttons {
   background-color: $andela-blue;
   border: solid 1px $border-color;
   border-radius: 10px;
@@ -54,6 +56,10 @@ input,
   letter-spacing: normal;
   line-height: 2.08;
   width: 138px;
+}
+
+.ui.small.button.add-asset {
+  @include blue-rounded-buttons
 }
 
 #page-heading-section {
@@ -83,8 +89,8 @@ input,
 .ui.basic.table tbody td {
   border-top: 1px solid $border-color2;
   border-bottom: 1px solid $border-color2;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 0.8vw;
+  padding-bottom: 0.8vw;
 }
 
 .ui.basic.table tbody td:first-child {
@@ -120,6 +126,10 @@ input,
 .ui.basic.table tfoot th {
   border: 0;
   padding-left: 33%;
+}
+
+.ui.basic.table tbody tr {
+  cursor: pointer;
 }
 
 #art-pagination-section {
@@ -212,8 +222,14 @@ input,
   }
 }
 
-#page-limit {
-  width: 45%;
+.ui.fluid.input,
+.ui.fluid.search.selection.upward.dropdown.form-dropdown {
+  width: 90%;
+}
+
+.ui.fluid.search.selection.upward.dropdown.page-limit {
+  width: 100px;
+  height: 41px;
   margin-top: 0;
   border-radius: 0;
   border: 0.5px solid $pagination-color;

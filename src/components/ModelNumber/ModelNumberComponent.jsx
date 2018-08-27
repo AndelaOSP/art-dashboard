@@ -5,6 +5,7 @@ import ArtButton from '../common/ButtonComponent';
 import InputFluid from '../common/TextInputComponent';
 import DropdownComponent from '../common/DropdownComponent';
 import '../../_css/AddAssetComponent.css';
+import LoaderComponent from '../LoaderComponent';
 
 const placeMakesInSemanticUIOptions = assetMakesList =>
   assetMakesList.map((option, index) => ({
@@ -13,8 +14,16 @@ const placeMakesInSemanticUIOptions = assetMakesList =>
     value: option.id
   }));
 
-const ModelNumberComponent = props => (
-  <div>
+const ModelNumberComponent = (props) => {
+  if (props.isLoading) {
+    return (
+      <div className="loader-container" >
+        <LoaderComponent />
+      </div>
+    );
+  }
+
+  return (
     <Form onSubmit={props.handleSubmit}>
       <label htmlFor="model-number" className="label-style">
         Model Number
@@ -28,27 +37,31 @@ const ModelNumberComponent = props => (
       <label htmlFor="asset-make" className="label-style">
         Asset Make
         <DropdownComponent
+          customClass="form-dropdown"
           label="Asset Makes"
           placeHolder="Select Asset Makes"
           name="asset-make"
+          value={props.assetMakeSelectedId}
           onChange={props.onSelectAssetMake}
           options={placeMakesInSemanticUIOptions(props.assetMakes)}
         />
       </label>
       <br />
       <ArtButton
+        className="cancel"
+        buttonName="Cancel"
+        handleClick={props.toggleModal}
+      />
+      <ArtButton
+        className="save"
         buttonName="Save"
         color="primary"
         handleClick={props.onChangeButtonState}
         buttonState={props.buttonState}
       />
-      <ArtButton
-        buttonName="Cancel"
-        onClick={props.toggleModal}
-      />
     </Form>
-  </div>
-);
+  );
+};
 
 ModelNumberComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
@@ -57,7 +70,9 @@ ModelNumberComponent.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
   assetMakes: PropTypes.array,
-  buttonState: PropTypes.bool.isRequired
+  assetMakeSelectedId: PropTypes.number,
+  buttonState: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 ModelNumberComponent.defaultProps = {

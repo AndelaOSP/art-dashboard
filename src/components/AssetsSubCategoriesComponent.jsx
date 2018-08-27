@@ -10,8 +10,6 @@ import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from '../components/LoaderComponent';
-import ActionComponent from '../components/ActionComponent';
-
 import '../_css/AssetsComponent.css';
 import { loadSubCategories } from '../_actions/subcategory.actions';
 
@@ -19,23 +17,29 @@ export class AssetSubCategoriesComponent extends React.Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
+
   componentDidMount() {
     this.props.loadSubCategories(this.state.activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadSubCategories(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadSubCategories(activePage, this.state.limit);
-  }
+  };
 
-  getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit)
+  getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit);
 
   render() {
     if (this.props.isLoading) {
       return (
         <NavbarComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
+          <LoaderComponent />
         </NavbarComponent>
       );
     }
@@ -57,13 +61,11 @@ export class AssetSubCategoriesComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Sub-Categories" />
             <Divider id="assets-divider" />
           </div>
-          <Table basic>
+          <Table basic selectable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Sub-Category</Table.HeaderCell>
                 <Table.HeaderCell>Category</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -73,12 +75,8 @@ export class AssetSubCategoriesComponent extends React.Component {
                   <TableRowComponent
                     key={subCategory.id}
                     data={subCategory}
-                    headings={['id', 'sub_category_name', 'asset_category']}
-                  >
-                    <Table.Cell>
-                      <ActionComponent />
-                    </Table.Cell>
-                  </TableRowComponent>
+                    headings={['sub_category_name', 'asset_category']}
+                  />
                 ))
               }
             </Table.Body>
@@ -86,26 +84,28 @@ export class AssetSubCategoriesComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 {!_.isEmpty(this.props.assetSubCategories) && (
-                <Table.HeaderCell colSpan="4" id="pagination-header">
-                  <Segment.Group horizontal id="art-pagination-section">
-                    <Segment>
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                    </Segment>
-                    <Segment>
-                      <DropdownComponent
-                        id="page-limit"
-                        placeHolder="Show Rows"
-                        options={rowOptions}
-                        upward
-                      />
-                    </Segment>
-                  </Segment.Group>
-                </Table.HeaderCell>
-                  )}
+                  <Table.HeaderCell colSpan="4" id="pagination-header">
+                    <Segment.Group horizontal id="art-pagination-section">
+                      <Segment>
+                        <Pagination
+                          totalPages={this.getTotalPages()}
+                          onPageChange={this.handlePaginationChange}
+                          activePage={this.state.activePage}
+                        />
+                      </Segment>
+                      <Segment>
+                        <DropdownComponent
+                          customClass="page-limit"
+                          placeHolder="Show Rows"
+                          options={rowOptions}
+                          upward
+                          value={this.state.limit}
+                          onChange={this.handleRowChange}
+                        />
+                      </Segment>
+                    </Segment.Group>
+                  </Table.HeaderCell>
+                )}
               </Table.Row>
             </Table.Footer>
           </Table>

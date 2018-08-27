@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, values } from 'lodash';
-import { Button, Container, Header, Grid, Confirm } from 'semantic-ui-react';
+import { Container, Header, Grid, Confirm } from 'semantic-ui-react';
 import ButtonComponent from '../components/common/ButtonComponent';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AssetDescriptionComponent.css';
@@ -54,33 +54,34 @@ const AssetDescriptionComponent = props => (
               {props.assignedUser.email}
             </div>
             <br />
-            <Button
-              id="blue-rounded-button"
-              className="unassign-asset"
-              onClick={props.show}
-            >
-              Unassign Asset
-            </Button>
+            <ButtonComponent
+              buttonName="Unassign Asset"
+              customCss="unassign-asset"
+              handleClick={props.show}
+              color="primary"
+            />
           </div>
           :
           <div id="allocate-asset">
             <Header as="h3" content="Assign this asset to:" />
             <DropdownComponent
+              customClass="form-dropdown"
               label="Assign this asset to:"
-              placeHolder="Select Andela Email"
+              placeHolder="Select Andela Email To Assign This Asset"
               name="assign-user"
               search
+              value={props.selectedUserId}
               onChange={props.onSelectUserEmail}
               options={userEmailsOptions(props.users)}
             />
             <br />
-            <Button
-              id="blue-rounded-button"
-              className="assign-asset"
-              onClick={props.show}
-            >
-              Assign Asset
-            </Button>
+            <ButtonComponent
+              buttonName="Assign Asset"
+              customCss="assign-asset"
+              handleClick={props.show}
+              disabledState={props.assignAssetButtonState}
+              color="primary"
+            />
           </div>
         }
       </Grid.Column>
@@ -96,11 +97,14 @@ AssetDescriptionComponent.propTypes = {
   handleConfirm: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array,
-  buttonState: PropTypes.bool
+  buttonState: PropTypes.bool,
+  assignAssetButtonState: PropTypes.bool.isRequired,
+  selectedUserId: PropTypes.number
 };
 
 AssetDescriptionComponent.defaultProps = {
-  users: []
+  users: [],
+  selectedUserId: 0
 };
 
 export default AssetDescriptionComponent;

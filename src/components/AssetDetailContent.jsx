@@ -10,9 +10,9 @@ import { ToastMessage } from '../_utils/ToastMessage';
 import LoaderComponent from './LoaderComponent';
 
 const AssetDetailContent = (props) => {
-  if (props.isLoading) {
+  if (Object.values(props.isLoading).find(loading => loading)) {
     return (
-      <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />
+      <LoaderComponent />
     );
   }
 
@@ -85,10 +85,10 @@ const AssetDetailContent = (props) => {
                   <div><p>Asset Status</p></div>
                 </Grid.Column>
                 <Grid.Column className="details-description">
-                  <div><p>{assetDetail.asset_code}</p></div>
-                  <div><p>{assetDetail.serial_number}</p></div>
-                  <div><p>{assetDetail.model_number}</p></div>
-                  <div><p>{assetDetail.current_status}</p></div>
+                  <div><p>{assetDetail.asset_code || '-'}</p></div>
+                  <div><p>{assetDetail.serial_number || '-'}</p></div>
+                  <div><p>{assetDetail.model_number || '-'}</p></div>
+                  <div><p>{assetDetail.current_status || '-'}</p></div>
                 </Grid.Column>
               </Grid>
             </Grid.Column>
@@ -109,7 +109,7 @@ AssetDetailContent.propTypes = {
   assignedUser: PropTypes.object,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.object
 };
 
 export default AssetDetailContent;

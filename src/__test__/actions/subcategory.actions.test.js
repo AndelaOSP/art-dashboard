@@ -48,35 +48,71 @@ describe('Subcategory action tests', () => {
     results: subcategories
   };
 
+  it('should dispatch LOADING_SUBCATEGORIES with isLoading true when fetching SubCategories', () => {
+    mock.onGet().reply(200, mockSubcategories);
+    return store.dispatch(loadSubCategories())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          isLoading: true,
+          type: LOADING_SUBCATEGORIES
+        });
+      });
+  });
+
+  it('should dispatch LOADING_SUBCATEGORIES with isLoading false when done fetching SubCategories', () => {
+    mock.onGet().reply(200, mockSubcategories);
+    return store.dispatch(loadSubCategories())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          isLoading: false,
+          type: LOADING_SUBCATEGORIES
+        });
+      });
+  });
+
   it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategories called successfully', () => {
     mock.onGet().reply(200, mockSubcategories);
-    return store.dispatch(loadSubCategories()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_SUBCATEGORIES);
-      expect(store.getActions()[1].type).toEqual(LOAD_SUBCATEGORIES_SUCCESS);
-    });
+    return store.dispatch(loadSubCategories())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: mockSubcategories,
+          type: LOAD_SUBCATEGORIES_SUCCESS
+        });
+      });
   });
 
   it('should dispatch CREATE_SUBCATEGORY_SUCCESS when createSubCategory called successfully', () => {
     mock.onPost(url, subCategoryToCreate).reply(201,
       subCategoryToCreate
     );
-    return store.dispatch(createSubCategory(subCategoryToCreate)).then(() => {
-      expect(store.getActions()[0].type).toEqual(CREATE_SUBCATEGORY_SUCCESS);
-    });
+    return store.dispatch(createSubCategory(subCategoryToCreate))
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: subCategoryToCreate,
+          type: CREATE_SUBCATEGORY_SUCCESS
+        });
+      });
   });
 
-  it('should dispatch LOAD_SUBCATEGORIES_FEEDBACK_FAILURE when categories are not loaded', () => {
+  it('should dispatch LOAD_SUBCATEGORIES_FAILURE when subcategories are not loaded', () => {
     mock.onGet().reply(401);
-    return store.dispatch(loadSubCategories()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_SUBCATEGORIES);
-      expect(store.getActions()[1].type).toEqual(LOAD_SUBCATEGORIES_FAILURE);
-    });
+    return store.dispatch(loadSubCategories())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: 'Request failed with status code 401',
+          type: LOAD_SUBCATEGORIES_FAILURE
+        });
+      });
   });
 
-  it('should dispatch LOAD_SUBCATEGORIES_SUCCESS when loadSubCategoriesDropdown called successfully', () => {
+  it('should dispatch DROPDOWN_SUBCATEGORIES_SUCCESS when loadSubCategoriesDropdown called successfully', () => {
     mock.onGet().reply(200, mockSubcategories);
-    return store.dispatch(loadSubCategoriesDropdown(2)).then(() => {
-      expect(store.getActions()[0].type).toEqual(DROPDOWN_SUBCATEGORIES_SUCCESS);
-    });
+    return store.dispatch(loadSubCategoriesDropdown())
+      .then(() => {
+        expect(store.getActions()).toContainEqual({
+          payload: mockSubcategories,
+          type: DROPDOWN_SUBCATEGORIES_SUCCESS
+        });
+      });
   });
 });

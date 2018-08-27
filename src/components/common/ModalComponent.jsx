@@ -5,7 +5,7 @@ import { SemanticToastContainer } from 'react-semantic-toasts';
 import '../../_css/ModalComponent.css';
 
 export default class ArtModal extends Component {
-  state = { modalOpen: false }
+  state = { modalOpen: this.props.open || false }
 
   toggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
@@ -41,11 +41,13 @@ export default class ArtModal extends Component {
           open={this.state.modalOpen}
           onClose={this.toggleModal}
           size={this.props.modalSize}
-          closeIcon
+          closeIcon={this.props.closeIcon}
+          closeOnEscape={this.props.closeOnEscape}
+          closeOnDimmerClick={this.props.closeOnDimmerClick}
         >
           <Modal.Header>{this.props.modalTitle} <div className="underline" /></Modal.Header>
           <Modal.Content>
-            <Modal.Description>
+            <Modal.Description style={{ width: '100%' }}>
               {childrenWithProps}
             </Modal.Description>
           </Modal.Content>
@@ -60,11 +62,19 @@ ArtModal.propTypes = {
   modalTitle: PropTypes.string,
   trigger: PropTypes.element,
   className: PropTypes.string,
-  modalSize: PropTypes.string
+  modalSize: PropTypes.string,
+  open: PropTypes.bool,
+  closeOnEscape: PropTypes.bool,
+  closeOnDimmerClick: PropTypes.bool,
+  closeIcon: PropTypes.bool
 };
 
 ArtModal.defaultProps = {
   children: <br />,
   modalTitle: '',
-  modalSize: 'small'
+  modalSize: 'small',
+  open: false,
+  closeOnEscape: true,
+  closeOnDimmerClick: true,
+  closeIcon: true
 };

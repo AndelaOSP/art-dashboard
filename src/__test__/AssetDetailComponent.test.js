@@ -14,7 +14,7 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     getAssetDetail: jest.fn(),
     unassignAsset: jest.fn(),
     hasError: false,
-    isLoading: false,
+    isLoading: {},
     location: {
       pathname: ''
     }
@@ -27,22 +27,6 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
 
   it('renders the AssetsDetailsContent component', () => {
     expect(wrapper.find('AssetDetailContent').length).toBe(1);
-  });
-
-  it('should not rerender the component if the error message is the same', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    wrapper.setProps({ hasError: true });
-    expect(shouldComponentUpdateSpy.mock.calls.length).toBe(1);
-  });
-
-  it('should rerender the component if the error message changes', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    wrapper.setProps({ hasError: true, errorMessage: 'error' });
-    expect(shouldComponentUpdateSpy.mock.calls.length).toBe(2);
   });
 
   it('should mock the onSelectUserEmail function call', () => {
@@ -59,6 +43,7 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     const handleAssignSpy = jest.spyOn(
       wrapper.instance(), 'handleAssign'
     );
+    wrapper.setProps({ buttonLoading: false });
     wrapper.instance().handleAssign();
     expect(handleAssignSpy.mock.calls.length).toEqual(1);
   });
@@ -77,6 +62,15 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     );
     wrapper.instance().handleConfirm();
     expect(handleConfirmSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('should mock the handleUnassign function call if assignedUser is empty', () => {
+    const handleUnassignSpy = jest.spyOn(
+      wrapper.instance(), 'handleUnassign'
+    );
+    wrapper.setState({ assignedUser: {} });
+    wrapper.instance().handleConfirm();
+    expect(handleUnassignSpy.mock.calls.length).toEqual(1);
   });
 
   it('should mock the handleCancel function call', () => {

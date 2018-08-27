@@ -9,7 +9,6 @@ import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
 import TableRowComponent from './TableRowComponent';
 import ModalComponent from './common/ModalComponent';
-import ActionComponent from './ActionComponent';
 import LoaderComponent from './LoaderComponent';
 import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
 import AssetTypesContainer from '../_components/AssetTypes/AddAssetTypesContainer';
@@ -22,7 +21,7 @@ import DropdownComponent from '../components/common/DropdownComponent';
 
 const AssetsTableContent = (props) => {
   if (props.isLoading) {
-    return <LoaderComponent size="large" dimmerStyle={{ height: '100vh' }} />;
+    return <LoaderComponent />;
   }
 
   if (props.hasError && props.errorMessage) {
@@ -40,7 +39,7 @@ const AssetsTableContent = (props) => {
 
   return (
     <div>
-      <Table basic>
+      <Table basic selectable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
@@ -68,30 +67,39 @@ const AssetsTableContent = (props) => {
               </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              Sub-category
-              <ModalComponent modalTitle="Add Sub-Category">
-                <AddSubCategoryContainer />
-              </ModalComponent>
-            </Table.HeaderCell>
-            <Table.HeaderCell>
               Category
               <ModalComponent modalTitle="Add Asset Category">
                 <CategoryContainer />
               </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              Action
+              Sub-category
+              <ModalComponent modalTitle="Add Sub-Category">
+                <AddSubCategoryContainer />
+              </ModalComponent>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           {
-            props.activePageAssets.map(asset => (
-              <TableRowComponent
-                key={asset.id}
-                data={asset}
-                headings={[
+            props.activePageAssets.map((asset) => {
+              const assetViewUrl = `assets/${asset.uuid}/view`;
+
+              const updatedAsset = {
+                ...asset,
+                asset_code: asset.asset_code || '-',
+                serial_number: asset.serial_number || '-',
+                model_number: asset.model_number || '-'
+              };
+
+              return (
+                <TableRowComponent
+                  {...props}
+                  viewDetailsRoute={assetViewUrl}
+                  key={asset.id}
+                  data={updatedAsset}
+                  headings={[
                     'asset_code',
                     'serial_number',
                     'model_number',
@@ -100,16 +108,9 @@ const AssetsTableContent = (props) => {
                     'asset_category',
                     'asset_sub_category'
                   ]}
-              >
-                <Table.Cell>
-                  <ActionComponent
-                    onViewClick={() => {
-                        props.handleViewAsset(asset.serial_number);
-                      }}
-                  />
-                </Table.Cell>
-              </TableRowComponent>
-              ))
+                />
+              );
+            })
           }
         </Table.Body>
 
@@ -128,15 +129,17 @@ const AssetsTableContent = (props) => {
                   </Segment>
                   <Segment>
                     <DropdownComponent
-                      id="page-limit"
+                      customClass="page-limit"
                       placeHolder="Show Rows"
                       options={rowOptions}
                       upward
+                      value={props.limit}
+                      onChange={props.handleRowChange}
                     />
                   </Segment>
                 </Segment.Group>
               </Table.HeaderCell>
-              ) : ''}
+            ) : ''}
           </Table.Row>
         </Table.Footer>
       </Table>
@@ -149,9 +152,11 @@ AssetsTableContent.propTypes = {
   emptyAssetsCheck: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   handlePageTotal: PropTypes.func,
+  handleRowChange: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  limit: PropTypes.number
 };
 
 AssetsTableContent.defaultProps = {

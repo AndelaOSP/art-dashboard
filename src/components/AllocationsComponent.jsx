@@ -9,7 +9,6 @@ import { loadAllocationsAction } from '../_actions/allocations.actions';
 import NavbarComponent from './NavBarComponent';
 import TableRowComponent from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
-import AllocationActionComponent from './AllocationActionComponent';
 import formatDate from '../_utils/dateFormatter';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
@@ -32,11 +31,16 @@ export class AllocationsComponent extends Component {
     this.props.loadAllocationsAction(activePage, this.state.limit);
   };
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAllocationsAction(this.state.activePage, data.value);
+  }
+
   render() {
     if (this.props.isLoading) {
       return (
         <NavbarComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
+          <LoaderComponent />
         </NavbarComponent>
       );
     }
@@ -64,8 +68,7 @@ export class AllocationsComponent extends Component {
                 <Table.HeaderCell>Asset</Table.HeaderCell>
                 <Table.HeaderCell>Current Owner</Table.HeaderCell>
                 <Table.HeaderCell>Previous Owner</Table.HeaderCell>
-                <Table.HeaderCell>Created At</Table.HeaderCell>
-                <Table.HeaderCell>Actions</Table.HeaderCell>
+                <Table.HeaderCell>Date</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -78,11 +81,7 @@ export class AllocationsComponent extends Component {
                       key={allocation.created_at}
                       data={allocation}
                       headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}
-                    >
-                      <Table.Cell>
-                        <AllocationActionComponent />
-                      </Table.Cell>
-                    </TableRowComponent>
+                    />
                   );
                 })
               }
@@ -102,9 +101,11 @@ export class AllocationsComponent extends Component {
                     </Segment>
                     <Segment>
                       <DropdownComponent
-                        id="page-limit"
+                        customClass="page-limit"
                         placeHolder="Show Rows"
                         options={rowOptions}
+                        onChange={this.handleRowChange}
+                        value={this.state.limit}
                         upward
                       />
                     </Segment>

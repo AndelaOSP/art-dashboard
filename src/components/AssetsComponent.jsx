@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavbarComponent from './NavBarComponent';
 import AssetsTableContent from './AssetsTableContent';
-
 import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
+import FilterButton from './common/FilterButton';
 
 export class AssetsComponent extends Component {
   state = {
     activePage: 1,
     limit: 10
-  }
+  };
 
   componentDidMount() {
     this.props.getAssetsAction(this.state.activePage, this.state.limit);
@@ -27,18 +27,19 @@ export class AssetsComponent extends Component {
     return true;
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.getAssetsAction(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.getAssetsAction(activePage, this.state.limit);
-  }
-
-  handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit)
-
-  emptyAssetsCheck = () => (isEmpty(this.props.assetsList))
-
-  handleViewAsset = (assetSerialNumber) => {
-    this.props.history.push(`/assets/${assetSerialNumber}/view`);
   };
+
+  handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
+
+  emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
 
   render() {
     return (
@@ -47,17 +48,20 @@ export class AssetsComponent extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
+            <FilterButton />
           </div>
           <AssetsTableContent
+            {...this.props}
             activePage={this.state.activePage}
             activePageAssets={this.props.assetsList}
             emptyAssetsCheck={this.emptyAssetsCheck}
             errorMessage={this.props.errorMessage}
             handlePageTotal={this.handlePageTotal}
+            handleRowChange={this.handleRowChange}
             handlePaginationChange={this.handlePaginationChange}
-            handleViewAsset={this.handleViewAsset}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
+            limit={this.state.limit}
           />
         </div>
       </NavbarComponent>

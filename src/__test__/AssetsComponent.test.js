@@ -61,12 +61,4 @@ describe('Renders <AssetsComponent /> correctly', () => {
     wrapper.instance().handlePageTotal();
     expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
   });
-
-  it('calls the handleViewAsset function when the view button is clicked', () => {
-    const handleViewAssetSpy = jest.spyOn(
-      wrapper.instance(), 'handleViewAsset'
-    );
-    wrapper.instance().handleViewAsset();
-    expect(handleViewAssetSpy.mock.calls.length).toEqual(1);
-  });
 });

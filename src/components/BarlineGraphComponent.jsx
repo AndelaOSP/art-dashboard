@@ -194,7 +194,7 @@ export default class BarlineGraphComponent extends React.Component {
     width: '45%',
     height: 400,
     dataFormat: 'json',
-    dataSource: this.myDataSource,
+    dataSource: this.myDataSource
   }
 
   render() {

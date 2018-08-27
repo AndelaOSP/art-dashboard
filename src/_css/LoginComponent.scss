@@ -1,9 +1,9 @@
 @import 'sharedStyling.scss';
 
-$landing_page_image: url('/images/landing_page_image.png');
+$landing-page-image: url('/images/landing_page_image.png');
 
 .background {
-  background: $landing_page_image no-repeat;
+  background: $landing-page-image no-repeat;
   width: 100vw;
   min-height: 100vh;
   padding: 0;
@@ -12,7 +12,7 @@ $landing_page_image: url('/images/landing_page_image.png');
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #ffffff;
   background-size: cover;
 }
 

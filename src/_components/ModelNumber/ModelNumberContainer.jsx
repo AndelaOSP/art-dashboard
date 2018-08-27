@@ -15,7 +15,7 @@ class ModelNumberContainer extends React.Component {
     super(props);
     this.state = {
       modelNumber: '',
-      assetMake: '',
+      assetMake: 0,
       saveButtonState: false
     };
   }
@@ -35,7 +35,7 @@ class ModelNumberContainer extends React.Component {
       nextProps.resetToastMessageContent();
       return {
         modelNumber: '',
-        assetMake: '',
+        assetMake: 0,
         saveButtonState: false
       };
     }
@@ -78,11 +78,13 @@ class ModelNumberContainer extends React.Component {
         handleSubmit={this.handleSubmit}
         onChangeButtonState={this.onChangeButtonState}
         buttonState={this.state.saveButtonState}
+        assetMakeSelectedId={this.state.assetMake}
         toggleModal={this.props.toggleModal}
       />
     );
   }
 }
+
 ModelNumberContainer.propTypes = {
   loadAssetMakesDropdown: PropTypes.func.isRequired,
   createModelNumbers: PropTypes.func.isRequired,
@@ -97,8 +99,10 @@ ModelNumberContainer.defaultProps = {
 
 const mapStateToProps = ({ assetMakesList, toastMessage }) => ({
   assetMakes: assetMakesList.assetMakes,
-  toastMessageContent: toastMessage
+  toastMessageContent: toastMessage,
+  isLoading: assetMakesList.isLoading
 });
+
 export default connect(mapStateToProps, {
   loadAssetMakesDropdown,
   createModelNumbers,

@@ -9,7 +9,6 @@ import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from './LoaderComponent';
-import ActionComponent from './ActionComponent';
 
 import '../_css/AssetsComponent.css';
 import { loadAssetCategories } from '../_actions/assetCategories.actions';
@@ -29,6 +28,11 @@ export class AssetCategoriesComponent extends React.Component {
     this.props.loadAssetCategories(activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAssetCategories(this.state.activePage, data.value);
+  }
+
   handlePageTotal = () => Math.ceil(this.props.assetCategoriesCount / this.state.limit)
 
   emptyCategoriesCheck = () => (_.isEmpty(this.props.categories))
@@ -37,7 +41,7 @@ export class AssetCategoriesComponent extends React.Component {
     if (this.props.isLoading) {
       return (
         <NavbarComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
+          <LoaderComponent />
         </NavbarComponent>
       );
     }
@@ -73,12 +77,10 @@ export class AssetCategoriesComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Categories" />
             <Divider id="assets-divider" />
           </div>
-          <Table basic>
+          <Table basic selectable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Category</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -88,12 +90,8 @@ export class AssetCategoriesComponent extends React.Component {
                   <TableRowComponent
                     key={category.id}
                     data={category}
-                    headings={['id', 'category_name']}
-                  >
-                    <Table.Cell>
-                      <ActionComponent />
-                    </Table.Cell>
-                  </TableRowComponent>
+                    headings={['category_name']}
+                  />
                 ))
               }
             </Table.Body>
@@ -113,9 +111,11 @@ export class AssetCategoriesComponent extends React.Component {
                         </Segment>
                         <Segment>
                           <DropdownComponent
-                            id="page-limit"
+                            customClass="page-limit"
                             placeHolder="Show Rows"
                             options={rowOptions}
+                            onChange={this.handleRowChange}
+                            value={this.state.limit}
                             upward
                           />
                         </Segment>

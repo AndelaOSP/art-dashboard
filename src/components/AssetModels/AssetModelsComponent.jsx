@@ -4,13 +4,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
-
 import TableRowComponent from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
-import ActionComponent from '../../components/ActionComponent';
 import formatDate from '../../_utils/dateFormatter';
 
 import { loadAssetModels } from '../../_actions/assetModels.action';
@@ -26,6 +24,11 @@ export class AssetModelsComponent extends React.Component {
     this.props.loadAssetModels(this.state.activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAssetModels(this.state.activePage, data.value);
+  };
+
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadAssetModels(activePage, this.state.limit);
@@ -37,7 +40,7 @@ export class AssetModelsComponent extends React.Component {
     if (this.props.isLoading) {
       return (
         <NavbarComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
+          <LoaderComponent />
         </NavbarComponent>
       );
     }
@@ -59,14 +62,13 @@ export class AssetModelsComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Models" />
             <Divider id="assets-divider" />
           </div>
-          <Table basic>
+          <Table basic selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Model Number</Table.HeaderCell>
                 <Table.HeaderCell>Make</Table.HeaderCell>
                 <Table.HeaderCell>Created</Table.HeaderCell>
                 <Table.HeaderCell>Modified</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -81,11 +83,7 @@ export class AssetModelsComponent extends React.Component {
                       key={assetModel.id}
                       data={assetModel}
                       headings={['model_number', 'make_label', 'formatted_create', 'formatted_modified']}
-                    >
-                      <Table.Cell>
-                        <ActionComponent />
-                      </Table.Cell>
-                    </TableRowComponent>
+                    />
                   );
                 })
               }
@@ -93,28 +91,29 @@ export class AssetModelsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                {!_.isEmpty(this.props.assetModels) &&
-                    (
-                    <Table.HeaderCell colSpan="5" id="pagination-header">
-                      <Segment.Group horizontal id="art-pagination-section">
-                        <Segment>
-                          <Pagination
-                            totalPages={this.getTotalPages()}
-                            onPageChange={this.handlePaginationChange}
-                            activePage={this.state.activePage}
-                          />
-                        </Segment>
-                        <Segment>
-                          <DropdownComponent
-                            id="page-limit"
-                            placeHolder="Show Rows"
-                            options={rowOptions}
-                            upward
-                          />
-                        </Segment>
-                      </Segment.Group>
-                    </Table.HeaderCell>
-                    )}
+                {!_.isEmpty(this.props.assetModels) && (
+                  <Table.HeaderCell colSpan="5" id="pagination-header">
+                    <Segment.Group horizontal id="art-pagination-section">
+                      <Segment>
+                        <Pagination
+                          totalPages={this.getTotalPages()}
+                          onPageChange={this.handlePaginationChange}
+                          activePage={this.state.activePage}
+                        />
+                      </Segment>
+                      <Segment>
+                        <DropdownComponent
+                          customClass="page-limit"
+                          placeHolder="Show Rows"
+                          options={rowOptions}
+                          upward
+                          value={this.state.limit}
+                          onChange={this.handleRowChange}
+                        />
+                      </Segment>
+                    </Segment.Group>
+                  </Table.HeaderCell>
+                )}
               </Table.Row>
             </Table.Footer>
           </Table>

@@ -21,7 +21,7 @@ import AddAssetContainer from '../_components/Assets/AddAssetContainer';
 
 export class NavBarComponent extends Component {
   state = {
-    visible: false
+    visible: true
   };
 
   handleLogout = () => {
@@ -30,6 +30,15 @@ export class NavBarComponent extends Component {
   };
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
+
+  navButton = () => {
+    const { visible } = this.state;
+
+    if (visible) {
+      return <Icon id="hamburger" name="angle double up" />;
+    }
+    return <Icon id="hamburger" name="bars" />;
+  };
 
   render() {
     const { visible } = this.state;
@@ -40,7 +49,7 @@ export class NavBarComponent extends Component {
       <div>
         <Menu id="nav-bar" secondary stackable>
           <Menu.Item id="toggle-menu" name="menu" onClick={this.toggleVisibility}>
-            <Icon id="hamburger" name="bars" />
+            {this.navButton()}
           </Menu.Item>
 
           <Menu.Item>
@@ -58,7 +67,7 @@ export class NavBarComponent extends Component {
               <ArtModal
                 trigger={
                   <Button
-                    id="blue-rounded-button"
+                    className="add-asset"
                     size="small"
                   >
                     + ADD ASSET
@@ -87,7 +96,8 @@ export class NavBarComponent extends Component {
                 <Dropdown.Item
                   id="logout"
                   onClick={this.handleLogout}
-                >Logout
+                >
+                  Logout
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -103,24 +113,52 @@ export class NavBarComponent extends Component {
             <Grid textAlign="center">
               <Grid columns={6}>
                 <Grid.Column>
-                  <Link to="/dashboard"><span><Image className="nav-images" src="/images/analytics.png" /></span>Analytics</Link>
+                  <Link to="/dashboard">
+                    <span>
+                      <Image
+                        className="nav-images"
+                        src="/images/analytics.png"
+                      />
+                    </span>
+                    Analytics
+                  </Link>
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to="/users"><span><Image className="nav-images" src="/images/users.png" /></span>Users</Link>
+                  <Link to="/users">
+                    <span>
+                      <Image
+                        className="nav-images"
+                        src="/images/users.png"
+                      />
+                    </span>
+                    Users
+                  </Link>
                 </Grid.Column>
 
                 <Grid.Column>
                   <Popup
                     id="assets-popup"
                     wide
-                    trigger={<span><Image className="nav-images" src="/images/assets.png" />Assets</span>}
+                    trigger={
+                      <span>
+                        <Image
+                          className="nav-images"
+                          src="/images/assets.png"
+                        />
+                        Assets
+                      </span>
+                    }
                     on="click"
                     position="bottom center"
                   >
                     <Grid columns={2}>
                       <Grid.Column>
                         <Link to="/assets"><Icon name="list ul" />Asset List</Link>
+                      </Grid.Column>
+
+                      <Grid.Column>
+                        <Link to="/asset-makes"><Icon name="list ul" />Asset Makes</Link>
                       </Grid.Column>
 
                       <Grid.Column>
@@ -150,15 +188,39 @@ export class NavBarComponent extends Component {
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to="/incidence-reports"><span><Image className="nav-images" src="/images/reports.png" /></span>Reports</Link>
+                  <Link to="/incidence-reports">
+                    <span>
+                      <Image
+                        className="nav-images"
+                        src="/images/reports.png"
+                      />
+                    </span>
+                    Reports
+                  </Link>
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to="/user-feedback"><span><Image className="nav-images" src="/images/feedback.png" /></span>Feedback</Link>
+                  <Link to="/user-feedback">
+                    <span>
+                      <Image
+                        className="nav-images"
+                        src="/images/feedback.png"
+                      />
+                    </span>
+                    Feedback
+                  </Link>
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to="/allocations"><span><Image className="nav-images" src="/images/allocated.png" /></span>Allocations</Link>
+                  <Link to="/allocations">
+                    <span>
+                      <Image
+                        className="nav-images"
+                        src="/images/allocated.png"
+                      />
+                    </span>
+                    Allocations
+                  </Link>
                 </Grid.Column>
               </Grid>
             </Grid>

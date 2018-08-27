@@ -8,22 +8,18 @@ import localStorageMock from '../../_mock/localStorage';
 
 window.localStorage = localStorageMock;
 
-const props = {
+let props = {
   history: {
     push: jest.fn()
   },
   toggleVisibility: true
 };
 
-const wrapper = shallow(<NavBarComponent {...props} />);
+let wrapper = shallow(<NavBarComponent {...props} />);
 
 describe('renders <NavBarComponent />', () => {
   it('should render navbar menu component', () => {
     expect(wrapper.find('Menu').length).toEqual(1);
-  });
-
-  it('should render hamburger icon', () => {
-    expect(wrapper.find('#hamburger').length).toEqual(1);
   });
 
   it('should render andela banner icon', () => {
@@ -58,5 +54,20 @@ describe('renders <NavBarComponent />', () => {
     wrapper.find('#toggle-menu').simulate('click');
     wrapper.instance().toggleVisibility();
     expect(toggleVisibilitySpy.mock.calls.length).toEqual(1);
+  });
+
+  it('should render hamburger icon when closed', () => {
+    props = {
+      history: {
+        push: jest.fn()
+      },
+      toggleVisibility: false
+    };
+    wrapper = shallow(<NavBarComponent {...props} />);
+    wrapper.setState({
+      visible: false
+    });
+
+    expect(wrapper.find('#hamburger').length).toEqual(1);
   });
 });

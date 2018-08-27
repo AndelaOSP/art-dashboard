@@ -15,22 +15,20 @@ export default (state = initialState.subcategories, action) => {
     case LOADING_SUBCATEGORIES:
       return {
         ...state,
-        isLoading: true
+        isLoading: action.isLoading
       };
 
     case LOAD_SUBCATEGORIES_SUCCESS:
       return {
         ...state,
-        assetSubCategories: [...action.payload.results],
-        assetSubCategoriesCount: action.payload.count,
-        isLoading: false
+        assetSubCategories: action.payload.results,
+        assetSubCategoriesCount: action.payload.count
       };
 
     case DROPDOWN_SUBCATEGORIES_SUCCESS:
       return {
         ...state,
-        assetSubCategoriesDropdown: action.payload,
-        isLoading: false
+        assetSubCategoriesDropdown: action.payload
       };
 
     case LOAD_SUBCATEGORIES_FAILURE:
@@ -38,14 +36,13 @@ export default (state = initialState.subcategories, action) => {
         ...state,
         assetSubCategoriesDropdown: [],
         assetSubCategories: [],
-        assetSubCategoriesCount: 0,
-        isLoading: false
+        assetSubCategoriesCount: 0
       };
 
     case CREATE_SUBCATEGORY_SUCCESS:
       return {
         ...state,
-        message: action.payload
+        assetSubCategories: [...state.assetSubCategories, action.payload]
       };
 
     case CREATE_SUBCATEGORY_FAILURE:

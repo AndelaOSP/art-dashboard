@@ -46,6 +46,7 @@ describe('Sub Category Reducer test', () => {
 
   it('should handle LOADING_SUBCATEGORIES', () => {
     action.type = LOADING_SUBCATEGORIES;
+    action.isLoading = true;
     expect(subcategoryReducer(initialState, action).assetSubCategories).toEqual([]);
     expect(subcategoryReducer(initialState, action).isLoading).toEqual(true);
   });
@@ -53,7 +54,8 @@ describe('Sub Category Reducer test', () => {
   it('should handle CREATE_SUBCATEGORY_SUCCESS', () => {
     action.type = CREATE_SUBCATEGORY_SUCCESS;
     action.payload = subCategoryToCreate;
-    expect(subcategoryReducer(initialState, action).message).toEqual(subCategoryToCreate);
+    expect(subcategoryReducer(initialState, action).assetSubCategories[0])
+      .toEqual(subCategoryToCreate);
   });
 
   it('should handle CREATE_SUBCATEGORY_FAILURE', () => {

@@ -5,16 +5,17 @@ import PropTypes from 'prop-types';
 const DropdownComponent = props => (
   <Dropdown
     id={props.id}
-    style={{ width: '65%' }}
     fluid
     search
     selection
     upward
+    value={props.value}
     label={props.label}
     options={props.options}
     placeholder={props.placeHolder}
     name={props.name}
     onChange={props.onChange}
+    className={props.customClass}
   />
 );
 
@@ -24,14 +25,22 @@ DropdownComponent.propTypes = {
   options: PropTypes.array.isRequired,
   placeHolder: PropTypes.string,
   onChange: PropTypes.func,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string,
+  customClass: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
 
 DropdownComponent.defaultProps = {
   id: '',
   label: '',
   placeHolder: '',
-  onChange: () => {}
+  onChange: () => {},
+  customClass: '',
+  value: 10,
+  name: ''
 };
 
 export default DropdownComponent;

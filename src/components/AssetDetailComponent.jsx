@@ -11,14 +11,17 @@ import NavbarComponent from './NavBarComponent';
 export class AssetDetailComponent extends Component {
   state = {
     assignedUser: {},
-    selectedUser: '',
+    selectedUser: 0,
     serialNumber: '',
-    open: false
-  }
+    open: false,
+    assignAssetButtonState: true,
+    hasError: this.props.hasError,
+    errorMessage: this.props.errorMessage
+  };
 
   componentDidMount() {
     this.getAssetId(this.props.location.pathname);
-    if (_.isEmpty(this.props.users)) {
+    if (_.isEmpty(this.props.usersDropdown)) {
       this.props.loadDropDownUsers();
     }
   }
@@ -26,30 +29,22 @@ export class AssetDetailComponent extends Component {
   static getDerivedStateFromProps(nextProps) {
     return {
       assignedUser: nextProps.assetDetail.assigned_to,
-      open: nextProps.buttonLoading
+      open: nextProps.buttonLoading,
+      hasError: nextProps.hasError,
+      errorMessage: nextProps.errorMessage
     };
-  }
-
-  shouldComponentUpdate(nextProps) {
-    if (
-      this.props.hasError &&
-      (this.props.errorMessage === nextProps.errorMessage)
-    ) {
-      return false;
-    }
-    return true;
   }
 
   getAssetId(pathName) {
     const stringArray = pathName.split('/');
     const serialNumber = stringArray[2];
-    this.props.getAssetDetail(serialNumber);
     this.setState({ serialNumber });
+    this.props.getAssetDetail(serialNumber);
   }
 
   onSelectUserEmail = (event, data) => {
-    this.setState({ selectedUser: data.value });
-  }
+    this.setState({ selectedUser: data.value, assignAssetButtonState: false });
+  };
 
   handleAssign = () => {
     const { selectedUser } = this.state;
@@ -61,7 +56,7 @@ export class AssetDetailComponent extends Component {
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
 
     if (!this.props.buttonLoading) this.setState({ open: false });
-  }
+  };
 
   handleUnassign = () => {
     const { id } = this.props.assetDetail;
@@ -72,9 +67,9 @@ export class AssetDetailComponent extends Component {
     this.props.unassignAsset(assetAssigned, this.state.serialNumber);
 
     if (!this.props.buttonLoading) this.setState({ open: false });
-  }
+  };
 
-  show = () => this.setState({ open: true })
+  show = () => this.setState({ open: true });
 
   handleConfirm = () => {
     if (isEmpty(values(this.state.assignedUser))) {
@@ -83,7 +78,7 @@ export class AssetDetailComponent extends Component {
     return this.handleUnassign();
   };
 
-  handleCancel = () => this.setState({ open: false })
+  handleCancel = () => this.setState({ open: false });
 
   render() {
     return (
@@ -94,17 +89,21 @@ export class AssetDetailComponent extends Component {
             {...this.props}
             assetDetail={this.props.assetDetail}
             assignedUser={this.state.assignedUser}
-            errorMessage={this.props.errorMessage}
-            hasError={this.props.hasError}
+            errorMessage={this.state.errorMessage}
+            hasError={this.state.hasError}
             isLoading={this.props.isLoading}
             onSelectUserEmail={this.onSelectUserEmail}
             handleAssign={this.handleAssign}
             handleUnassign={this.handleUnassign}
             open={this.state.open}
+            selectedUserId={this.state.selectedUser}
             show={this.show}
             handleConfirm={this.handleConfirm}
             handleCancel={this.handleCancel}
             buttonState={this.props.buttonLoading}
+            assignAssetButtonState={this.state.assignAssetButtonState}
+            selectedUser={this.state.selectedUser}
+            users={this.props.usersDropdown}
           />
         </Container>
       </NavbarComponent>
@@ -120,10 +119,10 @@ AssetDetailComponent.propTypes = {
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool,
+  isLoading: PropTypes.object,
   buttonLoading: PropTypes.bool,
   location: PropTypes.object,
-  users: PropTypes.array,
+  usersDropdown: PropTypes.array,
   newAllocation: PropTypes.object,
   unAssignedAsset: PropTypes.object
 };
@@ -133,14 +132,17 @@ const mapStateToProps = ({ asset, usersList }) => {
     assetDetail,
     errorMessage,
     hasError,
-    isLoading,
     newAllocation,
     unAssignedAsset,
     buttonLoading
   } = asset;
-  const { users } = usersList;
+  const { usersDropdown } = usersList;
+  const isLoading = {
+    assetsLoading: asset.isLoading,
+    usersLoading: usersList.isLoading
+  };
   return {
-    users,
+    usersDropdown,
     assetDetail,
     newAllocation,
     unAssignedAsset,

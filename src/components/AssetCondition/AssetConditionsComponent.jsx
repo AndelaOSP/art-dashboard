@@ -9,8 +9,6 @@ import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import NavbarComponent from '../NavBarComponent';
 import LoaderComponent from '../../components/LoaderComponent';
-import AssetConditionActionComponent from './AssetConditionActionComponent';
-
 import '../../_css/AssetsComponent.css';
 import { loadAssetConditions } from '../../_actions/assetCondition.actions';
 import formatDate from '../../_utils/dateFormatter';
@@ -27,7 +25,12 @@ export class AssetConditionsComponent extends React.Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetConditions(activePage);
+    this.props.loadAssetConditions(activePage, this.state.limit);
+  };
+
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadAssetConditions(this.state.activePage, data.value);
   };
 
   getTotalPages = () => Math.ceil(this.props.assetConditionsCount / this.state.limit);
@@ -36,7 +39,7 @@ export class AssetConditionsComponent extends React.Component {
     if (this.props.isLoading) {
       return (
         <NavbarComponent>
-          <LoaderComponent size="large" dimmerStyle={{ height: '90vh' }} />
+          <LoaderComponent />
         </NavbarComponent>
       );
     }
@@ -58,13 +61,12 @@ export class AssetConditionsComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Conditions" />
             <Divider id="assets-divider" />
           </div>
-          <Table basic>
+          <Table basic selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Asset</Table.HeaderCell>
                 <Table.HeaderCell>Condition</Table.HeaderCell>
                 <Table.HeaderCell>Date Created</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -77,11 +79,7 @@ export class AssetConditionsComponent extends React.Component {
                       key={assetCondition.id}
                       data={assetCondition}
                       headings={['asset', 'asset_condition', 'formatted_date']}
-                    >
-                      <Table.Cell>
-                        <AssetConditionActionComponent details={assetCondition} />
-                      </Table.Cell>
-                    </TableRowComponent>
+                    />
                   );
                 })
               }
@@ -90,26 +88,28 @@ export class AssetConditionsComponent extends React.Component {
             <Table.Footer>
               <Table.Row>
                 {!_.isEmpty(this.props.assetConditionsList) && (
-                <Table.HeaderCell colSpan="4" id="pagination-header">
-                  <Segment.Group horizontal id="art-pagination-section">
-                    <Segment>
-                      <Pagination
-                        totalPages={this.getTotalPages()}
-                        onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
-                      />
-                    </Segment>
-                    <Segment>
-                      <DropdownComponent
-                        id="page-limit"
-                        placeHolder="Show Rows"
-                        options={rowOptions}
-                        upward
-                      />
-                    </Segment>
-                  </Segment.Group>
-                </Table.HeaderCell>
-                  )}
+                  <Table.HeaderCell colSpan="4" id="pagination-header">
+                    <Segment.Group horizontal id="art-pagination-section">
+                      <Segment>
+                        <Pagination
+                          totalPages={this.getTotalPages()}
+                          onPageChange={this.handlePaginationChange}
+                          activePage={this.state.activePage}
+                        />
+                      </Segment>
+                      <Segment>
+                        <DropdownComponent
+                          customClass="page-limit"
+                          placeHolder="Show Rows"
+                          options={rowOptions}
+                          onChange={this.handleRowChange}
+                          value={this.state.limit}
+                          upward
+                        />
+                      </Segment>
+                    </Segment.Group>
+                  </Table.HeaderCell>
+                )}
               </Table.Row>
             </Table.Footer>
           </Table>
@@ -137,4 +137,3 @@ const mapStateToProps = ({ assetConditions }) => {
 };
 
 export default connect(mapStateToProps, { loadAssetConditions })(AssetConditionsComponent);
-

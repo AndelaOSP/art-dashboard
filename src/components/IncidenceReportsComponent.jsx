@@ -26,6 +26,11 @@ export class IncidenceReportsComponent extends React.Component {
     this.props.loadIncidenceReports(activePage, this.state.limit);
   }
 
+  handleRowChange = (e, data) => {
+    this.setState({ limit: data.value });
+    this.props.loadIncidenceReports(this.state.activePage, data.value);
+  }
+
   handlePageTotal = () => Math.ceil(this.props.incidenceReportsCount / this.state.limit)
 
   emptyReportsCheck = () => (_.isEmpty(this.props.reports))
@@ -88,9 +93,11 @@ export class IncidenceReportsComponent extends React.Component {
                         </Segment>
                         <Segment>
                           <DropdownComponent
-                            id="page-limit"
+                            customClass="page-limit"
                             placeHolder="Show Rows"
                             options={rowOptions}
+                            onChange={this.handleRowChange}
+                            value={this.state.limit}
                             upward
                           />
                         </Segment>

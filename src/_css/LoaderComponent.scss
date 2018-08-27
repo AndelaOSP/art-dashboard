@@ -1,0 +1,20 @@
+@import "sharedStyling.scss";
+
+.ui.centered.three.column.grid > .column.loader-column {
+  width: 64px;
+}
+
+.ui.inverted.dimmer.overlay {
+  background-color: rgba(255, 255, 255, .95);
+}
+
+.la-square-jelly-box {
+  color: $andela-orange;
+  text-align: center;
+}
+
+.loader-text {
+  color: $andela-black;
+  margin-top: 15px;
+  text-align: center;
+}

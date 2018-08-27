@@ -18,7 +18,8 @@ const props = {
   loadDropdownAssetTypes: jest.fn(),
   loadAssetMakes: jest.fn(),
   resetToastMessageContent: jest.fn(),
-  toastMessageContent: {}
+  toastMessageContent: {},
+  isLoading: false
 };
 
 describe('Renders <AddAssetMakeComponent /> correctly', () => {
@@ -41,15 +42,29 @@ describe('Renders <AddAssetMakeComponent /> correctly', () => {
   });
 
   it('Should find the Save Button', () => {
-    expect(wrapper.find('.save-button').length).toEqual(1);
-    wrapper.find('.save-button').simulate('click');
+    expect(wrapper.find('.save').length).toEqual(1);
+    wrapper.find('.save').simulate('click');
     expect(onChangeButtonState.callCount).toEqual(1);
   });
 
   it('Should find the Cancel Button', () => {
-    expect(wrapper.find('.cancel-button').length).toEqual(1);
-    wrapper.find('.cancel-button').simulate('click');
+    expect(wrapper.find('.cancel').length).toEqual(1);
+    wrapper.find('.cancel').simulate('click');
     expect(toggleModal.callCount).toEqual(1);
+  });
+
+  it('Should simulate form submit', () => {
+    const form = wrapper.find('Form');
+    expect(form.length).toEqual(1);
+    form.simulate('submit');
+    expect(props.handleSubmit.mock.calls.length).toEqual(1);
+  });
+
+  it('renders Loading component if isLoading is true', () => {
+    wrapper.setProps({
+      isLoading: true
+    });
+    expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 });
 
@@ -91,5 +106,15 @@ describe('Renders <AssetMakeContainer /> correctly', () => {
       }
     });
     expect(wrapper.props().toastMessageContent.type).toEqual('success');
+  });
+
+  it('should receive a message type prop when getDerivedStateFromProps loads', () => {
+    wrapper.setProps({
+      toastMessageContent: {
+        type: 'error',
+        message: 'An error occured'
+      }
+    });
+    expect(wrapper.props().toastMessageContent.type).toEqual('error');
   });
 });
