@@ -1,48 +1,22 @@
+import faker from 'faker';
+
 export default [
   {
     title: 'Model Numbers',
-    content: [
-      {
-        id: 1,
-        option: 'MC-LF600'
-      },
-      {
-        id: 2,
-        option: 'MC-LF700'
-      },
-      {
-        id: 3,
-        option: 'MC-LF500'
-      },
-      {
-        id: 4,
-        option: 'MC-LF600'
-      },
-      {
-        id: 5,
-        option: 'MC-LF700'
-      },
-      {
-        id: 6,
-        option: 'MC-LF500'
-      }
-    ]
+    content: Array(100)
+      .fill({})
+      .map((value, index) => ({
+        id: index,
+        option: faker.random.word()
+      }))
   },
   {
     title: 'Asset Types',
-    content: [
-      {
-        id: 1,
-        option: 'option'
-      },
-      {
-        id: 2,
-        option: 'monitoring'
-      },
-      {
-        id: 3,
-        option: 'circuit'
-      }
-    ]
+    content: Array(50)
+      .fill({})
+      .map((value, index) => ({
+        id: index,
+        option: faker.random.word()
+      }))
   }
 ];

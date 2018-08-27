@@ -1,31 +1,33 @@
 @import "sharedStyling.scss";
 
 .ui.vertical.accordion.ui.filter-menu {
-  position: absolute;
-  border: $andela-blue solid 1px;
+  border: none;
   border-radius: 0;
   background: #ffffff;
-  right: 8rem;
-  top: 9rem;
-  z-index: 10;
-  margin: -5px -2px 0 0;
-  text-align: left;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
-.fake-border {
-  position: absolute;
-  background: #ffffff;
-  right: 8rem;
-  top: 8rem;
-  z-index: 11;
-  width: 148px;
-  height: 10px;
-  margin: 0 -1px 0 0;
+.ui.vertical.accordion.ui.filter-menu.menu {
+  max-height: 30rem;
+  overflow-y: scroll;
+}
+
+.ui.accordion .accordion .active.content,
+.ui.accordion .active.content {
+  max-height: 20rem;
+  overflow-y: scroll;
+}
+
+
+.ui.accordion .active.content::-webkit-scrollbar,
+.ui.vertical.accordion.ui.filter-menu.menu::-webkit-scrollbar {
+  width: 0;  /* remove scrollbar space */
+  background: transparent;  /* make scrollbar invisible */
 }
 
 .ui.accordion.menu .item .title {
   font-size: 16px;
-  font-weight: 500;
   margin: 2px 0 8px 0;
   text-align: left;
 }
