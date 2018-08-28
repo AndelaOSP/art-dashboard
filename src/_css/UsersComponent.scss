@@ -13,13 +13,13 @@
   width: 90px;
 }
 
-#add-security-user {
-  display: flex;
-  height: 50px;
-}
-
 .user-list-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+}
+
+#add-security-user {
+  display: flex;
+  height: 50px;
 }
