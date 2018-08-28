@@ -8,14 +8,8 @@ import {
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
 import TableRowComponent from './TableRowComponent';
-import ModalComponent from './common/ModalComponent';
 import LoaderComponent from './LoaderComponent';
-import ModelNumberContainer from '../_components/ModelNumber/ModelNumberContainer';
-import AssetTypesContainer from '../_components/AssetTypes/AddAssetTypesContainer';
-import CategoryContainer from '../_components/Category/CategoryContainer';
-import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
 import { ToastMessage } from '../_utils/ToastMessage';
-import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 
@@ -50,33 +44,18 @@ const AssetsTableContent = (props) => {
             </Table.HeaderCell>
             <Table.HeaderCell>
               Model Number
-              <ModalComponent modalTitle="Add Asset Model Number">
-                <ModelNumberContainer />
-              </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
               Asset Make
-              <ModalComponent modalTitle="Add Asset Make">
-                <AssetMakeContainer />
-              </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
               Asset Type
-              <ModalComponent modalTitle="Add Asset Type">
-                <AssetTypesContainer />
-              </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
               Category
-              <ModalComponent modalTitle="Add Asset Category">
-                <CategoryContainer />
-              </ModalComponent>
             </Table.HeaderCell>
             <Table.HeaderCell>
               Sub-category
-              <ModalComponent modalTitle="Add Sub-Category">
-                <AddSubCategoryContainer />
-              </ModalComponent>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
