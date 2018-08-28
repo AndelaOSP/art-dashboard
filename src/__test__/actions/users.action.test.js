@@ -96,16 +96,30 @@ describe('Asset Action tests', () => {
   it('should dispatch CREATE_SECURITY_USER_SUCCESS when addSecurityUser is called successfully', () => {
     mock.onPost(url3).reply(201, SecurityUser);
     return store.dispatch(addSecurityUser()).then(() => {
-      expect(store.getActions()[0].type).toEqual(CREATE_SECURITY_USER_SUCCESS);
-      expect(store.getActions()[1].type).toEqual(UPDATE_TOAST_MESSAGE_CONTENT);
+      expect(store.getActions()).toContainEqual({
+        type: CREATE_SECURITY_USER_SUCCESS,
+        payload: SecurityUser
+      });
     });
   });
 
-  it('should dispatch CREATE_SECURITY_USER_SUCCESS when addSecurityUser is called successfully', () => {
+  it('should dispatch UPDATE_TOAST_MESSAGE_CONTENT when addSecurityUser is called successfully', () => {
+    mock.onPost(url3).reply(201, SecurityUser);
+    return store.dispatch(addSecurityUser()).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: UPDATE_TOAST_MESSAGE_CONTENT,
+        payload: { message: 'New Security User Added Successfully', type: 'success' }
+      });
+    });
+  });
+
+  it('should dispatch CREATE_SECURITY_USER_FAILURE when addSecurityUser is fails', () => {
     mock.onPost(url3).reply(401);
     return store.dispatch(addSecurityUser()).then(() => {
-      expect(store.getActions()[0].type).toEqual(CREATE_SECURITY_USER_FAILURE);
-      expect(store.getActions()[1].type).toEqual(UPDATE_TOAST_MESSAGE_CONTENT);
+      expect(store.getActions()).toContainEqual({
+        type: CREATE_SECURITY_USER_FAILURE,
+        payload: 'Request failed with status code 401'
+      });
     });
   });
 });

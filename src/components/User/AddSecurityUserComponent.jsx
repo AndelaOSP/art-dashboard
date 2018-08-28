@@ -10,10 +10,10 @@ const AddSecurityUserComponent = props => (
       First Name
       <InputField
         id="first-name"
-        name="first-name"
+        name="firstName"
         placeHolder="Enter First Name"
         value={props.firstName}
-        onChange={props.onFirstNameChange}
+        onChange={props.handleInputChange}
       />
     </label>
     <br />
@@ -21,10 +21,10 @@ const AddSecurityUserComponent = props => (
     Last Name
       <InputField
         id="last-name"
-        name="last-name"
+        name="lastName"
         placeHolder="Enter Last Name"
         value={props.lastName}
-        onChange={props.onLastNameChange}
+        onChange={props.handleInputChange}
       />
     </label>
     <br />
@@ -34,27 +34,27 @@ const AddSecurityUserComponent = props => (
         id="email"
         name="email"
         value={props.email}
-        onChange={props.onEmailChange}
+        onChange={props.handleInputChange}
       />
     </label>
     <br />
     <label htmlFor="badge-number">
     Badge Number
       <InputField
-        name="badge-number"
+        name="badgeNumber"
         id="badge-number"
         value={props.badgeNumber}
-        onChange={props.onBadgeNumberChange}
+        onChange={props.handleInputChange}
       />
     </label>
     <br />
     <label htmlFor="phone-number">
     Phone Number
       <InputField
-        id="phone-number"
+        id="phoneNumber"
         name="phone-number"
         value={props.phoneNumber}
-        onChange={props.onPhoneNumberChange}
+        onChange={props.handleInputChange}
       />
     </label>
     <br />
@@ -75,11 +75,7 @@ AddSecurityUserComponent.propTypes = {
   email: PropTypes.string,
   badgeNumber: PropTypes.string,
   phoneNumber: PropTypes.string,
-  onFirstNameChange: PropTypes.func,
-  onLastNameChange: PropTypes.func,
-  onEmailChange: PropTypes.func,
-  onBadgeNumberChange: PropTypes.func,
-  onPhoneNumberChange: PropTypes.func,
+  handleInputChange: PropTypes.func,
   onChangeButtonState: PropTypes.func,
   buttonState: PropTypes.bool
 };

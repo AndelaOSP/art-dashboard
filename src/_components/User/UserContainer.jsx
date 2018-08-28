@@ -12,7 +12,6 @@ import FilterButton from '../../components/common/FilterButton';
 import AddSecurityUserContainer from '../../_components/User/AddSecurityUserContainer';
 import ModalComponent from '../../components/common/ModalComponent';
 
-
 export class UserContainer extends Component {
   state = {
     activePage: 1,
@@ -56,23 +55,25 @@ export class UserContainer extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Users List" />
             <Divider id="assets-divider" />
-            <ModalComponent
-              trigger={
-                <Button
-                  className="add-user"
-                  size="small"
-                >
+            <div className="user-list-content">
+              <ModalComponent
+                trigger={
+                  <Button
+                    id="add-security-user"
+                    size="small"
+                  >
                 + ADD SECURITY USER
-                </Button>
+                  </Button>
               }
-              modalTitle="Add Security User"
-            >
-              <AddSecurityUserContainer />
-            </ModalComponent>
-            <FilterButton
-              render={toggleOn =>
+                modalTitle="Add Security User"
+              >
+                <AddSecurityUserContainer />
+              </ModalComponent>
+              <FilterButton
+                render={toggleOn =>
                 (<FilterComponent toggleOn={toggleOn} />)}
-            />
+              />
+            </div>
           </div>
           <UserComponent
             activePage={this.state.activePage}

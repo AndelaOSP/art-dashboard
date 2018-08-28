@@ -51,6 +51,18 @@
   margin-right: 5px;
 }
 
+#add-security-user {
+  display: flex;
+  height: 50px;
+}
+
+.user-list-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+
 .burger-line {
   width: 15px;
   height: 2px;
@@ -67,4 +79,3 @@
 .unclicked {
   background-color: $filter-blue;
 }
-

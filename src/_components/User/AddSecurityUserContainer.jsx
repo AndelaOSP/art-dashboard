@@ -41,25 +41,12 @@ class AddSecurityUserContainer extends React.Component {
     return null;
   }
 
-  onFirstNameChange = (event) => {
-    this.setState({ firstName: event.target.value });
-  };
-
-  onLastNameChange = (event) => {
-    this.setState({ lastName: event.target.value });
-  };
-
-  onPhoneNumberChange = (event) => {
-    this.setState({ phoneNumber: event.target.value });
-  };
-
-  onEmailChange = (event) => {
-    this.setState({ email: event.target.value });
-  };
-
-  onBadgeNumberChange = (event) => {
-    this.setState({ badgeNumber: event.target.value });
-  };
+  handleInputChange = (event) => {
+    const { value, name } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
 
   onChangeButtonState = () => {
     this.setState({ saveButtonState: !this.state.saveButtonState });
@@ -75,7 +62,9 @@ class AddSecurityUserContainer extends React.Component {
     };
 
     this.props.addSecurityUser(newSecurityUser);
-    event.target.reset();
+    if (!this.state.saveButtonState) {
+      event.target.reset();
+    }
   };
 
   render() {
@@ -83,11 +72,7 @@ class AddSecurityUserContainer extends React.Component {
       <AddUserComponent
         {...this.props}
         handleSubmit={this.handleSubmit}
-        onFirstNameChange={this.onFirstNameChange}
-        onLastNameChange={this.onLastNameChange}
-        onPhoneNumberChange={this.onPhoneNumberChange}
-        onBadgeNumberChange={this.onBadgeNumberChange}
-        onEmailChange={this.onEmailChange}
+        handleInputChange={this.handleInputChange}
         buttonState={this.state.saveButtonState}
         onChangeButtonState={this.onChangeButtonState}
       />
@@ -100,7 +85,6 @@ AddSecurityUserContainer.propTypes = {
   toastMessageContent: PropTypes.object,
   resetToastMessageContent: PropTypes.func
 };
-
 
 const mapStateToProps = ({ usersList, toastMessage }) => ({
   securityUser: usersList.securityUser,

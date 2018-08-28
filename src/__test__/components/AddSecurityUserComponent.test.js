@@ -19,7 +19,6 @@ const props = {
   buttonState: false
 };
 
-
 describe('Renders <AddSecurityUserComponent /> correctly when no errors or loading prop', () => {
   const wrapper1 = shallow(<AddSecurityUserComponent {...props} />);
 

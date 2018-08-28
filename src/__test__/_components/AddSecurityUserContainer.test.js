@@ -16,59 +16,15 @@ const props = {
 describe('Renders <AddSecurityUserContainer /> tests', () => {
   const wrapper = shallow(<AddSecurityUserContainer.WrappedComponent {...props} />);
 
-  it('calls the onFirstNameChange function', () => {
-    const onFirstNameChangeSpy = jest.spyOn(
-      wrapper.instance(), 'onFirstNameChange'
+  it('calls the handleInputChange function', () => {
+    const handleInputChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleInputChange'
     );
     const event = { target: { value: '' } };
     const data = {};
 
-    wrapper.instance().onFirstNameChange(event, data);
-    expect(onFirstNameChangeSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the onPhoneNumberChange function', () => {
-    const onPhoneNumberChangeSpy = jest.spyOn(
-      wrapper.instance(), 'onPhoneNumberChange'
-    );
-    const event = { target: { value: '' } };
-    const data = {};
-
-    wrapper.instance().onPhoneNumberChange(event, data);
-    expect(onPhoneNumberChangeSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the onLastNameChange function', () => {
-    const onLastNameChangeStateSpy = jest.spyOn(
-      wrapper.instance(), 'onLastNameChange'
-    );
-    const event = { target: { value: '' } };
-    const data = {};
-
-    wrapper.instance().onLastNameChange(event, data);
-    expect(onLastNameChangeStateSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the onEmailChange function', () => {
-    const onEmailChangeStateSpy = jest.spyOn(
-      wrapper.instance(), 'onEmailChange'
-    );
-    const event = { target: { value: '' } };
-    const data = {};
-
-    wrapper.instance().onEmailChange(event, data);
-    expect(onEmailChangeStateSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the onBadgeNumberChange function', () => {
-    const onBadgeNumberChangeStateSpy = jest.spyOn(
-      wrapper.instance(), 'onBadgeNumberChange'
-    );
-    const event = { target: { value: '' } };
-    const data = {};
-
-    wrapper.instance().onBadgeNumberChange(event, data);
-    expect(onBadgeNumberChangeStateSpy.mock.calls.length).toEqual(1);
+    wrapper.instance().handleInputChange(event, data);
+    expect(handleInputChangeSpy.mock.calls.length).toEqual(1);
   });
 
   it('calls the onChangeButtonState function', () => {
