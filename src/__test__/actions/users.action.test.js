@@ -122,4 +122,14 @@ describe('Asset Action tests', () => {
       });
     });
   });
+
+  it('should dispatch UPDATE_TOAST_MESSAGE_CONTENT when addSecurityUser fails', () => {
+    mock.onPost(url3).reply(401, SecurityUser);
+    return store.dispatch(addSecurityUser()).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: UPDATE_TOAST_MESSAGE_CONTENT,
+        payload: { message: 'Could not save Security User', type: 'error' }
+      });
+    });
+  });
 });

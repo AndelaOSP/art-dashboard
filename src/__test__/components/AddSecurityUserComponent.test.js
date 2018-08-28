@@ -10,11 +10,6 @@ const props = {
   email: '',
   badgeNumber: '',
   phoneNumber: '',
-  onFirstNameChange: jest.fn(),
-  onLastNameChange: jest.fn(),
-  onEmailChange: jest.fn(),
-  onBadgeNumberChange: jest.fn(),
-  onPhoneNumberChange: jest.fn(),
   onChangeButtonState: jest.fn(),
   buttonState: false
 };
