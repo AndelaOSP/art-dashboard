@@ -189,6 +189,32 @@ describe('<AddAssetContainer />', () => {
     expect(wrapper.state().specs.memory).toEqual('16');
   });
 
+  it('should submit the form when form is filled', () => {
+    specsComponentSetup();
+    const returnSpecsState = () => wrapper.state().specs;
+    wrapper.setProps({
+      createAsset: () => returnSpecsState()
+    });
+
+    expect(returnSpecsState()).toEqual(wrapper.state().specs);
+
+    wrapper.find('DropdownComponent .item').at(3).simulate('click');
+    wrapper.find('input[type="radio"][name="processorType"]').at(0).simulate('change');
+    wrapper.find('input[type="radio"][name="processorSpeed"]').at(1).simulate('change');
+    wrapper.find('input[type="radio"][name="screenSize"]').at(1).simulate('change');
+    wrapper.find('input[type="radio"][name="storage"]').at(2).simulate('change');
+    wrapper.find('input[type="radio"][name="memory"]').at(2).simulate('change');
+    wrapper.find('Form').simulate('submit');
+    expect(wrapper.state().specs).toEqual({
+      memory: '16',
+      processorSpeed: '2.3',
+      processorType: 'Intel core i3',
+      screenSize: '15',
+      storage: '512',
+      year: 2016
+    });
+  });
+
   it('can receive a success prop when getDerivedStateFromProps runs', () => {
     wrapper.setProps({
       toastMessageContent: {
