@@ -3,15 +3,18 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { loadUsers, loadDropDownUsers } from '../../_actions/users.actions';
+import { loadUsers, loadDropDownUsers, addSecurityUser } from '../../_actions/users.actions';
 import constants from '../../_constants';
-import users from '../../_mock/users';
+import users, { SecurityUser } from '../../_mock/users';
 
 const {
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
   LOADING_USERS,
-  LOAD_DROPDOWN_USERS_SUCCESS
+  LOAD_DROPDOWN_USERS_SUCCESS,
+  UPDATE_TOAST_MESSAGE_CONTENT,
+  CREATE_SECURITY_USER_SUCCESS,
+  CREATE_SECURITY_USER_FAILURE
 } = constants;
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -23,6 +26,7 @@ describe('Asset Action tests', () => {
   const limit = 10;
   const url = `users?page=${pageNumber}&page_size=${limit}`;
   const url2 = '/users/?paginate=false';
+  const url3 = '/security-users/';
   store = mockStore({});
 
   afterEach(() => {
@@ -85,6 +89,46 @@ describe('Asset Action tests', () => {
       expect(store.getActions()).toContainEqual({
         payload: 'Request failed with status code 404',
         type: LOAD_USERS_FAILURE
+      });
+    });
+  });
+
+  it('should dispatch CREATE_SECURITY_USER_SUCCESS when addSecurityUser is called successfully', () => {
+    mock.onPost(url3).reply(201, SecurityUser);
+    return store.dispatch(addSecurityUser()).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: CREATE_SECURITY_USER_SUCCESS,
+        payload: SecurityUser
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_TOAST_MESSAGE_CONTENT when addSecurityUser is called successfully', () => {
+    mock.onPost(url3).reply(201, SecurityUser);
+    return store.dispatch(addSecurityUser()).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: UPDATE_TOAST_MESSAGE_CONTENT,
+        payload: { message: 'New Security User Added Successfully', type: 'success' }
+      });
+    });
+  });
+
+  it('should dispatch CREATE_SECURITY_USER_FAILURE when addSecurityUser is fails', () => {
+    mock.onPost(url3).reply(401);
+    return store.dispatch(addSecurityUser()).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: CREATE_SECURITY_USER_FAILURE,
+        payload: 'Request failed with status code 401'
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_TOAST_MESSAGE_CONTENT when addSecurityUser fails', () => {
+    mock.onPost(url3).reply(401, SecurityUser);
+    return store.dispatch(addSecurityUser()).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: UPDATE_TOAST_MESSAGE_CONTENT,
+        payload: { message: 'Could not save Security User', type: 'error' }
       });
     });
   });

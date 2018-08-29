@@ -14,4 +14,11 @@ export default [
     cohort: 9
   }
 ];
-
+export const SecurityUser = {
+  id: 1,
+  first_name: 'Test',
+  last_name: 'User',
+  email: 'test@email.com',
+  badge_number: '10F',
+  phone_number: '090938e90938'
+};
