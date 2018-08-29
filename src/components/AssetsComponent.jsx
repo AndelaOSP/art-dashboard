@@ -7,19 +7,23 @@ import NavbarComponent from './NavBarComponent';
 import AssetsTableContent from './AssetsTableContent';
 import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
+import { loadAllAssetModels } from '../_actions/assetModels.action';
+import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
 import FilterButton from './common/FilterButton';
-import FilterComponent from './common/FilterComponent';
-
-import assetsFilter from '../_mock/assetsFilter';
+import AssetFilterComponent from './Assets/AssetFilterComponent';
 
 export class AssetsComponent extends Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    filters: []
   };
 
   componentDidMount() {
     this.props.getAssetsAction(this.state.activePage, this.state.limit);
+    this.props.loadAllAssetModels();
+    this.props.loadDropdownAssetTypes();
+    this.createFilterData();
   }
 
   shouldComponentUpdate(nextProps) {
@@ -48,6 +52,43 @@ export class AssetsComponent extends Component {
     this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
   };
 
+  createFilterData = () => {
+    const { assetTypesList, assetModelsList } = this.props;
+
+    const filters = [];
+    const assetFilters = {
+      title: 'Asset Types',
+      content: []
+    };
+    const modelNumberFilters = {
+      title: 'Model Numbers',
+      content: []
+    };
+
+    if (!isEmpty(assetTypesList.assetTypes) && !isEmpty(assetModelsList.assetModels)) {
+      assetFilters.content.concat(assetTypesList.assetTypes.map(assetType => (
+        {
+          id: assetType.id,
+          option: assetType.asset_type
+        }
+      )
+      ));
+
+      modelNumberFilters.content.concat(assetModelsList.assetModels.map(assetModel => (
+        {
+          id: assetModel.id,
+          option: assetModel.model_number
+        }
+      )
+      ));
+
+      filters.push(assetFilters);
+      filters.push(modelNumberFilters);
+    }
+
+    this.setState({ filters });
+  };
+
   render() {
     return (
       <NavbarComponent title="Assets">
@@ -57,7 +98,13 @@ export class AssetsComponent extends Component {
             <Divider id="assets-divider" />
             <FilterButton
               render={toggleOn => (
-                <FilterComponent options={assetsFilter} toggleOn={toggleOn} />
+                <AssetFilterComponent
+                  options={this.state.filters}
+                  toggleOn={toggleOn}
+                  activePage={this.state.activePage}
+                  limit={this.state.limit}
+                  getAssetsAction={this.props.getAssetsAction}
+                />
               )}
             />
           </div>
@@ -85,9 +132,13 @@ AssetsComponent.propTypes = {
   assetsList: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
+  loadAllAssetModels: PropTypes.func.isRequired,
+  loadDropdownAssetTypes: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   history: PropTypes.object,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  assetModelsList: PropTypes.object,
+  assetTypesList: PropTypes.object
 };
 
 AssetsComponent.defaultProps = {
@@ -95,17 +146,19 @@ AssetsComponent.defaultProps = {
   errorMessage: ''
 };
 
-const mapStateToProps = ({ assets }) => {
+const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
   const { assetsList, assetsCount, errorMessage, hasError, isLoading } = assets;
   return {
     assetsList,
     assetsCount,
     errorMessage,
     hasError,
-    isLoading
+    isLoading,
+    assetModelsList,
+    assetTypesList
   };
 };
 
 export default connect(mapStateToProps, {
-  getAssetsAction
+  getAssetsAction, loadAllAssetModels, loadDropdownAssetTypes
 })(AssetsComponent);
