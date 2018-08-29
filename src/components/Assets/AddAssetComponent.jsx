@@ -10,7 +10,7 @@ import '../../_css/ModalComponent.css';
 import '../../_css/AddAssetComponent.css';
 
 const specsAssetTypes = [
-  'Extension Cord', 'Laptops', 'Phones', 'Tablets'
+  'Extension Cord', 'Laptops', 'Phones', 'Tablets', 'Macbook'
 ];
 
 const specsComponentCheck = (userDefinedassetType) => {
