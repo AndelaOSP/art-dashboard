@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 import TableRowComponent from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
@@ -10,6 +10,8 @@ import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import formatDate from '../../_utils/dateFormatter';
+import ModalComponent from '../common/ModalComponent';
+import ModelNumberContainer from '../../_components/ModelNumber/ModelNumberContainer';
 
 import { loadAssetModels } from '../../_actions/assetModels.action';
 import '../../_css/AssetsComponent.css';
@@ -61,6 +63,21 @@ export class AssetModelsComponent extends React.Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Models" />
             <Divider id="assets-divider" />
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <Button
+                    className="add-asset"
+                    size="medium"
+                  >
+                    ADD MODEL NUMBER
+                  </Button>
+                }
+                modalTitle="Add Model Number"
+              >
+                <ModelNumberContainer />
+              </ModalComponent>
+            </div>
           </div>
           <Table basic selectable>
             <Table.Header>

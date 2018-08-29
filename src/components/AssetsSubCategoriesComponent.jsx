@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import {
+  Header,
+  Table,
+  Pagination,
+  Segment,
+  Divider,
+  Button
+} from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRowComponent from './TableRowComponent';
@@ -10,6 +17,8 @@ import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from '../components/LoaderComponent';
+import ModalComponent from './common/ModalComponent';
+import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
 import '../_css/AssetsComponent.css';
 import { loadSubCategories } from '../_actions/subcategory.actions';
 
@@ -60,6 +69,21 @@ export class AssetSubCategoriesComponent extends React.Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Sub-Categories" />
             <Divider id="assets-divider" />
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <Button
+                    className="add-asset"
+                    size="medium"
+                  >
+                    ADD SUB-CATEGORY
+                  </Button>
+                }
+                modalTitle="Add Sub-Category"
+              >
+                <AddSubCategoryContainer />
+              </ModalComponent>
+            </div>
           </div>
           <Table basic selectable>
             <Table.Header>

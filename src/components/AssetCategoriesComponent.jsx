@@ -9,6 +9,8 @@ import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from './LoaderComponent';
+import ModalComponent from './common/ModalComponent';
+import CategoryContainer from '../_components/Category/CategoryContainer';
 
 import '../_css/AssetsComponent.css';
 import { loadAssetCategories } from '../_actions/assetCategories.actions';
@@ -76,6 +78,21 @@ export class AssetCategoriesComponent extends React.Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Categories" />
             <Divider id="assets-divider" />
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <Button
+                    className="add-asset"
+                    size="small"
+                  >
+                    ADD CATEGORY
+                  </Button>
+                }
+                modalTitle="Add Asset Category"
+              >
+                <CategoryContainer />
+              </ModalComponent>
+            </div>
           </div>
           <Table basic selectable>
             <Table.Header>
