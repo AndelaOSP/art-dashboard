@@ -8,7 +8,7 @@ This is the admin dashboard for the ART application
 ```bash
 ├── src
 │   ├── _test_
-│   │   ├── **/*.css
+│   │   ├── components
 │   ├── _actions
 │   ├── _components
 │   ├── _constants
@@ -16,14 +16,14 @@ This is the admin dashboard for the ART application
 │   └── components
 ```
  ### Components Folder (components)
-> Contains presentational components that are also within their specific folders. e.g. AssetsComponent is in `components/Assets`
+> Contains presentational components within their specific folders. E.g. AssetsComponent is in `components/Assets`
 ### Containers Folder (_components)
- > Contains container components that are also within their specific folders. e.g. AddAssetContainer is in `_components/Assets`
+ > Contains container components within their specific folders. e.g. AddAssetContainer is in `_components/Assets`
  ### Actions (_actions)
- > Contains actions in specific files. e.g. assets action in `_actions/assets.action.js` .
+ > Contains actions in specific files. E.g. assets action in `_actions/assets.action.js` .
  ### Constants (_constants)
  > Contains constants in a single file in `_constants/index.js`.
-### Redecures (_reducers)
-> Contains reducers in their specific files eg asset reducer in `_reducers/asset.reducer.js`
+### Reducers (_reducers)
+> Contains reducers in their specific files, e.g. asset reducer in `_reducers/asset.reducer.js`
 ### Tests (__test__)
-> Contains tests for components, containers, actions and reducers. e.g. reducers tests are in `__test__/reducers` folder.
+> Contains tests for components, containers, actions and reducers. E.g. reducers tests are in `__test__/reducers` folder.
