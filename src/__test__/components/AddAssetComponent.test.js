@@ -71,7 +71,7 @@ instance.setState({
 });
 
 const specsComponentSetup = () => {
-  wrapper.setState({ selectedAssetType: 'Laptops' });
+  wrapper.setState({ selectedAssetType: 'Asset Type 1' });
   wrapper.find('.save').simulate('click');
   wrapper.setState({ modelNumber: 'MacBook Pro' });
   wrapper.setState({ serialNumber: 'S/N-878778' });
