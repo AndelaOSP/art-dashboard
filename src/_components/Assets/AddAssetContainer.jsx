@@ -174,17 +174,20 @@ class AddAssetContainer extends React.Component {
   }
 
   onCreateAsset = () => {
-    this.props.createAsset({
+    const newAssetDetails = {
       asset_code: this.state.assetTag,
       serial_number: this.state.serialNumber,
-      model_number: this.state.modelNumber,
-      year: this.state.specs.year,
-      processor_type: this.state.specs.processorType,
-      processor_speed: this.state.specs.processorSpeed,
-      screen_size: this.state.specs.screenSize,
-      storage: this.state.specs.storage,
-      memory: this.state.specs.memory
-    });
+      model_number: this.state.modelNumber
+    };
+    if (this.state.page === 2) {
+      newAssetDetails.year = this.state.specs.year;
+      newAssetDetails.processor_type = this.state.specs.processorType;
+      newAssetDetails.processor_speed = this.state.specs.processorSpeed;
+      newAssetDetails.screen_size = this.state.specs.screenSize;
+      newAssetDetails.storage = this.state.specs.storage;
+      newAssetDetails.memory = this.state.specs.memory;
+    }
+    this.props.createAsset(newAssetDetails);
   };
 
   render() {
