@@ -87,7 +87,7 @@ workflows:
           #   - tests 
           # filters:
           #   branches:
-              only: develop
+              # only: develop
       - deploy_production:
           requires:
             - tests 
