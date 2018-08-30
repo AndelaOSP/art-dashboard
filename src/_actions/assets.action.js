@@ -11,8 +11,8 @@ const {
 export const getAssetsAction = (pageNumber, limit, modelNumbers, assetTypes) => (
   (dispatch) => {
     dispatch({ type: LOAD_ASSETS_STARTS });
-    return axios.get(`manage-assets?page=${pageNumber}&page_size=${limit}
-    &model_numbers=${modelNumbers}&asset_types=${assetTypes}`)
+    return axios.get(encodeURI(`manage-assets?page=${pageNumber}&page_size=${limit}
+    &model_number=${modelNumbers || ''}&asset_type=${assetTypes || ''}`))
       .then((response) => {
         dispatch({
           type: LOAD_ASSETS_SUCCESS,

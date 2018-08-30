@@ -15,15 +15,13 @@ import AssetFilterComponent from './Assets/AssetFilterComponent';
 export class AssetsComponent extends Component {
   state = {
     activePage: 1,
-    limit: 10,
-    filters: []
+    limit: 10
   };
 
   componentDidMount() {
     this.props.getAssetsAction(this.state.activePage, this.state.limit);
     this.props.loadAllAssetModels();
     this.props.loadDropdownAssetTypes();
-    this.createFilterData();
   }
 
   shouldComponentUpdate(nextProps) {
@@ -53,7 +51,7 @@ export class AssetsComponent extends Component {
   };
 
   createFilterData = () => {
-    const { assetTypesList, assetModelsList } = this.props;
+    const { assetModels, assetTypes } = this.props;
 
     const filters = [];
     const assetFilters = {
@@ -65,28 +63,26 @@ export class AssetsComponent extends Component {
       content: []
     };
 
-    if (!isEmpty(assetTypesList.assetTypes) && !isEmpty(assetModelsList.assetModels)) {
-      assetFilters.content.concat(assetTypesList.assetTypes.map(assetType => (
-        {
+    if (!isEmpty(assetTypes) && !isEmpty(assetModels)) {
+      assetTypes.map(assetType => (
+        assetFilters.content.push({
           id: assetType.id,
           option: assetType.asset_type
-        }
-      )
+        })
       ));
 
-      modelNumberFilters.content.concat(assetModelsList.assetModels.map(assetModel => (
-        {
+      assetModels.map(assetModel => (
+        modelNumberFilters.content.push({
           id: assetModel.id,
           option: assetModel.model_number
-        }
-      )
+        })
       ));
 
       filters.push(assetFilters);
       filters.push(modelNumberFilters);
     }
 
-    this.setState({ filters });
+    return filters;
   };
 
   render() {
@@ -99,7 +95,7 @@ export class AssetsComponent extends Component {
             <FilterButton
               render={toggleOn => (
                 <AssetFilterComponent
-                  options={this.state.filters}
+                  options={this.createFilterData()}
                   toggleOn={toggleOn}
                   activePage={this.state.activePage}
                   limit={this.state.limit}
@@ -137,8 +133,8 @@ AssetsComponent.propTypes = {
   hasError: PropTypes.bool.isRequired,
   history: PropTypes.object,
   isLoading: PropTypes.bool.isRequired,
-  assetModelsList: PropTypes.object,
-  assetTypesList: PropTypes.object
+  assetModels: PropTypes.arrayOf(PropTypes.object),
+  assetTypes: PropTypes.arrayOf(PropTypes.object)
 };
 
 AssetsComponent.defaultProps = {
@@ -148,14 +144,17 @@ AssetsComponent.defaultProps = {
 
 const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
   const { assetsList, assetsCount, errorMessage, hasError, isLoading } = assets;
+  const { assetModels } = assetModelsList;
+  const { assetTypes } = assetTypesList;
+
   return {
     assetsList,
     assetsCount,
     errorMessage,
     hasError,
     isLoading,
-    assetModelsList,
-    assetTypesList
+    assetModels,
+    assetTypes
   };
 };
 

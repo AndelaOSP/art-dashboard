@@ -49,8 +49,8 @@ class AssetFilterComponent extends React.Component {
     this.props.getAssetsAction(
       this.props.activePage,
       this.props.limit,
-      this.props.modelNumbers,
-      this.props.assetTypes
+      Array.from(this.state.checkedFilters.modelNumbers),
+      Array.from(this.state.checkedFilters.assetTypes)
     );
   };
 
@@ -63,7 +63,7 @@ class AssetFilterComponent extends React.Component {
         <div>
           <Accordion as={Menu} vertical className="filter-menu">
             {
-              !isEmpty ?
+              !isEmpty(options) ?
                 options.map((option, index) => (
                   <Menu.Item key={option.id}>
                     <Accordion.Title
@@ -110,8 +110,6 @@ AssetFilterComponent.propTypes = {
   toggleOn: PropTypes.bool.isRequired,
   activePage: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
-  modelNumbers: PropTypes.array.isRequired,
-  assetTypes: PropTypes.array.isRequired,
   getAssetsAction: PropTypes.func.isRequired
 };
 
