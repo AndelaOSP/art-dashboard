@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, values } from 'lodash';
-import { Container, Header, Grid, Confirm } from 'semantic-ui-react';
+import { Container, Header, Grid } from 'semantic-ui-react';
+import ModalComponent from './common/ModalComponent';
 import ButtonComponent from '../components/common/ButtonComponent';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AssetDescriptionComponent.css';
@@ -24,7 +25,7 @@ const AssetDescriptionComponent = props => (
         </div>
       </Grid.Column>
       <Grid.Column>
-        <Confirm
+        {/* <Confirm
           content="Are you sure you want to make this change?"
           open={props.open}
           cancelButton={
@@ -43,7 +44,8 @@ const AssetDescriptionComponent = props => (
               handleClick={props.handleConfirm}
             />
           }
-        />
+        /> */}
+
         {(!isEmpty(values(props.assignedUser))) ?
           <div id="allocate-asset">
             <Header as="h3" content="Assigned To:" />
@@ -54,12 +56,32 @@ const AssetDescriptionComponent = props => (
               {props.assignedUser.email}
             </div>
             <br />
-            <ButtonComponent
-              buttonName="Unassign Asset"
-              customCss="unassign-asset"
-              handleClick={props.show}
-              color="primary"
-            />
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <ButtonComponent
+                    buttonName="Unassign Asset"
+                    customCss="unassign-asset"
+                    // handleClick={props.show}
+                    color="primary"
+                  />
+                }
+                modalTitle="Confirm Action"
+              >
+                <ButtonComponent
+                  className="cancel"
+                  buttonName="Cancel"
+                  handleClick={props.handleCancel}
+                />
+                <ButtonComponent
+                  className="save"
+                  buttonName="Save"
+                  color="primary"
+                  buttonState={props.buttonState}
+                  handleClick={props.handleConfirm}
+                />
+              </ModalComponent>
+            </div>
           </div>
           :
           <div id="allocate-asset">
@@ -75,13 +97,33 @@ const AssetDescriptionComponent = props => (
               options={userEmailsOptions(props.users)}
             />
             <br />
-            <ButtonComponent
-              buttonName="Assign Asset"
-              customCss="assign-asset"
-              handleClick={props.show}
-              disabledState={props.assignAssetButtonState}
-              color="primary"
-            />
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <ButtonComponent
+                    buttonName="Assign Asset"
+                    customCss="assign-asset"
+                    // handleClick={props.show}
+                    disabledState={props.assignAssetButtonState}
+                    color="primary"
+                  />
+                }
+                modalTitle="Confirm Action"
+              >
+                <ButtonComponent
+                  className="cancel"
+                  buttonName="Cancel"
+                  handleClick={props.handleCancel}
+                />
+                <ButtonComponent
+                  className="save"
+                  buttonName="Save"
+                  color="primary"
+                  buttonState={props.buttonState}
+                  handleClick={props.handleConfirm}
+                />
+              </ModalComponent>
+            </div>
           </div>
         }
       </Grid.Column>
@@ -91,8 +133,8 @@ const AssetDescriptionComponent = props => (
 
 AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
-  show: PropTypes.func,
-  open: PropTypes.bool,
+  // show: PropTypes.func,
+  // open: PropTypes.bool,
   handleCancel: PropTypes.func,
   handleConfirm: PropTypes.func,
   assignedUser: PropTypes.object,
