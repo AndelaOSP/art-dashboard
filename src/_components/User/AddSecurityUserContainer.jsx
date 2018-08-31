@@ -5,6 +5,7 @@ import AddUserComponent from '../../components/User/AddSecurityUserComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 import { addSecurityUser } from '../../_actions/users.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
+import emailValidation from '../../_utils/formValidation';
 
 class AddSecurityUserContainer extends React.Component {
   state = {
@@ -13,7 +14,8 @@ class AddSecurityUserContainer extends React.Component {
     phoneNumber: '',
     badgeNumber: '',
     email: '',
-    saveButtonState: false
+    saveButtonState: false,
+    error: false
   };
 
   static getDerivedStateFromProps(nextProps) {
@@ -49,21 +51,28 @@ class AddSecurityUserContainer extends React.Component {
   }
 
   onChangeButtonState = () => {
-    this.setState({ saveButtonState: !this.state.saveButtonState });
+    if (this.state.badgeNumber && this.state.email) {
+      this.setState({ error: !emailValidation(this.state.email) }, () => {
+        if (!this.state.error) {
+          this.setState({ saveButtonState: !this.state.saveButtonState });
+        }
+      });
+    }
   };
 
   handleSubmit = (event) => {
-    const newSecurityUser = {
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
-      phone_number: this.state.phoneNumber,
-      email: this.state.email,
-      badge_number: this.state.badgeNumber
-    };
-
-    this.props.addSecurityUser(newSecurityUser);
-    if (!this.state.saveButtonState) {
-      event.target.reset();
+    if (!this.state.error) {
+      const newSecurityUser = {
+        first_name: this.state.firstName,
+        last_name: this.state.lastName,
+        phone_number: this.state.phoneNumber,
+        email: this.state.email,
+        badge_number: this.state.badgeNumber
+      };
+      this.props.addSecurityUser(newSecurityUser);
+      if (!this.state.saveButtonState) {
+        event.target.reset();
+      }
     }
   };
 
@@ -75,6 +84,7 @@ class AddSecurityUserContainer extends React.Component {
         handleInputChange={this.handleInputChange}
         buttonState={this.state.saveButtonState}
         onChangeButtonState={this.onChangeButtonState}
+        error={this.state.error}
       />
     );
   }
