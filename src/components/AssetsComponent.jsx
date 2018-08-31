@@ -46,10 +46,6 @@ export class AssetsComponent extends Component {
 
   emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
 
-  toggleFilter = () => {
-    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
-  };
-
   createFilterData = () => {
     const { assetModels, assetTypes } = this.props;
 

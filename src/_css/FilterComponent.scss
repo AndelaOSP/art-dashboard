@@ -1,7 +1,7 @@
 @import "sharedStyling.scss";
 
 .ui.vertical.accordion.ui.filter-menu {
-  border: none;
+  border: 0;
   border-radius: 0;
   background: #ffffff;
   -webkit-box-shadow: none;
@@ -22,8 +22,8 @@
 
 .ui.accordion .active.content::-webkit-scrollbar,
 .ui.vertical.accordion.ui.filter-menu.menu::-webkit-scrollbar {
-  width: 0;  /* remove scrollbar space */
-  background: transparent;  /* make scrollbar invisible */
+  width: 0;
+  background: transparent;
 }
 
 .ui.accordion.menu .item .title {
