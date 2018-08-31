@@ -11,7 +11,8 @@ const props = {
   badgeNumber: '',
   phoneNumber: '',
   onChangeButtonState: jest.fn(),
-  buttonState: false
+  buttonState: false,
+  error: false
 };
 
 describe('Renders <AddSecurityUserComponent /> correctly when no errors or loading prop', () => {
@@ -21,11 +22,7 @@ describe('Renders <AddSecurityUserComponent /> correctly when no errors or loadi
     expect(wrapper1.find('Form').length).toBe(1);
   });
 
-  it('renders label component', () => {
-    expect(wrapper1.find('label').length).toBe(5);
-  });
-
-  it('renders InputField component', () => {
-    expect(wrapper1.find('br').length).toBe(5);
+  it('renders the save button component', () => {
+    expect(wrapper1.find('.save').length).toBe(1);
   });
 });

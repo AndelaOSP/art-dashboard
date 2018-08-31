@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import expect from 'expect';
 import AddSecurityUserContainer from '../../_components/User/AddSecurityUserContainer';
 
@@ -15,6 +15,10 @@ const props = {
 
 describe('Renders <AddSecurityUserContainer /> tests', () => {
   const wrapper = shallow(<AddSecurityUserContainer.WrappedComponent {...props} />);
+
+  const wrapper2 = mount(
+    <AddSecurityUserContainer.WrappedComponent {...props} />
+  );
 
   it('calls the handleInputChange function', () => {
     const handleInputChangeSpy = jest.spyOn(
@@ -47,5 +51,25 @@ describe('Renders <AddSecurityUserContainer /> tests', () => {
 
     wrapper.instance().handleSubmit(event, data);
     expect(handleSubmitSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('can receive a success prop when getDerivedStateFromProps runs', () => {
+    wrapper2.setProps({
+      toastMessageContent: {
+        type: 'success',
+        message: 'A success message'
+      }
+    });
+    expect(wrapper2.props().toastMessageContent.type).toEqual('success');
+  });
+
+  it('can receive an error prop when getDerivedStateFromProps runs', () => {
+    wrapper2.setProps({
+      toastMessageContent: {
+        type: 'error',
+        message: 'An error message'
+      }
+    });
+    expect(wrapper2.props().toastMessageContent.type).toEqual('error');
   });
 });

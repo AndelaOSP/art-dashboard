@@ -1,63 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form } from 'semantic-ui-react';
-import InputField from '../common/TextInputComponent';
+import { Form, Message } from 'semantic-ui-react';
 import ArtButton from '../common/ButtonComponent';
 
 const AddSecurityUserComponent = props => (
-  <Form onSubmit={props.handleSubmit}>
-    <label htmlFor="first-name">
-      First Name
-      <InputField
-        id="first-name"
-        name="firstName"
-        placeHolder="Enter First Name"
-        value={props.firstName}
-        onChange={props.handleInputChange}
-      />
-    </label>
-    <br />
-    <label htmlFor="last-name">
-    Last Name
-      <InputField
-        id="last-name"
-        name="lastName"
-        placeHolder="Enter Last Name"
-        value={props.lastName}
-        onChange={props.handleInputChange}
-      />
-    </label>
-    <br />
-    <label htmlFor="email">
-    Email
-      <InputField
-        id="email"
-        name="email"
-        value={props.email}
-        onChange={props.handleInputChange}
-      />
-    </label>
-    <br />
-    <label htmlFor="badge-number">
-    Badge Number
-      <InputField
-        name="badgeNumber"
-        id="badge-number"
-        value={props.badgeNumber}
-        onChange={props.handleInputChange}
-      />
-    </label>
-    <br />
-    <label htmlFor="phone-number">
-    Phone Number
-      <InputField
-        id="phoneNumber"
-        name="phone-number"
-        value={props.phoneNumber}
-        onChange={props.handleInputChange}
-      />
-    </label>
-    <br />
+  <Form size="large" error={props.error} onSubmit={props.handleSubmit}>
+    <Form.Input
+      label="First Name"
+      width={15}
+      id="first-name"
+      name="firstName"
+      placeholder="Enter First Name"
+      value={props.firstName}
+      onChange={props.handleInputChange}
+    />
+    <Form.Input
+      label="Last Name"
+      width={15}
+      id="last-name"
+      name="lastName"
+      placeholder="Enter Last Name"
+      value={props.lastName}
+      onChange={props.handleInputChange}
+    />
+    <Form.Input
+      required
+      label="Email"
+      name="email"
+      width={15}
+      value={props.email}
+      onChange={props.handleInputChange}
+    />
+    <Form.Input
+      required
+      label="Badge Number"
+      width={15}
+      name="badgeNumber"
+      id="badge-number"
+      value={props.badgeNumber}
+      onChange={props.handleInputChange}
+    />
+    <Form.Input
+      label="Phone Number"
+      width={15}
+      id="phoneNumber"
+      name="phone-number"
+      value={props.phoneNumber}
+      onChange={props.handleInputChange}
+    />
+    <Message
+      error
+      content="Please enter a valid Email"
+    />
     <ArtButton
       className="save"
       buttonName="save"
@@ -77,7 +71,8 @@ AddSecurityUserComponent.propTypes = {
   phoneNumber: PropTypes.string,
   handleInputChange: PropTypes.func,
   onChangeButtonState: PropTypes.func,
-  buttonState: PropTypes.bool
+  buttonState: PropTypes.bool,
+  error: PropTypes.bool
 };
 
 export default AddSecurityUserComponent;
