@@ -13,7 +13,7 @@ export class AssetDetailComponent extends Component {
     assignedUser: {},
     selectedUser: 0,
     serialNumber: '',
-    open: false,
+    saveButtonState: false,
     assignAssetButtonState: true,
     hasError: this.props.hasError,
     errorMessage: this.props.errorMessage
@@ -29,7 +29,7 @@ export class AssetDetailComponent extends Component {
   static getDerivedStateFromProps(nextProps) {
     return {
       assignedUser: nextProps.assetDetail.assigned_to,
-      open: nextProps.buttonLoading,
+      saveButtonState: nextProps.buttonLoading,
       hasError: nextProps.hasError,
       errorMessage: nextProps.errorMessage
     };
@@ -55,7 +55,7 @@ export class AssetDetailComponent extends Component {
     };
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
 
-    if (!this.props.buttonLoading) this.setState({ open: false });
+    if (!this.props.buttonLoading) this.setState({ saveButtonState: !this.state.saveButtonState });
   };
 
   handleUnassign = () => {
@@ -66,10 +66,8 @@ export class AssetDetailComponent extends Component {
     };
     this.props.unassignAsset(assetAssigned, this.state.serialNumber);
 
-    if (!this.props.buttonLoading) this.setState({ open: false });
+    if (!this.props.buttonLoading) this.setState({ saveButtonState: !this.state.saveButtonState });
   };
-
-  show = () => this.setState({ open: true });
 
   handleConfirm = () => {
     if (isEmpty(values(this.state.assignedUser))) {
@@ -77,8 +75,6 @@ export class AssetDetailComponent extends Component {
     }
     return this.handleUnassign();
   };
-
-  handleCancel = () => this.setState({ open: false });
 
   render() {
     return (
