@@ -13,7 +13,8 @@ This is the admin dashboard for the ART application
 │   ├── _components
 │   ├── _constants
 │   ├── _reducers
-│   └── components
+│   ├── components
+│   └── styles
 ```
  ### Components Folder (components)
 > Contains presentational components within their specific folders. E.g. AssetsComponent is in `components/Assets`
@@ -27,3 +28,5 @@ This is the admin dashboard for the ART application
 > Contains reducers in their specific files, e.g. asset reducer in `_reducers/asset.reducer.js`
 ### Tests (__test__)
 > Contains tests for components, containers, actions and reducers. E.g. reducers tests are in `__test__/reducers` folder.
+### Styles (styles)
+> Contains all styles used in the project
