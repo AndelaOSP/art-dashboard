@@ -65,35 +65,6 @@ class AssetFilterComponent extends React.Component {
       <React.Fragment>
         <Accordion as={Menu} vertical className="filter-menu">
           {
-<<<<<<< HEAD
-            !isEmpty(options) ?
-            options.map((option, index) => (
-              <Menu.Item key={option.id}>
-                <Accordion.Title
-                  active={activeIndex === index}
-                  content={option.title}
-                  index={index}
-                  onClick={this.handleTitleClick}
-                />
-
-                <Accordion.Content active={activeIndex === index}>
-                  <Form>
-                    {
-                        option.content.map(opt =>
-                          (<CheckboxComponent
-                            key={opt.id}
-                            label={opt.option}
-                            name={option.title}
-                            handleCheckboxChange={this.toggleCheckbox}
-                          />)
-                        )
-                      }
-                  </Form>
-                </Accordion.Content>
-              </Menu.Item>
-              ))
-            : <span>Loading filters...</span>
-=======
             !isEmpty(options)
               ? options.map((option, index) => (
                 <Menu.Item key={option.id}>
@@ -107,21 +78,20 @@ class AssetFilterComponent extends React.Component {
                   <Accordion.Content active={activeIndex === index}>
                     <Form>
                       {
-                          option.content.map(opt =>
-                            (<CheckboxComponent
-                              key={opt.id}
-                              label={opt.option}
-                              name={option.title}
-                              handleCheckboxChange={this.toggleCheckbox}
-                            />)
-                          )
-                      }
+                            option.content.map(opt =>
+                              (<CheckboxComponent
+                                key={opt.id}
+                                label={opt.option}
+                                name={option.title}
+                                handleCheckboxChange={this.toggleCheckbox}
+                              />)
+                            )
+                          }
                     </Form>
                   </Accordion.Content>
                 </Menu.Item>
-                 ))
-              : <span>Loading filters...</span>
->>>>>>> feat: implement feedback on PR
+                  ))
+            : <span>Loading filters...</span>
           }
         </Accordion>
 
