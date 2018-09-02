@@ -42,7 +42,7 @@ FilterButton.propTypes = {
 };
 
 FilterButton.defaultProps = {
-  render: () => { }
+  render: () => {}
 };
 
 export default FilterButton;
