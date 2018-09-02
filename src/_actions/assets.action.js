@@ -7,12 +7,15 @@ const {
   LOAD_ASSETS_STARTS
 } = constants;
 
+let url;
+
 /* eslint-disable import/prefer-default-export */
 export const getAssetsAction = (pageNumber, limit, modelNumbers, assetTypes) => (
+
   (dispatch) => {
+    url = `manage-assets?page=${pageNumber}&page_size=${limit}&model_number=${modelNumbers || ''}&asset_type=${assetTypes || ''}`;
     dispatch({ type: LOAD_ASSETS_STARTS });
-    return axios.get(encodeURI(`manage-assets?page=${pageNumber}&page_size=${limit}
-    &model_number=${modelNumbers || ''}&asset_type=${assetTypes || ''}`))
+    return axios.get(url)
       .then((response) => {
         dispatch({
           type: LOAD_ASSETS_SUCCESS,

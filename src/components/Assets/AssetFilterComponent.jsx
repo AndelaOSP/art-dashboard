@@ -58,49 +58,50 @@ class AssetFilterComponent extends React.Component {
     const { toggleOn, options } = this.props;
     const { activeIndex } = this.state;
 
+    if (!toggleOn) {
+      return null;
+    }
     return (
-      toggleOn ?
-        <div>
-          <Accordion as={Menu} vertical className="filter-menu">
-            {
-              !isEmpty(options) ?
-                options.map((option, index) => (
-                  <Menu.Item key={option.id}>
-                    <Accordion.Title
-                      active={activeIndex === index}
-                      content={option.title}
-                      index={index}
-                      onClick={this.handleTitleClick}
-                    />
+      <React.Fragment>
+        <Accordion as={Menu} vertical className="filter-menu">
+          {
+            !isEmpty(options) ?
+            options.map((option, index) => (
+              <Menu.Item key={option.id}>
+                <Accordion.Title
+                  active={activeIndex === index}
+                  content={option.title}
+                  index={index}
+                  onClick={this.handleTitleClick}
+                />
 
-                    <Accordion.Content active={activeIndex === index}>
-                      <Form>
-                        {
-                          option.content.map(opt =>
-                            (<CheckboxComponent
-                              key={opt.id}
-                              label={opt.option}
-                              name={option.title}
-                              handleCheckboxChange={this.toggleCheckbox}
-                            />)
-                          )
-                        }
-                      </Form>
-                    </Accordion.Content>
-                  </Menu.Item>
-                ))
-              : <span>Loading filters...</span>
-            }
-          </Accordion>
+                <Accordion.Content active={activeIndex === index}>
+                  <Form>
+                    {
+                        option.content.map(opt =>
+                          (<CheckboxComponent
+                            key={opt.id}
+                            label={opt.option}
+                            name={option.title}
+                            handleCheckboxChange={this.toggleCheckbox}
+                          />)
+                        )
+                      }
+                  </Form>
+                </Accordion.Content>
+              </Menu.Item>
+              ))
+            : <span>Loading filters...</span>
+          }
+        </Accordion>
 
-          <ArtButton
-            customCss="apply-filter"
-            buttonName="apply filters"
-            color="primary"
-            handleClick={this.handleFilter}
-          />
-        </div> :
-        null
+        <ArtButton
+          customCss="apply-filter"
+          buttonName="apply filters"
+          color="primary"
+          handleClick={this.handleFilter}
+        />
+      </React.Fragment>
     );
   }
 }

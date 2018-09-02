@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import AssetFilterComponent from '../components/Assets/AssetFilterComponent';
+import AssetFilterComponent from '../../components/Assets/AssetFilterComponent';
 
-import assetFilter from '../_mock/assetsFilter';
+import assetFilter from '../../_mock/assetsFilter';
 
 describe('Renders <AssetFilterComponent /> correctly', () => {
   const props = {
@@ -13,10 +13,21 @@ describe('Renders <AssetFilterComponent /> correctly', () => {
     updateFilterSet: jest.fn(),
     handleFilter: jest.fn(),
     getAssetsAction: jest.fn(),
-    assetFilter
+    toggleOn: true,
+    options: assetFilter,
+    activePage: 1,
+    limit: 10
   };
 
   const wrapper = shallow(<AssetFilterComponent {...props} />);
+
+  it('renders Accordion', () => {
+    expect(wrapper.find('CheckboxComponent'));
+  });
+
+  it('renders CheckboxComponent', () => {
+    expect(wrapper.find('CheckboxComponent'));
+  });
 
   it('calls handleTitleClick when the title is clicked', () => {
     const handleTitleClickSpy = jest.spyOn(
@@ -36,6 +47,21 @@ describe('Renders <AssetFilterComponent /> correctly', () => {
     const name = {};
     wrapper.instance().toggleCheckbox(label, name);
     expect(toggleCheckboxSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls updateFilterSet when an option is clicked', () => {
+    const updateFilterSetSpy = jest.spyOn(
+      wrapper.instance(), 'updateFilterSet'
+    );
+    const filter = {
+      add: jest.fn(),
+      delete: jest.fn(),
+      has: jest.fn()
+    };
+    const label = {};
+
+    wrapper.instance().updateFilterSet(filter, label);
+    expect(updateFilterSetSpy.mock.calls.length).toEqual(1);
   });
 
   it('calls handleFilter to apply the filtered options', () => {

@@ -5,6 +5,8 @@ import expect from 'expect';
 import { AssetsComponent } from '../components/AssetsComponent';
 
 import assets from '../_mock/assets';
+import assetModels from '../_mock/assetModels';
+import assetTypes from '../_mock/assetTypes';
 
 describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
@@ -18,7 +20,10 @@ describe('Renders <AssetsComponent /> correctly', () => {
     history: { push: jest.fn() },
     isLoading: false,
     assets,
-    assetsCount: 10
+    assetsCount: 10,
+    assetModels,
+    assetTypes,
+    render: () => true
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
@@ -82,5 +87,13 @@ describe('Renders <AssetsComponent /> correctly', () => {
     const data = {};
     wrapper.instance().handleRowChange(event, data);
     expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('renders FilterButton', () => {
+    expect(wrapper.find('FilterButton').length).toBe(1);
+  });
+
+  it('renders AssetFilterComponent', () => {
+    expect(wrapper.find('FilterButton').dive().find('AssetFilterComponent').length).toBe(1);
   });
 });
