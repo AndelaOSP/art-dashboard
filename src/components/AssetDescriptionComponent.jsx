@@ -27,7 +27,8 @@ const AssetDescriptionComponent = props => (
       </Grid.Column>
       <Grid.Column>
         {
-          (!isEmpty(values(props.assignedUser))) ?
+          (!isEmpty(values(props.assignedUser)))
+          ?
             <div id="allocate-asset">
               <Header as="h3" content="Assigned To:" />
               <div
@@ -37,7 +38,7 @@ const AssetDescriptionComponent = props => (
                 {props.assignedUser.email}
               </div>
             </div>
-            :
+          :
             <div id="allocate-asset">
               <Header as="h3" content="Assign this asset to:" />
               <DropdownComponent
