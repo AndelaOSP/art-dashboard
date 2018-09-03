@@ -72,20 +72,4 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     wrapper.instance().handleConfirm();
     expect(handleUnassignSpy.mock.calls.length).toEqual(1);
   });
-
-  it('should mock the handleCancel function call', () => {
-    const handleCancelSpy = jest.spyOn(
-      wrapper.instance(), 'handleCancel'
-    );
-    wrapper.instance().handleCancel();
-    expect(handleCancelSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('should mock the show function call', () => {
-    const showSpy = jest.spyOn(
-      wrapper.instance(), 'show'
-    );
-    wrapper.instance().show();
-    expect(showSpy.mock.calls.length).toEqual(1);
-  });
 });

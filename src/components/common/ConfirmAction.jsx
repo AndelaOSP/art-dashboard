@@ -4,12 +4,9 @@ import ButtonComponent from './ButtonComponent';
 
 class ConfirmAction extends React.Component {
   shouldComponentUpdate(nextProps) {
-    const { hasError, buttonLoading } = nextProps;
-    if (!buttonLoading && !hasError) {
-      nextProps.toggleModal();
-      return true;
-    }
-    return false;
+    const { buttonLoading } = nextProps;
+    if (!buttonLoading) nextProps.toggleModal();
+    return true;
   }
 
   render() {
@@ -24,7 +21,6 @@ class ConfirmAction extends React.Component {
           buttonName="Cancel"
           handleClick={this.props.toggleModal}
         />
-        {console.log('this.props.loading', this.props.buttonState)}
         <ButtonComponent
           className="save"
           buttonName="Save"
