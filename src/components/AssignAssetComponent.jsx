@@ -6,7 +6,7 @@ import DropdownComponent from '../components/common/DropdownComponent';
 
 const userEmailsOptions = usersList => usersList.map((typeOption, index) => ({
   key: index,
-  text: typeOption.email,
+  text: typeOption.assignee,
   value: typeOption.id
 }));
 

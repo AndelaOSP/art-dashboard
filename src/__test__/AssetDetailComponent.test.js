@@ -9,7 +9,7 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
   const props = {
     assetDetail: assetMocks.assetDetails,
     errorMessage: '',
-    loadDropDownUsers: jest.fn(),
+    loadAssetAssigneeUsers: jest.fn(),
     allocateAsset: jest.fn(),
     getAssetDetail: jest.fn(),
     unassignAsset: jest.fn(),

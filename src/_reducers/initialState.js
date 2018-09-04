@@ -66,7 +66,7 @@ export default {
   },
   usersList: {
     users: [],
-    usersDropdown: [],
+    assetAsigneeUsers: [],
     usersCount: 0,
     errorMessage: '',
     hasError: false,
