@@ -53,9 +53,7 @@ describe('Model Numbers action tests', () => {
   });
 
   it('should dispatch CREATE_MODEL_NUMBER_SUCCESS when createModelNumbers called successfully', () => {
-    mock.onPost(url, modelNumberToCreate).reply(201,
-      modelNumberToCreate
-    );
+    mock.onPost(url, modelNumberToCreate).reply(201, modelNumberToCreate);
     return store.dispatch(createModelNumbers(modelNumberToCreate))
       .then(() => {
         expect(store.getActions()).toContainEqual({
@@ -72,7 +70,10 @@ describe('Model Numbers action tests', () => {
       make_label: ''
     }))
       .then(() => {
-        expect(store.getActions()[0].type).toContain(CREATE_MODEL_NUMBER_FAILURE);
+        expect(store.getActions()).toContainEqual({
+          type: CREATE_MODEL_NUMBER_FAILURE,
+          payload: new Error('Request failed with status code 404')
+        });
       });
   });
 });
