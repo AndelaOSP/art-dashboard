@@ -10,7 +10,7 @@ import { getAssetsAction } from '../_actions/assets.action';
 import { loadAllAssetModels } from '../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
 import FilterButton from './common/FilterButton';
-import AssetFilterComponent from './Assets/AssetFilterComponent';
+import FilterComponent from './common/FilterComponent';
 
 export class AssetsComponent extends Component {
   state = {
@@ -82,6 +82,11 @@ export class AssetsComponent extends Component {
   };
 
   render() {
+    const filterSets = {
+      'Asset Types': new Set(),
+      'Model Numbers': new Set()
+    };
+
     return (
       <NavbarComponent title="Assets">
         <div className="assets-list">
@@ -90,12 +95,13 @@ export class AssetsComponent extends Component {
             <Divider id="assets-divider" />
             <FilterButton
               render={toggleOn => (
-                <AssetFilterComponent
+                <FilterComponent
                   options={this.createFilterData()}
+                  filterSets={filterSets}
                   toggleOn={toggleOn}
                   activePage={this.state.activePage}
                   limit={this.state.limit}
-                  getAssetsAction={this.props.getAssetsAction}
+                  filterAction={this.props.getAssetsAction}
                 />
               )}
             />

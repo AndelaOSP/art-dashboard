@@ -93,7 +93,7 @@ describe('Renders <AssetsComponent /> correctly', () => {
     expect(wrapper.find('FilterButton').length).toBe(1);
   });
 
-  it('renders AssetFilterComponent', () => {
-    expect(wrapper.find('FilterButton').dive().find('AssetFilterComponent').length).toBe(1);
+  it('renders FilterComponent', () => {
+    expect(wrapper.find('FilterButton').dive().find('FilterComponent').length).toBe(1);
   });
 });

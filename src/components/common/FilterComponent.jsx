@@ -2,19 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Accordion, Form, Menu } from 'semantic-ui-react';
 import { isEmpty } from 'lodash';
-import CheckboxComponent from '../common/CheckboxComponent';
+import uuidv4 from 'uuid/v4';
 
-import ArtButton from '../common/ButtonComponent';
+import CheckboxComponent from './CheckboxComponent';
+
+import ArtButton from './ButtonComponent';
 
 import '../../_css/FilterComponent.css';
 
-class AssetFilterComponent extends React.Component {
+class FilterComponent extends React.Component {
   state = {
     activeIndex: 0,
-    checkedFilters: {
-      modelNumbers: new Set(),
-      assetTypes: new Set()
-    }
+    checkedFilters: this.props.filterSets
   };
 
   handleTitleClick = (e, titleProps) => {
@@ -26,31 +25,33 @@ class AssetFilterComponent extends React.Component {
   };
 
   toggleCheckbox = (label, name) => {
-    const { modelNumbers, assetTypes } = this.state.checkedFilters;
+    const { checkedFilters } = this.state;
 
-    if (name === 'Model Numbers') {
-      this.updateFilterSet(modelNumbers, label);
-    }
-
-    if (name === 'Asset Types') {
-      this.updateFilterSet(assetTypes, label);
-    }
-  };
-
-  updateFilterSet = (filter, label) => {
-    if (filter.has(label)) {
-      filter.delete(label);
-    } else {
-      filter.add(label);
+    for (const key in checkedFilters) {
+      if (name === key) {
+        if (checkedFilters[name].has(label)) {
+          checkedFilters[name].delete(label);
+        } else {
+          checkedFilters[name].add(label);
+        }
+      }
     }
   };
 
   handleFilter = () => {
-    this.props.getAssetsAction(
+    const { checkedFilters } = this.state;
+    const filters = {};
+
+    for (const key in checkedFilters) {
+      if (checkedFilters.hasOwnProperty(key)) {
+        filters[key] = [Array.from(checkedFilters[key])];
+      }
+    }
+
+    this.props.filterAction(
       this.props.activePage,
       this.props.limit,
-      Array.from(this.state.checkedFilters.modelNumbers),
-      Array.from(this.state.checkedFilters.assetTypes)
+      filters
     );
   };
 
@@ -61,13 +62,14 @@ class AssetFilterComponent extends React.Component {
     if (!toggleOn) {
       return null;
     }
+
     return (
       <React.Fragment>
         <Accordion as={Menu} vertical className="filter-menu">
           {
             !isEmpty(options)
               ? options.map((option, index) => (
-                <Menu.Item key={option.id}>
+                <Menu.Item key={uuidv4()}>
                   <Accordion.Title
                     active={activeIndex === index}
                     content={option.title}
@@ -78,15 +80,15 @@ class AssetFilterComponent extends React.Component {
                   <Accordion.Content active={activeIndex === index}>
                     <Form>
                       {
-                            option.content.map(opt =>
-                              (<CheckboxComponent
-                                key={opt.id}
-                                label={opt.option}
-                                name={option.title}
-                                handleCheckboxChange={this.toggleCheckbox}
-                              />)
-                            )
-                          }
+                        option.content.map(opt =>
+                          (<CheckboxComponent
+                            key={uuidv4()}
+                            label={opt.option}
+                            name={option.title}
+                            handleCheckboxChange={this.toggleCheckbox}
+                          />)
+                        )
+                      }
                     </Form>
                   </Accordion.Content>
                 </Menu.Item>
@@ -106,12 +108,13 @@ class AssetFilterComponent extends React.Component {
   }
 }
 
-AssetFilterComponent.propTypes = {
+FilterComponent.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterSets: PropTypes.object.isRequired,
   toggleOn: PropTypes.bool.isRequired,
   activePage: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
-  getAssetsAction: PropTypes.func.isRequired
+  filterAction: PropTypes.func.isRequired
 };
 
-export default AssetFilterComponent;
+export default FilterComponent;

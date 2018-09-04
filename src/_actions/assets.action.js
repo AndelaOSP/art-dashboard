@@ -7,13 +7,15 @@ const {
   LOAD_ASSETS_STARTS
 } = constants;
 
-let url;
-
 /* eslint-disable import/prefer-default-export */
-export const getAssetsAction = (pageNumber, limit, modelNumbers, assetTypes) => (
+export const getAssetsAction = (pageNumber, limit, filters) => {
+  let url = `manage-assets?page=${pageNumber}&page_size=${limit}`;
 
-  (dispatch) => {
-    url = `manage-assets?page=${pageNumber}&page_size=${limit}&model_number=${modelNumbers || ''}&asset_type=${assetTypes || ''}`;
+  if (filters) {
+    url = `manage-assets?page=${pageNumber}&page_size=${limit}&asset_type=${filters['Asset Types'] || ''}&model_number=${filters['Model Numbers'] || ''}`;
+  }
+
+  return (dispatch) => {
     dispatch({ type: LOAD_ASSETS_STARTS });
     return axios.get(url)
       .then((response) => {
@@ -28,5 +30,5 @@ export const getAssetsAction = (pageNumber, limit, modelNumbers, assetTypes) => 
           payload: error.message
         });
       });
-  }
-);
+  };
+};
