@@ -29,9 +29,9 @@ describe('Renders <AssetModelsComponent /> correctly', () => {
     expect(wrapper.find('Table').length).toBe(1);
   });
 
-  it('renders TableRowComponent component', () => {
-    expect(wrapper.find('TableRowComponent').length).toBe(3);
-  });
+  // it('renders TableRowComponent component', () => {
+  //   expect(wrapper.find('TableRowComponent').length).toBe(3);
+  // });
 
   it('renders Loader component if isLoading is true', () => {
     props = {
