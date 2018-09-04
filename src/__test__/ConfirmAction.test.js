@@ -10,11 +10,11 @@ describe('Renders <ConfirmAction /> correctly', () => {
   };
   const wrapper = mount(<ConfirmAction {...props} />);
 
-  it('shouldComponentUpdate is called on change in props', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
+  it('componentDidUpdate is called on change in props', () => {
+    const componentDidUpdateSpy = jest.spyOn(
+      wrapper.instance(), 'componentDidUpdate'
     );
     wrapper.setProps({ buttonState: true });
-    expect(shouldComponentUpdateSpy.mock.calls.length).toEqual(1);
+    expect(componentDidUpdateSpy.mock.calls.length).toEqual(1);
   });
 });

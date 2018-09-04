@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import ButtonComponent from './ButtonComponent';
 
 export default class ConfirmAction extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    const { buttonLoading, toggleModal } = nextProps;
-    if (!buttonLoading) toggleModal();
-    return true;
+  componentDidUpdate(prevProps) {
+    const { buttonLoading, toggleModal } = this.props;
+    if (prevProps.buttonLoading !== buttonLoading) {
+      if (!buttonLoading) {
+        toggleModal();
+      }
+    }
   }
 
   render() {
@@ -36,5 +39,6 @@ export default class ConfirmAction extends React.Component {
 ConfirmAction.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   handleConfirm: PropTypes.func.isRequired,
-  buttonState: PropTypes.bool.isRequired
+  buttonState: PropTypes.bool.isRequired,
+  buttonLoading: PropTypes.bool.isRequired
 };
