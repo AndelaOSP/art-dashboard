@@ -7,7 +7,7 @@ import {
 } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
-import TableRowComponent from './TableRowComponent';
+import TableRowDetail from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
 import rowOptions from '../_utils/pageRowOptions';
@@ -73,8 +73,7 @@ const AssetsTableContent = (props) => {
               };
 
               return (
-                <TableRowComponent
-                  {...props}
+                <TableRowDetail
                   viewDetailsRoute={assetViewUrl}
                   key={asset.id}
                   data={updatedAsset}

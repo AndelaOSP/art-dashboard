@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 
-class TableRowComponent extends React.Component {
+export class TableRowComponent extends React.Component {
   handleView = () => {
     const { viewDetailsRoute, history } = this.props;
     if (!viewDetailsRoute) {
@@ -35,4 +36,4 @@ TableRowComponent.propTypes = {
   viewDetailsRoute: PropTypes.string
 };
 
-export default TableRowComponent;
+export default withRouter(TableRowComponent);
