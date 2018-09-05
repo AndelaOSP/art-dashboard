@@ -1,105 +1,75 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, values } from 'lodash';
-import { Container, Header, Grid, Confirm } from 'semantic-ui-react';
+import { Container, Header, Grid } from 'semantic-ui-react';
+import ModalComponent from './common/ModalComponent';
 import ButtonComponent from '../components/common/ButtonComponent';
-import DropdownComponent from '../components/common/DropdownComponent';
+import ConfirmAction from './common/ConfirmAction';
+import AssignedTo from './AssignAssetComponent';
 import '../_css/AssetDescriptionComponent.css';
 
-const userEmailsOptions = usersList => usersList.map((typeOption, index) => ({
-  key: index,
-  text: typeOption.email,
-  value: typeOption.id
-}));
+const AssetDescriptionComponent = (props) => {
+  let triggerProps = {
+    buttonName: 'Assign Asset',
+    customCss: 'assign-asset',
+    disabledState: props.assignAssetButtonState,
+    color: 'primary'
+  };
 
-const AssetDescriptionComponent = props => (
-  <Container>
-    <Grid columns={2} stackable className="asset-description">
-      <Grid.Column>
-        <Header as="h3" content="Asset Specs" />
-        <div className="asset-specs">
-          12-inch (diagonal) LED-backlit display with IPS technology
-          2304-by-1440 resolution at 226 pixels per inch with support for millions of colors
-          16:10 aspect ratio
-        </div>
-      </Grid.Column>
-      <Grid.Column>
-        <Confirm
-          content="Are you sure you want to make this change?"
-          open={props.open}
-          cancelButton={
-            <ButtonComponent
-              className="cancel"
-              buttonName="Cancel"
-              handleClick={props.handleCancel}
-            />
-          }
-          confirmButton={
-            <ButtonComponent
-              className="save"
-              buttonName="Save"
-              color="primary"
+  if (!isEmpty(values(props.assignedUser))) {
+    triggerProps = {
+      ...triggerProps,
+      buttonName: 'Unassign Asset',
+      customCss: 'unassign-asset',
+      disabledState: false
+    };
+  }
+
+  return (
+    <Container>
+      <Grid columns={2} stackable className="asset-description">
+        <Grid.Column>
+          <Header as="h3" content="Asset Specs" />
+          <div className="asset-specs">
+            12-inch (diagonal) LED-backlit display with IPS technology
+            2304-by-1440 resolution at 226 pixels per inch with support for millions of colors
+            16:10 aspect ratio
+          </div>
+        </Grid.Column>
+        <Grid.Column>
+          <AssignedTo
+            onSelectUserEmail={props.onSelectUserEmail}
+            assignedUser={props.assignedUser}
+            users={props.users}
+            selectedUserId={props.selectedUserId}
+          />
+          <ModalComponent
+            trigger={<ButtonComponent {...triggerProps} />}
+            modalTitle="Confirm Action"
+          >
+            <ConfirmAction
+              toggleModal={props.toggleModal}
+              handleConfirm={props.handleConfirm}
               buttonState={props.buttonState}
-              handleClick={props.handleConfirm}
+              buttonLoading={props.buttonLoading}
             />
-          }
-        />
-        {(!isEmpty(values(props.assignedUser))) ?
-          <div id="allocate-asset">
-            <Header as="h3" content="Assigned To:" />
-            <div
-              id="email"
-              className="asset-specs"
-            >
-              {props.assignedUser.email}
-            </div>
-            <br />
-            <ButtonComponent
-              buttonName="Unassign Asset"
-              customCss="unassign-asset"
-              handleClick={props.show}
-              color="primary"
-            />
-          </div>
-          :
-          <div id="allocate-asset">
-            <Header as="h3" content="Assign this asset to:" />
-            <DropdownComponent
-              customClass="form-dropdown"
-              label="Assign this asset to:"
-              placeHolder="Select Andela Email To Assign This Asset"
-              name="assign-user"
-              search
-              value={props.selectedUserId}
-              onChange={props.onSelectUserEmail}
-              options={userEmailsOptions(props.users)}
-            />
-            <br />
-            <ButtonComponent
-              buttonName="Assign Asset"
-              customCss="assign-asset"
-              handleClick={props.show}
-              disabledState={props.assignAssetButtonState}
-              color="primary"
-            />
-          </div>
-        }
-      </Grid.Column>
-    </Grid>
-  </Container>
-);
+          </ModalComponent>
+        </Grid.Column>
+      </Grid>
+    </Container>
+  );
+};
 
 AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
-  show: PropTypes.func,
-  open: PropTypes.bool,
-  handleCancel: PropTypes.func,
-  handleConfirm: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array,
-  buttonState: PropTypes.bool,
+  selectedUserId: PropTypes.number,
   assignAssetButtonState: PropTypes.bool.isRequired,
-  selectedUserId: PropTypes.number
+  toggleModal: PropTypes.func,
+  handleConfirm: PropTypes.func.isRequired,
+  buttonState: PropTypes.bool.isRequired,
+  buttonLoading: PropTypes.bool.isRequired
 };
 
 AssetDescriptionComponent.defaultProps = {

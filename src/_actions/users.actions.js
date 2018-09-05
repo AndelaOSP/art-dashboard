@@ -6,7 +6,7 @@ const {
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
   LOADING_USERS,
-  LOAD_DROPDOWN_USERS_SUCCESS,
+  LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
   CREATE_SECURITY_USER_SUCCESS,
   CREATE_SECURITY_USER_FAILURE
 } = constants;
@@ -24,12 +24,12 @@ export const loadUsers = (pageNumber, limit) => (dispatch) => {
     });
 };
 
-export const loadDropDownUsers = () => (dispatch) => {
+export const loadAssetAssigneeUsers = () => (dispatch) => {
   dispatch(loading(true));
-  return axios.get('/users/?paginate=false')
+  return axios.get('asset-assignee/?paginate=false')
     .then((response) => {
       dispatch(loading(false));
-      dispatch(loadDropdownSuccess(response.data));
+      dispatch(loadAssetAssigneeSuccess(response.data));
     })
     .catch((error) => {
       dispatch(loading(false));
@@ -50,8 +50,8 @@ const loadUsersFailure = error => ({
   type: LOAD_USERS_FAILURE,
   payload: error
 });
-const loadDropdownSuccess = users => ({
-  type: LOAD_DROPDOWN_USERS_SUCCESS,
+const loadAssetAssigneeSuccess = users => ({
+  type: LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
   payload: users
 });
 
