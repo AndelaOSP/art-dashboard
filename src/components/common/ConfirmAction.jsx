@@ -5,10 +5,8 @@ import ButtonComponent from './ButtonComponent';
 export default class ConfirmAction extends React.Component {
   componentDidUpdate(prevProps) {
     const { buttonLoading, toggleModal } = this.props;
-    if (prevProps.buttonLoading !== buttonLoading) {
-      if (!buttonLoading) {
-        toggleModal();
-      }
+    if ((prevProps.buttonLoading !== buttonLoading) && !buttonLoading) {
+      toggleModal();
     }
   }
 
@@ -37,7 +35,7 @@ export default class ConfirmAction extends React.Component {
 }
 
 ConfirmAction.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func,
   handleConfirm: PropTypes.func.isRequired,
   buttonState: PropTypes.bool.isRequired,
   buttonLoading: PropTypes.bool.isRequired

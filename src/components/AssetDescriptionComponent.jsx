@@ -37,12 +37,22 @@ const AssetDescriptionComponent = (props) => {
           </div>
         </Grid.Column>
         <Grid.Column>
-          <AssignedTo {...props} />
+          <AssignedTo
+            onSelectUserEmail={props.onSelectUserEmail}
+            assignedUser={props.assignedUser}
+            users={props.users}
+            selectedUserId={props.selectedUserId}
+          />
           <ModalComponent
             trigger={<ButtonComponent {...triggerProps} />}
             modalTitle="Confirm Action"
           >
-            <ConfirmAction {...props} />
+            <ConfirmAction
+              toggleModal={props.toggleModal}
+              handleConfirm={props.handleConfirm}
+              buttonState={props.buttonState}
+              buttonLoading={props.buttonLoading}
+            />
           </ModalComponent>
         </Grid.Column>
       </Grid>
@@ -55,7 +65,11 @@ AssetDescriptionComponent.propTypes = {
   assignedUser: PropTypes.object,
   users: PropTypes.array,
   selectedUserId: PropTypes.number,
-  assignAssetButtonState: PropTypes.bool.isRequired
+  assignAssetButtonState: PropTypes.bool.isRequired,
+  toggleModal: PropTypes.func,
+  handleConfirm: PropTypes.func.isRequired,
+  buttonState: PropTypes.bool.isRequired,
+  buttonLoading: PropTypes.bool.isRequired
 };
 
 AssetDescriptionComponent.defaultProps = {
