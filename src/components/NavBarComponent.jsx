@@ -53,7 +53,9 @@ export class NavBarComponent extends Component {
           </Menu.Item>
 
           <Menu.Item>
-            <Image id="banner" src="/images/andela_logo_blue_landscape.png" />
+            <Link to="/dashboard">
+              <Image id="banner" src="/images/andela_logo_blue_landscape.png" />
+            </Link>
           </Menu.Item>
 
           <Menu.Menu id="search-menu">
