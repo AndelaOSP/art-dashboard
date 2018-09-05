@@ -19,7 +19,9 @@ export class AssetsComponent extends Component {
   };
 
   componentDidMount() {
-    this.props.getAssetsAction(this.state.activePage, this.state.limit);
+    if (isEmpty(this.props.assetsList)) {
+      this.props.getAssetsAction(this.state.activePage, this.state.limit);
+    }
     this.props.loadAllAssetModels();
     this.props.loadDropdownAssetTypes();
   }
