@@ -5,16 +5,25 @@ import expect from 'expect';
 import { AssetsComponent } from '../components/AssetsComponent';
 
 import assets from '../_mock/assets';
+import assetModels from '../_mock/assetModels';
+import assetTypes from '../_mock/assetTypes';
 
 describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
     getAssetsAction: jest.fn(),
     handlePaginationChange: jest.fn(),
+    createFilterData: jest.fn(),
+    handleRowChange: jest.fn(),
+    loadAllAssetModels: jest.fn(),
+    loadDropdownAssetTypes: jest.fn(),
     hasError: false,
     history: { push: jest.fn() },
     isLoading: false,
     assets,
-    assetsCount: 10
+    assetsCount: 10,
+    assetModels,
+    assetTypes,
+    render: () => true
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
@@ -60,5 +69,31 @@ describe('Renders <AssetsComponent /> correctly', () => {
     );
     wrapper.instance().handlePageTotal();
     expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the createFilterData function to loop through the asset types and model numbers', () => {
+    const createFilterDataSpy = jest.spyOn(
+      wrapper.instance(), 'createFilterData'
+    );
+    wrapper.instance().createFilterData();
+    expect(createFilterDataSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleRowChange when a  number of rows are selected', () => {
+    const handleRowChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleRowChange'
+    );
+    const event = {};
+    const data = {};
+    wrapper.instance().handleRowChange(event, data);
+    expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('renders FilterButton', () => {
+    expect(wrapper.find('FilterButton').length).toBe(1);
+  });
+
+  it('renders FilterComponent', () => {
+    expect(wrapper.find('FilterButton').dive().find('FilterComponent').length).toBe(1);
   });
 });

@@ -1,3 +1,5 @@
+@import "sharedStyling.scss";
+
 .asset-details {
   padding: 2rem 0;
   text-align: left;
@@ -31,22 +33,22 @@
 }
 
 .asset-tab .allocation-history {
-  overflow-y:auto;
+  overflow-y: auto;
 }
 
 .current-condition {
   padding-top: 4rem !important;
 }
 
-#assign-user{
-  margin-left: none;
+#assign-user {
+  margin-left: 0;
 }
 
 @media screen and (max-width: 420px) {
   .asset-tab .item {
     width: 30% !important;
-    padding-left: 0% !important;
-    padding-right: 0% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   .asset-tab .menu {

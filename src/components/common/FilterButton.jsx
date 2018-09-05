@@ -1,40 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icon, Popup } from 'semantic-ui-react';
 
 class FilterButton extends React.Component {
   state = {
     toggleOn: false
-  }
+  };
 
   toggleFilter = () => {
     this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
-  }
+  };
 
   render() {
     return (
-      <div>
-        <div
-          className={this.state.toggleOn ? 'clicked filter-button' : 'unclicked filter-button'}
-          onClick={this.toggleFilter}
-          role="presentation"
-        >
-          {this.state.toggleOn ?
-            <div id="close-filter">
-            close
-            </div> :
-            <div className="lines">
-              <div className="burger-line" />
-              <div className="burger-line" />
-              <div className="burger-line" />
-            </div>
+      <Popup
+        wide
+        className="filter-popup"
+        trigger={
+          <div
+            className={this.state.toggleOn ? 'filter-button clicked' : 'filter-button'}
+            onClick={this.toggleFilter}
+            role="presentation"
+          >
+            {this.state.toggleOn ? <Icon name="close" /> : <Icon name="bars" />}
+            FILTERS
+          </div>
         }
-        FILTERS
-        </div>
+        on="click"
+        open={this.state.toggleOn}
+        position="bottom right"
+      >
+
         {this.props.render(this.state.toggleOn)}
-      </div>
+      </Popup>
     );
   }
 }
+
 FilterButton.propTypes = {
   render: PropTypes.func
 };
@@ -42,4 +44,5 @@ FilterButton.propTypes = {
 FilterButton.defaultProps = {
   render: () => {}
 };
+
 export default FilterButton;
