@@ -11,6 +11,7 @@ describe('Renders <AssetAllocationHistory /> correctly', () => {
 
   it('renders the message when there is no history available', () => {
     expect(wrapper.find('.history-unavailable').length).toBe(1);
+    expect(wrapper.find('Table').length).toBe(0);
   });
 
   it('renders the allocation history table if allocation history is available', () => {
@@ -22,19 +23,5 @@ describe('Renders <AssetAllocationHistory /> correctly', () => {
       }]
     });
     expect(wrapper.find('Table').length).toBe(1);
-    expect(typeof wrapper.find('TableRowComponent').props().data).toBe('object');
-  });
-
-  it('sets the allocation history previous_owner or current_owner to - if null and formats date', () => {
-    wrapper.setProps({
-      allocationHistory: [{
-        created_at: '2018-07-31T13:11:24.054616Z',
-        current_owner: null,
-        previous_owner: null
-      }]
-    });
-    expect(wrapper.find('TableRowComponent').props().data.created_at).toBe('Tuesday, July 31, 2018');
-    expect(wrapper.find('TableRowComponent').props().data.current_owner).toBe(' - ');
-    expect(wrapper.find('TableRowComponent').props().data.previous_owner).toBe(' - ');
   });
 });

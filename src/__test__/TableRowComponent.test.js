@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 
 import assets from '../_mock/assets';
-import TableRowComponent from '../components/TableRowComponent';
+import { TableRowComponent } from '../components/TableRowComponent';
 
 describe('Renders <TableRowComponent /> correctly', () => {
   const props = {

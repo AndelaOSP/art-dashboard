@@ -30,10 +30,6 @@ describe('Renders <AssetsTableContent /> correctly', () => {
     expect(wrapper.find('Table').length).toBe(1);
   });
 
-  it('renders TableRowComponent component', () => {
-    expect(wrapper.find('TableRowComponent').length).toBe(2);
-  });
-
   it('renders LoaderComponent if page is loading', () => {
     wrapper.setProps({ isLoading: true });
     expect(wrapper.find('LoaderComponent').length).toBe(1);
