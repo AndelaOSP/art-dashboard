@@ -1,39 +1,33 @@
 @import "sharedStyling.scss";
 
-#filter-container {
-  margin: 40px 0 40px 0;
-  display: flex;
-  flex-direction: row;
-  color: $filter-font-color;
-  font-weight: 200;
-  padding-top: 20px;
+.ui.vertical.accordion.ui.filter-menu {
+  border: 0;
+  border-radius: 0;
+  background: #ffffff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
-#funnel {
-  margin: 0 20px 0 40px;
-  width: 45px;
-  height: 45px;
+.ui.vertical.accordion.ui.filter-menu.menu {
+  max-height: 30rem;
+  overflow-y: scroll;
 }
 
-#letters {
-  display: flex;
-  flex-direction: row;
-  text-transform: uppercase;
-  font-weight: 700;
-  border-color: $gray;
-  border-style: solid;
-  border-width: 1px;
-  box-shadow: 0 1px $gray;
-  border-radius: 3px;
-  color: $andela-black;
-  padding: 10px;
+.ui.accordion .accordion .active.content,
+.ui.accordion .active.content {
+  max-height: 20rem;
+  overflow-y: scroll;
 }
 
-#filter-text {
-  line-height: 3;
-  margin-right: 15px;
+
+.ui.accordion .active.content::-webkit-scrollbar,
+.ui.vertical.accordion.ui.filter-menu.menu::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 
-.letter {
-  margin-right: 10px;
+.ui.accordion.menu .item .title {
+  font-size: 16px;
+  margin: 2px 0 8px 0;
+  text-align: left;
 }

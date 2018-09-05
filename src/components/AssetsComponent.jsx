@@ -7,7 +7,10 @@ import NavbarComponent from './NavBarComponent';
 import AssetsTableContent from './AssetsTableContent';
 import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
+import { loadAllAssetModels } from '../_actions/assetModels.action';
+import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
 import FilterButton from './common/FilterButton';
+import FilterComponent from './common/FilterComponent';
 
 export class AssetsComponent extends Component {
   state = {
@@ -17,6 +20,8 @@ export class AssetsComponent extends Component {
 
   componentDidMount() {
     this.props.getAssetsAction(this.state.activePage, this.state.limit);
+    this.props.loadAllAssetModels();
+    this.props.loadDropdownAssetTypes();
   }
 
   shouldComponentUpdate(nextProps) {
@@ -41,14 +46,65 @@ export class AssetsComponent extends Component {
 
   emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
 
+  createFilterData = () => {
+    const { assetModels, assetTypes } = this.props;
+
+    const filters = [];
+    const assetFilters = {
+      title: 'Asset Types',
+      content: []
+    };
+    const modelNumberFilters = {
+      title: 'Model Numbers',
+      content: []
+    };
+
+    if (!isEmpty(assetTypes) && !isEmpty(assetModels)) {
+      assetTypes.map(assetType => (
+        assetFilters.content.push({
+          id: assetType.id,
+          option: assetType.asset_type
+        })
+      ));
+
+      assetModels.map(assetModel => (
+        modelNumberFilters.content.push({
+          id: assetModel.id,
+          option: assetModel.model_number
+        })
+      ));
+
+      filters.push(assetFilters);
+      filters.push(modelNumberFilters);
+    }
+
+    return filters;
+  };
+
   render() {
+    const filterSets = {
+      'Asset Types': new Set(),
+      'Model Numbers': new Set()
+    };
+
     return (
       <NavbarComponent title="Assets">
         <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
-            <FilterButton />
+            <FilterButton
+              render={toggleOn => (
+                <FilterComponent
+                  options={this.createFilterData()}
+                  filterSets={filterSets}
+                  toggleOn={toggleOn}
+                  activePage={this.state.activePage}
+                  limit={this.state.limit}
+                  filterAction={this.props.getAssetsAction}
+                />
+              )}
+            />
           </div>
           <AssetsTableContent
             {...this.props}
@@ -74,9 +130,13 @@ AssetsComponent.propTypes = {
   assetsList: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
+  loadAllAssetModels: PropTypes.func.isRequired,
+  loadDropdownAssetTypes: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   history: PropTypes.object,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  assetModels: PropTypes.arrayOf(PropTypes.object),
+  assetTypes: PropTypes.arrayOf(PropTypes.object)
 };
 
 AssetsComponent.defaultProps = {
@@ -84,17 +144,22 @@ AssetsComponent.defaultProps = {
   errorMessage: ''
 };
 
-const mapStateToProps = ({ assets }) => {
+const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
   const { assetsList, assetsCount, errorMessage, hasError, isLoading } = assets;
+  const { assetModels } = assetModelsList;
+  const { assetTypes } = assetTypesList;
+
   return {
     assetsList,
     assetsCount,
     errorMessage,
     hasError,
-    isLoading
+    isLoading,
+    assetModels,
+    assetTypes
   };
 };
 
 export default connect(mapStateToProps, {
-  getAssetsAction
+  getAssetsAction, loadAllAssetModels, loadDropdownAssetTypes
 })(AssetsComponent);

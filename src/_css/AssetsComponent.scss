@@ -17,27 +17,6 @@
   align-self: flex-start;
 }
 
-.filter-button {
-  display: flex;
-  align-self: flex-end;
-  margin-bottom: 10%;
-  border-color: $andela-blue;
-  border-width: 1px;
-  padding: 20px;
-  line-height: 0.1;
-  border-style: solid;
-  font-size: small;
-  color: $filter-font-color;
-  font-weight: 500;
-  width: 150px;
-  float: right;
-}
-
-.lines {
-  margin-right: 5px;
-  margin-top: -5px;
-}
-
 #page-heading-section {
   height: 77px;
   margin-top: 45px;
@@ -46,24 +25,34 @@
   margin-bottom: 30px;
 }
 
-#close-filter {
-  color: $filter-font-color;
-  margin-right: 5px;
+.ui.bottom.right.popup::before {
+  -webkit-box-shadow: -1px -1px 0 0 $andela-blue;
+  box-shadow: -1px -1px 0 0 $andela-blue;
 }
 
-.burger-line {
-  width: 15px;
-  height: 2px;
-  background-color: $filter-font-color;
-  margin-right: 1px;
-  margin-top: 1px;
-  margin-bottom: 2px;
+.ui.bottom.right.wide.popup.transition.visible.filter-popup {
+  border-color: $andela-blue;
+}
+
+.filter-button {
+  border: $andela-blue solid 1px;
+  padding: 13px;
+  font-size: small;
+  background-color: $andela-blue;
+  color: $andela-white;
+  font-weight: 500;
+  width: 150px;
+  position: absolute;
+  right: 8rem;
 }
 
 .clicked {
   background-color: $andela-white;
+  color: $andela-blue;
 }
 
-.unclicked {
-  background-color: $filter-blue;
+.ui.primary.button.apply-filter {
+  width: 100%;
+  margin: 0;
+  background-color: $andela-blue;
 }

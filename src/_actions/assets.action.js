@@ -8,10 +8,16 @@ const {
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
-export const getAssetsAction = (pageNumber, limit) => (
-  (dispatch) => {
+export const getAssetsAction = (pageNumber, limit, filters) => {
+  let url = `manage-assets?page=${pageNumber}&page_size=${limit}`;
+
+  if (filters) {
+    url = `manage-assets?page=${pageNumber}&page_size=${limit}&asset_type=${filters['Asset Types'] || ''}&model_number=${filters['Model Numbers'] || ''}`;
+  }
+
+  return (dispatch) => {
     dispatch({ type: LOAD_ASSETS_STARTS });
-    return axios.get(`manage-assets?page=${pageNumber}&page_size=${limit}`)
+    return axios.get(url)
       .then((response) => {
         dispatch({
           type: LOAD_ASSETS_SUCCESS,
@@ -24,5 +30,5 @@ export const getAssetsAction = (pageNumber, limit) => (
           payload: error.message
         });
       });
-  }
-);
+  };
+};
