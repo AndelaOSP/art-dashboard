@@ -7,35 +7,28 @@ import NavbarComponent from '../../components/NavBarComponent';
 import UserDetailComponent from '../../components/User/UserDetailComponent';
 import { loadUserDetail } from '../../_actions/user.actions';
 
-let TheUSer = {};
-
 class UserDetailContainer extends Component {
-  state = {
-    userDetail: {},
-    hasError: this.props.hasError,
-    errorMessage: this.props.errorMessage
+  constructor(props) {
+    super(props);
+    this.state = {
+      userDetail: props.location.state || {},
+      hasError: props.hasError,
+      errorMessage: props.errorMessage
+    };
   }
 
   componentDidMount() {
-    const { match, users } = this.props;
-    const userId = parseInt(match.params.id, 10);
+    const { match, location } = this.props;
 
-    const userDetail = users.find(specificUser => specificUser.id === userId);
-
-    if (userDetail !== undefined) {
-      // this.setState({ userDetail });
-      TheUSer = userDetail;
-    } else {
-      this.props.loadUserDetail(userId);
+    if (location.state === undefined) {
+      this.props.loadUserDetail(parseInt(match.params.id, 10));
     }
   }
 
-  checkForPropsOrState = () => (
-    isEmpty(this.props.userDetail) ?
-      this.state.userDetail : this.props.userDetail
-  )
-
   render() {
+    const foundUser = isEmpty(this.state.userDetail) ?
+      this.props.userDetail : this.state.userDetail;
+
     return (
       <NavbarComponent title="Users">
 
@@ -50,7 +43,7 @@ class UserDetailContainer extends Component {
             <Divider id="assets-divider" />
           </div>
           <UserDetailComponent
-            userDetail={TheUSer}
+            userDetail={foundUser}
             errorMessage={this.state.errorMessage}
             hasError={this.state.hasError}
             isLoading={this.props.isLoading}
@@ -63,28 +56,24 @@ class UserDetailContainer extends Component {
 
 UserDetailContainer.propTypes = {
   loadUserDetail: PropTypes.func.isRequired,
-  users: PropTypes.arrayOf(PropTypes.object),
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
   errorMessage: PropTypes.string,
   userDetail: PropTypes.object,
-  match: PropTypes.object.isRequired
-
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
 
 UserDetailContainer.defaultTypes = {
-  users: [],
   isLoading: false,
   hasError: false,
   errorMessage: ''
 };
 
-const mapStateToProps = ({ usersList, userDetails }) => {
-  const { users } = usersList;
+const mapStateToProps = ({ userDetails }) => {
   const { isLoading, hasError, errorMessage, userDetail } = userDetails;
 
   return {
-    users,
     userDetail,
     isLoading,
     hasError,

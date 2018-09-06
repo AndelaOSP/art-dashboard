@@ -9,7 +9,7 @@ export class TableRowComponent extends React.Component {
     if (!viewDetailsRoute) {
       return null;
     }
-    return history.push(viewDetailsRoute);
+    return history.push(viewDetailsRoute, this.props.data);
   };
 
   render() {
