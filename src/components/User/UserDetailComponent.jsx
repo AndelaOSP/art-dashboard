@@ -1,21 +1,38 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { isEmpty } from 'lodash';
-import { Header, Divider } from 'semantic-ui-react';
-import NavbarComponent from '../NavBarComponent';
+import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
+import LoaderComponent from '../../components/LoaderComponent';
 
 import '../../_css/UsersComponent.scss';
 
-const UserDetailComponent = () => (
-  <NavbarComponent title="Assets">
-    <div className="users-list">
-      <div id="page-heading-section">
-        <Header as="h1" id="page-headings" floated="left" content="User Detail" />
-        <Divider id="assets-divider" />
+const UserDetailComponent = (props) => {
+  if (props.isLoading) {
+    return (
+      <LoaderComponent />
+    );
+  }
+
+  if (isEmpty(props.userDetail)) {
+    return (
+      <div>
+        User Not Found
       </div>
-    </div>
-  </NavbarComponent>
-);
+    );
+  }
+  return (
+    <div>User Details HERe</div>
+  );
+};
+
+UserDetailComponent.propTypes = {
+  isLoading: PropTypes.bool,
+  userDetail: PropTypes.object
+};
+
+UserDetailComponent.defaultTypes = {
+  isLoading: false,
+  userDetail: {}
+};
 
 
 export default UserDetailComponent;

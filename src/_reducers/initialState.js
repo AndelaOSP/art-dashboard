@@ -73,7 +73,12 @@ export default {
     isLoading: false,
     securityUser: {}
   },
-  user: {},
+  user: {
+    userDetail: {},
+    errorMessage: '',
+    hasError: false,
+    isLoading: false
+  },
   assetSpecs: {
     specs: [],
     assetSpecsCount: 0,
