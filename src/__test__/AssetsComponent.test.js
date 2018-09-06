@@ -54,6 +54,9 @@ describe('Renders <AssetsComponent /> correctly', () => {
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {
+    global.localStorage = {};
+    global.localStorage.setItem = jest.fn();
+    global.localStorage.getItem = jest.fn();
     const handlePaginationChangeSpy = jest.spyOn(
       wrapper.instance(), 'handlePaginationChange'
     );

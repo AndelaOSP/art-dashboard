@@ -102,7 +102,7 @@ const AssetsTableContent = (props) => {
                       id="art-pagination-component"
                       totalPages={props.handlePageTotal()}
                       onPageChange={props.handlePaginationChange}
-                      activePage={props.activePage}
+                      activePage={props.activePage()}
                     />
                   </Segment>
                   <Segment>
@@ -125,7 +125,7 @@ const AssetsTableContent = (props) => {
 };
 
 AssetsTableContent.propTypes = {
-  activePage: PropTypes.number,
+  activePage: PropTypes.func,
   activePageAssets: PropTypes.arrayOf(PropTypes.object),
   emptyAssetsCheck: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,

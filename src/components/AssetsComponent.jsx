@@ -19,11 +19,11 @@ export class AssetsComponent extends Component {
   };
 
   componentDidMount() {
+    this.props.loadAllAssetModels();
+    this.props.loadDropdownAssetTypes();
     if (isEmpty(this.props.assetsList)) {
       this.props.getAssetsAction(this.state.activePage, this.state.limit);
     }
-    this.props.loadAllAssetModels();
-    this.props.loadDropdownAssetTypes();
   }
 
   shouldComponentUpdate(nextProps) {
@@ -40,6 +40,7 @@ export class AssetsComponent extends Component {
   };
 
   handlePaginationChange = (e, { activePage }) => {
+    localStorage.setItem('activePage', activePage);
     this.setState({ activePage });
     this.props.getAssetsAction(activePage, this.state.limit);
   };
@@ -83,6 +84,14 @@ export class AssetsComponent extends Component {
     return filters;
   };
 
+  getCurrentPage = () => {
+    const currentPage = localStorage.getItem('activePage');
+    if (currentPage) {
+      return currentPage;
+    }
+    return this.state.activePage;
+  }
+
   render() {
     const filterSets = {
       'Asset Types': new Set(),
@@ -110,7 +119,7 @@ export class AssetsComponent extends Component {
           </div>
           <AssetsTableContent
             {...this.props}
-            activePage={this.state.activePage}
+            activePage={this.getCurrentPage}
             activePageAssets={this.props.assetsList}
             emptyAssetsCheck={this.emptyAssetsCheck}
             errorMessage={this.props.errorMessage}
