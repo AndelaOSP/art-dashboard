@@ -31,7 +31,6 @@ class UserDetailContainer extends Component {
 
     return (
       <NavbarComponent title="Users">
-
         <div className="users-list">
           <div id="page-heading-section">
             <Header

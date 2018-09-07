@@ -44,7 +44,6 @@ const UserDetailComponent = (props) => {
           props.userDetail.full_name : 'Andelan'
         }
       </Header>
-
       <Segment.Group horizontal>
         <Segment className="user-detail-info">
           <div className="user-detail-icon">
