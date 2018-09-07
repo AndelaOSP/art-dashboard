@@ -96,5 +96,6 @@ export default {
   },
   session: {
     sessionExpired: false
-  }
+  },
+  activePage: 1
 };

@@ -27,7 +27,7 @@ export default (state = initialState.assets, action) => {
     case LOAD_ASSETS_STARTS:
       return {
         ...state,
-        isLoading: true
+        isLoading: action.isLoading
       };
     case LOAD_ASSETS_SUCCESS:
       return {
@@ -35,7 +35,7 @@ export default (state = initialState.assets, action) => {
         assetsList: action.payload.results,
         assetsCount: action.payload.count,
         hasError: false,
-        isLoading: false
+        isLoading: action.isLoading
       };
     case LOAD_ASSETS_FAILURE:
       return {
@@ -44,7 +44,7 @@ export default (state = initialState.assets, action) => {
         assetsCount: 0,
         errorMessage: action.payload,
         hasError: true,
-        isLoading: false
+        isLoading: action.isLoading
       };
     default:
       return state;

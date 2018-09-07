@@ -14,7 +14,6 @@ import FilterComponent from './common/FilterComponent';
 
 export class AssetsComponent extends Component {
   state = {
-    activePage: 1,
     limit: 10
   };
 
@@ -22,7 +21,7 @@ export class AssetsComponent extends Component {
     this.props.loadAllAssetModels();
     this.props.loadDropdownAssetTypes();
     if (isEmpty(this.props.assetsList)) {
-      this.props.getAssetsAction(this.state.activePage, this.state.limit);
+      this.props.getAssetsAction(this.props.activePage, this.state.limit);
     }
   }
 
@@ -36,12 +35,10 @@ export class AssetsComponent extends Component {
 
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
-    this.props.getAssetsAction(this.state.activePage, data.value);
+    this.props.getAssetsAction(this.props.activePage, data.value);
   };
 
   handlePaginationChange = (e, { activePage }) => {
-    localStorage.setItem('activePage', activePage);
-    this.setState({ activePage });
     this.props.getAssetsAction(activePage, this.state.limit);
   };
 
@@ -84,14 +81,6 @@ export class AssetsComponent extends Component {
     return filters;
   };
 
-  getCurrentPage = () => {
-    const currentPage = localStorage.getItem('activePage');
-    if (currentPage) {
-      return currentPage;
-    }
-    return this.state.activePage;
-  }
-
   render() {
     const filterSets = {
       'Asset Types': new Set(),
@@ -110,7 +99,7 @@ export class AssetsComponent extends Component {
                   options={this.createFilterData()}
                   filterSets={filterSets}
                   toggleOn={toggleOn}
-                  activePage={this.state.activePage}
+                  activePage={this.props.activePage}
                   limit={this.state.limit}
                   filterAction={this.props.getAssetsAction}
                 />
@@ -119,7 +108,7 @@ export class AssetsComponent extends Component {
           </div>
           <AssetsTableContent
             {...this.props}
-            activePage={this.getCurrentPage}
+            activePage={this.props.activePage}
             activePageAssets={this.props.assetsList}
             emptyAssetsCheck={this.emptyAssetsCheck}
             errorMessage={this.props.errorMessage}
@@ -147,16 +136,24 @@ AssetsComponent.propTypes = {
   history: PropTypes.object,
   isLoading: PropTypes.bool.isRequired,
   assetModels: PropTypes.arrayOf(PropTypes.object),
-  assetTypes: PropTypes.arrayOf(PropTypes.object)
+  assetTypes: PropTypes.arrayOf(PropTypes.object),
+  activePage: PropTypes.number
 };
 
 AssetsComponent.defaultProps = {
   assetsList: [],
-  errorMessage: ''
+  errorMessage: '',
+  activePage: 1
 };
 
-const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
-  const { assetsList, assetsCount, errorMessage, hasError, isLoading } = assets;
+const mapStateToProps = ({ assets, assetTypesList, assetModelsList, activePage }) => {
+  const {
+    assetsList,
+    assetsCount,
+    errorMessage,
+    hasError,
+    isLoading
+  } = assets;
   const { assetModels } = assetModelsList;
   const { assetTypes } = assetTypesList;
 
@@ -167,7 +164,8 @@ const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
     hasError,
     isLoading,
     assetModels,
-    assetTypes
+    assetTypes,
+    activePage
   };
 };
 
