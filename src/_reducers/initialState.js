@@ -66,11 +66,12 @@ export default {
   },
   usersList: {
     users: [],
-    usersDropdown: [],
+    assetAsigneeUsers: [],
     usersCount: 0,
     errorMessage: '',
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    securityUser: {}
   },
   assetSpecs: {
     specs: [],

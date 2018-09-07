@@ -71,7 +71,7 @@ instance.setState({
 });
 
 const specsComponentSetup = () => {
-  wrapper.setState({ selectedAssetType: 'Laptops' });
+  wrapper.setState({ selectedAssetType: 'Asset Type 1' });
   wrapper.find('.save').simulate('click');
   wrapper.setState({ modelNumber: 'MacBook Pro' });
   wrapper.setState({ serialNumber: 'S/N-878778' });
@@ -187,6 +187,32 @@ describe('<AddAssetContainer />', () => {
     specsComponentSetup();
     wrapper.find('input[type="radio"][name="memory"]').at(2).simulate('change');
     expect(wrapper.state().specs.memory).toEqual('16');
+  });
+
+  it('should submit the form when form is filled', () => {
+    specsComponentSetup();
+    const returnSpecsState = () => wrapper.state().specs;
+    wrapper.setProps({
+      createAsset: () => returnSpecsState()
+    });
+
+    expect(returnSpecsState()).toEqual(wrapper.state().specs);
+
+    wrapper.find('DropdownComponent .item').at(3).simulate('click');
+    wrapper.find('input[type="radio"][name="processorType"]').first().simulate('change');
+    wrapper.find('input[type="radio"][name="processorSpeed"]').first().simulate('change');
+    wrapper.find('input[type="radio"][name="screenSize"]').first().simulate('change');
+    wrapper.find('input[type="radio"][name="storage"]').first().simulate('change');
+    wrapper.find('input[type="radio"][name="memory"]').first().simulate('change');
+    wrapper.find('Form').simulate('submit');
+    expect(returnSpecsState()).toEqual({
+      memory: '4',
+      processorSpeed: '1.8',
+      processorType: 'Intel core i3',
+      screenSize: '13',
+      storage: '128',
+      year: 2016
+    });
   });
 
   it('can receive a success prop when getDerivedStateFromProps runs', () => {

@@ -6,7 +6,10 @@ import assetModelsMock from '../../_mock/assetModels';
 const {
   LOADING_ASSET_MODELS,
   LOAD_ASSET_MODELS_SUCCESS,
-  LOAD_ASSET_MODELS_FAILURE
+  LOAD_ASSET_MODELS_FAILURE,
+  LOADING_ALL_ASSET_MODELS,
+  LOAD_ALL_ASSET_MODELS_SUCCESS,
+  LOAD_ALL_ASSET_MODELS_FAILURE
 } = constants;
 
 const initialState = {
@@ -36,6 +39,25 @@ describe('Asset Models Reducer tests', () => {
 
   it('should handle LOAD_ASSET_TYPES_FAILURE', () => {
     action.type = LOAD_ASSET_MODELS_FAILURE;
+    expect(assetModelsReducer(initialState, action).assetModels).toEqual([]);
+    expect(assetModelsReducer(initialState, action).isLoading).toEqual(false);
+  });
+
+  it('should handle LOADING_ALL_ASSET_MODELS', () => {
+    action.type = LOADING_ALL_ASSET_MODELS;
+    expect(assetModelsReducer(initialState, action).assetModels).toEqual([]);
+    expect(assetModelsReducer(initialState, action).isLoading).toEqual(true);
+  });
+
+  it('should handle LOAD_ALL_ASSET_MODELS_SUCCESS', () => {
+    action.type = LOAD_ALL_ASSET_MODELS_SUCCESS;
+    action.payload = assetModelsMock;
+    expect(assetModelsReducer(initialState, action).assetModels).toEqual(action.payload);
+    expect(assetModelsReducer(initialState, action).isLoading).toEqual(false);
+  });
+
+  it('should handle LOAD_ALL_ASSET_MODELS_FAILURE', () => {
+    action.type = LOAD_ALL_ASSET_MODELS_FAILURE;
     expect(assetModelsReducer(initialState, action).assetModels).toEqual([]);
     expect(assetModelsReducer(initialState, action).isLoading).toEqual(false);
   });

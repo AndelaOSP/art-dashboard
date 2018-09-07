@@ -53,7 +53,9 @@ export class NavBarComponent extends Component {
           </Menu.Item>
 
           <Menu.Item>
-            <Image id="banner" src="/images/andela_logo_blue_landscape.png" />
+            <Link to="/dashboard">
+              <Image id="banner" src="/images/andela_logo_blue_landscape.png" />
+            </Link>
           </Menu.Item>
 
           <Menu.Menu id="search-menu">
@@ -162,11 +164,11 @@ export class NavBarComponent extends Component {
                       </Grid.Column>
 
                       <Grid.Column>
-                        <Link to="/asset_types"><Icon name="list ul" />Asset Types</Link>
+                        <Link to="/asset-types"><Icon name="list ul" />Asset Types</Link>
                       </Grid.Column>
 
                       <Grid.Column>
-                        <Link to="/asset_models"><Icon name="list ul" />Asset Models</Link>
+                        <Link to="/asset-models"><Icon name="list ul" />Asset Models</Link>
                       </Grid.Column>
 
                       <Grid.Column>

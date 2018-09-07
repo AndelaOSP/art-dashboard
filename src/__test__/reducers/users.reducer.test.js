@@ -1,22 +1,25 @@
 import expect from 'expect';
 import constants from '../../_constants';
 import usersReducer from '../../_reducers/users.reducer';
-import users from '../../_mock/users';
+import users, { SecurityUser, AssetAssignee } from '../../_mock/users';
 
 const {
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
   LOADING_USERS,
-  LOAD_DROPDOWN_USERS_SUCCESS
+  LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
+  CREATE_SECURITY_USER_SUCCESS,
+  CREATE_SECURITY_USER_FAILURE
 } = constants;
 
 const initialState = {
   usersList: {
     users: [],
-    usersDropdown: [],
+    assetAsigneeUsers: [],
     assetsCount: 0,
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    securityUser: {}
   }
 };
 
@@ -46,9 +49,20 @@ describe('Users Reducer tests', () => {
     expect(usersReducer(initialState, action).isLoading).toEqual(true);
   });
 
-  it('should handle LOAD_DROPDOWN_USERS_SUCCESS', () => {
-    action.type = LOAD_DROPDOWN_USERS_SUCCESS;
-    action.payload = users;
-    expect(usersReducer(initialState, action).usersDropdown).toEqual(action.payload);
+  it('should handle LOAD_ASSET_ASSIGNEE_USERS_SUCCESS', () => {
+    action.type = LOAD_ASSET_ASSIGNEE_USERS_SUCCESS;
+    action.payload = AssetAssignee;
+    expect(usersReducer(initialState, action).assetAsigneeUsers).toEqual(action.payload);
+  });
+
+  it('should handle CREATE_SECURITY_USER_SUCCESS', () => {
+    action.type = CREATE_SECURITY_USER_SUCCESS;
+    action.payload = SecurityUser;
+    expect(usersReducer(initialState, action).securityUser).toEqual(action.payload);
+  });
+
+  it('should handle CREATE_SECURITY_USER_FAILURE', () => {
+    action.type = CREATE_SECURITY_USER_FAILURE;
+    expect(usersReducer(initialState, action).errorMessage).toEqual(action.payload);
   });
 });

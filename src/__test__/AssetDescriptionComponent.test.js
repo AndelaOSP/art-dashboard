@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import expect from 'expect';
 
 import AssetDescriptionComponent from '../components/AssetDescriptionComponent';
@@ -9,10 +9,10 @@ describe('Renders <AssetDescriptionComponent /> correctly', () => {
     assignedUser: {},
     selectedUser: ''
   };
-  const wrapper = shallow(<AssetDescriptionComponent {...props} />);
+  const wrapper = mount(<AssetDescriptionComponent {...props} />);
 
   it('renders the asset description component', () => {
-    expect(wrapper.find('.asset-description').length).toBe(1);
+    expect(wrapper.find('.asset-description').exists()).toEqual(true);
   });
 
   it('renders the assign button and dropdown when no user is assigned', () => {

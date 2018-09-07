@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import {
+  Header,
+  Table,
+  Pagination,
+  Segment,
+  Divider,
+  Button
+} from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRowComponent from '../TableRowComponent';
@@ -11,6 +18,8 @@ import DropdownComponent from '../../_components/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 import rowOptions from '../../_utils/pageRowOptions';
+import ModalComponent from '../common/ModalComponent';
+import AssetMakeContainer from '../../_components/AssetMake/AssetMakeContainer';
 
 export class AssetMakeComponent extends React.Component {
   state = {
@@ -59,6 +68,21 @@ export class AssetMakeComponent extends React.Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Makes" />
             <Divider id="assets-divider" />
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <Button
+                    className="add-asset"
+                    size="medium"
+                  >
+                    ADD ASSET MAKE
+                  </Button>
+                }
+                modalTitle="Add Asset Make"
+              >
+                <AssetMakeContainer />
+              </ModalComponent>
+            </div>
           </div>
           <Table basic>
             <Table.Header>

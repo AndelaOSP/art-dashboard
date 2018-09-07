@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _, { isEmpty, values } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail, allocateAsset, unassignAsset } from '../_actions/asset.actions';
-import { loadDropDownUsers } from '../_actions/users.actions';
+import { loadAssetAssigneeUsers } from '../_actions/users.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
 
@@ -13,7 +13,6 @@ export class AssetDetailComponent extends Component {
     assignedUser: {},
     selectedUser: 0,
     serialNumber: '',
-    open: false,
     assignAssetButtonState: true,
     hasError: this.props.hasError,
     errorMessage: this.props.errorMessage
@@ -21,15 +20,14 @@ export class AssetDetailComponent extends Component {
 
   componentDidMount() {
     this.getAssetId(this.props.location.pathname);
-    if (_.isEmpty(this.props.usersDropdown)) {
-      this.props.loadDropDownUsers();
+    if (_.isEmpty(this.props.assetAsigneeUsers)) {
+      this.props.loadAssetAssigneeUsers();
     }
   }
 
   static getDerivedStateFromProps(nextProps) {
     return {
       assignedUser: nextProps.assetDetail.assigned_to,
-      open: nextProps.buttonLoading,
       hasError: nextProps.hasError,
       errorMessage: nextProps.errorMessage
     };
@@ -54,8 +52,6 @@ export class AssetDetailComponent extends Component {
       current_owner: selectedUser
     };
     this.props.allocateAsset(assetAllocated, this.state.serialNumber);
-
-    if (!this.props.buttonLoading) this.setState({ open: false });
   };
 
   handleUnassign = () => {
@@ -65,11 +61,7 @@ export class AssetDetailComponent extends Component {
       current_status: 'Available'
     };
     this.props.unassignAsset(assetAssigned, this.state.serialNumber);
-
-    if (!this.props.buttonLoading) this.setState({ open: false });
   };
-
-  show = () => this.setState({ open: true });
 
   handleConfirm = () => {
     if (isEmpty(values(this.state.assignedUser))) {
@@ -77,8 +69,6 @@ export class AssetDetailComponent extends Component {
     }
     return this.handleUnassign();
   };
-
-  handleCancel = () => this.setState({ open: false });
 
   render() {
     return (
@@ -95,7 +85,6 @@ export class AssetDetailComponent extends Component {
             onSelectUserEmail={this.onSelectUserEmail}
             handleAssign={this.handleAssign}
             handleUnassign={this.handleUnassign}
-            open={this.state.open}
             selectedUserId={this.state.selectedUser}
             show={this.show}
             handleConfirm={this.handleConfirm}
@@ -103,7 +92,7 @@ export class AssetDetailComponent extends Component {
             buttonState={this.props.buttonLoading}
             assignAssetButtonState={this.state.assignAssetButtonState}
             selectedUser={this.state.selectedUser}
-            users={this.props.usersDropdown}
+            users={this.props.assetAsigneeUsers}
           />
         </Container>
       </NavbarComponent>
@@ -112,7 +101,7 @@ export class AssetDetailComponent extends Component {
 }
 
 AssetDetailComponent.propTypes = {
-  loadDropDownUsers: PropTypes.func,
+  loadAssetAssigneeUsers: PropTypes.func,
   allocateAsset: PropTypes.func,
   unassignAsset: PropTypes.func,
   assetDetail: PropTypes.object,
@@ -122,7 +111,7 @@ AssetDetailComponent.propTypes = {
   isLoading: PropTypes.object,
   buttonLoading: PropTypes.bool,
   location: PropTypes.object,
-  usersDropdown: PropTypes.array,
+  assetAsigneeUsers: PropTypes.array,
   newAllocation: PropTypes.object,
   unAssignedAsset: PropTypes.object
 };
@@ -136,13 +125,13 @@ const mapStateToProps = ({ asset, usersList }) => {
     unAssignedAsset,
     buttonLoading
   } = asset;
-  const { usersDropdown } = usersList;
+  const { assetAsigneeUsers } = usersList;
   const isLoading = {
     assetsLoading: asset.isLoading,
     usersLoading: usersList.isLoading
   };
   return {
-    usersDropdown,
+    assetAsigneeUsers,
     assetDetail,
     newAllocation,
     unAssignedAsset,
@@ -154,5 +143,8 @@ const mapStateToProps = ({ asset, usersList }) => {
 };
 
 export default connect(mapStateToProps, {
-  getAssetDetail, loadDropDownUsers, allocateAsset, unassignAsset
+  getAssetDetail,
+  loadAssetAssigneeUsers,
+  allocateAsset,
+  unassignAsset
 })(AssetDetailComponent);

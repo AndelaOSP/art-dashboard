@@ -26,10 +26,6 @@ describe('<UserFeedbackComponent /> tests', () => {
     expect(wrapper.find('Table').length).toBe(1);
   });
 
-  it('renders TableRowComponent component', () => {
-    expect(wrapper.find('TableRowComponent').length).toBe(3);
-  });
-
   it('renders Action component', () => {
     expect(wrapper.find('ActionComponent').length).toBe(3);
   });

@@ -9,7 +9,7 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
   const props = {
     assetDetail: assetMocks.assetDetails,
     errorMessage: '',
-    loadDropDownUsers: jest.fn(),
+    loadAssetAssigneeUsers: jest.fn(),
     allocateAsset: jest.fn(),
     getAssetDetail: jest.fn(),
     unassignAsset: jest.fn(),
@@ -71,21 +71,5 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     wrapper.setState({ assignedUser: {} });
     wrapper.instance().handleConfirm();
     expect(handleUnassignSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('should mock the handleCancel function call', () => {
-    const handleCancelSpy = jest.spyOn(
-      wrapper.instance(), 'handleCancel'
-    );
-    wrapper.instance().handleCancel();
-    expect(handleCancelSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('should mock the show function call', () => {
-    const showSpy = jest.spyOn(
-      wrapper.instance(), 'show'
-    );
-    wrapper.instance().show();
-    expect(showSpy.mock.calls.length).toEqual(1);
   });
 });

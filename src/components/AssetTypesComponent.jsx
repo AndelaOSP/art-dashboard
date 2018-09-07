@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRowComponent from './TableRowComponent';
@@ -10,6 +10,8 @@ import rowOptions from '../_utils/pageRowOptions';
 import NavbarComponent from './NavBarComponent';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from '../components/LoaderComponent';
+import AssetTypesContainer from '../_components/AssetTypes/AddAssetTypesContainer';
+import ModalComponent from './common/ModalComponent';
 
 import '../_css/AssetsComponent.css';
 import { loadAssetTypes } from '../_actions/assetTypes.actions';
@@ -61,6 +63,21 @@ export class AssetTypesComponent extends React.Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Types" />
             <Divider id="assets-divider" />
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <Button
+                    className="add-asset"
+                    size="small"
+                  >
+                    ADD ASSET TYPE
+                  </Button>
+                }
+                modalTitle="Add Asset Type"
+              >
+                <AssetTypesContainer />
+              </ModalComponent>
+            </div>
           </div>
           <Table basic selectable>
             <Table.Header>
