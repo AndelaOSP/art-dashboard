@@ -23,8 +23,3 @@ export const loadUserDetailSuccess = successData => ({
 export const loadUserDetailFailure = errorMessage => ({
   type: LOAD_USER_FAILURE, payload: errorMessage
 });
-
-// export const loadUserDetailFromStore = userId => dispatch => (
-//   dispatch()
-// )
-

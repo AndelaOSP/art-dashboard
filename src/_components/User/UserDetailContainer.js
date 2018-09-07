@@ -38,7 +38,7 @@ class UserDetailContainer extends Component {
               as="h1"
               id="page-headings"
               floated="left"
-              content="User Detail"
+              content="User"
             />
             <Divider id="assets-divider" />
           </div>
