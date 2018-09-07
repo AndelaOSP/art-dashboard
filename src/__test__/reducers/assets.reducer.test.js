@@ -37,18 +37,21 @@ describe('Asset Reducer tests', () => {
 
   it('should handle LOAD_ASSETS_SUCCESS', () => {
     action.type = LOAD_ASSETS_SUCCESS;
+    action.isLoading = false;
     expect(assetReducer(state, action).assetsList).toEqual(action.payload.results);
     expect(assetReducer(state, action).isLoading).toBe(false);
   });
 
   it('should handle LOAD_ASSETS_FAILURE', () => {
     action.type = LOAD_ASSETS_FAILURE;
+    action.isLoading = false;
     expect(assetReducer(state, action).hasError).toBe(true);
     expect(assetReducer(state, action).isLoading).toBe(false);
   });
 
   it('should handle LOAD_ASSETS_STARTS', () => {
     action.type = LOAD_ASSETS_STARTS;
+    action.isLoading = true;
     expect(assetReducer(state, action).isLoading).toBe(true);
   });
 

@@ -54,9 +54,6 @@ describe('Renders <AssetsComponent /> correctly', () => {
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {
-    global.localStorage = {};
-    global.localStorage.setItem = jest.fn();
-    global.localStorage.getItem = jest.fn();
     const handlePaginationChangeSpy = jest.spyOn(
       wrapper.instance(), 'handlePaginationChange'
     );
@@ -98,13 +95,5 @@ describe('Renders <AssetsComponent /> correctly', () => {
 
   it('renders FilterComponent', () => {
     expect(wrapper.find('FilterButton').dive().find('FilterComponent').length).toBe(1);
-  });
-
-  it('calls the getCurrentPage function when the pagination page changes', () => {
-    const getCurrentPageSpy = jest.spyOn(
-      wrapper.instance(), 'getCurrentPage'
-    );
-    wrapper.instance().getCurrentPage();
-    expect(getCurrentPageSpy.mock.calls.length).toEqual(1);
   });
 });
