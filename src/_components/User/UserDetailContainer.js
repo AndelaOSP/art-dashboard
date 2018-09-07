@@ -1,34 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { Header, Divider } from 'semantic-ui-react';
 import NavbarComponent from '../../components/NavBarComponent';
 import UserDetailComponent from '../../components/User/UserDetailComponent';
-import { loadUserDetail } from '../../_actions/user.actions';
+import { loadUserDetail as getUserDetail } from '../../_actions/user.actions';
 
 class UserDetailContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userDetail: props.location.state || {},
-      hasError: props.hasError,
-      errorMessage: props.errorMessage
-    };
-  }
-
   componentDidMount() {
-    const { match, location } = this.props;
+    const { match, userDetail, loadUserDetail } = this.props;
 
-    if (location.state === undefined) {
-      this.props.loadUserDetail(parseInt(match.params.id, 10));
+    if (isEmpty(userDetail)) {
+      loadUserDetail(+match.params.id);
     }
   }
 
   render() {
-    const foundUser = isEmpty(this.state.userDetail) ?
-      this.props.userDetail : this.state.userDetail;
-
     return (
       <NavbarComponent title="Users">
         <div className="users-list">
@@ -42,9 +30,9 @@ class UserDetailContainer extends Component {
             <Divider id="assets-divider" />
           </div>
           <UserDetailComponent
-            userDetail={foundUser}
-            errorMessage={this.state.errorMessage}
-            hasError={this.state.hasError}
+            userDetail={this.props.userDetail}
+            errorMessage={this.props.errorMessage}
+            hasError={this.props.hasError}
             isLoading={this.props.isLoading}
           />
         </div>
@@ -59,8 +47,7 @@ UserDetailContainer.propTypes = {
   hasError: PropTypes.bool,
   errorMessage: PropTypes.string,
   userDetail: PropTypes.object,
-  match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired
 };
 
 UserDetailContainer.defaultTypes = {
@@ -69,11 +56,10 @@ UserDetailContainer.defaultTypes = {
   errorMessage: ''
 };
 
-const mapStateToProps = ({ userDetails }) => {
+const mapStateToProps = ({ userDetails }, props) => {
   const { isLoading, hasError, errorMessage, userDetail } = userDetails;
-
   return {
-    userDetail,
+    userDetail: isEmpty(userDetail) ? props.location.state : userDetail,
     isLoading,
     hasError,
     errorMessage
@@ -82,5 +68,5 @@ const mapStateToProps = ({ userDetails }) => {
 
 
 export default connect(mapStateToProps, {
-  loadUserDetail
+  loadUserDetail: getUserDetail
 })(UserDetailContainer);
