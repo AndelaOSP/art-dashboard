@@ -28,12 +28,12 @@ const userDetail = [
 
 describe('User Detail Reducer tests', () => {
   it('should handle LOADING_USER', () => {
-    const action = { type: LOADING_USER };
+    const action = { type: LOADING_USER, isLoading: true };
     expect(userDetailReducer(state, action).isLoading).toEqual(true);
   });
 
   it('should handle LOAD_USER_SUCCESS', () => {
-    const action = { type: LOAD_USER_SUCCESS, payload: userDetail[0] };
+    const action = { type: LOAD_USER_SUCCESS, payload: userDetail[0], isLoading: false };
     expect(userDetailReducer(state, action)).toEqual({
       errorMessage: '',
       hasError: false,
@@ -43,7 +43,7 @@ describe('User Detail Reducer tests', () => {
   });
 
   it('should handle LOAD_USER_FAILURE', () => {
-    const action = { type: LOAD_USER_FAILURE, payload: userDetail[1] };
+    const action = { type: LOAD_USER_FAILURE, payload: userDetail[1], isLoading: false };
     expect(userDetailReducer(state, action)).toEqual({
       errorMessage: { detail: 'Not Found' },
       hasError: true,

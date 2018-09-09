@@ -7,6 +7,21 @@ import TableRowDetail from '../TableRowComponent';
 
 import '../../_css/UserDetailComponent.css';
 
+const fakeAssetTable = [
+  {
+    id: 45,
+    asset_type: 'Computer',
+    asset_code: 'AND/RE/34',
+    serial_number: 'GT2342342'
+  },
+  {
+    id: 56,
+    asset_type: 'Dongle',
+    asset_code: 'AND/DNG/43',
+    serial_number: 'DNG90909903'
+  }
+];
+
 const UserDetailComponent = (props) => {
   if (props.isLoading) {
     return (
@@ -22,27 +37,10 @@ const UserDetailComponent = (props) => {
     );
   }
 
-  const fakeAssetTable = [
-    {
-      id: 45,
-      asset_type: 'Computer',
-      asset_code: 'AND/RE/34',
-      serial_number: 'GT2342342'
-    },
-    {
-      id: 56,
-      asset_type: 'Dongle',
-      asset_code: 'AND/DNG/43',
-      serial_number: 'DNG90909903'
-    }
-  ];
   return (
     <div>
       <Header as="h2" textAlign="left">
-        {
-          props.userDetail.full_name !== ' ' ?
-          props.userDetail.full_name : 'Andelan'
-        }
+        {props.userDetail.full_name || 'Andelan'}
       </Header>
       <Segment.Group horizontal>
         <Segment className="user-detail-info">
@@ -58,10 +56,7 @@ const UserDetailComponent = (props) => {
             <Icon name="group" size="large" style={{ width: '15%' }} />
           </div>
           <div className="user-detail-content">
-            {
-              props.userDetail.cohort !== null ?
-                props.userDetail.cohort : 'Not Provided'
-            }
+            {props.userDetail.cohort || 'Not Provided'}
           </div>
         </Segment>
       </Segment.Group>
@@ -71,10 +66,7 @@ const UserDetailComponent = (props) => {
             <Icon name="slack" size="large" style={{ width: '15%' }} />
           </div>
           <div className="user-detail-content">
-            {
-              props.userDetail.slack_handle !== null ?
-                props.userDetail.slack_handle : 'Not Provided'
-            }
+            {props.userDetail.slack_handle || 'Not Provided'}
           </div>
         </Segment>
         <Segment className="user-detail-info">
@@ -82,10 +74,7 @@ const UserDetailComponent = (props) => {
             <Icon name="call" size="large" style={{ width: '15%' }} />
           </div>
           <div className="user-detail-content">
-            {
-              props.userDetail.phone_number !== null ?
-                props.userDetail.phone_number : 'Not Provided'
-            }
+            {props.userDetail.phone_number || 'Not Provided'}
           </div>
         </Segment>
       </Segment.Group>
@@ -111,12 +100,12 @@ const UserDetailComponent = (props) => {
                 key={asset.id}
                 data={asset}
                 headings={[
-                    'asset_type',
-                    'asset_code',
-                    'serial_number'
-                  ]}
+                  'asset_type',
+                  'asset_code',
+                  'serial_number'
+                ]}
               />
-              ))
+            ))
           }
         </Table.Body>
       </Table>
@@ -133,6 +122,5 @@ UserDetailComponent.defaultTypes = {
   isLoading: false,
   userDetail: {}
 };
-
 
 export default UserDetailComponent;

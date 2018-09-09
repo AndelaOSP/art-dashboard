@@ -66,7 +66,6 @@ const mapStateToProps = ({ userDetails }, props) => {
   };
 };
 
-
 export default connect(mapStateToProps, {
   loadUserDetail: getUserDetail
 })(UserDetailContainer);

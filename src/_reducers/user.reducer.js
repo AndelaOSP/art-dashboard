@@ -8,18 +8,19 @@ export default (state = initialState.user, action) => {
     case LOADING_USER:
       return {
         ...state,
-        isLoading: true
+        isLoading: action.isLoading
       };
+
     case LOAD_USER_SUCCESS:
       return {
         ...state,
         userDetail: action.payload,
-        isLoading: false
+        isLoading: action.isLoading
       };
 
     case LOAD_USER_FAILURE:
       return {
-        isLoading: false,
+        isLoading: action.isLoading,
         hasError: true,
         errorMessage: action.payload
       };
