@@ -20,6 +20,7 @@ import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 import rowOptions from '../../_utils/pageRowOptions';
 import ModalComponent from '../common/ModalComponent';
 import AssetMakeContainer from '../../_components/AssetMake/AssetMakeContainer';
+import { ItemsNotFoundComponent } from '../ItemsNotFoundComponent';
 
 export class AssetMakeComponent extends React.Component {
   state = {
@@ -54,11 +55,7 @@ export class AssetMakeComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetMakes)) {
       return (
         <NavbarComponent>
-          <div>
-            <h1>
-              No Asset Make Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent />
         </NavbarComponent>
       );
     }

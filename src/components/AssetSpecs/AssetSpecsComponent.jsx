@@ -12,6 +12,7 @@ import DropdownComponent from '../../components/common/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import '../../_css/AssetsComponent.css';
 import { loadAssetSpecs } from '../../_actions/assetSpecs.actions';
+import { ItemsNotFoundComponent } from '../ItemsNotFoundComponent';
 
 export class AssetSpecsComponent extends React.Component {
   state = {
@@ -46,11 +47,7 @@ export class AssetSpecsComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.specs)) {
       return (
         <NavbarComponent>
-          <div className="assets-list">
-            <h1>
-              No Asset Spec Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent />
         </NavbarComponent>
       );
     }

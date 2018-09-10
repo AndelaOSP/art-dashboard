@@ -12,6 +12,7 @@ import LoaderComponent from '../../components/LoaderComponent';
 import '../../_css/AssetsComponent.css';
 import { loadAssetConditions } from '../../_actions/assetCondition.actions';
 import formatDate from '../../_utils/dateFormatter';
+import { ItemsNotFoundComponent } from '../ItemsNotFoundComponent';
 
 export class AssetConditionsComponent extends React.Component {
   state = {
@@ -46,11 +47,9 @@ export class AssetConditionsComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetConditionsList)) {
       return (
         <NavbarComponent>
-          <div className="assets-list">
-            <h1>
-              No Asset Conditions Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            message="No Asset condition found."
+          />
         </NavbarComponent>
       );
     }

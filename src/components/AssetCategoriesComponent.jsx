@@ -14,6 +14,7 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 
 import '../_css/AssetsComponent.css';
 import { loadAssetCategories } from '../_actions/assetCategories.actions';
+import { ItemsNotFoundComponent } from './ItemsNotFoundComponent';
 
 export class AssetCategoriesComponent extends React.Component {
   state = {
@@ -64,11 +65,9 @@ export class AssetCategoriesComponent extends React.Component {
     if (!this.props.isLoading && this.emptyCategoriesCheck()) {
       return (
         <NavbarComponent>
-          <div className="assets-list">
-            <h1>
-              No Asset Categories Found.
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            message="No Asset category found."
+          />
         </NavbarComponent>
       );
     }

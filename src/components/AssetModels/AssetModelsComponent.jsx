@@ -15,6 +15,7 @@ import ModelNumberContainer from '../../_components/ModelNumber/ModelNumberConta
 
 import { loadAssetModels } from '../../_actions/assetModels.action';
 import '../../_css/AssetsComponent.css';
+import { ItemsNotFoundComponent } from '../ItemsNotFoundComponent';
 
 export class AssetModelsComponent extends React.Component {
   state = {
@@ -49,11 +50,9 @@ export class AssetModelsComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetModels)) {
       return (
         <NavbarComponent>
-          <div className="assets-list">
-            <h1>
-              No Asset Models Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            message="No Asset model found."
+          />
         </NavbarComponent>
       );
     }

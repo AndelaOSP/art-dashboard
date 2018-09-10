@@ -10,6 +10,7 @@ import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
 import '../_css/IncidenceReportsComponent.css';
+import { ItemsNotFoundComponent } from './ItemsNotFoundComponent';
 
 export class IncidenceReportsComponent extends React.Component {
   state = {
@@ -38,49 +39,53 @@ export class IncidenceReportsComponent extends React.Component {
   render() {
     return (
       <NavbarComponent>
-        <div className="incidence-list">
-          <div id="page-heading-section">
-            <Header as="h1" id="page-headings" floated="left" content="Incidence Reports" />
-            <Divider id="assets-divider" />
-          </div>
-          <Table basic>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Asset</Table.HeaderCell>
-                <Table.HeaderCell>Incident Type</Table.HeaderCell>
-                <Table.HeaderCell>Incident Location</Table.HeaderCell>
-                <Table.HeaderCell>Incident Description</Table.HeaderCell>
-                <Table.HeaderCell>Injuries Sustained</Table.HeaderCell>
-                <Table.HeaderCell>Loss of Property</Table.HeaderCell>
-                <Table.HeaderCell>Witnesses</Table.HeaderCell>
-                <Table.HeaderCell>Police Abstract</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
+        {
+          (this.emptyReportsCheck())
+            ? <ItemsNotFoundComponent
+              message="No incident report found."
+            />
+            :
+            <div className="incidence-list">
+              <div id="page-heading-section">
+                <Header as="h1" id="page-headings" floated="left" content="Incidence Reports" />
+                <Divider id="assets-divider" />
+              </div>
+              <Table basic>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Asset</Table.HeaderCell>
+                    <Table.HeaderCell>Incident Type</Table.HeaderCell>
+                    <Table.HeaderCell>Incident Location</Table.HeaderCell>
+                    <Table.HeaderCell>Incident Description</Table.HeaderCell>
+                    <Table.HeaderCell>Injuries Sustained</Table.HeaderCell>
+                    <Table.HeaderCell>Loss of Property</Table.HeaderCell>
+                    <Table.HeaderCell>Witnesses</Table.HeaderCell>
+                    <Table.HeaderCell>Police Abstract</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
 
-            <Table.Body>
-              {
-                (this.emptyReportsCheck())
-                  ? <Table.Row><Table.Cell colSpan="8">No Data Found</Table.Cell></Table.Row>
-                  : (this.props.reports.map(incidenceReport => (
-                    <TableRowComponent
-                      key={incidenceReport.id}
-                      data={incidenceReport}
-                      headings={['asset',
-                        'incident_type',
-                        'incident_location',
-                        'incident_description',
-                        'injuries_sustained',
-                        'loss_of_property',
-                        'witnesses',
-                        'police_abstract_obtained'
-                      ]}
-                    />)))
-              }
-            </Table.Body>
+                <Table.Body>
+                  {
+                (this.props.reports.map(incidenceReport => (
+                  <TableRowComponent
+                    key={incidenceReport.id}
+                    data={incidenceReport}
+                    headings={['asset',
+                      'incident_type',
+                      'incident_location',
+                      'incident_description',
+                      'injuries_sustained',
+                      'loss_of_property',
+                      'witnesses',
+                      'police_abstract_obtained'
+                    ]}
+                  />)))
+                  }
+                </Table.Body>
 
-            <Table.Footer>
-              <Table.Row>
-                {
+                <Table.Footer>
+                  <Table.Row>
+                    {
                     !this.emptyReportsCheck() && (
                     <Table.HeaderCell colSpan="8" id="pagination-header">
                       <Segment.Group horizontal id="art-pagination-section">
@@ -104,11 +109,12 @@ export class IncidenceReportsComponent extends React.Component {
                       </Segment.Group>
                     </Table.HeaderCell>
                     )
-                  }
-              </Table.Row>
-            </Table.Footer>
-          </Table>
-        </div>
+              }
+                  </Table.Row>
+                </Table.Footer>
+              </Table>
+            </div>
+        }
       </NavbarComponent>
     );
   }

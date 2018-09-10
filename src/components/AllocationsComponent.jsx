@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Container, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -13,6 +13,7 @@ import formatDate from '../_utils/dateFormatter';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AllocationsComponent.css';
+import { ItemsNotFoundComponent } from './ItemsNotFoundComponent';
 
 export class AllocationsComponent extends Component {
   state = {
@@ -47,11 +48,9 @@ export class AllocationsComponent extends Component {
     if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
       return (
         <NavbarComponent>
-          <Container>
-            <h1>
-              No Assets Currently Assigned
-            </h1>
-          </Container>
+          <ItemsNotFoundComponent
+            message="No Allocation found."
+          />
         </NavbarComponent>
       );
     }

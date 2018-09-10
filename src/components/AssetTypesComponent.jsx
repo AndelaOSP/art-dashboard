@@ -15,6 +15,7 @@ import ModalComponent from './common/ModalComponent';
 
 import '../_css/AssetsComponent.css';
 import { loadAssetTypes } from '../_actions/assetTypes.actions';
+import { ItemsNotFoundComponent } from './ItemsNotFoundComponent';
 
 export class AssetTypesComponent extends React.Component {
   state = {
@@ -49,11 +50,9 @@ export class AssetTypesComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
       return (
         <NavbarComponent>
-          <div>
-            <h1>
-              No Asset Types Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            message="No Asset types found."
+          />
         </NavbarComponent>
       );
     }

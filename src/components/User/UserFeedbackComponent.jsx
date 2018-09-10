@@ -15,6 +15,7 @@ import ActionComponent from '../ActionComponent';
 import TableHeaderComponent from '../common/TableHeaderComponent';
 
 import '../../_css/UserFeedback.css';
+import { ItemsNotFoundComponent } from '../ItemsNotFoundComponent';
 
 export class UserFeedbackComponent extends React.Component {
   constructor() {
@@ -53,9 +54,9 @@ export class UserFeedbackComponent extends React.Component {
     if (!this.props.isLoading && this.props.feedbackCount <= 0) {
       return (
         <NavbarComponent>
-          <div className="">
-            <h1>No Feedback Found</h1>
-          </div>
+          <ItemsNotFoundComponent
+            message="No User feedback found."
+          />
         </NavbarComponent>
       );
     }

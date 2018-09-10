@@ -21,6 +21,7 @@ import ModalComponent from './common/ModalComponent';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
 import '../_css/AssetsComponent.css';
 import { loadSubCategories } from '../_actions/subcategory.actions';
+import { ItemsNotFoundComponent } from './ItemsNotFoundComponent';
 
 export class AssetSubCategoriesComponent extends React.Component {
   state = {
@@ -55,11 +56,9 @@ export class AssetSubCategoriesComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetSubCategories)) {
       return (
         <NavbarComponent>
-          <div className="">
-            <h1>
-              No Asset Sub Category Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            message="No Asset sub category found."
+          />
         </NavbarComponent>
       );
     }
