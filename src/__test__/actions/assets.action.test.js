@@ -32,11 +32,11 @@ describe('Asset Types action tests', () => {
 
   it('should dispatch LOAD_ASSETS_SUCCESS when getAssetsActions is called successfully', () => {
     mock.onGet().reply(200, assets);
-    return store.dispatch(getAssetsAction()).then(() => {
+    return store.dispatch(getAssetsAction(1)).then(() => {
       expect(store.getActions()).toContainEqual({
         payload: {
           data: assets,
-          page: undefined
+          page: 1
         },
         type: 'LOAD_ASSETS_SUCCESS'
       });
