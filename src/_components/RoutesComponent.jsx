@@ -16,6 +16,7 @@ import AssetDetail from '../components/AssetDetailComponent';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
 import User from './User/UserContainer';
+import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 
 class RoutesComponent extends Component {
@@ -64,6 +65,11 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/assets/:id/view"
             component={AssetDetail}
+          />
+          <Authenticate
+            isAuthenticated={this.checkAuthentication()}
+            path="/users/:id/view"
+            component={UserDetail}
           />
           <Authenticate
             exact
