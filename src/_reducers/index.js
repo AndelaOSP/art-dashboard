@@ -19,7 +19,6 @@ import usersReducer from './users.reducer';
 import userDetails from './user.reducer';
 import loadAssetSpecsReducer from './assetSpecs.reducer';
 import sessionReducer from './session.reducer';
-import activePagereducer from './pagination.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -40,8 +39,7 @@ const rootReducer = combineReducers({
   usersList: usersReducer,
   userDetails,
   assetSpecs: loadAssetSpecsReducer,
-  session: sessionReducer,
-  activePage: activePagereducer
+  session: sessionReducer
 });
 
 export default rootReducer;

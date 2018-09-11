@@ -32,10 +32,11 @@ export default (state = initialState.assets, action) => {
     case LOAD_ASSETS_SUCCESS:
       return {
         ...state,
-        assetsList: action.payload.results,
-        assetsCount: action.payload.count,
+        assetsList: action.payload.data.results,
+        assetsCount: action.payload.data.count,
         hasError: false,
-        isLoading: action.isLoading
+        isLoading: action.isLoading,
+        activePage: action.payload.page
       };
     case LOAD_ASSETS_FAILURE:
       return {

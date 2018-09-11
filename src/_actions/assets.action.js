@@ -19,8 +19,10 @@ export const getAssetsAction = (pageNumber, limit, filters) => {
     dispatch(loading(true));
     return axios.get(url)
       .then((response) => {
+        const page = { activePage: pageNumber };
+        response = { ...response, ...page };
         dispatch(loading(false));
-        dispatch(getAssetsSuccess(response.data));
+        dispatch(getAssetsSuccess(response));
       })
       .catch((error) => {
         dispatch(loading(false));
@@ -34,9 +36,9 @@ const loading = isLoading => ({
   isLoading
 });
 
-const getAssetsSuccess = data => ({
+const getAssetsSuccess = response => ({
   type: LOAD_ASSETS_SUCCESS,
-  payload: data
+  payload: { data: response.data, page: response.activePage }
 });
 
 const getAssetsFailure = message => ({

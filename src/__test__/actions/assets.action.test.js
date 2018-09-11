@@ -34,7 +34,10 @@ describe('Asset Types action tests', () => {
     mock.onGet().reply(200, assets);
     return store.dispatch(getAssetsAction()).then(() => {
       expect(store.getActions()).toContainEqual({
-        payload: assets,
+        payload: {
+          data: assets,
+          page: undefined
+        },
         type: 'LOAD_ASSETS_SUCCESS'
       });
     });
