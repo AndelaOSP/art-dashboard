@@ -9,6 +9,7 @@ import '../_css/AssetsComponent.css';
 import { getAssetsAction } from '../_actions/assets.action';
 import { loadAllAssetModels } from '../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
+import setActivePage from '../_actions/pagination.actions';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 
@@ -39,6 +40,7 @@ export class AssetsComponent extends Component {
   };
 
   handlePaginationChange = (e, { activePage }) => {
+    this.props.setActivePage(activePage);
     this.props.getAssetsAction(activePage, this.state.limit);
   };
 
@@ -132,6 +134,7 @@ AssetsComponent.propTypes = {
   getAssetsAction: PropTypes.func.isRequired,
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
+  setActivePage: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   history: PropTypes.object,
   isLoading: PropTypes.bool.isRequired,
@@ -170,5 +173,5 @@ const mapStateToProps = ({ assets, assetTypesList, assetModelsList, activePage }
 };
 
 export default connect(mapStateToProps, {
-  getAssetsAction, loadAllAssetModels, loadDropdownAssetTypes
+  getAssetsAction, loadAllAssetModels, loadDropdownAssetTypes, setActivePage
 })(AssetsComponent);

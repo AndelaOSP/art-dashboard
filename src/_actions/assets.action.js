@@ -1,6 +1,5 @@
 import axios from 'axios';
 import constants from '../_constants';
-import setActivePage from './paginationActivePage.actions';
 
 const {
   LOAD_ASSETS_SUCCESS,
@@ -22,7 +21,6 @@ export const getAssetsAction = (pageNumber, limit, filters) => {
       .then((response) => {
         dispatch(loading(false));
         dispatch(getAssetsSuccess(response.data));
-        dispatch(setActivePage(pageNumber));
       })
       .catch((error) => {
         dispatch(loading(false));
