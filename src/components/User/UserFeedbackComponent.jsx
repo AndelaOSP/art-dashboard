@@ -7,7 +7,7 @@ import _ from 'lodash';
 import feedbackAction from '../../_actions/userFeedback.actions';
 import formatDate from '../../_utils/dateFormatter';
 import NavbarComponent from '../NavBarComponent';
-import TableRowComponent from '../TableRowComponent';
+import TableRow from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
@@ -15,7 +15,7 @@ import ActionComponent from '../ActionComponent';
 import TableHeaderComponent from '../common/TableHeaderComponent';
 
 import '../../_css/UserFeedback.css';
-import { ItemsNotFoundComponent } from '../ItemsNotFoundComponent';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
 export class UserFeedbackComponent extends React.Component {
   constructor() {
@@ -55,7 +55,8 @@ export class UserFeedbackComponent extends React.Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            message="No User feedback found."
+            header="No User feedback found!"
+            message="Please try again later to see if we will have any feedback to show you."
           />
         </NavbarComponent>
       );
@@ -84,7 +85,7 @@ export class UserFeedbackComponent extends React.Component {
                   const updatedData = { ...feedback, created_at: formatDate(feedback.created_at) };
 
                   return (
-                    <TableRowComponent
+                    <TableRow
                       key={feedback.created_at}
                       data={updatedData}
                       headings={['reported_by',
@@ -95,7 +96,7 @@ export class UserFeedbackComponent extends React.Component {
                       <Table.Cell>
                         <ActionComponent />
                       </Table.Cell>
-                    </TableRowComponent>
+                    </TableRow>
                   );
                 })
               }

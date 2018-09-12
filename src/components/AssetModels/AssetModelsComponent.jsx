@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Header, Table, Pagination, Segment, Divider, Button } from 'semantic-ui-react';
 import _ from 'lodash';
-import TableRowComponent from '../TableRowComponent';
+import TableRow from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
@@ -15,7 +15,7 @@ import ModelNumberContainer from '../../_components/ModelNumber/ModelNumberConta
 
 import { loadAssetModels } from '../../_actions/assetModels.action';
 import '../../_css/AssetsComponent.css';
-import { ItemsNotFoundComponent } from '../ItemsNotFoundComponent';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
 export class AssetModelsComponent extends React.Component {
   state = {
@@ -51,7 +51,8 @@ export class AssetModelsComponent extends React.Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            message="No Asset model found."
+            header="No Asset model found!"
+            message="Please try again later to see if there will be asset models to show you"
           />
         </NavbarComponent>
       );
@@ -95,7 +96,7 @@ export class AssetModelsComponent extends React.Component {
                   assetModel.formatted_modified = formatDate(assetModel.last_modified);
 
                   return (
-                    <TableRowComponent
+                    <TableRow
                       key={assetModel.id}
                       data={assetModel}
                       headings={['model_number', 'make_label', 'formatted_create', 'formatted_modified']}

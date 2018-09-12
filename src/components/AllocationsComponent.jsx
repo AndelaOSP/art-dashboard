@@ -7,13 +7,13 @@ import _ from 'lodash';
 
 import { loadAllocationsAction } from '../_actions/allocations.actions';
 import NavbarComponent from './NavBarComponent';
-import TableRowComponent from './TableRowComponent';
+import TableRow from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import formatDate from '../_utils/dateFormatter';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AllocationsComponent.css';
-import { ItemsNotFoundComponent } from './ItemsNotFoundComponent';
+import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
 
 export class AllocationsComponent extends Component {
   state = {
@@ -49,7 +49,8 @@ export class AllocationsComponent extends Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            message="No Allocation found."
+            header="No Allocation found!"
+            message="Please try again later, to see if we'll have allocations to show you."
           />
         </NavbarComponent>
       );
@@ -76,7 +77,7 @@ export class AllocationsComponent extends Component {
                 this.props.allAllocations.map((allocation) => {
                   allocation.formatted_date = formatDate(allocation.created_at);
                   return (
-                    <TableRowComponent
+                    <TableRow
                       key={allocation.created_at}
                       data={allocation}
                       headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}

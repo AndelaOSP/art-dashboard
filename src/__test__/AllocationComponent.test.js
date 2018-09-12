@@ -22,7 +22,7 @@ describe('Renders <Allocations/> component', () => {
   it('renders error if allocations fail to load', () => {
     props.isLoading = false;
     wrapper = shallow(<AllocationsComponent {...props} />);
-    expect(wrapper.find('h1').text()).toEqual('No Assets Currently Assigned');
+    expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 
   it('renders table when allocations are loaded successfully', () => {

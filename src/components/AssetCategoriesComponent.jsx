@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Pagination, Table, Header, Segment, Divider } from 'semantic-ui-react';
 
-import TableRowComponent from './TableRowComponent';
+import TableRow from './TableRowComponent';
 import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
@@ -14,7 +14,7 @@ import CategoryContainer from '../_components/Category/CategoryContainer';
 
 import '../_css/AssetsComponent.css';
 import { loadAssetCategories } from '../_actions/assetCategories.actions';
-import { ItemsNotFoundComponent } from './ItemsNotFoundComponent';
+import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
 
 export class AssetCategoriesComponent extends React.Component {
   state = {
@@ -66,7 +66,8 @@ export class AssetCategoriesComponent extends React.Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            message="No Asset category found."
+            header="No Asset category found!"
+            message="Please try again later to see if there will be asset categories to show you."
           />
         </NavbarComponent>
       );
@@ -103,7 +104,7 @@ export class AssetCategoriesComponent extends React.Component {
             <Table.Body>
               {
                 this.props.categories.map(category => (
-                  <TableRowComponent
+                  <TableRow
                     key={category.id}
                     data={category}
                     headings={['category_name']}

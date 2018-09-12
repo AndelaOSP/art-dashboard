@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
 
-import TableRowComponent from '../TableRowComponent.jsx';
+import TableRow from '../TableRowComponent.jsx';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import NavbarComponent from '../NavBarComponent';
@@ -12,7 +12,7 @@ import LoaderComponent from '../../components/LoaderComponent';
 import '../../_css/AssetsComponent.css';
 import { loadAssetConditions } from '../../_actions/assetCondition.actions';
 import formatDate from '../../_utils/dateFormatter';
-import { ItemsNotFoundComponent } from '../ItemsNotFoundComponent';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
 export class AssetConditionsComponent extends React.Component {
   state = {
@@ -48,7 +48,8 @@ export class AssetConditionsComponent extends React.Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            message="No Asset condition found."
+            header="No Asset condition found!"
+            message="Please try again later to see if we'll have asset conditions to show you."
           />
         </NavbarComponent>
       );
@@ -74,7 +75,7 @@ export class AssetConditionsComponent extends React.Component {
                 this.props.assetConditionsList.map((assetCondition) => {
                   assetCondition.formatted_date = formatDate(assetCondition.created_at);
                   return (
-                    <TableRowComponent
+                    <TableRow
                       key={assetCondition.id}
                       data={assetCondition}
                       headings={['asset', 'asset_condition', 'formatted_date']}

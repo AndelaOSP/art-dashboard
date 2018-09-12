@@ -43,7 +43,7 @@ describe('Asset Categories Component', () => {
       isLoading: false,
       categories: []
     });
-    expect(wrapper.find('h1').text()).toEqual('No Asset Categories Found.');
+    expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 
   it('renders a Loading Component if isLoading is true', () => {
