@@ -6,7 +6,8 @@ const {
   CREATE_ASSET_FAIL,
   LOAD_ASSETS_SUCCESS,
   LOAD_ASSETS_FAILURE,
-  LOAD_ASSETS_STARTS
+  LOAD_ASSETS_STARTS,
+  SET_ACTIVE_PAGE
 } = constants;
 
 export default (state = initialState.assets, action) => {
@@ -32,11 +33,15 @@ export default (state = initialState.assets, action) => {
     case LOAD_ASSETS_SUCCESS:
       return {
         ...state,
-        assetsList: action.payload.data.results,
-        assetsCount: action.payload.data.count,
+        assetsList: action.payload.results,
+        assetsCount: action.payload.count,
         hasError: false,
-        isLoading: action.isLoading,
-        activePage: action.payload.page
+        isLoading: action.isLoading
+      };
+    case SET_ACTIVE_PAGE:
+      return {
+        ...state,
+        activePage: action.payload
       };
     case LOAD_ASSETS_FAILURE:
       return {

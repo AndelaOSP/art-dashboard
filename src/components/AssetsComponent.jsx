@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 import NavbarComponent from './NavBarComponent';
 import AssetsTableContent from './AssetsTableContent';
 import '../_css/AssetsComponent.css';
-import { getAssetsAction } from '../_actions/assets.action';
+import { getAssetsAction, setActivePage } from '../_actions/assets.action';
 import { loadAllAssetModels } from '../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
 import FilterButton from './common/FilterButton';
@@ -40,6 +40,7 @@ export class AssetsComponent extends Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.props.getAssetsAction(activePage, this.state.limit);
+    this.props.setActivePage(activePage);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
@@ -130,6 +131,7 @@ AssetsComponent.propTypes = {
   assetsList: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
+  setActivePage: PropTypes.func.isRequired,
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
@@ -171,5 +173,8 @@ const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
 };
 
 export default connect(mapStateToProps, {
-  getAssetsAction, loadAllAssetModels, loadDropdownAssetTypes
+  getAssetsAction,
+  loadAllAssetModels,
+  loadDropdownAssetTypes,
+  setActivePage
 })(AssetsComponent);

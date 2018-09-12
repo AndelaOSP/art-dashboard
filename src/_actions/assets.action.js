@@ -4,7 +4,8 @@ import constants from '../_constants';
 const {
   LOAD_ASSETS_SUCCESS,
   LOAD_ASSETS_FAILURE,
-  LOAD_ASSETS_STARTS
+  LOAD_ASSETS_STARTS,
+  SET_ACTIVE_PAGE
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
@@ -20,7 +21,7 @@ export const getAssetsAction = (pageNumber, limit, filters) => {
     return axios.get(url)
       .then((response) => {
         dispatch(loading(false));
-        dispatch(getAssetsSuccess(response.data, pageNumber));
+        dispatch(getAssetsSuccess(response.data));
       })
       .catch((error) => {
         dispatch(loading(false));
@@ -29,17 +30,24 @@ export const getAssetsAction = (pageNumber, limit, filters) => {
   };
 };
 
+export const setActivePage = page => dispatch => dispatch(setActivePageSuccess(page));
+
 const loading = isLoading => ({
   type: LOAD_ASSETS_STARTS,
   isLoading
 });
 
-const getAssetsSuccess = (data, page) => ({
+const getAssetsSuccess = data => ({
   type: LOAD_ASSETS_SUCCESS,
-  payload: { data, page }
+  payload: data
 });
 
 const getAssetsFailure = message => ({
   type: LOAD_ASSETS_FAILURE,
   payload: message
+});
+
+const setActivePageSuccess = page => ({
+  type: SET_ACTIVE_PAGE,
+  payload: page
 });

@@ -14,6 +14,7 @@ describe('Renders <AssetsComponent /> correctly', () => {
     handlePaginationChange: jest.fn(),
     createFilterData: jest.fn(),
     handleRowChange: jest.fn(),
+    setActivePage: jest.fn(),
     loadAllAssetModels: jest.fn(),
     loadDropdownAssetTypes: jest.fn(),
     hasError: false,

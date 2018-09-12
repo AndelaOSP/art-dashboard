@@ -4,7 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { getAssetsAction } from '../../_actions/assets.action';
+import { getAssetsAction, setActivePage } from '../../_actions/assets.action';
 import assets from '../../_mock/assets';
 
 // store
@@ -34,12 +34,18 @@ describe('Asset Types action tests', () => {
     mock.onGet().reply(200, assets);
     return store.dispatch(getAssetsAction(1)).then(() => {
       expect(store.getActions()).toContainEqual({
-        payload: {
-          data: assets,
-          page: 1
-        },
+        payload: assets,
         type: 'LOAD_ASSETS_SUCCESS'
       });
+    });
+  });
+
+  it('should dispatch SET_ACTIVE_PAGE when setActivePage is called successfully', () => {
+    mock.onGet().reply(200, 1);
+    store.dispatch(setActivePage(1));
+    expect(store.getActions()).toContainEqual({
+      payload: 1,
+      type: 'SET_ACTIVE_PAGE'
     });
   });
 
