@@ -138,7 +138,6 @@ AssetsTableContent.propTypes = {
 };
 
 AssetsTableContent.defaultProps = {
-  activePage: 1,
   errorMessage: ''
 };
 export default AssetsTableContent;

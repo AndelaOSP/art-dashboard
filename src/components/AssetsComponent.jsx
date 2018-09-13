@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 import NavbarComponent from './NavBarComponent';
 import AssetsTableContent from './AssetsTableContent';
 import '../_css/AssetsComponent.css';
-import { getAssetsAction } from '../_actions/assets.action';
+import { getAssetsAction, setActivePage } from '../_actions/assets.action';
 import { loadAllAssetModels } from '../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
 import FilterButton from './common/FilterButton';
@@ -14,14 +14,15 @@ import FilterComponent from './common/FilterComponent';
 
 export class AssetsComponent extends Component {
   state = {
-    activePage: 1,
     limit: 10
   };
 
   componentDidMount() {
-    this.props.getAssetsAction(this.state.activePage, this.state.limit);
     this.props.loadAllAssetModels();
     this.props.loadDropdownAssetTypes();
+    if (isEmpty(this.props.assetsList)) {
+      this.props.getAssetsAction(this.props.activePage, this.state.limit);
+    }
   }
 
   shouldComponentUpdate(nextProps) {
@@ -34,12 +35,12 @@ export class AssetsComponent extends Component {
 
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
-    this.props.getAssetsAction(this.state.activePage, data.value);
+    this.props.getAssetsAction(this.props.activePage, data.value);
   };
 
   handlePaginationChange = (e, { activePage }) => {
-    this.setState({ activePage });
     this.props.getAssetsAction(activePage, this.state.limit);
+    this.props.setActivePage(activePage);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
@@ -99,7 +100,7 @@ export class AssetsComponent extends Component {
                   options={this.createFilterData()}
                   filterSets={filterSets}
                   toggleOn={toggleOn}
-                  activePage={this.state.activePage}
+                  activePage={this.props.activePage}
                   limit={this.state.limit}
                   filterAction={this.props.getAssetsAction}
                 />
@@ -108,7 +109,7 @@ export class AssetsComponent extends Component {
           </div>
           <AssetsTableContent
             {...this.props}
-            activePage={this.state.activePage}
+            activePage={this.props.activePage}
             activePageAssets={this.props.assetsList}
             emptyAssetsCheck={this.emptyAssetsCheck}
             errorMessage={this.props.errorMessage}
@@ -130,22 +131,32 @@ AssetsComponent.propTypes = {
   assetsList: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
+  setActivePage: PropTypes.func.isRequired,
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   history: PropTypes.object,
   isLoading: PropTypes.bool.isRequired,
   assetModels: PropTypes.arrayOf(PropTypes.object),
-  assetTypes: PropTypes.arrayOf(PropTypes.object)
+  assetTypes: PropTypes.arrayOf(PropTypes.object),
+  activePage: PropTypes.number
 };
 
 AssetsComponent.defaultProps = {
   assetsList: [],
-  errorMessage: ''
+  errorMessage: '',
+  activePage: 1
 };
 
 const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
-  const { assetsList, assetsCount, errorMessage, hasError, isLoading } = assets;
+  const {
+    assetsList,
+    assetsCount,
+    errorMessage,
+    hasError,
+    isLoading,
+    activePage
+  } = assets;
   const { assetModels } = assetModelsList;
   const { assetTypes } = assetTypesList;
 
@@ -156,10 +167,14 @@ const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
     hasError,
     isLoading,
     assetModels,
-    assetTypes
+    assetTypes,
+    activePage
   };
 };
 
 export default connect(mapStateToProps, {
-  getAssetsAction, loadAllAssetModels, loadDropdownAssetTypes
+  getAssetsAction,
+  loadAllAssetModels,
+  loadDropdownAssetTypes,
+  setActivePage
 })(AssetsComponent);

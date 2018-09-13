@@ -23,7 +23,8 @@ export default {
     assetsCount: 0,
     errorMessage: '',
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    activePage: 1
   },
   asset: {
     assetDetail: {},

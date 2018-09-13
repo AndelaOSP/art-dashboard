@@ -83,7 +83,8 @@ const CONSTANTS = KeyMirror({
   LOAD_ALL_ASSET_MODELS_FAILURE: true,
   LOADING_USER: true,
   LOAD_USER_SUCCESS: true,
-  LOAD_USER_FAILURE: true
+  LOAD_USER_FAILURE: true,
+  SET_ACTIVE_PAGE: true
 });
 
 export default CONSTANTS;

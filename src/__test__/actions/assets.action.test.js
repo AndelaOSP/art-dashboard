@@ -4,14 +4,8 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-
-// actions
-import { getAssetsAction } from '../../_actions/assets.action';
-
-// constants
-import constants from '../../_constants';
-
-const { LOAD_ASSETS_SUCCESS, LOAD_ASSETS_FAILURE, LOAD_ASSETS_STARTS } = constants;
+import { getAssetsAction, setActivePage } from '../../_actions/assets.action';
+import assets from '../../_mock/assets';
 
 // store
 const middleware = [thunk];
@@ -21,51 +15,49 @@ let store;
 describe('Asset Types action tests', () => {
   const mock = new MockAdapter(axios);
   store = mockStore({});
-  let expectedActions = [
-    {
-      type: LOAD_ASSETS_STARTS
-    },
-    {
-      type: LOAD_ASSETS_SUCCESS
-    }
-  ];
 
   afterEach(() => {
     store.clearActions();
   });
 
-  it('should dispatch LOAD_ASSETS_SUCCESS when getAssetsActions is called successfully', () => {
-    mock.onGet().reply(200,
-      [
-        {
-          id: 1,
-          asset_type: 'Headset',
-          asset_code: 'AND/HS/0077',
-          model_number: 'Microsoft Lifechat LX-6000'
-        }
-      ]
-    );
+  it('should dispatch LOAD_ASSETS_STARTS when getAssetsActions starts being executed', () => {
+    mock.onGet().reply(200, assets);
     return store.dispatch(getAssetsAction()).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
-      expect(store.getActions()[1].type).toEqual(expectedActions[1].type);
+      expect(store.getActions()).toContainEqual({
+        isLoading: true,
+        type: 'LOAD_ASSETS_STARTS'
+      });
+    });
+  });
+
+  it('should dispatch LOAD_ASSETS_SUCCESS when getAssetsActions is called successfully', () => {
+    mock.onGet().reply(200, assets);
+    return store.dispatch(getAssetsAction(1)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: assets,
+        type: 'LOAD_ASSETS_SUCCESS'
+      });
+    });
+  });
+
+  it('should dispatch SET_ACTIVE_PAGE when setActivePage is called successfully', () => {
+    mock.onGet().reply(200, 1);
+    store.dispatch(setActivePage(1));
+    expect(store.getActions()).toContainEqual({
+      payload: 1,
+      type: 'SET_ACTIVE_PAGE'
     });
   });
 
   it('should dispatch LOAD_ASSETS_FAILURE when getAssetsAction returns an error', () => {
-    expectedActions = [
-      {
-        type: LOAD_ASSETS_STARTS
-      },
-      {
-        type: LOAD_ASSETS_FAILURE
-      }
-    ];
     mock.onGet().reply(400,
       { message: 'error not found' }
     );
     return store.dispatch(getAssetsAction()).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
-      expect(store.getActions()[1].type).toEqual(expectedActions[1].type);
+      expect(store.getActions()).toContainEqual({
+        payload: 'Request failed with status code 400',
+        type: 'LOAD_ASSETS_FAILURE'
+      });
     });
   });
 });
