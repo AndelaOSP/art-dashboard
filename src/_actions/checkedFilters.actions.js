@@ -1,22 +1,18 @@
 import constants from '../_constants';
 
-// constants
-const { ADD_CHECKED_FILTER } = constants;
+const { FILTER_SELECTED } = constants;
 
 /**
-  * Add a checked filter
+  * filter selections
   *
-  * @param {string} checkedFilter
+  * @param {object} selection
+  * @param {string} filterType
   * @return {object} type and payload
   */
+const filterSelection = (selection, filterType) => ({
+  type: FILTER_SELECTED,
+  selection,
+  filterType
+});
 
-const addCheckedFilter = checkedFilter =>
-  (dispatch) => {
-    dispatch(addCheckedFilterSuccess(checkedFilter));
-  };
-
-const addCheckedFilterSuccess = checkedFilter => (
-  { type: ADD_CHECKED_FILTER, checkedFilter }
-);
-
-export default addCheckedFilter;
+export default filterSelection;

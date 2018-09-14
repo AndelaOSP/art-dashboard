@@ -85,7 +85,7 @@ const CONSTANTS = KeyMirror({
   LOAD_USER_SUCCESS: true,
   LOAD_USER_FAILURE: true,
   SET_ACTIVE_PAGE: true,
-  ADD_CHECKED_FILTER: true
+  FILTER_SELECTED: true
 });
 
 export default CONSTANTS;

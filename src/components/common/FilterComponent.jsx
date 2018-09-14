@@ -11,8 +11,7 @@ import '../../_css/FilterComponent.css';
 
 class FilterComponent extends React.Component {
   state = {
-    activeIndex: 0,
-    checkedFilters: this.handleCheckedFilters()
+    activeIndex: 0
   };
 
   handleTitleClick = (e, titleProps) => {
@@ -23,92 +22,68 @@ class FilterComponent extends React.Component {
     this.setState({ activeIndex: newIndex });
   };
 
-  toggleCheckbox = (label, name) => {
-    const { checkedFilters } = this.state;
+  handleCheckboxChange = (event) => {
+    const { option } = this.props;
+    const { checked, value } = event.target;
 
-    for (const key in checkedFilters) {
-      if (name === key) {
-        if (checkedFilters[name].has(label)) {
-          checkedFilters[name].delete(label);
-        } else {
-          checkedFilters[name].add(label);
-        }
-      }
-    }
+    const selection = {
+      label: value,
+      isChecked: checked
+    };
+
+    this.props.filterSelection(selection, option.title);
   };
-
-  keepCheckboxChecked = (label, name) => {
-    const { checkedFilters } = this.state;
-    return !isEmpty(checkedFilters[name]) && checkedFilters[name].has(label);
-  }
 
   handleFilter = () => {
     this.props.handleClose();
-    const { checkedFilters } = this.state;
-    const filters = {};
-
-    for (const key in checkedFilters) {
-      if (checkedFilters.hasOwnProperty(key)) {
-        filters[key] = [Array.from(checkedFilters[key])];
-      }
-    }
+    const { selected } = this.props;
 
     this.props.filterAction(
       this.props.activePage,
       this.props.limit,
-      filters
+      selected
     );
-
-    this.props.addCheckedFilter(checkedFilters);
   };
 
-  handleCheckedFilters() {
-    const { checkedFilters, filterSets } = this.props;
-
-    if (Object.values(checkedFilters).length === 0) {
-      return filterSets;
-    }
-    return checkedFilters;
-  }
-
   render() {
-    const { options } = this.props;
+    const { option } = this.props;
     const { activeIndex } = this.state;
+
+    if (isEmpty(option)) {
+      return <span>Loading filters</span>;
+    }
 
     return (
       <React.Fragment>
-        <Accordion as={Menu} vertical className="filter-menu">
-          {
-            !isEmpty(options)
-              ? options.map((option, index) => (
-                <Menu.Item key={uuidv4()}>
-                  <Accordion.Title
-                    active={activeIndex === index}
-                    content={option.title}
-                    index={index}
-                    onClick={this.handleTitleClick}
-                  />
+        <Menu.Item>
+          <Accordion.Title
+            active={activeIndex === 0}
+            content={option.title}
+            onClick={this.handleTitleClick}
+          />
+          <Accordion.Content active={activeIndex === 0}>
+            <Form>
+              {
+                  option.content.map((opt) => {
+                    const isChecked = this.props.selected[option.title]
+                      ? this.props.selected[option.title].includes(opt.option)
+                      : false;
 
-                  <Accordion.Content active={activeIndex === index}>
-                    <Form>
-                      {
-                        option.content.map(opt =>
-                          (<CheckboxComponent
-                            key={uuidv4()}
-                            label={opt.option}
-                            name={option.title}
-                            handleCheckboxChange={this.toggleCheckbox}
-                            keepCheckboxChecked={this.keepCheckboxChecked}
-                          />)
-                        )
-                      }
-                    </Form>
-                  </Accordion.Content>
-                </Menu.Item>
-                  ))
-            : <span>Loading filters...</span>
-          }
-        </Accordion>
+                    return (
+                      <CheckboxComponent
+                        key={uuidv4()}
+                        label={opt.option}
+                        name={option.title}
+                        isChecked={isChecked}
+                        handleCheckboxChange={this.handleCheckboxChange}
+                      />
+                      );
+                    }
+                  )
+              }
+            </Form>
+          </Accordion.Content>
+        </Menu.Item>
 
         <ArtButton
           customCss="apply-filter"
@@ -122,14 +97,13 @@ class FilterComponent extends React.Component {
 }
 
 FilterComponent.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  filterSets: PropTypes.object.isRequired,
+  option: PropTypes.object.isRequired,
   activePage: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
   filterAction: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  addCheckedFilter: PropTypes.func.isRequired,
-  checkedFilters: PropTypes.object.isRequired
+  handleClose: PropTypes.func,
+  filterSelection: PropTypes.func.isRequired,
+  selected: PropTypes.object.isRequired
 };
 
 export default FilterComponent;

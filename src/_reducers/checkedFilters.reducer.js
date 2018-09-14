@@ -1,16 +1,29 @@
 import constants from '../_constants';
 import initialState from './initialState';
 
-const { ADD_CHECKED_FILTER } = constants;
+const { FILTER_SELECTED } = constants;
 
-const addCheckedFilterReducer = (state = initialState.checkedFilters, action) => {
+const filtersReducer = (state = initialState.checkedFilters, action) => {
   switch (action.type) {
-    case ADD_CHECKED_FILTER:
-      return action.checkedFilter;
+    case FILTER_SELECTED: {
+      const { selection, filterType } = action;
+      const previousSelected = state[filterType] || [];
+
+      return {
+        ...state,
+        [filterType]: selection.isChecked
+          ? add(selection.label, previousSelected)
+          : remove(selection.label, previousSelected)
+      };
+    }
 
     default:
       return state;
   }
 };
 
-export default addCheckedFilterReducer;
+const add = (value, list) => ([...list, value]);
+
+const remove = (value, list) => list.filter(item => item !== value);
+
+export default filtersReducer;

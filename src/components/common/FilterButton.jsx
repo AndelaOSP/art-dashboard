@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Popup } from 'semantic-ui-react';
+import { Accordion, Icon, Menu, Popup } from 'semantic-ui-react';
 
 class FilterButton extends React.Component {
   state = {
@@ -35,7 +35,9 @@ class FilterButton extends React.Component {
         onOpen={this.handleOpen}
         position="bottom right"
       >
-        {React.cloneElement(this.props.children, { handleClose: this.handleClose })}
+        <Accordion as={Menu} vertical className="filter-menu">
+          {React.cloneElement(this.props.children, { handleClose: this.handleClose })}
+        </Accordion>
       </Popup>
     );
   }
