@@ -97,5 +97,6 @@ export default {
   },
   session: {
     sessionExpired: false
-  }
+  },
+  checkedFilters: {}
 };

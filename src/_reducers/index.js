@@ -19,6 +19,7 @@ import usersReducer from './users.reducer';
 import userDetails from './user.reducer';
 import loadAssetSpecsReducer from './assetSpecs.reducer';
 import sessionReducer from './session.reducer';
+import addCheckedFilterReducer from './checkedFilters.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -39,7 +40,8 @@ const rootReducer = combineReducers({
   usersList: usersReducer,
   userDetails,
   assetSpecs: loadAssetSpecsReducer,
-  session: sessionReducer
+  session: sessionReducer,
+  checkedFilters: addCheckedFilterReducer
 });
 
 export default rootReducer;

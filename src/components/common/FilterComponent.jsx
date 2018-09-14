@@ -5,7 +5,6 @@ import { isEmpty } from 'lodash';
 import uuidv4 from 'uuid/v4';
 
 import CheckboxComponent from './CheckboxComponent';
-
 import ArtButton from './ButtonComponent';
 
 import '../../_css/FilterComponent.css';
@@ -13,7 +12,7 @@ import '../../_css/FilterComponent.css';
 class FilterComponent extends React.Component {
   state = {
     activeIndex: 0,
-    checkedFilters: this.props.filterSets
+    checkedFilters: this.handleCheckedFilters()
   };
 
   handleTitleClick = (e, titleProps) => {
@@ -38,7 +37,13 @@ class FilterComponent extends React.Component {
     }
   };
 
+  keepCheckboxChecked = (label, name) => {
+    const { checkedFilters } = this.state;
+    return !isEmpty(checkedFilters[name]) && checkedFilters[name].has(label);
+  }
+
   handleFilter = () => {
+    this.props.handleClose();
     const { checkedFilters } = this.state;
     const filters = {};
 
@@ -53,15 +58,22 @@ class FilterComponent extends React.Component {
       this.props.limit,
       filters
     );
+
+    this.props.addCheckedFilter(checkedFilters);
   };
 
-  render() {
-    const { toggleOn, options } = this.props;
-    const { activeIndex } = this.state;
+  handleCheckedFilters() {
+    const { checkedFilters, filterSets } = this.props;
 
-    if (!toggleOn) {
-      return null;
+    if (Object.values(checkedFilters).length === 0) {
+      return filterSets;
     }
+    return checkedFilters;
+  }
+
+  render() {
+    const { options } = this.props;
+    const { activeIndex } = this.state;
 
     return (
       <React.Fragment>
@@ -86,6 +98,7 @@ class FilterComponent extends React.Component {
                             label={opt.option}
                             name={option.title}
                             handleCheckboxChange={this.toggleCheckbox}
+                            keepCheckboxChecked={this.keepCheckboxChecked}
                           />)
                         )
                       }
@@ -111,10 +124,12 @@ class FilterComponent extends React.Component {
 FilterComponent.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object).isRequired,
   filterSets: PropTypes.object.isRequired,
-  toggleOn: PropTypes.bool.isRequired,
   activePage: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
-  filterAction: PropTypes.func.isRequired
+  filterAction: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  addCheckedFilter: PropTypes.func.isRequired,
+  checkedFilters: PropTypes.object.isRequired
 };
 
 export default FilterComponent;

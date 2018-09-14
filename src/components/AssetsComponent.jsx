@@ -9,6 +9,7 @@ import '../_css/AssetsComponent.css';
 import { getAssetsAction, setActivePage } from '../_actions/assets.action';
 import { loadAllAssetModels } from '../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
+import addCheckedFilter from '../_actions/checkedFilters.actions';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 
@@ -94,18 +95,17 @@ export class AssetsComponent extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
-            <FilterButton
-              render={toggleOn => (
-                <FilterComponent
-                  options={this.createFilterData()}
-                  filterSets={filterSets}
-                  toggleOn={toggleOn}
-                  activePage={this.props.activePage}
-                  limit={this.state.limit}
-                  filterAction={this.props.getAssetsAction}
-                />
-              )}
-            />
+            <FilterButton>
+              <FilterComponent
+                options={this.createFilterData()}
+                filterSets={filterSets}
+                activePage={this.state.activePage}
+                limit={this.state.limit}
+                filterAction={this.props.getAssetsAction}
+                checkedFilters={this.props.checkedFilters}
+                addCheckedFilter={this.props.addCheckedFilter}
+              />
+            </FilterButton>
           </div>
           <AssetsTableContent
             {...this.props}
@@ -139,7 +139,9 @@ AssetsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   assetModels: PropTypes.arrayOf(PropTypes.object),
   assetTypes: PropTypes.arrayOf(PropTypes.object),
-  activePage: PropTypes.number
+  activePage: PropTypes.number,
+  checkedFilters: PropTypes.object.isRequired,
+  addCheckedFilter: PropTypes.func.isRequired
 };
 
 AssetsComponent.defaultProps = {
@@ -148,7 +150,7 @@ AssetsComponent.defaultProps = {
   activePage: 1
 };
 
-const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
+const mapStateToProps = ({ assets, assetTypesList, assetModelsList, checkedFilters }) => {
   const {
     assetsList,
     assetsCount,
@@ -168,7 +170,8 @@ const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
     isLoading,
     assetModels,
     assetTypes,
-    activePage
+    activePage,
+    checkedFilters
   };
 };
 
@@ -176,5 +179,6 @@ export default connect(mapStateToProps, {
   getAssetsAction,
   loadAllAssetModels,
   loadDropdownAssetTypes,
-  setActivePage
+  setActivePage,
+  addCheckedFilter
 })(AssetsComponent);

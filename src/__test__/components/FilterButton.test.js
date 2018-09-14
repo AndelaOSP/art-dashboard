@@ -4,17 +4,29 @@ import expect from 'expect';
 import Filter from '../../components/common/FilterButton';
 
 describe('Renders <FilterButton /> tests', () => {
-  const wrapper = shallow(<Filter />);
+  const wrapper = shallow(<Filter><div>component</div></Filter>);
 
-  it('changes toggle state', () => {
+  it('changes toggle state to true when handleOpen is called', () => {
     wrapper.setState({ toggleOn: false });
 
-    const toggleFilterSpy = jest.spyOn(
-      wrapper.instance(), 'toggleFilter'
+    const handleOpenSpy = jest.spyOn(
+      wrapper.instance(), 'handleOpen'
     );
-    wrapper.instance().toggleFilter();
+    wrapper.instance().handleOpen();
 
-    expect(toggleFilterSpy.mock.calls.length).toEqual(1);
+    expect(handleOpenSpy.mock.calls.length).toEqual(1);
     expect(wrapper.state().toggleOn).toEqual(true);
+  });
+
+  it('changes toggle state to false when handleClose is called', () => {
+    wrapper.setState({ toggleOn: true });
+
+    const handleCloseSpy = jest.spyOn(
+      wrapper.instance(), 'handleClose'
+    );
+    wrapper.instance().handleClose();
+
+    expect(handleCloseSpy.mock.calls.length).toEqual(1);
+    expect(wrapper.state().toggleOn).toEqual(false);
   });
 });

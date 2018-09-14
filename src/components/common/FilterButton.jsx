@@ -7,8 +7,12 @@ class FilterButton extends React.Component {
     toggleOn: false
   };
 
-  toggleFilter = () => {
-    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
+  handleOpen = () => {
+    this.setState({ toggleOn: true });
+  };
+
+  handleClose = () => {
+    this.setState({ toggleOn: false });
   };
 
   render() {
@@ -19,7 +23,6 @@ class FilterButton extends React.Component {
         trigger={
           <div
             className={this.state.toggleOn ? 'filter-button clicked' : 'filter-button'}
-            onClick={this.toggleFilter}
             role="presentation"
           >
             {this.state.toggleOn ? <Icon name="close" /> : <Icon name="bars" />}
@@ -28,21 +31,18 @@ class FilterButton extends React.Component {
         }
         on="click"
         open={this.state.toggleOn}
+        onClose={this.handleClose}
+        onOpen={this.handleOpen}
         position="bottom right"
       >
-
-        {this.props.render(this.state.toggleOn)}
+        {React.cloneElement(this.props.children, { handleClose: this.handleClose })}
       </Popup>
     );
   }
 }
 
 FilterButton.propTypes = {
-  render: PropTypes.func
-};
-
-FilterButton.defaultProps = {
-  render: () => {}
+  children: PropTypes.node.isRequired
 };
 
 export default FilterButton;

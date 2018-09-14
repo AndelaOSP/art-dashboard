@@ -2,9 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import Filter from '../../components/common/FilterComponent';
+import FilterComponent from '../../components/common/FilterComponent';
 
 import assetFilter from '../../_mock/assetsFilter';
+import filters from '../../_mock/filters';
 
 describe('Renders <FilterComponent /> correctly', () => {
   const props = {
@@ -12,17 +13,21 @@ describe('Renders <FilterComponent /> correctly', () => {
     toggleCheckbox: jest.fn(),
     handleFilter: jest.fn(),
     filterAction: jest.fn(),
-    toggleOn: true,
+    keepCheckboxChecked: jest.fn(),
+    addCheckedFilter: jest.fn(),
+    handleCheckedFilters: jest.fn(),
+    handleClose: jest.fn(),
     options: assetFilter,
     filterSets: {
       'Asset Types': new Set(),
       'Model Numbers': new Set()
     },
+    checkedFilters: filters,
     activePage: 1,
     limit: 10
   };
 
-  const wrapper = shallow(<Filter {...props} />);
+  const wrapper = shallow(<FilterComponent {...props} />);
 
   it('renders Accordion', () => {
     expect(wrapper.find('Accordion'));
@@ -30,11 +35,6 @@ describe('Renders <FilterComponent /> correctly', () => {
 
   it('renders CheckboxComponent', () => {
     expect(wrapper.find('CheckboxComponent'));
-  });
-
-  it('does not render Accordion when toggleOn is false', () => {
-    wrapper.setProps({ toggleOn: false });
-    expect(wrapper.find('Accordion').length).toBe(0);
   });
 
   it('calls handleTitleClick when the title is clicked', () => {
@@ -63,5 +63,23 @@ describe('Renders <FilterComponent /> correctly', () => {
     );
     wrapper.instance().handleFilter();
     expect(handleFilterSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls keepCheckboxChecked to keep filter options checked after applying', () => {
+    const keepCheckboxCheckedSpy = jest.spyOn(
+      wrapper.instance(), 'keepCheckboxChecked'
+    );
+    const label = {};
+    const name = {};
+    wrapper.instance().keepCheckboxChecked(label, name);
+    expect(keepCheckboxCheckedSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleCheckedFilters to return checked filters', () => {
+    const handleCheckedFiltersSpy = jest.spyOn(
+      wrapper.instance(), 'handleCheckedFilters'
+    );
+    wrapper.instance().handleCheckedFilters();
+    expect(handleCheckedFiltersSpy.mock.calls.length).toEqual(1);
   });
 });

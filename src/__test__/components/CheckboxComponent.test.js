@@ -7,7 +7,8 @@ describe('Renders <CheckboxComponent /> tests', () => {
   const props = {
     label: 'Test',
     name: 'Test',
-    handleCheckboxChange: jest.fn()
+    handleCheckboxChange: jest.fn(),
+    keepCheckboxChecked: jest.fn()
   };
 
   const wrapper = shallow(<Checkbox {...props} />);

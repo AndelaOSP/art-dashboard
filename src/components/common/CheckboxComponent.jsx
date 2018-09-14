@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import '../../_css/CheckboxComponent.css';
+
 class CheckboxComponent extends Component {
   state = {
-    isChecked: false
+    isChecked: this.props.keepCheckboxChecked(this.props.label, this.props.name) || false
   };
 
   toggleCheckboxChange = () => {
@@ -31,7 +33,7 @@ class CheckboxComponent extends Component {
             onChange={this.toggleCheckboxChange}
           />
 
-          <label>{label}</label>
+          <label className="check label">{label}</label>
         </div>
       </div>
     );
@@ -41,7 +43,8 @@ class CheckboxComponent extends Component {
 CheckboxComponent.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  handleCheckboxChange: PropTypes.func.isRequired
+  handleCheckboxChange: PropTypes.func.isRequired,
+  keepCheckboxChecked: PropTypes.func.isRequired
 };
 
 export default CheckboxComponent;
