@@ -5,13 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import TableRowComponent from '../TableRowComponent';
+import TableRow from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import '../../_css/AssetsComponent.css';
 import { loadAssetSpecs } from '../../_actions/assetSpecs.actions';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
 export class AssetSpecsComponent extends React.Component {
   state = {
@@ -46,11 +47,10 @@ export class AssetSpecsComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.specs)) {
       return (
         <NavbarComponent>
-          <div className="assets-list">
-            <h1>
-              No Asset Spec Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            header="Asset specs not found!"
+            message="Please try again later, to see if we'll have Asset specs to show you."
+          />
         </NavbarComponent>
       );
     }
@@ -87,7 +87,7 @@ export class AssetSpecsComponent extends React.Component {
             <Table.Body>
               {
                 this.props.specs.map(spec => (
-                  <TableRowComponent
+                  <TableRow
                     key={spec.id}
                     data={spec}
                     headings={[

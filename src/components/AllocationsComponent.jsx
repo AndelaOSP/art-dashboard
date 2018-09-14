@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Container, Segment, Divider } from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { loadAllocationsAction } from '../_actions/allocations.actions';
 import NavbarComponent from './NavBarComponent';
-import TableRowComponent from './TableRowComponent';
+import TableRow from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import formatDate from '../_utils/dateFormatter';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AllocationsComponent.css';
+import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
 
 export class AllocationsComponent extends Component {
   state = {
@@ -47,11 +48,10 @@ export class AllocationsComponent extends Component {
     if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
       return (
         <NavbarComponent>
-          <Container>
-            <h1>
-              No Assets Currently Assigned
-            </h1>
-          </Container>
+          <ItemsNotFoundComponent
+            header="No Allocation found!"
+            message="Please try again later, to see if we'll have allocations to show you."
+          />
         </NavbarComponent>
       );
     }
@@ -77,7 +77,7 @@ export class AllocationsComponent extends Component {
                 this.props.allAllocations.map((allocation) => {
                   allocation.formatted_date = formatDate(allocation.created_at);
                   return (
-                    <TableRowComponent
+                    <TableRow
                       key={allocation.created_at}
                       data={allocation}
                       headings={['asset', 'current_owner', 'previous_owner', 'formatted_date']}

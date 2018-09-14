@@ -58,6 +58,6 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
       isLoading: false,
       assetTypes: []
     });
-    expect(wrapper.find('h1').text()).toEqual('No Asset Types Found');
+    expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 });

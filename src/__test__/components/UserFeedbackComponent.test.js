@@ -62,7 +62,7 @@ describe('<UserFeedbackComponent /> tests', () => {
       feedbackCount: 0
     });
 
-    expect(wrapper.find('h1').text()).toEqual('No Feedback Found');
+    expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 
   it('calls the handleRowChange function when the row dropdown is changed', () => {

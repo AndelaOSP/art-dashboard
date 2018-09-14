@@ -16,14 +16,6 @@ describe('Renders <UserDetailComponent /> correctly', () => {
     expect(wrapper.find('LoaderComponent').exists()).toEqual(true);
   });
 
-  it('renders a user Not found div if userDetail is empty', () => {
-    wrapper.setProps({
-      userDetail: {},
-      isLoading: false
-    });
-    expect(wrapper.find('div').text()).toEqual('User Not Found');
-  });
-
   it('renders a the table if loading is false and user details is not empty', () => {
     wrapper.setProps({
       userDetail: {

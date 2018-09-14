@@ -8,7 +8,7 @@ const props = {
 };
 
 describe('Renders <LoaderComponent /> tests', () => {
-  const wrapper = shallow(<Loader {...props} />);
+  const wrapper = shallow(<Loader {...props} />).dive();
 
   it('displays loading text when loading text is defined', () => {
     expect(wrapper.find('p').text()).toEqual('Loading stuff');

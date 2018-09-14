@@ -4,12 +4,13 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
 
-import TableRowComponent from './TableRowComponent.jsx';
+import TableRow from './TableRowComponent.jsx';
 import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
 import '../_css/IncidenceReportsComponent.css';
+import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
 
 export class IncidenceReportsComponent extends React.Component {
   state = {
@@ -36,6 +37,16 @@ export class IncidenceReportsComponent extends React.Component {
   emptyReportsCheck = () => (_.isEmpty(this.props.reports))
 
   render() {
+    if (this.emptyReportsCheck()) {
+      return (
+        <NavbarComponent>
+          <ItemsNotFoundComponent
+            header="No Incident reports found!"
+            message="Please try again later to see if there will be incident reports to show you."
+          />
+        </NavbarComponent>
+      );
+    }
     return (
       <NavbarComponent>
         <div className="incidence-list">
@@ -59,52 +70,46 @@ export class IncidenceReportsComponent extends React.Component {
 
             <Table.Body>
               {
-                (this.emptyReportsCheck())
-                  ? <Table.Row><Table.Cell colSpan="8">No Data Found</Table.Cell></Table.Row>
-                  : (this.props.reports.map(incidenceReport => (
-                    <TableRowComponent
-                      key={incidenceReport.id}
-                      data={incidenceReport}
-                      headings={['asset',
-                        'incident_type',
-                        'incident_location',
-                        'incident_description',
-                        'injuries_sustained',
-                        'loss_of_property',
-                        'witnesses',
-                        'police_abstract_obtained'
-                      ]}
-                    />)))
+            (this.props.reports.map(incidenceReport => (
+              <TableRow
+                key={incidenceReport.id}
+                data={incidenceReport}
+                headings={['asset',
+                  'incident_type',
+                  'incident_location',
+                  'incident_description',
+                  'injuries_sustained',
+                  'loss_of_property',
+                  'witnesses',
+                  'police_abstract_obtained'
+                ]}
+              />)))
               }
             </Table.Body>
 
             <Table.Footer>
               <Table.Row>
-                {
-                    !this.emptyReportsCheck() && (
-                    <Table.HeaderCell colSpan="8" id="pagination-header">
-                      <Segment.Group horizontal id="art-pagination-section">
-                        <Segment>
-                          <Pagination
-                            totalPages={this.handlePageTotal()}
-                            onPageChange={this.handlePaginationChange}
-                            activePage={this.state.activePage}
-                          />
-                        </Segment>
-                        <Segment>
-                          <DropdownComponent
-                            customClass="page-limit"
-                            placeHolder="Show Rows"
-                            options={rowOptions}
-                            onChange={this.handleRowChange}
-                            value={this.state.limit}
-                            upward
-                          />
-                        </Segment>
-                      </Segment.Group>
-                    </Table.HeaderCell>
-                    )
-                  }
+                <Table.HeaderCell colSpan="8" id="pagination-header">
+                  <Segment.Group horizontal id="art-pagination-section">
+                    <Segment>
+                      <Pagination
+                        totalPages={this.handlePageTotal()}
+                        onPageChange={this.handlePaginationChange}
+                        activePage={this.state.activePage}
+                      />
+                    </Segment>
+                    <Segment>
+                      <DropdownComponent
+                        customClass="page-limit"
+                        placeHolder="Show Rows"
+                        options={rowOptions}
+                        onChange={this.handleRowChange}
+                        value={this.state.limit}
+                        upward
+                      />
+                    </Segment>
+                  </Segment.Group>
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>
