@@ -1,10 +1,9 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import { Header, Icon, Table, Segment } from 'semantic-ui-react';
+import { Header, Icon, Table, Segment, Card } from 'semantic-ui-react';
 import LoaderComponent from '../../components/LoaderComponent';
 import TableRowDetail from '../TableRowComponent';
-import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
 import '../../_css/UserDetailComponent.css';
 
@@ -44,9 +43,11 @@ const assetsAssigned = (allocatedAssets) => {
     );
   }
   return (
-    <ItemsNotFoundComponent
-      header="No Asset Allocations found!"
-    />
+    <Card>
+      <Card.Content extra>
+        No Assests Allocated
+      </Card.Content>
+    </Card>
   );
 };
 
@@ -59,9 +60,9 @@ const UserDetailComponent = (props) => {
 
   if (isEmpty(props.userDetail)) {
     return (
-      <ItemsNotFoundComponent
-        header="User Details not found!"
-      />
+      <div>
+        User Not Found
+      </div>
     );
   }
 
@@ -107,12 +108,12 @@ const UserDetailComponent = (props) => {
         </Segment>
       </Segment.Group>
       <Header as="h3" textAlign="left">
-        Total Assets Assigned {(props.userDetail.allocated_assets.length) ? props.userDetail.allocated_assets.length : ''}
+        Total Assets Assigned: {props.userDetail.allocated_assets.length}
       </Header>
       {
         assetsAssigned(props.userDetail.allocated_assets)
       }
-    </div >
+    </div>
   );
 };
 
