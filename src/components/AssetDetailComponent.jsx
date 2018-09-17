@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _, { isEmpty, values } from 'lodash';
+import { isEmpty, values } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail, allocateAsset, unassignAsset } from '../_actions/asset.actions';
 import { loadAssetAssigneeUsers } from '../_actions/users.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
+import LoaderComponent from './LoaderComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
@@ -19,19 +20,12 @@ export class AssetDetailComponent extends Component {
   };
 
   componentDidMount() {
-    this.getAssetId(this.props.location.pathname);
-    if (_.isEmpty(this.props.assetAsigneeUsers)) {
-      this.props.loadAssetAssigneeUsers();
+    const { assetDetail } = this.props;
+    if (isEmpty(assetDetail)) {
+      this.getAssetId(this.props.location.pathname);
     }
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    return {
-      assignedUser: nextProps.assetDetail.assigned_to,
-      hasError: nextProps.hasError,
-      errorMessage: nextProps.errorMessage
-    };
-  }
 
   getAssetId(pathName) {
     const stringArray = pathName.split('/');
@@ -75,25 +69,27 @@ export class AssetDetailComponent extends Component {
       <NavbarComponent>
         <Container>
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
-          <AssetDetailContent
-            {...this.props}
-            assetDetail={this.props.assetDetail}
-            assignedUser={this.state.assignedUser}
-            errorMessage={this.state.errorMessage}
-            hasError={this.state.hasError}
-            isLoading={this.props.isLoading}
-            onSelectUserEmail={this.onSelectUserEmail}
-            handleAssign={this.handleAssign}
-            handleUnassign={this.handleUnassign}
-            selectedUserId={this.state.selectedUser}
-            show={this.show}
-            handleConfirm={this.handleConfirm}
-            handleCancel={this.handleCancel}
-            buttonState={this.props.buttonLoading}
-            assignAssetButtonState={this.state.assignAssetButtonState}
-            selectedUser={this.state.selectedUser}
-            users={this.props.assetAsigneeUsers}
-          />
+          { isEmpty(this.props.assetDetail) ?
+            <LoaderComponent loadingText="Loading" /> :
+            <AssetDetailContent
+              {...this.props}
+              assetDetail={this.props.assetDetail}
+              assignedUser={this.state.assignedUser}
+              errorMessage={this.state.errorMessage}
+              hasError={this.state.hasError}
+              isLoading={this.props.isLoading}
+              onSelectUserEmail={this.onSelectUserEmail}
+              handleAssign={this.handleAssign}
+              handleUnassign={this.handleUnassign}
+              selectedUserId={this.state.selectedUser}
+              show={this.show}
+              handleConfirm={this.handleConfirm}
+              handleCancel={this.handleCancel}
+              buttonState={this.props.buttonLoading}
+              assignAssetButtonState={this.state.assignAssetButtonState}
+              selectedUser={this.state.selectedUser}
+              users={this.props.assetAsigneeUsers}
+            />}
         </Container>
       </NavbarComponent>
     );
@@ -116,7 +112,7 @@ AssetDetailComponent.propTypes = {
   unAssignedAsset: PropTypes.object
 };
 
-const mapStateToProps = ({ asset, usersList }) => {
+const mapStateToProps = ({ asset, usersList }, props) => {
   const {
     assetDetail,
     errorMessage,
@@ -132,7 +128,7 @@ const mapStateToProps = ({ asset, usersList }) => {
   };
   return {
     assetAsigneeUsers,
-    assetDetail,
+    assetDetail: isEmpty(props.location.state) ? assetDetail : props.location.state,
     newAllocation,
     unAssignedAsset,
     errorMessage,
