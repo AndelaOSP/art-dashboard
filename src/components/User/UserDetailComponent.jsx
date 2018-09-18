@@ -1,26 +1,56 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import { Header, Icon, Table, Segment } from 'semantic-ui-react';
+import { Header, Icon, Table, Segment, Card } from 'semantic-ui-react';
 import LoaderComponent from '../../components/LoaderComponent';
 import TableRowDetail from '../TableRowComponent';
 
 import '../../_css/UserDetailComponent.css';
 
-const fakeAssetTable = [
-  {
-    id: 45,
-    asset_type: 'Computer',
-    asset_code: 'AND/RE/34',
-    serial_number: 'GT2342342'
-  },
-  {
-    id: 56,
-    asset_type: 'Dongle',
-    asset_code: 'AND/DNG/43',
-    serial_number: 'DNG90909903'
+const assetsAssigned = (allocatedAssets) => {
+  if (isEmpty(allocatedAssets)) {
+    return (
+      <Card>
+        <Card.Content extra>
+          No Assests Allocated
+        </Card.Content>
+      </Card>
+    );
   }
-];
+
+  return (
+    <Table basic selectable>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>
+            Asset Type
+          </Table.HeaderCell>
+          <Table.HeaderCell>
+            Asset Code
+          </Table.HeaderCell>
+          <Table.HeaderCell>
+            Serial Number
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {
+          allocatedAssets.map(asset => (
+            <TableRowDetail
+              key={asset.id}
+              data={asset}
+              headings={[
+                'asset_type',
+                'asset_code',
+                'serial_number'
+              ]}
+            />
+          ))
+        }
+      </Table.Body>
+    </Table>
+  );
+};
 
 const UserDetailComponent = (props) => {
   if (props.isLoading) {
@@ -78,37 +108,12 @@ const UserDetailComponent = (props) => {
           </div>
         </Segment>
       </Segment.Group>
-      <Header as="h3" textAlign="left">Total Assets Assigned 2</Header>
-      <Table basic selectable>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>
-              Asset Type
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Asset Code
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Serial Number
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {
-            fakeAssetTable.map(asset => (
-              <TableRowDetail
-                key={asset.id}
-                data={asset}
-                headings={[
-                  'asset_type',
-                  'asset_code',
-                  'serial_number'
-                ]}
-              />
-            ))
-          }
-        </Table.Body>
-      </Table>
+      <Header as="h3" textAlign="left">
+        Total Assets Assigned: {props.userDetail.allocated_assets.length}
+      </Header>
+      {
+        assetsAssigned(props.userDetail.allocated_assets)
+      }
     </div>
   );
 };
