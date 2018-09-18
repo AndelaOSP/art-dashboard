@@ -8,46 +8,47 @@ import TableRowDetail from '../TableRowComponent';
 import '../../_css/UserDetailComponent.css';
 
 const assetsAssigned = (allocatedAssets) => {
-  if (!isEmpty(allocatedAssets)) {
+  if (isEmpty(allocatedAssets)) {
     return (
-      <Table basic selectable>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>
-              Asset Type
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Asset Code
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Serial Number
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {
-            allocatedAssets.map(asset => (
-              <TableRowDetail
-                key={asset.id}
-                data={asset}
-                headings={[
-                  'asset_type',
-                  'asset_code',
-                  'serial_number'
-                ]}
-              />
-            ))
-          }
-        </Table.Body>
-      </Table>
+      <Card>
+        <Card.Content extra>
+          No Assests Allocated
+        </Card.Content>
+      </Card>
     );
   }
+
   return (
-    <Card>
-      <Card.Content extra>
-        No Assests Allocated
-      </Card.Content>
-    </Card>
+    <Table basic selectable>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>
+            Asset Type
+          </Table.HeaderCell>
+          <Table.HeaderCell>
+            Asset Code
+          </Table.HeaderCell>
+          <Table.HeaderCell>
+            Serial Number
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {
+          allocatedAssets.map(asset => (
+            <TableRowDetail
+              key={asset.id}
+              data={asset}
+              headings={[
+                'asset_type',
+                'asset_code',
+                'serial_number'
+              ]}
+            />
+          ))
+        }
+      </Table.Body>
+    </Table>
   );
 };
 
