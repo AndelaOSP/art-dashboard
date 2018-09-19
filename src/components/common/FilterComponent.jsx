@@ -38,7 +38,7 @@ class FilterComponent extends React.Component {
     const { activeIndex } = this.state;
 
     if (isEmpty(option)) {
-      return <span>Loading filters</span>;
+      return <p>Loading filters</p>;
     }
 
     return (
@@ -54,16 +54,14 @@ class FilterComponent extends React.Component {
             <Form>
               {
                   option.content.map((opt) => {
-                    const isChecked = this.props.selected[option.title]
-                      ? this.props.selected[option.title].includes(opt.option)
-                      : false;
+                    const selectedOptions = this.props.selected[option.title] || [];
 
                     return (
                       <CheckboxComponent
                         key={uuidv4()}
                         label={opt.option}
                         name={option.title}
-                        isChecked={isChecked}
+                        isChecked={selectedOptions.includes(opt.option)}
                         handleCheckboxChange={this.handleCheckboxChange}
                       />
                       );

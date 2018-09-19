@@ -27,9 +27,9 @@ describe('Renders <FilterComponent /> correctly', () => {
     expect(wrapper.find('CheckboxComponent'));
   });
 
-  it('returns a message when optio is empty', () => {
+  it('returns a message when option is empty', () => {
     wrapper.setProps({ option: {} });
-    expect(wrapper.find('span'));
+    expect(wrapper.find('p'));
   });
 
   it('calls handleTitleClick when the title is clicked', () => {

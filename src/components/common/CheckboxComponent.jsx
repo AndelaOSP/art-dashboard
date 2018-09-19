@@ -3,28 +3,25 @@ import PropTypes from 'prop-types';
 
 import '../../_css/CheckboxComponent.css';
 
-
-const CheckboxComponent = (props) => {
-  const { isChecked, label, name, handleCheckboxChange } = props;
-
-  const checkbox = isChecked
-    ? <input type="checkbox" name={name} value={label} onChange={handleCheckboxChange} checked />
-    : <input type="checkbox" name={name} value={label} onChange={handleCheckboxChange} />;
-
-  return (
+const CheckboxComponent = ({ isChecked = false, label, name, handleCheckboxChange }) =>
+  (
     <div className="field">
       <div className="ui checkbox">
-        {checkbox}
+        <input
+          type="checkbox"
+          name={name}
+          value={label}
+          onChange={handleCheckboxChange}
+          checked={isChecked}
+        />
         <label className="check label">{label}</label>
       </div>
     </div>
   );
-};
-
 CheckboxComponent.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  isChecked: PropTypes.bool.isRequired,
+  isChecked: PropTypes.bool,
   handleCheckboxChange: PropTypes.func.isRequired
 };
 
