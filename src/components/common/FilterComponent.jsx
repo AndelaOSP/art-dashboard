@@ -5,7 +5,6 @@ import { isEmpty } from 'lodash';
 import uuidv4 from 'uuid/v4';
 
 import CheckboxComponent from './CheckboxComponent';
-import ArtButton from './ButtonComponent';
 
 import '../../_css/FilterComponent.css';
 
@@ -34,19 +33,8 @@ class FilterComponent extends React.Component {
     this.props.filterSelection(selection, option.title);
   };
 
-  handleFilter = () => {
-    this.props.handleClose();
-    const { selected } = this.props;
-
-    this.props.filterAction(
-      this.props.activePage,
-      this.props.limit,
-      selected
-    );
-  };
-
   render() {
-    const { option } = this.props;
+    const { index, option } = this.props;
     const { activeIndex } = this.state;
 
     if (isEmpty(option)) {
@@ -57,11 +45,12 @@ class FilterComponent extends React.Component {
       <React.Fragment>
         <Menu.Item>
           <Accordion.Title
-            active={activeIndex === 0}
+            index={index}
+            active={activeIndex === index}
             content={option.title}
             onClick={this.handleTitleClick}
           />
-          <Accordion.Content active={activeIndex === 0}>
+          <Accordion.Content active={activeIndex === index}>
             <Form>
               {
                   option.content.map((opt) => {
@@ -84,24 +73,14 @@ class FilterComponent extends React.Component {
             </Form>
           </Accordion.Content>
         </Menu.Item>
-
-        <ArtButton
-          customCss="apply-filter"
-          buttonName="apply filters"
-          color="primary"
-          handleClick={this.handleFilter}
-        />
       </React.Fragment>
     );
   }
 }
 
 FilterComponent.propTypes = {
+  index: PropTypes.number.isRequired,
   option: PropTypes.object.isRequired,
-  activePage: PropTypes.number.isRequired,
-  limit: PropTypes.number.isRequired,
-  filterAction: PropTypes.func.isRequired,
-  handleClose: PropTypes.func,
   filterSelection: PropTypes.func.isRequired,
   selected: PropTypes.object.isRequired
 };

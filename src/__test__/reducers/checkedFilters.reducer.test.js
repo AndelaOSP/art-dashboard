@@ -1,24 +1,27 @@
 import expect from 'expect';
-import checkedFilters from '../../_reducers/checkedFilters.reducer';
+import filtersReducer from '../../_reducers/checkedFilters.reducer';
 import constants from '../../_constants';
 
-const { ADD_CHECKED_FILTER
-} = constants;
+const { FILTER_SELECTED } = constants;
 
 const initialState = {};
 
-const action = { checkedFilter: {} };
+const action = {
+  selection: {},
+  filterType: 'Model Numbers'
+};
 
 describe('Checked Filters Reducer test', () => {
   it('should return initial state when there is no action', () => {
-    expect(checkedFilters(initialState, action))
+    expect(filtersReducer(initialState, action))
       .toEqual(initialState);
   });
 
-  it('should handle ADD_CHECKED_FILTER', () => {
-    action.type = ADD_CHECKED_FILTER;
-    action.checkedFilter = {};
-    expect(checkedFilters(initialState, action))
-      .toEqual(action.checkedFilter);
+  it('should handle FILTER_SELECTED', () => {
+    action.type = FILTER_SELECTED;
+    expect(filtersReducer(initialState, action))
+      .toEqual({
+        'Model Numbers': []
+      });
   });
 });

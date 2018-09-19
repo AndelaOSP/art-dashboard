@@ -11,13 +11,10 @@ describe('Renders <FilterComponent /> correctly', () => {
   const props = {
     handleTitleClick: jest.fn(),
     handleCheckboxChange: jest.fn(),
-    handleFilter: jest.fn(),
-    filterAction: jest.fn(),
     handleClose: jest.fn(),
-    option: assetFilter,
-    activePage: 1,
-    limit: 10,
-    selected: filters
+    option: assetFilter[0],
+    selected: filters,
+    filterSelection: jest.fn()
   };
 
   const wrapper = shallow(<FilterComponent {...props} />);
@@ -28,6 +25,11 @@ describe('Renders <FilterComponent /> correctly', () => {
 
   it('renders CheckboxComponent', () => {
     expect(wrapper.find('CheckboxComponent'));
+  });
+
+  it('returns a message when optio is empty', () => {
+    wrapper.setProps({ option: {} });
+    expect(wrapper.find('span'));
   });
 
   it('calls handleTitleClick when the title is clicked', () => {
@@ -45,16 +47,13 @@ describe('Renders <FilterComponent /> correctly', () => {
       wrapper.instance(), 'handleCheckboxChange'
     );
 
-    const event = {};
+    const event = {
+      target: {
+        checked: true,
+        value: ''
+      }
+    };
     wrapper.instance().handleCheckboxChange(event);
     expect(handleCheckboxChangeSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls handleFilter to apply the filtered options', () => {
-    const handleFilterSpy = jest.spyOn(
-      wrapper.instance(), 'handleFilter'
-    );
-    wrapper.instance().handleFilter();
-    expect(handleFilterSpy.mock.calls.length).toEqual(1);
   });
 });

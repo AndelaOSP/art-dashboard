@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Accordion, Icon, Menu, Popup } from 'semantic-ui-react';
 
+import ArtButton from './ButtonComponent';
+
 class FilterButton extends React.Component {
   state = {
     toggleOn: false
@@ -13,6 +15,17 @@ class FilterButton extends React.Component {
 
   handleClose = () => {
     this.setState({ toggleOn: false });
+  };
+
+  handleFilter = () => {
+    this.handleClose();
+    const { selected } = this.props;
+
+    this.props.filterAction(
+      this.props.activePage,
+      this.props.limit,
+      selected
+    );
   };
 
   render() {
@@ -36,15 +49,26 @@ class FilterButton extends React.Component {
         position="bottom right"
       >
         <Accordion as={Menu} vertical className="filter-menu">
-          {React.cloneElement(this.props.children, { handleClose: this.handleClose })}
+          {this.props.children}
         </Accordion>
+
+        <ArtButton
+          customCss="apply-filter"
+          buttonName="apply filters"
+          color="primary"
+          handleClick={this.handleFilter}
+        />
       </Popup>
     );
   }
 }
 
 FilterButton.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node,
+  filterAction: PropTypes.func.isRequired,
+  activePage: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  selected: PropTypes.object.isRequired
 };
 
 export default FilterButton;

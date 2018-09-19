@@ -92,22 +92,23 @@ export class AssetsComponent extends Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
-            <FilterButton>
+            <FilterButton
+              activePage={this.props.activePage}
+              limit={this.state.limit}
+              selected={this.props.selected}
+              filterAction={this.props.getAssetsAction}
+            >
               <React.Fragment>
                 <FilterComponent
+                  index={0}
                   option={filters[0]}
-                  activePage={this.props.activePage}
-                  limit={this.state.limit}
-                  filterAction={this.props.getAssetsAction}
                   selected={this.props.selected}
                   filterSelection={this.props.filterSelection}
                 />
 
                 <FilterComponent
+                  index={1}
                   option={filters[1]}
-                  activePage={this.props.activePage}
-                  limit={this.state.limit}
-                  filterAction={this.props.getAssetsAction}
                   selected={this.props.selected}
                   filterSelection={this.props.filterSelection}
                 />

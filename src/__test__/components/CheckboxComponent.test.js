@@ -6,7 +6,8 @@ import Checkbox from '../../components/common/CheckboxComponent';
 describe('Renders <CheckboxComponent /> tests', () => {
   const props = {
     label: 'Test',
-    name: 'Test'
+    name: 'Test',
+    isChecked: false
   };
 
   const wrapper = shallow(<Checkbox {...props} />);

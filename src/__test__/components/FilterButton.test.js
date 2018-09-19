@@ -2,9 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 import Filter from '../../components/common/FilterButton';
+import filters from '../../_mock/filters';
 
 describe('Renders <FilterButton /> tests', () => {
-  const wrapper = shallow(<Filter><div>component</div></Filter>);
+  const props = {
+    activePage: 1,
+    limit: 10,
+    selected: filters,
+    handleFilter: jest.fn(),
+    filterAction: jest.fn()
+  };
+
+  const wrapper = shallow(<Filter {...props} />);
 
   it('changes toggle state to true when handleOpen is called', () => {
     wrapper.setState({ toggleOn: false });
@@ -28,5 +37,14 @@ describe('Renders <FilterButton /> tests', () => {
 
     expect(handleCloseSpy.mock.calls.length).toEqual(1);
     expect(wrapper.state().toggleOn).toEqual(false);
+  });
+
+  it('calls handleFilter to apply the filtered options', () => {
+    const handleFilterSpy = jest.spyOn(
+      wrapper.instance(), 'handleFilter'
+    );
+
+    wrapper.instance().handleFilter();
+    expect(handleFilterSpy.mock.calls.length).toEqual(1);
   });
 });

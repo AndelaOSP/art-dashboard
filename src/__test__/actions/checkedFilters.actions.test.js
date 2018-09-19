@@ -4,9 +4,9 @@ import thunk from 'redux-thunk';
 
 import constants from '../../_constants';
 
-import addCheckedFilter from '../../_actions/checkedFilters.actions';
+import filterSelection from '../../_actions/checkedFilters.actions';
 
-const { ADD_CHECKED_FILTER } = constants;
+const { FILTER_SELECTED } = constants;
 
 const mockStore = configureMockStore([thunk]);
 let store;
@@ -18,12 +18,14 @@ describe('Checked filters action tests', () => {
     store.clearActions();
   });
 
-  it('should dispatch ADD_CHECKED_FILTER', () => {
-    store.dispatch(addCheckedFilter());
+  it('should dispatch FILTER_SELECTED', () => {
+    store.dispatch(filterSelection({}, ''));
 
     expect(store.getActions())
       .toContainEqual({
-        type: ADD_CHECKED_FILTER
+        type: FILTER_SELECTED,
+        filterType: '',
+        selection: {}
       });
   });
 });
