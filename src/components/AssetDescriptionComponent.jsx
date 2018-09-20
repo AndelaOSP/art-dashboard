@@ -8,23 +8,61 @@ import ConfirmAction from './common/ConfirmAction';
 import AssignedTo from './AssignAssetComponent';
 import '../_css/AssetDescriptionComponent.css';
 
-const AssetDescriptionComponent = (props) => {
+class AssetDescriptionComponent extends React.Component {
+ state = {
+   assignedUser: {},
+   assignAssetButtonState: true,
+   selectedUser: 0
+ }
+ onSelectUserEmail = (event, data) => {
+   this.setState({ selectedUser: data.value, assignAssetButtonState: false });
+ };
+
+handleAssign = () => {
+  const { selectedUser } = this.state;
+  const { id } = this.props.assetDetail;
+  const assetAllocated = {
+    asset: id,
+    current_owner: selectedUser
+  };
+  this.props.allocateAsset(assetAllocated, this.state.serialNumber);
+};
+
+handleUnassign = () => {
+  const { id } = this.props.assetDetail;
+  const assetAssigned = {
+    asset: id,
+    current_status: 'Available'
+  };
+  this.props.unassignAsset(assetAssigned, this.props.serialNumber);
+};
+
+handleConfirm = () => {
+  if (isEmpty(values(this.state.assignedUser))) {
+    return this.handleAssign();
+  }
+  return this.handleUnassign();
+};
+triggerProps = () => {
   let triggerProps = {
     buttonName: 'Assign Asset',
     customCss: 'assign-asset',
-    disabledState: props.assignAssetButtonState,
+    disabledState: this.state.assignAssetButtonState,
     color: 'primary'
   };
-
-  if (!isEmpty(values(props.assignedUser))) {
+  if (!isEmpty(values(this.state.assignedUser))) {
     triggerProps = {
-      ...triggerProps,
       buttonName: 'Unassign Asset',
       customCss: 'unassign-asset',
       disabledState: false
     };
-  }
-
+    return triggerProps;
+  } return triggerProps;
+}
+render() {
+  const { onSelectUserEmail, assignedUser } = this.state;
+  const { users, selectedUserId, toggleModal, buttonState, buttonLoading } = this.props;
+  const triggerProps = this.triggerProps();
   return (
     <Container>
       <Grid columns={2} stackable className="asset-description">
@@ -38,27 +76,28 @@ const AssetDescriptionComponent = (props) => {
         </Grid.Column>
         <Grid.Column>
           <AssignedTo
-            onSelectUserEmail={props.onSelectUserEmail}
-            assignedUser={props.assignedUser}
-            users={props.users}
-            selectedUserId={props.selectedUserId}
+            onSelectUserEmail={onSelectUserEmail}
+            assignedUser={assignedUser}
+            users={users}
+            selectedUserId={selectedUserId}
           />
           <ModalComponent
             trigger={<ButtonComponent {...triggerProps} />}
             modalTitle="Confirm Action"
           >
             <ConfirmAction
-              toggleModal={props.toggleModal}
-              handleConfirm={props.handleConfirm}
-              buttonState={props.buttonState}
-              buttonLoading={props.buttonLoading}
+              toggleModal={toggleModal}
+              handleConfirm={this.handleConfirm}
+              buttonState={buttonState}
+              buttonLoading={buttonLoading}
             />
           </ModalComponent>
         </Grid.Column>
       </Grid>
     </Container>
   );
-};
+}
+}
 
 AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
@@ -69,7 +108,12 @@ AssetDescriptionComponent.propTypes = {
   toggleModal: PropTypes.func,
   handleConfirm: PropTypes.func.isRequired,
   buttonState: PropTypes.bool.isRequired,
-  buttonLoading: PropTypes.bool.isRequired
+  buttonLoading: PropTypes.bool.isRequired,
+  unAssignedAsset: PropTypes.object,
+  assetDetail: PropTypes.object,
+  allocateAsset: PropTypes.func,
+  serialNumber: PropTypes.string,
+  unassignAsset: PropTypes.func
 };
 
 AssetDescriptionComponent.defaultProps = {

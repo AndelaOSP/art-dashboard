@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { isEmpty, values } from 'lodash';
+import { isEmpty } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail, allocateAsset, unassignAsset } from '../_actions/asset.actions';
 import { loadAssetAssigneeUsers } from '../_actions/users.actions';
@@ -11,10 +11,7 @@ import LoaderComponent from './LoaderComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
-    assignedUser: {},
-    selectedUser: 0,
     serialNumber: '',
-    assignAssetButtonState: true,
     hasError: this.props.hasError,
     errorMessage: this.props.errorMessage
   };
@@ -34,62 +31,29 @@ export class AssetDetailComponent extends Component {
     this.props.getAssetDetail(serialNumber);
   }
 
-  onSelectUserEmail = (event, data) => {
-    this.setState({ selectedUser: data.value, assignAssetButtonState: false });
-  };
-
-  handleAssign = () => {
-    const { selectedUser } = this.state;
-    const { id } = this.props.assetDetail;
-    const assetAllocated = {
-      asset: id,
-      current_owner: selectedUser
-    };
-    this.props.allocateAsset(assetAllocated, this.state.serialNumber);
-  };
-
-  handleUnassign = () => {
-    const { id } = this.props.assetDetail;
-    const assetAssigned = {
-      asset: id,
-      current_status: 'Available'
-    };
-    this.props.unassignAsset(assetAssigned, this.state.serialNumber);
-  };
-
-  handleConfirm = () => {
-    if (isEmpty(values(this.state.assignedUser))) {
-      return this.handleAssign();
-    }
-    return this.handleUnassign();
-  };
-
   render() {
+    let renderedComponent;
+    if (isEmpty(this.props.assetDetail)) {
+      renderedComponent = <LoaderComponent loadingText="Loading" />;
+    } else {
+      renderedComponent = (<AssetDetailContent
+        {...this.props}
+        assetDetail={this.props.assetDetail}
+        errorMessage={this.state.errorMessage}
+        hasError={this.state.hasError}
+        isLoading={this.props.isLoading}
+        show={this.show}
+        handleCancel={this.handleCancel}
+        buttonState={this.props.buttonLoading}
+        users={this.props.assetAsigneeUsers}
+        serialNumber={this.state.serialNumber}
+      />);
+    }
     return (
       <NavbarComponent>
         <Container>
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
-          { isEmpty(this.props.assetDetail) ?
-            <LoaderComponent loadingText="Loading" /> :
-            <AssetDetailContent
-              {...this.props}
-              assetDetail={this.props.assetDetail}
-              assignedUser={this.state.assignedUser}
-              errorMessage={this.state.errorMessage}
-              hasError={this.state.hasError}
-              isLoading={this.props.isLoading}
-              onSelectUserEmail={this.onSelectUserEmail}
-              handleAssign={this.handleAssign}
-              handleUnassign={this.handleUnassign}
-              selectedUserId={this.state.selectedUser}
-              show={this.show}
-              handleConfirm={this.handleConfirm}
-              handleCancel={this.handleCancel}
-              buttonState={this.props.buttonLoading}
-              assignAssetButtonState={this.state.assignAssetButtonState}
-              selectedUser={this.state.selectedUser}
-              users={this.props.assetAsigneeUsers}
-            />}
+          { renderedComponent }
         </Container>
       </NavbarComponent>
     );
