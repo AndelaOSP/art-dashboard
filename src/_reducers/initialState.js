@@ -23,7 +23,8 @@ export default {
     assetsCount: 0,
     errorMessage: '',
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    activePage: 1
   },
   asset: {
     assetDetail: {},
@@ -73,6 +74,12 @@ export default {
     isLoading: false,
     securityUser: {}
   },
+  user: {
+    userDetail: {},
+    errorMessage: '',
+    hasError: false,
+    isLoading: false
+  },
   assetSpecs: {
     specs: [],
     assetSpecsCount: 0,
@@ -90,5 +97,6 @@ export default {
   },
   session: {
     sessionExpired: false
-  }
+  },
+  checkedFilters: {}
 };

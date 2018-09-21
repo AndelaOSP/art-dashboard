@@ -1,0 +1,24 @@
+@import "sharedStyling.scss";
+
+.ui.horizontal.segments > .segment.user-detail-info {
+  width: 610px;
+}
+
+.user-detail-icon {
+  float: left;
+}
+
+.user-detail-content {
+  width: 50%;
+  margin-left: 15%;
+  text-align: left;
+}
+
+h3.ui.header {
+  margin-top: 5%;
+}
+
+.ui.card {
+  width: 90%;
+  align-content: center;
+}

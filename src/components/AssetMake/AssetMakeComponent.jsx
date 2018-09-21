@@ -12,7 +12,7 @@ import {
 } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import TableRowComponent from '../TableRowComponent';
+import TableRow from '../TableRowComponent';
 import NavbarComponent from '../NavBarComponent';
 import DropdownComponent from '../../_components/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
@@ -20,6 +20,7 @@ import { loadAssetMakes } from '../../_actions/assetMakes.actions';
 import rowOptions from '../../_utils/pageRowOptions';
 import ModalComponent from '../common/ModalComponent';
 import AssetMakeContainer from '../../_components/AssetMake/AssetMakeContainer';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
 export class AssetMakeComponent extends React.Component {
   state = {
@@ -54,11 +55,10 @@ export class AssetMakeComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetMakes)) {
       return (
         <NavbarComponent>
-          <div>
-            <h1>
-              No Asset Make Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            header="No Asset make found!"
+            message="Please try again later to see if there will be asset makes to show you"
+          />
         </NavbarComponent>
       );
     }
@@ -96,7 +96,7 @@ export class AssetMakeComponent extends React.Component {
             <Table.Body>
               {
                 this.props.assetMakes.map(asset => (
-                  <TableRowComponent
+                  <TableRow
                     key={asset.id}
                     data={asset}
                     headings={['id', 'asset_type', 'make_label']}

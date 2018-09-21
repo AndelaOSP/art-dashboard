@@ -14,6 +14,7 @@ describe('Renders <AssetsComponent /> correctly', () => {
     handlePaginationChange: jest.fn(),
     createFilterData: jest.fn(),
     handleRowChange: jest.fn(),
+    setActivePage: jest.fn(),
     loadAllAssetModels: jest.fn(),
     loadDropdownAssetTypes: jest.fn(),
     hasError: false,
@@ -23,7 +24,8 @@ describe('Renders <AssetsComponent /> correctly', () => {
     assetsCount: 10,
     assetModels,
     assetTypes,
-    render: () => true
+    selected: {},
+    filterSelection: jest.fn()
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
@@ -94,6 +96,6 @@ describe('Renders <AssetsComponent /> correctly', () => {
   });
 
   it('renders FilterComponent', () => {
-    expect(wrapper.find('FilterButton').dive().find('FilterComponent').length).toBe(1);
+    expect(wrapper.find('FilterButton').dive().find('FilterComponent').exists()).toBe(true);
   });
 });

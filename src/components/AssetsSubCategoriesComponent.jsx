@@ -12,7 +12,7 @@ import {
 } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import TableRowComponent from './TableRowComponent';
+import TableRow from './TableRowComponent';
 import NavbarComponent from './NavBarComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
@@ -21,6 +21,7 @@ import ModalComponent from './common/ModalComponent';
 import AddSubCategoryContainer from '../_components/SubCategory/AddSubCategoriesContainer';
 import '../_css/AssetsComponent.css';
 import { loadSubCategories } from '../_actions/subcategory.actions';
+import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
 
 export class AssetSubCategoriesComponent extends React.Component {
   state = {
@@ -55,11 +56,10 @@ export class AssetSubCategoriesComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetSubCategories)) {
       return (
         <NavbarComponent>
-          <div className="">
-            <h1>
-              No Asset Sub Category Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            header="No Asset subcategory found!"
+            message="Please try again later to see if there will be asset subcategories to show you."
+          />
         </NavbarComponent>
       );
     }
@@ -96,7 +96,7 @@ export class AssetSubCategoriesComponent extends React.Component {
             <Table.Body>
               {
                 this.props.assetSubCategories.map(subCategory => (
-                  <TableRowComponent
+                  <TableRow
                     key={subCategory.id}
                     data={subCategory}
                     headings={['sub_category_name', 'asset_category']}

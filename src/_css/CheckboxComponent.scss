@@ -1,0 +1,6 @@
+@import "sharedStyling.scss";
+
+.ui.checkbox label,
+.ui.checkbox+label {
+  font-size: 12px;
+}

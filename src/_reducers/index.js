@@ -16,8 +16,10 @@ import loadIncidenceReportsReducer from './incidenceReports.reducer';
 import loadAssetCategoriesReducer from './assetCategories.reducer';
 import assetConditionReducer from './assetCondition.reducer';
 import usersReducer from './users.reducer';
+import userDetails from './user.reducer';
 import loadAssetSpecsReducer from './assetSpecs.reducer';
 import sessionReducer from './session.reducer';
+import filtersReducer from './checkedFilters.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -36,8 +38,10 @@ const rootReducer = combineReducers({
   assetCategories: loadAssetCategoriesReducer,
   assetConditions: assetConditionReducer,
   usersList: usersReducer,
+  userDetails,
   assetSpecs: loadAssetSpecsReducer,
-  session: sessionReducer
+  session: sessionReducer,
+  selected: filtersReducer
 });
 
 export default rootReducer;

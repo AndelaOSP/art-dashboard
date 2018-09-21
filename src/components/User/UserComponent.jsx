@@ -4,7 +4,7 @@ import { Table, Header, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
-import TableRowComponent from '../TableRowComponent';
+import TableRow from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
@@ -48,9 +48,11 @@ const UserComponent = (props) => {
         <Table.Body>
           {
             props.activePageUsers.map((user) => {
+              const viewUserUrl = `users/${user.id}/view`;
               user.assets_assigned = 1;
               return (
-                <TableRowComponent
+                <TableRow
+                  viewDetailsRoute={viewUserUrl}
                   key={user.id}
                   data={user}
                   headings={[

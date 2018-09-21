@@ -16,7 +16,12 @@ import {
 // constants
 import constants from '../../_constants';
 
-const { LOAD_ASSETS_SUCCESS, LOAD_ASSETS_FAILURE, LOAD_ASSETS_STARTS } = constants;
+const {
+  LOAD_ASSETS_SUCCESS,
+  LOAD_ASSETS_FAILURE,
+  LOAD_ASSETS_STARTS,
+  SET_ACTIVE_PAGE
+} = constants;
 
 const state = {
   assetsList: [],
@@ -37,18 +42,29 @@ describe('Asset Reducer tests', () => {
 
   it('should handle LOAD_ASSETS_SUCCESS', () => {
     action.type = LOAD_ASSETS_SUCCESS;
+    action.isLoading = false;
     expect(assetReducer(state, action).assetsList).toEqual(action.payload.results);
     expect(assetReducer(state, action).isLoading).toBe(false);
   });
 
+  it('should handle SET_ACTIVE_PAGE', () => {
+    const actionTest = {
+      payload: 1
+    };
+    actionTest.type = SET_ACTIVE_PAGE;
+    expect(assetReducer(state, actionTest).activePage).toEqual(actionTest.payload);
+  });
+
   it('should handle LOAD_ASSETS_FAILURE', () => {
     action.type = LOAD_ASSETS_FAILURE;
+    action.isLoading = false;
     expect(assetReducer(state, action).hasError).toBe(true);
     expect(assetReducer(state, action).isLoading).toBe(false);
   });
 
   it('should handle LOAD_ASSETS_STARTS', () => {
     action.type = LOAD_ASSETS_STARTS;
+    action.isLoading = true;
     expect(assetReducer(state, action).isLoading).toBe(true);
   });
 

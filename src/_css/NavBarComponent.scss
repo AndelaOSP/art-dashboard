@@ -1,8 +1,8 @@
 @import "sharedStyling.scss";
 
 #nav-bar {
-  height: 100px;
-  padding: 0 93px;
+  height: 50px;
+  padding: 0 10rem;
   background-color: #fff;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   margin-bottom: 10px;
@@ -31,8 +31,8 @@
 
     #nav-search {
       color: $andela-blue;
-      width: 251px;
-      height: 45px;
+      width: 200px;
+      height: 30px;
       border-radius: 10px;
       border: solid 1px $andela-blue;
       padding-left: 36px;
@@ -64,8 +64,8 @@
   }
 
   #user-avatar {
-    width: 63px;
-    height: 63px;
+    width: auto;
+    max-height: 50px;
   }
 
   i.icons .corner.icon {
@@ -97,8 +97,9 @@
   }
 
   .ui.sidebar {
-    height: 100px !important;
+    height: 50px !important;
     overflow: hidden;
+    padding: 0 10rem;
   }
 
   .ui.visible.top.sidebar~.fixed,
@@ -108,7 +109,7 @@
   }
 
   .nav-images {
-    height: 53px;
+    height: 25px;
     display: initial;
     margin-right: 10px;
   }

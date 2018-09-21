@@ -9,6 +9,7 @@ import assets from '../_mock/assets';
 describe('Renders <AssetsTableContent /> correctly', () => {
   const props = {
     getAssetsAction: jest.fn(),
+    activePage: 1,
     handlePaginationChange: jest.fn(),
     activePageAssets: assets,
     assetsCount: 10,

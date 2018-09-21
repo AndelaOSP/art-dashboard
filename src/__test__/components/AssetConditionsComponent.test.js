@@ -21,7 +21,7 @@ describe('Renders <AssetConditionsComponent/> component', () => {
       isLoading: false,
       assetConditionsList: []
     });
-    expect(wrapper.find('h1').text()).toEqual('No Asset Conditions Found');
+    expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 
   it('renders table when asset conditions are loaded successfully', () => {

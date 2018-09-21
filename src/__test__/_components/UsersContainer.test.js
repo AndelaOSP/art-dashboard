@@ -77,4 +77,13 @@ describe('Renders <UserContainer /> correctly', () => {
     wrapper.instance().handleRowChange(event, data);
     expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
   });
+
+  it('calls the toggleFilter function ', () => {
+    const toggleFilterSpy = jest.spyOn(
+      wrapper.instance(), 'toggleFilter'
+    );
+
+    wrapper.instance().toggleFilter();
+    expect(toggleFilterSpy.mock.calls.length).toEqual(1);
+  });
 });

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Header, Table, Pagination, Segment, Divider, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import TableRowComponent from './TableRowComponent';
+import TableRow from './TableRowComponent';
 import rowOptions from '../_utils/pageRowOptions';
 import NavbarComponent from './NavBarComponent';
 import DropdownComponent from '../components/common/DropdownComponent';
@@ -15,6 +15,7 @@ import ModalComponent from './common/ModalComponent';
 
 import '../_css/AssetsComponent.css';
 import { loadAssetTypes } from '../_actions/assetTypes.actions';
+import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
 
 export class AssetTypesComponent extends React.Component {
   state = {
@@ -49,11 +50,10 @@ export class AssetTypesComponent extends React.Component {
     if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
       return (
         <NavbarComponent>
-          <div>
-            <h1>
-              No Asset Types Found
-            </h1>
-          </div>
+          <ItemsNotFoundComponent
+            header="No Asset types found!"
+            message="Please try again later to see if there will be asset types to show you"
+          />
         </NavbarComponent>
       );
     }
@@ -90,7 +90,7 @@ export class AssetTypesComponent extends React.Component {
             <Table.Body>
               {
                 this.props.assetTypes.map(assetType => (
-                  <TableRowComponent
+                  <TableRow
                     key={assetType.id}
                     data={assetType}
                     headings={['asset_sub_category', 'asset_type']}

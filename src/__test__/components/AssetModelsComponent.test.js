@@ -50,12 +50,4 @@ describe('Renders <AssetModelsComponent /> correctly', () => {
     wrapper.instance().handlePaginationChange(event, data);
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
-
-  it('renders message if no asset models are returned', () => {
-    wrapper.setProps({
-      isLoading: false,
-      assetModels: []
-    });
-    expect(wrapper.find('h1').text()).toEqual('No Asset Models Found');
-  });
 });

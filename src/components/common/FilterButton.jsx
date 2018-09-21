@@ -1,14 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Popup } from 'semantic-ui-react';
+import { Accordion, Icon, Menu, Popup } from 'semantic-ui-react';
+
+import ArtButton from './ButtonComponent';
 
 class FilterButton extends React.Component {
   state = {
     toggleOn: false
   };
 
-  toggleFilter = () => {
-    this.setState(({ toggleOn }) => ({ toggleOn: !toggleOn }));
+  handleOpen = () => {
+    this.setState({ toggleOn: true });
+  };
+
+  handleClose = () => {
+    this.setState({ toggleOn: false });
+  };
+
+  handleFilter = () => {
+    this.handleClose();
+    const { selected } = this.props;
+
+    this.props.filterAction(
+      this.props.activePage,
+      this.props.limit,
+      selected
+    );
   };
 
   render() {
@@ -19,7 +36,6 @@ class FilterButton extends React.Component {
         trigger={
           <div
             className={this.state.toggleOn ? 'filter-button clicked' : 'filter-button'}
-            onClick={this.toggleFilter}
             role="presentation"
           >
             {this.state.toggleOn ? <Icon name="close" /> : <Icon name="bars" />}
@@ -28,21 +44,31 @@ class FilterButton extends React.Component {
         }
         on="click"
         open={this.state.toggleOn}
+        onClose={this.handleClose}
+        onOpen={this.handleOpen}
         position="bottom right"
       >
+        <Accordion as={Menu} vertical className="filter-menu">
+          {this.props.children}
+        </Accordion>
 
-        {this.props.render(this.state.toggleOn)}
+        <ArtButton
+          customCss="apply-filter"
+          buttonName="apply filters"
+          color="primary"
+          handleClick={this.handleFilter}
+        />
       </Popup>
     );
   }
 }
 
 FilterButton.propTypes = {
-  render: PropTypes.func
-};
-
-FilterButton.defaultProps = {
-  render: () => {}
+  children: PropTypes.node,
+  filterAction: PropTypes.func.isRequired,
+  activePage: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  selected: PropTypes.object.isRequired
 };
 
 export default FilterButton;
