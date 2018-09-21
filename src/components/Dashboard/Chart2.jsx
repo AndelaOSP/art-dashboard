@@ -10,7 +10,7 @@ import {
   ColumnSeries
 } from 'react-jsx-highcharts';
 
-import '../_css/DashboardComponent.css';
+import '../../_css/DashboardComponent.css';
 
 const plotOptions = {
   column: {

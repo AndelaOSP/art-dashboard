@@ -12,3 +12,9 @@
   position: absolute;
   width: 90px;
 }
+
+@media (max-width: 767px) {
+  .incidence-list {
+    padding: 0 30px;
+  }
+}

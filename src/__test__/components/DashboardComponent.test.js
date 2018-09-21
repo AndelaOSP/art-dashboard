@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { shallowWithStore } from 'enzyme-redux';
 import { connect } from 'react-redux';
 
-import DashboardComponent from '../../components/DashboardComponent';
+import DashboardComponent from '../../components/Dashboard/DashboardComponent';
 
 describe('Renders <DashboardComponent /> correctly', () => {
   const { WrappedComponent } = withRouter(connect()(DashboardComponent));

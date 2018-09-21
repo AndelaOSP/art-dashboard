@@ -114,6 +114,10 @@
     margin-right: 10px;
   }
 
+  .grid {
+    overflow: hidden;
+  }
+
   .grid > .column {
     box-shadow: none;
   }
@@ -131,4 +135,90 @@
   max-width: 400px;
   margin-top: 1.5rem;
   font-size: 15px;
+}
+
+#analytics-state-selection {
+  .ui.grid {
+    .column.row {
+      .column {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+#asset-links-section {
+  .ui.column.grid {
+    .column {
+      margin-top: 15px;
+      margin-bottom: 15px;
+
+      a {
+        display: block;
+        width: 200px;
+        -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.20);
+        border-radius: 8px;
+        padding: 20px;
+        font-size: 15px;
+        color: $andela-black;
+      }
+
+      a:hover {
+        -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.30);
+        color: $andela-blue;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #nav-bar {
+    height: 230px;
+    padding: 0 20px;
+
+    #search-menu {
+      margin: 5px 0;
+    }
+
+    .right.menu {
+      .item {
+        position: absolute;
+      }
+
+      :nth-child(1) {
+        margin-left: 5px;
+      }
+
+      :nth-child(2) {
+        left: 45%;
+      }
+
+      :nth-child(3) {
+        left: 70%;
+      }
+    }
+
+    #user-avatar {
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  #nav-bar2 {
+    .pusher {
+
+      #dashboard-content {
+        padding: 0 30px;
+      }
+    }
+
+    .nav-images {
+      height: 40px;
+      margin: 0;
+    }
+
+    .grid > .column a {
+      font-size: 12px;
+    }
+  }
 }

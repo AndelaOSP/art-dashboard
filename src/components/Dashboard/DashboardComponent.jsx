@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
   Header,
   Divider,
   Grid
 } from 'semantic-ui-react';
-import '../_css/DashboardComponent.css';
-import NavbarComponent from './NavBarComponent';
+import '../../_css/DashboardComponent.css';
+import NavbarComponent from '../NavBarComponent';
 import AnalyticsCardComponent from './AnalyticsCardComponent';
-import Chart1 from './Chart1';
-import Chart2 from './Chart2';
-import Chart3 from './Chart3';
 
 class DashboardComponent extends Component {
   state = {
@@ -18,15 +15,14 @@ class DashboardComponent extends Component {
     assetStateLost: false,
     assetStateAllocated: false,
     assetStateAvailable: false
-
-  }
+  };
 
   render() {
     return (
       <NavbarComponent>
         <div id="dashboard-content">
           <div id="page-heading-section">
-            <Header as="h1" id="page-headings" floated="left">Analytics</Header>
+            <Header as="h1" id="page-headings" floated="left">Home</Header>
             <Divider id="art-divider" />
           </div>
           <div id="analytics-state-selection">
@@ -107,27 +103,42 @@ class DashboardComponent extends Component {
               </Grid.Row>
             </Grid>
           </div>
-          <div id="art-charts">
-            <Grid>
-              <Grid.Row columns={2}>
-                <Grid.Column>
-                  <div id="area-chart">
-                    <Chart1 />
-                  </div>
-                </Grid.Column>
-                <Grid.Column>
-                  <Grid id="right-chart-grid">
-                    <Grid.Row columns={2} style={{ border: 'solid 1px #707070', borderRadius: '10px' }}>
-                      <Grid.Column>
-                        <Chart2 />
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Chart3 />
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                </Grid.Column>
-              </Grid.Row>
+
+          <Divider />
+
+          <div id="asset-links-section">
+            <Grid columns={4} stackable>
+              <Grid.Column>
+                <Link to="/assets">Asset List</Link>
+              </Grid.Column>
+
+              <Grid.Column>
+                <Link to="/asset-makes">Asset Makes</Link>
+              </Grid.Column>
+
+              <Grid.Column>
+                <Link to="/asset-types">Asset Types</Link>
+              </Grid.Column>
+
+              <Grid.Column>
+                <Link to="/asset-models">Asset Models</Link>
+              </Grid.Column>
+
+              <Grid.Column>
+                <Link to="/asset-categories">Asset Categories</Link>
+              </Grid.Column>
+
+              <Grid.Column>
+                <Link to="/asset-sub-categories">Asset Sub-Categories</Link>
+              </Grid.Column>
+
+              <Grid.Column>
+                <Link to="/asset-conditions">Asset Conditions</Link>
+              </Grid.Column>
+
+              <Grid.Column>
+                <Link to="/asset-specs">Asset Specs</Link>
+              </Grid.Column>
             </Grid>
           </div>
         </div>
