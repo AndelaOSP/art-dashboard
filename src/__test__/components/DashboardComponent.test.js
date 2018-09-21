@@ -20,6 +20,41 @@ describe('Renders <DashboardComponent /> correctly', () => {
   });
 
   it('renders grid components', () => {
-    expect(wrapper.find('Grid').length).toBe(3);
+    expect(wrapper.find('Grid').length).toBe(2);
+  });
+
+  it('renders checkmark if assetStateDamaged is true', () => {
+    wrapper.setState({
+      assetStateDamaged: false
+    });
+    wrapper.setState({
+      assetStateDamaged: true
+    });
+
+    expect(wrapper.find('.checkmark').exists()).toBe(true);
+  });
+
+  it('renders checkmark if assetStateLost is true', () => {
+    wrapper.setState({
+      assetStateLost: true
+    });
+
+    expect(wrapper.find('.checkmark').exists()).toBe(true);
+  });
+
+  it('renders checkmark if assetStateAllocated is true', () => {
+    wrapper.setState({
+      assetStateAllocated: true
+    });
+
+    expect(wrapper.find('.checkmark').exists()).toBe(true);
+  });
+
+  it('renders checkmark if assetStateAvailable is true', () => {
+    wrapper.setState({
+      assetStateAvailable: true
+    });
+
+    expect(wrapper.find('.checkmark').exists()).toBe(true);
   });
 });

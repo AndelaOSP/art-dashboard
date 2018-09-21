@@ -156,7 +156,7 @@
       a {
         display: block;
         width: 200px;
-        -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.20);
+        -webkit-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.20);
         border-radius: 8px;
         padding: 20px;
         font-size: 15px;
@@ -164,7 +164,7 @@
       }
 
       a:hover {
-        -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.30);
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.30);
         color: $andela-blue;
       }
     }
