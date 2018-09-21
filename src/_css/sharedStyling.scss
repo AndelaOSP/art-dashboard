@@ -52,14 +52,16 @@ input,
   font-stretch: normal;
   font-style: normal;
   font-weight: 500;
-  height: 45px;
+  height: 40px;
   letter-spacing: normal;
   line-height: 2.08;
-  width: 138px;
+  width: 120px;
 }
 
 .ui.small.button.add-asset {
-  @include blue-rounded-buttons
+  @include blue-rounded-buttons;
+  width: 100px;
+  font-size: 0.8em;
 }
 
 .ui.medium.button.add-asset {
@@ -69,7 +71,7 @@ input,
 
 #page-heading-section {
   height: 77px;
-  margin-top: 45px;
+  margin-top: 30px;
 }
 
 #page-headings {

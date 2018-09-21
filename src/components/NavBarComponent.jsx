@@ -72,7 +72,7 @@ export class NavBarComponent extends Component {
                     className="add-asset"
                     size="small"
                   >
-                    + ADD ASSET
+                    ADD ASSET
                   </Button>
                 }
                 modalTitle="Add Asset"
