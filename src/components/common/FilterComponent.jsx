@@ -6,14 +6,11 @@ import uuidv4 from 'uuid/v4';
 
 import CheckboxComponent from './CheckboxComponent';
 
-import ArtButton from './ButtonComponent';
-
 import '../../_css/FilterComponent.css';
 
 class FilterComponent extends React.Component {
   state = {
-    activeIndex: 0,
-    checkedFilters: this.props.filterSets
+    activeIndex: 0
   };
 
   handleTitleClick = (e, titleProps) => {
@@ -24,97 +21,66 @@ class FilterComponent extends React.Component {
     this.setState({ activeIndex: newIndex });
   };
 
-  toggleCheckbox = (label, name) => {
-    const { checkedFilters } = this.state;
+  handleCheckboxChange = (event) => {
+    const { option } = this.props;
+    const { checked, value } = event.target;
 
-    for (const key in checkedFilters) {
-      if (name === key) {
-        if (checkedFilters[name].has(label)) {
-          checkedFilters[name].delete(label);
-        } else {
-          checkedFilters[name].add(label);
-        }
-      }
-    }
-  };
+    const selection = {
+      label: value,
+      isChecked: checked
+    };
 
-  handleFilter = () => {
-    const { checkedFilters } = this.state;
-    const filters = {};
-
-    for (const key in checkedFilters) {
-      if (checkedFilters.hasOwnProperty(key)) {
-        filters[key] = [Array.from(checkedFilters[key])];
-      }
-    }
-
-    this.props.filterAction(
-      this.props.activePage,
-      this.props.limit,
-      filters
-    );
+    this.props.filterSelection(selection, option.title);
   };
 
   render() {
-    const { toggleOn, options } = this.props;
+    const { index, option } = this.props;
     const { activeIndex } = this.state;
 
-    if (!toggleOn) {
-      return null;
+    if (isEmpty(option)) {
+      return <p>Loading filters</p>;
     }
 
     return (
       <React.Fragment>
-        <Accordion as={Menu} vertical className="filter-menu">
-          {
-            !isEmpty(options)
-              ? options.map((option, index) => (
-                <Menu.Item key={uuidv4()}>
-                  <Accordion.Title
-                    active={activeIndex === index}
-                    content={option.title}
-                    index={index}
-                    onClick={this.handleTitleClick}
-                  />
+        <Menu.Item>
+          <Accordion.Title
+            index={index}
+            active={activeIndex === index}
+            content={option.title}
+            onClick={this.handleTitleClick}
+          />
+          <Accordion.Content active={activeIndex === index}>
+            <Form>
+              {
+                  option.content.map((opt) => {
+                    const selectedOptions = this.props.selected[option.title] || [];
 
-                  <Accordion.Content active={activeIndex === index}>
-                    <Form>
-                      {
-                        option.content.map(opt =>
-                          (<CheckboxComponent
-                            key={uuidv4()}
-                            label={opt.option}
-                            name={option.title}
-                            handleCheckboxChange={this.toggleCheckbox}
-                          />)
-                        )
-                      }
-                    </Form>
-                  </Accordion.Content>
-                </Menu.Item>
-                  ))
-            : <span>Loading filters...</span>
-          }
-        </Accordion>
-
-        <ArtButton
-          customCss="apply-filter"
-          buttonName="apply filters"
-          color="primary"
-          handleClick={this.handleFilter}
-        />
+                    return (
+                      <CheckboxComponent
+                        key={uuidv4()}
+                        label={opt.option}
+                        name={option.title}
+                        isChecked={selectedOptions.includes(opt.option)}
+                        handleCheckboxChange={this.handleCheckboxChange}
+                      />
+                      );
+                    }
+                  )
+              }
+            </Form>
+          </Accordion.Content>
+        </Menu.Item>
       </React.Fragment>
     );
   }
 }
 
 FilterComponent.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  filterSets: PropTypes.object.isRequired,
-  toggleOn: PropTypes.bool.isRequired,
-  activePage: PropTypes.number.isRequired,
-  limit: PropTypes.number.isRequired,
-  filterAction: PropTypes.func.isRequired
+  index: PropTypes.number.isRequired,
+  option: PropTypes.object.isRequired,
+  filterSelection: PropTypes.func.isRequired,
+  selected: PropTypes.object.isRequired
 };
 
 export default FilterComponent;

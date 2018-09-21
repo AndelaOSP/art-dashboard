@@ -9,6 +9,7 @@ import '../_css/AssetsComponent.css';
 import { getAssetsAction, setActivePage } from '../_actions/assets.action';
 import { loadAllAssetModels } from '../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
+import filterSelection from '../_actions/checkedFilters.actions';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 
@@ -50,7 +51,7 @@ export class AssetsComponent extends Component {
   createFilterData = () => {
     const { assetModels, assetTypes } = this.props;
 
-    const filters = [];
+    const allFilters = [];
     const assetFilters = {
       title: 'Asset Types',
       content: []
@@ -75,18 +76,15 @@ export class AssetsComponent extends Component {
         })
       ));
 
-      filters.push(assetFilters);
-      filters.push(modelNumberFilters);
+      allFilters.push(assetFilters);
+      allFilters.push(modelNumberFilters);
     }
 
-    return filters;
+    return allFilters;
   };
 
   render() {
-    const filterSets = {
-      'Asset Types': new Set(),
-      'Model Numbers': new Set()
-    };
+    const filters = this.createFilterData();
 
     return (
       <NavbarComponent title="Assets">
@@ -95,17 +93,27 @@ export class AssetsComponent extends Component {
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
             <Divider id="assets-divider" />
             <FilterButton
-              render={toggleOn => (
+              activePage={this.props.activePage}
+              limit={this.state.limit}
+              selected={this.props.selected}
+              filterAction={this.props.getAssetsAction}
+            >
+              <React.Fragment>
                 <FilterComponent
-                  options={this.createFilterData()}
-                  filterSets={filterSets}
-                  toggleOn={toggleOn}
-                  activePage={this.props.activePage}
-                  limit={this.state.limit}
-                  filterAction={this.props.getAssetsAction}
+                  index={0}
+                  option={filters[0]}
+                  selected={this.props.selected}
+                  filterSelection={this.props.filterSelection}
                 />
-              )}
-            />
+
+                <FilterComponent
+                  index={1}
+                  option={filters[1]}
+                  selected={this.props.selected}
+                  filterSelection={this.props.filterSelection}
+                />
+              </React.Fragment>
+            </FilterButton>
           </div>
           <AssetsTableContent
             {...this.props}
@@ -139,7 +147,9 @@ AssetsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   assetModels: PropTypes.arrayOf(PropTypes.object),
   assetTypes: PropTypes.arrayOf(PropTypes.object),
-  activePage: PropTypes.number
+  activePage: PropTypes.number,
+  selected: PropTypes.array.isRequired,
+  filterSelection: PropTypes.func.isRequired
 };
 
 AssetsComponent.defaultProps = {
@@ -148,7 +158,7 @@ AssetsComponent.defaultProps = {
   activePage: 1
 };
 
-const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
+const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selected }) => {
   const {
     assetsList,
     assetsCount,
@@ -168,7 +178,8 @@ const mapStateToProps = ({ assets, assetTypesList, assetModelsList }) => {
     isLoading,
     assetModels,
     assetTypes,
-    activePage
+    activePage,
+    selected
   };
 };
 
@@ -176,5 +187,6 @@ export default connect(mapStateToProps, {
   getAssetsAction,
   loadAllAssetModels,
   loadDropdownAssetTypes,
-  setActivePage
+  setActivePage,
+  filterSelection
 })(AssetsComponent);
