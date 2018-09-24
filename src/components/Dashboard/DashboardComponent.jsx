@@ -17,6 +17,37 @@ class DashboardComponent extends Component {
     assetStateAvailable: false
   };
 
+  assetNavigation = [
+    {
+      url: '/asset-makes',
+      title: 'Asset Makes'
+    },
+    {
+      url: '/asset-types',
+      title: 'Asset Types'
+    },
+    {
+      url: '/asset-models',
+      title: 'Asset Models'
+    },
+    {
+      url: '/asset-categories',
+      title: 'Asset Categories'
+    },
+    {
+      url: '/asset-sub-categories',
+      title: 'Asset Sub-Categories'
+    },
+    {
+      url: '/asset-conditions',
+      title: 'Asset Conditions'
+    },
+    {
+      url: '/asset-specs',
+      title: 'Asset Specs'
+    }
+  ];
+
   render() {
     return (
       <NavbarComponent>
@@ -106,39 +137,15 @@ class DashboardComponent extends Component {
 
           <Divider />
 
-          <div id="asset-links-section">
-            <Grid columns={4} stackable>
-              <Grid.Column>
-                <Link to="/assets">Asset List</Link>
-              </Grid.Column>
-
-              <Grid.Column>
-                <Link to="/asset-makes">Asset Makes</Link>
-              </Grid.Column>
-
-              <Grid.Column>
-                <Link to="/asset-types">Asset Types</Link>
-              </Grid.Column>
-
-              <Grid.Column>
-                <Link to="/asset-models">Asset Models</Link>
-              </Grid.Column>
-
-              <Grid.Column>
-                <Link to="/asset-categories">Asset Categories</Link>
-              </Grid.Column>
-
-              <Grid.Column>
-                <Link to="/asset-sub-categories">Asset Sub-Categories</Link>
-              </Grid.Column>
-
-              <Grid.Column>
-                <Link to="/asset-conditions">Asset Conditions</Link>
-              </Grid.Column>
-
-              <Grid.Column>
-                <Link to="/asset-specs">Asset Specs</Link>
-              </Grid.Column>
+          <div className="asset-links-section">
+            <Grid columns={4}>
+              {
+                this.assetNavigation.map(nav => (
+                  <Grid.Column key={nav.url} mobile={12} tablet={8} computer={4}>
+                    <Link to={nav.url}>{nav.title}</Link>
+                  </Grid.Column>
+                ))
+              }
             </Grid>
           </div>
         </div>
