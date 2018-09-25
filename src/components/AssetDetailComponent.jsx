@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
-import { getAssetDetail, allocateAsset, unassignAsset } from '../_actions/asset.actions';
-import { loadAssetAssigneeUsers } from '../_actions/users.actions';
+import { getAssetDetail } from '../_actions/asset.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
 import LoaderComponent from './LoaderComponent';
@@ -103,8 +102,4 @@ const mapStateToProps = ({ asset, usersList }, props) => {
 };
 
 export default connect(mapStateToProps, {
-  getAssetDetail,
-  loadAssetAssigneeUsers,
-  allocateAsset,
-  unassignAsset
-})(AssetDetailComponent);
+  getAssetDetail })(AssetDetailComponent);

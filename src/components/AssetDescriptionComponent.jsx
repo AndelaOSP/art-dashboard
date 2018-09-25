@@ -1,7 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { isEmpty, values } from 'lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
+import { loadAssetAssigneeUsers } from '../_actions/users.actions';
+import { allocateAsset, unassignAsset } from '../_actions/asset.actions';
+
 import ModalComponent from './common/ModalComponent';
 import ButtonComponent from '../components/common/ButtonComponent';
 import ConfirmAction from './common/ConfirmAction';
@@ -25,7 +29,7 @@ handleAssign = () => {
     asset: id,
     current_owner: selectedUser
   };
-  this.props.allocateAsset(assetAllocated, this.state.serialNumber);
+  this.props.allocateAsset(assetAllocated, this.props.serialNumber);
 };
 
 handleUnassign = () => {
@@ -43,22 +47,24 @@ handleConfirm = () => {
   }
   return this.handleUnassign();
 };
+
 triggerProps = () => {
-  let triggerProps = {
-    buttonName: 'Assign Asset',
-    customCss: 'assign-asset',
-    disabledState: this.state.assignAssetButtonState,
+  if (isEmpty(values(this.state.assignedUser))) {
+    return {
+      buttonName: 'Assign Asset',
+      customCss: 'assign-asset',
+      disabledState: this.state.assignAssetButtonState,
+      color: 'primary'
+    };
+  }
+  return {
+    buttonName: 'Unassign Asset',
+    customCss: 'unassign-asset',
+    disabledState: false,
     color: 'primary'
   };
-  if (!isEmpty(values(this.state.assignedUser))) {
-    triggerProps = {
-      buttonName: 'Unassign Asset',
-      customCss: 'unassign-asset',
-      disabledState: false
-    };
-    return triggerProps;
-  } return triggerProps;
 }
+
 render() {
   const { onSelectUserEmail, assignedUser } = this.state;
   const { users, selectedUserId, toggleModal, buttonState, buttonLoading } = this.props;
@@ -121,4 +127,8 @@ AssetDescriptionComponent.defaultProps = {
   selectedUserId: 0
 };
 
-export default AssetDescriptionComponent;
+export default connect(null, {
+  loadAssetAssigneeUsers,
+  allocateAsset,
+  unassignAsset
+})(AssetDescriptionComponent);
