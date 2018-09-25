@@ -17,7 +17,10 @@ describe('Renders <AssetDescriptionComponent /> correctly', () => {
     isLoading: {},
     location: {
       pathname: ''
-    }
+    },
+    assignedUser: {},
+    selectedUser: '',
+    specs: {}
   };
   const wrapper = mount(<AssetDescriptionComponent.WrappedComponent {...props} />);
   it('should mock the handleAssign function call', () => {

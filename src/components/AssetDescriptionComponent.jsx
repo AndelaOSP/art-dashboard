@@ -13,14 +13,41 @@ import AssignedTo from './AssignAssetComponent';
 import '../_css/AssetDescriptionComponent.css';
 
 class AssetDescriptionComponent extends React.Component {
- state = {
-   assignedUser: {},
-   assignAssetButtonState: true,
-   selectedUser: 0
- }
+  state = {
+    assignedUser: {},
+    assignAssetButtonState: true,
+    selectedUser: 0,
+    UNITS: {
+      processor_speed: 'GHz',
+      screen_size: 'inch',
+      storage: 'GB',
+      memory: 'GB'
+    }
+  }
 
   onSelectUserEmail = (event, data) => {
     this.setState({ selectedUser: data.value, assignAssetButtonState: false });
+  };
+
+  getSpecs = (specs) => {
+    const { UNITS } = this.state;
+    if (!specs) {
+      return 'This asset has no specifications';
+    }
+
+    delete specs.id;
+    return Object.entries(specs).map(([label, value]) => {
+      if (!value) {
+        return null;
+      }
+      const specUnit = UNITS[label] || ' ';
+      return (
+        <p>
+          <span className="asset-specs__label">{`${label.replace(/_/g, ' ')}: `}</span>
+          {`${value} ${specUnit}`}
+        </p>
+      );
+    });
   };
 
   handleAssign = () => {
@@ -69,7 +96,14 @@ class AssetDescriptionComponent extends React.Component {
 
   render() {
     const { onSelectUserEmail, assignedUser } = this.state;
-    const { users, selectedUserId, toggleModal, buttonState, buttonLoading } = this.props;
+    const {
+      users,
+      selectedUserId,
+      toggleModal,
+      buttonState,
+      buttonLoading,
+      assetDetail
+    } = this.props;
     const triggerProps = this.triggerProps();
     return (
       <Container>
@@ -77,9 +111,7 @@ class AssetDescriptionComponent extends React.Component {
           <Grid.Column>
             <Header as="h3" content="Asset Specs" />
             <div className="asset-specs">
-              12-inch (diagonal) LED-backlit display with IPS technology
-              2304-by-1440 resolution at 226 pixels per inch with support for millions of colors
-              16:10 aspect ratio
+              {this.getSpecs(assetDetail.specs)}
             </div>
           </Grid.Column>
           <Grid.Column>
@@ -121,7 +153,8 @@ AssetDescriptionComponent.propTypes = {
   assetDetail: PropTypes.object,
   allocateAsset: PropTypes.func,
   serialNumber: PropTypes.string,
-  unassignAsset: PropTypes.func
+  unassignAsset: PropTypes.func,
+  specs: PropTypes.object.isRequired
 };
 
 AssetDescriptionComponent.defaultProps = {

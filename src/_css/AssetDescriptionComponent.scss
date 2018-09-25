@@ -1,12 +1,16 @@
 @import "sharedStyling.scss";
 
 .asset-description {
-  padding: 4rem 2rem !important;
+  padding: 2rem 2rem !important;
   text-align: left;
 }
 
 .asset-specs {
   width: 25rem;
+
+  .asset-specs__label {
+    text-transform: capitalize;
+  }
 }
 
 .asset-user {
