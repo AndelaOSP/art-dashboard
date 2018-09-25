@@ -145,7 +145,7 @@ export class NavBarComponent extends Component {
             visible={visible}
           >
             <Grid textAlign="center">
-              <Grid columns={6}>
+              <Grid columns={6} className="navigation-bar">
                 {
                   this.navigationLinks.map(nav => (
                     <Grid.Column key={nav.url} mobile={8} tablet={3} computer={2}>

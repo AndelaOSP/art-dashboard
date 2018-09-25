@@ -138,10 +138,10 @@ class DashboardComponent extends Component {
           <Divider />
 
           <div className="asset-links-section">
-            <Grid columns={4}>
+            <Grid>
               {
                 this.assetNavigation.map(nav => (
-                  <Grid.Column key={nav.url} mobile={12} tablet={8} computer={4}>
+                  <Grid.Column key={nav.url}>
                     <Link to={nav.url}>{nav.title}</Link>
                   </Grid.Column>
                 ))
