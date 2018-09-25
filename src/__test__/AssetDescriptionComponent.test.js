@@ -70,8 +70,6 @@ describe('Renders <AssetDescriptionComponent /> correctly', () => {
 
   it('renders the assign button and dropdown when no user is assigned', () => {
     wrapper.setState({ assignedUser: {}, assignAssetButtonState: true });
-    console.log(wrapper.debug());
-
     expect(wrapper.find('ButtonComponent').props().buttonName).toBe('Assign Asset');
     expect(wrapper.find('DropdownComponent').length).toBe(1);
   });

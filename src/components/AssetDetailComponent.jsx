@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Container, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
+import { loadAssetAssigneeUsers } from '../_actions/users.actions';
 import AssetDetailContent from './AssetDetailContent';
 import NavbarComponent from './NavBarComponent';
 import LoaderComponent from './LoaderComponent';
@@ -16,12 +17,14 @@ export class AssetDetailComponent extends Component {
   };
 
   componentDidMount() {
-    const { assetDetail } = this.props;
+    const { assetDetail, assetAsigneeUsers } = this.props;
     if (isEmpty(assetDetail)) {
       this.getAssetId(this.props.location.pathname);
     }
+    if (isEmpty(assetAsigneeUsers)) {
+      this.props.loadAssetAssigneeUsers();
+    }
   }
-
 
   getAssetId(pathName) {
     const stringArray = pathName.split('/');
@@ -35,24 +38,24 @@ export class AssetDetailComponent extends Component {
     if (isEmpty(this.props.assetDetail)) {
       renderedComponent = <LoaderComponent loadingText="Loading" />;
     } else {
-      renderedComponent = (<AssetDetailContent
-        {...this.props}
-        assetDetail={this.props.assetDetail}
-        errorMessage={this.state.errorMessage}
-        hasError={this.state.hasError}
-        isLoading={this.props.isLoading}
-        show={this.show}
-        handleCancel={this.handleCancel}
-        buttonState={this.props.buttonLoading}
-        users={this.props.assetAsigneeUsers}
-        serialNumber={this.state.serialNumber}
-      />);
+      renderedComponent = (
+        <AssetDetailContent
+          assetDetail={this.props.assetDetail}
+          errorMessage={this.state.errorMessage}
+          hasError={this.state.hasError}
+          isLoading={this.props.isLoading}
+          show={this.show}
+          handleCancel={this.handleCancel}
+          buttonState={this.props.buttonLoading}
+          users={this.props.assetAsigneeUsers}
+          serialNumber={this.state.serialNumber}
+        />);
     }
     return (
       <NavbarComponent>
         <Container>
           <Header as="h1" content="Asset Detail" className="asset-detail-header" />
-          { renderedComponent }
+          {renderedComponent}
         </Container>
       </NavbarComponent>
     );
@@ -61,8 +64,6 @@ export class AssetDetailComponent extends Component {
 
 AssetDetailComponent.propTypes = {
   loadAssetAssigneeUsers: PropTypes.func,
-  allocateAsset: PropTypes.func,
-  unassignAsset: PropTypes.func,
   assetDetail: PropTypes.object,
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
@@ -70,9 +71,7 @@ AssetDetailComponent.propTypes = {
   isLoading: PropTypes.object,
   buttonLoading: PropTypes.bool,
   location: PropTypes.object,
-  assetAsigneeUsers: PropTypes.array,
-  newAllocation: PropTypes.object,
-  unAssignedAsset: PropTypes.object
+  assetAsigneeUsers: PropTypes.array
 };
 
 const mapStateToProps = ({ asset, usersList }, props) => {
@@ -102,4 +101,5 @@ const mapStateToProps = ({ asset, usersList }, props) => {
 };
 
 export default connect(mapStateToProps, {
-  getAssetDetail })(AssetDetailComponent);
+  getAssetDetail, loadAssetAssigneeUsers
+})(AssetDetailComponent);
