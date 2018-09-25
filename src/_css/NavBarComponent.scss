@@ -111,11 +111,6 @@
   }
 
   .ui.visible.push.sidebar {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-right: 10%;
-    padding-left: 6.5%;
-
     @include small {
       padding-left: 12%;
     }
@@ -127,6 +122,11 @@
     @include large {
       padding-left: 10.7%;
     }
+    
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 10%;
+    padding-left: 6.5%;
   }
 
   .ui.grid.navigation-bar {
