@@ -1,4 +1,5 @@
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
 
 .assets-list {
   padding: 0 110px;
@@ -57,7 +58,7 @@
   background-color: $andela-blue;
 }
 
-@media (max-width: 767px) {
+@include small {
   .assets-list {
     padding: 0 30px;
   }

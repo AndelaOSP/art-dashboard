@@ -1,4 +1,5 @@
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
 
 .allocations-list {
   padding: 0 80px;
@@ -13,7 +14,7 @@
   width: 90px;
 }
 
-@media (max-width: 767px) {
+@include small {
   .allocations-list {
     padding: 0 30px;
   }

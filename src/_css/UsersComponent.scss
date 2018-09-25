@@ -1,4 +1,5 @@
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
 
 .users-list {
   padding: 0 110px;
@@ -24,7 +25,7 @@
   height: 50px;
 }
 
-@media (max-width: 767px) {
+@include small {
   .users-list {
     padding: 0 30px;
   }
