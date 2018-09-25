@@ -3,9 +3,9 @@ $medium-screen-minimum: 768px;
 $large-screen-medium: 1156px;
 
 @mixin extra-large {
-	@media (min-width: #{$large-screen-medium}) {
-		@content;
-	}
+  @media (min-width: #{$large-screen-medium}) {
+    @content;
+  }
 }
 
 @mixin large {
