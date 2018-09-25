@@ -1,0 +1,27 @@
+$large-screen-minimum: 991px;
+$medium-screen-minimum: 768px;
+$large-screen-medium: 1156px;
+
+@mixin extra-large {
+	@media (min-width: #{$large-screen-medium}) {
+		@content;
+	}
+}
+
+@mixin large {
+  @media (min-width: #{$large-screen-minimum}) and (max-width: #{$large-screen-medium - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$medium-screen-minimum}) and (max-width: #{$large-screen-minimum - 1px}) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (max-width: #{$medium-screen-minimum - 1px}) {
+    @content;
+  }
+}

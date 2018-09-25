@@ -1,11 +1,12 @@
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
 
 #nav-bar {
   height: 60px;
   padding: 0 10rem;
   background-color: #fff;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  margin-bottom: 10px;
+  margin-bottom: 0;
 
   a:hover,
   .right > .item {
@@ -96,36 +97,58 @@
   }
 
   .ui.sidebar {
-    height: 80px !important;
     overflow: hidden;
-    padding: 0 50px;
+
+    .grid > .column {
+      box-shadow: none;
+    }
+
+    .grid > .column a {
+      display: block;
+      width: 170px;
+      font-size: 20px;
+    }
+  }
+
+  .ui.visible.push.sidebar {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 10%;
+    padding-left: 6.5%;
+
+    @include small {
+      padding-left: 12%;
+    }
+
+    @include tablet {
+      padding-left: 15%;
+    }
+
+    @include large {
+      padding-left: 10.7%;
+    }
+  }
+
+  .ui.grid {
+    padding: 0;
+    text-align: left;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .ui.visible.top.sidebar~.fixed,
   .ui.visible.top.sidebar~.pusher {
-    -webkit-transform: translate3d(0, 100px, 0);
-    transform: translate3d(0, 100px, 0);
+    -webkit-transform: translate3d(0, 70px, 0);
+    transform: translate3d(0, 70px, 0);
     padding-bottom: 150px;
   }
 
   .nav-images {
     height: 25px;
     display: initial;
-    margin-right: 10px;
-  }
-
-  .grid {
-    overflow: hidden;
-  }
-
-  .grid > .column {
-    box-shadow: none;
-  }
-
-  .grid > .column a {
-    display: block;
-    width: 170px;
-    font-size: 15px;
+    margin-right: 10px !important;
   }
 }
 
@@ -182,14 +205,14 @@
 
   #nav-bar2 {
     .ui.sidebar {
-      height: 165px !important;
+      height: 115px !important;
       padding: 0 20px;
     }
 
     .ui.visible.top.sidebar~.fixed,
     .ui.visible.top.sidebar~.pusher {
-      -webkit-transform: translate3d(0, 165px, 0);
-      transform: translate3d(0, 165px, 0);
+      -webkit-transform: translate3d(0, 125px, 0);
+      transform: translate3d(0, 125px, 0);
     }
 
     .pusher {
@@ -240,14 +263,18 @@
 
   #nav-bar2 {
     .ui.sidebar {
-      height: 280px !important;
+      height: 220px !important;
+
+      .grid > .column a {
+        font-size: 15px;
+      }
     }
 
     .ui.visible.top.sidebar~.fixed,
     .ui.visible.top.sidebar~.pusher {
-      -webkit-transform: translate3d(0, 290px, 0);
-      transform: translate3d(0, 290px, 0);
-      padding-bottom: 320px;
+      -webkit-transform: translate3d(0, 230px, 0);
+      transform: translate3d(0, 230px, 0);
+      padding-bottom: 280px;
     }
 
     .pusher {
@@ -259,10 +286,6 @@
     .nav-images {
       height: 40px;
       margin: 0;
-    }
-
-    .grid > .column a {
-      font-size: 12px;
     }
   }
 }
