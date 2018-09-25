@@ -1,4 +1,5 @@
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
 
 .users-list {
   padding: 0 110px;
@@ -22,4 +23,10 @@
 #add-security-user {
   display: flex;
   height: 50px;
+}
+
+@include small {
+  .users-list {
+    padding: 0 30px;
+  }
 }

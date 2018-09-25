@@ -9,7 +9,6 @@ import {
   Menu,
   Icon,
   Image,
-  Popup,
   Sidebar
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -23,6 +22,39 @@ export class NavBarComponent extends Component {
   state = {
     visible: true
   };
+
+  navigationLinks = [
+    {
+      url: '/dashboard',
+      title: 'Home',
+      imgSrc: '/images/analytics.png'
+    },
+    {
+      url: '/assets',
+      title: 'Assets',
+      imgSrc: '/images/assets.png'
+    },
+    {
+      url: '/users',
+      title: 'Users',
+      imgSrc: '/images/users.png'
+    },
+    {
+      url: '/incidence-reports',
+      title: 'Reports',
+      imgSrc: '/images/reports.png'
+    },
+    {
+      url: '/user-feedback',
+      title: 'Feedback',
+      imgSrc: '/images/feedback.png'
+    },
+    {
+      url: '/allocations',
+      title: 'Allocations',
+      imgSrc: '/images/allocated.png'
+    }
+  ];
 
   handleLogout = () => {
     localStorage.removeItem('art-prod-web-token');
@@ -46,7 +78,7 @@ export class NavBarComponent extends Component {
     const { picture } = token || {};
 
     return (
-      <div>
+      <React.Fragment>
         <Menu id="nav-bar" secondary stackable>
           <Menu.Item id="toggle-menu" name="menu" onClick={this.toggleVisibility}>
             {this.navButton()}
@@ -113,117 +145,23 @@ export class NavBarComponent extends Component {
             visible={visible}
           >
             <Grid textAlign="center">
-              <Grid columns={6}>
-                <Grid.Column>
-                  <Link to="/dashboard">
-                    <span>
-                      <Image
-                        className="nav-images"
-                        src="/images/analytics.png"
-                      />
-                    </span>
-                    Analytics
-                  </Link>
-                </Grid.Column>
+              <Grid columns={6} className="navigation-bar">
+                {
+                  this.navigationLinks.map(nav => (
+                    <Grid.Column key={nav.url} mobile={8} tablet={3} computer={2}>
+                      <Link to={nav.url}>
+                        <span>
+                          <Image
+                            className="nav-images"
+                            src={nav.imgSrc}
+                          />
+                        </span>
 
-                <Grid.Column>
-                  <Link to="/users">
-                    <span>
-                      <Image
-                        className="nav-images"
-                        src="/images/users.png"
-                      />
-                    </span>
-                    Users
-                  </Link>
-                </Grid.Column>
-
-                <Grid.Column>
-                  <Popup
-                    id="assets-popup"
-                    wide
-                    trigger={
-                      <span>
-                        <Image
-                          className="nav-images"
-                          src="/images/assets.png"
-                        />
-                        Assets
-                      </span>
-                    }
-                    on="click"
-                    position="bottom center"
-                  >
-                    <Grid columns={2}>
-                      <Grid.Column>
-                        <Link to="/assets"><Icon name="list ul" />Asset List</Link>
-                      </Grid.Column>
-
-                      <Grid.Column>
-                        <Link to="/asset-makes"><Icon name="list ul" />Asset Makes</Link>
-                      </Grid.Column>
-
-                      <Grid.Column>
-                        <Link to="/asset-types"><Icon name="list ul" />Asset Types</Link>
-                      </Grid.Column>
-
-                      <Grid.Column>
-                        <Link to="/asset-models"><Icon name="list ul" />Asset Models</Link>
-                      </Grid.Column>
-
-                      <Grid.Column>
-                        <Link to="/asset-categories"><Icon name="list ul" />Asset Categories</Link>
-                      </Grid.Column>
-
-                      <Grid.Column>
-                        <Link to="/asset-sub-categories"><Icon name="list ul" />Asset Sub-Categories</Link>
-                      </Grid.Column>
-
-                      <Grid.Column>
-                        <Link to="/asset-conditions"><Icon name="list ul" />Asset Conditions</Link>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Link to="/asset-specs"><Icon name="list ul" />Asset Specs</Link>
-                      </Grid.Column>
-                    </Grid>
-                  </Popup>
-                </Grid.Column>
-
-                <Grid.Column>
-                  <Link to="/incidence-reports">
-                    <span>
-                      <Image
-                        className="nav-images"
-                        src="/images/reports.png"
-                      />
-                    </span>
-                    Reports
-                  </Link>
-                </Grid.Column>
-
-                <Grid.Column>
-                  <Link to="/user-feedback">
-                    <span>
-                      <Image
-                        className="nav-images"
-                        src="/images/feedback.png"
-                      />
-                    </span>
-                    Feedback
-                  </Link>
-                </Grid.Column>
-
-                <Grid.Column>
-                  <Link to="/allocations">
-                    <span>
-                      <Image
-                        className="nav-images"
-                        src="/images/allocated.png"
-                      />
-                    </span>
-                    Allocations
-                  </Link>
-                </Grid.Column>
+                        {nav.title}
+                      </Link>
+                    </Grid.Column>
+                  ))
+                }
               </Grid>
             </Grid>
           </Sidebar>
@@ -232,7 +170,7 @@ export class NavBarComponent extends Component {
             {this.props.children}
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-      </div>
+      </React.Fragment>
     );
   }
 }

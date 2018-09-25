@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
   Header,
   Divider,
   Grid
 } from 'semantic-ui-react';
-import '../_css/DashboardComponent.css';
-import NavbarComponent from './NavBarComponent';
+import '../../_css/DashboardComponent.css';
+import NavbarComponent from '../NavBarComponent';
 import AnalyticsCardComponent from './AnalyticsCardComponent';
-import Chart1 from './Chart1';
-import Chart2 from './Chart2';
-import Chart3 from './Chart3';
 
 class DashboardComponent extends Component {
   state = {
@@ -18,15 +15,45 @@ class DashboardComponent extends Component {
     assetStateLost: false,
     assetStateAllocated: false,
     assetStateAvailable: false
+  };
 
-  }
+  assetNavigation = [
+    {
+      url: '/asset-makes',
+      title: 'Asset Makes'
+    },
+    {
+      url: '/asset-types',
+      title: 'Asset Types'
+    },
+    {
+      url: '/asset-models',
+      title: 'Asset Models'
+    },
+    {
+      url: '/asset-categories',
+      title: 'Asset Categories'
+    },
+    {
+      url: '/asset-sub-categories',
+      title: 'Asset Sub-Categories'
+    },
+    {
+      url: '/asset-conditions',
+      title: 'Asset Conditions'
+    },
+    {
+      url: '/asset-specs',
+      title: 'Asset Specs'
+    }
+  ];
 
   render() {
     return (
       <NavbarComponent>
         <div id="dashboard-content">
           <div id="page-heading-section">
-            <Header as="h1" id="page-headings" floated="left">Analytics</Header>
+            <Header as="h1" id="page-headings" floated="left">Home</Header>
             <Divider id="art-divider" />
           </div>
           <div id="analytics-state-selection">
@@ -107,27 +134,18 @@ class DashboardComponent extends Component {
               </Grid.Row>
             </Grid>
           </div>
-          <div id="art-charts">
+
+          <Divider />
+
+          <div className="asset-links-section">
             <Grid>
-              <Grid.Row columns={2}>
-                <Grid.Column>
-                  <div id="area-chart">
-                    <Chart1 />
-                  </div>
-                </Grid.Column>
-                <Grid.Column>
-                  <Grid id="right-chart-grid">
-                    <Grid.Row columns={2} style={{ border: 'solid 1px #707070', borderRadius: '10px' }}>
-                      <Grid.Column>
-                        <Chart2 />
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Chart3 />
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                </Grid.Column>
-              </Grid.Row>
+              {
+                this.assetNavigation.map(nav => (
+                  <Grid.Column key={nav.url}>
+                    <Link to={nav.url}>{nav.title}</Link>
+                  </Grid.Column>
+                ))
+              }
             </Grid>
           </div>
         </div>
