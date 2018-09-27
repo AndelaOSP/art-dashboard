@@ -5,11 +5,11 @@ import { withRouter } from 'react-router-dom';
 
 export class TableRowComponent extends React.Component {
   handleView = () => {
-    const { viewDetailsRoute, history } = this.props;
+    const { viewDetailsRoute, history, data } = this.props;
     if (!viewDetailsRoute) {
       return null;
     }
-    return history.push(viewDetailsRoute, this.props.data);
+    return history.push(viewDetailsRoute, data);
   };
 
   render() {
