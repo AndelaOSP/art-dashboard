@@ -41,7 +41,7 @@ export class NavBarComponent extends Component {
     },
     {
       url: '/incidence-reports',
-      title: 'Reports',
+      title: 'Incident Reports',
       imgSrc: '/images/reports.png'
     },
     {

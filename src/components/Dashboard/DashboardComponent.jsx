@@ -39,10 +39,6 @@ class DashboardComponent extends Component {
       title: 'Asset Sub-Categories'
     },
     {
-      url: '/asset-conditions',
-      title: 'Asset Conditions'
-    },
-    {
       url: '/asset-specs',
       title: 'Asset Specs'
     }
