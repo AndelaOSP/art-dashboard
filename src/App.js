@@ -14,16 +14,14 @@ const history = createBrowserHistory();
 const App = () => (
   <div className="App">
     <Provider store={store}>
-      <div>
-        <Router history={history}>
-          <div>
-            <Switch>
-              <Route path="/" component={RoutesComponent} />
-            </Switch>
-            <SessionExpired history={history} />
-          </div>
-        </Router>
-      </div>
+      <Router history={history}>
+        <React.Fragment>
+          <Switch>
+            <Route path="/" component={RoutesComponent} />
+          </Switch>
+          <SessionExpired history={history} />
+        </React.Fragment>
+      </Router>
     </Provider>
   </div>
 );

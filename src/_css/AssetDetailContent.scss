@@ -12,11 +12,13 @@
 
 .details-headings div,
 .details-description div {
-  margin: 1.2rem auto;
+  margin: 1.4rem auto;
 }
 
-.details-headings div {
+.details-headings div p {
   margin-left: 1rem;
+  font-size: 1.2rem;
+  font-weight: bolder;
 }
 
 .edit-asset-detail {
@@ -26,10 +28,6 @@
 
 .asset-tab {
   margin-top: 2rem;
-}
-
-.asset-tab-pane {
-  height: 22rem;
 }
 
 .asset-tab .allocation-history {

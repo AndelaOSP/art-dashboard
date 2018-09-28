@@ -71,7 +71,7 @@ input,
 
 #page-heading-section {
   height: 77px;
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 #page-headings {
@@ -85,9 +85,9 @@ input,
 }
 
 #art-divider {
-  border-bottom: 1px solid;
+  border-bottom: 1px solid $andela-orange;
   border-radius: 5px;
-  border-top: 5px solid;
+  border-top: 2px solid $andela-orange;
   margin-top: 4.7rem;
   position: absolute;
   width: 90px;

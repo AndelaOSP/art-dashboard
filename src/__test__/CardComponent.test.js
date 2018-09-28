@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { shallowWithStore } from 'enzyme-redux';
 import { connect } from 'react-redux';
 
-import CardComponent from '../components/CardComponent';
+import CardComponent from '../components/common/CardComponent';
 import statistics from '../_mock/statistics';
 
 describe('Renders <CardComponent /> correctly', () => {
