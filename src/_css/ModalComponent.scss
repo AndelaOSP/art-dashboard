@@ -115,6 +115,10 @@
   color: $andela-black;
 }
 
+.ui.secondary.fluid.button {
+  width: 100%;
+}
+
 .ui.primary.button {
   width: 98px;
   border-radius: 0;
@@ -127,6 +131,10 @@
 
 .ui.primary.button:hover {
   background-color: $andela-blue;
+}
+
+.ui.primary.fluid.button {
+  width: 100%;
 }
 
 .ui.modal > .header:not(.ui) {

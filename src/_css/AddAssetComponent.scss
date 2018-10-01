@@ -1,5 +1,10 @@
-// styling for add asset component
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
+
+.add-asset {
+  padding: 0 110px;
+  text-align: left;
+}
 
 .optional-label-text {
   margin: 3% 0;
@@ -17,14 +22,20 @@
   margin-top: 4%;
 }
 
-.ui.fluid.search.selection.upward.dropdown.add-asset-dropdown {
-  width: 90%;
-}
-
-.ui.large.input.input-style {
-  width: 90%;
-}
+//.ui.fluid.search.selection.dropdown.add-asset-dropdown {
+//  width: 90%;
+//}
+//
+//.ui.large.input.input-style {
+//  width: 90%;
+//}
 
 .ui.form.add-asset-form {
   padding-bottom: 5%;
+}
+
+@include small {
+  .add-asset {
+    padding: 0 30px;
+  }
 }

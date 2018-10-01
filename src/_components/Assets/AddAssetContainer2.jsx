@@ -2,11 +2,13 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Divider, Grid, Header, Icon, Step } from 'semantic-ui-react';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
-import AddAssetComponent from '../../components/Assets/AddAssetComponent';
-import FilterAssetComponent from '../../components/Assets/FilterAssetComponent';
-import SpecsComponent from '../../components/Assets/SpecsComponent';
+import FilterAssetComponent2 from '../../components/Assets/FilterAssetComponent2';
+import SpecsComponent2 from '../../components/Assets/SpecsComponent2';
+import NavbarComponent from '../../components/NavBarComponent';
+import LoaderComponent from '../../components/LoaderComponent';
 
 import { loadCategoriesDropdown } from '../../_actions/category.actions';
 import { loadSubCategoriesDropdown } from '../../_actions/subcategory.actions';
@@ -23,7 +25,7 @@ import {
   filterModelNumbers
 } from '../../_utils/filterDropdowns';
 
-class AddAssetContainer extends React.Component {
+class AddAssetContainer2 extends React.Component {
   state = {
     filteredSubCategories: [],
     filteredAssetTypes: [],
@@ -37,7 +39,7 @@ class AddAssetContainer extends React.Component {
     serialNumber: '',
     assetTag: '',
     saveButtonState: false,
-    page: 1,
+    step: 1,
     specs: {
       year: '',
       processorType: '',
@@ -80,7 +82,6 @@ class AddAssetContainer extends React.Component {
       }
 
       nextProps.resetToastMessageContent();
-      nextProps.toggleModal();
 
       return {
         filteredSubCategories: [],
@@ -95,16 +96,17 @@ class AddAssetContainer extends React.Component {
     return null;
   }
 
-  pageValidator = () => {
-    if (this.state.page === 0) {
-      return (_.isEmpty(this.state.selectedAssetMake));
+  stepValidator = () => {
+    if (this.state.step === 1) {
+      return (
+        _.isEmpty(this.state.modelNumber) ||
+        _.isEmpty(this.state.serialNumber) ||
+        _.isEmpty(this.state.assetTag)
+      );
     }
-    return (
-      _.isEmpty(this.state.modelNumber) ||
-      _.isEmpty(this.state.serialNumber) ||
-      _.isEmpty(this.state.assetTag)
-    );
-  }
+
+    return true;
+  };
 
   handleDropdownChanges = (event, data) => {
     event.stopPropagation();
@@ -162,92 +164,135 @@ class AddAssetContainer extends React.Component {
   };
 
   onNextClicked = () => {
-    this.setState(({ page }) => ({ page: page + 1 }));
-  }
+    this.setState(({ step }) => ({ step: step + 1 }));
+  };
 
   goBack = () => {
-    this.setState(({ page }) => ({ page: page - 1 }));
-  }
+    this.setState(({ step }) => ({ step: step - 1 }));
+  };
 
   pickRadioValuesFromSpecsComponent = (data) => {
     this.setState({ specs: data });
-  }
+  };
 
   onCreateAsset = () => {
     const newAssetDetails = {
       asset_code: this.state.assetTag,
       serial_number: this.state.serialNumber,
-      model_number: this.state.modelNumber
+      model_number: this.state.modelNumber,
+      specs: {}
     };
-    if (this.state.page === 2) {
-      newAssetDetails.year = this.state.specs.year;
-      newAssetDetails.processor_type = this.state.specs.processorType;
-      newAssetDetails.processor_speed = this.state.specs.processorSpeed;
-      newAssetDetails.screen_size = this.state.specs.screenSize;
-      newAssetDetails.storage = this.state.specs.storage;
-      newAssetDetails.memory = this.state.specs.memory;
+
+    if (this.state.step === 2) {
+      newAssetDetails.specs.year = this.state.specs.year;
+      newAssetDetails.specs.processor_type = this.state.specs.processorType;
+      newAssetDetails.specs.processor_speed = this.state.specs.processorSpeed;
+      newAssetDetails.specs.screen_size = this.state.specs.screenSize;
+      newAssetDetails.specs.storage = this.state.specs.storage;
+      newAssetDetails.specs.memory = this.state.specs.memory;
     }
+
     this.props.createAsset(newAssetDetails);
   };
 
   render() {
-    const isDisabled = this.pageValidator();
+    const { step } = this.state;
+    const isDisabled = this.stepValidator();
+    let stepContent;
+    let step1Active;
+    let step2Active;
 
-    if (this.state.page === 1) {
+    if (Object.values(this.props.isLoadingState).find(loading => loading)) {
       return (
-        <AddAssetComponent
-          {...this.props}
-          onSelectModelNumber={this.onSelectModelNumber}
-          onAddSerialNumber={this.onAddSerialNumber}
-          onAddAssetTag={this.onAddAssetTag}
-          onCreateAsset={this.onCreateAsset}
-          goBack={this.goBack}
-          onNextClicked={this.onNextClicked}
-          filteredModelNumbers={this.state.filteredModelNumbers}
-          filteredAssetTypes={this.state.filteredAssetTypes}
-          modelNumber={this.state.modelNumber}
-          serialNumber={this.state.serialNumber}
-          assetTag={this.state.assetTag}
-          selectedAssetType={this.state.selectedAssetType}
-          buttonState={this.state.saveButtonState}
-          onChangeButtonState={this.onChangeButtonState}
-          isDisabled={isDisabled}
-        />
-      );
-    } else if (this.state.page === 2) {
-      return (
-        <SpecsComponent
-          {...this.props}
-          specs={this.state.specs}
-          goBack={this.goBack}
-          buttonState={this.state.saveButtonState}
-          onChangeButtonState={this.onChangeButtonState}
-          page={this.state.page}
-          onCreateAsset={this.onCreateAsset}
-          pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
-        />
+        <NavbarComponent>
+          <LoaderComponent />
+        </NavbarComponent>
       );
     }
+
+    if (step === 1) {
+      step1Active = step === 1;
+
+      stepContent = (
+        <div className="add-asset__device-info">
+          <FilterAssetComponent2
+            {...this.props}
+            handleDropdownChanges={this.handleDropdownChanges}
+            filteredSubCategories={this.state.filteredSubCategories}
+            filteredAssetTypes={this.state.filteredAssetTypes}
+            filteredAssetMakes={this.state.filteredAssetMakes}
+            filteredModelNumbers={this.state.filteredModelNumbers}
+            onSelectModelNumber={this.onSelectModelNumber}
+            onAddSerialNumber={this.onAddSerialNumber}
+            onAddAssetTag={this.onAddAssetTag}
+            selectedCategory={this.state.selectedCategory}
+            selectedSubcategory={this.state.selectedSubcategory}
+            selectedAssetType={this.state.selectedAssetType}
+            selectedAssetMake={this.state.selectedAssetMake}
+            modelNumber={this.state.modelNumber}
+            serialNumber={this.state.serialNumber}
+            assetTag={this.state.assetTag}
+            isDisabled={isDisabled}
+            onNextClicked={this.onNextClicked}
+          />
+        </div>
+      );
+    } else if (step === 2) {
+      step2Active = step === 1;
+
+      stepContent = (
+        <div className="add-asset__device-specs">
+          <SpecsComponent2
+            {...this.props}
+            specs={this.state.specs}
+            goBack={this.goBack}
+            buttonState={this.state.saveButtonState}
+            onChangeButtonState={this.onChangeButtonState}
+            onCreateAsset={this.onCreateAsset}
+            pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
+          />
+        </div>
+      );
+    }
+
     return (
-      <FilterAssetComponent
-        {...this.props}
-        handleDropdownChanges={this.handleDropdownChanges}
-        filteredSubCategories={this.state.filteredSubCategories}
-        filteredAssetTypes={this.state.filteredAssetTypes}
-        filteredAssetMakes={this.state.filteredAssetMakes}
-        page={this.state.page}
-        selectedCategory={this.state.selectedCategory}
-        selectedSubcategory={this.state.selectedSubcategory}
-        selectedAssetType={this.state.selectedAssetType}
-        selectedAssetMake={this.state.selectedAssetMake}
-        isDisabled={isDisabled}
-        onNextClicked={this.onNextClicked}
-      />
+      <NavbarComponent>
+        <div className="add-asset">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Add Asset" />
+            <Divider id="assets-divider" />
+          </div>
+
+          <Step.Group size="small" widths={2}>
+            <Step active={step1Active} completed={!step1Active}>
+              <Icon name="laptop" />
+              <Step.Content>
+                <Step.Title>Device Info</Step.Title>
+                <Step.Description>Identify your device</Step.Description>
+              </Step.Content>
+            </Step>
+
+            <Step active={step2Active} disabled={step1Active}>
+              <Icon name="list ul" />
+              <Step.Content>
+                <Step.Title>Device Specs</Step.Title>
+                <Step.Description>Enter device specifications</Step.Description>
+              </Step.Content>
+            </Step>
+          </Step.Group>
+
+          <Grid centered columns={2}>
+            <Grid.Column>
+              {stepContent}
+            </Grid.Column>
+          </Grid>
+        </div>
+      </NavbarComponent>
     );
   }
 }
 
-AddAssetContainer.propTypes = {
+AddAssetContainer2.propTypes = {
   categories: PropTypes.array,
   subcategories: PropTypes.array,
   assetTypes: PropTypes.array,
@@ -262,10 +307,11 @@ AddAssetContainer.propTypes = {
   loadAssetMakesDropdown: PropTypes.func.isRequired,
   loadModelNumbers: PropTypes.func.isRequired,
   createAsset: PropTypes.func.isRequired,
-  resetToastMessageContent: PropTypes.func.isRequired
+  resetToastMessageContent: PropTypes.func.isRequired,
+  isLoadingState: PropTypes.object.isRequired
 };
 
-AddAssetContainer.defaultProps = {
+AddAssetContainer2.defaultProps = {
   categories: [],
   subcategories: [],
   assetTypes: [],
@@ -311,4 +357,4 @@ export default connect(mapStateToProps, {
   loadModelNumbers,
   createAsset,
   resetToastMessageContent
-})(AddAssetContainer);
+})(AddAssetContainer2);

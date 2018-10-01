@@ -8,7 +8,7 @@ const DropdownComponent = props => (
     fluid
     search
     selection
-    upward
+    upward={props.upward}
     value={props.value}
     label={props.label}
     options={props.options}
@@ -27,6 +27,7 @@ DropdownComponent.propTypes = {
   onChange: PropTypes.func,
   name: PropTypes.string,
   customClass: PropTypes.string,
+  upward: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
@@ -40,7 +41,8 @@ DropdownComponent.defaultProps = {
   onChange: () => {},
   customClass: '',
   value: 10,
-  name: ''
+  name: '',
+  upward: true
 };
 
 export default DropdownComponent;

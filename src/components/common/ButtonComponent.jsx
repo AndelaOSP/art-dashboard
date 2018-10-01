@@ -10,7 +10,8 @@ const ButtonComponent = ({
   handleClick,
   buttonState,
   customCss,
-  disabledState
+  disabledState,
+  fluidState
 }) => {
   let additionalProps = {
     secondary: true,
@@ -29,6 +30,7 @@ const ButtonComponent = ({
       onClick={handleClick}
       disabled={disabledState}
       className={customCss}
+      fluid={fluidState}
     >
       {buttonName}
     </Button>
@@ -41,7 +43,8 @@ ButtonComponent.propTypes = {
   handleClick: PropTypes.func,
   buttonState: PropTypes.bool,
   customCss: PropTypes.string,
-  disabledState: PropTypes.bool
+  disabledState: PropTypes.bool,
+  fluidState: PropTypes.bool
 };
 
 ButtonComponent.defaultProps = {
@@ -49,7 +52,8 @@ ButtonComponent.defaultProps = {
   handleClick: () => {},
   buttonState: false,
   customCss: '',
-  disabledState: false
+  disabledState: false,
+  fluidState: false
 };
 
 export default ButtonComponent;
