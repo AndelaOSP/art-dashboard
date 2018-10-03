@@ -6,12 +6,23 @@
   text-align: left;
 }
 
-.optional-label-text {
-  margin: 3% 0;
+.ui.steps .step .title,
+.ui.steps .step .description {
+  font-family: $base-font, $fallback-font, Lato, Helvetica, Arial, sans-serif;
 }
 
-.optional-label-text label {
-  font-weight: bold;
+.ui.steps .step.active .title {
+  color: $andela-blue;
+}
+
+.ui.ordered.steps .step.completed:before,
+.ui.steps .step.completed>.icon:before {
+  color: $andela-orange;
+}
+
+.optional-label-text > p {
+  margin: 3% 0;
+  font-weight: 900;
 }
 
 #processor-speed .field {
@@ -22,16 +33,12 @@
   margin-top: 4%;
 }
 
-//.ui.fluid.search.selection.dropdown.add-asset-dropdown {
-//  width: 90%;
-//}
-//
-//.ui.large.input.input-style {
-//  width: 90%;
-//}
-
 .ui.form.add-asset-form {
   padding-bottom: 5%;
+
+  .radio-group {
+    margin-top: 10px;
+  }
 }
 
 @include small {

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { Form } from 'semantic-ui-react';
 import DropdownComponent from '../common/DropdownComponent';
 import ArtButton from '../common/ButtonComponent';
 import InputFluid from '../common/TextInputComponent';
@@ -18,7 +19,7 @@ const FilterAssetComponent2 = props => (
     <DropdownComponent
       customClass="form-dropdown add-asset-dropdown"
       label="Asset Category"
-      placeHolder="Select Asset Category"
+      placeholder="Select Asset Category"
       name="asset-category"
       value={props.selectedCategory}
       options={placeCategoriesInSemanticUIOptions(props.categories)}
@@ -92,15 +93,39 @@ const FilterAssetComponent2 = props => (
       onChange={props.onAddSerialNumber}
     />
 
-    <ArtButton
-      className="save"
-      buttonName="Next"
-      color="primary"
-      handleClick={props.onNextClicked}
-      buttonState={props.buttonState}
-      disabledState={props.isDisabled}
-      fluidState
-    />
+    {
+        props.isAssetSpecsAvailable && !props.isDisabled
+        ?
+          <ArtButton
+            className="save"
+            buttonName="Next"
+            color="primary"
+            handleClick={props.onNextClicked}
+            buttonState={props.buttonState}
+            disabledState={props.isDisabled}
+            fluidState
+          />
+        :
+          <React.Fragment>
+            <div className="optional-label-text">
+              <p>
+              The selected asset has no specifications, click the submit button to finish creation
+              </p>
+            </div>
+
+            <Form onSubmit={props.onCreateAsset} className="add-asset-form">
+              <ArtButton
+                className="save"
+                buttonName="save"
+                color="primary"
+                handleClick={props.onChangeButtonState}
+                buttonState={props.buttonState}
+                disabledState={props.isDisabled}
+                fluidState
+              />
+            </Form>
+          </React.Fragment>
+    }
   </React.Fragment>
 );
 
@@ -123,7 +148,10 @@ FilterAssetComponent2.propTypes = {
   onAddAssetTag: PropTypes.func.isRequired,
   modelNumber: PropTypes.string,
   assetTag: PropTypes.string,
-  serialNumber: PropTypes.string
+  serialNumber: PropTypes.string,
+  onChangeButtonState: PropTypes.func.isRequired,
+  isAssetSpecsAvailable: PropTypes.bool.isRequired,
+  onCreateAsset: PropTypes.func.isRequired
 };
 
 FilterAssetComponent2.defaultTypes = {
@@ -131,7 +159,8 @@ FilterAssetComponent2.defaultTypes = {
   filteredAssetTypes: [],
   filteredAssetMakes: [],
   filteredModelNumbers: [],
-  categories: []
+  categories: [],
+  isAssetSpecsAvailable: false
 };
 
 export default FilterAssetComponent2;

@@ -12,7 +12,7 @@ const DropdownComponent = props => (
     value={props.value}
     label={props.label}
     options={props.options}
-    placeholder={props.placeHolder}
+    placeholder={props.placeholder}
     name={props.name}
     onChange={props.onChange}
     className={props.customClass}
@@ -23,7 +23,7 @@ DropdownComponent.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   options: PropTypes.array.isRequired,
-  placeHolder: PropTypes.string,
+  placeholder: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
   customClass: PropTypes.string,
@@ -37,7 +37,7 @@ DropdownComponent.propTypes = {
 DropdownComponent.defaultProps = {
   id: '',
   label: '',
-  placeHolder: '',
+  placeholder: '',
   onChange: () => {},
   customClass: '',
   value: 10,

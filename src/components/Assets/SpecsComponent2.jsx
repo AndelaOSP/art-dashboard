@@ -1,20 +1,11 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Grid } from 'semantic-ui-react';
+import range from 'lodash/range';
 import DropdownComponent from '../common/DropdownComponent';
 import ArtButton from '../common/ButtonComponent';
 
 import '../../_css/AddAssetComponent.css';
-
-const numberOfYears = () => (
-  (new Date()).getFullYear() - 2012
-);
-
-const yearOfManufacture = Array(numberOfYears()).fill({}).map((value, index) => ({
-  key: index,
-  text: 2013 + index,
-  value: 2013 + index
-}));
 
 class SpecsComponent2 extends React.Component {
   constructor(props) {
@@ -23,6 +14,19 @@ class SpecsComponent2 extends React.Component {
       specs: props.specs
     };
   }
+
+  generateYearRange = () => {
+    const currentYear = new Date().getFullYear();
+    const firstYearToConsider = 2011;
+
+    return range(currentYear, firstYearToConsider);
+  };
+
+  generateYearOptions = () => this.generateYearRange().map(year => ({
+    key: year,
+    text: year,
+    value: year
+  }));
 
   onSelectYearOfManufacture = (event, data) => {
     const specs = { ...this.state.specs };
@@ -50,172 +54,129 @@ class SpecsComponent2 extends React.Component {
   };
 
   render() {
+    const screenSizes = [13, 15, 17];
+    const storageSizes = [126, 256, 512];
+    const memorySizes = [4, 8, 16];
+    const processorTypes = ['Intel core i3', 'Intel core i5', 'Intel core i7'];
+    const processorSpeeds = [1.8, 2.3, 3.0, 3.4];
+
     return (
       <React.Fragment>
         <div className="optional-label-text">
-          <label>Optional Fields</label>
+          <p>The fields in this section are optional</p>
         </div>
 
-        <div className="optional-label-text">
-          <label>Year Of Manufacture</label>
+        <div className="label-style">
+          Year Of Manufacture
         </div>
 
         <Form onSubmit={this.props.onCreateAsset} className="add-asset-form">
           <DropdownComponent
-            placeholder="Enter Year Of Manufacture"
             name="year"
             value={this.state.specs.year}
-            options={yearOfManufacture}
+            options={this.generateYearOptions()}
+            placeholder="Select Year Of Manufacture"
             onChange={this.onSelectYearOfManufacture}
-            customClass="input-style add-asset-dropdown"
+            customClass="form-dropdown add-asset-dropdown"
             upward={false}
           />
 
-          <Form.Group inline>
-            <label>Screen Size (inches)</label>
-            <Form.Radio
-              label="13"
-              value="13"
-              name="screenSize"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.screenSize === '13'}
-            />
-            <Form.Radio
-              label="15"
-              value="15"
-              name="screenSize"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.screenSize === '15'}
-            />
-            <Form.Radio
-              label="27"
-              value="17"
-              name="screenSize"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.screenSize === '17'}
-            />
+          <div className="label-style">Screen Size (inches)</div>
+          <Form.Group widths="equal" className="radio-group">
+            {
+              screenSizes.map(val => (
+                <Form.Radio
+                  label={val}
+                  value={val}
+                  name="screenSize"
+                  onChange={this.handleRadioChanges}
+                  checked={this.state.specs.screenSize === val}
+                />
+              ))
+            }
           </Form.Group>
 
-          <Form.Group inline>
-            <label>Storage (GB)</label>
-            <Form.Radio
-              label="128"
-              value="128"
-              name="storage"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.storage === '128'}
-            />
-            <Form.Radio
-              label="256"
-              value="256"
-              name="storage"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.storage === '256'}
-            />
-            <Form.Radio
-              label="512"
-              value="512"
-              name="storage"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.storage === '512'}
-            />
+          <div className="label-style">Storage (GB)</div>
+          <Form.Group widths="equal" className="radio-group">
+            {
+              storageSizes.map(val => (
+                <Form.Radio
+                  label={val}
+                  value={val}
+                  name="storage"
+                  onChange={this.handleRadioChanges}
+                  checked={this.state.specs.storage === val}
+                />
+              ))
+            }
           </Form.Group>
 
-          <Form.Group inline>
-            <label>Memory (GB)</label>
-            <Form.Radio
-              label="4"
-              value="4"
-              name="memory"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.memory === '4'}
-            />
-            <Form.Radio
-              label="8"
-              value="8"
-              name="memory"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.memory === '8'}
-            />
-            <Form.Radio
-              label="16"
-              value="16"
-              name="memory"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.memory === '16'}
-            />
+          <div className="label-style">Memory (GB)</div>
+          <Form.Group widths="equal" className="radio-group">
+            {
+              memorySizes.map(val => (
+                <Form.Radio
+                  label={val}
+                  value={val}
+                  name="memory"
+                  onChange={this.handleRadioChanges}
+                  checked={this.state.specs.memory === val}
+                />
+              ))
+            }
           </Form.Group>
 
-          <Form.Group inline>
-            <label>Processor Type (Intel)</label>
-            <Form.Radio
-              label="Core i3"
-              value="Intel core i3"
-              name="processorType"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.processorType === 'Intel core i3'}
-            />
-            <Form.Radio
-              label="Core i5"
-              value="Intel core i5"
-              name="processorType"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.processorType === 'Intel core i5'}
-            />
-            <Form.Radio
-              label="Core i7"
-              value="Intel core i7"
-              name="processorType"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.processorType === 'Intel core i7'}
-            />
+          <div className="label-style">Processor Type (Intel)</div>
+          <Form.Group widths="equal" className="radio-group">
+            {
+              processorTypes.map(val => (
+                <Form.Radio
+                  label={val}
+                  value={val}
+                  name="processorType"
+                  onChange={this.handleRadioChanges}
+                  checked={this.state.specs.processorType === val}
+                />
+              ))
+            }
           </Form.Group>
 
-          <Form.Group inline id="processor-speed">
-            <label>Processor Speed (GHz)</label>
-            <Form.Radio
-              label="1.8"
-              value="1.8"
-              name="processorSpeed"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.processorSpeed === '1.8'}
-            />
-            <Form.Radio
-              label="2.3"
-              value="2.3"
-              name="processorSpeed"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.processorSpeed === '2.3'}
-            />
-            <Form.Radio
-              label="3.0"
-              value="3.0"
-              name="processorSpeed"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.processorSpeed === '3.0'}
-            />
-            <Form.Radio
-              label="3.4"
-              value="3.4"
-              name="processorSpeed"
-              onChange={this.handleRadioChanges}
-              checked={this.state.specs.processorSpeed === '3.4'}
-            />
+          <div className="label-style">Processor Speed (GHz)</div>
+          <Form.Group id="processor-speed" widths="equal" className="radio-group">
+            {
+              processorSpeeds.map(val => (
+                <Form.Radio
+                  label={val}
+                  value={val}
+                  name="processorSpeed"
+                  onChange={this.handleRadioChanges}
+                  checked={this.state.specs.processorSpeed === val}
+                />
+              ))
+            }
           </Form.Group>
 
-          <ArtButton
-            customCss="previous-button"
-            buttonName="Previous"
-            handleClick={this.props.goBack}
-          />
+          <Grid columns={2}>
+            <Grid.Column>
+              <ArtButton
+                customCss="previous-button"
+                buttonName="Previous"
+                handleClick={this.props.goBack}
+                fluidState
+              />
+            </Grid.Column>
 
-          <ArtButton
-            className="save"
-            buttonName="save"
-            color="primary"
-            handleClick={this.props.onChangeButtonState}
-            buttonState={this.props.buttonState}
-          />
+            <Grid.Column>
+              <ArtButton
+                className="save"
+                buttonName="save"
+                color="primary"
+                handleClick={this.props.onChangeButtonState}
+                buttonState={this.props.buttonState}
+                fluidState
+              />
+            </Grid.Column>
+          </Grid>
         </Form>
       </React.Fragment>
     );

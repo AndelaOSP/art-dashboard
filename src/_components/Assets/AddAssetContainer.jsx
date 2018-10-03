@@ -37,7 +37,7 @@ class AddAssetContainer extends React.Component {
     serialNumber: '',
     assetTag: '',
     saveButtonState: false,
-    page: 1,
+    page: 0,
     specs: {
       year: '',
       processorType: '',

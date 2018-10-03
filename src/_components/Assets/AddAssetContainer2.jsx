@@ -96,17 +96,11 @@ class AddAssetContainer2 extends React.Component {
     return null;
   }
 
-  stepValidator = () => {
-    if (this.state.step === 1) {
-      return (
-        _.isEmpty(this.state.modelNumber) ||
-        _.isEmpty(this.state.serialNumber) ||
-        _.isEmpty(this.state.assetTag)
-      );
-    }
-
-    return true;
-  };
+  stepValidator = () => (
+    _.isEmpty(this.state.modelNumber) ||
+      _.isEmpty(this.state.serialNumber) ||
+      _.isEmpty(this.state.assetTag)
+  );
 
   handleDropdownChanges = (event, data) => {
     event.stopPropagation();
@@ -179,17 +173,16 @@ class AddAssetContainer2 extends React.Component {
     const newAssetDetails = {
       asset_code: this.state.assetTag,
       serial_number: this.state.serialNumber,
-      model_number: this.state.modelNumber,
-      specs: {}
+      model_number: this.state.modelNumber
     };
 
-    if (this.state.step === 2) {
-      newAssetDetails.specs.year = this.state.specs.year;
-      newAssetDetails.specs.processor_type = this.state.specs.processorType;
-      newAssetDetails.specs.processor_speed = this.state.specs.processorSpeed;
-      newAssetDetails.specs.screen_size = this.state.specs.screenSize;
-      newAssetDetails.specs.storage = this.state.specs.storage;
-      newAssetDetails.specs.memory = this.state.specs.memory;
+    if (_.isEmpty(this.state.specs)) {
+      newAssetDetails.year = this.state.specs.year;
+      newAssetDetails.processor_type = this.state.specs.processorType;
+      newAssetDetails.processor_speed = this.state.specs.processorSpeed;
+      newAssetDetails.screen_size = this.state.specs.screenSize;
+      newAssetDetails.storage = this.state.specs.storage;
+      newAssetDetails.memory = this.state.specs.memory;
     }
 
     this.props.createAsset(newAssetDetails);
@@ -201,6 +194,12 @@ class AddAssetContainer2 extends React.Component {
     let stepContent;
     let step1Active;
     let step2Active;
+    const acceptableAssetTypes = [
+      'Macbook', 'Monitor', 'Monitors', 'Phone', 'Tablet'
+    ];
+
+    const isAssetSpecsAvailable = () =>
+      acceptableAssetTypes.indexOf(this.state.selectedAssetType) > -1;
 
     if (Object.values(this.props.isLoadingState).find(loading => loading)) {
       return (
@@ -234,16 +233,18 @@ class AddAssetContainer2 extends React.Component {
             assetTag={this.state.assetTag}
             isDisabled={isDisabled}
             onNextClicked={this.onNextClicked}
+            isAssetSpecsAvailable={isAssetSpecsAvailable()}
+            onChangeButtonState={this.onChangeButtonState}
+            onCreateAsset={this.onCreateAsset}
           />
         </div>
       );
     } else if (step === 2) {
-      step2Active = step === 1;
+      step2Active = step === 2;
 
       stepContent = (
         <div className="add-asset__device-specs">
           <SpecsComponent2
-            {...this.props}
             specs={this.state.specs}
             goBack={this.goBack}
             buttonState={this.state.saveButtonState}
@@ -263,26 +264,26 @@ class AddAssetContainer2 extends React.Component {
             <Divider id="assets-divider" />
           </div>
 
-          <Step.Group size="small" widths={2}>
-            <Step active={step1Active} completed={!step1Active}>
-              <Icon name="laptop" />
-              <Step.Content>
-                <Step.Title>Device Info</Step.Title>
-                <Step.Description>Identify your device</Step.Description>
-              </Step.Content>
-            </Step>
-
-            <Step active={step2Active} disabled={step1Active}>
-              <Icon name="list ul" />
-              <Step.Content>
-                <Step.Title>Device Specs</Step.Title>
-                <Step.Description>Enter device specifications</Step.Description>
-              </Step.Content>
-            </Step>
-          </Step.Group>
-
           <Grid centered columns={2}>
             <Grid.Column>
+              <Step.Group size="small" widths={2}>
+                <Step active={step1Active} completed={!step1Active}>
+                  <Icon name="laptop" />
+                  <Step.Content>
+                    <Step.Title>Device Info</Step.Title>
+                    <Step.Description>Identify your device</Step.Description>
+                  </Step.Content>
+                </Step>
+
+                <Step active={step2Active} disabled={step1Active}>
+                  <Icon name="list ul" />
+                  <Step.Content>
+                    <Step.Title>Device Specs</Step.Title>
+                    <Step.Description>Enter device specifications</Step.Description>
+                  </Step.Content>
+                </Step>
+              </Step.Group>
+
               {stepContent}
             </Grid.Column>
           </Grid>

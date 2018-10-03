@@ -23,7 +23,8 @@ export default (state = initialState.assets, action) => {
     case CREATE_ASSET_FAIL:
       return {
         ...state,
-        hasError: true
+        hasError: true,
+        isLoading: false
       };
     case LOAD_ASSETS_STARTS:
       return {
