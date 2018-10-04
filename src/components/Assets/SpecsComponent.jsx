@@ -7,7 +7,7 @@ import ArtButton from '../common/ButtonComponent';
 
 import '../../_css/AddAssetComponent.css';
 
-class SpecsComponent2 extends React.Component {
+class SpecsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -172,7 +172,8 @@ class SpecsComponent2 extends React.Component {
                 buttonName="save"
                 color="primary"
                 handleClick={this.props.onChangeButtonState}
-                buttonState={this.props.buttonState}
+                buttonState={this.props.buttonLoading}
+                disabledState={this.props.isDisabled || this.props.buttonLoading}
                 fluidState
               />
             </Grid.Column>
@@ -183,16 +184,17 @@ class SpecsComponent2 extends React.Component {
   }
 }
 
-SpecsComponent2.propTypes = {
+SpecsComponent.propTypes = {
   pickRadioValuesFromSpecsComponent: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
   goBack: PropTypes.func.isRequired,
   onCreateAsset: PropTypes.func.isRequired,
-  buttonState: PropTypes.bool,
+  buttonLoading: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   specs: PropTypes.object
 };
 
-SpecsComponent2.defaultTypes = {
+SpecsComponent.defaultTypes = {
   specs: {
     processorType: '',
     processorSpeed: '',
@@ -200,8 +202,7 @@ SpecsComponent2.defaultTypes = {
     storage: '',
     memory: '',
     year: ''
-  },
-  buttonState: false
+  }
 };
 
-export default SpecsComponent2;
+export default SpecsComponent;

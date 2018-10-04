@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import _ from 'lodash';
 import { Form } from 'semantic-ui-react';
 import DropdownComponent from '../common/DropdownComponent';
 import ArtButton from '../common/ButtonComponent';
@@ -13,8 +14,8 @@ const placeCategoriesInSemanticUIOptions = props => props.map((option, index) =>
   value: option.category_name
 }));
 
-const FilterAssetComponent2 = props => (
-  <React.Fragment>
+const FilterAssetComponent = props => (
+  <Form onSubmit={props.onCreateAsset} className="add-asset-form">
     <div className="label-style">Category</div>
     <DropdownComponent
       customClass="form-dropdown add-asset-dropdown"
@@ -94,42 +95,49 @@ const FilterAssetComponent2 = props => (
     />
 
     {
-        props.isAssetSpecsAvailable && !props.isDisabled
+      props.isAssetSpecsAvailable && !props.isDisabled
         ?
           <ArtButton
             className="save"
             buttonName="Next"
             color="primary"
             handleClick={props.onNextClicked}
-            buttonState={props.buttonState}
+            buttonState={props.buttonLoading}
             disabledState={props.isDisabled}
             fluidState
           />
         :
           <React.Fragment>
-            <div className="optional-label-text">
-              <p>
-              The selected asset has no specifications, click the submit button to finish creation
-              </p>
-            </div>
+            {
+            !_.isEmpty(props.modelNumber) &&
+            !_.isEmpty(props.assetTag) &&
+            !_.isEmpty(props.serialNumber)
+              ?
+                <div className="optional-label-text">
+                  <p>
+                  The selected asset has no specifications, click the submit button to finish
+                  creation
+                  </p>
+                </div>
+              :
+              null
+          }
 
-            <Form onSubmit={props.onCreateAsset} className="add-asset-form">
-              <ArtButton
-                className="save"
-                buttonName="save"
-                color="primary"
-                handleClick={props.onChangeButtonState}
-                buttonState={props.buttonState}
-                disabledState={props.isDisabled}
-                fluidState
-              />
-            </Form>
+            <ArtButton
+              className="save"
+              buttonName="save"
+              color="primary"
+              handleClick={props.onChangeButtonState}
+              buttonState={props.buttonLoading}
+              disabledState={props.isDisabled || props.buttonLoading}
+              fluidState
+            />
           </React.Fragment>
     }
-  </React.Fragment>
+  </Form>
 );
 
-FilterAssetComponent2.propTypes = {
+FilterAssetComponent.propTypes = {
   handleDropdownChanges: PropTypes.func.isRequired,
   filteredSubCategories: PropTypes.array,
   filteredAssetTypes: PropTypes.array,
@@ -138,7 +146,7 @@ FilterAssetComponent2.propTypes = {
   onNextClicked: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   categories: PropTypes.array,
-  buttonState: PropTypes.bool,
+  buttonLoading: PropTypes.bool,
   selectedCategory: PropTypes.string,
   selectedSubcategory: PropTypes.string,
   selectedAssetType: PropTypes.string,
@@ -154,7 +162,7 @@ FilterAssetComponent2.propTypes = {
   onCreateAsset: PropTypes.func.isRequired
 };
 
-FilterAssetComponent2.defaultTypes = {
+FilterAssetComponent.defaultTypes = {
   filteredSubCategories: [],
   filteredAssetTypes: [],
   filteredAssetMakes: [],
@@ -163,4 +171,4 @@ FilterAssetComponent2.defaultTypes = {
   isAssetSpecsAvailable: false
 };
 
-export default FilterAssetComponent2;
+export default FilterAssetComponent;

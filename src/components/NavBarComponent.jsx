@@ -13,10 +13,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import ArtModal from './common/ModalComponent';
-
 import '../_css/NavBarComponent.css';
-import AddAssetContainer from '../_components/Assets/AddAssetContainer';
 
 export class NavBarComponent extends Component {
   state = {
@@ -98,19 +95,14 @@ export class NavBarComponent extends Component {
 
           <Menu.Menu position="right">
             <Menu.Item>
-              <ArtModal
-                trigger={
-                  <Button
-                    className="add-asset"
-                    size="small"
-                  >
-                    ADD ASSET
-                  </Button>
-                }
-                modalTitle="Add Asset"
-              >
-                <AddAssetContainer />
-              </ArtModal>
+              <Link to="/assets/create">
+                <Button
+                  className="add-asset"
+                  size="small"
+                >
+                  ADD ASSET
+                </Button>
+              </Link>
             </Menu.Item>
 
             <Menu.Item>
