@@ -17,6 +17,7 @@ import ArtModal from './common/ModalComponent';
 
 import '../_css/NavBarComponent.css';
 import AddAssetContainer from '../_components/Assets/AddAssetContainer';
+import ImportAssetComponent from './Assets/ImportAssetComponent';
 
 export class NavBarComponent extends Component {
   state = {
@@ -110,6 +111,22 @@ export class NavBarComponent extends Component {
                 modalTitle="Add Asset"
               >
                 <AddAssetContainer />
+              </ArtModal>
+            </Menu.Item>
+
+            <Menu.Item>
+              <ArtModal
+                trigger={
+                  <Button
+                    className="add-asset"
+                    size="small"
+                  >
+                    IMPORT ASSET
+                  </Button>
+                }
+                modalTitle="Import Asset"
+              >
+                <ImportAssetComponent />
               </ArtModal>
             </Menu.Item>
 
