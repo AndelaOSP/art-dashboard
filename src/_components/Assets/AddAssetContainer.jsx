@@ -25,7 +25,7 @@ import {
   filterModelNumbers
 } from '../../_utils/filterDropdowns';
 
-class AddAssetContainer2 extends React.Component {
+class AddAssetContainer extends React.Component {
   state = {
     filteredSubCategories: [],
     filteredAssetTypes: [],
@@ -291,7 +291,7 @@ class AddAssetContainer2 extends React.Component {
   }
 }
 
-AddAssetContainer2.propTypes = {
+AddAssetContainer.propTypes = {
   categories: PropTypes.array,
   subcategories: PropTypes.array,
   assetTypes: PropTypes.array,
@@ -312,7 +312,7 @@ AddAssetContainer2.propTypes = {
   history: PropTypes.object
 };
 
-AddAssetContainer2.defaultProps = {
+AddAssetContainer.defaultProps = {
   categories: [],
   subcategories: [],
   assetTypes: [],
@@ -360,4 +360,4 @@ export default connect(mapStateToProps, {
   loadModelNumbers,
   createAsset,
   resetToastMessageContent
-})(AddAssetContainer2);
+})(AddAssetContainer);

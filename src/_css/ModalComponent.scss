@@ -9,6 +9,10 @@
   margin-left: 30%;
   width: 100%;
   max-width: 473px;
+
+  .ui.secondary.button {
+    margin-top: 20px;
+  }
 }
 
 .ui.modal > .content > .description {
@@ -173,11 +177,5 @@
 .loader-container {
   & .column.loader-column {
     padding-right: 16% !important;
-  }
-}
-
-.ui.small.modal {
-  .ui.secondary.button {
-    margin-top: 20px;
   }
 }

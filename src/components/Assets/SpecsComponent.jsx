@@ -82,7 +82,7 @@ class SpecsComponent extends React.Component {
           />
 
           <div className="label-style">Screen Size (inches)</div>
-          <Form.Group widths="equal" className="radio-group">
+          <Form.Group id="screen-size" widths="equal" className="radio-group">
             {
               screenSizes.map(val => (
                 <Form.Radio
@@ -97,7 +97,7 @@ class SpecsComponent extends React.Component {
           </Form.Group>
 
           <div className="label-style">Storage (GB)</div>
-          <Form.Group widths="equal" className="radio-group">
+          <Form.Group id="storage" widths="equal" className="radio-group">
             {
               storageSizes.map(val => (
                 <Form.Radio
@@ -112,7 +112,7 @@ class SpecsComponent extends React.Component {
           </Form.Group>
 
           <div className="label-style">Memory (GB)</div>
-          <Form.Group widths="equal" className="radio-group">
+          <Form.Group id="memory" widths="equal" className="radio-group">
             {
               memorySizes.map(val => (
                 <Form.Radio
@@ -127,7 +127,7 @@ class SpecsComponent extends React.Component {
           </Form.Group>
 
           <div className="label-style">Processor Type (Intel)</div>
-          <Form.Group widths="equal" className="radio-group">
+          <Form.Group id="processor-type" widths="equal" className="radio-group">
             {
               processorTypes.map(val => (
                 <Form.Radio

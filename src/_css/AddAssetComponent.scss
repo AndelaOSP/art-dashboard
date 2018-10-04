@@ -15,8 +15,8 @@
   color: $andela-blue;
 }
 
-.ui.ordered.steps .step.completed:before,
-.ui.steps .step.completed>.icon:before {
+.ui.ordered.steps .step.completed::before,
+.ui.steps .step.completed > .icon::before {
   color: $andela-orange;
 }
 
