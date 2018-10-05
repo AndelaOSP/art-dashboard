@@ -291,7 +291,7 @@ const mapStateToProps = ({
   modelNumbers: modelNumbersList,
   buttonLoading: assets.isLoading,
   loading: categoriesList.isLoading || subcategoriesList.isLoading ||
-                  assetTypesList.isLoading || assetMakesList.isLoading
+  assetTypesList.isLoading || assetMakesList.isLoading
 });
 
 export default connect(mapStateToProps, {
