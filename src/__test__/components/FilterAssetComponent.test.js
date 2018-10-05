@@ -50,6 +50,7 @@ describe('<FilterAssetComponent /> test cases', () => {
       assetTag: 'vgyuhijk',
       serialNumber: 'vgyuhj'
     });
-    expect(wrapper.find('.optional-label-text').exists()).toBe(true);
+
+    expect(wrapper.find('SaveButton').dive().find('.optional-label-text').exists()).toBe(true);
   });
 });

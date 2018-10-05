@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Divider, Grid, Header, Icon, Step } from 'semantic-ui-react';
-import { ToastMessage } from '../../_utils/ToastMessage';
 
 import FilterAssetComponent from '../../components/Assets/FilterAssetComponent';
 import SpecsComponent from '../../components/Assets/SpecsComponent';
@@ -13,10 +12,10 @@ import LoaderComponent from '../../components/LoaderComponent';
 import { loadCategoriesDropdown } from '../../_actions/category.actions';
 import { loadSubCategoriesDropdown } from '../../_actions/subcategory.actions';
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
-import { loadAssetMakes, loadAssetMakesDropdown } from '../../_actions/assetMakes.actions';
+import { loadAssetMakesDropdown } from '../../_actions/assetMakes.actions';
 import { loadModelNumbers } from '../../_actions/modelNumbers.actions';
 import { createAsset } from '../../_actions/asset.actions';
-import resetToastMessageContent from '../../_actions/toastMessage.actions';
+import { ACCEPTABLE_ASSET_TYPES } from '../../_enums';
 
 import {
   filterSubCategories,
@@ -26,6 +25,9 @@ import {
 } from '../../_utils/filterDropdowns';
 
 class AddAssetContainer extends React.Component {
+  step1 = 'Device_Information';
+  step2 = 'Device_Specifications';
+
   state = {
     filteredSubCategories: [],
     filteredAssetTypes: [],
@@ -35,18 +37,8 @@ class AddAssetContainer extends React.Component {
     selectedSubcategory: '',
     selectedAssetType: '',
     selectedAssetMake: '',
-    modelNumber: '',
-    serialNumber: '',
-    assetTag: '',
-    step: 1,
-    specs: {
-      year: '',
-      processorType: '',
-      processorSpeed: '',
-      screenSize: '',
-      storage: '',
-      memory: ''
-    }
+    step: this.step1,
+    specs: {}
   };
 
   componentDidMount() {
@@ -65,34 +57,6 @@ class AddAssetContainer extends React.Component {
     if (_.isEmpty(this.props.modelNumbers)) {
       this.props.loadModelNumbers();
     }
-  }
-
-  static getDerivedStateFromProps(nextProps) {
-    const { toastMessageContent } = nextProps;
-    if (toastMessageContent.type) {
-      if (toastMessageContent.type === 'success') {
-        ToastMessage.success({
-          message: toastMessageContent.message
-        });
-      } else if (toastMessageContent.type === 'error') {
-        ToastMessage.error({
-          message: toastMessageContent.message
-        });
-      }
-
-      nextProps.resetToastMessageContent();
-
-      return {
-        filteredSubCategories: [],
-        filteredAssetTypes: [],
-        filteredAssetMakes: [],
-        filteredModelNumbers: [],
-        modelNumber: 0,
-        serialNumber: '',
-        assetTag: ''
-      };
-    }
-    return null;
   }
 
   stepValidator = () => (
@@ -139,45 +103,48 @@ class AddAssetContainer extends React.Component {
     }
   };
 
-  onSelectModelNumber = (event, data) => {
+  handleInputChange = (event, data = {}) => {
     event.stopPropagation();
-    this.setState({ modelNumber: data.value });
-  };
 
-  onAddSerialNumber = (event) => {
-    this.setState({ serialNumber: event.target.value });
-  };
-
-  onAddAssetTag = (event) => {
-    this.setState({ assetTag: event.target.value });
+    // model numbers have value in data.
+    const name = event.target.name || data.name;
+    const value = event.target.value || data.value;
+    this.setState({ [name]: value });
   };
 
   onNextClicked = () => {
-    this.setState(({ step }) => ({ step: step + 1 }));
+    this.setState({ step: this.step2 });
   };
 
   goBack = () => {
-    this.setState(({ step }) => ({ step: step - 1 }));
+    this.setState({ step: this.step1 });
   };
 
   pickRadioValuesFromSpecsComponent = (data) => {
-    this.setState({ specs: data });
+    this.setState(previousState => ({
+      specs: {
+        ...previousState.specs,
+        ...data
+      }
+    }));
   };
 
   onCreateAsset = () => {
-    const newAssetDetails = {
+    let newAssetDetails = {
       asset_code: this.state.assetTag,
       serial_number: this.state.serialNumber,
       model_number: this.state.modelNumber
     };
 
-    if (_.isEmpty(this.state.specs)) {
-      newAssetDetails.year = this.state.specs.year;
-      newAssetDetails.processor_type = this.state.specs.processorType;
-      newAssetDetails.processor_speed = this.state.specs.processorSpeed;
-      newAssetDetails.screen_size = this.state.specs.screenSize;
-      newAssetDetails.storage = this.state.specs.storage;
-      newAssetDetails.memory = this.state.specs.memory;
+    if (!_.isEmpty(this.state.specs)) {
+      newAssetDetails = {
+        ...newAssetDetails,
+        year: this.state.specs.year,
+        processor_type: this.state.specs.processor_type,
+        processor_speed: this.state.specs.processor_speed,
+        storage: this.state.specs.storage,
+        memory: this.state.specs.memory
+      };
     }
 
     this.props.createAsset(newAssetDetails)
@@ -186,19 +153,15 @@ class AddAssetContainer extends React.Component {
 
   render() {
     const { step } = this.state;
+    const { loading } = this.props;
     const isDisabled = this.stepValidator();
     let stepContent;
     let step1Active;
     let step2Active;
-    const acceptableAssetTypes = [
-      'Macbook', 'Monitor', 'Monitors', 'Phone', 'Tablet'
-    ];
 
-    const isAssetSpecsAvailable = () =>
-      acceptableAssetTypes.indexOf(this.state.selectedAssetType) > -1;
+    const isAssetSpecsAvailable = ACCEPTABLE_ASSET_TYPES.indexOf(this.state.selectedAssetType) > -1;
 
-    if (Object.values(this.props.isLoadingState)
-      .find(loading => loading)) {
+    if (loading) {
       return (
         <NavbarComponent>
           <LoaderComponent />
@@ -206,39 +169,36 @@ class AddAssetContainer extends React.Component {
       );
     }
 
-    if (step === 1) {
-      step1Active = step === 1;
+    if (step === this.step1) {
+      step1Active = step === this.step1;
 
       stepContent = (
         <div className="add-asset__device-info">
           <FilterAssetComponent
-            {...this.props}
+            categories={this.props.categories}
             handleDropdownChanges={this.handleDropdownChanges}
             filteredSubCategories={this.state.filteredSubCategories}
             filteredAssetTypes={this.state.filteredAssetTypes}
             filteredAssetMakes={this.state.filteredAssetMakes}
             filteredModelNumbers={this.state.filteredModelNumbers}
-            onSelectModelNumber={this.onSelectModelNumber}
-            onAddSerialNumber={this.onAddSerialNumber}
-            onAddAssetTag={this.onAddAssetTag}
+            handleInputChange={this.handleInputChange}
             selectedCategory={this.state.selectedCategory}
             selectedSubcategory={this.state.selectedSubcategory}
             selectedAssetType={this.state.selectedAssetType}
             selectedAssetMake={this.state.selectedAssetMake}
-            modelNumber={this.state.modelNumber}
-            serialNumber={this.state.serialNumber}
-            assetTag={this.state.assetTag}
+            modelNumber={this.state.modelNumber || ''}
+            serialNumber={this.state.serialNumber || ''}
+            assetTag={this.state.assetTag || ''}
             isDisabled={isDisabled}
             onNextClicked={this.onNextClicked}
-            isAssetSpecsAvailable={isAssetSpecsAvailable()}
-            onChangeButtonState={this.onChangeButtonState}
+            isAssetSpecsAvailable={isAssetSpecsAvailable}
             buttonLoading={this.props.buttonLoading}
             onCreateAsset={this.onCreateAsset}
           />
         </div>
       );
-    } else if (step === 2) {
-      step2Active = step === 2;
+    } else if (step === this.step2) {
+      step2Active = step === this.step2;
 
       stepContent = (
         <div className="add-asset__device-specs">
@@ -246,7 +206,6 @@ class AddAssetContainer extends React.Component {
             specs={this.state.specs}
             goBack={this.goBack}
             buttonLoading={this.props.buttonLoading}
-            onChangeButtonState={this.onChangeButtonState}
             onCreateAsset={this.onCreateAsset}
             pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
           />
@@ -297,18 +256,14 @@ AddAssetContainer.propTypes = {
   assetTypes: PropTypes.array,
   assetMakes: PropTypes.array,
   modelNumbers: PropTypes.array,
-  assets: PropTypes.array,
-  toastMessageContent: PropTypes.object,
   loadCategoriesDropdown: PropTypes.func.isRequired,
   loadSubCategoriesDropdown: PropTypes.func.isRequired,
   loadAssetTypes: PropTypes.func.isRequired,
-  loadAssetMakes: PropTypes.func.isRequired,
   loadAssetMakesDropdown: PropTypes.func.isRequired,
   loadModelNumbers: PropTypes.func.isRequired,
   createAsset: PropTypes.func.isRequired,
-  resetToastMessageContent: PropTypes.func.isRequired,
-  isLoadingState: PropTypes.object.isRequired,
-  buttonLoading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  buttonLoading: PropTypes.bool,
   history: PropTypes.object
 };
 
@@ -318,11 +273,6 @@ AddAssetContainer.defaultProps = {
   assetTypes: [],
   assetMakes: [],
   modelNumbers: [],
-  assets: [],
-  toastMessageContent: {
-    type: '',
-    message: ''
-  },
   history: {}
 };
 
@@ -332,32 +282,23 @@ const mapStateToProps = ({
   assetTypesList,
   assetMakesList,
   modelNumbersList,
-  assets,
-  toastMessage
+  assets
 }) => ({
   categories: categoriesList.categoriesDropdown,
   subcategories: subcategoriesList.assetSubCategoriesDropdown,
   assetTypes: assetTypesList.assetTypes,
   assetMakes: assetMakesList.assetMakes,
   modelNumbers: modelNumbersList,
-  assets: assets.assetsList,
-  toastMessageContent: toastMessage,
   buttonLoading: assets.isLoading,
-  isLoadingState: {
-    isLoadingCategories: categoriesList.isLoading,
-    isLoadingSubcategories: subcategoriesList.isLoading,
-    isLoadingAssetTypes: assetTypesList.isLoading,
-    isLoadingAssetMakes: assetMakesList.isLoading
-  }
+  loading: categoriesList.isLoading || subcategoriesList.isLoading ||
+                  assetTypesList.isLoading || assetMakesList.isLoading
 });
 
 export default connect(mapStateToProps, {
   loadCategoriesDropdown,
   loadSubCategoriesDropdown,
   loadAssetTypes,
-  loadAssetMakes,
   loadAssetMakesDropdown,
   loadModelNumbers,
-  createAsset,
-  resetToastMessageContent
+  createAsset
 })(AddAssetContainer);

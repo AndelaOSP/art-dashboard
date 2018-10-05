@@ -5,7 +5,6 @@ import Specs from '../../components/Assets/SpecsComponent';
 
 const props = {
   pickRadioValuesFromSpecsComponent: jest.fn(),
-  onChangeButtonState: jest.fn(),
   goBack: jest.fn(),
   onCreateAsset: jest.fn(),
   buttonLoading: false,
@@ -49,27 +48,15 @@ describe('<SpecsComponent /> test cases', () => {
     expect(wrapper.find('#screen-size').find('FormRadio').first().props().name).toBe('screenSize');
   });
 
-  it('calls the handleRadioChanges function', () => {
-    const handleRadioChangesSpy = jest.spyOn(
-      wrapper.instance(), 'handleRadioChanges'
+  it('calls the handleChange function', () => {
+    const handleChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleChange'
     );
 
     const event = {};
     const data = {};
 
-    wrapper.instance().handleRadioChanges(event, data);
-    expect(handleRadioChangesSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the onSelectYearOfManufacture function', () => {
-    const onSelectYearOfManufactureSpy = jest.spyOn(
-      wrapper.instance(), 'onSelectYearOfManufacture'
-    );
-
-    const event = {};
-    const data = {};
-
-    wrapper.instance().onSelectYearOfManufacture(event, data);
-    expect(onSelectYearOfManufactureSpy.mock.calls.length).toEqual(1);
+    wrapper.instance().handleChange(event, data);
+    expect(handleChangeSpy.mock.calls.length).toEqual(1);
   });
 });

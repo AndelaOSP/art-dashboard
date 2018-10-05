@@ -21,7 +21,12 @@ export class AssetsComponent extends Component {
   componentDidMount() {
     this.props.loadAllAssetModels();
     this.props.loadDropdownAssetTypes();
-    if (isEmpty(this.props.assetsList)) {
+    const assetsEmpty = isEmpty(this.props.assetsList);
+
+    // TODO: fix the logic so that assets are fetched when you create an asset before fetching
+    // assets, otherwise, you'll only display 1 row in assets table yet there are more than one
+    // assets
+    if (assetsEmpty || (!assetsEmpty && this.props.assetsList.length === 1)) {
       this.props.getAssetsAction(this.props.activePage, this.state.limit);
     }
   }

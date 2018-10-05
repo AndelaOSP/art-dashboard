@@ -19,12 +19,7 @@ const props = {
   loadModelNumbers: jest.fn(),
   createAsset: async () => {},
   resetToastMessageContent: jest.fn(),
-  isLoadingState: {
-    isLoadingCategories: false,
-    isLoadingSubcategories: false,
-    isLoadingAssetTypes: false,
-    isLoadingAssetMakes: false
-  },
+  loading: false,
   buttonLoading: false,
   history: {
     push: jest.fn()
@@ -39,17 +34,17 @@ describe('<AddAssetContainer /> test cases', () => {
   });
 
   it('renders step 1 if step 1 is active', () => {
-    wrapper.setState({ step: 1 });
+    wrapper.setState({ step: 'Device_Information' });
     expect(wrapper.find('FilterAssetComponent').exists()).toBe(true);
   });
 
   it('renders step 2 if step 2 is active', () => {
-    wrapper.setState({ step: 2 });
+    wrapper.setState({ step: 'Device_Specifications' });
     expect(wrapper.find('SpecsComponent').exists()).toBe(true);
   });
 
   it('renders loader if loading state is true', () => {
-    wrapper.setProps({ isLoadingState: { isLoadingCategories: true } });
+    wrapper.setProps({ loading: { loading: true } });
     expect(wrapper.find('LoaderComponent').exists()).toBe(true);
   });
 
