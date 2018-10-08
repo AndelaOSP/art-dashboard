@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Divider, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
 import { loadAssetAssigneeUsers } from '../_actions/users.actions';
 import AssetDetailContent from './AssetDetailContent';
@@ -54,7 +54,10 @@ export class AssetDetailComponent extends Component {
     return (
       <NavbarComponent>
         <Container>
-          <Header as="h1" content="Asset Detail" className="asset-detail-header" />
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Asset Detail" />
+            <Divider id="assets-divider" />
+          </div>
           {renderedComponent}
         </Container>
       </NavbarComponent>
