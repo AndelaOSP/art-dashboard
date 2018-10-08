@@ -7,6 +7,7 @@ import constants from '../_constants';
 import { updateToastMessageContent } from './toastMessage.actions';
 
 const {
+  CREATE_ASSET_REQUEST,
   CREATE_ASSET_SUCCESS,
   CREATE_ASSET_FAIL,
   LOADING_ASSET,
@@ -19,14 +20,20 @@ const {
   BUTTON_LOADING
 } = constants;
 
-export const createAsset = assetDetail => (dispatch => axios.post('manage-assets', assetDetail).then((response) => {
-  dispatch(createAssetSuccess(response.data));
-  dispatch(updateToastMessageContent('Asset Saved Successfully',
-    'success'));
-}).catch((error) => {
-  dispatch(createAssetFail(error));
-  dispatch(updateToastMessageContent('Could Not Save The Asset', 'error'));
-}));
+export const createAsset = assetDetail => (dispatch) => {
+  dispatch(createAssetRequest());
+
+  return axios.post('manage-assets', assetDetail).then((response) => {
+    dispatch(createAssetSuccess(response.data));
+    dispatch(updateToastMessageContent('Asset Saved Successfully',
+      'success'));
+  }).catch((error) => {
+    dispatch(createAssetFail(error));
+    dispatch(updateToastMessageContent('Could Not Save The Asset', 'error'));
+  });
+};
+
+export const createAssetRequest = asset => ({ type: CREATE_ASSET_REQUEST, payload: asset });
 
 export const createAssetSuccess = asset => ({ type: CREATE_ASSET_SUCCESS, payload: asset });
 

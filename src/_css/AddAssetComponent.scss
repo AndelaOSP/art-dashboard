@@ -1,12 +1,28 @@
-// styling for add asset component
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
 
-.optional-label-text {
-  margin: 3% 0;
+.add-asset {
+  padding: 0 110px;
+  text-align: left;
 }
 
-.optional-label-text label {
-  font-weight: bold;
+.ui.steps .step .title,
+.ui.steps .step .description {
+  font-family: $base-font, $fallback-font, Lato, Helvetica, Arial, sans-serif;
+}
+
+.ui.steps .step.active .title {
+  color: $andela-blue;
+}
+
+.ui.ordered.steps .step.completed::before,
+.ui.steps .step.completed > .icon::before {
+  color: $andela-orange;
+}
+
+.optional-label-text > p {
+  margin: 3% 0;
+  font-weight: 900;
 }
 
 #processor-speed .field {
@@ -17,14 +33,16 @@
   margin-top: 4%;
 }
 
-.ui.fluid.search.selection.upward.dropdown.add-asset-dropdown {
-  width: 90%;
-}
-
-.ui.large.input.input-style {
-  width: 90%;
-}
-
 .ui.form.add-asset-form {
   padding-bottom: 5%;
+
+  .radio-group {
+    margin-top: 10px;
+  }
+}
+
+@include small {
+  .add-asset {
+    padding: 0 30px;
+  }
 }
