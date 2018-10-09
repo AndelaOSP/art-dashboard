@@ -14,6 +14,13 @@
   width: 90px;
 }
 
+@include tablet {
+  .feedback-list {
+    padding: 0 30px;
+  }
+}
+
+
 @include small {
   .feedback-list {
     padding: 0 30px;

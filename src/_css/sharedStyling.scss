@@ -43,6 +43,23 @@ input,
   font-style: normal;
 }
 
+body {
+  overflow: auto;
+}
+
+body::-webkit-scrollbar {
+  width: 3px;
+}
+
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: $andela-orange;
+  outline: 1px solid #708090;
+}
+
 @mixin blue-rounded-buttons {
   background-color: $andela-blue;
   border: solid 1px $border-color;
