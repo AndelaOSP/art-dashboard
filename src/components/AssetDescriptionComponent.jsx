@@ -15,7 +15,6 @@ import '../_css/AssetDescriptionComponent.css';
 
 class AssetDescriptionComponent extends React.Component {
   state = {
-    assignedUser: {},
     assignAssetButtonState: true,
     selectedUser: 0,
     UNITS: {
@@ -25,6 +24,7 @@ class AssetDescriptionComponent extends React.Component {
       memory: 'GB'
     }
   };
+
 
   onSelectUserEmail = (event, data) => {
     this.setState({ selectedUser: data.value, assignAssetButtonState: false });
@@ -53,32 +53,32 @@ class AssetDescriptionComponent extends React.Component {
 
   handleAssign = () => {
     const { selectedUser } = this.state;
-    const { id } = this.props.assetDetail;
+    const { id, uuid } = this.props.assetDetail;
     const assetAllocated = {
       asset: id,
       current_owner: selectedUser
     };
-    this.props.allocateAsset(assetAllocated, this.state.serialNumber);
+    this.props.allocateAsset(assetAllocated, uuid);
   };
 
   handleUnassign = () => {
-    const { id } = this.props.assetDetail;
+    const { id, uuid } = this.props.assetDetail;
     const assetAssigned = {
       asset: id,
       current_status: 'Available'
     };
-    this.props.unassignAsset(assetAssigned, this.props.serialNumber);
+    this.props.unassignAsset(assetAssigned, uuid);
   };
 
   handleConfirm = () => {
-    if (isEmpty(values(this.state.assignedUser))) {
+    if (isEmpty(values(this.props.assignedUser))) {
       return this.handleAssign();
     }
     return this.handleUnassign();
   };
 
   triggerProps = () => {
-    if (isEmpty(values(this.state.assignedUser))) {
+    if (isEmpty(values(this.props.assignedUser))) {
       return {
         buttonName: 'Assign Asset',
         customCss: 'assign-asset',
@@ -96,10 +96,9 @@ class AssetDescriptionComponent extends React.Component {
   };
 
   render() {
-    const { onSelectUserEmail, assignedUser } = this.state;
     const {
       users,
-      selectedUserId,
+      assignedUser,
       toggleModal,
       buttonState,
       buttonLoading,
@@ -118,10 +117,10 @@ class AssetDescriptionComponent extends React.Component {
           </Grid.Column>
           <Grid.Column>
             <AssignedTo
-              onSelectUserEmail={onSelectUserEmail}
+              onSelectUserEmail={this.onSelectUserEmail}
               assignedUser={assignedUser}
               users={users}
-              selectedUserId={selectedUserId}
+              selectedUserId={this.state.selectedUser}
             />
             <ModalComponent
               trigger={<ButtonComponent {...triggerProps} />}

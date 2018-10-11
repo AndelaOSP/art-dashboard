@@ -11,6 +11,7 @@ import LoaderComponent from './LoaderComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
+    assignedUser: {},
     serialNumber: '',
     hasError: this.props.hasError,
     errorMessage: this.props.errorMessage
@@ -24,6 +25,13 @@ export class AssetDetailComponent extends Component {
     if (isEmpty(assetAsigneeUsers)) {
       this.props.loadAssetAssigneeUsers();
     }
+  }
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      assignedUser: nextProps.assetDetail.assigned_to,
+      hasError: nextProps.hasError,
+      errorMessage: nextProps.errorMessage
+    };
   }
 
   getAssetId(pathName) {
@@ -40,6 +48,8 @@ export class AssetDetailComponent extends Component {
     } else {
       renderedComponent = (
         <AssetDetailContent
+          {...this.props}
+          assignedUser={this.state.assignedUser}
           assetDetail={this.props.assetDetail}
           errorMessage={this.state.errorMessage}
           hasError={this.state.hasError}
@@ -91,7 +101,7 @@ const mapStateToProps = ({ asset, usersList }, props) => {
 
   return {
     assetAsigneeUsers,
-    assetDetail: isEmpty(props.location.state) ? assetDetail : props.location.state,
+    assetDetail: isEmpty(assetDetail) ? props.location.state : assetDetail,
     newAllocation,
     unAssignedAsset,
     errorMessage,
