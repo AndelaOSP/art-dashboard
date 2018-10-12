@@ -25,7 +25,6 @@ class AssetDescriptionComponent extends React.Component {
     }
   };
 
-
   onSelectUserEmail = (event, data) => {
     this.setState({ selectedUser: data.value, assignAssetButtonState: false });
   };

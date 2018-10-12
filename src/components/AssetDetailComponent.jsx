@@ -12,15 +12,15 @@ import LoaderComponent from './LoaderComponent';
 export class AssetDetailComponent extends Component {
   state = {
     assignedUser: {},
-    serialNumber: '',
     hasError: this.props.hasError,
     errorMessage: this.props.errorMessage
   };
 
   componentDidMount() {
-    const { assetDetail, assetAsigneeUsers } = this.props;
+    const { assetDetail, assetAsigneeUsers, match } = this.props;
     if (isEmpty(assetDetail)) {
-      this.getAssetId(this.props.location.pathname);
+      const { id } = match.params;
+      this.props.getAssetDetail(id);
     }
     if (isEmpty(assetAsigneeUsers)) {
       this.props.loadAssetAssigneeUsers();
@@ -34,12 +34,6 @@ export class AssetDetailComponent extends Component {
     };
   }
 
-  getAssetId(pathName) {
-    const stringArray = pathName.split('/');
-    const serialNumber = stringArray[2];
-    this.setState({ serialNumber });
-    this.props.getAssetDetail(serialNumber);
-  }
 
   render() {
     let renderedComponent;
@@ -58,7 +52,7 @@ export class AssetDetailComponent extends Component {
           handleCancel={this.handleCancel}
           buttonState={this.props.buttonLoading}
           users={this.props.assetAsigneeUsers}
-          serialNumber={this.state.serialNumber}
+          serialNumber={this.props.match.params.id}
         />);
     }
     return (
@@ -84,7 +78,8 @@ AssetDetailComponent.propTypes = {
   isLoading: PropTypes.bool,
   buttonLoading: PropTypes.bool,
   location: PropTypes.object,
-  assetAsigneeUsers: PropTypes.array
+  assetAsigneeUsers: PropTypes.array,
+  match: PropTypes.object
 };
 
 const mapStateToProps = ({ asset, usersList }, props) => {
