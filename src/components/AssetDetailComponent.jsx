@@ -71,7 +71,7 @@ AssetDetailComponent.propTypes = {
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.object,
+  isLoading: PropTypes.bool,
   buttonLoading: PropTypes.bool,
   location: PropTypes.object,
   assetAsigneeUsers: PropTypes.array
@@ -87,10 +87,8 @@ const mapStateToProps = ({ asset, usersList }, props) => {
     buttonLoading
   } = asset;
   const { assetAsigneeUsers } = usersList;
-  const isLoading = {
-    assetsLoading: asset.isLoading,
-    usersLoading: usersList.isLoading
-  };
+  const isLoading = asset.isLoading || usersList.isLoading;
+
   return {
     assetAsigneeUsers,
     assetDetail: isEmpty(props.location.state) ? assetDetail : props.location.state,

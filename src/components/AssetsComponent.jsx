@@ -149,18 +149,19 @@ AssetsComponent.propTypes = {
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   history: PropTypes.object,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   assetModels: PropTypes.arrayOf(PropTypes.object),
   assetTypes: PropTypes.arrayOf(PropTypes.object),
   activePage: PropTypes.number,
-  selected: PropTypes.array.isRequired,
+  selected: PropTypes.object.isRequired,
   filterSelection: PropTypes.func.isRequired
 };
 
 AssetsComponent.defaultProps = {
   assetsList: [],
   errorMessage: '',
-  activePage: 1
+  activePage: 1,
+  isLoading: false
 };
 
 const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selected }) => {

@@ -11,7 +11,7 @@ import LoaderComponent from './LoaderComponent';
 import '../_css/AssetDetailContent.css';
 
 const AssetDetailContent = (props) => {
-  if (Object.values(props.isLoading).find(loading => loading)) {
+  if (props.isLoading) {
     return (
       <LoaderComponent />
     );
@@ -138,7 +138,11 @@ AssetDetailContent.propTypes = {
   assignedUser: PropTypes.object,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.object
+  isLoading: PropTypes.bool
+};
+
+AssetDetailContent.defaultProps = {
+  isLoading: false
 };
 
 export default AssetDetailContent;

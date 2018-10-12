@@ -152,7 +152,11 @@ AssetSpecsComponent.propTypes = {
   loadAssetSpecs: PropTypes.func.isRequired,
   specs: PropTypes.array.isRequired,
   assetSpecsCount: PropTypes.number.isRequired,
-  hasError: PropTypes.bool.isRequired
+  hasError: PropTypes.bool
+};
+
+AssetSpecsComponent.defaultProps = {
+  hasError: false
 };
 
 export default withRouter(connect(mapStateToProps, {

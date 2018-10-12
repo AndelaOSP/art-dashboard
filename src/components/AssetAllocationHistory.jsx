@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Container, Table } from 'semantic-ui-react';
+import uuidv4 from 'uuid/v4';
 import FormatDate from '../_utils/dateFormatter';
-import TableRowComponent from './TableRowComponent';
+import TableRow from './TableRowComponent';
+
 import '../_css/AssetAllocationHistory.css';
 
 const AssetAllocationHistory = ({ allocationHistory }) => {
@@ -37,8 +39,8 @@ const AssetAllocationHistory = ({ allocationHistory }) => {
               }
               allocationRecord.created_at = FormatDate(allocationRecord.created_at);
               return (
-                <TableRowComponent
-                  key={allocationRecord.id}
+                <TableRow
+                  key={uuidv4()}
                   data={allocationRecord}
                   headings={['created_at', 'current_owner', 'previous_owner']}
                 />

@@ -72,11 +72,12 @@ ModelNumberComponent.propTypes = {
   assetMakes: PropTypes.array,
   assetMakeSelectedId: PropTypes.number,
   buttonState: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool
 };
 
 ModelNumberComponent.defaultProps = {
-  assetMakes: []
+  assetMakes: [],
+  isLoading: false
 };
 
 export default ModelNumberComponent;

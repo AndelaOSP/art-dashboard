@@ -74,7 +74,7 @@ const UserComponent = (props) => {
                   <Segment>
                     <Pagination
                       id="art-pagination-component"
-                      totalPages={props.handlePageTotal()}
+                      totalPages={props.handlePageTotal() || 1}
                       onPageChange={props.handlePaginationChange}
                       activePage={props.activePage}
                     />
@@ -102,19 +102,21 @@ const UserComponent = (props) => {
 UserComponent.propTypes = {
   activePage: PropTypes.number,
   activePageUsers: PropTypes.arrayOf(PropTypes.object),
-  emptyUsersList: PropTypes.func.isRequired,
+  emptyUsersList: PropTypes.func,
   errorMessage: PropTypes.string,
   handlePageTotal: PropTypes.func,
   handleRowChange: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   limit: PropTypes.number
 };
 
 UserComponent.defaultProps = {
   activePage: 1,
-  errorMessage: ''
+  errorMessage: '',
+  emptyUsersList: () => {},
+  isLoading: false
 };
 
 export default UserComponent;
