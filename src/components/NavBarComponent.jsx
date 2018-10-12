@@ -9,7 +9,7 @@ import {
   Menu,
   Icon,
   Image,
-  Sidebar
+  Transition
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
@@ -74,94 +74,97 @@ export class NavBarComponent extends Component {
     const token = jwt.decode(localStorage.getItem('art-prod-web-token'));
     const { picture } = token || {};
 
+    const topBarClass = visible ? 'top-bar-height-open' : 'top-bar-height-closed';
+
+    const pageContentClass = visible ? 'page-content-margin-open' : 'page-content-margin-closed';
+
     return (
       <React.Fragment>
-        <Menu id="nav-bar" secondary stackable>
-          <Menu.Item id="toggle-menu" name="menu" onClick={this.toggleVisibility}>
-            {this.navButton()}
-          </Menu.Item>
-
-          <Menu.Item>
-            <Link to="/dashboard">
-              <Image id="banner" src="/images/andela_logo_blue_landscape.png" />
-            </Link>
-          </Menu.Item>
-
-          <Menu.Menu id="search-menu">
-            <Menu.Item>
-              <Input id="nav-search" className="icon" icon="search" placeholder="Search..." />
+        <div className={`top-bar ${topBarClass}`}>
+          <Menu id="nav-bar" secondary stackable>
+            <Menu.Item id="toggle-menu" name="menu" onClick={this.toggleVisibility}>
+              {this.navButton()}
             </Menu.Item>
-          </Menu.Menu>
 
-          <Menu.Menu position="right">
             <Menu.Item>
-              <Link to="/assets/create">
-                <Button
-                  className="add-asset"
-                  size="small"
-                >
-                  ADD ASSET
-                </Button>
+              <Link to="/dashboard">
+                <Image id="banner" src="/images/andela_logo_blue_landscape.png" />
               </Link>
             </Menu.Item>
 
-            <Menu.Item>
-              <Icon.Group>
-                <Icon id="notification-icon" circular inverted name="bell" />
-                <Icon corner name="circle" />
-              </Icon.Group>
-            </Menu.Item>
+            <Menu.Menu id="search-menu">
+              <Menu.Item>
+                <Input id="nav-search" className="icon" icon="search" placeholder="Search..." />
+              </Menu.Item>
+            </Menu.Menu>
 
-            <Dropdown
-              item
-              trigger={<span><Image id="user-avatar" src={picture || ''} avatar /></span>}
-              pointing="top left"
-              icon={null}
-            >
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  id="logout"
-                  onClick={this.handleLogout}
-                >
-                  Logout
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu.Menu>
-        </Menu>
+            <Menu.Menu position="right">
+              <Menu.Item>
+                <Link to="/assets/create">
+                  <Button
+                    className="add-asset"
+                    size="small"
+                  >
+                    ADD ASSET
+                  </Button>
+                </Link>
+              </Menu.Item>
 
-        <Sidebar.Pushable id="nav-bar2">
-          <Sidebar
-            animation="push"
-            direction="top"
-            visible={visible}
-          >
-            <Grid textAlign="center">
-              <Grid columns={6} className="navigation-bar">
-                {
-                  this.navigationLinks.map(nav => (
-                    <Grid.Column key={nav.url} mobile={8} tablet={3} computer={2}>
-                      <Link to={nav.url}>
-                        <span>
-                          <Image
-                            className="nav-images"
-                            src={nav.imgSrc}
-                          />
-                        </span>
+              <Menu.Item>
+                <Icon.Group>
+                  <Icon id="notification-icon" circular inverted name="bell" />
+                  <Icon corner name="circle" />
+                </Icon.Group>
+              </Menu.Item>
 
-                        {nav.title}
-                      </Link>
-                    </Grid.Column>
-                  ))
-                }
+              <Dropdown
+                item
+                trigger={<span><Image id="user-avatar" src={picture || ''} avatar /></span>}
+                pointing="top left"
+                icon={null}
+              >
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    id="logout"
+                    onClick={this.handleLogout}
+                  >
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Menu.Menu>
+          </Menu>
+
+          <Transition.Group animation="fade down" duration="700">
+            {
+              visible &&
+              <Grid className="collapsible-menu" textAlign="center">
+                <Grid columns={6} className="navigation-bar">
+                  {
+                    this.navigationLinks.map(nav => (
+                      <Grid.Column key={nav.url} mobile={8} tablet={3} computer={2}>
+                        <Link to={nav.url}>
+                          <span>
+                            <Image
+                              className="nav-images"
+                              src={nav.imgSrc}
+                            />
+                          </span>
+
+                          {nav.title}
+                        </Link>
+                      </Grid.Column>
+                    ))
+                  }
+                </Grid>
               </Grid>
-            </Grid>
-          </Sidebar>
+            }
+          </Transition.Group>
+        </div>
 
-          <Sidebar.Pusher>
-            {this.props.children}
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
+        <div className={`page-content ${pageContentClass}`}>
+          {this.props.children}
+        </div>
       </React.Fragment>
     );
   }
