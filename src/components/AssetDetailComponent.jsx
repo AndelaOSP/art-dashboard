@@ -42,7 +42,7 @@ export class AssetDetailComponent extends Component {
     } else {
       renderedComponent = (
         <AssetDetailContent
-          {...this.props}
+          buttonLoading={this.props.buttonLoading}
           assignedUser={this.state.assignedUser}
           assetDetail={this.props.assetDetail}
           errorMessage={this.state.errorMessage}
@@ -77,7 +77,6 @@ AssetDetailComponent.propTypes = {
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
   buttonLoading: PropTypes.bool,
-  location: PropTypes.object,
   assetAsigneeUsers: PropTypes.array,
   match: PropTypes.object
 };
