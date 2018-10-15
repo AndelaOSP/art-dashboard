@@ -11,27 +11,29 @@ import LoaderComponent from './LoaderComponent';
 
 export class AssetDetailComponent extends Component {
   state = {
-    serialNumber: '',
+    assignedUser: {},
     hasError: this.props.hasError,
     errorMessage: this.props.errorMessage
   };
 
   componentDidMount() {
-    const { assetDetail, assetAsigneeUsers } = this.props;
+    const { assetDetail, assetAsigneeUsers, match } = this.props;
     if (isEmpty(assetDetail)) {
-      this.getAssetId(this.props.location.pathname);
+      const { id } = match.params;
+      this.props.getAssetDetail(id);
     }
     if (isEmpty(assetAsigneeUsers)) {
       this.props.loadAssetAssigneeUsers();
     }
   }
-
-  getAssetId(pathName) {
-    const stringArray = pathName.split('/');
-    const serialNumber = stringArray[2];
-    this.setState({ serialNumber });
-    this.props.getAssetDetail(serialNumber);
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      assignedUser: nextProps.assetDetail.assigned_to,
+      hasError: nextProps.hasError,
+      errorMessage: nextProps.errorMessage
+    };
   }
+
 
   render() {
     let renderedComponent;
@@ -40,6 +42,8 @@ export class AssetDetailComponent extends Component {
     } else {
       renderedComponent = (
         <AssetDetailContent
+          buttonLoading={this.props.buttonLoading}
+          assignedUser={this.state.assignedUser}
           assetDetail={this.props.assetDetail}
           errorMessage={this.state.errorMessage}
           hasError={this.state.hasError}
@@ -48,7 +52,7 @@ export class AssetDetailComponent extends Component {
           handleCancel={this.handleCancel}
           buttonState={this.props.buttonLoading}
           users={this.props.assetAsigneeUsers}
-          serialNumber={this.state.serialNumber}
+          serialNumber={this.props.match.params.id}
         />);
     }
     return (
@@ -73,8 +77,8 @@ AssetDetailComponent.propTypes = {
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
   buttonLoading: PropTypes.bool,
-  location: PropTypes.object,
-  assetAsigneeUsers: PropTypes.array
+  assetAsigneeUsers: PropTypes.array,
+  match: PropTypes.object
 };
 
 const mapStateToProps = ({ asset, usersList }, props) => {
@@ -91,7 +95,7 @@ const mapStateToProps = ({ asset, usersList }, props) => {
 
   return {
     assetAsigneeUsers,
-    assetDetail: isEmpty(props.location.state) ? assetDetail : props.location.state,
+    assetDetail: isEmpty(assetDetail) ? props.location.state : assetDetail,
     newAllocation,
     unAssignedAsset,
     errorMessage,
