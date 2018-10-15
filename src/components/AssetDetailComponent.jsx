@@ -42,7 +42,6 @@ export class AssetDetailComponent extends Component {
     } else {
       renderedComponent = (
         <AssetDetailContent
-          {...this.props}
           buttonLoading={this.props.buttonLoading}
           assignedUser={this.state.assignedUser}
           assetDetail={this.props.assetDetail}
