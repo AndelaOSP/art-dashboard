@@ -17,6 +17,11 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     isLoading: false,
     location: {
       pathname: ''
+    },
+    match: {
+      params: {
+        id: ''
+      }
     }
   };
   const wrapper = shallow(<AssetDetailComponent {...props} />);
