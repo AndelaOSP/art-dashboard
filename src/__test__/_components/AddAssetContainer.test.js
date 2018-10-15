@@ -41,7 +41,7 @@ describe('<AddAssetContainer /> test cases', () => {
   });
 
   it('renders loader if loading state is true', () => {
-    wrapper.setProps({ loading: { loading: true } });
+    wrapper.setProps({ loading: true });
     expect(wrapper.find('LoaderComponent').exists()).toBe(true);
   });
 

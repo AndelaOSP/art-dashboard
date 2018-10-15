@@ -65,10 +65,17 @@ class FilterButton extends React.Component {
 
 FilterButton.propTypes = {
   children: PropTypes.node,
-  filterAction: PropTypes.func.isRequired,
-  activePage: PropTypes.number.isRequired,
-  limit: PropTypes.number.isRequired,
-  selected: PropTypes.object.isRequired
+  filterAction: PropTypes.func,
+  activePage: PropTypes.number,
+  limit: PropTypes.number,
+  selected: PropTypes.object
+};
+
+FilterButton.defaultProps = {
+  filterAction: () => {},
+  activePage: 1,
+  limit: 10,
+  selected: {}
 };
 
 export default FilterButton;

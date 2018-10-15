@@ -35,8 +35,12 @@ const SaveButton = props => (
 
 SaveButton.propTypes = {
   hasSpecs: PropTypes.bool.isRequired,
-  buttonLoading: PropTypes.bool.isRequired,
+  buttonLoading: PropTypes.bool,
   isDisabled: PropTypes.bool.isRequired
+};
+
+SaveButton.defaultProps = {
+  buttonLoading: false
 };
 
 const FilterAssetComponent = (props) => {
@@ -184,7 +188,8 @@ FilterAssetComponent.defaultTypes = {
   filteredAssetMakes: [],
   filteredModelNumbers: [],
   categories: [],
-  isAssetSpecsAvailable: false
+  isAssetSpecsAvailable: false,
+  handleInputChange: () => {}
 };
 
 export default FilterAssetComponent;

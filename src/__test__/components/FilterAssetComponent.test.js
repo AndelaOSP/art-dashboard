@@ -25,7 +25,8 @@ const props = {
   serialNumber: '',
   onChangeButtonState: jest.fn(),
   isAssetSpecsAvailable: false,
-  onCreateAsset: jest.fn()
+  onCreateAsset: jest.fn(),
+  handleInputChange: jest.fn()
 };
 
 describe('<FilterAssetComponent /> test cases', () => {

@@ -14,8 +14,8 @@ const AuthenticateComponent = ({ component: Component, isAuthenticated, ...optio
 );
 
 AuthenticateComponent.propTypes = {
-  location: PropTypes.string,
-  component: PropTypes.element,
+  location: PropTypes.object,
+  component: PropTypes.func,
   isAuthenticated: PropTypes.bool
 };
 

@@ -151,9 +151,13 @@ const mapStateToProps = ({ assetMakesList }) => {
 AssetMakeComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadAssetMakes: PropTypes.func.isRequired,
-  loadAssetConditions: PropTypes.func.isRequired,
+  loadAssetConditions: PropTypes.func,
   assetMakes: PropTypes.array.isRequired,
   assetMakesCount: PropTypes.number.isRequired
+};
+
+AssetMakeComponent.defaultProps = {
+  loadAssetConditions: () => {}
 };
 
 export default withRouter(connect(mapStateToProps, {
