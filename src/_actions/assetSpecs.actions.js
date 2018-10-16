@@ -4,7 +4,10 @@ import constants from '../_constants';
 const {
   LOAD_ASSET_SPECS_FAILURE,
   LOAD_ASSET_SPECS_SUCCESS,
-  LOAD_ASSET_SPECS_START
+  LOAD_ASSET_SPECS_START,
+  CREATE_ASSET_SPECS_REQUEST,
+  CREATE_ASSET_SPECS_SUCCESS,
+  CREATE_ASSET_SPECS_FAILURE
 } = constants;
 
 /**
@@ -33,3 +36,35 @@ export const loadAssetSpecs = pageNumber =>
       })
       .catch(() => dispatch({ type: LOAD_ASSET_SPECS_FAILURE }));
   };
+
+export const createAssetSpec = assetSpec => (dispatch) => {
+  dispatch(createAssetSpecRequest());
+
+  return axios.post('asset-specs', assetSpec)
+    .then((response) => {
+      dispatch(createAssetSpecSuccess(response.data));
+    })
+    .catch((error) => {
+      dispatch(createAssetSpecFailure(error));
+    })
+};
+
+export const createAssetSpecRequest = () => {
+  return {
+    type: CREATE_ASSET_SPECS_REQUEST
+  }
+};
+
+export const createAssetSpecSuccess = assetSpec => {
+  return {
+    type: CREATE_ASSET_SPECS_SUCCESS,
+    payload: assetSpec
+  }
+};
+
+export const createAssetSpecFailure = error => {
+  return {
+    type: CREATE_ASSET_SPECS_FAILURE,
+    payload: error
+  }
+};

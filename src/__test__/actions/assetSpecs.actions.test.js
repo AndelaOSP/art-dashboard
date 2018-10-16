@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import constants from '../../_constants';
 
 // actions
-import { loadAssetSpecs } from '../../_actions/assetSpecs.actions';
+import { loadAssetSpecs, createAssetSpec } from '../../_actions/assetSpecs.actions';
 
 // mock data
 import assetSpecs from '../../_mock/assetSpecs';
@@ -35,12 +35,15 @@ describe('Asset Specs Actions', () => {
     store = mockStore({});
   });
 
-  const createUrl = '/asset-specs/';
+  const createUrl = 'asset-specs';
 
   const assetSpecToCreate = {
-    asset_code: 'AND/HS/0909',
-    serial_number: '897832SWWS',
-    model_number: 6
+    year_of_manufacture: 2013,
+    processor_speed: 1.8,
+    screen_size: 13,
+    processor_type: "Intel core i3",
+    storage: 128,
+    memory: 4
   };
 
   it('should dispatch loadAssetSpecs actions', () => {
@@ -91,11 +94,11 @@ describe('Asset Specs Actions', () => {
   });
 
   it('should dispatch CREATE_ASSET_SPECS_FAILURE when createAssetSpec is called unsuccessfully', () => {
-    mock.onPost(createUrl, assetSpecToCreate).reply(400, assetSpecToCreate);
+    mock.onPost(createUrl, assetSpecToCreate).reply(404, assetSpecToCreate);
     return store.dispatch(createAssetSpec(assetSpecToCreate)).then(() => {
       expect(store.getActions()).toContainEqual({
         type: CREATE_ASSET_SPECS_FAILURE,
-        payload: new Error('Request failed with status code 400')
+        payload: new Error('Request failed with status code 404')
       });
     });
   });
