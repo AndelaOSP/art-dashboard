@@ -13,20 +13,39 @@ import '../../_css/AssetsComponent.css';
 import { loadAssetConditions } from '../../_actions/assetCondition.actions';
 import formatDate from '../../_utils/dateFormatter';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
+import { addPaginationHistory, resetPaginationHistory } from '../../_actions/paginationHistory.actions';
 
 export class AssetConditionsComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    currentPage: []
   };
 
   componentDidMount() {
-    this.props.loadAssetConditions(this.state.activePage);
+    this.props.resetPaginationHistory();
+    this.props.loadAssetConditions(this.state.activePage).then(() => {
+      if (!this.state.currentPage.length) {
+        this.setState({ currentPage: this.props.assetConditionsList });
+      }
+    });
   }
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetConditions(activePage, this.state.limit);
+    if (this.props.paginationHistory.hasOwnProperty([`page-${activePage}`])) {
+      const currentPage = this.props.paginationHistory[`page-${activePage}`];
+      this.setState({ currentPage });
+    } else {
+      const paginationHistoryPayload = {
+        activePage: activePage - 1,
+        pageHistory: this.props.assetConditionsList
+      };
+      this.props.addPaginationHistory(paginationHistoryPayload);
+      this.props.loadAssetConditions(activePage, this.state.limit).then(() => {
+        this.setState({ currentPage: this.props.assetConditionsList });
+      });
+    }
   };
 
   handleRowChange = (e, data) => {
@@ -72,7 +91,7 @@ export class AssetConditionsComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetConditionsList.map((assetCondition) => {
+                this.state.currentPage.map((assetCondition) => {
                   assetCondition.formatted_date = formatDate(assetCondition.created_at);
                   return (
                     <TableRow
@@ -87,7 +106,7 @@ export class AssetConditionsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                {!_.isEmpty(this.props.assetConditionsList) && (
+                {!_.isEmpty(this.state.currentPage) && (
                   <Table.HeaderCell colSpan="4" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
@@ -123,17 +142,25 @@ AssetConditionsComponent.propTypes = {
   assetConditionsList: PropTypes.array.isRequired,
   assetConditionsCount: PropTypes.number.isRequired,
   loadAssetConditions: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  paginationHistory: PropTypes.object.isRequired,
+  addPaginationHistory: PropTypes.func.isRequired,
+  resetPaginationHistory: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ assetConditions }) => {
+const mapStateToProps = ({ assetConditions, paginationHistory }) => {
   const { assetConditionsList, assetConditionsCount, isLoading } = assetConditions;
 
   return {
     assetConditionsList,
     assetConditionsCount,
-    isLoading
+    isLoading,
+    paginationHistory
   };
 };
 
-export default connect(mapStateToProps, { loadAssetConditions })(AssetConditionsComponent);
+export default connect(mapStateToProps, {
+  loadAssetConditions,
+  addPaginationHistory,
+  resetPaginationHistory
+})(AssetConditionsComponent);
