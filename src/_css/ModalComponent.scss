@@ -1,5 +1,9 @@
 @import 'sharedStyling.scss';
 
+.ui.page.dimmer {
+  z-index: 1010;
+}
+
 .header {
   text-transform: uppercase;
   color: $andela-blue;
