@@ -46,25 +46,19 @@ export const createAssetSpec = assetSpec => (dispatch) => {
     })
     .catch((error) => {
       dispatch(createAssetSpecFailure(error));
-    })
+    });
 };
 
-export const createAssetSpecRequest = () => {
-  return {
-    type: CREATE_ASSET_SPECS_REQUEST
-  }
-};
+export const createAssetSpecRequest = () => ({
+  type: CREATE_ASSET_SPECS_REQUEST
+});
 
-export const createAssetSpecSuccess = assetSpec => {
-  return {
-    type: CREATE_ASSET_SPECS_SUCCESS,
-    payload: assetSpec
-  }
-};
+export const createAssetSpecSuccess = assetSpec => ({
+  type: CREATE_ASSET_SPECS_SUCCESS,
+  payload: assetSpec
+});
 
-export const createAssetSpecFailure = error => {
-  return {
-    type: CREATE_ASSET_SPECS_FAILURE,
-    payload: error
-  }
-};
+export const createAssetSpecFailure = error => ({
+  type: CREATE_ASSET_SPECS_FAILURE,
+  payload: error
+});

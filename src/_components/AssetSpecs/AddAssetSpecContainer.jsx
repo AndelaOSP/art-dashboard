@@ -2,7 +2,7 @@ import * as React from 'react';
 
 class AddAssetSpecContainer extends React.Component {
   render() {
-    return(
+    return (
       <p>Add Asset Spec</p>
     );
   }
