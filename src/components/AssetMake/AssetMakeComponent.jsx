@@ -50,7 +50,11 @@ export class AssetMakeComponent extends React.Component {
       const currentPage = this.props.paginationHistory[`page-${activePage}`];
       this.setState({ currentPage });
     } else {
-      this.props.addPaginationHistory(this.props.assetMakes);
+      const paginationHistoryPayload = {
+        activePage: activePage - 1,
+        pageHistory: this.props.assetMakes
+      };
+      this.props.addPaginationHistory(paginationHistoryPayload);
       this.props.loadAssetMakes(activePage).then(() => {
         this.setState({ currentPage: this.props.assetMakes });
       });

@@ -11,7 +11,7 @@ export default (state = initialState.paginationHistory, action) => {
     case ADD_PAGINATION_HISTORY:
       return {
         ...state,
-        [`page-${Object.keys(state).length + 1}`]: action.payload
+        [`page-${action.payload.activePage}`]: action.payload.pageHistory
       };
     case RESET_PAGINATION_HISTORY:
       return action.payload;

@@ -45,7 +45,11 @@ export class AssetTypesComponent extends React.Component {
       const currentPage = this.props.paginationHistory[`page-${activePage}`];
       this.setState({ currentPage });
     } else {
-      this.props.addPaginationHistory(this.props.assetTypes);
+      const paginationHistoryPayload = {
+        activePage: activePage - 1,
+        pageHistory: this.props.assetTypes
+      };
+      this.props.addPaginationHistory(paginationHistoryPayload);
       this.props.loadAssetTypes(activePage, this.state.limit).then(() => {
         this.setState({ currentPage: this.props.assetTypes });
       });
