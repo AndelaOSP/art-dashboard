@@ -20,6 +20,7 @@ import userDetails from './user.reducer';
 import loadAssetSpecsReducer from './assetSpecs.reducer';
 import sessionReducer from './session.reducer';
 import filtersReducer from './checkedFilters.reducer';
+import paginationHistoryReducer from './paginationHistory.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -41,7 +42,8 @@ const rootReducer = combineReducers({
   userDetails,
   assetSpecs: loadAssetSpecsReducer,
   session: sessionReducer,
-  selected: filtersReducer
+  selected: filtersReducer,
+  paginationHistory: paginationHistoryReducer
 });
 
 export default rootReducer;

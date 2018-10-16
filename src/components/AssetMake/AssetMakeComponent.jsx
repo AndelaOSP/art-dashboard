@@ -21,15 +21,22 @@ import rowOptions from '../../_utils/pageRowOptions';
 import ModalComponent from '../common/ModalComponent';
 import AssetMakeContainer from '../../_components/AssetMake/AssetMakeContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
+import { addPaginationHistory, resetPaginationHistory } from '../../_actions/paginationHistory.actions';
 
 export class AssetMakeComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    currentPage: []
   };
 
   componentDidMount() {
-    this.props.loadAssetMakes(this.state.activePage);
+    this.props.resetPaginationHistory();
+    this.props.loadAssetMakes(this.state.activePage).then(() => {
+      if (!this.state.currentPage.length) {
+        this.setState({ currentPage: this.props.assetMakes });
+      }
+    });
   }
 
   handleRowChange = (e, data) => {
@@ -39,7 +46,15 @@ export class AssetMakeComponent extends React.Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetMakes(activePage);
+    if (this.props.paginationHistory.hasOwnProperty([`page-${activePage}`])) {
+      const currentPage = this.props.paginationHistory[`page-${activePage}`];
+      this.setState({ currentPage });
+    } else {
+      this.props.addPaginationHistory(this.props.assetMakes);
+      this.props.loadAssetMakes(activePage).then(() => {
+        this.setState({ currentPage: this.props.assetMakes });
+      });
+    }
   };
 
   getTotalPages = () => Math.ceil(this.props.assetMakesCount / this.state.limit);
@@ -95,7 +110,7 @@ export class AssetMakeComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetMakes.map(asset => (
+                this.state.currentPage.map(asset => (
                   <TableRow
                     key={asset.id}
                     data={asset}
@@ -107,7 +122,7 @@ export class AssetMakeComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                {!_.isEmpty(this.props.assetMakes) && (
+                {!_.isEmpty(this.state.currentPage) && (
                   <Table.HeaderCell colSpan="4" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
@@ -139,12 +154,13 @@ export class AssetMakeComponent extends React.Component {
   }
 }
 
-const mapStateToProps = ({ assetMakesList }) => {
+const mapStateToProps = ({ assetMakesList, paginationHistory }) => {
   const { assetMakes, assetMakesCount, isLoading } = assetMakesList;
   return {
     assetMakes,
     assetMakesCount,
-    isLoading
+    isLoading,
+    paginationHistory
   };
 };
 
@@ -153,7 +169,10 @@ AssetMakeComponent.propTypes = {
   loadAssetMakes: PropTypes.func.isRequired,
   loadAssetConditions: PropTypes.func,
   assetMakes: PropTypes.array.isRequired,
-  assetMakesCount: PropTypes.number.isRequired
+  assetMakesCount: PropTypes.number.isRequired,
+  paginationHistory: PropTypes.object.isRequired,
+  addPaginationHistory: PropTypes.func.isRequired,
+  resetPaginationHistory: PropTypes.func.isRequired
 };
 
 AssetMakeComponent.defaultProps = {
@@ -161,5 +180,7 @@ AssetMakeComponent.defaultProps = {
 };
 
 export default withRouter(connect(mapStateToProps, {
-  loadAssetMakes
+  loadAssetMakes,
+  addPaginationHistory,
+  resetPaginationHistory
 })(AssetMakeComponent));
