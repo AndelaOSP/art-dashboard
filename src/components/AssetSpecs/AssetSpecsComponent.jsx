@@ -80,7 +80,7 @@ export class AssetSpecsComponent extends React.Component {
                     className="add-asset"
                     size="medium"
                   >
-                    ADD ASSET SPEC
+                    ADD ASSET SPEC GROUP
                   </Button>
                 }
                 modalTitle="Add Asset Spec Group"

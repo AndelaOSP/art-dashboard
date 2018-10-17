@@ -73,7 +73,6 @@ describe('Asset Specs Reducer', () => {
     action.type = CREATE_ASSET_SPECS_REQUEST;
     expect(assetSpecsReducer(oldState, action).isLoading).toEqual(true);
     expect(assetSpecsReducer(oldState, action).hasError).toEqual(false);
-    expect(assetSpecsReducer(oldState, action).specs).toEqual([]);
   });
 
   it('should handle CREATE_ASSET_SPECS_SUCCESS', () => {
@@ -81,15 +80,11 @@ describe('Asset Specs Reducer', () => {
     action.assetSpecs.results = assetSpecToCreate;
     expect(assetSpecsReducer(oldState, action).isLoading).toEqual(false);
     expect(assetSpecsReducer(oldState, action).hasError).toEqual(false);
-    expect(assetSpecsReducer(oldState, action).specs).toEqual([{
-      results: assetSpecToCreate
-    }]);
   });
 
   it('should handle CREATE_ASSET_SPECS_FAILURE', () => {
     action.type = CREATE_ASSET_SPECS_FAILURE;
     expect(assetSpecsReducer(oldState, action).isLoading).toEqual(false);
     expect(assetSpecsReducer(oldState, action).hasError).toEqual(true);
-    expect(assetSpecsReducer(oldState, action).specs).toEqual([]);
   });
 });

@@ -6,19 +6,28 @@ import AddAssetSpecComponent from '../../components/AssetSpecs/AddAssetSpecCompo
 const props = {
   toggleModal: jest.fn(),
   handleSubmit: jest.fn(),
+  handleInputChange: jest.fn(),
   createAssetSpec: jest.fn(),
-  isLoading: false
+  isLoading: false,
+  assetSpec: {
+    year_of_manufacture: '',
+    processor_speed: '',
+    screen_size: '',
+    processor_type: '',
+    storage: '',
+    memory: ''
+  }
 };
 
 describe('Renders <AddAssetSpecComponent /> tests', () => {
-  const wrapper = shallow(<AddAssetSpecComponent.WrappedComponent {...props} />);
+  const wrapper = shallow(<AddAssetSpecComponent {...props} />);
 
   it('renders the form', () => {
     expect(wrapper.find('Form').length).toEqual(1);
   });
 
-  it('renders the InputFluid', () => {
-    expect(wrapper.find('InputFluid').exists()).toBe(true);
+  it('renders the DropdownComponent', () => {
+    expect(wrapper.find('DropdownComponent').exists()).toBe(true);
   });
 
   it('should simulate form submit', () => {
@@ -26,12 +35,5 @@ describe('Renders <AddAssetSpecComponent /> tests', () => {
     expect(form.length).toEqual(1);
     form.simulate('submit');
     expect(props.handleSubmit.mock.calls.length).toEqual(1);
-  });
-
-  it('renders Loading component if isLoading is true', () => {
-    wrapper.setProps({
-      isLoading: true
-    });
-    expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 });

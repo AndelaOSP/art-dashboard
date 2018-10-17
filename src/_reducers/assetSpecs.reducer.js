@@ -47,9 +47,7 @@ const loadAssetSpecsReducer = (state = initialState.assetSpecs, action) => {
       return {
         ...state,
         hasError: false,
-        isLoading: false,
-        specs: [action.assetSpecs, ...state.specs],
-        assetSpecsCount: state.assetSpecsCount + 1
+        isLoading: false
       };
 
     case CREATE_ASSET_SPECS_FAILURE:

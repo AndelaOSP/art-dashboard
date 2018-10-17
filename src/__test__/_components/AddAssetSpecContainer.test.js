@@ -6,6 +6,7 @@ import AddAssetContainer from '../../_components/AssetSpecs/AddAssetSpecContaine
 const props = {
   toggleModal: jest.fn(),
   handleSubmit: jest.fn(),
+  handleInputChange: jest.fn(),
   createAssetSpec: jest.fn(),
   isLoading: false
 };
@@ -17,10 +18,27 @@ describe('Renders <AddAssetContainer /> tests', () => {
     const handleSubmitSpy = jest.spyOn(
       wrapper.instance(), 'handleSubmit'
     );
-    const event = { target: { value: '', reset: jest.fn() } };
+    const event = {
+      target: { value: '', reset: jest.fn() },
+      preventDefault: jest.fn()
+    };
     const data = {};
 
     wrapper.instance().handleSubmit(event, data);
     expect(handleSubmitSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the handleInputChange function', () => {
+    const handleInputChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleInputChange'
+    );
+    const event = {
+      target: { value: '', reset: jest.fn() },
+      preventDefault: jest.fn()
+    };
+    const data = {};
+
+    wrapper.instance().handleInputChange(event, data);
+    expect(handleInputChangeSpy.mock.calls.length).toEqual(1);
   });
 });
