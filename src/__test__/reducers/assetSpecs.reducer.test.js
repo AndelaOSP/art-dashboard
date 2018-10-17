@@ -78,10 +78,12 @@ describe('Asset Specs Reducer', () => {
 
   it('should handle CREATE_ASSET_SPECS_SUCCESS', () => {
     action.type = CREATE_ASSET_SPECS_SUCCESS;
-    action.assetSpecs.specs = assetSpecToCreate;
+    action.assetSpecs.results = assetSpecToCreate;
     expect(assetSpecsReducer(oldState, action).isLoading).toEqual(false);
     expect(assetSpecsReducer(oldState, action).hasError).toEqual(false);
-    expect(assetSpecsReducer(oldState, action).specs).toEqual(assetSpecToCreate);
+    expect(assetSpecsReducer(oldState, action).specs).toEqual([{
+      results: assetSpecToCreate
+    }]);
   });
 
   it('should handle CREATE_ASSET_SPECS_FAILURE', () => {
