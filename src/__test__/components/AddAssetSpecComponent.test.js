@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
-import AddAssetSpecComponent from '../../components/AssetSpecs/AddAssetSpecComponent'
+import AddAssetSpecComponent from '../../components/AssetSpecs/AddAssetSpecComponent';
 
 const props = {
   toggleModal: jest.fn(),
