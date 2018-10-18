@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Divider, Grid, Header } from 'semantic-ui-react';
 import { createAssetSpec } from '../../_actions/assetSpecs.actions';
+import NavbarComponent from '../../components/NavBarComponent';
 import AddAssetSpecComponent from '../../components/AssetSpecs/AddAssetSpecComponent';
 
 class AddAssetSpecContainer extends React.Component {
@@ -20,12 +22,12 @@ class AddAssetSpecContainer extends React.Component {
     const name = event.target.name || data.name;
     const value = event.target.value || data.value;
 
-    this.setState({
+    this.setState(prevState => ({
       assetSpec: {
-        ...this.state.assetSpec,
+        ...prevState.assetSpec,
         [name]: value
       }
-    });
+    }));
   };
 
   handleSubmit = (event) => {
@@ -33,32 +35,46 @@ class AddAssetSpecContainer extends React.Component {
 
     const { assetSpec } = this.state;
 
-    this.props.createAssetSpec(assetSpec);
+    this.props.createAssetSpec(assetSpec)
+      .then(() => this.props.history.push('/asset-specs'));
   };
 
   render() {
-    const { isLoading, toggleModal } = this.props;
+    const { isLoading } = this.props;
 
     return (
-      <AddAssetSpecComponent
-        handleInputChange={this.handleInputChange}
-        handleSubmit={this.handleSubmit}
-        toggleModal={toggleModal}
-        isLoading={isLoading}
-        assetSpec={this.state.assetSpec}
-      />
+      <NavbarComponent>
+        <div className="add-asset">
+          <div id="page-heading-section">
+            <Header as="h1" id="page-headings" floated="left" content="Add Asset Spec Group" />
+            <Divider id="assets-divider" />
+          </div>
+
+          <Grid centered columns={2}>
+            <Grid.Column>
+              <AddAssetSpecComponent
+                handleInputChange={this.handleInputChange}
+                handleSubmit={this.handleSubmit}
+                isLoading={isLoading}
+                assetSpec={this.state.assetSpec}
+              />
+            </Grid.Column>
+          </Grid>
+        </div>
+      </NavbarComponent>
     );
   }
 }
 
 AddAssetSpecContainer.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
   createAssetSpec: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  history: PropTypes.object
 };
 
 AddAssetSpecContainer.defaultProps = {
-  isLoading: false
+  isLoading: false,
+  history: {}
 };
 
 const mapStateToProps = ({ assetSpecs }) => ({

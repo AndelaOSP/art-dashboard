@@ -80,7 +80,7 @@ ArtModal.defaultProps = {
   modalTitle: '',
   modalSize: 'small',
   open: false,
-  closeOnEscape: false,
-  closeOnDimmerClick: false,
+  closeOnEscape: true,
+  closeOnDimmerClick: true,
   closeIcon: true
 };

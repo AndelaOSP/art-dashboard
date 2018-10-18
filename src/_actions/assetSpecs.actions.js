@@ -25,12 +25,13 @@ export const loadAssetSpecsSuccess = assetSpecs => ({
  * Load asset specs thunk
  *
  * @param {number} pageNumber
+ * @param {number} pageLimit
  * @return {(dispatch:any)=>Promise<TResult2|TResult1>}
  */
-export const loadAssetSpecs = pageNumber =>
+export const loadAssetSpecs = (pageNumber, pageLimit) =>
   (dispatch) => {
     dispatch({ type: LOAD_ASSET_SPECS_START });
-    return axios.get(`asset-specs?page=${pageNumber}`)
+    return axios.get(`asset-specs?page=${pageNumber}&page_size=${pageLimit}`)
       .then((response) => {
         dispatch(loadAssetSpecsSuccess(response.data));
       })

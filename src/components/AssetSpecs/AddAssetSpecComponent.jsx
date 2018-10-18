@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Grid } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import range from 'lodash/range';
 import generateDropdownOptions from '../../_utils/generateDropdownOptions';
 import ArtButton from '../common/ButtonComponent';
@@ -107,36 +107,20 @@ const AddAssetSpecComponent = (props) => {
         />
       </Form.Field>
 
-      <Grid>
-        <Grid.Row columns={2}>
-          <Grid.Column>
-            <ArtButton
-              className="cancel"
-              buttonName="Cancel"
-              handleClick={props.toggleModal}
-              fluidState
-            />
-          </Grid.Column>
-
-          <Grid.Column>
-            <ArtButton
-              className="save"
-              buttonName="Save"
-              color="primary"
-              handleClick={props.handleSubmit}
-              buttonState={props.isLoading}
-              fluidState
-            />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <ArtButton
+        className="save"
+        buttonName="Save"
+        color="primary"
+        handleClick={props.handleSubmit}
+        buttonState={props.isLoading}
+        fluidState
+      />
     </Form>
   );
 };
 
 AddAssetSpecComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   assetSpec: PropTypes.object,
   isLoading: PropTypes.bool

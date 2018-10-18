@@ -3,23 +3,22 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 import AddAssetSpecComponent from '../../components/AssetSpecs/AddAssetSpecComponent';
 
-const props = {
-  toggleModal: jest.fn(),
-  handleSubmit: jest.fn(),
-  handleInputChange: jest.fn(),
-  createAssetSpec: jest.fn(),
-  isLoading: false,
-  assetSpec: {
-    year_of_manufacture: '',
-    processor_speed: '',
-    screen_size: '',
-    processor_type: '',
-    storage: '',
-    memory: ''
-  }
-};
-
 describe('Renders <AddAssetSpecComponent /> tests', () => {
+  const props = {
+    handleSubmit: jest.fn(),
+    handleInputChange: jest.fn(),
+    createAssetSpec: jest.fn(),
+    isLoading: false,
+    assetSpec: {
+      year_of_manufacture: '',
+      processor_speed: '',
+      screen_size: '',
+      processor_type: '',
+      storage: '',
+      memory: ''
+    }
+  };
+
   const wrapper = shallow(<AddAssetSpecComponent {...props} />);
 
   it('renders the form', () => {

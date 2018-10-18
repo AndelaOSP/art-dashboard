@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Button, Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
 
@@ -13,8 +13,6 @@ import LoaderComponent from '../../components/LoaderComponent';
 import '../../_css/AssetsComponent.css';
 import { loadAssetSpecs } from '../../_actions/assetSpecs.actions';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
-import ModalComponent from '../common/ModalComponent';
-import AddAssetSpecContainer from '../../_components/AssetSpecs/AddAssetSpecContainer';
 
 export class AssetSpecsComponent extends React.Component {
   state = {
@@ -23,7 +21,7 @@ export class AssetSpecsComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadAssetSpecs(this.state.activePage);
+    this.props.loadAssetSpecs(this.state.activePage, this.state.limit);
   }
 
   handleRowChange = (e, data) => {
@@ -33,7 +31,7 @@ export class AssetSpecsComponent extends React.Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetSpecs(activePage);
+    this.props.loadAssetSpecs(activePage, this.state.limit);
   };
 
   getTotalPages = () => Math.ceil(this.props.assetSpecsCount / this.state.limit);
@@ -74,19 +72,14 @@ export class AssetSpecsComponent extends React.Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Specs" />
             <Divider id="assets-divider" />
             <div className="header-modal-button">
-              <ModalComponent
-                trigger={
-                  <Button
-                    className="add-asset"
-                    size="medium"
-                  >
-                    ADD ASSET SPEC GROUP
-                  </Button>
-                }
-                modalTitle="Add Asset Spec Group"
-              >
-                <AddAssetSpecContainer />
-              </ModalComponent>
+              <Link to="/asset-specs/create">
+                <Button
+                  className="add-asset"
+                  size="medium"
+                >
+                  ADD ASSET SPEC GROUP
+                </Button>
+              </Link>
             </div>
           </div>
           <Table basic selectable>
