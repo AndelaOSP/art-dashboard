@@ -66,7 +66,6 @@ export class AssetCategoriesComponent extends React.Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            header="No Asset category found!"
             message="Please try again later to see if there will be asset categories to show you."
           />
         </NavbarComponent>

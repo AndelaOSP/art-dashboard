@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Header, Pagination, Segment } from 'semantic-ui-react';
+import { Table, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
 import TableRow from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
+import NavbarComponent from '../NavBarComponent';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
 const UserComponent = (props) => {
@@ -22,7 +24,11 @@ const UserComponent = (props) => {
 
   if (props.emptyUsersList()) {
     return (
-      <Header as="h3" id="empty-usersList" content="No Users Found" />
+      <NavbarComponent>
+        <ItemsNotFoundComponent
+          message="Please try again later, to see if we'll have users to show you."
+        />
+      </NavbarComponent>
     );
   }
 
