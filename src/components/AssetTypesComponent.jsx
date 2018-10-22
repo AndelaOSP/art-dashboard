@@ -16,15 +16,23 @@ import ModalComponent from './common/ModalComponent';
 import '../_css/AssetsComponent.css';
 import { loadAssetTypes } from '../_actions/assetTypes.actions';
 import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
+import { addPaginationHistory, resetPaginationHistory } from '../_actions/paginationHistory.actions';
 
 export class AssetTypesComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    currentPage: []
   };
 
   componentDidMount() {
-    this.props.loadAssetTypes(this.state.activePage, this.state.limit);
+    this.props.resetPaginationHistory();
+    this.props.loadAssetTypes(this.state.activePage, this.state.limit).then(() => {
+      if (!this.state.currentPage.length) {
+        this.setState({ currentPage: this.props.assetTypes });
+        this.handlePaginationHistory(this.state.activePage);
+      }
+    });
   }
 
   handleRowChange = (e, data) => {
@@ -34,8 +42,24 @@ export class AssetTypesComponent extends React.Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetTypes(activePage, this.state.limit);
+    if (this.props.paginationHistory.hasOwnProperty([`page-${activePage}`])) {
+      const currentPage = this.props.paginationHistory[`page-${activePage}`];
+      this.setState({ currentPage });
+    } else {
+      this.props.loadAssetTypes(this.state.activePage, this.state.limit).then(() => {
+        this.setState({ currentPage: this.props.assetTypes });
+        this.handlePaginationHistory(activePage);
+      });
+    }
   };
+
+  handlePaginationHistory = (activePage) => {
+    const paginationHistoryPayload = {
+      activePage,
+      pageHistory: this.props.assetTypes
+    };
+    this.props.addPaginationHistory(paginationHistoryPayload);
+  }
 
   getTotalPages = () => Math.ceil(this.props.assetTypesCount / this.state.limit);
 
@@ -89,7 +113,7 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.assetTypes.map(assetType => (
+                this.state.currentPage.map(assetType => (
                   <TableRow
                     key={assetType.id}
                     data={assetType}
@@ -101,7 +125,7 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                {!_.isEmpty(this.props.assetTypes) && (
+                {!_.isEmpty(this.state.currentPage) && (
                   <Table.HeaderCell colSpan="3" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
@@ -133,12 +157,13 @@ export class AssetTypesComponent extends React.Component {
   }
 }
 
-const mapStateToProps = ({ assetTypesList }) => {
+const mapStateToProps = ({ assetTypesList, paginationHistory }) => {
   const { assetTypes, assetTypesCount, isLoading } = assetTypesList;
   return {
     assetTypes,
     assetTypesCount,
-    isLoading
+    isLoading,
+    paginationHistory
   };
 };
 
@@ -146,9 +171,14 @@ AssetTypesComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadAssetTypes: PropTypes.func.isRequired,
   assetTypes: PropTypes.array.isRequired,
-  assetTypesCount: PropTypes.number.isRequired
+  assetTypesCount: PropTypes.number.isRequired,
+  paginationHistory: PropTypes.object.isRequired,
+  addPaginationHistory: PropTypes.func.isRequired,
+  resetPaginationHistory: PropTypes.func.isRequired
 };
 
 export default withRouter(connect(mapStateToProps, {
-  loadAssetTypes
+  loadAssetTypes,
+  addPaginationHistory,
+  resetPaginationHistory
 })(AssetTypesComponent));
