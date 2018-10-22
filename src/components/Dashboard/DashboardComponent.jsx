@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import {
   Header,
   Divider,
   Grid
 } from 'semantic-ui-react';
-import '../../_css/DashboardComponent.css';
 import NavBarComponent from '../../_components/NavBarContainer';
 import AnalyticsCardComponent from './AnalyticsCardComponent';
+import {
+  getAllocatedAssets,
+  getAvailableAssets,
+  getDamagedAssets,
+  getLostAssets
+} from '../../_actions/assetStatus.action';
+
+import '../../_css/DashboardComponent.css';
 
 class DashboardComponent extends Component {
   state = {
@@ -16,6 +26,26 @@ class DashboardComponent extends Component {
     assetStateAllocated: false,
     assetStateAvailable: false
   };
+
+  componentDidMount() {
+    const { lostAssets, availableAssets, damagedAssets, allocatedAssets } = this.props;
+
+    if (isEmpty(lostAssets.assetsList)) {
+      this.props.getLostAssets();
+    }
+
+    if (isEmpty(availableAssets.assetsList)) {
+      this.props.getAvailableAssets();
+    }
+
+    if (isEmpty(damagedAssets.assetsList)) {
+      this.props.getDamagedAssets();
+    }
+
+    if (isEmpty(allocatedAssets.assetsList)) {
+      this.props.getAllocatedAssets();
+    }
+  }
 
   assetNavigation = [
     {
@@ -45,6 +75,8 @@ class DashboardComponent extends Component {
   ];
 
   render() {
+    const { lostAssets, availableAssets, damagedAssets, allocatedAssets } = this.props;
+
     return (
       <NavBarComponent>
         <div id="dashboard-content">
@@ -66,7 +98,7 @@ class DashboardComponent extends Component {
                           ''
                       }
                     <AnalyticsCardComponent
-                      assetNumber={90}
+                      assetNumber={damagedAssets.assetsCount}
                       assetState="damaged"
                       image="/images/damaged.png"
                       cssClass="damaged"
@@ -84,7 +116,7 @@ class DashboardComponent extends Component {
                           ''
                       }
                     <AnalyticsCardComponent
-                      assetNumber={20}
+                      assetNumber={lostAssets.assetsCount}
                       assetState="lost"
                       image="/images/lost.png"
                       cssClass="lost"
@@ -102,7 +134,7 @@ class DashboardComponent extends Component {
                           ''
                       }
                     <AnalyticsCardComponent
-                      assetNumber={200}
+                      assetNumber={allocatedAssets.assetsCount}
                       assetState="allocated"
                       image="/images/allocated.png"
                       cssClass="allocated"
@@ -120,7 +152,7 @@ class DashboardComponent extends Component {
                           ''
                       }
                     <AnalyticsCardComponent
-                      assetNumber={30}
+                      assetNumber={availableAssets.assetsCount}
                       assetState="available"
                       image="/images/available.png"
                       cssClass="available"
@@ -149,4 +181,44 @@ class DashboardComponent extends Component {
     );
   }
 }
-export default withRouter(DashboardComponent);
+
+DashboardComponent.propTypes = {
+  lostAssets: PropTypes.object,
+  availableAssets: PropTypes.object,
+  damagedAssets: PropTypes.object,
+  allocatedAssets: PropTypes.object,
+  getAllocatedAssets: PropTypes.func.isRequired,
+  getAvailableAssets: PropTypes.func.isRequired,
+  getDamagedAssets: PropTypes.func.isRequired,
+  getLostAssets: PropTypes.func.isRequired
+};
+
+DashboardComponent.defaultProps = {
+  lostAssets: {},
+  availableAssets: {},
+  damagedAssets: {},
+  allocatedAssets: {}
+};
+
+const mapStateToProps = ({ assetStatus }) => {
+  const {
+    lostAssets,
+    availableAssets,
+    damagedAssets,
+    allocatedAssets
+  } = assetStatus;
+
+  return {
+    lostAssets,
+    availableAssets,
+    damagedAssets,
+    allocatedAssets
+  };
+};
+
+export default withRouter(connect(mapStateToProps, {
+  getAllocatedAssets,
+  getAvailableAssets,
+  getDamagedAssets,
+  getLostAssets
+})(DashboardComponent));

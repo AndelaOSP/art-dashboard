@@ -8,8 +8,15 @@ import { connect } from 'react-redux';
 import DashboardComponent from '../../components/Dashboard/DashboardComponent';
 
 describe('Renders <DashboardComponent /> correctly', () => {
+  const props = {
+    getAllocatedAssets: jest.fn(),
+    getAvailableAssets: jest.fn(),
+    getDamagedAssets: jest.fn(),
+    getLostAssets: jest.fn()
+  };
+
   const { WrappedComponent } = withRouter(connect()(DashboardComponent));
-  const wrapper = shallowWithStore(<WrappedComponent />, createMockStore(null));
+  const wrapper = shallowWithStore(<WrappedComponent {...props} />, createMockStore(null));
 
   it('renders dashboard contents', () => {
     expect(wrapper.find('#dashboard-content').length).toBe(1);

@@ -101,5 +101,39 @@ export default {
   checkedFilters: {},
   navBarVisibility: {
     isVisible: true
+  },
+  assetStatus: {
+    lostAssets: {
+      assetsList: [],
+      assetsCount: 0,
+      errorMessage: '',
+      hasError: false,
+      isLoading: false,
+      activePage: 1
+    },
+    damagedAssets: {
+      assetsList: [],
+      assetsCount: 0,
+      errorMessage: '',
+      hasError: false,
+      isLoading: false,
+      activePage: 1
+    },
+    allocatedAssets: {
+      assetsList: [],
+      assetsCount: 0,
+      errorMessage: '',
+      hasError: false,
+      isLoading: false,
+      activePage: 1
+    },
+    availableAssets: {
+      assetsList: [],
+      assetsCount: 0,
+      errorMessage: '',
+      hasError: false,
+      isLoading: false,
+      activePage: 1
+    }
   }
 };
