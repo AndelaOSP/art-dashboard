@@ -98,5 +98,6 @@ export default {
   session: {
     sessionExpired: false
   },
-  checkedFilters: {}
+  checkedFilters: {},
+  paginationHistory: {}
 };
