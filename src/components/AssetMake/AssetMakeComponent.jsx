@@ -35,6 +35,7 @@ export class AssetMakeComponent extends React.Component {
     this.props.loadAssetMakes(this.state.activePage).then(() => {
       if (!this.state.currentPage.length) {
         this.setState({ currentPage: this.props.assetMakes });
+        this.handlePaginationHistory(this.state.activePage);
       }
     });
   }
@@ -50,16 +51,20 @@ export class AssetMakeComponent extends React.Component {
       const currentPage = this.props.paginationHistory[`page-${activePage}`];
       this.setState({ currentPage });
     } else {
-      const paginationHistoryPayload = {
-        activePage: activePage - 1,
-        pageHistory: this.props.assetMakes
-      };
-      this.props.addPaginationHistory(paginationHistoryPayload);
       this.props.loadAssetMakes(activePage).then(() => {
         this.setState({ currentPage: this.props.assetMakes });
+        this.handlePaginationHistory(activePage);
       });
     }
   };
+
+  handlePaginationHistory = (activePage) => {
+    const paginationHistoryPayload = {
+      activePage,
+      pageHistory: this.props.assetMakes
+    };
+    this.props.addPaginationHistory(paginationHistoryPayload);
+  }
 
   getTotalPages = () => Math.ceil(this.props.assetMakesCount / this.state.limit);
 
