@@ -156,7 +156,7 @@ typings/
 
 ### venv ###
 # Linux
-bin/ 
+bin/
 lib/
 include/
 
@@ -193,5 +193,7 @@ tags
 src/**/*.css
 src/**/*.css.map
 
+# ignore yarn.lock as the deploy used package-lock.json created with npm
+yarn.lock
 
 # End of https://www.gitignore.io/api/vim,venv,node,macos,intellij,visualstudiocode
