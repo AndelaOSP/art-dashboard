@@ -3,6 +3,8 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 import UserComponent from '../../components/User/UserComponent';
 
+import users from '../../_mock/users';
+
 let props = {
   isLoading: false,
   activePage: 1,
@@ -23,6 +25,10 @@ describe('Renders <UserComponent /> correctly when no errors or loading prop', (
   it('renders Pagination component', () => {
     expect(wrapper1.find('Pagination').length).toBe(1);
   });
+
+  it('renders Dropdown component', () => {
+    expect(wrapper1.find('DropdownComponent').length).toBe(1);
+  });
 });
 
 describe('Renders UserComponent with the LoadingComponent', () => {
@@ -36,14 +42,14 @@ describe('Renders UserComponent with the LoadingComponent', () => {
   });
 });
 
-describe('Renders UserComponent with the Header Component', () => {
+describe('Renders UserComponent with the ItemsNotFoundComponent', () => {
   props = {
     emptyUsersList: () => true
   };
   const wrapper3 = shallow(<UserComponent {...props} />);
 
-  it('renders Header Component if there are no users on the backend', () => {
-    expect(wrapper3.find('Header').length).toBe(1);
+  it('renders ItemsNotFoundComponent if the users list is empty', () => {
+    expect(wrapper3.find('ItemsNotFoundComponent').length).toBe(1);
   });
 });
 
@@ -56,5 +62,17 @@ describe('Renders UserComponent with the SemanticToastContainer', () => {
 
   it('renders a toast message if there is an error', () => {
     expect(wrapper4.find('SemanticToastContainer').length).toBe(1);
+  });
+});
+
+describe('Renders UserComponent with the TableRow Component', () => {
+  props = {
+    activePageUsers: users,
+    handlePageTotal: () => {}
+  };
+  const wrapper5 = shallow(<UserComponent {...props} />);
+
+  it('renders TableRow if activePageUsers are there', () => {
+    expect(wrapper5.find('TableRow').length).toBe(2);
   });
 });

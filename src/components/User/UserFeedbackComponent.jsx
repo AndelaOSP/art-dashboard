@@ -55,7 +55,6 @@ export class UserFeedbackComponent extends React.Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            header="No User feedback found!"
             message="Please try again later to see if we will have any feedback to show you."
           />
         </NavbarComponent>
