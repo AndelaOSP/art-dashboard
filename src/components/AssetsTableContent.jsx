@@ -133,11 +133,12 @@ AssetsTableContent.propTypes = {
   handleRowChange: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   limit: PropTypes.number
 };
 
 AssetsTableContent.defaultProps = {
-  errorMessage: ''
+  errorMessage: '',
+  isLoading: false
 };
 export default AssetsTableContent;

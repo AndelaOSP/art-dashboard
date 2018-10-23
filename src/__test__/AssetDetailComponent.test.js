@@ -14,9 +14,14 @@ describe('Renders <AssetDetailComponent /> correctly', () => {
     getAssetDetail: jest.fn(),
     unassignAsset: jest.fn(),
     hasError: false,
-    isLoading: {},
+    isLoading: false,
     location: {
       pathname: ''
+    },
+    match: {
+      params: {
+        id: ''
+      }
     }
   };
   const wrapper = shallow(<AssetDetailComponent {...props} />);

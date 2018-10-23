@@ -14,7 +14,8 @@ describe('Renders <FilterComponent /> correctly', () => {
     handleClose: jest.fn(),
     option: assetFilter[0],
     selected: filters,
-    filterSelection: jest.fn()
+    filterSelection: jest.fn(),
+    index: 0
   };
 
   const wrapper = shallow(<FilterComponent {...props} />);

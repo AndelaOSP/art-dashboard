@@ -10,7 +10,8 @@ import assets from '../../_mock/assets';
 
 import {
   createAssetSuccess,
-  createAssetFail
+  createAssetFail,
+  createAssetRequest
 } from '../../_actions/asset.actions';
 
 // constants
@@ -66,6 +67,12 @@ describe('Asset Reducer tests', () => {
     action.type = LOAD_ASSETS_STARTS;
     action.isLoading = true;
     expect(assetReducer(state, action).isLoading).toBe(true);
+  });
+
+  it('should handle CREATE_ASSET_REQUEST', () => {
+    action = createAssetRequest(asset);
+    expect(assetReducer(state, {})).toEqual(state);
+    expect(assetReducer(state, action).isLoading).toEqual(true);
   });
 
   it('should handle CREATE_ASSET_SUCCESS', () => {

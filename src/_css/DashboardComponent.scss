@@ -13,6 +13,14 @@ $active-circle-background-color: #3359df;
 
 #analytics-state-selection {
   margin-top: 26px;
+
+  .ui.grid {
+    .column.row {
+      .column {
+        margin-bottom: 15px;
+      }
+    }
+  }
 }
 
 .analytics-states {
@@ -157,4 +165,30 @@ $active-circle-background-color: #3359df;
   margin-top: 0;
   margin-right: 0;
   margin-bottom: 0;
+}
+
+.asset-links-section {
+  .ui.grid {
+    flex: 0 0 230px;
+
+    .column {
+      &:not(.row) {
+        width: 210px;
+      }
+
+      a {
+        display: block;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 20px;
+        font-size: 15px;
+        color: $andela-black;
+      }
+
+      a:hover {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        color: $andela-blue;
+      }
+    }
+  }
 }

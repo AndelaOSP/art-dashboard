@@ -21,7 +21,9 @@ import assetMocks from '../../_mock/newAllocation';
 // constants
 import constants from '../../_constants';
 
-const { CREATE_ASSET_SUCCESS,
+const {
+  CREATE_ASSET_REQUEST,
+  CREATE_ASSET_SUCCESS,
   CREATE_ASSET_FAIL,
   LOADING_ASSET,
   LOAD_ASSET_FAILURE,
@@ -51,11 +53,16 @@ describe('Asset Action tests', () => {
 
   let expectedActions = [
     {
+      type: CREATE_ASSET_REQUEST,
+      payload: asset
+    },
+    {
       type: CREATE_ASSET_SUCCESS,
       payload: asset
     },
     {
-      type: CREATE_ASSET_FAIL
+      type: CREATE_ASSET_FAIL,
+      payload: new Error('Request failed with status code 400')
     }
   ];
 
@@ -63,54 +70,59 @@ describe('Asset Action tests', () => {
     store.clearActions();
   });
 
-  it('should dispatch CREATE_ASSET_SUCCESS when createAsset is called successfully', () => {
-    mock.onPost(url, assetToBeCreated).reply(201,
-      asset
-    );
+  it('should dispatch CREATE_ASSET_REQUEST when createAsset is called', () => {
+    mock.onPost(url, assetToBeCreated).reply(201, asset);
     return store.dispatch(createAsset(assetToBeCreated)).then(() => {
-      expect(store.getActions()[0]).toEqual(expectedActions[0]);
+      expect(store.getActions()).toContainEqual(expectedActions[0]);
+    });
+  });
+
+  it('should dispatch CREATE_ASSET_SUCCESS when createAsset is called successfully', () => {
+    mock.onPost(url, assetToBeCreated).reply(201, asset);
+    return store.dispatch(createAsset(assetToBeCreated)).then(() => {
+      expect(store.getActions()).toContainEqual(expectedActions[1]);
     });
   });
 
   it('should dispatch CREATE_ASSET_FAIL when createAsset is unsuccessful', () => {
     mock.onPost(url, assetToBeCreated).reply(400);
     return store.dispatch(createAsset(assetToBeCreated)).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[1].type);
+      expect(store.getActions()).toContainEqual(expectedActions[2]);
     });
   });
 
   it('should dispatch LOAD_ASSET_SUCCESS when getAssetDetails is called successfully', () => {
-    mock.onGet().reply(200,
-      [
-        {
-          id: 1,
-          asset_type: 'Headset',
-          asset_code: 'AND/HS/0077',
-          model_number: 'Microsoft Lifechat LX-6000'
-        }
-      ]
-    );
+    const assetsToLoad = [
+      {
+        id: 1,
+        asset_type: 'Headset',
+        asset_code: 'AND/HS/0077',
+        model_number: 'Microsoft Lifechat LX-6000'
+      }
+    ];
+
+    mock.onGet().reply(200, assetsToLoad);
     expectedActions = [
       { type: LOADING_ASSET },
-      { type: LOAD_ASSET_SUCCESS }
+      { type: LOAD_ASSET_SUCCESS, payload: assetsToLoad }
     ];
-    return store.dispatch(getAssetDetail()).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
-      expect(store.getActions()[1].type).toEqual(expectedActions[1].type);
+    return store.dispatch(getAssetDetail('1')).then(() => {
+      expect(store.getActions()).toContainEqual(expectedActions[0]);
+      expect(store.getActions()).toContainEqual(expectedActions[1]);
     });
   });
 
   it('should dispatch LOAD_ASSET_FAILURE when getAssetDetail returns an error', () => {
     expectedActions = [
       { type: LOADING_ASSET },
-      { type: LOAD_ASSET_FAILURE }
+      { type: LOAD_ASSET_FAILURE, payload: 'Request failed with status code 400' }
     ];
     mock.onGet().reply(400,
       { message: 'error not found' }
     );
-    return store.dispatch(getAssetDetail()).then(() => {
-      expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
-      expect(store.getActions()[1].type).toEqual(expectedActions[1].type);
+    return store.dispatch(getAssetDetail('tfgu')).then(() => {
+      expect(store.getActions()).toContainEqual(expectedActions[0]);
+      expect(store.getActions()).toContainEqual(expectedActions[1]);
     });
   });
 

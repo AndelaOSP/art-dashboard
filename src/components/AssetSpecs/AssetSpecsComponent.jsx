@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
+import { Button, Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRow from '../TableRowComponent';
@@ -21,7 +21,7 @@ export class AssetSpecsComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadAssetSpecs(this.state.activePage);
+    this.props.loadAssetSpecs(this.state.activePage, this.state.limit);
   }
 
   handleRowChange = (e, data) => {
@@ -31,7 +31,7 @@ export class AssetSpecsComponent extends React.Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetSpecs(activePage);
+    this.props.loadAssetSpecs(activePage, this.state.limit);
   };
 
   getTotalPages = () => Math.ceil(this.props.assetSpecsCount / this.state.limit);
@@ -71,6 +71,16 @@ export class AssetSpecsComponent extends React.Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Specs" />
             <Divider id="assets-divider" />
+            <div className="header-modal-button">
+              <Link to="/asset-specs/create">
+                <Button
+                  className="add-asset"
+                  size="medium"
+                >
+                  ADD ASSET SPEC GROUP
+                </Button>
+              </Link>
+            </div>
           </div>
           <Table basic selectable>
             <Table.Header>
@@ -152,7 +162,11 @@ AssetSpecsComponent.propTypes = {
   loadAssetSpecs: PropTypes.func.isRequired,
   specs: PropTypes.array.isRequired,
   assetSpecsCount: PropTypes.number.isRequired,
-  hasError: PropTypes.bool.isRequired
+  hasError: PropTypes.bool
+};
+
+AssetSpecsComponent.defaultProps = {
+  hasError: false
 };
 
 export default withRouter(connect(mapStateToProps, {

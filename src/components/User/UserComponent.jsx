@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Header, Pagination, Segment } from 'semantic-ui-react';
+import { Table, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
 import TableRow from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
+import NavbarComponent from '../NavBarComponent';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
 const UserComponent = (props) => {
@@ -22,7 +24,11 @@ const UserComponent = (props) => {
 
   if (props.emptyUsersList()) {
     return (
-      <Header as="h3" id="empty-usersList" content="No Users Found" />
+      <NavbarComponent>
+        <ItemsNotFoundComponent
+          message="Please try again later, to see if we'll have users to show you."
+        />
+      </NavbarComponent>
     );
   }
 
@@ -74,7 +80,7 @@ const UserComponent = (props) => {
                   <Segment>
                     <Pagination
                       id="art-pagination-component"
-                      totalPages={props.handlePageTotal()}
+                      totalPages={props.handlePageTotal() || 1}
                       onPageChange={props.handlePaginationChange}
                       activePage={props.activePage}
                     />
@@ -102,19 +108,21 @@ const UserComponent = (props) => {
 UserComponent.propTypes = {
   activePage: PropTypes.number,
   activePageUsers: PropTypes.arrayOf(PropTypes.object),
-  emptyUsersList: PropTypes.func.isRequired,
+  emptyUsersList: PropTypes.func,
   errorMessage: PropTypes.string,
   handlePageTotal: PropTypes.func,
   handleRowChange: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   limit: PropTypes.number
 };
 
 UserComponent.defaultProps = {
   activePage: 1,
-  errorMessage: ''
+  errorMessage: '',
+  emptyUsersList: () => {},
+  isLoading: false
 };
 
 export default UserComponent;

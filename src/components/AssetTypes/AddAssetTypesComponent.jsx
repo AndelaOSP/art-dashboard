@@ -70,12 +70,16 @@ AssetTypesComponent.propTypes = {
   onChangeButtonState: PropTypes.func.isRequired,
   subcategories: PropTypes.array,
   buttonState: PropTypes.bool.isRequired,
-  subCategorySelectedId: PropTypes.number,
-  isLoading: PropTypes.bool.isRequired
+  subCategorySelectedId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  isLoading: PropTypes.bool
 };
 
 AssetTypesComponent.defaultProps = {
-  subcategories: []
+  subcategories: [],
+  isLoading: false
 };
 
 export default AssetTypesComponent;

@@ -18,16 +18,25 @@ const PageNotFoundComponent = props => (
       alt="Sad face"
       id="sad-face-404"
     />
-    <p className="title-404"> Sorry we could not find that page! </p>
-    <p className="para-404"> There's no shame in being lost in a page that was probably never there in the first place! </p>
-    <Button className="back-button-404" onClick={() => props.history.goBack()}>let's go back</Button>
+    <p className="title-404">Sorry we could not find that page!</p>
+    <p className="para-404">
+      There's no shame in being lost in a page that was probably never there in the first place!
+    </p>
+
+    <Button className="back-button-404" onClick={props.history.goBack}>
+      let's go back
+    </Button>
     <span className="or-404"> or </span>
     <Link to="/dashboard"><Button className="home-button-404">head home</Button></Link>
   </div>
 );
 
 PageNotFoundComponent.propTypes = {
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
+};
+
+PageNotFoundComponent.defaultProps = {
+  history: {}
 };
 
 export default PageNotFoundComponent;

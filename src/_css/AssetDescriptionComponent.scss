@@ -49,5 +49,6 @@
 
 .ui.primary.button.assign-asset,
 .ui.primary.button.unassign-asset {
-  @include blue-rounded-buttons
+  @include blue-rounded-buttons;
+  margin-top: 20px;
 }

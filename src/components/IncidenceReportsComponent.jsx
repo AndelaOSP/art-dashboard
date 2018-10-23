@@ -41,7 +41,6 @@ export class IncidenceReportsComponent extends React.Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            header="No Incident reports found!"
             message="Please try again later to see if there will be incident reports to show you."
           />
         </NavbarComponent>

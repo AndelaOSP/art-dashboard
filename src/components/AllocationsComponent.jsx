@@ -49,7 +49,6 @@ export class AllocationsComponent extends Component {
       return (
         <NavbarComponent>
           <ItemsNotFoundComponent
-            header="No Allocation found!"
             message="Please try again later, to see if we'll have allocations to show you."
           />
         </NavbarComponent>
