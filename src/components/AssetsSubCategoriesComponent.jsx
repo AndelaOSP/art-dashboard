@@ -13,7 +13,7 @@ import {
 import _ from 'lodash';
 
 import TableRow from './TableRowComponent';
-import NavbarComponent from './NavBarComponent';
+import NavBarComponent from '../_components/NavBarContainer';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from '../components/LoaderComponent';
@@ -48,23 +48,23 @@ export class AssetSubCategoriesComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <LoaderComponent />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     if (!this.props.isLoading && _.isEmpty(this.props.assetSubCategories)) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <ItemsNotFoundComponent
             header="No Asset subcategory found!"
             message="Please try again later to see if there will be asset subcategories to show you."
           />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Sub-Categories" />
@@ -134,7 +134,7 @@ export class AssetSubCategoriesComponent extends React.Component {
             </Table.Footer>
           </Table>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

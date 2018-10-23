@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Table, Header, Pagination, Segment, Divider } from 'semantic-ui-react';
 
 import TableRow from './TableRowComponent.jsx';
-import NavbarComponent from './NavBarComponent';
+import NavBarComponent from '../_components/NavBarContainer';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import { loadIncidenceReports } from '../_actions/incidenceReports.actions';
@@ -39,15 +39,15 @@ export class IncidenceReportsComponent extends React.Component {
   render() {
     if (this.emptyReportsCheck()) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <ItemsNotFoundComponent
             message="Please try again later to see if there will be incident reports to show you."
           />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <div className="incidence-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Incidence Reports" />
@@ -113,7 +113,7 @@ export class IncidenceReportsComponent extends React.Component {
             </Table.Footer>
           </Table>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

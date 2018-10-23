@@ -13,7 +13,7 @@ import {
 import _ from 'lodash';
 
 import TableRow from '../TableRowComponent';
-import NavbarComponent from '../NavBarComponent';
+import NavBarComponent from '../../_components/NavBarContainer';
 import DropdownComponent from '../../_components/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
 import { loadAssetMakes } from '../../_actions/assetMakes.actions';
@@ -47,23 +47,23 @@ export class AssetMakeComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <LoaderComponent />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     if (!this.props.isLoading && _.isEmpty(this.props.assetMakes)) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <ItemsNotFoundComponent
             header="No Asset make found!"
             message="Please try again later to see if there will be asset makes to show you"
           />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <div className="incidence-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Makes" />
@@ -134,7 +134,7 @@ export class AssetMakeComponent extends React.Component {
             </Table.Footer>
           </Table>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Divider, Grid, Header } from 'semantic-ui-react';
 import { createAssetSpec } from '../../_actions/assetSpecs.actions';
-import NavbarComponent from '../../components/NavBarComponent';
+import NavBarComponent from '../NavBarContainer';
 import AddAssetSpecComponent from '../../components/AssetSpecs/AddAssetSpecComponent';
 
 class AddAssetSpecContainer extends React.Component {
@@ -43,7 +43,7 @@ class AddAssetSpecContainer extends React.Component {
     const { isLoading } = this.props;
 
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <div className="add-asset">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Add Asset Spec Group" />
@@ -61,7 +61,7 @@ class AddAssetSpecContainer extends React.Component {
             </Grid.Column>
           </Grid>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

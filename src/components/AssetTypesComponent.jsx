@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import TableRow from './TableRowComponent';
 import rowOptions from '../_utils/pageRowOptions';
-import NavbarComponent from './NavBarComponent';
+import NavBarComponent from '../_components/NavBarContainer';
 import DropdownComponent from '../components/common/DropdownComponent';
 import LoaderComponent from '../components/LoaderComponent';
 import AssetTypesContainer from '../_components/AssetTypes/AddAssetTypesContainer';
@@ -42,23 +42,23 @@ export class AssetTypesComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <LoaderComponent />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <ItemsNotFoundComponent
             header="No Asset types found!"
             message="Please try again later to see if there will be asset types to show you"
           />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Types" />
@@ -128,7 +128,7 @@ export class AssetTypesComponent extends React.Component {
             </Table.Footer>
           </Table>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

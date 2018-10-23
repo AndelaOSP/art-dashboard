@@ -6,7 +6,7 @@ import { Button, Header, Table, Pagination, Segment, Divider } from 'semantic-ui
 import _ from 'lodash';
 
 import TableRow from '../TableRowComponent';
-import NavbarComponent from '../NavBarComponent';
+import NavBarComponent from '../../_components/NavBarContainer';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
@@ -39,34 +39,34 @@ export class AssetSpecsComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <LoaderComponent />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     if (!this.props.isLoading && _.isEmpty(this.props.specs)) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <ItemsNotFoundComponent
             header="Asset specs not found!"
             message="Please try again later, to see if we'll have Asset specs to show you."
           />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     if (!this.props.isLoading && this.props.hasError) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <div className="assets-list">
             <h1>
               An Error Occured
             </h1>
           </div>
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Specs" />
@@ -142,7 +142,7 @@ export class AssetSpecsComponent extends React.Component {
             </Table.Footer>
           </Table>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

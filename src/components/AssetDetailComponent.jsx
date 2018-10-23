@@ -6,7 +6,7 @@ import { Container, Divider, Header } from 'semantic-ui-react';
 import { getAssetDetail } from '../_actions/asset.actions';
 import { loadAssetAssigneeUsers } from '../_actions/users.actions';
 import AssetDetailContent from './AssetDetailContent';
-import NavbarComponent from './NavBarComponent';
+import NavBarComponent from '../_components/NavBarContainer';
 import LoaderComponent from './LoaderComponent';
 
 export class AssetDetailComponent extends Component {
@@ -56,7 +56,7 @@ export class AssetDetailComponent extends Component {
         />);
     }
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <Container>
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Asset Detail" />
@@ -64,7 +64,7 @@ export class AssetDetailComponent extends Component {
           </div>
           {renderedComponent}
         </Container>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }
