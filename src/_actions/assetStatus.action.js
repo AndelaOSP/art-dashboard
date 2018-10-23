@@ -2,136 +2,43 @@ import axios from 'axios';
 import constants from '../_constants';
 
 const {
-  LOAD_AVAILABLE_ASSETS_REQUEST,
-  LOAD_AVAILABLE_ASSETS_SUCCESS,
-  LOAD_AVAILABLE_ASSETS_FAILURE,
-  LOAD_LOST_ASSETS_REQUEST,
-  LOAD_LOST_ASSETS_SUCCESS,
-  LOAD_LOST_ASSETS_FAILURE,
-  LOAD_DAMAGED_ASSETS_REQUEST,
-  LOAD_DAMAGED_ASSETS_SUCCESS,
-  LOAD_DAMAGED_ASSETS_FAILURE,
-  LOAD_ALLOCATED_ASSETS_REQUEST,
-  LOAD_ALLOCATED_ASSETS_SUCCESS,
-  LOAD_ALLOCATED_ASSETS_FAILURE
+  ASSET_STATUS_LOADING,
+  ASSET_STATUS_FETCH_SUCCESS,
+  ASSET_STATUS_FETCH_FAILURE
 } = constants;
 
-export const getAvailableAssets = () => {
-  const url = 'manage-assets?paginate=false&current_status=available';
+export const getAssetStatus = (statusType = 'available') => {
+  const url = `manage-assets?paginate=false&current_status=${statusType}`;
 
   return (dispatch) => {
-    dispatch(getAvailableAssetsRequest());
+    dispatch(loadingAssetStatus(true, statusType));
 
     return axios.get(url)
       .then((response) => {
-        dispatch(getAvailableAssetsSuccess(response.data));
+        dispatch(loadingAssetStatus(false, statusType));
+        dispatch(getAssetStatusSuccess(response.data, statusType));
       })
       .catch((error) => {
-        dispatch(getAvailableAssetsFailure(error.message));
+        dispatch(loadingAssetStatus(false, statusType));
+        dispatch(getAssetStatusFailure(error.message, statusType));
       });
   };
 };
 
-const getAvailableAssetsRequest = () => ({
-  type: LOAD_AVAILABLE_ASSETS_REQUEST
+export const loadingAssetStatus = (loading, statusType) => ({
+  type: ASSET_STATUS_LOADING,
+  loading,
+  statusType
 });
 
-const getAvailableAssetsSuccess = data => ({
-  type: LOAD_AVAILABLE_ASSETS_SUCCESS,
-  payload: data
+export const getAssetStatusSuccess = (payload, statusType) => ({
+  type: ASSET_STATUS_FETCH_SUCCESS,
+  payload,
+  statusType
 });
 
-const getAvailableAssetsFailure = message => ({
-  type: LOAD_AVAILABLE_ASSETS_FAILURE,
-  payload: message
-});
-
-export const getLostAssets = () => {
-  const url = 'manage-assets?paginate=false&current_status=lost';
-
-  return (dispatch) => {
-    dispatch(getLostAssetsRequest());
-
-    return axios.get(url)
-      .then((response) => {
-        dispatch(getLostAssetsSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(getLostAssetsFailure(error.message));
-      });
-  };
-};
-
-const getLostAssetsRequest = () => ({
-  type: LOAD_LOST_ASSETS_REQUEST
-});
-
-const getLostAssetsSuccess = data => ({
-  type: LOAD_LOST_ASSETS_SUCCESS,
-  payload: data
-});
-
-const getLostAssetsFailure = message => ({
-  type: LOAD_LOST_ASSETS_FAILURE,
-  payload: message
-});
-
-export const getDamagedAssets = () => {
-  const url = 'manage-assets?paginate=false&current_status=damaged';
-
-  return (dispatch) => {
-    dispatch(getDamagedAssetsRequest());
-
-    return axios.get(url)
-      .then((response) => {
-        dispatch(getDamagedAssetsSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(getDamagedAssetsFailure(error.message));
-      });
-  };
-};
-
-const getDamagedAssetsRequest = () => ({
-  type: LOAD_DAMAGED_ASSETS_REQUEST
-});
-
-const getDamagedAssetsSuccess = data => ({
-  type: LOAD_DAMAGED_ASSETS_SUCCESS,
-  payload: data
-});
-
-const getDamagedAssetsFailure = message => ({
-  type: LOAD_DAMAGED_ASSETS_FAILURE,
-  payload: message
-});
-
-export const getAllocatedAssets = () => {
-  const url = 'manage-assets?paginate=false&current_status=allocated';
-
-  return (dispatch) => {
-    dispatch(getAllocatedAssetsRequest(true));
-
-    return axios.get(url)
-      .then((response) => {
-        dispatch(getAllocatedAssetsSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(getAllocatedAssetsFailure(error.message));
-      });
-  };
-};
-
-const getAllocatedAssetsRequest = () => ({
-  type: LOAD_ALLOCATED_ASSETS_REQUEST
-});
-
-const getAllocatedAssetsSuccess = data => ({
-  type: LOAD_ALLOCATED_ASSETS_SUCCESS,
-  payload: data
-});
-
-const getAllocatedAssetsFailure = message => ({
-  type: LOAD_ALLOCATED_ASSETS_FAILURE,
-  payload: message
+export const getAssetStatusFailure = (payload, statusType) => ({
+  type: ASSET_STATUS_FETCH_FAILURE,
+  payload,
+  statusType
 });

@@ -1,52 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { isEmpty } from 'lodash';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Header,
   Divider,
   Grid
 } from 'semantic-ui-react';
 import NavBarComponent from '../../_components/NavBarContainer';
-import AnalyticsCardComponent from './AnalyticsCardComponent';
-import {
-  getAllocatedAssets,
-  getAvailableAssets,
-  getDamagedAssets,
-  getLostAssets
-} from '../../_actions/assetStatus.action';
+import AssetStatusComponent from './AssetStatusComponent';
 
 import '../../_css/DashboardComponent.css';
 
 class DashboardComponent extends Component {
-  state = {
-    assetStateDamaged: true,
-    assetStateLost: false,
-    assetStateAllocated: false,
-    assetStateAvailable: false
-  };
-
-  componentDidMount() {
-    const { lostAssets, availableAssets, damagedAssets, allocatedAssets } = this.props;
-
-    if (isEmpty(lostAssets.assetsList)) {
-      this.props.getLostAssets();
-    }
-
-    if (isEmpty(availableAssets.assetsList)) {
-      this.props.getAvailableAssets();
-    }
-
-    if (isEmpty(damagedAssets.assetsList)) {
-      this.props.getDamagedAssets();
-    }
-
-    if (isEmpty(allocatedAssets.assetsList)) {
-      this.props.getAllocatedAssets();
-    }
-  }
-
   assetNavigation = [
     {
       url: '/asset-makes',
@@ -75,7 +40,13 @@ class DashboardComponent extends Component {
   ];
 
   render() {
-    const { lostAssets, availableAssets, damagedAssets, allocatedAssets } = this.props;
+    const {
+      allocatedAssets,
+      availableAssets,
+      damagedAssets,
+      lostAssets,
+      getAssetStatus
+    } = this.props;
 
     return (
       <NavBarComponent>
@@ -87,78 +58,26 @@ class DashboardComponent extends Component {
           <div id="analytics-state-selection">
             <Grid>
               <Grid.Row columns={4}>
-                <Grid.Column>
-                  <div className={`analytics-state-rectangle ${this.state.assetStateDamaged ? 'active-analytics' : ''}`}>
-                    {
-                        this.state.assetStateDamaged ?
-                          <div id="circle">
-                            <div className="checkmark" />
-                          </div>
-                          :
-                          ''
-                      }
-                    <AnalyticsCardComponent
-                      assetNumber={damagedAssets.assetsCount}
-                      assetState="damaged"
-                      image="/images/damaged.png"
-                      cssClass="damaged"
-                    />
-                  </div>
-                </Grid.Column>
-                <Grid.Column>
-                  <div className={`analytics-state-rectangle ${this.state.assetStateLost ? 'active-analytics' : ''}`}>
-                    {
-                        this.state.assetStateLost ?
-                          <div id="circle">
-                            <div className="checkmark" />
-                          </div>
-                          :
-                          ''
-                      }
-                    <AnalyticsCardComponent
-                      assetNumber={lostAssets.assetsCount}
-                      assetState="lost"
-                      image="/images/lost.png"
-                      cssClass="lost"
-                    />
-                  </div>
-                </Grid.Column>
-                <Grid.Column>
-                  <div className={`analytics-state-rectangle ${this.state.assetStateAllocated ? 'active-analytics' : ''}`}>
-                    {
-                        this.state.assetStateAllocated ?
-                          <div id="circle">
-                            <div className="checkmark" />
-                          </div>
-                          :
-                          ''
-                      }
-                    <AnalyticsCardComponent
-                      assetNumber={allocatedAssets.assetsCount}
-                      assetState="allocated"
-                      image="/images/allocated.png"
-                      cssClass="allocated"
-                    />
-                  </div>
-                </Grid.Column>
-                <Grid.Column>
-                  <div className={`analytics-state-rectangle ${this.state.assetStateAvailable ? 'active-analytics' : ''}`}>
-                    {
-                        this.state.assetStateAvailable ?
-                          <div id="circle">
-                            <div className="checkmark" />
-                          </div>
-                          :
-                          ''
-                      }
-                    <AnalyticsCardComponent
-                      assetNumber={availableAssets.assetsCount}
-                      assetState="available"
-                      image="/images/available.png"
-                      cssClass="available"
-                    />
-                  </div>
-                </Grid.Column>
+                <AssetStatusComponent
+                  asset={damagedAssets}
+                  status="damaged"
+                  onFetchAssets={getAssetStatus}
+                />
+                <AssetStatusComponent
+                  asset={lostAssets}
+                  status="lost"
+                  onFetchAssets={getAssetStatus}
+                />
+                <AssetStatusComponent
+                  asset={allocatedAssets}
+                  status="allocated"
+                  onFetchAssets={getAssetStatus}
+                />
+                <AssetStatusComponent
+                  asset={availableAssets}
+                  status="available"
+                  onFetchAssets={getAssetStatus}
+                />
               </Grid.Row>
             </Grid>
           </div>
@@ -187,10 +106,7 @@ DashboardComponent.propTypes = {
   availableAssets: PropTypes.object,
   damagedAssets: PropTypes.object,
   allocatedAssets: PropTypes.object,
-  getAllocatedAssets: PropTypes.func.isRequired,
-  getAvailableAssets: PropTypes.func.isRequired,
-  getDamagedAssets: PropTypes.func.isRequired,
-  getLostAssets: PropTypes.func.isRequired
+  getAssetStatus: PropTypes.func.isRequired
 };
 
 DashboardComponent.defaultProps = {
@@ -200,25 +116,4 @@ DashboardComponent.defaultProps = {
   allocatedAssets: {}
 };
 
-const mapStateToProps = ({ assetStatus }) => {
-  const {
-    lostAssets,
-    availableAssets,
-    damagedAssets,
-    allocatedAssets
-  } = assetStatus;
-
-  return {
-    lostAssets,
-    availableAssets,
-    damagedAssets,
-    allocatedAssets
-  };
-};
-
-export default withRouter(connect(mapStateToProps, {
-  getAllocatedAssets,
-  getAvailableAssets,
-  getDamagedAssets,
-  getLostAssets
-})(DashboardComponent));
+export default DashboardComponent;

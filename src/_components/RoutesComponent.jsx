@@ -5,7 +5,7 @@ import AssetTypes from '../components/AssetTypesComponent';
 import Assets from '../components/AssetsComponent';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
 import LoginComponent from '../components/LoginComponent';
-import Dashboard from '../components/Dashboard/DashboardComponent';
+import Dashboard from '../_components/Dashboard/DashboardContainer';
 import UserFeedback from '../components/User/UserFeedbackComponent';
 import PageNotFound from '../components/PageNotFoundComponent';
 import AssetSubCategories from '../components/AssetsSubCategoriesComponent';
