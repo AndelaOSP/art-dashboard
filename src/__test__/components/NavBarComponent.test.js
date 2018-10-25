@@ -11,8 +11,7 @@ window.localStorage = localStorageMock;
 let props = {
   history: {
     push: jest.fn()
-  },
-  toggleVisibility: true
+  }
 };
 
 let wrapper = shallow(<NavBarComponent {...props} />);
@@ -45,15 +44,6 @@ describe('renders <NavBarComponent />', () => {
     wrapper.find('#logout').simulate('click');
     wrapper.instance().handleLogout();
     expect(handleLogoutSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('toggle visibility of secondary menu', () => {
-    const toggleVisibilitySpy = jest.spyOn(
-      wrapper.instance(), 'toggleVisibility'
-    );
-    wrapper.find('#toggle-menu').simulate('click');
-    wrapper.instance().toggleVisibility();
-    expect(toggleVisibilitySpy.mock.calls.length).toEqual(1);
   });
 
   it('should render hamburger icon when closed', () => {

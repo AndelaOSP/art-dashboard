@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import NavbarComponent from './NavBarComponent';
+import NavBarComponent from '../_components/NavBarContainer';
 import AssetsTableContent from './AssetsTableContent';
 import '../_css/AssetsComponent.css';
 import { getAssetsAction, setActivePage } from '../_actions/assets.action';
@@ -92,7 +92,7 @@ export class AssetsComponent extends Component {
     const filters = this.createFilterData();
 
     return (
-      <NavbarComponent title="Assets">
+      <NavBarComponent title="Assets">
         <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
@@ -134,7 +134,7 @@ export class AssetsComponent extends Component {
             limit={this.state.limit}
           />
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

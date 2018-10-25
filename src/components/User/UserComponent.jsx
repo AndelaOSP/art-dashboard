@@ -6,7 +6,7 @@ import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
 import TableRow from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
-import NavbarComponent from '../NavBarComponent';
+import NavBarComponent from '../../_components/NavBarContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
@@ -24,11 +24,11 @@ const UserComponent = (props) => {
 
   if (props.emptyUsersList()) {
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <ItemsNotFoundComponent
           message="Please try again later, to see if we'll have users to show you."
         />
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 

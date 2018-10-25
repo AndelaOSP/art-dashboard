@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { loadAllocationsAction } from '../_actions/allocations.actions';
-import NavbarComponent from './NavBarComponent';
+import NavBarComponent from '../_components/NavBarContainer';
 import TableRow from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import formatDate from '../_utils/dateFormatter';
@@ -40,22 +40,22 @@ export class AllocationsComponent extends Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <LoaderComponent />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <ItemsNotFoundComponent
             message="Please try again later, to see if we'll have allocations to show you."
           />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <div className="allocations-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="All Allocations" />
@@ -115,7 +115,7 @@ export class AllocationsComponent extends Component {
             </Table.Footer>
           </Table>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

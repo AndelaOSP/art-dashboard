@@ -6,7 +6,7 @@ import { Divider, Grid, Header, Icon, Step } from 'semantic-ui-react';
 
 import FilterAssetComponent from '../../components/Assets/FilterAssetComponent';
 import SpecsComponent from '../../components/Assets/SpecsComponent';
-import NavbarComponent from '../../components/NavBarComponent';
+import NavBarComponent from '../NavBarContainer';
 import LoaderComponent from '../../components/LoaderComponent';
 
 import { loadCategoriesDropdown } from '../../_actions/category.actions';
@@ -163,9 +163,9 @@ class AddAssetContainer extends React.Component {
 
     if (loading) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <LoaderComponent />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
 
@@ -214,7 +214,7 @@ class AddAssetContainer extends React.Component {
     }
 
     return (
-      <NavbarComponent>
+      <NavBarComponent>
         <div className="add-asset">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Add Asset" />
@@ -245,7 +245,7 @@ class AddAssetContainer extends React.Component {
             </Grid.Column>
           </Grid>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

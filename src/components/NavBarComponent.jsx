@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Dropdown,
@@ -16,10 +16,6 @@ import PropTypes from 'prop-types';
 import '../_css/NavBarComponent.css';
 
 export class NavBarComponent extends Component {
-  state = {
-    visible: true
-  };
-
   navigationLinks = [
     {
       url: '/dashboard',
@@ -58,31 +54,29 @@ export class NavBarComponent extends Component {
     this.props.history.push('/');
   };
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible });
-
   navButton = () => {
-    const { visible } = this.state;
+    const { isVisible } = this.props;
 
-    if (visible) {
+    if (isVisible) {
       return <Icon id="hamburger" name="angle double up" />;
     }
     return <Icon id="hamburger" name="bars" />;
   };
 
   render() {
-    const { visible } = this.state;
+    const { isVisible } = this.props;
     const token = jwt.decode(localStorage.getItem('art-prod-web-token'));
     const { picture } = token || {};
 
-    const topBarClass = visible ? 'top-bar-height-open' : 'top-bar-height-closed';
+    const topBarClass = isVisible ? 'top-bar-height-open' : 'top-bar-height-closed';
 
-    const pageContentClass = visible ? 'page-content-margin-open' : 'page-content-margin-closed';
+    const pageContentClass = isVisible ? 'page-content-margin-open' : 'page-content-margin-closed';
 
     return (
       <React.Fragment>
         <div className={`top-bar ${topBarClass}`}>
           <Menu id="nav-bar" secondary stackable>
-            <Menu.Item id="toggle-menu" name="menu" onClick={this.toggleVisibility}>
+            <Menu.Item id="toggle-menu" name="menu" onClick={this.props.toggleVisibilityAction}>
               {this.navButton()}
             </Menu.Item>
 
@@ -137,7 +131,7 @@ export class NavBarComponent extends Component {
 
           <Transition.Group animation="fade down" duration="700">
             {
-              visible &&
+              isVisible &&
               <Grid className="collapsible-menu" textAlign="center">
                 <Grid columns={6} className="navigation-bar">
                   {
@@ -173,12 +167,9 @@ export class NavBarComponent extends Component {
 NavBarComponent.propTypes = {
   children: PropTypes.node,
   history: PropTypes.object.isRequired,
-  push: PropTypes.func
+  push: PropTypes.func,
+  toggleVisibilityAction: PropTypes.func,
+  isVisible: PropTypes.bool
 };
 
-NavBarComponent.defaultProps = {
-  push: () => {
-  }
-};
-
-export default withRouter(NavBarComponent);
+export default NavBarComponent;
