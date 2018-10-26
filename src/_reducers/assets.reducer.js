@@ -19,6 +19,7 @@ export default (state = initialState.assets, action) => {
         hasError: false,
         isLoading: true
       };
+
     case CREATE_ASSET_SUCCESS:
       return {
         ...state,
@@ -27,17 +28,20 @@ export default (state = initialState.assets, action) => {
         hasError: false,
         isLoading: false
       };
+
     case CREATE_ASSET_FAIL:
       return {
         ...state,
         hasError: true,
         isLoading: false
       };
+
     case LOAD_ASSETS_STARTS:
       return {
         ...state,
         isLoading: action.isLoading
       };
+
     case LOAD_ASSETS_SUCCESS:
       return {
         ...state,
@@ -46,11 +50,13 @@ export default (state = initialState.assets, action) => {
         hasError: false,
         isLoading: action.isLoading
       };
+
     case SET_ACTIVE_PAGE:
       return {
         ...state,
         activePage: action.payload
       };
+
     case LOAD_ASSETS_FAILURE:
       return {
         ...state,
@@ -60,6 +66,7 @@ export default (state = initialState.assets, action) => {
         hasError: true,
         isLoading: action.isLoading
       };
+
     default:
       return state;
   }

@@ -101,5 +101,6 @@ export default {
   checkedFilters: {},
   navBarVisibility: {
     isVisible: true
-  }
+  },
+  assetStatus: {}
 };

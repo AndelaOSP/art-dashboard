@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Header,
   Divider,
   Grid
 } from 'semantic-ui-react';
-import '../../_css/DashboardComponent.css';
 import NavBarComponent from '../../_components/NavBarContainer';
-import AnalyticsCardComponent from './AnalyticsCardComponent';
+import AssetStatusComponent from './AssetStatusComponent';
+
+import '../../_css/DashboardComponent.css';
 
 class DashboardComponent extends Component {
-  state = {
-    assetStateDamaged: true,
-    assetStateLost: false,
-    assetStateAllocated: false,
-    assetStateAvailable: false
-  };
-
   assetNavigation = [
     {
       url: '/asset-makes',
@@ -45,6 +40,14 @@ class DashboardComponent extends Component {
   ];
 
   render() {
+    const {
+      allocatedAssets,
+      availableAssets,
+      damagedAssets,
+      lostAssets,
+      getAssetStatus
+    } = this.props;
+
     return (
       <NavBarComponent>
         <div id="dashboard-content">
@@ -55,78 +58,26 @@ class DashboardComponent extends Component {
           <div id="analytics-state-selection">
             <Grid>
               <Grid.Row columns={4}>
-                <Grid.Column>
-                  <div className={`analytics-state-rectangle ${this.state.assetStateDamaged ? 'active-analytics' : ''}`}>
-                    {
-                        this.state.assetStateDamaged ?
-                          <div id="circle">
-                            <div className="checkmark" />
-                          </div>
-                          :
-                          ''
-                      }
-                    <AnalyticsCardComponent
-                      assetNumber={90}
-                      assetState="damaged"
-                      image="/images/damaged.png"
-                      cssClass="damaged"
-                    />
-                  </div>
-                </Grid.Column>
-                <Grid.Column>
-                  <div className={`analytics-state-rectangle ${this.state.assetStateLost ? 'active-analytics' : ''}`}>
-                    {
-                        this.state.assetStateLost ?
-                          <div id="circle">
-                            <div className="checkmark" />
-                          </div>
-                          :
-                          ''
-                      }
-                    <AnalyticsCardComponent
-                      assetNumber={20}
-                      assetState="lost"
-                      image="/images/lost.png"
-                      cssClass="lost"
-                    />
-                  </div>
-                </Grid.Column>
-                <Grid.Column>
-                  <div className={`analytics-state-rectangle ${this.state.assetStateAllocated ? 'active-analytics' : ''}`}>
-                    {
-                        this.state.assetStateAllocated ?
-                          <div id="circle">
-                            <div className="checkmark" />
-                          </div>
-                          :
-                          ''
-                      }
-                    <AnalyticsCardComponent
-                      assetNumber={200}
-                      assetState="allocated"
-                      image="/images/allocated.png"
-                      cssClass="allocated"
-                    />
-                  </div>
-                </Grid.Column>
-                <Grid.Column>
-                  <div className={`analytics-state-rectangle ${this.state.assetStateAvailable ? 'active-analytics' : ''}`}>
-                    {
-                        this.state.assetStateAvailable ?
-                          <div id="circle">
-                            <div className="checkmark" />
-                          </div>
-                          :
-                          ''
-                      }
-                    <AnalyticsCardComponent
-                      assetNumber={30}
-                      assetState="available"
-                      image="/images/available.png"
-                      cssClass="available"
-                    />
-                  </div>
-                </Grid.Column>
+                <AssetStatusComponent
+                  asset={damagedAssets}
+                  status="damaged"
+                  onFetchAssets={getAssetStatus}
+                />
+                <AssetStatusComponent
+                  asset={lostAssets}
+                  status="lost"
+                  onFetchAssets={getAssetStatus}
+                />
+                <AssetStatusComponent
+                  asset={allocatedAssets}
+                  status="allocated"
+                  onFetchAssets={getAssetStatus}
+                />
+                <AssetStatusComponent
+                  asset={availableAssets}
+                  status="available"
+                  onFetchAssets={getAssetStatus}
+                />
               </Grid.Row>
             </Grid>
           </div>
@@ -149,4 +100,20 @@ class DashboardComponent extends Component {
     );
   }
 }
-export default withRouter(DashboardComponent);
+
+DashboardComponent.propTypes = {
+  lostAssets: PropTypes.object,
+  availableAssets: PropTypes.object,
+  damagedAssets: PropTypes.object,
+  allocatedAssets: PropTypes.object,
+  getAssetStatus: PropTypes.func.isRequired
+};
+
+DashboardComponent.defaultProps = {
+  lostAssets: {},
+  availableAssets: {},
+  damagedAssets: {},
+  allocatedAssets: {}
+};
+
+export default DashboardComponent;

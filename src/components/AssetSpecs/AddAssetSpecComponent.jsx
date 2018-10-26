@@ -24,7 +24,7 @@ const AddAssetSpecComponent = (props) => {
   return (
     <Form onSubmit={props.handleSubmit}>
       <Form.Field>
-        <label htmlFor="year_of_manufacture" className="label-style">Year of Manufacture</label>
+        <label className="label-style">Year Of Manufacture</label>
         <DropdownComponent
           customClass="form-dropdown"
           id="year_of_manufacture"
@@ -38,7 +38,7 @@ const AddAssetSpecComponent = (props) => {
       </Form.Field>
 
       <Form.Field>
-        <label htmlFor="processor_speed" className="label-style">Processor Speed (GHz)</label>
+        <label className="label-style">Processor Speed (GHz)</label>
         <DropdownComponent
           id="processor_speed"
           name="processor_speed"
@@ -52,7 +52,7 @@ const AddAssetSpecComponent = (props) => {
       </Form.Field>
 
       <Form.Field>
-        <label htmlFor="screen_size" className="label-style">Screen Size (Inches)</label>
+        <label className="label-style">Screen Size (Inches)</label>
         <DropdownComponent
           id="screen_size"
           name="screen_size"
@@ -66,7 +66,7 @@ const AddAssetSpecComponent = (props) => {
       </Form.Field>
 
       <Form.Field>
-        <label htmlFor="processor_type" className="label-style">Processor Type</label>
+        <label className="label-style">Processor Type</label>
         <DropdownComponent
           id="processor_type"
           name="processor_type"
@@ -80,7 +80,7 @@ const AddAssetSpecComponent = (props) => {
       </Form.Field>
 
       <Form.Field>
-        <label htmlFor="storage" className="label-style">Storage Size (GB)</label>
+        <label className="label-style">Storage Size (GB)</label>
         <DropdownComponent
           id="storage"
           name="storage"
@@ -94,7 +94,7 @@ const AddAssetSpecComponent = (props) => {
       </Form.Field>
 
       <Form.Field>
-        <label htmlFor="memory" className="label-style">Memory Size (GB)</label>
+        <label className="label-style">Memory Size (GB)</label>
         <DropdownComponent
           id="memory"
           name="memory"
