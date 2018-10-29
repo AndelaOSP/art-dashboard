@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import {
   Button,
   Dropdown,
-  Grid,
   Input,
   Menu,
   Icon,
@@ -132,26 +131,24 @@ export class NavBarComponent extends Component {
           <Transition.Group animation="fade down" duration="700">
             {
               isVisible &&
-              <Grid className="collapsible-menu" textAlign="center">
-                <Grid columns={6} className="navigation-bar">
-                  {
-                    this.navigationLinks.map(nav => (
-                      <Grid.Column key={nav.url} mobile={8} tablet={3} computer={2}>
-                        <Link to={nav.url}>
-                          <span>
-                            <Image
-                              className="nav-images"
-                              src={nav.imgSrc}
-                            />
-                          </span>
+              <div className="collapsible-menu">
+                {
+                  this.navigationLinks.map(nav => (
+                    <NavLink key={nav.url} to={nav.url}>
+                      <span>
+                        <Image
+                          className="nav-images"
+                          src={nav.imgSrc}
+                        />
+                      </span>
 
-                          {nav.title}
-                        </Link>
-                      </Grid.Column>
-                    ))
-                  }
-                </Grid>
-              </Grid>
+                      <span className="nav-text">
+                        {nav.title}
+                      </span>
+                    </NavLink>
+                  ))
+                }
+              </div>
             }
           </Transition.Group>
         </div>
