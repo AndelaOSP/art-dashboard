@@ -20,6 +20,8 @@ import userDetails from './user.reducer';
 import loadAssetSpecsReducer from './assetSpecs.reducer';
 import sessionReducer from './session.reducer';
 import filtersReducer from './checkedFilters.reducer';
+import visibilityToggleReducer from './navBarToggle.reducer';
+import assetStatusReducer from './assetStatus.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -41,7 +43,9 @@ const rootReducer = combineReducers({
   userDetails,
   assetSpecs: loadAssetSpecsReducer,
   session: sessionReducer,
-  selected: filtersReducer
+  selected: filtersReducer,
+  navBarVisibility: visibilityToggleReducer,
+  assetStatus: assetStatusReducer
 });
 
 export default rootReducer;

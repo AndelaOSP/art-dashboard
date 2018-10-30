@@ -7,7 +7,7 @@ const TextInputComponent = props => (
     fluid
     size="large"
     icon="pencil"
-    placeholder={props.placeHolder}
+    placeholder={props.placeholder}
     value={props.value}
     name={props.name}
     onChange={props.onChange}
@@ -16,7 +16,7 @@ const TextInputComponent = props => (
 );
 
 TextInputComponent.propTypes = {
-  placeHolder: PropTypes.string,
+  placeholder: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   customCss: PropTypes.string,
@@ -24,7 +24,7 @@ TextInputComponent.propTypes = {
 };
 
 TextInputComponent.defaultProps = {
-  placeHolder: '',
+  placeholder: '',
   onChange: () => {},
   customCss: ''
 };

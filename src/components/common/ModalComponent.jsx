@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+
 import '../../_css/ModalComponent.css';
 
 export default class ArtModal extends Component {
-  state = { modalOpen: this.props.open || false }
+  state = { modalOpen: this.props.open || false };
 
   toggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
@@ -19,6 +20,7 @@ export default class ArtModal extends Component {
     return (
       <span className={this.props.className}>
         <Modal
+          className="art-modal"
           trigger={
             this.props.trigger ? (
               <span
@@ -57,10 +59,14 @@ export default class ArtModal extends Component {
     );
   }
 }
+
 ArtModal.propTypes = {
   children: PropTypes.node,
   modalTitle: PropTypes.string,
-  trigger: PropTypes.element,
+  trigger: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.number
+  ]),
   className: PropTypes.string,
   modalSize: PropTypes.string,
   open: PropTypes.bool,

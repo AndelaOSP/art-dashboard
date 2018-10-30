@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Header, Divider, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import NavbarComponent from '../../components/NavBarComponent';
+import NavBarComponent from '../NavBarContainer';
 import UserComponent from '../../components/User/UserComponent';
 import { loadUsers } from '../../_actions/users.actions';
 import '../../_css/UsersComponent.css';
@@ -50,7 +50,7 @@ export class UserContainer extends Component {
 
   render() {
     return (
-      <NavbarComponent title="Users">
+      <NavBarComponent title="Users">
         <div className="users-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Users List" />
@@ -89,7 +89,7 @@ export class UserContainer extends Component {
             limit={this.state.limit}
           />
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

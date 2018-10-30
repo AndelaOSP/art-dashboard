@@ -1,28 +1,20 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import {
   Button,
   Dropdown,
-  Grid,
   Input,
   Menu,
   Icon,
   Image,
-  Sidebar
+  Transition
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import ArtModal from './common/ModalComponent';
-
 import '../_css/NavBarComponent.css';
-import AddAssetContainer from '../_components/Assets/AddAssetContainer';
 
 export class NavBarComponent extends Component {
-  state = {
-    visible: true
-  };
-
   navigationLinks = [
     {
       url: '/dashboard',
@@ -61,115 +53,109 @@ export class NavBarComponent extends Component {
     this.props.history.push('/');
   };
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible });
-
   navButton = () => {
-    const { visible } = this.state;
+    const { isVisible } = this.props;
 
-    if (visible) {
+    if (isVisible) {
       return <Icon id="hamburger" name="angle double up" />;
     }
     return <Icon id="hamburger" name="bars" />;
   };
 
   render() {
-    const { visible } = this.state;
+    const { isVisible } = this.props;
     const token = jwt.decode(localStorage.getItem('art-prod-web-token'));
     const { picture } = token || {};
 
+    const topBarClass = isVisible ? 'top-bar-height-open' : 'top-bar-height-closed';
+
+    const pageContentClass = isVisible ? 'page-content-margin-open' : 'page-content-margin-closed';
+
     return (
       <React.Fragment>
-        <Menu id="nav-bar" secondary stackable>
-          <Menu.Item id="toggle-menu" name="menu" onClick={this.toggleVisibility}>
-            {this.navButton()}
-          </Menu.Item>
-
-          <Menu.Item>
-            <Link to="/dashboard">
-              <Image id="banner" src="/images/andela_logo_blue_landscape.png" />
-            </Link>
-          </Menu.Item>
-
-          <Menu.Menu id="search-menu">
-            <Menu.Item>
-              <Input id="nav-search" className="icon" icon="search" placeholder="Search..." />
+        <div className={`top-bar ${topBarClass}`}>
+          <Menu id="nav-bar" secondary stackable>
+            <Menu.Item id="toggle-menu" name="menu" onClick={this.props.toggleVisibilityAction}>
+              {this.navButton()}
             </Menu.Item>
-          </Menu.Menu>
 
-          <Menu.Menu position="right">
             <Menu.Item>
-              <ArtModal
-                trigger={
+              <Link to="/dashboard">
+                <Image id="banner" src="/images/andela_logo_blue_landscape.png" />
+              </Link>
+            </Menu.Item>
+
+            <Menu.Menu id="search-menu">
+              <Menu.Item>
+                <Input id="nav-search" className="icon" icon="search" placeholder="Search..." />
+              </Menu.Item>
+            </Menu.Menu>
+
+            <Menu.Menu position="right">
+              <Menu.Item>
+                <Link to="/assets/create">
                   <Button
                     className="add-asset"
                     size="small"
                   >
                     ADD ASSET
                   </Button>
-                }
-                modalTitle="Add Asset"
+                </Link>
+              </Menu.Item>
+
+              <Menu.Item>
+                <Icon.Group>
+                  <Icon id="notification-icon" circular inverted name="bell" />
+                  <Icon corner name="circle" />
+                </Icon.Group>
+              </Menu.Item>
+
+              <Dropdown
+                item
+                trigger={<span><Image id="user-avatar" src={picture || ''} avatar /></span>}
+                pointing="top left"
+                icon={null}
               >
-                <AddAssetContainer />
-              </ArtModal>
-            </Menu.Item>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    id="logout"
+                    onClick={this.handleLogout}
+                  >
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Menu.Menu>
+          </Menu>
 
-            <Menu.Item>
-              <Icon.Group>
-                <Icon id="notification-icon" circular inverted name="bell" />
-                <Icon corner name="circle" />
-              </Icon.Group>
-            </Menu.Item>
-
-            <Dropdown
-              item
-              trigger={<span><Image id="user-avatar" src={picture || ''} avatar /></span>}
-              pointing="top left"
-              icon={null}
-            >
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  id="logout"
-                  onClick={this.handleLogout}
-                >
-                  Logout
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu.Menu>
-        </Menu>
-
-        <Sidebar.Pushable id="nav-bar2">
-          <Sidebar
-            animation="push"
-            direction="top"
-            visible={visible}
-          >
-            <Grid textAlign="center">
-              <Grid columns={6} className="navigation-bar">
+          <Transition.Group animation="fade down" duration="700">
+            {
+              isVisible &&
+              <div className="collapsible-menu">
                 {
                   this.navigationLinks.map(nav => (
-                    <Grid.Column key={nav.url} mobile={8} tablet={3} computer={2}>
-                      <Link to={nav.url}>
-                        <span>
-                          <Image
-                            className="nav-images"
-                            src={nav.imgSrc}
-                          />
-                        </span>
+                    <NavLink key={nav.url} to={nav.url}>
+                      <span>
+                        <Image
+                          className="nav-images"
+                          src={nav.imgSrc}
+                        />
+                      </span>
 
+                      <span className="nav-text">
                         {nav.title}
-                      </Link>
-                    </Grid.Column>
+                      </span>
+                    </NavLink>
                   ))
                 }
-              </Grid>
-            </Grid>
-          </Sidebar>
+              </div>
+            }
+          </Transition.Group>
+        </div>
 
-          <Sidebar.Pusher>
-            {this.props.children}
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
+        <div className={`page-content ${pageContentClass}`}>
+          {this.props.children}
+        </div>
       </React.Fragment>
     );
   }
@@ -178,12 +164,9 @@ export class NavBarComponent extends Component {
 NavBarComponent.propTypes = {
   children: PropTypes.node,
   history: PropTypes.object.isRequired,
-  push: PropTypes.func
+  push: PropTypes.func,
+  toggleVisibilityAction: PropTypes.func,
+  isVisible: PropTypes.bool
 };
 
-NavBarComponent.defaultProps = {
-  push: () => {
-  }
-};
-
-export default withRouter(NavBarComponent);
+export default NavBarComponent;

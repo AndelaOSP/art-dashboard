@@ -9,37 +9,52 @@ import specs from '../_mock/assetSpecs';
 describe('Renders < AssetSpecsComponent /> correctly', () => {
   const props = {
     loadAssetSpecs: jest.fn(),
+    handleRowChange: jest.fn(),
     handlePaginationChange: jest.fn(),
     isLoading: false,
     specs,
     assetSpecsCount: 10
   };
-  let wrapper = shallow(<AssetSpecsComponent
-    {...props}
-  />);
+  const wrapper = shallow(<AssetSpecsComponent{...props} />);
+
+  afterEach(() => {
+    wrapper.setProps(props);
+  });
 
   it('renders Loading component if isLoading is true', () => {
-    props.isLoading = true;
-    wrapper = shallow(<AssetSpecsComponent
-      {...props}
-    />);
+    wrapper.setProps({ isLoading: true });
+
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 
   it('renders Pagination component', () => {
-    props.isLoading = false;
-    wrapper = shallow(<AssetSpecsComponent
-      {...props}
-    />);
+    wrapper.setProps({ isLoading: false });
+
     expect(wrapper.find('Pagination').length).toBe(1);
   });
 
   it('renders Table component', () => {
-    props.isLoading = false;
-    wrapper = shallow(<AssetSpecsComponent
-      {...props}
-    />);
+    wrapper.setProps({ isLoading: false });
+
     expect(wrapper.find('Table').length).toBe(1);
+  });
+
+  it('renders ItemsNotFoundComponent when specs are empty', () => {
+    wrapper.setProps({
+      isLoading: false,
+      specs: []
+    });
+
+    expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
+  });
+
+  it('renders error when hasError is true', () => {
+    wrapper.setProps({
+      isLoading: false,
+      hasError: true
+    });
+
+    expect(wrapper.find('h1').length).toBe(1);
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {
@@ -58,5 +73,15 @@ describe('Renders < AssetSpecsComponent /> correctly', () => {
     );
     wrapper.instance().getTotalPages();
     expect(getTotalPagesSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the handleRowChange function when the next button is clicked', () => {
+    const handleRowChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleRowChange'
+    );
+    const event = {};
+    const data = {};
+    wrapper.instance().handleRowChange(event, data);
+    expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
   });
 });

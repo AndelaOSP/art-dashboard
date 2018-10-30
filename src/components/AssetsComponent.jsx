@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import NavbarComponent from './NavBarComponent';
+import NavBarComponent from '../_components/NavBarContainer';
 import AssetsTableContent from './AssetsTableContent';
 import '../_css/AssetsComponent.css';
 import { getAssetsAction, setActivePage } from '../_actions/assets.action';
@@ -21,7 +21,12 @@ export class AssetsComponent extends Component {
   componentDidMount() {
     this.props.loadAllAssetModels();
     this.props.loadDropdownAssetTypes();
-    if (isEmpty(this.props.assetsList)) {
+    const assetsEmpty = isEmpty(this.props.assetsList);
+
+    // TODO: fix the logic so that assets are fetched when you create an asset before fetching
+    // assets, otherwise, you'll only display 1 row in assets table yet there are more than one
+    // assets
+    if (assetsEmpty || (!assetsEmpty && this.props.assetsList.length === 1)) {
       this.props.getAssetsAction(this.props.activePage, this.state.limit);
     }
   }
@@ -87,7 +92,7 @@ export class AssetsComponent extends Component {
     const filters = this.createFilterData();
 
     return (
-      <NavbarComponent title="Assets">
+      <NavBarComponent title="Assets">
         <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Assets List" />
@@ -129,7 +134,7 @@ export class AssetsComponent extends Component {
             limit={this.state.limit}
           />
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }
@@ -144,18 +149,19 @@ AssetsComponent.propTypes = {
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   history: PropTypes.object,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   assetModels: PropTypes.arrayOf(PropTypes.object),
   assetTypes: PropTypes.arrayOf(PropTypes.object),
   activePage: PropTypes.number,
-  selected: PropTypes.array.isRequired,
+  selected: PropTypes.object.isRequired,
   filterSelection: PropTypes.func.isRequired
 };
 
 AssetsComponent.defaultProps = {
   assetsList: [],
   errorMessage: '',
-  activePage: 1
+  activePage: 1,
+  isLoading: false
 };
 
 const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selected }) => {

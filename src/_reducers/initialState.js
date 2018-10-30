@@ -98,5 +98,9 @@ export default {
   session: {
     sessionExpired: false
   },
-  checkedFilters: {}
+  checkedFilters: {},
+  navBarVisibility: {
+    isVisible: true
+  },
+  assetStatus: {}
 };

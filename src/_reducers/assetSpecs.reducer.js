@@ -4,7 +4,10 @@ import initialState from './initialState';
 const {
   LOAD_ASSET_SPECS_START,
   LOAD_ASSET_SPECS_SUCCESS,
-  LOAD_ASSET_SPECS_FAILURE
+  LOAD_ASSET_SPECS_FAILURE,
+  CREATE_ASSET_SPECS_REQUEST,
+  CREATE_ASSET_SPECS_SUCCESS,
+  CREATE_ASSET_SPECS_FAILURE
 } = constants;
 
 const loadAssetSpecsReducer = (state = initialState.assetSpecs, action) => {
@@ -27,6 +30,27 @@ const loadAssetSpecsReducer = (state = initialState.assetSpecs, action) => {
       };
 
     case LOAD_ASSET_SPECS_FAILURE:
+      return {
+        ...state,
+        hasError: true,
+        isLoading: false
+      };
+
+    case CREATE_ASSET_SPECS_REQUEST:
+      return {
+        ...state,
+        hasError: false,
+        isLoading: true
+      };
+
+    case CREATE_ASSET_SPECS_SUCCESS:
+      return {
+        ...state,
+        hasError: false,
+        isLoading: false
+      };
+
+    case CREATE_ASSET_SPECS_FAILURE:
       return {
         ...state,
         hasError: true,

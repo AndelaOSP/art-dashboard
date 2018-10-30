@@ -70,11 +70,12 @@ AddSubCategoryComponent.propTypes = {
   onSelectCategory: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   onChangeButtonState: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool
 };
 
 AddSubCategoryComponent.defaultProps = {
-  categoriesList: []
+  categoriesList: [],
+  isLoading: false
 };
 
 export default AddSubCategoryComponent;

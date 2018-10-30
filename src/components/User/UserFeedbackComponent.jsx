@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import feedbackAction from '../../_actions/userFeedback.actions';
 import formatDate from '../../_utils/dateFormatter';
-import NavbarComponent from '../NavBarComponent';
+import NavBarComponent from '../../_components/NavBarContainer';
 import TableRow from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
 import rowOptions from '../../_utils/pageRowOptions';
@@ -45,25 +45,24 @@ export class UserFeedbackComponent extends React.Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <LoaderComponent />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
 
     if (!this.props.isLoading && this.props.feedbackCount <= 0) {
       return (
-        <NavbarComponent>
+        <NavBarComponent>
           <ItemsNotFoundComponent
-            header="No User feedback found!"
             message="Please try again later to see if we will have any feedback to show you."
           />
-        </NavbarComponent>
+        </NavBarComponent>
       );
     }
 
     return (
-      <NavbarComponent title="User Feedback">
+      <NavBarComponent title="User Feedback">
         <div className="feedback-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="User Feedback" />
@@ -133,7 +132,7 @@ export class UserFeedbackComponent extends React.Component {
             </Table.Footer>
           </Table>
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

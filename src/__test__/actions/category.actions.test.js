@@ -1,14 +1,19 @@
 // third-party libraries
 import expect from 'expect';
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import moxios from 'moxios';
 
 // constants
 import constants from '../../_constants';
 
 // actions
-import { loadCategoriesDropdown, createCategory } from '../../_actions/category.actions';
+import {
+  loadCategoriesDropdown,
+  createCategory,
+  loadCategories
+} from '../../_actions/category.actions';
 
 // mock data
 import categories from '../../_mock/categories';
@@ -18,7 +23,8 @@ const {
   LOAD_CATEGORY_FAILURE,
   CREATE_CATEGORY_SUCCESS,
   CREATE_CATEGORY_FAILURE,
-  DROPDOWN_CATEGORIES_SUCCESS
+  DROPDOWN_CATEGORIES_SUCCESS,
+  LOAD_CATEGORIES_SUCCESS
 } = constants;
 
 // store
@@ -27,64 +33,119 @@ const mockStore = configureMockStore(middleware);
 let store;
 const url = 'asset-categories';
 const url2 = 'asset-categories/?paginate=false';
-
-afterEach(() => {
-  store.clearActions();
-});
+const url3 = 'asset-categories/?page=1&page_size=10';
 
 describe('Category action tests', () => {
-  beforeEach(() => moxios.install());
-  afterEach(() => moxios.uninstall());
-
+  const mock = new MockAdapter(axios);
   store = mockStore({});
 
-  it('should dispatch LOAD_CATEGORIES_SUCCESS when loadCategoriesDropdown called successfully', () => {
-    moxios.stubRequest(url2, {
-      status: 200,
+  afterEach(() => {
+    store.clearActions();
+  });
+
+  it('should dispatch DROPDOWN_CATEGORIES_SUCCESS when loadCategoriesDropdown is called', () => {
+    mock.onGet(url2).reply(200, {
       response: {
         results: categories
       }
     });
 
     return store.dispatch(loadCategoriesDropdown()).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
-      expect(store.getActions()[1].type).toEqual(DROPDOWN_CATEGORIES_SUCCESS);
+      expect(store.getActions()).toContainEqual({
+        type: LOADING_CATEGORIES
+      });
+    });
+  });
+
+  it('should dispatch DROPDOWN_CATEGORIES_SUCCESS when loadCategoriesDropdown is called successfully', () => {
+    mock.onGet(url2).reply(200, {
+      response: {
+        results: categories
+      }
+    });
+
+    return store.dispatch(loadCategoriesDropdown()).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: DROPDOWN_CATEGORIES_SUCCESS,
+        payload: { response: { results: categories } }
+      });
     });
   });
 
   it('dispatches LOAD_CATEGORY_FAILURE when loadCategoriesDropdown is called unsuccessfully', () => {
-    moxios.stubRequest(url2, {
-      status: 404,
+    mock.onGet(url2).reply(404, {
       response: {}
     });
 
     return store.dispatch(loadCategoriesDropdown(1)).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
-      expect(store.getActions()[1].type).toEqual(LOAD_CATEGORY_FAILURE);
+      expect(store.getActions()).toContainEqual({
+        type: LOAD_CATEGORY_FAILURE,
+        payload: new Error('Request failed with status code 404')
+      });
     });
   });
 
   it('dispatches CREATE_CATEGORY_SUCCESS when createCategory is called successfully', () => {
-    moxios.stubRequest(url, {
-      status: 201,
-      response: categories[0]
-    });
+    mock.onPost(url).reply(201, { response: categories[0] });
 
     return store.dispatch(createCategory(categories[0])).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
-      expect(store.getActions()[1].type).toEqual(CREATE_CATEGORY_SUCCESS);
+      expect(store.getActions()).toContainEqual({
+        type: CREATE_CATEGORY_SUCCESS,
+        payload: { response: categories[0] }
+      });
     });
   });
 
   it('dispatches CREATE_CATEGORY_FAILURE when createCategory fails', () => {
-    moxios.stubRequest(url, {
-      status: 401,
+    mock.onPost(url).reply(401, { response: {} });
+
+    return store.dispatch(createCategory(categories[0])).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: CREATE_CATEGORY_FAILURE,
+        payload: new Error('Request failed with status code 401')
+      });
+    });
+  });
+
+  it('should dispatch LOADING_CATEGORIES when loadCategories is called', () => {
+    mock.onGet(url3).reply(200, {
+      response: {
+        results: categories
+      }
+    });
+
+    return store.dispatch(loadCategories(1, 10)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: LOADING_CATEGORIES
+      });
+    });
+  });
+
+  it('should dispatch LOAD_CATEGORIES_SUCCESS when loadCategories is called successfully', () => {
+    mock.onGet(url3).reply(200, {
+      response: {
+        results: categories
+      }
+    });
+
+    return store.dispatch(loadCategories(1, 10)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: LOAD_CATEGORIES_SUCCESS,
+        payload: { response: { results: categories } }
+      });
+    });
+  });
+
+  it('should dispatch LOAD_CATEGORY_FAILURE when loadCategories is called unsuccessfully', () => {
+    mock.onGet(url3).reply(404, {
       response: {}
     });
 
-    return store.dispatch(createCategory(categories[0])).then(() => {
-      expect(store.getActions()[0].type).toEqual(LOADING_CATEGORIES);
-      expect(store.getActions()[1].type).toEqual(CREATE_CATEGORY_FAILURE);
+    return store.dispatch(loadCategories(1, 10)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: LOAD_CATEGORY_FAILURE,
+        payload: new Error('Request failed with status code 404')
+      });
     });
   });
 });

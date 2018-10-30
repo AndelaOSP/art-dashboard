@@ -25,6 +25,12 @@
   height: 50px;
 }
 
+@include tablet {
+  .users-list {
+    padding: 0 30px;
+  }
+}
+
 @include small {
   .users-list {
     padding: 0 30px;

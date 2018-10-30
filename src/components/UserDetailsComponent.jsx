@@ -4,7 +4,7 @@ import { Table, Header, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
-import TableRowComponent from './TableRowComponent';
+import TableRow from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
 
@@ -19,11 +19,13 @@ const UserDetailsComponent = (props) => {
     }, 500);
     return <SemanticToastContainer />;
   }
+
   if (props.emptyUsersList()) {
     return (
       <Header as="h3" id="empty-usersList" content="No Users Found" />
     );
   }
+
   return (
     <div>
       <Table basic>
@@ -48,7 +50,7 @@ const UserDetailsComponent = (props) => {
             props.activePageUsers.map((user) => {
               user.assets_assigned = 1;
               return (
-                <TableRowComponent
+                <TableRow
                   key={user.id}
                   data={user}
                   headings={[
@@ -70,7 +72,7 @@ const UserDetailsComponent = (props) => {
                 <Segment>
                   <Pagination
                     id="art-pagination-component"
-                    totalPages={props.handlePageTotal()}
+                    totalPages={props.handlePageTotal() || 1}
                     onPageChange={props.handlePaginationChange}
                     activePage={props.activePage}
                   />
@@ -96,17 +98,19 @@ const UserDetailsComponent = (props) => {
 UserDetailsComponent.propTypes = {
   activePage: PropTypes.number,
   activePageUsers: PropTypes.arrayOf(PropTypes.object),
-  emptyUsersList: PropTypes.func.isRequired,
+  emptyUsersList: PropTypes.func,
   errorMessage: PropTypes.string,
   handlePageTotal: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool
 };
 
 UserDetailsComponent.defaultProps = {
   activePage: 1,
-  errorMessage: ''
+  errorMessage: '',
+  emptyUsersList: () => {},
+  isLoading: false
 };
 
 export default UserDetailsComponent;

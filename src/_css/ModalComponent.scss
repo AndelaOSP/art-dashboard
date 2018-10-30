@@ -1,55 +1,61 @@
 @import 'sharedStyling.scss';
+@import "mediaQueries.scss";
+
+.ui.page.dimmer {
+  z-index: 1010;
+}
 
 .header {
   text-transform: uppercase;
   color: $andela-blue;
 }
 
-.ui.small.modal {
+.ui.small.modal.art-modal {
   margin-left: 30%;
   width: 100%;
-  max-width: 473px;
-}
+  max-width: 500px;
 
-.ui.modal > .content > .description {
-  margin-right: -45%;
-  margin-left: 10px;
-}
+  .content {
+    .description {
+      .form {
+        input {
+          &[type="text"] {
+            border-color: $border-color2;
 
-.ui.label {
-  background-color: $andela-white;
-  margin-bottom: 10px;
-  font-weight: 100;
-}
+            &:focus {
+              border-color: $border-color2;
+              color: $border-color2;
+              font-weight: lighter;
+            }
+          }
+        }
 
-.ui.form .field > label {
-  display: inline-block;
-  background-color: $andela-white;
-  margin-bottom: 20px;
-  font-weight: 100;
-}
+        textarea {
+          border-color: $border-color2;
 
-.ui.form {
-  input {
-    &[type="text"] {
-      border-color: $border-color2;
+          &:focus {
+            border-color: $border-color2;
+            color: $border-color2;
+            font-weight: lighter;
+          }
+        }
 
-      &:focus {
-        border-color: $border-color2;
-        color: $border-color2;
-        font-weight: lighter;
+        .field {
+          width: 100%;
+
+          label {
+            display: inline-block;
+            background-color: $andela-white;
+            margin-bottom: 10px;
+            font-weight: 100;
+          }
+        }
+
+        .ui.button {
+          margin-top: 20px;
+        }
       }
     }
-  }
-}
-
-.ui.form textarea {
-  border-color: $border-color2;
-
-  &:focus {
-    border-color: $border-color2;
-    color: $border-color2;
-    font-weight: lighter;
   }
 }
 
@@ -61,10 +67,6 @@
   border-color: $border-color2;
   color: $border-color2;
   font-weight: lighter;
-}
-
-.ui.form .field {
-  width: 66%;
 }
 
 .ui.dropdown:focus {
@@ -89,44 +91,11 @@
 
 .ui.large.modal {
   margin-left: 30%;
-  width: 473px;
+  width: 500px;
 }
 
 .ui.modal {
   left: 0;
-}
-
-.ui.secondary.button {
-  margin-left: 40%;
-  width: 98px;
-  margin-right: 22px;
-  border: 1px solid $andela-blue;
-  border-radius: 0;
-  background: transparent;
-  color: $andela-black;
-  text-transform: uppercase;
-  font-weight: 100;
-  font-size: 13px;
-}
-
-.ui.secondary.button:hover {
-  background: transparent;
-  border: 1px solid $andela-blue;
-  color: $andela-black;
-}
-
-.ui.primary.button {
-  width: 98px;
-  border-radius: 0;
-  background-color: $andela-blue;
-  text-transform: uppercase;
-  font-weight: 100;
-  font-size: 13px;
-  margin-top: 20px;
-}
-
-.ui.primary.button:hover {
-  background-color: $andela-blue;
 }
 
 .ui.modal > .header:not(.ui) {
@@ -206,5 +175,18 @@
 .loader-container {
   & .column.loader-column {
     padding-right: 16% !important;
+  }
+}
+
+@include tablet {
+  .ui.small.modal.art-modal {
+    margin-left: 20%;
+  }
+}
+
+@include small {
+  .ui.small.modal.art-modal {
+    margin-left: 10%;
+    max-width: 80%;
   }
 }

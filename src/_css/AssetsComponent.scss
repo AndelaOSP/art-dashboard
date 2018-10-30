@@ -58,8 +58,22 @@
   background-color: $andela-blue;
 }
 
+@include tablet {
+  .assets-list {
+    padding: 0 30px;
+  }
+
+  .filter-button {
+    right: 1rem;
+  }
+}
+
 @include small {
   .assets-list {
     padding: 0 30px;
+  }
+
+  .filter-button {
+    right: 1rem;
   }
 }

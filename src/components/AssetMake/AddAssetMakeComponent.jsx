@@ -65,20 +65,24 @@ const AddAssetMakeComponent = (props) => {
   );
 };
 
-AddAssetMakeComponent.defaultProps = {
-  assetTypes: []
-};
-
 AddAssetMakeComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onaddAssetMake: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   assetTypes: PropTypes.array,
-  assetTypeSelectedId: PropTypes.number,
+  assetTypeSelectedId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   onChangeButtonState: PropTypes.func.isRequired,
-  buttonState: PropTypes.bool.isRequired,
+  buttonState: PropTypes.bool,
   onSelectAssetType: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired
+};
+
+AddAssetMakeComponent.defaultProps = {
+  assetTypes: [],
+  buttonState: false
 };
 
 export default AddAssetMakeComponent;

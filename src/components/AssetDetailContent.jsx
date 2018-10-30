@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Segment, Icon, Tab } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Tab, Table } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
-import '../_css/AssetDetailContent.css';
 import AssetAllocationHistory from './AssetAllocationHistory';
 import AssetDescriptionComponent from './AssetDescriptionComponent';
 import AssetNotes from './AssetNoteComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
 import LoaderComponent from './LoaderComponent';
 
+import '../_css/AssetDetailContent.css';
+
 const AssetDetailContent = (props) => {
-  if (Object.values(props.isLoading).find(loading => loading)) {
+  if (props.isLoading) {
     return (
       <LoaderComponent />
     );
@@ -54,47 +55,75 @@ const AssetDetailContent = (props) => {
 
   return (
     <div>
-      <Segment raised>
+      <Segment raised className="asset-detail__segment">
         <div className="asset-details">
           <div className="edit-asset-detail">
             <Icon size="large" link name="pencil" />
           </div>
           <Grid columns={2} stackable divided>
             <Grid.Column>
-              <Grid columns={2}>
-                <Grid.Column className="details-headings">
-                  <div><p>Category</p></div>
-                  <div><p>Sub-category</p></div>
-                  <div><p>Type</p></div>
-                  <div><p>Make</p></div>
-                </Grid.Column>
-                <Grid.Column className="details-description">
-                  <div><p>Electronics</p></div>
-                  <div><p>Computer</p></div>
-                  <div><p> {assetDetail.asset_type}</p></div>
-                  <div><p>Microsoft</p></div>
+              <Grid columns={1}>
+                <Grid.Column>
+                  <Table basic="very" className="asset-detail__table">
+                    <Table.Body>
+                      <Table.Row>
+                        <Table.Cell className="details-headings">Category</Table.Cell>
+                        <Table.Cell>{assetDetail.asset_category}</Table.Cell>
+                      </Table.Row>
+
+                      <Table.Row>
+                        <Table.Cell className="details-headings">Sub-category</Table.Cell>
+                        <Table.Cell>{assetDetail.asset_sub_category}</Table.Cell>
+                      </Table.Row>
+
+                      <Table.Row>
+                        <Table.Cell className="details-headings">Type</Table.Cell>
+                        <Table.Cell>{assetDetail.asset_type}</Table.Cell>
+                      </Table.Row>
+
+                      <Table.Row>
+                        <Table.Cell className="details-headings">Make</Table.Cell>
+                        <Table.Cell>{assetDetail.make_label}</Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                  </Table>
                 </Grid.Column>
               </Grid>
             </Grid.Column>
+
             <Grid.Column>
-              <Grid columns={2}>
-                <Grid.Column className="details-headings">
-                  <div><p>Asset Code</p></div>
-                  <div><p>Serial Number</p></div>
-                  <div><p>Model Number</p></div>
-                  <div><p>Asset Status</p></div>
-                </Grid.Column>
-                <Grid.Column className="details-description">
-                  <div><p>{assetDetail.asset_code || '-'}</p></div>
-                  <div><p>{assetDetail.serial_number || '-'}</p></div>
-                  <div><p>{assetDetail.model_number || '-'}</p></div>
-                  <div><p>{assetDetail.current_status || '-'}</p></div>
+              <Grid columns={1}>
+                <Grid.Column>
+                  <Table basic="very" className="asset-detail__table">
+                    <Table.Body>
+                      <Table.Row>
+                        <Table.Cell className="details-headings">Asset Code</Table.Cell>
+                        <Table.Cell>{assetDetail.asset_code || '-'}</Table.Cell>
+                      </Table.Row>
+
+                      <Table.Row>
+                        <Table.Cell className="details-headings">Serial Number</Table.Cell>
+                        <Table.Cell>{assetDetail.serial_number || '-'}</Table.Cell>
+                      </Table.Row>
+
+                      <Table.Row>
+                        <Table.Cell className="details-headings">Model Number</Table.Cell>
+                        <Table.Cell>{assetDetail.model_number || '-'}</Table.Cell>
+                      </Table.Row>
+
+                      <Table.Row>
+                        <Table.Cell className="details-headings">Asset Status</Table.Cell>
+                        <Table.Cell>{assetDetail.current_status || '-'}</Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                  </Table>
                 </Grid.Column>
               </Grid>
             </Grid.Column>
           </Grid>
         </div>
       </Segment>
+
       <Tab
         className="asset-tab"
         menu={{ secondary: true, pointing: true }}
@@ -109,7 +138,11 @@ AssetDetailContent.propTypes = {
   assignedUser: PropTypes.object,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.object
+  isLoading: PropTypes.bool
+};
+
+AssetDetailContent.defaultProps = {
+  isLoading: false
 };
 
 export default AssetDetailContent;

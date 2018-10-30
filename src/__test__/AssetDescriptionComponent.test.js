@@ -76,10 +76,4 @@ describe('Renders <AssetDescriptionComponent /> correctly', () => {
     expect(wrapper.find('ButtonComponent').props().buttonName).toBe('Assign Asset');
     expect(wrapper.find('DropdownComponent').length).toBe(1);
   });
-
-  it('renders the unassign button and email when a user is assigned', () => {
-    wrapper.setState({ assignedUser: { email: 'email@TextTrackList.com' }, assignAssetButtonState: false });
-    expect(wrapper.find('ButtonComponent').props().buttonName).toBe('Unassign Asset');
-    expect(wrapper.find('#email').length).toBe(1);
-  });
 });

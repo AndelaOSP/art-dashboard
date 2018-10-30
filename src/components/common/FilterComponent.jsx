@@ -77,10 +77,15 @@ class FilterComponent extends React.Component {
 }
 
 FilterComponent.propTypes = {
-  index: PropTypes.number.isRequired,
-  option: PropTypes.object.isRequired,
+  index: PropTypes.number,
+  option: PropTypes.object,
   filterSelection: PropTypes.func.isRequired,
   selected: PropTypes.object.isRequired
+};
+
+FilterComponent.defaultProps = {
+  index: 0,
+  option: {}
 };
 
 export default FilterComponent;
