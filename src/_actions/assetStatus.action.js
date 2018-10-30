@@ -8,7 +8,7 @@ const {
 } = constants;
 
 export const getAssetStatus = (statusType = 'available') => {
-  const url = `manage-assets?paginate=false&current_status=${statusType}`;
+  const url = `manage-assets?current_status=${statusType}`;
 
   return (dispatch) => {
     dispatch(loadingAssetStatus(true, statusType));

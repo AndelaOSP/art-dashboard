@@ -108,42 +108,50 @@
   }
 }
 
-.collapsible-menu.ui.grid {
-  margin: 0;
-  height: 65px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-
-  .column {
-    box-shadow: none;
-  }
-
-  .column > span {
-    font-size: 20px;
-    color: #4183c4;
-    cursor: pointer;
-  }
-
-  .column a {
-    display: block;
-    width: 190px;
-    font-size: 20px;
-    text-align: left;
-  }
-
-  .nav-images {
-    height: 25px;
-    display: initial;
-    margin-right: 10px !important;
-  }
+.visible.transition.collapsible-menu {
+  display: inline-flex !important;
+  width: 100%;
 }
 
-.collapsible-menu.ui.grid.navigation-bar {
-  padding: 0;
-  text-align: left;
-  justify-content: space-between;
-  display: flex;
+.collapsible-menu {
+  height: 65px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  justify-content: center;
   flex-wrap: wrap;
   align-items: center;
+
+  a {
+    display: block;
+    font-size: 20px;
+    text-align: left;
+    box-shadow: none;
+    margin-top: 10px;
+    margin-right: 50px;
+
+    span {
+      color: #4183c4;
+      cursor: pointer;
+    }
+
+    .nav-images {
+      height: 25px;
+      display: initial;
+      margin-right: 10px !important;
+    }
+  }
+
+  a.active {
+    border-bottom: 2px solid $andela-orange;
+    border-radius: 1px;
+
+    .nav-images {
+      margin-bottom: 5px;
+    }
+
+    .nav-text {
+      font-weight: 500;
+    }
+  }
 }
 
 .page-content-margin-closed {
@@ -177,17 +185,12 @@
     margin: 5px 0;
   }
 
-  .collapsible-menu.ui.grid {
+  .collapsible-menu {
     height: 150px;
     padding: 0 20px;
 
-    .nav-images {
-      height: 40px;
-      margin: 0;
-    }
-
-    .column a {
-      font-size: 15px;
+    a {
+      font-size: 20px;
     }
   }
 
@@ -245,16 +248,11 @@
     }
   }
 
-  .collapsible-menu.ui.grid {
+  .collapsible-menu {
     height: 220px;
 
-    .column a {
+    a {
       font-size: 15px;
-    }
-
-    .nav-images {
-      height: 40px;
-      margin: 0;
     }
   }
 
