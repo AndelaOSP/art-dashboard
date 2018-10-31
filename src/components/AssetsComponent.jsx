@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavBarComponent from '../_components/NavBarContainer';
 import AssetsTableContent from './AssetsTableContent';
-import '../_css/AssetsComponent.css';
-import { getAssetsAction, setActivePage } from '../_actions/assets.action';
-import { loadAllAssetModels } from '../_actions/assetModels.action';
-import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
-import filterSelection from '../_actions/checkedFilters.actions';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
+import PaginationComponent from './common/PaginationComponent';
+import '../_css/AssetsComponent.css';
 
-export class AssetsComponent extends Component {
+export default class AssetsComponent extends Component {
   state = {
     limit: 10
   };
 
   componentDidMount() {
-    this.props.loadAllAssetModels();
-    this.props.loadDropdownAssetTypes();
     const assetsEmpty = isEmpty(this.props.assetsList);
 
     // TODO: fix the logic so that assets are fetched when you create an asset before fetching
@@ -29,6 +23,9 @@ export class AssetsComponent extends Component {
     if (assetsEmpty || (!assetsEmpty && this.props.assetsList.length === 1)) {
       this.props.getAssetsAction(this.props.activePage, this.state.limit);
     }
+
+    this.props.loadAllAssetModels();
+    this.props.loadDropdownAssetTypes();
   }
 
   shouldComponentUpdate(nextProps) {
@@ -51,46 +48,9 @@ export class AssetsComponent extends Component {
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
 
-  emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
-
-  createFilterData = () => {
-    const { assetModels, assetTypes } = this.props;
-
-    const allFilters = [];
-    const assetFilters = {
-      title: 'Asset Types',
-      content: []
-    };
-    const modelNumberFilters = {
-      title: 'Model Numbers',
-      content: []
-    };
-
-    if (!isEmpty(assetTypes) && !isEmpty(assetModels)) {
-      assetTypes.map(assetType => (
-        assetFilters.content.push({
-          id: assetType.id,
-          option: assetType.asset_type
-        })
-      ));
-
-      assetModels.map(assetModel => (
-        modelNumberFilters.content.push({
-          id: assetModel.id,
-          option: assetModel.model_number
-        })
-      ));
-
-      allFilters.push(assetFilters);
-      allFilters.push(modelNumberFilters);
-    }
-
-    return allFilters;
-  };
-
   render() {
-    const filters = this.createFilterData();
-
+    const totalPages = this.handlePageTotal();
+    const showPaginator = totalPages > 0;
     return (
       <NavBarComponent title="Assets">
         <div className="assets-list">
@@ -102,18 +62,19 @@ export class AssetsComponent extends Component {
               limit={this.state.limit}
               selected={this.props.selected}
               filterAction={this.props.getAssetsAction}
+              disabled={this.props.isLoading}
             >
               <React.Fragment>
                 <FilterComponent
                   index={0}
-                  option={filters[0]}
+                  option={this.props.filterData[0]}
                   selected={this.props.selected}
                   filterSelection={this.props.filterSelection}
                 />
 
                 <FilterComponent
                   index={1}
-                  option={filters[1]}
+                  option={this.props.filterData[1]}
                   selected={this.props.selected}
                   filterSelection={this.props.filterSelection}
                 />
@@ -121,18 +82,21 @@ export class AssetsComponent extends Component {
             </FilterButton>
           </div>
           <AssetsTableContent
-            {...this.props}
-            activePage={this.props.activePage}
-            activePageAssets={this.props.assetsList}
-            emptyAssetsCheck={this.emptyAssetsCheck}
+            assets={this.props.assetsList}
             errorMessage={this.props.errorMessage}
-            handlePageTotal={this.handlePageTotal}
-            handleRowChange={this.handleRowChange}
-            handlePaginationChange={this.handlePaginationChange}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
-            limit={this.state.limit}
           />
+          {showPaginator && (
+            <PaginationComponent
+              activePage={this.props.activePage}
+              handleRowChange={this.handleRowChange}
+              handlePaginationChange={this.handlePaginationChange}
+              limit={this.state.limit}
+              totalPages={totalPages}
+              isLoading={this.props.isLoading}
+            />
+          )}
         </div>
       </NavBarComponent>
     );
@@ -148,13 +112,11 @@ AssetsComponent.propTypes = {
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
-  history: PropTypes.object,
   isLoading: PropTypes.bool,
-  assetModels: PropTypes.arrayOf(PropTypes.object),
-  assetTypes: PropTypes.arrayOf(PropTypes.object),
   activePage: PropTypes.number,
   selected: PropTypes.object.isRequired,
-  filterSelection: PropTypes.func.isRequired
+  filterSelection: PropTypes.func.isRequired,
+  filterData: PropTypes.arrayOf(PropTypes.object)
 };
 
 AssetsComponent.defaultProps = {
@@ -163,36 +125,3 @@ AssetsComponent.defaultProps = {
   activePage: 1,
   isLoading: false
 };
-
-const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selected }) => {
-  const {
-    assetsList,
-    assetsCount,
-    errorMessage,
-    hasError,
-    isLoading,
-    activePage
-  } = assets;
-  const { assetModels } = assetModelsList;
-  const { assetTypes } = assetTypesList;
-
-  return {
-    assetsList,
-    assetsCount,
-    errorMessage,
-    hasError,
-    isLoading,
-    assetModels,
-    assetTypes,
-    activePage,
-    selected
-  };
-};
-
-export default connect(mapStateToProps, {
-  getAssetsAction,
-  loadAllAssetModels,
-  loadDropdownAssetTypes,
-  setActivePage,
-  filterSelection
-})(AssetsComponent);

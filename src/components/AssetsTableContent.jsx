@@ -1,23 +1,22 @@
 import React from 'react';
-import {
-  Header,
-  Table,
-  Pagination,
-  Segment
-} from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import TableRowDetail from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
-import rowOptions from '../_utils/pageRowOptions';
-import DropdownComponent from '../components/common/DropdownComponent';
+import NotFound from './common/ItemsNotFoundComponent';
 
 const AssetsTableContent = (props) => {
+  const hasAssets = !isEmpty(props.assets);
+
   if (props.isLoading) {
     return <LoaderComponent />;
   }
 
+  // TODO: move this to appropriate component as it should not be here.
+  // And do we really need "SemanticToastContainer"? (food for thought)
   if (props.hasError && props.errorMessage) {
     setTimeout(() => {
       ToastMessage.error({ message: props.errorMessage });
@@ -25,9 +24,11 @@ const AssetsTableContent = (props) => {
     return <SemanticToastContainer />;
   }
 
-  if (props.emptyAssetsCheck()) {
+  if (!hasAssets) {
     return (
-      <Header as="h3" id="empty-assets" content="No Assets Found" />
+      <NotFound
+        message="Please try again later to see if there will be assets to show you."
+      />
     );
   }
 
@@ -62,7 +63,7 @@ const AssetsTableContent = (props) => {
 
         <Table.Body>
           {
-            props.activePageAssets.map((asset) => {
+            props.assets.map((asset) => {
               const assetViewUrl = `assets/${asset.uuid}/view`;
 
               const updatedAsset = {
@@ -91,54 +92,22 @@ const AssetsTableContent = (props) => {
             })
           }
         </Table.Body>
-
-        <Table.Footer>
-          <Table.Row>
-            {!props.emptyAssetsCheck() ? (
-              <Table.HeaderCell colSpan="8" id="pagination-header">
-                <Segment.Group horizontal id="art-pagination-section">
-                  <Segment>
-                    <Pagination
-                      id="art-pagination-component"
-                      totalPages={props.handlePageTotal()}
-                      onPageChange={props.handlePaginationChange}
-                      activePage={props.activePage}
-                    />
-                  </Segment>
-                  <Segment>
-                    <DropdownComponent
-                      customClass="page-limit"
-                      placeHolder="Show Rows"
-                      options={rowOptions}
-                      upward
-                      value={props.limit}
-                      onChange={props.handleRowChange}
-                    />
-                  </Segment>
-                </Segment.Group>
-              </Table.HeaderCell>
-            ) : ''}
-          </Table.Row>
-        </Table.Footer>
       </Table>
     </div>);
 };
 
 AssetsTableContent.propTypes = {
-  activePage: PropTypes.number,
-  activePageAssets: PropTypes.arrayOf(PropTypes.object),
-  emptyAssetsCheck: PropTypes.func.isRequired,
+  assets: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
-  handlePageTotal: PropTypes.func,
-  handleRowChange: PropTypes.func,
-  handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  limit: PropTypes.number
+  isLoading: PropTypes.bool
 };
 
 AssetsTableContent.defaultProps = {
   errorMessage: '',
-  isLoading: false
+  isLoading: false,
+  assets: [],
+  hasError: false
 };
+
 export default AssetsTableContent;

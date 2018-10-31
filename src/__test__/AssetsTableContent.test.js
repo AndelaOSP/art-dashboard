@@ -8,26 +8,19 @@ import assets from '../_mock/assets';
 
 describe('Renders <AssetsTableContent /> correctly', () => {
   const props = {
-    getAssetsAction: jest.fn(),
-    activePage: 1,
-    handlePaginationChange: jest.fn(),
-    activePageAssets: assets,
-    assetsCount: 10,
-    emptyAssetsCheck: jest.fn(),
     errorMessage: '',
-    handlePageTotal: jest.fn((() => (1))),
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    hasAssets: true,
+    message: '',
+    assets
   };
-  const wrapper = shallow(<AssetsTableContent
-    {...props}
-  />);
-
-  it('renders Pagination component', () => {
-    expect(wrapper.find('Pagination').length).toBe(1);
-  });
+  const wrapper = shallow(<AssetsTableContent {...props} />);
 
   it('renders Table component', () => {
+    wrapper.setProps({
+      assets
+    });
     expect(wrapper.find('Table').length).toBe(1);
   });
 
@@ -43,9 +36,10 @@ describe('Renders <AssetsTableContent /> correctly', () => {
 
   it('renders message if there are no assets returned', () => {
     wrapper.setProps({
-      emptyAssetsCheck: () => (true),
+      assets: [],
+      hasAssets: false,
       hasError: false
     });
-    expect(wrapper.find('#empty-assets').prop('content')).toEqual('No Assets Found');
+    expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 });

@@ -2,10 +2,12 @@
 
 .ui.centered.three.column.grid > .column.loader-column {
   width: 64px;
+  padding-top: 250px;
 }
 
 .ui.inverted.dimmer.overlay {
   background-color: rgba(255, 255, 255, .95);
+  position: static !important;
 }
 
 .la-square-jelly-box {
@@ -17,4 +19,9 @@
   color: $andela-black;
   margin-top: 15px;
   text-align: center;
+}
+
+.loader-segment {
+  border: 0 !important;
+  box-shadow: none !important;
 }

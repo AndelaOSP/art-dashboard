@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Authenticate from './AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
-import Assets from '../components/AssetsComponent';
+import Assets from '../_components/Assets/AssetsContainer';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
 import LoginComponent from '../components/LoginComponent';
 import Dashboard from '../_components/Dashboard/DashboardContainer';
