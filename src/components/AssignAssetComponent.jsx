@@ -12,11 +12,14 @@ const userEmailsOptions = usersList => usersList.map((typeOption, index) => ({
 
 const AssignedTo = (props) => {
   if (isEmpty(props.assignedUser)) {
+    const hasError = props.errorMessage !== '';
+    const errorClass = hasError ? 'error' : '';
+
     return (
       <div id="allocate-asset">
         <Header as="h3" content="Assign this asset to:" />
         <DropdownComponent
-          customClass="form-dropdown"
+          customClass={`form-dropdown ${errorClass}`}
           label="Assign this asset to:"
           placeHolder="Select Andela Email To Assign This Asset"
           name="assign-user"
@@ -25,6 +28,10 @@ const AssignedTo = (props) => {
           onChange={props.onSelectUserEmail}
           options={userEmailsOptions(props.users)}
         />
+        {
+          hasError &&
+          <p className="error-message">{props.errorMessage}</p>
+        }
       </div>
     );
   }
@@ -46,7 +53,16 @@ AssignedTo.propTypes = {
   onSelectUserEmail: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array,
-  selectedUserId: PropTypes.number
+  selectedUserId: PropTypes.number,
+  errorMessage: PropTypes.string
+};
+
+AssignedTo.defaultProps = {
+  errorMessage: '',
+  onSelectUserEmail: () => {},
+  assignedUser: {},
+  users: [],
+  selectedUserId: null
 };
 
 export default AssignedTo;

@@ -12,7 +12,7 @@ import AssetSubCategories from '../components/AssetsSubCategoriesComponent';
 import Allocations from '../components/AllocationsComponent';
 import IncidenceReports from '../components/IncidenceReportsComponent';
 import AssetCategories from '../components/AssetCategoriesComponent';
-import AssetDetail from '../components/AssetDetailComponent';
+import AssetDetail from './AssetDetails/AssetDetailsContainer';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
 import User from './User/UserContainer';

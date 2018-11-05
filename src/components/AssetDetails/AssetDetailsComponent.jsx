@@ -1,30 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Icon, Tab, Table } from 'semantic-ui-react';
-import { SemanticToastContainer } from 'react-semantic-toasts';
-import AssetAllocationHistory from './AssetAllocationHistory';
-import AssetDescriptionComponent from './AssetDescriptionComponent';
-import AssetNotes from './AssetNoteComponent';
-import { ToastMessage } from '../_utils/ToastMessage';
-import LoaderComponent from './LoaderComponent';
+import AssetAllocationHistory from '../AssetAllocationHistory';
+import AssetDescriptionComponent from '../AssetDescriptionComponent';
+import AssetNotes from '../AssetNoteComponent';
+import LoaderComponent from '../LoaderComponent';
 
-import '../_css/AssetDetailContent.css';
+import '../../_css/AssetDetailsComponent.css';
 
-const AssetDetailContent = (props) => {
-  if (props.isLoading) {
+const AssetDetailsComponent = (props) => {
+  if (props.assetLoading) {
     return (
       <LoaderComponent />
     );
   }
 
-  if (props.hasError) {
-    setTimeout(() => {
-      ToastMessage.error({ message: props.errorMessage });
-    }, 500);
-    return <SemanticToastContainer />;
-  }
-
-  const { assetDetail, assignedUser } = props;
+  const { assetDetail, assignedUser, errorMessage } = props;
   const assetTabPanes = [
     {
       menuItem: 'Description',
@@ -34,6 +25,7 @@ const AssetDetailContent = (props) => {
             {...props}
             assetDetail={assetDetail}
             assignedUser={assignedUser}
+            errorMessage={errorMessage}
           />
         </Tab.Pane>)
     },
@@ -133,16 +125,15 @@ const AssetDetailContent = (props) => {
   );
 };
 
-AssetDetailContent.propTypes = {
+AssetDetailsComponent.propTypes = {
   assetDetail: PropTypes.object,
   assignedUser: PropTypes.object,
   errorMessage: PropTypes.string,
-  hasError: PropTypes.bool,
-  isLoading: PropTypes.bool
+  assetLoading: PropTypes.bool
 };
 
-AssetDetailContent.defaultProps = {
-  isLoading: false
+AssetDetailsComponent.defaultProps = {
+  assetLoading: false
 };
 
-export default AssetDetailContent;
+export default AssetDetailsComponent;

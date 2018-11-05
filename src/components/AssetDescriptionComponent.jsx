@@ -101,7 +101,8 @@ class AssetDescriptionComponent extends React.Component {
       toggleModal,
       buttonState,
       buttonLoading,
-      assetDetail
+      assetDetail,
+      errorMessage
     } = this.props;
     const triggerProps = this.triggerProps();
 
@@ -120,6 +121,7 @@ class AssetDescriptionComponent extends React.Component {
               assignedUser={assignedUser}
               users={users}
               selectedUserId={this.state.selectedUser}
+              errorMessage={errorMessage}
             />
             <ModalComponent
               trigger={<ButtonComponent {...triggerProps} />}
@@ -154,7 +156,8 @@ AssetDescriptionComponent.propTypes = {
   allocateAsset: PropTypes.func,
   serialNumber: PropTypes.string,
   unassignAsset: PropTypes.func,
-  specs: PropTypes.object
+  specs: PropTypes.object,
+  errorMessage: PropTypes.string
 };
 
 AssetDescriptionComponent.defaultProps = {
@@ -164,7 +167,8 @@ AssetDescriptionComponent.defaultProps = {
   handleConfirm: () => {},
   buttonState: false,
   buttonLoading: false,
-  specs: {}
+  specs: {},
+  errorMessage: ''
 };
 
 export default connect(null, {

@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Container, Divider, Header } from 'semantic-ui-react';
-import { getAssetDetail } from '../_actions/asset.actions';
-import { loadAssetAssigneeUsers } from '../_actions/users.actions';
-import AssetDetailContent from './AssetDetailContent';
-import NavBarComponent from '../_components/NavBarContainer';
-import LoaderComponent from './LoaderComponent';
+import { getAssetDetail } from '../../_actions/asset.actions';
+import { loadAssetAssigneeUsers } from '../../_actions/users.actions';
+import AssetDetailsComponent from '../../components/AssetDetails/AssetDetailsComponent';
+import NavBarComponent from '../NavBarContainer';
+import LoaderComponent from '../../components/LoaderComponent';
 
-export class AssetDetailComponent extends Component {
+export class AssetDetailsContainer extends Component {
   state = {
     assignedUser: {},
     hasError: this.props.hasError,
@@ -17,15 +17,13 @@ export class AssetDetailComponent extends Component {
   };
 
   componentDidMount() {
-    const { assetDetail, assetAsigneeUsers, match } = this.props;
-    if (isEmpty(assetDetail)) {
-      const { id } = match.params;
-      this.props.getAssetDetail(id);
-    }
-    if (isEmpty(assetAsigneeUsers)) {
-      this.props.loadAssetAssigneeUsers();
-    }
+    const { match } = this.props;
+    const { id } = match.params;
+
+    this.props.getAssetDetail(id);
+    this.props.loadAssetAssigneeUsers();
   }
+
   static getDerivedStateFromProps(nextProps) {
     return {
       assignedUser: nextProps.assetDetail.assigned_to,
@@ -41,13 +39,14 @@ export class AssetDetailComponent extends Component {
       renderedComponent = <LoaderComponent loadingText="Loading" />;
     } else {
       renderedComponent = (
-        <AssetDetailContent
+        <AssetDetailsComponent
           buttonLoading={this.props.buttonLoading}
           assignedUser={this.state.assignedUser}
           assetDetail={this.props.assetDetail}
           errorMessage={this.state.errorMessage}
           hasError={this.state.hasError}
-          isLoading={this.props.isLoading}
+          assetLoading={this.props.assetLoading}
+          userLoading={this.props.userLoading}
           show={this.show}
           handleCancel={this.handleCancel}
           buttonState={this.props.buttonLoading}
@@ -69,19 +68,20 @@ export class AssetDetailComponent extends Component {
   }
 }
 
-AssetDetailComponent.propTypes = {
+AssetDetailsContainer.propTypes = {
   loadAssetAssigneeUsers: PropTypes.func,
   assetDetail: PropTypes.object,
   getAssetDetail: PropTypes.func,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool,
+  assetLoading: PropTypes.bool,
+  userLoading: PropTypes.bool,
   buttonLoading: PropTypes.bool,
   assetAsigneeUsers: PropTypes.array,
   match: PropTypes.object
 };
 
-const mapStateToProps = ({ asset, usersList }, props) => {
+export const mapStateToProps = ({ asset, usersList }) => {
   const {
     assetDetail,
     errorMessage,
@@ -91,20 +91,22 @@ const mapStateToProps = ({ asset, usersList }, props) => {
     buttonLoading
   } = asset;
   const { assetAsigneeUsers } = usersList;
-  const isLoading = asset.isLoading || usersList.isLoading;
+  const assetLoading = asset.isLoading;
+  const userLoading = usersList.isLoading;
 
   return {
     assetAsigneeUsers,
-    assetDetail: isEmpty(assetDetail) ? props.location.state : assetDetail,
+    assetDetail,
     newAllocation,
     unAssignedAsset,
     errorMessage,
     hasError,
-    isLoading,
+    assetLoading,
+    userLoading,
     buttonLoading
   };
 };
 
 export default connect(mapStateToProps, {
   getAssetDetail, loadAssetAssigneeUsers
-})(AssetDetailComponent);
+})(AssetDetailsContainer);
