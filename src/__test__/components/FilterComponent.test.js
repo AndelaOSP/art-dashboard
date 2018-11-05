@@ -5,7 +5,7 @@ import expect from 'expect';
 import FilterComponent from '../../components/common/FilterComponent';
 
 import assetFilter from '../../_mock/assetsFilter';
-import filters from '../../_mock/filters';
+import { selectedFilters } from '../../_mock/filters';
 
 describe('Renders <FilterComponent /> correctly', () => {
   const props = {
@@ -13,7 +13,7 @@ describe('Renders <FilterComponent /> correctly', () => {
     handleCheckboxChange: jest.fn(),
     handleClose: jest.fn(),
     option: assetFilter[0],
-    selected: filters,
+    selected: selectedFilters,
     filterSelection: jest.fn(),
     index: 0
   };

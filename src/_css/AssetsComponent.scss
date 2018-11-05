@@ -35,7 +35,7 @@
   border-color: $andela-blue;
 }
 
-.filter-button {
+.ui.button.filter-button {
   border: $andela-blue solid 1px;
   padding: 13px;
   font-size: small;
@@ -47,7 +47,7 @@
   right: 8rem;
 }
 
-.clicked {
+.ui.button.clicked {
   background-color: $andela-white;
   color: $andela-blue;
 }

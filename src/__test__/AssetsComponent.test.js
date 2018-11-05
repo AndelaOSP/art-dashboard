@@ -2,17 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { AssetsComponent } from '../components/AssetsComponent';
+import AssetsComponent from '../components/AssetsComponent';
 
 import assets from '../_mock/assets';
 import assetModels from '../_mock/assetModels';
 import assetTypes from '../_mock/assetTypes';
+import filters from '../_mock/filters';
 
 describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
     getAssetsAction: jest.fn(),
     handlePaginationChange: jest.fn(),
-    createFilterData: jest.fn(),
+    filterData: filters,
     handleRowChange: jest.fn(),
     setActivePage: jest.fn(),
     loadAllAssetModels: jest.fn(),
@@ -47,14 +48,6 @@ describe('Renders <AssetsComponent /> correctly', () => {
     expect(shouldComponentUpdateSpy.mock.calls.length).toBe(1);
   });
 
-  it('calls the emptyAssetsCheck function to check if the assetsList is empty', () => {
-    const emptyAssetsCheckSpy = jest.spyOn(
-      wrapper.instance(), 'emptyAssetsCheck'
-    );
-    wrapper.instance().emptyAssetsCheck();
-    expect(emptyAssetsCheckSpy.mock.calls.length).toEqual(1);
-  });
-
   it('calls the handlePaginationChange function when the next button is clicked', () => {
     const handlePaginationChangeSpy = jest.spyOn(
       wrapper.instance(), 'handlePaginationChange'
@@ -71,14 +64,6 @@ describe('Renders <AssetsComponent /> correctly', () => {
     );
     wrapper.instance().handlePageTotal();
     expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the createFilterData function to loop through the asset types and model numbers', () => {
-    const createFilterDataSpy = jest.spyOn(
-      wrapper.instance(), 'createFilterData'
-    );
-    wrapper.instance().createFilterData();
-    expect(createFilterDataSpy.mock.calls.length).toEqual(1);
   });
 
   it('calls handleRowChange when a  number of rows are selected', () => {
