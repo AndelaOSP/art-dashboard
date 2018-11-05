@@ -29,8 +29,7 @@ export default class AssetsComponent extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (this.props.hasError &&
-      (this.props.errorMessage === nextProps.errorMessage)) {
+    if (this.props.hasError && this.props.errorMessage === nextProps.errorMessage) {
       return false;
     }
     return true;
@@ -42,8 +41,12 @@ export default class AssetsComponent extends Component {
   };
 
   handlePaginationChange = (e, { activePage }) => {
-    this.props.getAssetsAction(activePage, this.state.limit);
     this.props.setActivePage(activePage);
+    const currentPageList = this.props.assetsList[`page_${activePage}`];
+
+    if (isEmpty(currentPageList)) {
+      this.props.getAssetsAction(activePage, this.state.limit);
+    }
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
@@ -51,6 +54,8 @@ export default class AssetsComponent extends Component {
   render() {
     const totalPages = this.handlePageTotal();
     const showPaginator = totalPages > 0;
+    const currentAssets = `page_${this.props.activePage}`;
+
     return (
       <NavBarComponent title="Assets">
         <div className="assets-list">
@@ -82,7 +87,8 @@ export default class AssetsComponent extends Component {
             </FilterButton>
           </div>
           <AssetsTableContent
-            assets={this.props.assetsList}
+            activePage={this.props.activePage}
+            assets={this.props.assetsList[currentAssets]}
             errorMessage={this.props.errorMessage}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
@@ -105,7 +111,7 @@ export default class AssetsComponent extends Component {
 
 AssetsComponent.propTypes = {
   assetsCount: PropTypes.number.isRequired,
-  assetsList: PropTypes.arrayOf(PropTypes.object),
+  assetsList: PropTypes.objectOf(PropTypes.array),
   errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,

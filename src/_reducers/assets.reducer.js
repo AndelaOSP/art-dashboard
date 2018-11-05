@@ -81,7 +81,10 @@ export default (state = initialState.assets, action) => {
     case LOAD_ASSETS_SUCCESS:
       return {
         ...state,
-        assetsList: action.payload.results,
+        assetsList: {
+          ...state.assetsList,
+          [`page_${state.activePage}`]: action.payload.results
+        },
         assetsCount: action.payload.count,
         hasError: false,
         isLoading: action.isLoading

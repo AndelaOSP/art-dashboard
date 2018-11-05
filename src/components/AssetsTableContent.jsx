@@ -26,9 +26,7 @@ const AssetsTableContent = (props) => {
 
   if (!hasAssets) {
     return (
-      <NotFound
-        message="Please try again later to see if there will be assets to show you."
-      />
+      <NotFound message="Please try again later to see if there will be assets to show you." />
     );
   }
 
@@ -37,63 +35,48 @@ const AssetsTableContent = (props) => {
       <Table basic selectable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>
-              Asset Code
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Serial Number
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Model Number
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Asset Make
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Asset Type
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Category
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Sub-category
-            </Table.HeaderCell>
+            <Table.HeaderCell>Asset Code</Table.HeaderCell>
+            <Table.HeaderCell>Serial Number</Table.HeaderCell>
+            <Table.HeaderCell>Model Number</Table.HeaderCell>
+            <Table.HeaderCell>Asset Make</Table.HeaderCell>
+            <Table.HeaderCell>Asset Type</Table.HeaderCell>
+            <Table.HeaderCell>Category</Table.HeaderCell>
+            <Table.HeaderCell>Sub-category</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {
-            props.assets.map((asset) => {
-              const assetViewUrl = `assets/${asset.uuid}/view`;
+          {props.assets.map((asset) => {
+            const assetViewUrl = `assets/${asset.uuid}/view`;
 
-              const updatedAsset = {
-                ...asset,
-                asset_code: asset.asset_code || '-',
-                serial_number: asset.serial_number || '-',
-                model_number: asset.model_number || '-'
-              };
+            const updatedAsset = {
+              ...asset,
+              asset_code: asset.asset_code || '-',
+              serial_number: asset.serial_number || '-',
+              model_number: asset.model_number || '-'
+            };
 
-              return (
-                <TableRowDetail
-                  viewDetailsRoute={assetViewUrl}
-                  key={asset.id}
-                  data={updatedAsset}
-                  headings={[
-                    'asset_code',
-                    'serial_number',
-                    'model_number',
-                    'make_label',
-                    'asset_type',
-                    'asset_category',
-                    'asset_sub_category'
-                  ]}
-                />
-              );
-            })
-          }
+            return (
+              <TableRowDetail
+                viewDetailsRoute={assetViewUrl}
+                key={asset.id}
+                data={updatedAsset}
+                headings={[
+                  'asset_code',
+                  'serial_number',
+                  'model_number',
+                  'make_label',
+                  'asset_type',
+                  'asset_category',
+                  'asset_sub_category'
+                ]}
+              />
+            );
+          })}
         </Table.Body>
       </Table>
-    </div>);
+    </div>
+  );
 };
 
 AssetsTableContent.propTypes = {
