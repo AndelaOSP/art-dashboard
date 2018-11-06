@@ -97,13 +97,11 @@ describe('Renders <AssetDescriptionComponent /> correctly', () => {
       }
     });
 
-    const expected = {
+    expect(wrapper.instance().triggerProps()).toEqual({
       buttonName: 'Unassign Asset',
       customCss: 'unassign-asset',
       disabledState: false,
       color: 'primary'
-    };
-
-    expect(wrapper.instance().triggerProps()).toEqual(expected);
+    });
   });
 });

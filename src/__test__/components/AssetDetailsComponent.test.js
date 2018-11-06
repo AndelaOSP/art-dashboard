@@ -7,12 +7,19 @@ import assetMocks from '../../_mock/newAllocation';
 
 describe('Renders <AssetDetailsComponent /> correctly', () => {
   const props = {
+    loadAssetAssigneeUsers: jest.fn(),
+    getAssetDetail: jest.fn(),
     assetDetail: assetMocks,
     assignedUser: assetMocks ? assetMocks.assigned_to : {},
     errorMessage: '',
     hasError: false,
     assetLoading: false,
-    userLoading: false
+    userLoading: false,
+    match: {
+      params: {
+        id: ''
+      }
+    }
   };
   const wrapper = shallow(<AssetDetailsComponent {...props} />);
 

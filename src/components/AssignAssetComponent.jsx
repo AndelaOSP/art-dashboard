@@ -12,7 +12,7 @@ const userEmailsOptions = usersList => usersList.map((typeOption, index) => ({
 
 const AssignedTo = (props) => {
   if (isEmpty(props.assignedUser)) {
-    const hasError = props.errorMessage !== '';
+    const hasError = !!props.errorMessage;
     const errorClass = hasError ? 'error' : '';
 
     return (

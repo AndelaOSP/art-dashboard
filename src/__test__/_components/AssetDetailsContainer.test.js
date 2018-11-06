@@ -1,9 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import expect from 'expect';
 
 import {
-  AssetDetailsContainer,
+  isSameId,
   mapStateToProps
 } from '../../_components/AssetDetails/AssetDetailsContainer';
 import assetMocks from '../../_mock/newAllocation';
@@ -27,19 +25,9 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       }
     }
   };
-  const wrapper = shallow(<AssetDetailsContainer {...props} />);
 
-  it('renders page title', () => {
-    expect(wrapper.find('Header').prop('content')).toEqual('Asset Detail');
-  });
-
-  it('renders the AssetsDetailsContent component', () => {
-    expect(wrapper.find('AssetDetailsComponent').length).toBe(1);
-  });
-
-  it('renders Loader when assetDetail is empty', () => {
-    wrapper.setProps({ assetDetail: {} });
-    expect(wrapper.find('LoaderComponent').length).toBe(1);
+  it('calls fetchAssetDetail function correctly', () => {
+    expect(isSameId(props.assetDetail, props)).toEqual(false);
   });
 
   it('correctly maps state to props', () => {
@@ -59,6 +47,7 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       }
     };
     const expected = {
+      shouldFetchDetails: true,
       assetDetail: {},
       errorMessage: '',
       hasError: false,
@@ -70,6 +59,6 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       assetAsigneeUsers: []
     };
 
-    expect(mapStateToProps(state)).toEqual(expected);
+    expect(mapStateToProps(state, props)).toEqual(expected);
   });
 });
