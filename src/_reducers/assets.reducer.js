@@ -9,7 +9,8 @@ const {
   LOAD_ASSETS_FAILURE,
   LOAD_ASSETS_STARTS,
   SET_ACTIVE_PAGE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  RESET_ASSETS
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -104,6 +105,11 @@ export default (state = initialState.assets, action) => {
         errorMessage: action.payload,
         hasError: true,
         isLoading: action.isLoading
+      };
+    case RESET_ASSETS:
+      return {
+        ...state,
+        assetsList: {}
       };
 
     default:

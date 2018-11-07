@@ -5,7 +5,8 @@ const {
   LOAD_ASSETS_SUCCESS,
   LOAD_ASSETS_FAILURE,
   LOAD_ASSETS_STARTS,
-  SET_ACTIVE_PAGE
+  SET_ACTIVE_PAGE,
+  RESET_ASSETS
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
@@ -13,12 +14,16 @@ export const getAssetsAction = (pageNumber, limit, filters) => {
   let url = `manage-assets?page=${pageNumber}&page_size=${limit}`;
 
   if (filters) {
-    url = `manage-assets?page=${pageNumber}&page_size=${limit}&asset_type=${filters['Asset Types'] || ''}&model_number=${filters['Model Numbers'] || ''}`;
+    url = `manage-assets?page=${pageNumber}&page_size=${limit}&asset_type=${filters[
+      'Asset Types'
+    ] || ''}&model_number=${filters['Model Numbers'] || ''}`;
   }
 
   return (dispatch) => {
     dispatch(loading(true));
-    return axios.get(url)
+
+    return axios
+      .get(url)
       .then((response) => {
         dispatch(loading(false));
         dispatch(getAssetsSuccess(response.data));
@@ -50,4 +55,8 @@ const getAssetsFailure = message => ({
 const setActivePageSuccess = page => ({
   type: SET_ACTIVE_PAGE,
   payload: page
+});
+
+export const resetAssets = () => ({
+  type: RESET_ASSETS
 });

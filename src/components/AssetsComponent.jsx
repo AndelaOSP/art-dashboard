@@ -37,6 +37,7 @@ export default class AssetsComponent extends Component {
 
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
+    this.props.resetAssets();
     this.props.getAssetsAction(this.props.activePage, data.value);
   };
 
@@ -117,6 +118,7 @@ AssetsComponent.propTypes = {
   setActivePage: PropTypes.func.isRequired,
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
+  resetAssets: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
   activePage: PropTypes.number,
