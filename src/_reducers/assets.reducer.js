@@ -79,7 +79,13 @@ export default (state = initialState.assets, action) => {
         isLoading: action.isLoading
       };
 
-    case LOAD_ASSETS_SUCCESS:
+    case LOAD_ASSETS_SUCCESS: {
+      const checkAssetsListLength = Object.keys(state.assetsList).length;
+      const deleteObject = Object.keys(state.assetsList)[0];
+      if (checkAssetsListLength > 4) {
+        delete state.assetsList[deleteObject];
+      }
+
       return {
         ...state,
         assetsList: {
@@ -90,6 +96,7 @@ export default (state = initialState.assets, action) => {
         hasError: false,
         isLoading: action.isLoading
       };
+    }
 
     case SET_ACTIVE_PAGE:
       return {

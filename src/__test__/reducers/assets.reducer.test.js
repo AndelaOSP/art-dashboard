@@ -26,7 +26,7 @@ const {
 } = constants;
 
 const state = {
-  assetsList: [],
+  assetsList: {},
   assetsCount: 0,
   hasError: false,
   isLoading: false
