@@ -48,6 +48,7 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
     };
     const expected = {
       shouldFetchDetails: true,
+      shouldAddToStore: false,
       assetDetail: {},
       errorMessage: '',
       hasError: false,

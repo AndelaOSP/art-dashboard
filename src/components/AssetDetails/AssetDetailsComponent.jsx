@@ -12,11 +12,20 @@ import '../../_css/AssetDetailsComponent.css';
 
 class AssetDetailsComponent extends Component {
   componentDidMount() {
-    const { assetAsigneeUsers, match, shouldFetchDetails } = this.props;
+    const {
+      assetAsigneeUsers,
+      assetDetail,
+      match,
+      shouldAddToStore,
+      shouldFetchDetails
+    } = this.props;
     const { id } = match.params;
 
     if (shouldFetchDetails) {
       this.props.getAssetDetail(id);
+    }
+    if (shouldAddToStore) {
+      this.props.addAsset(assetDetail);
     }
 
     if (isEmpty(assetAsigneeUsers)) {
@@ -166,7 +175,9 @@ AssetDetailsComponent.propTypes = {
   shouldFetchDetails: PropTypes.bool,
   assetAsigneeUsers: PropTypes.array,
   getAssetDetail: PropTypes.func,
-  loadAssetAssigneeUsers: PropTypes.func
+  loadAssetAssigneeUsers: PropTypes.func,
+  shouldAddToStore: PropTypes.bool,
+  addAsset: PropTypes.func
 };
 
 AssetDetailsComponent.defaultProps = {

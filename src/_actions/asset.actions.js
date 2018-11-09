@@ -51,10 +51,7 @@ export const getAssetDetail = assetSerialNumber => (
     dispatch({ type: LOADING_ASSET });
     return axios.get(`manage-assets/${assetSerialNumber}`)
       .then((response) => {
-        dispatch({
-          type: LOAD_ASSET_SUCCESS,
-          payload: response.data
-        });
+        dispatch(getAssetDetailSuccess(response.data));
       })
       .catch((error) => {
         dispatch({
@@ -64,6 +61,11 @@ export const getAssetDetail = assetSerialNumber => (
       });
   }
 );
+
+export const getAssetDetailSuccess = payload => ({
+  type: LOAD_ASSET_SUCCESS,
+  payload
+});
 
 export const reloadAssetDetail = assetSerialNumber => dispatch =>
   axios.get(`manage-assets/${assetSerialNumber}`)

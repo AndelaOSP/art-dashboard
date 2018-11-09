@@ -29,8 +29,9 @@ const AssignedTo = (props) => {
           options={userEmailsOptions(props.users)}
         />
         {
-          hasError &&
-          <p className="error-message">{props.errorMessage}</p>
+          hasError && (
+            <p className="error-message">{props.errorMessage}</p>
+          )
         }
       </div>
     );
