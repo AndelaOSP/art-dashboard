@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { fetchData } from '../_utils/helpers';
 import constants from '../_constants';
 
 const {
@@ -22,8 +22,7 @@ export const getAssetsAction = (pageNumber, limit, filters) => {
   return (dispatch) => {
     dispatch(loading(true));
 
-    return axios
-      .get(url)
+    return fetchData(url)
       .then((response) => {
         dispatch(loading(false));
         dispatch(getAssetsSuccess(response.data));

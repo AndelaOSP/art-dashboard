@@ -7,11 +7,16 @@ import AssetsTableContent from './AssetsTableContent';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 import PaginationComponent from './common/PaginationComponent';
+import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
 import '../_css/AssetsComponent.css';
+
+const CUTOFF_LIMIT = 50;
+const checkIfCutoffExceeded = isCountCutoffExceeded(CUTOFF_LIMIT);
 
 export default class AssetsComponent extends Component {
   state = {
-    limit: 10
+    limit: 10,
+    assets: []
   };
 
   componentDidMount() {
@@ -46,7 +51,18 @@ export default class AssetsComponent extends Component {
     const currentPageList = this.props.assetsList[`page_${activePage}`];
 
     if (isEmpty(currentPageList)) {
-      this.props.getAssetsAction(activePage, this.state.limit);
+      return this.retrieveAssets(activePage, this.state.limit);
+    }
+  };
+
+  retrieveAssets = (activePage, limit) => {
+    if (checkIfCutoffExceeded(activePage, limit)) {
+      const url = `manage-assets?page=${activePage}&page_size=${limit}`;
+      fetchData(url).then((response) => {
+        this.setState({ assets: response.data.results });
+      });
+    } else {
+      return this.props.getAssetsAction(activePage, limit);
     }
   };
 
@@ -56,7 +72,7 @@ export default class AssetsComponent extends Component {
     const totalPages = this.handlePageTotal();
     const showPaginator = totalPages > 0;
     const currentAssets = `page_${this.props.activePage}`;
-
+    const { assets } = this.state;
     return (
       <NavBarComponent title="Assets">
         <div className="assets-list">
@@ -89,7 +105,7 @@ export default class AssetsComponent extends Component {
           </div>
           <AssetsTableContent
             activePage={this.props.activePage}
-            assets={this.props.assetsList[currentAssets]}
+            assets={this.props.assetsList[currentAssets] || assets}
             errorMessage={this.props.errorMessage}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
