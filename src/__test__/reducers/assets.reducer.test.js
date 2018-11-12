@@ -21,7 +21,8 @@ const {
   LOAD_ASSETS_SUCCESS,
   LOAD_ASSETS_FAILURE,
   LOAD_ASSETS_STARTS,
-  SET_ACTIVE_PAGE
+  SET_ACTIVE_PAGE,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 const state = {
@@ -33,6 +34,13 @@ const state = {
 let action = {
   payload: {
     results: assets
+  }
+};
+const error = {
+  response: {
+    data: {
+      non_field_errors: ['The fields asset_code and serial_number must be unique.']
+    }
   }
 };
 
@@ -84,7 +92,19 @@ describe('Asset Reducer tests', () => {
   });
 
   it('should handle CREATE_ASSET_FAIL', () => {
-    action = createAssetFail('400 error');
-    expect(assetReducer(state, action)).toEqual({ ...state, hasError: true });
+    action = createAssetFail(error);
+    expect(assetReducer(state, action)).toEqual({
+      ...state,
+      hasError: true,
+      success: '',
+      errorMessage: 'The fields asset_code and serial_number must be unique.'
+    });
+  });
+
+  it('should handle RESET_STATUS_MESSAGE', () => {
+    action.type = RESET_STATUS_MESSAGE;
+    expect(assetReducer(state, {})).toEqual(state);
+    expect(assetReducer(state, action).success).toEqual('');
+    expect(assetReducer(state, action).errorMessage).toEqual('');
   });
 });

@@ -8,13 +8,14 @@ import FilterAssetComponent from '../../components/Assets/FilterAssetComponent';
 import SpecsComponent from '../../components/Assets/SpecsComponent';
 import NavBarComponent from '../NavBarContainer';
 import LoaderComponent from '../../components/LoaderComponent';
+import StatusMessageComponent from '../../components/common/StatusComponent';
 
 import { loadCategoriesDropdown } from '../../_actions/category.actions';
 import { loadSubCategoriesDropdown } from '../../_actions/subcategory.actions';
 import { loadAssetTypes } from '../../_actions/assetTypes.actions';
 import { loadAssetMakesDropdown } from '../../_actions/assetMakes.actions';
 import { loadModelNumbers } from '../../_actions/modelNumbers.actions';
-import { createAsset } from '../../_actions/asset.actions';
+import { createAsset, resetMessage } from '../../_actions/asset.actions';
 import { ACCEPTABLE_ASSET_TYPES } from '../../_enums';
 
 import {
@@ -23,6 +24,21 @@ import {
   filterAssetMakes,
   filterModelNumbers
 } from '../../_utils/filterDropdowns';
+
+/**
+ *  TODO: @stacey is going to refactor  this component as it is a mess to work with right now.
+ * Therefore, let `initialFormState`  be used for now
+ */
+
+const initialFormState = {
+  selectedCategory: '',
+  selectedSubcategory: '',
+  selectedAssetType: '',
+  selectedAssetMake: '',
+  modelNumber: '',
+  serialNumber: '',
+  assetTag: ''
+};
 
 class AddAssetContainer extends React.Component {
   step1 = 'Device_Information';
@@ -33,10 +49,7 @@ class AddAssetContainer extends React.Component {
     filteredAssetTypes: [],
     filteredAssetMakes: [],
     filteredModelNumbers: [],
-    selectedCategory: '',
-    selectedSubcategory: '',
-    selectedAssetType: '',
-    selectedAssetMake: '',
+    formState: initialFormState,
     step: this.step1,
     specs: {}
   };
@@ -60,9 +73,9 @@ class AddAssetContainer extends React.Component {
   }
 
   stepValidator = () => (
-    _.isEmpty(this.state.modelNumber) ||
-    _.isEmpty(this.state.serialNumber) ||
-    _.isEmpty(this.state.assetTag)
+    _.isEmpty(this.state.formState.modelNumber) ||
+    _.isEmpty(this.state.formState.serialNumber) ||
+    _.isEmpty(this.state.formState.assetTag)
   );
 
   handleDropdownChanges = (event, data) => {
@@ -72,8 +85,14 @@ class AddAssetContainer extends React.Component {
 
     if (name === 'asset-category') {
       this.setState({
-        selectedCategory: value,
-        selectedAssetMake: '',
+        formState: {
+          ...this.state.formState,
+          selectedCategory: value,
+          selectedSubcategory: '',
+          selectedAssetType: '',
+          selectedAssetMake: '',
+          modelNumber: ''
+        },
         filteredSubCategories: filterSubCategories(subcategories, value),
         filteredAssetTypes: filterAssetTypes(assetTypes, value),
         filteredAssetMakes: filterAssetMakes(assetMakes, value),
@@ -81,23 +100,35 @@ class AddAssetContainer extends React.Component {
       });
     } else if (name === 'asset-subcategory') {
       this.setState({
-        selectedSubcategory: value,
-        selectedAssetMake: '',
+        formState: {
+          ...this.state.formState,
+          selectedSubcategory: value,
+          selectedAssetType: '',
+          selectedAssetMake: '',
+          modelNumber: ''
+        },
         filteredAssetTypes: filterAssetTypes(assetTypes, value),
         filteredAssetMakes: filterAssetMakes(assetMakes, value),
         filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-types') {
       this.setState({
-        selectedAssetType: value,
-        selectedAssetMake: '',
+        formState: {
+          ...this.state.formState,
+          selectedAssetType: value,
+          selectedAssetMake: '',
+          modelNumber: ''
+        },
         filteredAssetMakes: filterAssetMakes(assetMakes, value),
         filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     } else if (name === 'asset-makes') {
       this.setState({
-        selectedAssetMake: value,
-        modelNumber: '',
+        formState: {
+          ...this.state.formState,
+          selectedAssetMake: value,
+          modelNumber: ''
+        },
         filteredModelNumbers: filterModelNumbers(modelNumbers, value)
       });
     }
@@ -109,7 +140,7 @@ class AddAssetContainer extends React.Component {
     // model numbers have value in data.
     const name = event.target.name || data.name;
     const value = event.target.value || data.value;
-    this.setState({ [name]: value });
+    this.setState({ formState: { ...this.state.formState, [name]: value } });
   };
 
   onNextClicked = () => {
@@ -131,9 +162,9 @@ class AddAssetContainer extends React.Component {
 
   onCreateAsset = () => {
     let newAssetDetails = {
-      asset_code: this.state.assetTag,
-      serial_number: this.state.serialNumber,
-      model_number: this.state.modelNumber
+      asset_code: this.state.formState.assetTag,
+      serial_number: this.state.formState.serialNumber,
+      model_number: this.state.formState.modelNumber
     };
 
     if (!_.isEmpty(this.state.specs)) {
@@ -142,24 +173,31 @@ class AddAssetContainer extends React.Component {
         year: this.state.specs.year,
         processor_type: this.state.specs.processor_type,
         processor_speed: this.state.specs.processor_speed,
+        screen_size: this.state.specs.screen_size,
         storage: this.state.specs.storage,
         memory: this.state.specs.memory
       };
     }
 
     this.props.createAsset(newAssetDetails)
-      .then(() => this.props.history.push('/assets'));
+      .then(() => {
+        this.goBack();
+      });
+    this.setState({ formState: initialFormState });
   };
 
   render() {
     const { step } = this.state;
-    const { loading } = this.props;
+    const { loading, success, error } = this.props;
     const isDisabled = this.stepValidator();
     let stepContent;
     let step1Active;
     let step2Active;
 
-    const isAssetSpecsAvailable = ACCEPTABLE_ASSET_TYPES.indexOf(this.state.selectedAssetType) > -1;
+    const showStatus = success || error;
+
+    const isAssetSpecsAvailable = ACCEPTABLE_ASSET_TYPES.indexOf(
+      this.state.formState.selectedAssetType) > -1;
 
     if (loading) {
       return (
@@ -182,18 +220,19 @@ class AddAssetContainer extends React.Component {
             filteredAssetMakes={this.state.filteredAssetMakes}
             filteredModelNumbers={this.state.filteredModelNumbers}
             handleInputChange={this.handleInputChange}
-            selectedCategory={this.state.selectedCategory}
-            selectedSubcategory={this.state.selectedSubcategory}
-            selectedAssetType={this.state.selectedAssetType}
-            selectedAssetMake={this.state.selectedAssetMake}
-            modelNumber={this.state.modelNumber || ''}
-            serialNumber={this.state.serialNumber || ''}
-            assetTag={this.state.assetTag || ''}
+            selectedCategory={this.state.formState.selectedCategory}
+            selectedSubcategory={this.state.formState.selectedSubcategory}
+            selectedAssetType={this.state.formState.selectedAssetType}
+            selectedAssetMake={this.state.formState.selectedAssetMake}
+            modelNumber={this.state.formState.modelNumber || ''}
+            serialNumber={this.state.formState.serialNumber || ''}
+            assetTag={this.state.formState.assetTag || ''}
             isDisabled={isDisabled}
             onNextClicked={this.onNextClicked}
             isAssetSpecsAvailable={isAssetSpecsAvailable}
             buttonLoading={this.props.buttonLoading}
             onCreateAsset={this.onCreateAsset}
+            reset={this.props.resetMessage}
           />
         </div>
       );
@@ -208,6 +247,7 @@ class AddAssetContainer extends React.Component {
             buttonLoading={this.props.buttonLoading}
             onCreateAsset={this.onCreateAsset}
             pickRadioValuesFromSpecsComponent={this.pickRadioValuesFromSpecsComponent}
+            reset={this.props.resetMessage}
           />
         </div>
       );
@@ -221,7 +261,21 @@ class AddAssetContainer extends React.Component {
             <Divider id="assets-divider" />
           </div>
 
+
           <Grid centered columns={2}>
+
+            {showStatus && (
+              <Grid.Row>
+                <Grid.Column>
+                  <StatusMessageComponent
+                    message={success || error}
+                    className={success ? 'success-status' : 'error-status'}
+                    reset={this.props.resetMessage}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+          )}
+
             <Grid.Column>
               <Step.Group size="small" widths={2}>
                 <Step active={step1Active} completed={!step1Active}>
@@ -264,7 +318,9 @@ AddAssetContainer.propTypes = {
   createAsset: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   buttonLoading: PropTypes.bool,
-  history: PropTypes.object
+  success: PropTypes.string,
+  error: PropTypes.string,
+  resetMessage: PropTypes.func
 };
 
 AddAssetContainer.defaultProps = {
@@ -272,8 +328,7 @@ AddAssetContainer.defaultProps = {
   subcategories: [],
   assetTypes: [],
   assetMakes: [],
-  modelNumbers: [],
-  history: {}
+  modelNumbers: []
 };
 
 const mapStateToProps = ({
@@ -291,7 +346,9 @@ const mapStateToProps = ({
   modelNumbers: modelNumbersList,
   buttonLoading: assets.isLoading,
   loading: categoriesList.isLoading || subcategoriesList.isLoading ||
-  assetTypesList.isLoading || assetMakesList.isLoading
+  assetTypesList.isLoading || assetMakesList.isLoading,
+  success: assets.success,
+  error: assets.errorMessage
 });
 
 export default connect(mapStateToProps, {
@@ -300,5 +357,6 @@ export default connect(mapStateToProps, {
   loadAssetTypes,
   loadAssetMakesDropdown,
   loadModelNumbers,
-  createAsset
+  createAsset,
+  resetMessage
 })(AddAssetContainer);
