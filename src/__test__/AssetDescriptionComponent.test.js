@@ -4,6 +4,7 @@ import expect from 'expect';
 
 import AssetDescriptionComponent from '../components/AssetDescriptionComponent';
 import assetMocks from '../_mock/newAllocation';
+import assetSpecs from '../_mock/assetSpecs';
 
 describe('Renders <AssetDescriptionComponent /> correctly', () => {
   const props = {
@@ -75,5 +76,32 @@ describe('Renders <AssetDescriptionComponent /> correctly', () => {
     wrapper.setState({ assignedUser: {}, assignAssetButtonState: true });
     expect(wrapper.find('ButtonComponent').props().buttonName).toBe('Assign Asset');
     expect(wrapper.find('DropdownComponent').length).toBe(1);
+  });
+
+  it('returns null when getSpecs method is called with empty specs', () => {
+    expect(wrapper.find('.asset-specs').html()).toContain('This asset has no specifications');
+  });
+
+  it('returns specs when getSpecs method is called with non empty specs', () => {
+    wrapper.setProps({
+      assetDetail: { specs: assetSpecs[0] }
+    });
+
+    expect(wrapper.find('.asset-specs__label').exists()).toBe(true);
+  });
+
+  it('returns expected values from triggerProps when assignedUser prop is not empty', () => {
+    wrapper.setProps({
+      assignedUser: {
+        email: 'user1@gmail.com'
+      }
+    });
+
+    expect(wrapper.instance().triggerProps()).toEqual({
+      buttonName: 'Unassign Asset',
+      customCss: 'unassign-asset',
+      disabledState: false,
+      color: 'primary'
+    });
   });
 });

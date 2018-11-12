@@ -23,6 +23,11 @@
   margin-left: 20rem !important;
 }
 
+.error-message {
+  color: $error-message;
+  margin-top: 3px;
+}
+
 @media screen and (max-width: 990px) {
   .asset-specs {
     width: 20rem;
