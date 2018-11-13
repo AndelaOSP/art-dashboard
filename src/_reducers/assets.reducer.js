@@ -48,7 +48,7 @@ export default (state = initialState.assets, action) => {
     case CREATE_ASSET_SUCCESS:
       return {
         ...state,
-        assetsList: [action.payload, ...state.assetsList],
+        assetsList: { [`page_${state.activePage}`]: [action.payload] },
         assetsCount: state.assetsCount + 1,
         hasError: false,
         isLoading: false,

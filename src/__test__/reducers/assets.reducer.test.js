@@ -29,7 +29,8 @@ const state = {
   assetsList: {},
   assetsCount: 0,
   hasError: false,
-  isLoading: false
+  isLoading: false,
+  activePage: 1
 };
 let action = {
   payload: {
@@ -52,7 +53,9 @@ describe('Asset Reducer tests', () => {
   it('should handle LOAD_ASSETS_SUCCESS', () => {
     action.type = LOAD_ASSETS_SUCCESS;
     action.isLoading = false;
-    expect(assetReducer(state, action).assetsList).toEqual(action.payload.results);
+    expect(assetReducer(state, action).assetsList).toEqual({
+      page_1: [...action.payload.results]
+    });
     expect(assetReducer(state, action).isLoading).toBe(false);
   });
 
@@ -87,7 +90,7 @@ describe('Asset Reducer tests', () => {
     const expected = asset;
     action = createAssetSuccess(asset);
     expect(assetReducer(state, {})).toEqual(state);
-    expect(assetReducer(state, action).assetsList[0]).toEqual(expected);
+    expect(assetReducer(state, action).assetsList.page_1[0]).toEqual(expected);
     expect(assetReducer(state, action).assetsCount).toEqual(1);
   });
 
