@@ -33,13 +33,6 @@ export default class AssetsComponent extends Component {
     this.props.loadDropdownAssetTypes();
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (this.props.hasError && this.props.errorMessage === nextProps.errorMessage) {
-      return false;
-    }
-    return true;
-  }
-
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
     this.props.resetAssets();
@@ -58,12 +51,10 @@ export default class AssetsComponent extends Component {
   retrieveAssets = (activePage, limit) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
       const url = `manage-assets?page=${activePage}&page_size=${limit}`;
-      fetchData(url).then((response) => {
+      return fetchData(url).then((response) => {
         this.setState({ assets: response.data.results });
       });
-    } else {
-      return this.props.getAssetsAction(activePage, limit);
-    }
+    } return this.props.getAssetsAction(activePage, limit);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
