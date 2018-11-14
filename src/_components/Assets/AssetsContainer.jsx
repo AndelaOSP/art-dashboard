@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import { getAssetsAction, setActivePage, resetAssets } from '../../_actions/assets.action';
+import { getAssetsAction, setActivePage, resetAssets, loading } from '../../_actions/assets.action';
 import { loadAllAssetModels } from '../../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../../_actions/assetTypes.actions';
 import filterSelection from '../../_actions/checkedFilters.actions';
@@ -63,5 +63,6 @@ export default connect(mapStateToProps, {
   loadDropdownAssetTypes,
   setActivePage,
   filterSelection,
-  resetAssets
+  resetAssets,
+  loading
 })(Assets);

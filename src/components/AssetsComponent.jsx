@@ -51,7 +51,9 @@ export default class AssetsComponent extends Component {
   retrieveAssets = (activePage, limit) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
       const url = `manage-assets?page=${activePage}&page_size=${limit}`;
+      this.props.loading(true);
       return fetchData(url).then((response) => {
+        this.props.loading(false);
         this.setState({ assets: response.data.results });
       });
     } return this.props.getAssetsAction(activePage, limit);
@@ -126,6 +128,7 @@ AssetsComponent.propTypes = {
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   resetAssets: PropTypes.func.isRequired,
+  loading: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
   activePage: PropTypes.number,

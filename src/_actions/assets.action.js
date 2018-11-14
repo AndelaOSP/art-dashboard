@@ -36,7 +36,7 @@ export const getAssetsAction = (pageNumber, limit, filters) => {
 
 export const setActivePage = page => dispatch => dispatch(setActivePageSuccess(page));
 
-const loading = isLoading => ({
+export const loading = isLoading => ({
   type: LOAD_ASSETS_STARTS,
   isLoading
 });
