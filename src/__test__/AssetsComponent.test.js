@@ -41,14 +41,6 @@ describe('Renders <AssetsComponent /> correctly', () => {
     expect(wrapper.find('AssetsTableContent').length).toBe(1);
   });
 
-  it('should not rerender the component if the error message is the same', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    wrapper.setProps({ hasError: true });
-    expect(shouldComponentUpdateSpy.mock.calls.length).toBe(1);
-  });
-
   it('calls the handlePaginationChange function when the next button is clicked', () => {
     const handlePaginationChangeSpy = jest.spyOn(
       wrapper.instance(), 'handlePaginationChange'

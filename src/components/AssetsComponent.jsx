@@ -44,7 +44,7 @@ export default class AssetsComponent extends Component {
     const currentPageList = this.props.assetsList[`page_${activePage}`];
 
     if (isEmpty(currentPageList)) {
-      return this.retrieveAssets(activePage, this.state.limit);
+      this.retrieveAssets(activePage, this.state.limit);
     }
   };
 
@@ -56,7 +56,8 @@ export default class AssetsComponent extends Component {
         this.props.loading(false);
         this.setState({ assets: response.data.results });
       });
-    } return this.props.getAssetsAction(activePage, limit);
+    }
+    return this.props.getAssetsAction(activePage, limit);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
