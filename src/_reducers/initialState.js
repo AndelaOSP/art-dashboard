@@ -67,13 +67,15 @@ export default {
     isLoading: false
   },
   usersList: {
-    users: [],
+    users: {},
     assetAsigneeUsers: [],
     usersCount: 0,
     errorMessage: '',
     hasError: false,
     isLoading: false,
-    securityUser: {}
+    securityUser: {},
+    activePage: 1
+
   },
   user: {
     userDetail: {},

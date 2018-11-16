@@ -7,7 +7,9 @@ const {
   LOADING_USERS,
   LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
   CREATE_SECURITY_USER_SUCCESS,
-  CREATE_SECURITY_USER_FAILURE
+  CREATE_SECURITY_USER_FAILURE,
+  RESET_USERS,
+  SET_USERS_ACTIVE_PAGE
 } = constants;
 
 export default (state = initialState.usersList, action) => {
@@ -20,7 +22,10 @@ export default (state = initialState.usersList, action) => {
     case LOAD_USERS_SUCCESS:
       return {
         ...state,
-        users: action.payload.results,
+        users: {
+          ...state.users,
+          [`page_${state.activePage}`]: action.payload.results
+        },
         usersCount: action.payload.count,
         hasError: false
       };
@@ -46,6 +51,16 @@ export default (state = initialState.usersList, action) => {
       return {
         ...state,
         errorMessage: action.payload
+      };
+    case RESET_USERS:
+      return {
+        ...state,
+        assetsList: {}
+      };
+    case SET_USERS_ACTIVE_PAGE:
+      return {
+        ...state,
+        activePage: action.payload
       };
     default:
       return state;
