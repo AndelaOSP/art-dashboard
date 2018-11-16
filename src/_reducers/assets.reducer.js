@@ -9,7 +9,8 @@ const {
   LOAD_ASSETS_FAILURE,
   LOAD_ASSETS_STARTS,
   SET_ACTIVE_PAGE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  RESET_ASSETS
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -47,7 +48,7 @@ export default (state = initialState.assets, action) => {
     case CREATE_ASSET_SUCCESS:
       return {
         ...state,
-        assetsList: [action.payload, ...state.assetsList],
+        assetsList: { [`page_${state.activePage}`]: [action.payload] },
         assetsCount: state.assetsCount + 1,
         hasError: false,
         isLoading: false,
@@ -81,7 +82,10 @@ export default (state = initialState.assets, action) => {
     case LOAD_ASSETS_SUCCESS:
       return {
         ...state,
-        assetsList: action.payload.results,
+        assetsList: {
+          ...state.assetsList,
+          [`page_${state.activePage}`]: action.payload.results
+        },
         assetsCount: action.payload.count,
         hasError: false,
         isLoading: action.isLoading
@@ -101,6 +105,11 @@ export default (state = initialState.assets, action) => {
         errorMessage: action.payload,
         hasError: true,
         isLoading: action.isLoading
+      };
+    case RESET_ASSETS:
+      return {
+        ...state,
+        assetsList: {}
       };
 
     default:

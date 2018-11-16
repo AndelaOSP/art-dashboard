@@ -26,7 +26,8 @@ describe('Renders <AssetsComponent /> correctly', () => {
     assetModels,
     assetTypes,
     selected: {},
-    filterSelection: jest.fn()
+    filterSelection: jest.fn(),
+    resetAssets: jest.fn()
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
@@ -38,14 +39,6 @@ describe('Renders <AssetsComponent /> correctly', () => {
 
   it('renders the AssetsTableContent component', () => {
     expect(wrapper.find('AssetsTableContent').length).toBe(1);
-  });
-
-  it('should not rerender the component if the error message is the same', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    wrapper.setProps({ hasError: true });
-    expect(shouldComponentUpdateSpy.mock.calls.length).toBe(1);
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {

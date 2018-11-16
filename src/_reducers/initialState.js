@@ -19,7 +19,7 @@ export default {
   modelNumbers: [],
   assetModels: [],
   assets: {
-    assetsList: [],
+    assetsList: {},
     assetsCount: 0,
     errorMessage: '',
     success: '',
