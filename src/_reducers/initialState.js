@@ -103,8 +103,5 @@ export default {
   navBarVisibility: {
     isVisible: true
   },
-  assetStatus: {},
-  admin: {
-    isAdmin: false
-  }
+  assetStatus: {}
 };

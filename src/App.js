@@ -5,7 +5,6 @@ import { createBrowserHistory } from 'history';
 
 import RoutesComponent from './_components/RoutesComponent';
 import SessionExpired from './components/SessionExpiredComponent';
-import AdminVerification from './_components/AdminVerification/AdminVerificationContainer';
 
 import './App.css';
 
@@ -21,7 +20,6 @@ const App = () => (
           <Switch>
             <Route path="/" component={RoutesComponent} />
           </Switch>
-          <AdminVerification history={history} />
           <SessionExpired history={history} />
         </React.Fragment>
       </Router>

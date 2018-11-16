@@ -1,22 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import ArtModal from '../components/common/ModalComponent';
 
-const AuthenticateComponent = ({ component: Component, isAuthenticated, ...options }) => (
+export const AuthenticateComponent = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
-    {...options}
+    {...rest}
     render={props => (
       isAuthenticated
-        ? <Component {...props} />
-        : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+        ? <Authorized {...props} />
+        : <Redirect to="/" />
     )}
   />
 );
 
 AuthenticateComponent.propTypes = {
-  location: PropTypes.object,
   component: PropTypes.func,
   isAuthenticated: PropTypes.bool
 };
 
-export default AuthenticateComponent;
+AuthenticateComponent.defaultProps = {
+  isAuthenticated: false
+};
+
+export class Authorized extends React.Component {
+  handleLogout = () => {
+    localStorage.removeItem('art-prod-web-token');
+    this.props.history.push('/');
+  };
+
+  render() {
+    const { isAdmin, component: Component } = this.props;
+    if (isAdmin) {
+      return <Component {...this.props} />;
+    }
+
+    return (
+      <div className="app background">
+        <ArtModal
+          open
+          onClose
+          modalTitle="Unauthorized Access"
+          closeIcon={false}
+          closeOnEscape={false}
+          closeOnDimmerClick={false}
+        >
+          <div>
+            <p>
+              Only users with admin privileges can access this site.
+            </p>
+            <Button onClick={this.handleLogout}>OK</Button>
+          </div>
+        </ArtModal>
+      </div>
+    );
+  }
+}
+
+Authorized.propTypes = {
+  history: PropTypes.object,
+  push: PropTypes.func,
+  component: PropTypes.func,
+  isAdmin: PropTypes.bool
+};
+
+Authorized.defaultProps = {
+  push: () => {},
+  isAdmin: false
+};
+
+export default withRouter(AuthenticateComponent);

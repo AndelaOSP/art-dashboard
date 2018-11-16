@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+
 import Authenticate from './AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
 import Assets from '../_components/Assets/AssetsContainer';
@@ -20,9 +22,22 @@ import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
+import checkPropertyExists from '../_utils/checkPropertyExists';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
+
+  checkAdmin = () => {
+    const token = localStorage.getItem('art-prod-web-token');
+
+    if (token) {
+      const decodedToken = jwt.decode(token);
+
+      return checkPropertyExists(decodedToken || {}, 'admin');
+    }
+
+    return false;
+  };
 
   render() {
     return (
@@ -30,6 +45,7 @@ class RoutesComponent extends Component {
         <Switch>
           <Authenticate
             isAuthenticated={this.checkAuthentication()}
+            isAdmin={this.checkAdmin()}
             path="/dashboard"
             component={Dashboard}
           />
