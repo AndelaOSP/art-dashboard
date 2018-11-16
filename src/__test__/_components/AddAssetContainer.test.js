@@ -18,6 +18,8 @@ const props = {
   createAsset: async () => {},
   loading: false,
   buttonLoading: false,
+  success: '',
+  error: '',
   history: {
     push: jest.fn()
   }
@@ -137,7 +139,7 @@ describe('<AddAssetContainer /> test cases', () => {
     };
 
     wrapper.instance().handleDropdownChanges(event, data);
-    expect(wrapper.state('selectedCategory')).toEqual('Electronics');
+    expect(wrapper.state().formState.selectedCategory).toEqual('Electronics');
   });
 
   it('sets state correctly when handleDropdownChanges is called with asset-subcategory', () => {
@@ -153,7 +155,7 @@ describe('<AddAssetContainer /> test cases', () => {
     };
 
     wrapper.instance().handleDropdownChanges(event, data);
-    expect(wrapper.state('selectedSubcategory')).toEqual('Computers');
+    expect(wrapper.state().formState.selectedSubcategory).toEqual('Computers');
   });
 
   it('sets state correctly when handleDropdownChanges is called with asset-types', () => {
@@ -169,7 +171,7 @@ describe('<AddAssetContainer /> test cases', () => {
     };
 
     wrapper.instance().handleDropdownChanges(event, data);
-    expect(wrapper.state('selectedAssetType')).toEqual('MacBook');
+    expect(wrapper.state().formState.selectedAssetType).toEqual('MacBook');
   });
 
   it('sets state correctly when handleDropdownChanges is called with asset-makes', () => {
@@ -185,6 +187,6 @@ describe('<AddAssetContainer /> test cases', () => {
     };
 
     wrapper.instance().handleDropdownChanges(event, data);
-    expect(wrapper.state('selectedAssetMake')).toEqual('MacBook Pro');
+    expect(wrapper.state().formState.selectedAssetMake).toEqual('MacBook Pro');
   });
 });

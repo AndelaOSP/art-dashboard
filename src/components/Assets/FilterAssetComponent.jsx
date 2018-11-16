@@ -28,6 +28,7 @@ const SaveButton = props => (
       color="primary"
       buttonState={props.buttonLoading}
       disabledState={props.isDisabled || props.buttonLoading}
+      handleClick={props.handleClick}
       fluidState
     />
   </React.Fragment>
@@ -36,7 +37,8 @@ const SaveButton = props => (
 SaveButton.propTypes = {
   hasSpecs: PropTypes.bool.isRequired,
   buttonLoading: PropTypes.bool,
-  isDisabled: PropTypes.bool.isRequired
+  isDisabled: PropTypes.bool.isRequired,
+  handleClick: PropTypes.func
 };
 
 SaveButton.defaultProps = {
@@ -59,7 +61,7 @@ const FilterAssetComponent = (props) => {
 
   return (
     <Form onSubmit={props.onCreateAsset} className="add-asset-form">
-      <div className="label-style">Category</div>
+      <div className="label-style">Category <span className="input-asterisk"> * </span></div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Category"
@@ -71,7 +73,7 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Sub Category</div>
+      <div className="label-style">Sub Category <span className="input-asterisk"> * </span></div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Subcategory"
@@ -83,7 +85,7 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Type</div>
+      <div className="label-style">Type <span className="input-asterisk"> * </span></div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Type"
@@ -95,7 +97,7 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Make</div>
+      <div className="label-style">Make <span className="input-asterisk"> * </span></div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Make"
@@ -107,7 +109,7 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Model Number</div>
+      <div className="label-style">Model Number <span className="input-asterisk"> * </span></div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Model Number"
@@ -119,7 +121,7 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Asset Tag</div>
+      <div className="label-style">Asset Tag <span className="input-asterisk"> * </span></div>
       <InputFluid
         customCss="input-style"
         placeholder="Enter Asset Tag"
@@ -128,7 +130,7 @@ const FilterAssetComponent = (props) => {
         onChange={props.handleInputChange}
       />
 
-      <div className="label-style">Serial Number</div>
+      <div className="label-style">Serial Number <span className="input-asterisk"> * </span></div>
       <InputFluid
         customCss="input-style"
         placeholder="Enter Serial Number"
@@ -154,6 +156,7 @@ const FilterAssetComponent = (props) => {
               hasSpecs={hasSpecs}
               buttonLoading={props.buttonLoading}
               isDisabled={props.isDisabled}
+              handleClick={props.reset}
             />
       }
     </Form>
@@ -179,7 +182,8 @@ FilterAssetComponent.propTypes = {
   assetTag: PropTypes.string,
   serialNumber: PropTypes.string,
   isAssetSpecsAvailable: PropTypes.bool.isRequired,
-  onCreateAsset: PropTypes.func.isRequired
+  onCreateAsset: PropTypes.func.isRequired,
+  reset: PropTypes.func
 };
 
 FilterAssetComponent.defaultTypes = {

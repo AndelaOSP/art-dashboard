@@ -11,7 +11,8 @@ import {
   getAssetDetail,
   allocateAsset,
   reloadAssetDetail,
-  unassignAsset
+  unassignAsset,
+  resetMessage
 } from '../../_actions/asset.actions';
 
 // mock data
@@ -32,7 +33,8 @@ const {
   NEW_ALLOCATION_FAILURE,
   BUTTON_LOADING,
   UNASSIGN_FAILURE,
-  UNASSIGN_SUCCESS
+  UNASSIGN_SUCCESS,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 // store
@@ -89,6 +91,13 @@ describe('Asset Action tests', () => {
     return store.dispatch(createAsset(assetToBeCreated)).then(() => {
       expect(store.getActions()).toContainEqual(expectedActions[2]);
     });
+  });
+
+  it('should dispatch RESET_STATUS_MESSAGE', () => {
+    store.dispatch(resetMessage());
+
+    expect(store.getActions())
+      .toContainEqual({ type: RESET_STATUS_MESSAGE });
   });
 
   it('should dispatch LOAD_ASSET_SUCCESS when getAssetDetails is called successfully', () => {
