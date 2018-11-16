@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 
-import Authenticate from './AuthenticateComponent';
+import Authenticate from './Authentication/AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
 import Assets from '../_components/Assets/AssetsContainer';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
@@ -22,133 +21,101 @@ import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
-import checkPropertyExists from '../_utils/checkPropertyExists';
 
-class RoutesComponent extends Component {
-  checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
-
-  checkAdmin = () => {
-    const token = localStorage.getItem('art-prod-web-token');
-
-    if (token) {
-      const decodedToken = jwt.decode(token);
-
-      return checkPropertyExists(decodedToken || {}, 'admin');
-    }
-
-    return false;
-  };
-
-  render() {
-    return (
-      <div>
-        <Switch>
-          <Authenticate
-            isAuthenticated={this.checkAuthentication()}
-            isAdmin={this.checkAdmin()}
-            path="/dashboard"
-            component={Dashboard}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/users"
-            component={User}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/asset-types"
-            component={AssetTypes}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/assets"
-            component={Assets}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/asset-models"
-            component={AssetModels}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/user-feedback"
-            component={UserFeedback}
-          />
-          <Authenticate
-            isAuthenticated={this.checkAuthentication()}
-            path="/assets/:id/view"
-            component={AssetDetail}
-          />
-          <Authenticate
-            isAuthenticated={this.checkAuthentication()}
-            path="/users/:id/view"
-            component={UserDetail}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/allocations"
-            component={Allocations}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/incidence-reports"
-            component={IncidenceReports}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/asset-sub-categories"
-            component={AssetSubCategories}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/asset-categories"
-            component={AssetCategories}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/asset-conditions"
-            component={AssetConditions}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/asset-makes"
-            component={AssetMakes}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/asset-specs"
-            component={AssetSpecs}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/asset-specs/create"
-            component={AddAssetSpec}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/assets/create"
-            component={AddAsset}
-          />
-          <Route exact path="/" component={LoginComponent} />
-          <Route path="*" component={PageNotFound} />
-        </Switch>
-      </div>
-    );
-  }
-}
+const RoutesComponent = () => (
+  <Switch>
+    <Route
+      path="/dashboard"
+      component={Authenticate(Dashboard)}
+    />
+    <Route
+      exact
+      path="/users"
+      component={Authenticate(User)}
+    />
+    <Route
+      exact
+      path="/asset-types"
+      component={Authenticate(AssetTypes)}
+    />
+    <Route
+      exact
+      path="/assets"
+      component={Authenticate(Assets)}
+    />
+    <Route
+      exact
+      path="/asset-models"
+      component={Authenticate(AssetModels)}
+    />
+    <Route
+      exact
+      path="/user-feedback"
+      component={Authenticate(UserFeedback)}
+    />
+    <Route
+      path="/assets/:id/view"
+      component={Authenticate(AssetDetail)}
+    />
+    <Route
+      path="/users/:id/view"
+      component={Authenticate(UserDetail)}
+    />
+    <Route
+      exact
+      path="/allocations"
+      component={Authenticate(Allocations)}
+    />
+    <Route
+      exact
+      path="/incidence-reports"
+      component={Authenticate(IncidenceReports)}
+    />
+    <Route
+      exact
+      path="/asset-sub-categories"
+      component={Authenticate(AssetSubCategories)}
+    />
+    <Route
+      exact
+      path="/asset-categories"
+      component={Authenticate(AssetCategories)}
+    />
+    <Route
+      exact
+      path="/asset-conditions"
+      component={Authenticate(AssetConditions)}
+    />
+    <Route
+      exact
+      path="/asset-makes"
+      component={Authenticate(AssetMakes)}
+    />
+    <Route
+      exact
+      path="/asset-specs"
+      component={Authenticate(AssetSpecs)}
+    />
+    <Route
+      exact
+      path="/asset-specs/create"
+      component={Authenticate(AddAssetSpec)}
+    />
+    <Route
+      exact
+      path="/assets/create"
+      component={Authenticate(AddAsset)}
+    />
+    <Route
+      exact
+      path="/"
+      component={LoginComponent}
+    />
+    <Route
+      path="*"
+      component={PageNotFound}
+    />
+  </Switch>
+);
 
 export default (RoutesComponent);

@@ -2,46 +2,38 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { AuthenticateComponent, Authorized } from '../../_components/AuthenticateComponent';
+import { AuthenticateComponent } from '../../_components/Authentication/AuthenticateComponent';
 
 import localStorageMock from '../../_mock/localStorage';
 
 window.localStorage = localStorageMock;
 
-describe('<AuthenticateComponent /> tests', () => {
+describe('<AuthenticateComponent.jsx /> tests', () => {
   const props = {
-    component: jest.fn(),
     isAuthenticated: true,
-    render: jest.fn()
+    isAdmin: false,
+    checkAdmin: jest.fn(),
+    handleLogout: jest.fn(),
+    history: {
+      push: jest.fn()
+    }
   };
 
   const wrapper = shallow(<AuthenticateComponent {...props} />);
-
-  it('renders Route component', () => {
-    expect(wrapper.find('Route').exists()).toBe(true);
-  });
-});
-
-describe('<Authorized /> tests', () => {
-  const props = {
-    history: {
-      push: jest.fn()
-    },
-    component: jest.fn(),
-    handleLogout: jest.fn(),
-    isAdmin: false
-  };
-
-  const wrapper = shallow(<Authorized {...props} />);
-
-  it('renders ArtModal component when user is not admin', () => {
-    expect(wrapper.find('ArtModal').exists()).toBe(true);
-  });
 
   it('renders component when user is an admin', () => {
     wrapper.setProps({ isAdmin: true });
 
     expect(wrapper.find('ArtModal').exists()).toBe(false);
+  });
+
+  it('should call the checkAdmin function', () => {
+    const checkAdminSpy = jest.spyOn(
+      wrapper.instance(), 'checkAdmin'
+    );
+
+    wrapper.instance().checkAdmin();
+    expect(checkAdminSpy.mock.calls.length).toEqual(1);
   });
 
   it('should call the handleLogout function', () => {
