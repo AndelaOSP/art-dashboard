@@ -33,9 +33,9 @@ export const loadUsers = (pageNumber, limit) => {
 };
 
 export const loadAssetAssigneeUsers = () => (dispatch) => {
+  const url = 'asset-assignee/?paginate=false';
   dispatch(loading(true));
-  return axios
-    .get('asset-assignee/?paginate=false')
+  return fetchData(url)
     .then((response) => {
       dispatch(loading(false));
       dispatch(loadAssetAssigneeSuccess(response.data));
@@ -65,8 +65,7 @@ const loadAssetAssigneeSuccess = users => ({
 });
 
 export const addSecurityUser = securityUser => dispatch =>
-  axios
-    .post('/security-users/', securityUser)
+  axios.post('/security-users/', securityUser)
     .then((response) => {
       dispatch({
         type: CREATE_SECURITY_USER_SUCCESS,

@@ -29,13 +29,6 @@ export class UserContainer extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (this.props.hasError && this.props.errorMessage === nextProps.errorMessage) {
-      return false;
-    }
-    return true;
-  }
-
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
     this.props.loadUsers(this.state.activePage, data.value);
@@ -140,12 +133,10 @@ const mapStateToProps = ({ usersList }) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    loadUsers,
-    setActivePage,
-    resetUsers,
-    loading
-  }
+export default connect(mapStateToProps, {
+  loadUsers,
+  setActivePage,
+  resetUsers,
+  loading
+}
 )(UserContainer);
