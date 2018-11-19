@@ -11,25 +11,10 @@ let props = {
   activePageUsers: [],
   emptyUsersList: () => false,
   errorMessage: '',
-  handlePageTotal: jest.fn()
+  handlePageTotal: jest.fn(),
+  setActivePage: jest.fn(),
+  hasError: false
 };
-
-
-describe('Renders <UserComponent /> correctly when no errors or loading prop', () => {
-  const wrapper1 = shallow(<UserComponent {...props} />);
-
-  it('renders Table component', () => {
-    expect(wrapper1.find('Table').length).toBe(1);
-  });
-
-  it('renders Pagination component', () => {
-    expect(wrapper1.find('Pagination').length).toBe(1);
-  });
-
-  it('renders Dropdown component', () => {
-    expect(wrapper1.find('DropdownComponent').length).toBe(1);
-  });
-});
 
 describe('Renders UserComponent with the LoadingComponent', () => {
   props = {

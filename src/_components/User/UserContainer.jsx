@@ -118,8 +118,8 @@ UserContainer.propTypes = {
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   activePage: PropTypes.number,
-  setActivePage: PropTypes.func.isRequired,
-  loading: PropTypes.func.isRequired
+  setActivePage: PropTypes.func,
+  loading: PropTypes.func
 };
 
 UserContainer.defaultProps = {
