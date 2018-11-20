@@ -41,8 +41,6 @@ export default class Authorize extends React.Component {
 
 Authorize.propTypes = {
   history: PropTypes.object,
-  push: PropTypes.func,
-  component: PropTypes.func,
   isAdmin: PropTypes.bool,
-  AuthComponent: PropTypes.func
+  AuthComponent: PropTypes.node
 };

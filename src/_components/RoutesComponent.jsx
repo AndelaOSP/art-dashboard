@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
-import { has } from 'lodash';
+import { get } from 'lodash';
 
 import Authenticate from './AccessControl/AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
@@ -30,17 +30,13 @@ class RoutesComponent extends Component {
   checkAdmin = () => {
     const token = localStorage.getItem('art-prod-web-token');
 
-    if (token) {
-      const decodedToken = jwt.decode(token);
-
-      if (!has(decodedToken, 'admin')) {
-        return false;
-      }
-
-      return decodedToken.admin;
+    if (!token) {
+      return false;
     }
 
-    return false;
+    const decodedToken = jwt.decode(token);
+
+    return get(decodedToken, 'admin', false);
   };
 
   render() {
