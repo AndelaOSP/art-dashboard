@@ -12,7 +12,8 @@ const props = {
   users: [],
   handlePaginationChange: jest.fn(),
   handleRowChange: jest.fn(),
-  setActivePage: jest.fn()
+  setActivePage: jest.fn(),
+  resetUsers: jest.fn()
 
 };
 

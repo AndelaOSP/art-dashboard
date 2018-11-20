@@ -81,13 +81,11 @@ export const addSecurityUser = securityUser => dispatch =>
       dispatch(updateToastMessageContent('Could not save Security User', 'error'));
     });
 
-export const setActivePage = page => dispatch => dispatch(setActivePageSuccess(page));
-
 export const resetUsers = () => ({
   type: RESET_USERS
 });
 
-const setActivePageSuccess = page => ({
+export const setActivePage = page => ({
   type: SET_USERS_ACTIVE_PAGE,
   payload: page
 });

@@ -31,7 +31,8 @@ export class UserContainer extends Component {
 
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
-    this.retrieveUsers(this.state.activePage, data.value);
+    this.props.resetUsers();
+    this.retrieveUsers(this.props.activePage, data.value);
   };
 
   handlePaginationChange = (e, { activePage }) => {
@@ -110,6 +111,7 @@ UserContainer.propTypes = {
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  resetUsers: PropTypes.bool.isRequired,
   activePage: PropTypes.number,
   setActivePage: PropTypes.func,
   loading: PropTypes.func
