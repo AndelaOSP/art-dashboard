@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import { has } from 'lodash';
 
-import Authenticate from './AuthenticateComponent';
+import Authenticate from './AccessControl/AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
 import Assets from '../_components/Assets/AssetsContainer';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
@@ -22,7 +23,6 @@ import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
-import checkPropertyExists from '../_utils/checkPropertyExists';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
@@ -33,7 +33,11 @@ class RoutesComponent extends Component {
     if (token) {
       const decodedToken = jwt.decode(token);
 
-      return checkPropertyExists(decodedToken || {}, 'admin');
+      if (!has(decodedToken, 'admin')) {
+        return false;
+      }
+
+      return decodedToken.admin;
     }
 
     return false;
