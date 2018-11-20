@@ -25,9 +25,7 @@ import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
 
 class RoutesComponent extends Component {
-  checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
-
-  checkAdmin = () => {
+  checkAuthentication = () => {
     const token = localStorage.getItem('art-prod-web-token');
 
     if (!token) {
@@ -45,7 +43,6 @@ class RoutesComponent extends Component {
         <Switch>
           <Authenticate
             isAuthenticated={this.checkAuthentication()}
-            isAdmin={this.checkAdmin()}
             path="/dashboard"
             component={Dashboard}
           />
