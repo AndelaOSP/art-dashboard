@@ -6,14 +6,13 @@ import ArtModal from '../../components/common/ModalComponent';
 
 export default class Authorize extends React.Component {
   handleLogout = () => {
-    localStorage.removeItem('art-prod-web-token');
     this.props.history.push('/');
   };
 
   render() {
-    const { isAdmin, AuthComponent } = this.props;
+    const { isAuthenticated, AuthComponent } = this.props;
 
-    if (isAdmin) {
+    if (isAuthenticated) {
       return <AuthComponent {...this.props} />;
     }
 
@@ -41,6 +40,6 @@ export default class Authorize extends React.Component {
 
 Authorize.propTypes = {
   history: PropTypes.object,
-  isAdmin: PropTypes.bool,
-  AuthComponent: PropTypes.node
+  isAuthenticated: PropTypes.bool,
+  AuthComponent: PropTypes.func
 };

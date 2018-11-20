@@ -14,7 +14,7 @@ describe('<Authorize /> tests', () => {
     },
     AuthComponent: () => <span />,
     handleLogout: jest.fn(),
-    isAdmin: false
+    isAuthenticated: false
   };
 
   const wrapper = shallow(<Authorize {...props} />);
@@ -24,7 +24,7 @@ describe('<Authorize /> tests', () => {
   });
 
   it('renders component when user is an admin', () => {
-    wrapper.setProps({ isAdmin: true });
+    wrapper.setProps({ isAuthenticated: true });
 
     expect(wrapper.find('ArtModal').exists()).toBe(false);
   });

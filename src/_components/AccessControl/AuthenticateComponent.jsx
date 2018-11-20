@@ -1,21 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect, withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 
 import Authorize from './Authorize';
 
-export const AuthenticateComponent = ({
-  component: Component,
-  isAuthenticated,
-  isAdmin,
-  ...rest
-}) => (
+export const AuthenticateComponent = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
     {...rest}
     render={props => (
-      isAuthenticated
-        ? <Authorize {...props} AuthComponent={Component} isAdmin={isAdmin} />
-        : <Redirect to="/" />
+      <Authorize {...props} AuthComponent={Component} isAuthenticated={isAuthenticated} />
     )}
   />
 );
