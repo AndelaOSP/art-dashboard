@@ -32,8 +32,7 @@ export default (state = initialState.allocations, action) => {
       };
     case RESET_ALLOCATIONS:
       return {
-        ...state,
-        assetsList: {}
+        allocations: initialState.allocations
       };
     case SET_ACTIVE_PAGE:
       return {
