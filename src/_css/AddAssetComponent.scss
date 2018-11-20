@@ -6,6 +6,13 @@
   text-align: left;
 }
 
+.input-asterisk {
+  color: #d8000c;
+  position: relative;
+  top: 5px;
+  font-size: 20px;
+}
+
 .ui.steps .step .title,
 .ui.steps .step .description {
   font-family: $base-font, $fallback-font, Lato, Helvetica, Arial, sans-serif;

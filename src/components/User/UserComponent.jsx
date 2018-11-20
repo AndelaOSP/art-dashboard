@@ -55,12 +55,17 @@ const UserComponent = (props) => {
           {
             props.activePageUsers.map((user) => {
               const viewUserUrl = `users/${user.id}/view`;
-              user.assets_assigned = 1;
+
+              const updatedUser = {
+                ...user,
+                assets_assigned: user.allocated_asset_count
+              };
+
               return (
                 <TableRow
                   viewDetailsRoute={viewUserUrl}
                   key={user.id}
-                  data={user}
+                  data={updatedUser}
                   headings={[
                     'full_name',
                     'email',

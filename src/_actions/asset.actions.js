@@ -17,7 +17,8 @@ const {
   NEW_ALLOCATION_FAILURE,
   UNASSIGN_SUCCESS,
   UNASSIGN_FAILURE,
-  BUTTON_LOADING
+  BUTTON_LOADING,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 export const createAsset = assetDetail => (dispatch) => {
@@ -39,6 +40,8 @@ export const createAssetSuccess = asset => ({ type: CREATE_ASSET_SUCCESS, payloa
 
 export const createAssetFail = error => ({ type: CREATE_ASSET_FAIL, payload: error });
 
+export const resetMessage = () => ({ type: RESET_STATUS_MESSAGE });
+
 /**
  * load asset detail thunk
  *
@@ -51,10 +54,7 @@ export const getAssetDetail = assetSerialNumber => (
     dispatch({ type: LOADING_ASSET });
     return axios.get(`manage-assets/${assetSerialNumber}`)
       .then((response) => {
-        dispatch({
-          type: LOAD_ASSET_SUCCESS,
-          payload: response.data
-        });
+        dispatch(getAssetDetailSuccess(response.data));
       })
       .catch((error) => {
         dispatch({
@@ -64,6 +64,11 @@ export const getAssetDetail = assetSerialNumber => (
       });
   }
 );
+
+export const getAssetDetailSuccess = payload => ({
+  type: LOAD_ASSET_SUCCESS,
+  payload
+});
 
 export const reloadAssetDetail = assetSerialNumber => dispatch =>
   axios.get(`manage-assets/${assetSerialNumber}`)

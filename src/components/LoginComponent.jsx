@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { Button, Image } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import PropTypes from 'prop-types';
+import jwt from 'jsonwebtoken';
+import { get } from 'lodash';
 
 import { signInWithEmail, firebase } from '../firebase';
 import { ToastMessage } from '../_utils/ToastMessage';
@@ -24,9 +26,14 @@ class LoginComponent extends React.Component {
   validateUser = (result) => {
     if (validAndelaEmail(result.user.email)) {
       result.user.getIdToken().then((idToken) => {
-        localStorage.setItem('art-prod-web-token', idToken);
+        const decodedToken = jwt.decode(idToken);
+
+        if (get(decodedToken, 'admin', false)) {
+          localStorage.setItem('art-prod-web-token', idToken);
+          setAuthorizationConfig();
+        }
+
         this.props.history.push('/dashboard');
-        setAuthorizationConfig();
       });
     } else {
       ToastMessage.error({ message: 'Please sign in with your andela email' });

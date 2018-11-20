@@ -96,12 +96,12 @@ class AssetDescriptionComponent extends React.Component {
 
   render() {
     const {
-      users,
+      assetAsigneeUsers,
       assignedUser,
       toggleModal,
-      buttonState,
       buttonLoading,
-      assetDetail
+      assetDetail,
+      errorMessage
     } = this.props;
     const triggerProps = this.triggerProps();
 
@@ -118,8 +118,9 @@ class AssetDescriptionComponent extends React.Component {
             <AssignedTo
               onSelectUserEmail={this.onSelectUserEmail}
               assignedUser={assignedUser}
-              users={users}
+              users={assetAsigneeUsers}
               selectedUserId={this.state.selectedUser}
+              errorMessage={errorMessage}
             />
             <ModalComponent
               trigger={<ButtonComponent {...triggerProps} />}
@@ -128,7 +129,7 @@ class AssetDescriptionComponent extends React.Component {
               <ConfirmAction
                 toggleModal={toggleModal}
                 handleConfirm={this.handleConfirm}
-                buttonState={buttonState}
+                buttonState={buttonLoading}
                 buttonLoading={buttonLoading}
               />
             </ModalComponent>
@@ -143,6 +144,7 @@ AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array,
+  assetAsigneeUsers: PropTypes.array,
   selectedUserId: PropTypes.number,
   assignAssetButtonState: PropTypes.bool,
   toggleModal: PropTypes.func,
@@ -152,19 +154,21 @@ AssetDescriptionComponent.propTypes = {
   unAssignedAsset: PropTypes.object,
   assetDetail: PropTypes.object,
   allocateAsset: PropTypes.func,
-  serialNumber: PropTypes.string,
   unassignAsset: PropTypes.func,
-  specs: PropTypes.object
+  specs: PropTypes.object,
+  errorMessage: PropTypes.string
 };
 
 AssetDescriptionComponent.defaultProps = {
   users: [],
+  assetAsigneeUsers: [],
   selectedUserId: 0,
   assignAssetButtonState: false,
   handleConfirm: () => {},
   buttonState: false,
   buttonLoading: false,
-  specs: {}
+  specs: {},
+  errorMessage: ''
 };
 
 export default connect(null, {

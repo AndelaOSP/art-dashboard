@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Authenticate from './AuthenticateComponent';
+import jwt from 'jsonwebtoken';
+import { get } from 'lodash';
+
+import Authenticate from './AccessControl/AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
-import Assets from '../components/AssetsComponent';
+import Assets from '../_components/Assets/AssetsContainer';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
 import LoginComponent from '../components/LoginComponent';
 import Dashboard from '../_components/Dashboard/DashboardContainer';
@@ -12,7 +15,7 @@ import AssetSubCategories from '../components/AssetsSubCategoriesComponent';
 import Allocations from '../components/AllocationsComponent';
 import IncidenceReports from '../components/IncidenceReportsComponent';
 import AssetCategories from '../components/AssetCategoriesComponent';
-import AssetDetail from '../components/AssetDetailComponent';
+import AssetDetail from './AssetDetails/AssetDetailsContainer';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
 import User from './User/UserContainer';
@@ -22,7 +25,17 @@ import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
 
 class RoutesComponent extends Component {
-  checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
+  checkAuthentication = () => {
+    const token = localStorage.getItem('art-prod-web-token');
+
+    if (!token) {
+      return false;
+    }
+
+    const decodedToken = jwt.decode(token);
+
+    return get(decodedToken, 'admin', false);
+  };
 
   render() {
     return (
