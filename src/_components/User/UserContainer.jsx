@@ -31,7 +31,7 @@ export class UserContainer extends Component {
 
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
-    this.props.loadUsers(this.state.activePage, data.value);
+    this.retrieveUsers(this.state.activePage, data.value);
   };
 
   handlePaginationChange = (e, { activePage }) => {
