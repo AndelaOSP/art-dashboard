@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Authenticate from './AuthenticateComponent';
+import jwt from 'jsonwebtoken';
+import { get } from 'lodash';
+
+import Authenticate from './AccessControl/AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
 import Assets from '../_components/Assets/AssetsContainer';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
@@ -24,12 +27,25 @@ import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
 class RoutesComponent extends Component {
   checkAuthentication = () => !!(localStorage.getItem('art-prod-web-token'));
 
+  checkAdmin = () => {
+    const token = localStorage.getItem('art-prod-web-token');
+
+    if (!token) {
+      return false;
+    }
+
+    const decodedToken = jwt.decode(token);
+
+    return get(decodedToken, 'admin', false);
+  };
+
   render() {
     return (
       <div>
         <Switch>
           <Authenticate
             isAuthenticated={this.checkAuthentication()}
+            isAdmin={this.checkAdmin()}
             path="/dashboard"
             component={Dashboard}
           />

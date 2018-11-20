@@ -27,7 +27,9 @@ describe('Renders <AssetsComponent /> correctly', () => {
     assetTypes,
     selected: {},
     filterSelection: jest.fn(),
-    resetAssets: jest.fn()
+    resetAssets: jest.fn(),
+    assetsList: {},
+    loading: jest.fn()
   };
   const wrapper = shallow(<AssetsComponent
     {...props}

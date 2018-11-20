@@ -2,10 +2,11 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import SessionExpired from './components/SessionExpiredComponent';
-import './App.css';
 
 import RoutesComponent from './_components/RoutesComponent';
+import SessionExpired from './components/SessionExpiredComponent';
+
+import './App.css';
 
 import store from './_store';
 
