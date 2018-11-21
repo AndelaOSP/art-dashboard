@@ -32,6 +32,7 @@ export class UserContainer extends Component {
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
     this.props.resetUsers();
+    this.setState({ users: [] });
     this.retrieveUsers(this.props.activePage, data.value);
   };
 
@@ -50,6 +51,8 @@ export class UserContainer extends Component {
       return fetchData(url).then((response) => {
         this.props.loading(false);
         this.setState({ users: response.data.results });
+      }).catch(() => {
+        this.props.loading(false);
       });
     }
     return this.props.loadUsers(activePage, limit);
