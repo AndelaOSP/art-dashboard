@@ -43,8 +43,9 @@ export class AllocationsComponent extends Component {
 
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
+    this.setState({ allocations: [] });
     this.props.resetAllocations();
-    this.props.loadAllocationsAction(this.props.activePage, data.value);
+    this.retrieveAllocations(this.props.activePage, data.value);
   }
 
   retrieveAllocations = (activePage, limit) => {
@@ -52,7 +53,9 @@ export class AllocationsComponent extends Component {
       const url = `allocations?page=${activePage}&page_size=${limit}`;
       this.props.loading(true);
       return fetchData(url).then((response) => {
+        this.props.loading(false);
         this.setState({ allocations: response.data.results });
+      }).catch(() => {
         this.props.loading(false);
       });
     }
@@ -62,6 +65,7 @@ export class AllocationsComponent extends Component {
   render() {
     const { allocations } = this.state;
     const currentAllocations = `page_${this.props.activePage}`;
+    const renderedAllocations = this.props.allAllocations[currentAllocations] || allocations;
     if (this.props.isLoading) {
       return (
         <NavBarComponent>
@@ -69,7 +73,7 @@ export class AllocationsComponent extends Component {
         </NavBarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
+    if (!this.props.isLoading && _.isEmpty(renderedAllocations)) {
       return (
         <NavBarComponent>
           <ItemsNotFoundComponent
@@ -97,7 +101,7 @@ export class AllocationsComponent extends Component {
 
             <Table.Body>
               {
-                (this.props.allAllocations[currentAllocations] || allocations).map((allocation) => {
+                renderedAllocations.map((allocation) => {
                   allocation.formatted_date = formatDate(allocation.created_at);
                   return (
                     <TableRow

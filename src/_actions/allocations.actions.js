@@ -31,9 +31,7 @@ export const resetAllocations = () => ({
   type: RESET_ALLOCATIONS
 });
 
-export const setActivePage = page => dispatch => dispatch(setActivePageSuccess(page));
-
-const setActivePageSuccess = page => ({
+export const setActivePage = page => ({
   type: SET_ACTIVE_PAGE,
   payload: page
 });

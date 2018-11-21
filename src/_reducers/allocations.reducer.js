@@ -32,7 +32,9 @@ export default (state = initialState.allocations, action) => {
       };
     case RESET_ALLOCATIONS:
       return {
-        allocations: initialState.allocations
+        ...state,
+        allAllocations: {},
+        isLoading: false
       };
     case SET_ACTIVE_PAGE:
       return {
