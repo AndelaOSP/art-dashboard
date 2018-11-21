@@ -55,7 +55,7 @@ export default (state = initialState.usersList, action) => {
     case RESET_USERS:
       return {
         ...state,
-        usersList: {}
+        users: {}
       };
     case SET_USERS_ACTIVE_PAGE:
       return {
