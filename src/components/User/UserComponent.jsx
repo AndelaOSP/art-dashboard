@@ -58,7 +58,7 @@ const UserComponent = (props) => {
 
               const updatedUser = {
                 ...user,
-                assets_assigned: user.allocated_asset_count
+                assets_assigned: user.allocated_assets.length
               };
 
               return (
