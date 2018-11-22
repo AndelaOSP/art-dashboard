@@ -28,7 +28,7 @@ const UserComponent = (props) => {
   if (hasNoUsers) {
     return (
       <NavBarComponent>
-        <ItemsNotFoundComponent message="Please try again later, to see if we'll have users to show you." />
+        <ItemsNotFoundComponent allDataFetched={props.allDataFetched} message="Please try again later, to see if we'll have users to show you." />
       </NavBarComponent>
     );
   }
@@ -106,7 +106,8 @@ UserComponent.propTypes = {
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  allDataFetched: PropTypes.bool
 };
 
 UserComponent.defaultProps = {

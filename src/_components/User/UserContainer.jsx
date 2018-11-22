@@ -19,7 +19,8 @@ const checkIfCutoffExceeded = isCountCutoffExceeded(CUTOFF_LIMIT);
 export class UserContainer extends Component {
   state = {
     limit: 10,
-    users: []
+    users: [],
+    allDataFetched: false
   };
 
   componentDidMount() {
@@ -53,6 +54,7 @@ export class UserContainer extends Component {
         this.setState({ users: response.data.results });
       }).catch(() => {
         this.props.loading(false);
+        this.setState({ allDataFetched: true });
       });
     }
     return this.props.loadUsers(activePage, limit);
@@ -100,6 +102,7 @@ export class UserContainer extends Component {
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
             limit={this.state.limit}
+            allDataFetched={this.state.allDataFetched}
           />
         </div>
       </NavBarComponent>
