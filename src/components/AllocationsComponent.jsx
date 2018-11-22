@@ -20,7 +20,8 @@ const checkIfCutoffExceeded = isCountCutoffExceeded(CUTOFF_LIMIT);
 export class AllocationsComponent extends Component {
   state = {
     limit: 10,
-    allocations: []
+    allocations: [],
+    allDataFetched: false
   }
 
   componentDidMount() {
@@ -57,6 +58,7 @@ export class AllocationsComponent extends Component {
         this.setState({ allocations: response.data.results });
       }).catch(() => {
         this.props.loading(false);
+        this.setState({ allDataFetched: true });
       });
     }
     return this.props.loadAllocationsAction(activePage, limit);
@@ -77,6 +79,7 @@ export class AllocationsComponent extends Component {
       return (
         <NavBarComponent>
           <ItemsNotFoundComponent
+            allDataFetched={this.state.allDataFetched}
             message="Please try again later, to see if we'll have allocations to show you."
           />
         </NavBarComponent>
