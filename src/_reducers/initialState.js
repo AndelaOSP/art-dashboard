@@ -75,7 +75,6 @@ export default {
     isLoading: false,
     securityUser: {},
     activePage: 1
-
   },
   user: {
     userDetail: {},

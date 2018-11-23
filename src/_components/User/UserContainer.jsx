@@ -31,9 +31,11 @@ export class UserContainer extends Component {
   }
 
   handleRowChange = (e, data) => {
-    this.setState({ limit: data.value });
+    this.setState({
+      limit: data.value,
+      users: []
+    });
     this.props.resetUsers();
-    this.setState({ users: [] });
     this.retrieveUsers(this.props.activePage, data.value);
   };
 
