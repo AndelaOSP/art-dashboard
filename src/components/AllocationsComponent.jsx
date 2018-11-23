@@ -43,8 +43,10 @@ export class AllocationsComponent extends Component {
   };
 
   handleRowChange = (e, data) => {
-    this.setState({ limit: data.value });
-    this.setState({ allocations: [] });
+    this.setState({
+      limit: data.value,
+      allocations: []
+    });
     this.props.resetAllocations();
     this.retrieveAllocations(this.props.activePage, data.value);
   }
@@ -173,5 +175,9 @@ AllocationsComponent.propTypes = {
 };
 
 export default withRouter(connect(mapStateToProps, {
-  loadAllocationsAction, loading, fetchData, setActivePage, resetAllocations
+  loadAllocationsAction,
+  loading,
+  fetchData,
+  setActivePage,
+  resetAllocations
 })(AllocationsComponent));
