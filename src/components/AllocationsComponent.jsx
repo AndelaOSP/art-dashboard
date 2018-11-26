@@ -4,8 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Header, Table, Pagination, Segment, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
-import { loadAllocationsAction } from '../_actions/allocations.actions';
+import { loadAllocationsAction, setActivePage, loading, resetAllocations } from '../_actions/allocations.actions';
 import NavBarComponent from '../_components/NavBarContainer';
 import TableRow from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
@@ -14,30 +13,63 @@ import rowOptions from '../_utils/pageRowOptions';
 import DropdownComponent from '../components/common/DropdownComponent';
 import '../_css/AllocationsComponent.css';
 import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
+import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
 
+const CUTOFF_LIMIT = 10;
+const checkIfCutoffExceeded = isCountCutoffExceeded(CUTOFF_LIMIT);
 export class AllocationsComponent extends Component {
   state = {
-    activePage: 1,
-    limit: 10
+    limit: 10,
+    allocations: [],
+    allDataFetched: false
   }
 
   componentDidMount() {
-    this.props.loadAllocationsAction(this.state.activePage, this.state.limit);
+    const allocationsEmpty = _.isEmpty(this.props.allAllocations);
+    if (allocationsEmpty) {
+      this.props.loadAllocationsAction(this.props.activePage, this.state.limit);
+    }
   }
 
   getTotalPages = () => Math.ceil(this.props.allocationsCount / this.state.limit);
 
   handlePaginationChange = (event, { activePage }) => {
-    this.setState({ activePage });
-    this.props.loadAllocationsAction(activePage, this.state.limit);
+    this.props.setActivePage(activePage);
+    const currentPageList = this.props.allAllocations[`page_${activePage}`];
+
+    if (_.isEmpty(currentPageList)) {
+      this.retrieveAllocations(activePage, this.state.limit);
+    }
   };
 
   handleRowChange = (e, data) => {
-    this.setState({ limit: data.value });
-    this.props.loadAllocationsAction(this.state.activePage, data.value);
+    this.setState({
+      limit: data.value,
+      allocations: []
+    });
+    this.props.resetAllocations();
+    this.retrieveAllocations(this.props.activePage, data.value);
+  }
+
+  retrieveAllocations = (activePage, limit) => {
+    if (checkIfCutoffExceeded(activePage, limit)) {
+      const url = `allocations?page=${activePage}&page_size=${limit}`;
+      this.props.loading(true);
+      return fetchData(url).then((response) => {
+        this.props.loading(false);
+        this.setState({ allocations: response.data.results });
+      }).catch(() => {
+        this.props.loading(false);
+        this.setState({ allDataFetched: true });
+      });
+    }
+    return this.props.loadAllocationsAction(activePage, limit);
   }
 
   render() {
+    const { allocations } = this.state;
+    const currentAllocations = `page_${this.props.activePage}`;
+    const renderedAllocations = this.props.allAllocations[currentAllocations] || allocations;
     if (this.props.isLoading) {
       return (
         <NavBarComponent>
@@ -45,10 +77,11 @@ export class AllocationsComponent extends Component {
         </NavBarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.allAllocations)) {
+    if (!this.props.isLoading && _.isEmpty(renderedAllocations)) {
       return (
         <NavBarComponent>
           <ItemsNotFoundComponent
+            allDataFetched={this.state.allDataFetched}
             message="Please try again later, to see if we'll have allocations to show you."
           />
         </NavBarComponent>
@@ -73,7 +106,7 @@ export class AllocationsComponent extends Component {
 
             <Table.Body>
               {
-                this.props.allAllocations.map((allocation) => {
+                renderedAllocations.map((allocation) => {
                   allocation.formatted_date = formatDate(allocation.created_at);
                   return (
                     <TableRow
@@ -95,7 +128,7 @@ export class AllocationsComponent extends Component {
                       <Pagination
                         totalPages={this.getTotalPages()}
                         onPageChange={this.handlePaginationChange}
-                        activePage={this.state.activePage}
+                        activePage={this.props.activePage}
                       />
                     </Segment>
                     <Segment>
@@ -121,22 +154,30 @@ export class AllocationsComponent extends Component {
 }
 
 const mapStateToProps = ({ allocationsList }) => {
-  const { allAllocations, allocationsCount, isLoading } = allocationsList;
-
+  const { allAllocations, allocationsCount, isLoading, activePage } = allocationsList;
   return {
     allAllocations,
     allocationsCount,
-    isLoading
+    isLoading,
+    activePage
   };
 };
 
 AllocationsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  allAllocations: PropTypes.array.isRequired,
+  allAllocations: PropTypes.object.isRequired,
   allocationsCount: PropTypes.number,
-  loadAllocationsAction: PropTypes.func.isRequired
+  loadAllocationsAction: PropTypes.func.isRequired,
+  loading: PropTypes.func.isRequired,
+  activePage: PropTypes.number,
+  resetAllocations: PropTypes.func.isRequired,
+  setActivePage: PropTypes.func.isRequired
 };
 
 export default withRouter(connect(mapStateToProps, {
-  loadAllocationsAction
+  loadAllocationsAction,
+  loading,
+  fetchData,
+  setActivePage,
+  resetAllocations
 })(AllocationsComponent));

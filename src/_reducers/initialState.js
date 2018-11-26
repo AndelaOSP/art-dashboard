@@ -91,11 +91,12 @@ export default {
     nextUrl: ''
   },
   allocations: {
-    allAllocations: [],
+    allAllocations: {},
     allocationsCount: 0,
     errorMessage: '',
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    activePage: 1
   },
   session: {
     sessionExpired: false
