@@ -14,12 +14,13 @@ const {
 
 const initialState = {
   usersList: {
-    users: [],
+    users: {},
     assetAsigneeUsers: [],
     assetsCount: 0,
     hasError: false,
     isLoading: false,
-    securityUser: {}
+    securityUser: {},
+    activePage: 1
   }
 };
 
@@ -33,7 +34,10 @@ describe('Users Reducer tests', () => {
   it('should handle LOAD_USERS_SUCCESS', () => {
     action.type = LOAD_USERS_SUCCESS;
     action.payload.results = users;
-    expect(usersReducer(initialState, action).users).toEqual(action.payload.results);
+
+    expect(usersReducer(initialState.usersList, action).users).toEqual({
+      page_1: [...action.payload.results]
+    });
     expect(usersReducer(initialState, action).hasError).toEqual(false);
   });
 

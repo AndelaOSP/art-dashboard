@@ -11,7 +11,10 @@ const props = {
   errorMessage: '',
   users: [],
   handlePaginationChange: jest.fn(),
-  handleRowChange: jest.fn()
+  handleRowChange: jest.fn(),
+  setActivePage: jest.fn(),
+  resetUsers: jest.fn()
+
 };
 
 describe('Renders <UserContainer /> correctly', () => {
@@ -23,28 +26,6 @@ describe('Renders <UserContainer /> correctly', () => {
 
   it('renders page title', () => {
     expect(wrapper.find('#page-headings').prop('content')).toEqual('Users List');
-  });
-
-  it('calls the emptyUsersList function', () => {
-    const emptyUsersListSpy = jest.spyOn(
-      wrapper.instance(), 'emptyUsersList'
-    );
-    const event = {};
-    const data = {};
-
-    wrapper.instance().emptyUsersList(event, data);
-    expect(emptyUsersListSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the shouldComponentUpdate function', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    const event = {};
-    const data = {};
-
-    wrapper.instance().shouldComponentUpdate(event, data);
-    expect(shouldComponentUpdateSpy.mock.calls.length).toEqual(1);
   });
 
   it('calls the handlePageTotal function when the next button is clicked', () => {

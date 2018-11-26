@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchData } from '../_utils/helpers';
 import constants from '../_constants';
 import { updateToastMessageContent } from './toastMessage.actions';
 
@@ -8,25 +9,33 @@ const {
   LOADING_USERS,
   LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
   CREATE_SECURITY_USER_SUCCESS,
-  CREATE_SECURITY_USER_FAILURE
+  CREATE_SECURITY_USER_FAILURE,
+  RESET_USERS,
+  SET_USERS_ACTIVE_PAGE
 } = constants;
 
-export const loadUsers = (pageNumber, limit) => (dispatch) => {
-  dispatch(loading(true));
-  return axios.get(`users?page=${pageNumber}&page_size=${limit}`)
-    .then((response) => {
-      dispatch(loading(false));
-      dispatch(loadUsersSuccess(response.data));
-    })
-    .catch((error) => {
-      dispatch(loading(false));
-      dispatch(loadUsersFailure(error.message));
-    });
+export const loadUsers = (pageNumber, limit) => {
+  const url = `users?page=${pageNumber}&page_size=${limit}`;
+
+  return (dispatch) => {
+    dispatch(loading(true));
+
+    return fetchData(url)
+      .then((response) => {
+        dispatch(loading(false));
+        dispatch(loadUsersSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(loading(false));
+        dispatch(loadUsersFailure(error.message));
+      });
+  };
 };
 
 export const loadAssetAssigneeUsers = () => (dispatch) => {
+  const url = 'asset-assignee/?paginate=false';
   dispatch(loading(true));
-  return axios.get('asset-assignee/?paginate=false')
+  return fetchData(url)
     .then((response) => {
       dispatch(loading(false));
       dispatch(loadAssetAssigneeSuccess(response.data));
@@ -37,7 +46,7 @@ export const loadAssetAssigneeUsers = () => (dispatch) => {
     });
 };
 
-const loading = isLoading => ({
+export const loading = isLoading => ({
   type: LOADING_USERS,
   isLoading
 });
@@ -55,17 +64,28 @@ const loadAssetAssigneeSuccess = users => ({
   payload: users
 });
 
-export const addSecurityUser = securityUser => dispatch => axios.post('/security-users/', securityUser)
-  .then((response) => {
-    dispatch({
-      type: CREATE_SECURITY_USER_SUCCESS,
-      payload: response.data
+export const addSecurityUser = securityUser => dispatch =>
+  axios.post('/security-users/', securityUser)
+    .then((response) => {
+      dispatch({
+        type: CREATE_SECURITY_USER_SUCCESS,
+        payload: response.data
+      });
+      dispatch(updateToastMessageContent('New Security User Added Successfully', 'success'));
+    })
+    .catch((error) => {
+      dispatch({
+        type: CREATE_SECURITY_USER_FAILURE,
+        payload: error.message
+      });
+      dispatch(updateToastMessageContent('Could not save Security User', 'error'));
     });
-    dispatch(updateToastMessageContent('New Security User Added Successfully', 'success'));
-  }).catch((error) => {
-    dispatch({
-      type: CREATE_SECURITY_USER_FAILURE,
-      payload: error.message
-    });
-    dispatch(updateToastMessageContent('Could not save Security User', 'error'));
-  });
+
+export const resetUsers = () => ({
+  type: RESET_USERS
+});
+
+export const setActivePage = page => ({
+  type: SET_USERS_ACTIVE_PAGE,
+  payload: page
+});

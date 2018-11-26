@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import { Table, Pagination, Segment } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import rowOptions from '../../_utils/pageRowOptions';
@@ -11,6 +12,8 @@ import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
 
 const UserComponent = (props) => {
+  const hasNoUsers = isEmpty(props.activePageUsers);
+
   if (props.isLoading) {
     return <LoaderComponent />;
   }
@@ -22,12 +25,10 @@ const UserComponent = (props) => {
     return <SemanticToastContainer />;
   }
 
-  if (props.emptyUsersList()) {
+  if (hasNoUsers) {
     return (
       <NavBarComponent>
-        <ItemsNotFoundComponent
-          message="Please try again later, to see if we'll have users to show you."
-        />
+        <ItemsNotFoundComponent allDataFetched={props.allDataFetched} message="Please try again later, to see if we'll have users to show you." />
       </NavBarComponent>
     );
   }
@@ -37,45 +38,30 @@ const UserComponent = (props) => {
       <Table basic selectable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>
-              Name
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Email Address
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Cohort
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Assets Assigned
-            </Table.HeaderCell>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Email Address</Table.HeaderCell>
+            <Table.HeaderCell>Cohort</Table.HeaderCell>
+            <Table.HeaderCell>Assets Assigned</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {
-            props.activePageUsers.map((user) => {
-              const viewUserUrl = `users/${user.id}/view`;
+          {props.activePageUsers.map((user) => {
+            const viewUserUrl = `users/${user.id}/view`;
 
-              const updatedUser = {
-                ...user,
-                assets_assigned: user.allocated_asset_count
-              };
+            const updatedUser = {
+              ...user,
+              assets_assigned: user.allocated_asset_count
+            };
 
-              return (
-                <TableRow
-                  viewDetailsRoute={viewUserUrl}
-                  key={user.id}
-                  data={updatedUser}
-                  headings={[
-                    'full_name',
-                    'email',
-                    'cohort',
-                    'assets_assigned'
-                  ]}
-                />
-              );
-            })
-          }
+            return (
+              <TableRow
+                viewDetailsRoute={viewUserUrl}
+                key={user.id}
+                data={updatedUser}
+                headings={['full_name', 'email', 'cohort', 'assets_assigned']}
+              />
+            );
+          })}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
@@ -120,7 +106,8 @@ UserComponent.propTypes = {
   handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  allDataFetched: PropTypes.bool
 };
 
 UserComponent.defaultProps = {
