@@ -3,6 +3,7 @@ import { get, isEmpty } from 'lodash';
 
 import { getAssetDetail, getAssetDetailSuccess as addAsset } from '../../_actions/asset.actions';
 import { loadAssetAssigneeUsers } from '../../_actions/users.actions';
+import { loadCentres } from '../../_actions/centres.actions';
 import AssetDetailsComponent from '../../components/AssetDetails/AssetDetailsComponent';
 
 export const isSameId = (assetDetail, props) => (assetDetail.uuid === props.match.params.id);
@@ -15,7 +16,7 @@ const getAssetInfo = (assetDetail, props) => {
   return get(props.location, 'state', {});
 };
 
-export const mapStateToProps = ({ asset, usersList }, ownProps) => {
+export const mapStateToProps = ({ asset, usersList, centres }, ownProps) => {
   const {
     assetDetail,
     errorMessage,
@@ -31,6 +32,8 @@ export const mapStateToProps = ({ asset, usersList }, ownProps) => {
   const hasSameId = isSameId(assetDetail, ownProps);
   const shouldFetchDetails = isEmpty(details);
   const shouldAddToStore = !hasSameId && !shouldFetchDetails;
+  const { centreList } = centres;
+  const centreLOading = centres.isLoading;
 
   return {
     assetAsigneeUsers,
@@ -43,12 +46,15 @@ export const mapStateToProps = ({ asset, usersList }, ownProps) => {
     hasError,
     assetLoading,
     userLoading,
-    buttonLoading
+    buttonLoading,
+    centreList,
+    centreLOading
   };
 };
 
 export default connect(mapStateToProps, {
   getAssetDetail,
   loadAssetAssigneeUsers,
-  addAsset
+  addAsset,
+  loadCentres
 })(AssetDetailsComponent);

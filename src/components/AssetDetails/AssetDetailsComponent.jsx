@@ -1,39 +1,83 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Container, Divider, Grid, Header, Segment, Icon, Tab, Table } from 'semantic-ui-react';
+import {
+  Container, Divider, Form, Grid, Header, Segment, Icon, Tab, Table
+} from 'semantic-ui-react';
+
 import AssetAllocationHistory from '../AssetAllocationHistory';
 import AssetDescriptionComponent from '../AssetDescriptionComponent';
 import AssetNotes from '../AssetNoteComponent';
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../LoaderComponent';
+import DropdownComponent from '../common/DropdownComponent';
+
+import generateDropdownOptions from '../../_utils/generateDropdownOptions';
 
 import '../../_css/AssetDetailsComponent.css';
 
 class AssetDetailsComponent extends Component {
+  state = {
+    locationForm: false,
+    asset_location: this.props.assetDetail.asset_location
+  };
+
   componentDidMount() {
     const {
       assetAsigneeUsers,
       assetDetail,
       match,
       shouldAddToStore,
-      shouldFetchDetails
+      shouldFetchDetails,
+      getAssetDetail,
+      addAsset,
+      loadAssetAssigneeUsers,
+      centreList,
+      loadCentres
     } = this.props;
     const { id } = match.params;
 
     if (shouldFetchDetails) {
-      this.props.getAssetDetail(id);
+      getAssetDetail(id);
     }
+
     if (shouldAddToStore) {
-      this.props.addAsset(assetDetail);
+      addAsset(assetDetail);
     }
 
     if (isEmpty(assetAsigneeUsers)) {
-      this.props.loadAssetAssigneeUsers();
+      loadAssetAssigneeUsers();
+    }
+
+    if (isEmpty(centreList)) {
+      loadCentres();
     }
   }
 
+  onChange = (event, data) => {
+    event.stopPropagation();
+
+    this.setState({
+      ...this.state,
+      asset_location: data.value
+    });
+  };
+
+  showLocationForm = () => {
+    this.setState({
+      locationForm: true
+    });
+  };
+
+  saveLocation = () => {
+    this.setState({
+      locationForm: false
+    });
+  };
+
   render() {
+    const { assetDetail, centreLoading, errorMessage } = this.props;
+
     if (this.props.assetLoading) {
       return (
         <NavBarComponent>
@@ -48,7 +92,6 @@ class AssetDetailsComponent extends Component {
       );
     }
 
-    const { assetDetail, errorMessage } = this.props;
     const assetTabPanes = [
       {
         menuItem: 'Description',
@@ -78,6 +121,56 @@ class AssetDetailsComponent extends Component {
       }
     ];
 
+    const generateCentreArray = () => {
+      const { centreList } = this.props;
+      const centreArray = [];
+
+      centreList.map(opt => (
+        centreArray.push(opt.centre_name)
+      ));
+
+      return centreArray;
+    };
+
+    const locationDisplay = () => {
+      const { asset_location, locationForm } = this.state;
+
+      if (!locationForm) {
+        return (
+          <Table.Cell>
+            {asset_location}
+            <Icon
+              name="edit"
+              className="asset-detail__table__icon"
+              onClick={this.showLocationForm}
+            />
+          </Table.Cell>
+        );
+      }
+
+      return (
+        <Table.Cell>
+          <Form>
+            {
+              centreLoading
+                ? { asset_location }
+                : <DropdownComponent
+                  customClass="form-dropdown asset-detail__table__dropdown"
+                  label="Location"
+                  options={generateDropdownOptions(generateCentreArray())}
+                  placeholder="Select Asset Location"
+                  name="asset_location"
+                  value={asset_location}
+                  onChange={this.onChange}
+                  upward={false}
+                />
+            }
+            <Icon name="save" className="asset-detail__table__icon" onClick={this.saveLocation} />
+          </Form>
+        </Table.Cell>
+      );
+    };
+
     return (
       <NavBarComponent>
         <Container>
@@ -87,9 +180,6 @@ class AssetDetailsComponent extends Component {
           </div>
           <Segment raised className="asset-detail__segment">
             <div className="asset-details">
-              <div className="edit-asset-detail">
-                <Icon size="large" link name="pencil" />
-              </div>
               <Grid columns={2} stackable divided>
                 <Grid.Column>
                   <Grid columns={1}>
@@ -114,6 +204,11 @@ class AssetDetailsComponent extends Component {
                           <Table.Row>
                             <Table.Cell className="details-headings">Make</Table.Cell>
                             <Table.Cell>{assetDetail.make_label}</Table.Cell>
+                          </Table.Row>
+
+                          <Table.Row>
+                            <Table.Cell className="details-headings">Location</Table.Cell>
+                            {locationDisplay()}
                           </Table.Row>
                         </Table.Body>
                       </Table>
@@ -177,7 +272,10 @@ AssetDetailsComponent.propTypes = {
   getAssetDetail: PropTypes.func,
   loadAssetAssigneeUsers: PropTypes.func,
   shouldAddToStore: PropTypes.bool,
-  addAsset: PropTypes.func
+  addAsset: PropTypes.func,
+  centreList: PropTypes.array,
+  loadCentres: PropTypes.func,
+  centreLoading: PropTypes.bool,
 };
 
 AssetDetailsComponent.defaultProps = {

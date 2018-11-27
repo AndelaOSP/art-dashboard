@@ -105,5 +105,6 @@ export default {
   navBarVisibility: {
     isVisible: true
   },
-  assetStatus: {}
+  assetStatus: {},
+  centres: {}
 };
