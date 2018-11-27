@@ -23,6 +23,7 @@ import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
+import UploadAssets from '../_components/Assets/UploadAssetsContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => {
@@ -63,6 +64,12 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/assets/:status?"
             component={Assets}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/assets/upload"
+            component={UploadAssets}
           />
           <Authenticate
             exact
