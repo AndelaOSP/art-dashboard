@@ -93,6 +93,16 @@ export class NavBarComponent extends Component {
 
             <Menu.Menu position="right">
               <Menu.Item>
+                <Link to="/assets/upload">
+                  <Button
+                    className="upload-asset"
+                    size="small"
+                  >
+                      UPLOAD ASSETS
+                  </Button>
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
                 <Link to="/assets/create">
                   <Button
                     className="add-asset"
