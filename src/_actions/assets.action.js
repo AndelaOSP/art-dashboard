@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { fetchData } from '../_utils/helpers';
 import { constructUrl } from '../_utils/assets';
 import constants from '../_constants';
@@ -7,7 +8,9 @@ const {
   LOAD_ASSETS_FAILURE,
   LOAD_ASSETS_STARTS,
   SET_ACTIVE_PAGE,
-  RESET_ASSETS
+  RESET_ASSETS,
+  UPLOAD_ASSETS_SUCCESS,
+  UPLOAD_ASSETS_FAILURE
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
@@ -29,6 +32,20 @@ export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
   };
 };
 
+export const uploadAssets = assets => (dispatch) => {
+  dispatch(loading(true));
+  return axios
+    .post('upload', assets)
+    .then((response) => {
+      dispatch(loading(false));
+      dispatch(uploadAssetsSuccsess(response.data));
+    })
+    .catch((error) => {
+      dispatch(loading(false));
+      dispatch(uploadAssetsFailure(error.message));
+    });
+};
+
 export const setActivePage = page => dispatch => dispatch(setActivePageSuccess(page));
 
 export const loading = isLoading => ({
@@ -46,6 +63,15 @@ const getAssetsFailure = (message, status = 'all') => ({
   type: LOAD_ASSETS_FAILURE,
   payload: message,
   status
+});
+const uploadAssetsSuccsess = data => ({
+  type: UPLOAD_ASSETS_SUCCESS,
+  payload: data
+});
+
+const uploadAssetsFailure = message => ({
+  type: UPLOAD_ASSETS_FAILURE,
+  payload: message
 });
 
 const setActivePageSuccess = page => ({

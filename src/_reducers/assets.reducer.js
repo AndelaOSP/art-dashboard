@@ -14,7 +14,9 @@ const {
   RESET_ASSETS,
   UPDATE_ASSET_REQUEST,
   UPDATE_ASSET_SUCCESS,
-  UPDATE_ASSET_FAIL
+  UPDATE_ASSET_FAIL,
+  UPLOAD_ASSETS_SUCCESS,
+  UPLOAD_ASSETS_FAILURE
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -74,7 +76,8 @@ export default (state = initialState.assets, action) => {
         assetsCount: state.assetsCount + 1,
         hasError: false,
         isLoading: false,
-        success: 'Hoooray! Asset successfully created. You can create another one or head on to view all assets.',
+        success:
+          'Hoooray! Asset successfully created. You can create another one or head on to view all assets.',
         errorMessage: ''
       };
 
@@ -136,6 +139,7 @@ export default (state = initialState.assets, action) => {
         ...state,
         assetsList: {}
       };
+<<<<<<< HEAD
 
     case UPDATE_ASSET_REQUEST:
       return {
@@ -162,6 +166,21 @@ export default (state = initialState.assets, action) => {
         errorMessage: 'Could not update asset.'
       };
 
+=======
+    case UPLOAD_ASSETS_SUCCESS:
+      return {
+        ...state,
+        success: action.payload,
+        isLoading: action.isLoading
+      };
+    case UPLOAD_ASSETS_FAILURE:
+      return {
+        ...state,
+        errorMessage: action.payload,
+        hasError: true,
+        isLoading: action.isLoading
+      };
+>>>>>>> feat(upload): upload assets
     default:
       return state;
   }
