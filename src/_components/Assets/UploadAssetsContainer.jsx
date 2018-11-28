@@ -39,11 +39,13 @@ class UploadAssets extends React.Component {
             <Grid.Column width={10}>
               <div className="upload-file">
                 <div className="uploader">
-                  <div className="drag-drop"> Upload file </div>
+                  <div className="drag-drop">
+                    <span className="span-drag-drop">Drag and Drop</span>
+                  </div>
                   <button className="choose-file">choose file</button>
                 </div>
                 <div className="progress-bar">
-                  <Progress percent={44} progress />
+                  <Progress percent={2} progress />
                 </div>
               </div>
             </Grid.Column>
