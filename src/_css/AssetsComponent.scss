@@ -93,17 +93,17 @@
 .drag-drop {
   text-align: center;
   display: block;
-  width: 80%;
+  transform: translate(50%, 10%);
+  width: 50%;
   height: 80%;
   border: 1px grey dotted;
-  position: relative;
   margin-bottom: 5vh;
   top: 5%;
   left: 10%;
 }
 
-.span-drag-drop {
-  top: 100%;
+.drag-drop > div {
+  transform: translate(60%, 50%);
 }
 
 .choose-file {
