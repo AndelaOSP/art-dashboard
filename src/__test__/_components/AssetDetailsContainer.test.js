@@ -26,7 +26,9 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
     },
     centres: {
       centreList: []
-    }
+    },
+    updateErrorMessage: '',
+    updateLoading: false
   };
 
   it('calls fetchAssetDetail function correctly', () => {
@@ -42,9 +44,7 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
         newAllocation: {},
         unAssignedAsset: {},
         buttonLoading: false,
-        isLoading: false,
-        updateLoading: false,
-        success: ''
+        isLoading: false
       },
       usersList: {
         assetAsigneeUsers: [],
@@ -55,6 +55,10 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
         centreList: [],
         isLoading: false,
         error: ''
+      },
+      assets: {
+        updateLoading: false,
+        success: ''
       }
     };
     const expected = {

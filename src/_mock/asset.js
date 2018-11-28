@@ -1,6 +1,7 @@
 export const asset = {
   id: 1,
   asset_code: 'AND/HS/0909',
+  asset_location: 'Dojo',
   serial_number: '897832SWWS',
   model_number: 6,
   checkin_status: 'string',
@@ -21,7 +22,8 @@ export const asset = {
   created_at: '2018-05-28T10:28:13Z',
   last_modified: '2018-05-28T10:28:13Z',
   current_status: 'Available',
-  asset_type: 'Headsets'
+  asset_type: 'Headsets',
+  uuid: 'a134c9c1-a6fd-4390-8596-ec12b13b1ca6'
 };
 
 export const newAllocation = {

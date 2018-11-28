@@ -4,6 +4,10 @@ import expect from 'expect';
 
 import AssetDetailsComponent from '../../components/AssetDetails/AssetDetailsComponent';
 import assetMocks from '../../_mock/newAllocation';
+import centres from '../../_mock/centres';
+import localStorageMock from '../../_mock/localStorage';
+
+window.localStorage = localStorageMock;
 
 describe('Renders <AssetDetailsComponent /> correctly', () => {
   const props = {
@@ -20,9 +24,19 @@ describe('Renders <AssetDetailsComponent /> correctly', () => {
         id: ''
       }
     },
-    loadCentres: jest.fn()
+    loadCentres: jest.fn(),
+    centreLoading: false,
+    updateLoading: false,
+    centreList: centres.results,
+    updateAsset: async () => {},
+    shouldFetchDetails: false
   };
-  const wrapper = shallow(<AssetDetailsComponent {...props} />);
+
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<AssetDetailsComponent {...props} />);
+  });
 
   it('renders the asset detail', () => {
     expect(wrapper.find('.asset-details').length).toBe(1);
@@ -39,5 +53,36 @@ describe('Renders <AssetDetailsComponent /> correctly', () => {
   it('renders LoaderComponent if page is loading', () => {
     wrapper.setProps({ assetLoading: true });
     expect(wrapper.find('LoaderComponent').length).toBe(1);
+  });
+
+  it('calls the onChange function', () => {
+    const onChangeSpy = jest.spyOn(
+      wrapper.instance(), 'onChange'
+    );
+
+    const event = {
+      stopPropagation: jest.fn()
+    };
+    const data = {};
+
+    wrapper.instance().onChange(event, data);
+    expect(onChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the updateLocation function', () => {
+    const updateLocationSpy = jest.spyOn(
+      wrapper.instance(), 'updateLocation'
+    );
+
+    wrapper.instance().updateLocation();
+    expect(updateLocationSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('renders DropdownComponent', () => {
+    wrapper.setState({
+      locationForm: true
+    });
+
+    expect(wrapper.find('DropdownComponent').length).toBe(1);
   });
 });
