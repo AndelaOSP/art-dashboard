@@ -18,9 +18,7 @@ const UploadAssets = (props) => {
           <Divider id="assets-divider" />
         </div>
 
-
         <Grid centered divided>
-
           {showStatus && (
             <Grid.Row>
               <Grid.Column>
@@ -37,14 +35,28 @@ const UploadAssets = (props) => {
               <div className="uploader">
                 <div className="drag-drop">
                   <Dropzone
-                    onDrop={this.onDrop}
-                    onFileDialogCancel={this.onCancel}
+                    onDrop={props.handleDrop}
+                    onFileDialogCancel={props.handleCancel}
+                    accept="text/csv"
                   >
                     <p>Drag and drop files here, or click to select files to upload.</p>
                   </Dropzone>
                 </div>
-                <button className="choose-file" onClick={this.onCancel}>
+                <aside>
+                  <h2>Dropped files</h2>
+                  <ul>
+                    {props.files.map(f => (
+                      <li key={f.name}>
+                        {f.name} - {f.size} bytes
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
+                <button className="choose-file" onClick={props.handleCancel}>
                   Cancel Upload
+                </button>
+                <button className="choose-file" onClick={props.submitAssets}>
+                  Upload
                 </button>
               </div>
               <div className="progress-bar">
@@ -58,11 +70,14 @@ const UploadAssets = (props) => {
   );
 };
 
-
 UploadAssets.propTypes = {
   success: PropTypes.string,
   error: PropTypes.string,
-  resetMessage: PropTypes.func
+  resetMessage: PropTypes.func,
+  handleDrop: PropTypes.func,
+  submitAssets: PropTypes.func,
+  handleCancel: PropTypes.func,
+  files: PropTypes.array
 };
 
 export default UploadAssets;
