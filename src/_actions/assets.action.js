@@ -35,7 +35,7 @@ export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
 export const uploadAssets = assets => (dispatch) => {
   dispatch(loading(true));
   return axios
-    .post('upload', assets)
+    .post('upload/', assets)
     .then((response) => {
       dispatch(loading(false));
       dispatch(uploadAssetsSuccsess(response.data));
