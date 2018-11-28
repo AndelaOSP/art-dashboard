@@ -99,7 +99,6 @@ const getAssetsFailure = (message, status = 'all') => ({
   payload: message,
   status
 });
-
 const uploadAssetsSuccsess = data => ({
   type: UPLOAD_ASSETS_SUCCESS,
   payload: data
