@@ -11,15 +11,17 @@ import AssetNotes from '../AssetNoteComponent';
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../LoaderComponent';
 import DropdownComponent from '../common/DropdownComponent';
+import StatusMessageComponent from '../common/StatusComponent';
 
 import generateDropdownOptions from '../../_utils/generateDropdownOptions';
+import verifySuperAdmin from '../../_utils/verifySuperAdmin';
 
 import '../../_css/AssetDetailsComponent.css';
 
 class AssetDetailsComponent extends Component {
   state = {
     locationForm: false,
-    asset_location: this.props.assetDetail.asset_location
+    assetLocation: this.props.assetDetail.asset_location
   };
 
   componentDidMount() {
@@ -59,24 +61,38 @@ class AssetDetailsComponent extends Component {
 
     this.setState({
       ...this.state,
-      asset_location: data.value
+      assetLocation: data.value
     });
   };
 
-  showLocationForm = () => {
+  toggleLocationForm = () => {
     this.setState({
-      locationForm: true
+      locationForm: !this.state.locationForm
     });
   };
 
-  saveLocation = () => {
-    this.setState({
-      locationForm: false
+  updateLocation = () => {
+    const { assetDetail, match, updateAsset } = this.props;
+    const { id } = match.params;
+    const { assetLocation } = this.state;
+    const { asset_code, model_number, serial_number } = assetDetail;
+
+    const updateData = {
+      asset_location: assetLocation,
+      model_number,
+      asset_code,
+      serial_number
+    };
+
+    updateAsset(id, updateData).then(() => {
+      this.toggleLocationForm();
     });
   };
 
   render() {
-    const { assetDetail, centreLoading, errorMessage } = this.props;
+    const { assetDetail, centreLoading, errorMessage, success } = this.props;
+
+    const showMessage = success || errorMessage;
 
     if (this.props.assetLoading) {
       return (
@@ -133,39 +149,55 @@ class AssetDetailsComponent extends Component {
     };
 
     const locationDisplay = () => {
-      const { asset_location, locationForm } = this.state;
+      const { updateLoading } = this.props;
+      const { assetLocation, locationForm } = this.state;
 
       if (!locationForm) {
         return (
           <Table.Cell>
-            {asset_location}
-            <Icon
-              name="edit"
-              className="asset-detail__table__icon"
-              onClick={this.showLocationForm}
-            />
+            {assetLocation}
+
+            {
+              verifySuperAdmin() &&
+              <Icon
+                name="edit"
+                className="asset-detail__table__icon"
+                onClick={this.toggleLocationForm}
+              />
+            }
           </Table.Cell>
         );
       }
 
       return (
         <Table.Cell>
-          <Form>
+          <Form loading={updateLoading}>
             {
               centreLoading
-                ? { asset_location }
+                ? { assetLocation }
                 : <DropdownComponent
                   customClass="form-dropdown asset-detail__table__dropdown"
                   label="Location"
                   options={generateDropdownOptions(generateCentreArray())}
                   placeholder="Select Asset Location"
-                  name="asset_location"
-                  value={asset_location}
+                  name="assetLocation"
+                  value={assetLocation}
                   onChange={this.onChange}
                   upward={false}
                 />
             }
-            <Icon name="save" className="asset-detail__table__icon" onClick={this.saveLocation} />
+
+            <Icon
+              name="close"
+              className="asset-detail__table__icon"
+              onClick={this.toggleLocationForm}
+            />
+
+            <Icon
+              name="save"
+              className="asset-detail__table__icon"
+              onClick={this.updateLocation}
+            />
           </Form>
         </Table.Cell>
       );
@@ -178,6 +210,17 @@ class AssetDetailsComponent extends Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Detail" />
             <Divider id="assets-divider" />
           </div>
+
+          {
+            showMessage && (
+              <StatusMessageComponent
+                message={success || errorMessage}
+                className={success ? 'success-status' : 'error-status'}
+                reset={this.props.resetMessage}
+              />
+            )
+          }
+
           <Segment raised className="asset-detail__segment">
             <div className="asset-details">
               <Grid columns={2} stackable divided>
@@ -261,21 +304,25 @@ class AssetDetailsComponent extends Component {
 }
 
 AssetDetailsComponent.propTypes = {
-  assetDetail: PropTypes.object,
-  assignedUser: PropTypes.object,
-  errorMessage: PropTypes.string,
-  assetLoading: PropTypes.bool,
-  match: PropTypes.object,
-  hasError: PropTypes.bool,
-  shouldFetchDetails: PropTypes.bool,
   assetAsigneeUsers: PropTypes.array,
+  centreList: PropTypes.array,
+  assetLoading: PropTypes.bool,
+  hasError: PropTypes.bool,
+  centreLoading: PropTypes.bool,
+  updateLoading: PropTypes.bool,
+  shouldAddToStore: PropTypes.bool,
+  shouldFetchDetails: PropTypes.bool,
   getAssetDetail: PropTypes.func,
   loadAssetAssigneeUsers: PropTypes.func,
-  shouldAddToStore: PropTypes.bool,
   addAsset: PropTypes.func,
-  centreList: PropTypes.array,
   loadCentres: PropTypes.func,
-  centreLoading: PropTypes.bool,
+  updateAsset: PropTypes.func,
+  resetMessage: PropTypes.func,
+  assetDetail: PropTypes.object,
+  assignedUser: PropTypes.object,
+  match: PropTypes.object,
+  errorMessage: PropTypes.string,
+  success: PropTypes.string
 };
 
 AssetDetailsComponent.defaultProps = {

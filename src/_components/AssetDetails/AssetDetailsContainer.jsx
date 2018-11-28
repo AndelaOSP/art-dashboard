@@ -1,7 +1,12 @@
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
 
-import { getAssetDetail, getAssetDetailSuccess as addAsset } from '../../_actions/asset.actions';
+import {
+  getAssetDetail,
+  getAssetDetailSuccess as addAsset,
+  updateAsset,
+  resetMessage
+} from '../../_actions/asset.actions';
 import { loadAssetAssigneeUsers } from '../../_actions/users.actions';
 import { loadCentres } from '../../_actions/centres.actions';
 import AssetDetailsComponent from '../../components/AssetDetails/AssetDetailsComponent';
@@ -23,7 +28,9 @@ export const mapStateToProps = ({ asset, usersList, centres }, ownProps) => {
     hasError,
     newAllocation,
     unAssignedAsset,
-    buttonLoading
+    buttonLoading,
+    success,
+    updateLoading
   } = asset;
   const { assetAsigneeUsers } = usersList;
   const assetLoading = asset.isLoading;
@@ -33,7 +40,7 @@ export const mapStateToProps = ({ asset, usersList, centres }, ownProps) => {
   const shouldFetchDetails = isEmpty(details);
   const shouldAddToStore = !hasSameId && !shouldFetchDetails;
   const { centreList } = centres;
-  const centreLOading = centres.isLoading;
+  const centreLoading = centres.isLoading;
 
   return {
     assetAsigneeUsers,
@@ -48,7 +55,9 @@ export const mapStateToProps = ({ asset, usersList, centres }, ownProps) => {
     userLoading,
     buttonLoading,
     centreList,
-    centreLOading
+    centreLoading,
+    updateLoading,
+    success
   };
 };
 
@@ -56,5 +65,7 @@ export default connect(mapStateToProps, {
   getAssetDetail,
   loadAssetAssigneeUsers,
   addAsset,
-  loadCentres
+  loadCentres,
+  updateAsset,
+  resetMessage
 })(AssetDetailsComponent);

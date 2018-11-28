@@ -10,6 +10,9 @@ const {
   CREATE_ASSET_REQUEST,
   CREATE_ASSET_SUCCESS,
   CREATE_ASSET_FAIL,
+  UPDATE_ASSET_REQUEST,
+  UPDATE_ASSET_SUCCESS,
+  UPDATE_ASSET_FAIL,
   LOADING_ASSET,
   LOAD_ASSET_FAILURE,
   LOAD_ASSET_SUCCESS,
@@ -120,3 +123,19 @@ export const unassignAsset = (asset, serialNumber) =>
         payload: error.message
       }));
   };
+
+export const updateAsset = (assetSerialNumber, asset) => (dispatch) => {
+  dispatch(updateAssetRequest());
+
+  return axios.put(`manage-assets/${assetSerialNumber}`, asset).then((response) => {
+    dispatch(updateAssetSuccess(response.data));
+  }).catch((error) => {
+    dispatch(updateAssetFail(error));
+  });
+};
+
+export const updateAssetRequest = asset => ({ type: UPDATE_ASSET_REQUEST, payload: asset });
+
+export const updateAssetSuccess = asset => ({ type: UPDATE_ASSET_SUCCESS, payload: asset });
+
+export const updateAssetFail = error => ({ type: UPDATE_ASSET_FAIL, payload: error });

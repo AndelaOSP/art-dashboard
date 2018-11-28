@@ -19,7 +19,8 @@ describe('Renders <AssetDetailsComponent /> correctly', () => {
       params: {
         id: ''
       }
-    }
+    },
+    loadCentres: jest.fn()
   };
   const wrapper = shallow(<AssetDetailsComponent {...props} />);
 

@@ -17,8 +17,9 @@
 
 .ui.basic.table.asset-detail__table tbody tr {
   i.icon.asset-detail__table__icon {
-    float: right;
+    color: $andela-blue;
     cursor: pointer;
+    float: right;
     vertical-align: center;
   }
 
@@ -40,7 +41,7 @@
         border-top: 0;
         border-left: 0;
         border-right: 0;
-        width: 85%;
+        width: 80%;
         float: left;
         min-height: 25px;
         border-radius: 0;
@@ -53,6 +54,10 @@
           min-height: 25px;
         }
       }
+    }
+
+    .loading.form {
+      min-height: 25px;
     }
   }
 }

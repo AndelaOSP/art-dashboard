@@ -23,6 +23,9 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       params: {
         id: ''
       }
+    },
+    centres: {
+      centreList: []
     }
   };
 
@@ -39,11 +42,19 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
         newAllocation: {},
         unAssignedAsset: {},
         buttonLoading: false,
-        isLoading: false
+        isLoading: false,
+        updateLoading: false,
+        success: ''
       },
       usersList: {
         assetAsigneeUsers: [],
         isLoading: false
+      },
+      centres: {
+        centreCount: 0,
+        centreList: [],
+        isLoading: false,
+        error: ''
       }
     };
     const expected = {
@@ -57,7 +68,11 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       buttonLoading: false,
       assetLoading: false,
       userLoading: false,
-      assetAsigneeUsers: []
+      assetAsigneeUsers: [],
+      centreList: [],
+      centreLoading: false,
+      updateLoading: false,
+      success: ''
     };
 
     expect(mapStateToProps(state, props)).toEqual(expected);

@@ -106,5 +106,10 @@ export default {
     isVisible: true
   },
   assetStatus: {},
-  centres: {}
+  centres: {
+    centreCount: 0,
+    centreList: [],
+    isLoading: false,
+    error: ''
+  }
 };
