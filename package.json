@@ -24,6 +24,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.4.1",
     "react-dom": "^16.3.2",
+    "react-dropzone": "^7.0.1",
     "react-fusioncharts": "^1.0.5",
     "react-highcharts": "^16.0.2",
     "react-jsx-highcharts": "3.1.0",
