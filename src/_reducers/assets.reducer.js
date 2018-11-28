@@ -10,7 +10,10 @@ const {
   LOAD_ASSETS_STARTS,
   SET_ACTIVE_PAGE,
   RESET_STATUS_MESSAGE,
-  RESET_ASSETS
+  RESET_ASSETS,
+  UPDATE_ASSET_REQUEST,
+  UPDATE_ASSET_SUCCESS,
+  UPDATE_ASSET_FAIL
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -106,10 +109,36 @@ export default (state = initialState.assets, action) => {
         hasError: true,
         isLoading: action.isLoading
       };
+
     case RESET_ASSETS:
       return {
         ...state,
         assetsList: {}
+      };
+
+    case UPDATE_ASSET_REQUEST:
+      return {
+        ...state,
+        updateLoading: true,
+        success: '',
+        errorMessage: ''
+      };
+
+    case UPDATE_ASSET_SUCCESS:
+      return {
+        ...state,
+        assetsList: { [`page_${state.activePage}`]: [action.payload] },
+        updateLoading: false,
+        success: 'Asset successfully updated.',
+        errorMessage: ''
+      };
+
+    case UPDATE_ASSET_FAIL:
+      return {
+        ...state,
+        updateLoading: false,
+        success: '',
+        errorMessage: 'Could not update asset.'
       };
 
     default:

@@ -9,10 +9,7 @@ const {
   NEW_ALLOCATION_FAILURE,
   UNASSIGN_SUCCESS,
   UNASSIGN_FAILURE,
-  BUTTON_LOADING,
-  UPDATE_ASSET_REQUEST,
-  UPDATE_ASSET_SUCCESS,
-  UPDATE_ASSET_FAIL
+  BUTTON_LOADING
 } = constants;
 
 export default (state = initialState.asset, action) => {
@@ -73,31 +70,6 @@ export default (state = initialState.asset, action) => {
         hasError: true,
         errorMessage: action.payload,
         unAssignedAsset: {}
-      };
-
-    case UPDATE_ASSET_REQUEST:
-      return {
-        ...state,
-        updateLoading: true,
-        success: '',
-        errorMessage: ''
-      };
-
-    case UPDATE_ASSET_SUCCESS:
-      return {
-        ...state,
-        assetDetail: action.payload,
-        updateLoading: false,
-        success: 'Asset successfully updated.',
-        errorMessage: ''
-      };
-
-    case UPDATE_ASSET_FAIL:
-      return {
-        ...state,
-        updateLoading: false,
-        success: '',
-        errorMessage: 'Could not update asset.'
       };
 
     default:

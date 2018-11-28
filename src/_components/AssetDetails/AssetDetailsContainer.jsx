@@ -21,16 +21,14 @@ const getAssetInfo = (assetDetail, props) => {
   return get(props.location, 'state', {});
 };
 
-export const mapStateToProps = ({ asset, usersList, centres }, ownProps) => {
+export const mapStateToProps = ({ asset, assets, usersList, centres }, ownProps) => {
   const {
     assetDetail,
     errorMessage,
     hasError,
     newAllocation,
     unAssignedAsset,
-    buttonLoading,
-    success,
-    updateLoading
+    buttonLoading
   } = asset;
   const { assetAsigneeUsers } = usersList;
   const assetLoading = asset.isLoading;
@@ -41,6 +39,11 @@ export const mapStateToProps = ({ asset, usersList, centres }, ownProps) => {
   const shouldAddToStore = !hasSameId && !shouldFetchDetails;
   const { centreList } = centres;
   const centreLoading = centres.isLoading;
+  const {
+    updateLoading,
+    success
+  } = assets;
+  const updateErrorMessage = assets.errorMessage;
 
   return {
     assetAsigneeUsers,
@@ -57,7 +60,8 @@ export const mapStateToProps = ({ asset, usersList, centres }, ownProps) => {
     centreList,
     centreLoading,
     updateLoading,
-    success
+    success,
+    updateErrorMessage
   };
 };
 

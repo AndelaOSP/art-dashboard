@@ -10,7 +10,7 @@ const {
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
-export const getAssetsAction = (pageNumber, limit, filters) => {
+export const getAssetsAction = (pageNumber, limit = 10, filters) => {
   let url = `manage-assets?page=${pageNumber}&page_size=${limit}`;
 
   if (filters) {

@@ -62,12 +62,12 @@
   }
 }
 
-.ui.dropdown.form-dropdown > .dropdown.icon {
+.ui.dropdown.form-dropdown.asset-detail__table__dropdown > .dropdown.icon {
   padding: 0 5px;
 }
 
-.ui.active.dropdown.form-dropdown > .visible.menu.transition,
-.ui.active.dropdown.form-dropdown > .visible.menu.transition:hover {
+.ui.active.dropdown.form-dropdown.asset-detail__table__dropdown > .visible.menu.transition,
+.ui.active.dropdown.form-dropdown.asset-detail__table__dropdown > .visible.menu.transition:hover {
   border: 0;
   border-radius: 0;
 }

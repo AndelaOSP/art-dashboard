@@ -37,6 +37,7 @@ class AssetDetailsComponent extends Component {
       centreList,
       loadCentres
     } = this.props;
+
     const { id } = match.params;
 
     if (shouldFetchDetails) {
@@ -72,7 +73,7 @@ class AssetDetailsComponent extends Component {
   };
 
   updateLocation = () => {
-    const { assetDetail, match, updateAsset } = this.props;
+    const { addAsset, assetDetail, match, updateAsset } = this.props;
     const { id } = match.params;
     const { assetLocation } = this.state;
     const { asset_code, model_number, serial_number } = assetDetail;
@@ -85,14 +86,20 @@ class AssetDetailsComponent extends Component {
     };
 
     updateAsset(id, updateData).then(() => {
+      const newAssetDetail = {
+        ...assetDetail,
+        asset_location: assetLocation
+      };
+
       this.toggleLocationForm();
+      addAsset(newAssetDetail);
     });
   };
 
   render() {
-    const { assetDetail, centreLoading, errorMessage, success } = this.props;
+    const { assetDetail, centreLoading, errorMessage, success, updateErrorMessage } = this.props;
 
-    const showMessage = success || errorMessage;
+    const showMessage = success || updateErrorMessage;
 
     if (this.props.assetLoading) {
       return (
@@ -214,7 +221,7 @@ class AssetDetailsComponent extends Component {
           {
             showMessage && (
               <StatusMessageComponent
-                message={success || errorMessage}
+                message={success || updateErrorMessage}
                 className={success ? 'success-status' : 'error-status'}
                 reset={this.props.resetMessage}
               />
@@ -322,7 +329,8 @@ AssetDetailsComponent.propTypes = {
   assignedUser: PropTypes.object,
   match: PropTypes.object,
   errorMessage: PropTypes.string,
-  success: PropTypes.string
+  success: PropTypes.string,
+  updateErrorMessage: PropTypes.string
 };
 
 AssetDetailsComponent.defaultProps = {
