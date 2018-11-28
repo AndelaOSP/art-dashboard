@@ -81,21 +81,31 @@
 .upload-file {
   border: 1px black solid;
   width: 100%;
-  height: 50vh;
+  height: 60vh;
+  text-align: center;
 }
 
 .uploader {
-  height: 90%;
+  height: 95%;
   position: relative;
 }
 
 .drag-drop {
+  text-align: center;
   display: block;
   width: 80%;
   height: 80%;
   border: 1px grey dotted;
-  position: absolute;
+  position: relative;
+  margin-bottom: 5vh;
   top: 5%;
   left: 10%;
 }
 
+.span-drag-drop {
+  top: 100%;
+}
+
+.choose-file {
+  padding: 10px 40px;
+}
