@@ -32,10 +32,16 @@ export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
   };
 };
 
-export const uploadAssets = assets => (dispatch) => {
+export const uploadAssets = file => (dispatch) => {
+  const formData = new FormData();
+  formData.append('file', file[0]);
   dispatch(loading(true));
   return axios
-    .post('upload/', assets)
+    .post('upload/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
     .then((response) => {
       dispatch(loading(false));
       dispatch(uploadAssetsSuccsess(response.data));
