@@ -71,6 +71,7 @@ export default {
     assetAsigneeUsers: [],
     usersCount: 0,
     errorMessage: '',
+    successMessage: '',
     hasError: false,
     isLoading: false,
     securityUser: {},
@@ -111,5 +112,11 @@ export default {
     locationList: [],
     isLoading: false,
     error: ''
+  },
+  filters: {
+    cohorts: [],
+    allocatedAssets: [],
+    isLoading: false,
+    hasError: false
   }
 };

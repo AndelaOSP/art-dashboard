@@ -5,13 +5,9 @@ import { getAssetsAction, setActivePage, resetAssets, loading } from '../../_act
 import { loadAllAssetModels } from '../../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../../_actions/assetTypes.actions';
 import filterSelection from '../../_actions/checkedFilters.actions';
+import formatOption from '../../_utils/filters';
 
 import Assets from '../../components/AssetsComponent';
-
-const formatOption = (data, optionKey) => ({
-  id: data.id,
-  option: data[optionKey]
-});
 
 export const createFilterData = (assetTypes, assetModels) => {
   if (isEmpty(assetTypes) && isEmpty(assetModels)) {

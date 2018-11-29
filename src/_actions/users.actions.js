@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isEmpty } from 'lodash';
 import { fetchData } from '../_utils/helpers';
 import constants from '../_constants';
 import { updateToastMessageContent } from './toastMessage.actions';
@@ -11,26 +12,35 @@ const {
   CREATE_SECURITY_USER_SUCCESS,
   CREATE_SECURITY_USER_FAILURE,
   RESET_USERS,
-  SET_USERS_ACTIVE_PAGE
+  SET_USERS_ACTIVE_PAGE,
+  RESET_STATUS_MESSAGE
 } = constants;
 
-export const loadUsers = (pageNumber, limit) => {
-  const url = `users?page=${pageNumber}&page_size=${limit}`;
+const constructUrl = (pageNumber, limit, filters = {}) => {
+  let url = `users?page=${pageNumber}&page_size=${limit}`;
 
-  return (dispatch) => {
-    dispatch(loading(true));
-
-    return fetchData(url)
-      .then((response) => {
-        dispatch(loading(false));
-        dispatch(loadUsersSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(loading(false));
-        dispatch(loadUsersFailure(error.message));
-      });
-  };
+  if (!isEmpty(filters)) {
+    url = `${url}&asset_count=${filters['Asset Assigned'] || ''}&cohort=${filters.Cohort || ''}`;
+  }
+  return url;
 };
+
+export const loadUsers = (pageNumber, limit, filters = {}) => (dispatch) => {
+  dispatch(loading(true));
+
+  return fetchData(constructUrl(pageNumber, limit, filters))
+    .then((response) => {
+      dispatch(loading(false));
+      const isFiltered = !isEmpty(filters);
+      dispatch(loadUsersSuccess(response.data, isFiltered));
+    })
+    .catch((error) => {
+      dispatch(loading(false));
+      dispatch(loadUsersFailure(error.message));
+    });
+};
+
+export const resetMessage = () => ({ type: RESET_STATUS_MESSAGE });
 
 export const loadAssetAssigneeUsers = () => (dispatch) => {
   const url = 'asset-assignee/?paginate=false';
@@ -51,9 +61,10 @@ export const loading = isLoading => ({
   isLoading
 });
 
-const loadUsersSuccess = users => ({
+const loadUsersSuccess = (users, isFiltered = false) => ({
   type: LOAD_USERS_SUCCESS,
-  payload: users
+  payload: users,
+  isFiltered
 });
 const loadUsersFailure = error => ({
   type: LOAD_USERS_FAILURE,
@@ -81,8 +92,9 @@ export const addSecurityUser = securityUser => dispatch =>
       dispatch(updateToastMessageContent('Could not save Security User', 'error'));
     });
 
-export const resetUsers = () => ({
-  type: RESET_USERS
+export const resetUsers = (isFiltered = false) => ({
+  type: RESET_USERS,
+  isFiltered
 });
 
 export const setActivePage = page => ({

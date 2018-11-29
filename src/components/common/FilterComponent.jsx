@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Accordion, Form, Menu } from 'semantic-ui-react';
-import { isEmpty } from 'lodash';
+import { isEmpty, isNull } from 'lodash';
 import uuidv4 from 'uuid/v4';
 
 import CheckboxComponent from './CheckboxComponent';
@@ -51,17 +51,18 @@ class FilterComponent extends React.Component {
             onClick={this.handleTitleClick}
           />
           <Accordion.Content active={activeIndex === index}>
-            <Form>
+            <Form className="filter-form">
               {
                   option.content.map((opt) => {
+                    const label = isNull(opt.option) ? 'unspecified' : opt.option;
                     const selectedOptions = this.props.selected[option.title] || [];
 
                     return (
                       <CheckboxComponent
                         key={uuidv4()}
-                        label={opt.option}
+                        label={label}
                         name={option.title}
-                        isChecked={selectedOptions.includes(opt.option)}
+                        isChecked={selectedOptions.includes((label).toString())}
                         handleCheckboxChange={this.handleCheckboxChange}
                       />
                       );

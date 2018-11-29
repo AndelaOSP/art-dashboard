@@ -39,12 +39,12 @@ describe('Renders <FilterButton /> tests', () => {
     expect(wrapper.state().toggleOn).toEqual(false);
   });
 
-  it('calls handleFilter to apply the filtered options', () => {
+  it('dispatches filterAction when handleFilter is called', () => {
     const handleFilterSpy = jest.spyOn(
       wrapper.instance(), 'handleFilter'
     );
-
     wrapper.instance().handleFilter();
+
     expect(handleFilterSpy.mock.calls.length).toEqual(1);
   });
 });
