@@ -127,14 +127,15 @@ export const unassignAsset = (asset, serialNumber) =>
 export const updateAsset = (assetSerialNumber, asset) => (dispatch) => {
   dispatch(updateAssetRequest());
 
-  return axios.put(`manage-assets/${assetSerialNumber}`, asset).then((response) => {
-    dispatch(updateAssetSuccess(response.data));
-  }).catch((error) => {
-    dispatch(updateAssetFail(error));
-  });
+  return axios.put(`manage-assets/${assetSerialNumber}`, asset)
+    .then((response) => {
+      dispatch(updateAssetSuccess(response.data));
+    }).catch((error) => {
+      dispatch(updateAssetFail(error));
+    });
 };
 
-export const updateAssetRequest = asset => ({ type: UPDATE_ASSET_REQUEST, payload: asset });
+export const updateAssetRequest = () => ({ type: UPDATE_ASSET_REQUEST });
 
 export const updateAssetSuccess = asset => ({ type: UPDATE_ASSET_SUCCESS, payload: asset });
 

@@ -106,9 +106,9 @@ export default {
     isVisible: true
   },
   assetStatus: {},
-  centres: {
-    centreCount: 0,
-    centreList: [],
+  officeLocations: {
+    locationCount: 0,
+    locationList: [],
     isLoading: false,
     error: ''
   }

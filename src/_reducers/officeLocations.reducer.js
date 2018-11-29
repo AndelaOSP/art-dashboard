@@ -2,28 +2,28 @@ import constants from '../_constants';
 import initialState from './initialState';
 
 const {
-  LOAD_CENTRES,
-  LOAD_CENTRES_SUCCESS,
-  LOAD_CENTRES_FAILURE
+  LOAD_LOCATIONS_REQUEST,
+  LOAD_LOCATIONS_SUCCESS,
+  LOAD_LOCATIONS_FAILURE
 } = constants;
 
-export default (state = initialState.assetCategories, action) => {
+export default (state = initialState.officeLocations, action) => {
   switch (action.type) {
-    case LOAD_CENTRES:
+    case LOAD_LOCATIONS_REQUEST:
       return {
         ...state,
         isLoading: true
       };
 
-    case LOAD_CENTRES_SUCCESS:
+    case LOAD_LOCATIONS_SUCCESS:
       return {
         ...state,
-        centreCount: action.payload.count,
-        centreList: action.payload.results,
+        locationCount: action.payload.count,
+        locationList: action.payload.results,
         isLoading: false
       };
 
-    case LOAD_CENTRES_FAILURE:
+    case LOAD_LOCATIONS_FAILURE:
       return {
         ...state,
         error: action.payload,

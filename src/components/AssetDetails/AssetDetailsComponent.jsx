@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import {
-  Container, Divider, Form, Grid, Header, Segment, Icon, Tab, Table
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Segment,
+  Tab,
+  Table
 } from 'semantic-ui-react';
 
 import AssetAllocationHistory from '../AssetAllocationHistory';
@@ -10,20 +16,12 @@ import AssetDescriptionComponent from '../AssetDescriptionComponent';
 import AssetNotes from '../AssetNoteComponent';
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../LoaderComponent';
-import DropdownComponent from '../common/DropdownComponent';
 import StatusMessageComponent from '../common/StatusComponent';
-
-import generateDropdownOptions from '../../_utils/generateDropdownOptions';
-import verifySuperAdmin from '../../_utils/verifySuperAdmin';
+import OfficeLocations from '../../_components/OfficeLocations/OfficeLocationsContainer';
 
 import '../../_css/AssetDetailsComponent.css';
 
 class AssetDetailsComponent extends Component {
-  state = {
-    locationForm: false,
-    assetLocation: this.props.assetDetail.asset_location
-  };
-
   componentDidMount() {
     const {
       assetAsigneeUsers,
@@ -33,9 +31,7 @@ class AssetDetailsComponent extends Component {
       shouldFetchDetails,
       getAssetDetail,
       addAsset,
-      loadAssetAssigneeUsers,
-      centreList,
-      loadCentres
+      loadAssetAssigneeUsers
     } = this.props;
 
     const { id } = match.params;
@@ -51,53 +47,10 @@ class AssetDetailsComponent extends Component {
     if (isEmpty(assetAsigneeUsers)) {
       loadAssetAssigneeUsers();
     }
-
-    if (isEmpty(centreList)) {
-      loadCentres();
-    }
   }
 
-  onChange = (event, data) => {
-    event.stopPropagation();
-
-    this.setState({
-      ...this.state,
-      assetLocation: data.value
-    });
-  };
-
-  toggleLocationForm = () => {
-    this.setState({
-      locationForm: !this.state.locationForm
-    });
-  };
-
-  updateLocation = () => {
-    const { addAsset, assetDetail, match, updateAsset } = this.props;
-    const { id } = match.params;
-    const { assetLocation } = this.state;
-    const { asset_code, model_number, serial_number } = assetDetail;
-
-    const updateData = {
-      asset_location: assetLocation,
-      model_number,
-      asset_code,
-      serial_number
-    };
-
-    updateAsset(id, updateData).then(() => {
-      const newAssetDetail = {
-        ...assetDetail,
-        asset_location: assetLocation
-      };
-
-      this.toggleLocationForm();
-      addAsset(newAssetDetail);
-    });
-  };
-
   render() {
-    const { assetDetail, centreLoading, errorMessage, success, updateErrorMessage } = this.props;
+    const { assetDetail, errorMessage, success, updateErrorMessage, match } = this.props;
 
     const showMessage = success || updateErrorMessage;
 
@@ -143,72 +96,6 @@ class AssetDetailsComponent extends Component {
           </Tab.Pane>)
       }
     ];
-
-    const generateCentreArray = () => {
-      const { centreList } = this.props;
-      const centreArray = [];
-
-      centreList.map(opt => (
-        centreArray.push(opt.centre_name)
-      ));
-
-      return centreArray;
-    };
-
-    const locationDisplay = () => {
-      const { updateLoading } = this.props;
-      const { assetLocation, locationForm } = this.state;
-
-      if (!locationForm) {
-        return (
-          <Table.Cell>
-            {assetLocation}
-
-            {
-              verifySuperAdmin() &&
-              <Icon
-                name="edit"
-                className="asset-detail__table__icon"
-                onClick={this.toggleLocationForm}
-              />
-            }
-          </Table.Cell>
-        );
-      }
-
-      return (
-        <Table.Cell>
-          <Form loading={updateLoading}>
-            {
-              centreLoading
-                ? { assetLocation }
-                : <DropdownComponent
-                  customClass="form-dropdown asset-detail__table__dropdown"
-                  label="Location"
-                  options={generateDropdownOptions(generateCentreArray())}
-                  placeholder="Select Asset Location"
-                  name="assetLocation"
-                  value={assetLocation}
-                  onChange={this.onChange}
-                  upward={false}
-                />
-            }
-
-            <Icon
-              name="close"
-              className="asset-detail__table__icon"
-              onClick={this.toggleLocationForm}
-            />
-
-            <Icon
-              name="save"
-              className="asset-detail__table__icon"
-              onClick={this.updateLocation}
-            />
-          </Form>
-        </Table.Cell>
-      );
-    };
 
     return (
       <NavBarComponent>
@@ -256,10 +143,7 @@ class AssetDetailsComponent extends Component {
                             <Table.Cell>{assetDetail.make_label}</Table.Cell>
                           </Table.Row>
 
-                          <Table.Row>
-                            <Table.Cell className="details-headings">Location</Table.Cell>
-                            {locationDisplay()}
-                          </Table.Row>
+                          <OfficeLocations uuid={match.params.id} />
                         </Table.Body>
                       </Table>
                     </Grid.Column>

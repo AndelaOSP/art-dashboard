@@ -24,9 +24,6 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
         id: ''
       }
     },
-    centres: {
-      centreList: []
-    },
     updateErrorMessage: '',
     updateLoading: false
   };
@@ -50,12 +47,6 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
         assetAsigneeUsers: [],
         isLoading: false
       },
-      centres: {
-        centreCount: 0,
-        centreList: [],
-        isLoading: false,
-        error: ''
-      },
       assets: {
         updateLoading: false,
         success: ''
@@ -73,8 +64,6 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       assetLoading: false,
       userLoading: false,
       assetAsigneeUsers: [],
-      centreList: [],
-      centreLoading: false,
       updateLoading: false,
       success: ''
     };

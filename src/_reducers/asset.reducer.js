@@ -9,7 +9,8 @@ const {
   NEW_ALLOCATION_FAILURE,
   UNASSIGN_SUCCESS,
   UNASSIGN_FAILURE,
-  BUTTON_LOADING
+  BUTTON_LOADING,
+  UPDATE_ASSET_SUCCESS
 } = constants;
 
 export default (state = initialState.asset, action) => {
@@ -71,6 +72,13 @@ export default (state = initialState.asset, action) => {
         errorMessage: action.payload,
         unAssignedAsset: {}
       };
+
+    case UPDATE_ASSET_SUCCESS: {
+      return {
+        ...state,
+        assetDetail: action.payload
+      };
+    }
 
     default:
       return state;

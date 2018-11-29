@@ -1,5 +1,6 @@
 import constants from '../_constants';
 import initialState from './initialState';
+import findAssetIndexAndPage from '../_utils/assets';
 
 const {
   CREATE_ASSET_REQUEST,
@@ -35,6 +36,24 @@ const getErrorMessage = (error) => {
   }
 
   return '';
+};
+
+const updateAssetList = (asset, assetList) => {
+  const assetLocation = findAssetIndexAndPage(asset, assetList);
+
+  if (!assetLocation) {
+    return assetList;
+  }
+
+  const { page, index } = assetLocation;
+  const pageData = assetList[page];
+
+  pageData[index] = asset;
+
+  return {
+    ...assetList,
+    [page]: pageData
+  };
 };
 
 export default (state = initialState.assets, action) => {
@@ -127,7 +146,7 @@ export default (state = initialState.assets, action) => {
     case UPDATE_ASSET_SUCCESS:
       return {
         ...state,
-        assetsList: { [`page_${state.activePage}`]: [action.payload] },
+        assetsList: updateAssetList(action.payload, state.assetsList),
         updateLoading: false,
         success: 'Asset successfully updated.',
         errorMessage: ''

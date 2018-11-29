@@ -8,7 +8,6 @@ import {
   resetMessage
 } from '../../_actions/asset.actions';
 import { loadAssetAssigneeUsers } from '../../_actions/users.actions';
-import { loadCentres } from '../../_actions/centres.actions';
 import AssetDetailsComponent from '../../components/AssetDetails/AssetDetailsComponent';
 
 export const isSameId = (assetDetail, props) => (assetDetail.uuid === props.match.params.id);
@@ -21,7 +20,7 @@ const getAssetInfo = (assetDetail, props) => {
   return get(props.location, 'state', {});
 };
 
-export const mapStateToProps = ({ asset, assets, usersList, centres }, ownProps) => {
+export const mapStateToProps = ({ asset, assets, usersList }, ownProps) => {
   const {
     assetDetail,
     errorMessage,
@@ -37,13 +36,10 @@ export const mapStateToProps = ({ asset, assets, usersList, centres }, ownProps)
   const hasSameId = isSameId(assetDetail, ownProps);
   const shouldFetchDetails = isEmpty(details);
   const shouldAddToStore = !hasSameId && !shouldFetchDetails;
-  const { centreList } = centres;
-  const centreLoading = centres.isLoading;
   const {
     updateLoading,
     success
   } = assets;
-  const updateErrorMessage = assets.errorMessage;
 
   return {
     assetAsigneeUsers,
@@ -57,11 +53,9 @@ export const mapStateToProps = ({ asset, assets, usersList, centres }, ownProps)
     assetLoading,
     userLoading,
     buttonLoading,
-    centreList,
-    centreLoading,
     updateLoading,
     success,
-    updateErrorMessage
+    updateErrorMessage: assets.errorMessage
   };
 };
 
@@ -69,7 +63,6 @@ export default connect(mapStateToProps, {
   getAssetDetail,
   loadAssetAssigneeUsers,
   addAsset,
-  loadCentres,
   updateAsset,
   resetMessage
 })(AssetDetailsComponent);

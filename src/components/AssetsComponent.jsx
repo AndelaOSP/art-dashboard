@@ -22,12 +22,12 @@ export default class AssetsComponent extends Component {
   componentDidMount() {
     const { activePage, assetsList } = this.props;
 
-    const assetsEmpty = isEmpty(this.props.assetsList);
+    const assetsEmpty = isEmpty(assetsList);
 
     // TODO: fix the logic so that assets are fetched when you create an asset before fetching
     // assets, otherwise, you'll only display 1 row in assets table yet there are more than one
     // assets
-    if (assetsEmpty || (!assetsEmpty && assetsList[`page_${activePage}`].length === 1)) {
+    if (assetsEmpty) {
       this.props.getAssetsAction(activePage, this.state.limit);
     }
 

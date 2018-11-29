@@ -22,7 +22,7 @@ import sessionReducer from './session.reducer';
 import filtersReducer from './checkedFilters.reducer';
 import visibilityToggleReducer from './navBarToggle.reducer';
 import assetStatusReducer from './assetStatus.reducer';
-import centres from './centres.reducer';
+import officeLocations from './officeLocations.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -47,7 +47,7 @@ const rootReducer = combineReducers({
   selected: filtersReducer,
   navBarVisibility: visibilityToggleReducer,
   assetStatus: assetStatusReducer,
-  centres
+  officeLocations
 });
 
 export default rootReducer;

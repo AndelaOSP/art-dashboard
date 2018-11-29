@@ -132,7 +132,6 @@ describe('Asset Reducer tests', () => {
   it('should handle UPDATE_ASSET_SUCCESS', () => {
     action = updateAssetSuccess(asset);
     expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      assetsList: { page_1: [asset] },
       updateLoading: false,
       success: 'Asset successfully updated.',
       errorMessage: ''
