@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Container, Divider, Grid, Header, Segment, Icon, Tab, Table } from 'semantic-ui-react';
+import {
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Segment,
+  Tab,
+  Table
+} from 'semantic-ui-react';
+
 import AssetAllocationHistory from '../AssetAllocationHistory';
 import AssetDescriptionComponent from '../AssetDescriptionComponent';
 import AssetNotes from '../AssetNoteComponent';
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../LoaderComponent';
+import StatusMessageComponent from '../common/StatusComponent';
+import OfficeLocations from '../../_components/OfficeLocations/OfficeLocationsContainer';
 
 import '../../_css/AssetDetailsComponent.css';
 
@@ -17,23 +28,32 @@ class AssetDetailsComponent extends Component {
       assetDetail,
       match,
       shouldAddToStore,
-      shouldFetchDetails
+      shouldFetchDetails,
+      getAssetDetail,
+      addAsset,
+      loadAssetAssigneeUsers
     } = this.props;
+
     const { id } = match.params;
 
     if (shouldFetchDetails) {
-      this.props.getAssetDetail(id);
+      getAssetDetail(id);
     }
+
     if (shouldAddToStore) {
-      this.props.addAsset(assetDetail);
+      addAsset(assetDetail);
     }
 
     if (isEmpty(assetAsigneeUsers)) {
-      this.props.loadAssetAssigneeUsers();
+      loadAssetAssigneeUsers();
     }
   }
 
   render() {
+    const { assetDetail, errorMessage, success, updateErrorMessage, match } = this.props;
+
+    const showMessage = success || updateErrorMessage;
+
     if (this.props.assetLoading) {
       return (
         <NavBarComponent>
@@ -48,7 +68,6 @@ class AssetDetailsComponent extends Component {
       );
     }
 
-    const { assetDetail, errorMessage } = this.props;
     const assetTabPanes = [
       {
         menuItem: 'Description',
@@ -85,11 +104,19 @@ class AssetDetailsComponent extends Component {
             <Header as="h1" id="page-headings" floated="left" content="Asset Detail" />
             <Divider id="assets-divider" />
           </div>
+
+          {
+            showMessage && (
+              <StatusMessageComponent
+                message={success || updateErrorMessage}
+                className={success ? 'success-status' : 'error-status'}
+                reset={this.props.resetMessage}
+              />
+            )
+          }
+
           <Segment raised className="asset-detail__segment">
             <div className="asset-details">
-              <div className="edit-asset-detail">
-                <Icon size="large" link name="pencil" />
-              </div>
               <Grid columns={2} stackable divided>
                 <Grid.Column>
                   <Grid columns={1}>
@@ -115,6 +142,8 @@ class AssetDetailsComponent extends Component {
                             <Table.Cell className="details-headings">Make</Table.Cell>
                             <Table.Cell>{assetDetail.make_label}</Table.Cell>
                           </Table.Row>
+
+                          <OfficeLocations uuid={match.params.id} />
                         </Table.Body>
                       </Table>
                     </Grid.Column>
@@ -166,18 +195,25 @@ class AssetDetailsComponent extends Component {
 }
 
 AssetDetailsComponent.propTypes = {
-  assetDetail: PropTypes.object,
-  assignedUser: PropTypes.object,
-  errorMessage: PropTypes.string,
-  assetLoading: PropTypes.bool,
-  match: PropTypes.object,
-  hasError: PropTypes.bool,
-  shouldFetchDetails: PropTypes.bool,
   assetAsigneeUsers: PropTypes.array,
+  assetLoading: PropTypes.bool,
+  hasError: PropTypes.bool,
+  centreLoading: PropTypes.bool,
+  updateLoading: PropTypes.bool,
+  shouldAddToStore: PropTypes.bool,
+  shouldFetchDetails: PropTypes.bool,
   getAssetDetail: PropTypes.func,
   loadAssetAssigneeUsers: PropTypes.func,
-  shouldAddToStore: PropTypes.bool,
-  addAsset: PropTypes.func
+  addAsset: PropTypes.func,
+  loadCentres: PropTypes.func,
+  updateAsset: PropTypes.func,
+  resetMessage: PropTypes.func,
+  assetDetail: PropTypes.object,
+  assignedUser: PropTypes.object,
+  match: PropTypes.object,
+  errorMessage: PropTypes.string,
+  success: PropTypes.string,
+  updateErrorMessage: PropTypes.string
 };
 
 AssetDetailsComponent.defaultProps = {

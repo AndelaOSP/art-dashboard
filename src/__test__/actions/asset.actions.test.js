@@ -12,11 +12,12 @@ import {
   allocateAsset,
   reloadAssetDetail,
   unassignAsset,
-  resetMessage
+  resetMessage,
+  updateAsset
 } from '../../_actions/asset.actions';
 
 // mock data
-import asset from '../../_mock/asset';
+import { asset } from '../../_mock/asset';
 import assetMocks from '../../_mock/newAllocation';
 
 // constants
@@ -26,6 +27,9 @@ const {
   CREATE_ASSET_REQUEST,
   CREATE_ASSET_SUCCESS,
   CREATE_ASSET_FAIL,
+  UPDATE_ASSET_REQUEST,
+  UPDATE_ASSET_SUCCESS,
+  UPDATE_ASSET_FAIL,
   LOADING_ASSET,
   LOAD_ASSET_FAILURE,
   LOAD_ASSET_SUCCESS,
@@ -44,7 +48,10 @@ let store;
 
 describe('Asset Action tests', () => {
   const mock = new MockAdapter(axios);
+  const { uuid } = asset;
   const url = 'manage-assets';
+  const url2 = `manage-assets/${uuid}`;
+
   store = mockStore({});
 
   const assetToBeCreated = {
@@ -53,10 +60,16 @@ describe('Asset Action tests', () => {
     model_number: 6
   };
 
+  const assetUpdateData = {
+    asset_code: 'AMTESTING35',
+    model_number: 'LOGITECH',
+    serial_number: 'AMTEST35',
+    asset_location: 'Dojo'
+  };
+
   let expectedActions = [
     {
-      type: CREATE_ASSET_REQUEST,
-      payload: asset
+      type: CREATE_ASSET_REQUEST
     },
     {
       type: CREATE_ASSET_SUCCESS,
@@ -183,6 +196,35 @@ describe('Asset Action tests', () => {
     mock.onPost().reply(400);
     return store.dispatch(unassignAsset()).then(() => {
       expect(store.getActions()[1].type).toEqual(UNASSIGN_FAILURE);
+    });
+  });
+
+  it('should dispatch UPDATE_ASSET_REQUEST when updateAsset is called', () => {
+    mock.onPut(url2, assetUpdateData).reply(201, asset);
+    return store.dispatch(updateAsset(uuid, assetUpdateData)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: UPDATE_ASSET_REQUEST
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_ASSET_SUCCESS when updateAsset is called successfully', () => {
+    mock.onPut(url2, assetUpdateData).reply(201, asset);
+    return store.dispatch(updateAsset(uuid, assetUpdateData)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: asset,
+        type: UPDATE_ASSET_SUCCESS
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_ASSET_FAIL when updateAsset is unsuccessful', () => {
+    mock.onPut(url2, assetUpdateData).reply(400);
+    return store.dispatch(updateAsset(uuid, assetUpdateData)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: new Error('Request failed with status code 400'),
+        type: UPDATE_ASSET_FAIL
+      });
     });
   });
 });

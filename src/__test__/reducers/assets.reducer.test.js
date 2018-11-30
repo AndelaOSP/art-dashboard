@@ -5,13 +5,16 @@ import expect from 'expect';
 import assetReducer from '../../_reducers/assets.reducer';
 
 // mock data
-import asset from '../../_mock/asset';
+import { asset } from '../../_mock/asset';
 import assets from '../../_mock/assets';
 
 import {
   createAssetSuccess,
   createAssetFail,
-  createAssetRequest
+  createAssetRequest,
+  updateAssetRequest,
+  updateAssetSuccess,
+  updateAssetFail
 } from '../../_actions/asset.actions';
 
 // constants
@@ -22,7 +25,8 @@ const {
   LOAD_ASSETS_FAILURE,
   LOAD_ASSETS_STARTS,
   SET_ACTIVE_PAGE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  RESET_ASSETS
 } = constants;
 
 const state = {
@@ -30,13 +34,18 @@ const state = {
   assetsCount: 0,
   hasError: false,
   isLoading: false,
-  activePage: 1
+  activePage: 1,
+  success: '',
+  errorMessage: '',
+  updateLoading: false
 };
+
 let action = {
   payload: {
     results: assets
   }
 };
+
 const error = {
   response: {
     data: {
@@ -109,5 +118,39 @@ describe('Asset Reducer tests', () => {
     expect(assetReducer(state, {})).toEqual(state);
     expect(assetReducer(state, action).success).toEqual('');
     expect(assetReducer(state, action).errorMessage).toEqual('');
+  });
+
+  it('should handle UPDATE_ASSET_REQUEST', () => {
+    action = updateAssetRequest(asset);
+    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
+      updateLoading: true,
+      success: '',
+      errorMessage: ''
+    }));
+  });
+
+  it('should handle UPDATE_ASSET_SUCCESS', () => {
+    action = updateAssetSuccess(asset);
+    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
+      updateLoading: false,
+      success: 'Asset successfully updated.',
+      errorMessage: ''
+    }));
+  });
+
+  it('should handle UPDATE_ASSET_FAIL', () => {
+    action = updateAssetFail(error);
+    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
+      updateLoading: false,
+      success: '',
+      errorMessage: 'Could not update asset.'
+    }));
+  });
+
+  it('should handle RESET_ASSETS', () => {
+    action.type = RESET_ASSETS;
+    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
+      assetsList: {}
+    }));
   });
 });

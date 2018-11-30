@@ -105,5 +105,11 @@ export default {
   navBarVisibility: {
     isVisible: true
   },
-  assetStatus: {}
+  assetStatus: {},
+  officeLocations: {
+    locationCount: 0,
+    locationList: [],
+    isLoading: false,
+    error: ''
+  }
 };
