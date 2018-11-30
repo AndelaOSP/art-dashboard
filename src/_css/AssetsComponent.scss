@@ -102,10 +102,11 @@
   left: 10%;
 }
 
-.drag-drop > div {
-  transform: translate(60%, 50%);
+.ui.progress .bar {
+  background: #e2b56c; 
+  border: 1px solid lightgray;
 }
 
-.choose-file {
-  padding: 10px 40px;
+.ui.active.progress .bar::after {
+  background: green;
 }
