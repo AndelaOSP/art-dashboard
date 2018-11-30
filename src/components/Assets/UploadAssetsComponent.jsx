@@ -1,28 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider, Grid, Header, Progress } from 'semantic-ui-react';
+import { Divider, Header, Progress } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 
 import NavBarComponent from '../../_components/NavBarContainer';
 import StatusMessageComponent from '../common/StatusComponent';
-import LoaderComponent from '../../components/LoaderComponent';
-
 import '../../_css/UploadAssets.css';
 
 const UploadAssets = (props) => {
-  console.log({ props });
-
   const { loading, success, error } = props;
   const showStatus = success || error;
-
-  if (loading) {
-    return (
-      <NavBarComponent>
-        <LoaderComponent />
-      </NavBarComponent>
-    );
-  }
-
   return (
     <NavBarComponent>
       <div className="add-asset">
@@ -37,24 +24,26 @@ const UploadAssets = (props) => {
             accept="text/csv"
             className="dropzone"
           >
+            {loading && !showStatus &&
+              <Progress style={{ width: '90%', color: '#fff' }} percent={100} active>
+                Active
+              </Progress>
+            }
             {showStatus && (
               <StatusMessageComponent
                 message={success || error}
                 className={success ? 'success-status' : 'error-status'}
               />
             )}
-            {!showStatus && <p>Drag and drop files here, or click to select files to upload.</p>}
+            {!showStatus && !loading &&
+              <p>Drag and drop files here, or click to select files to upload.</p>
+            }
           </Dropzone>
-          <aside>
-            <h2>Dropped files</h2>
-            <ul>
-              {props.files.map(f => (
-                <li key={f.name}>
-                  {f.name} - {f.size} bytes
-                </li>
-              ))}
-            </ul>
-          </aside>
+
+          {error &&
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+            <span>Please download <a href="#">this file</a>, fix errors and upload again.</span>
+          }
         </div>
       </div>
     </NavBarComponent>
@@ -64,9 +53,9 @@ const UploadAssets = (props) => {
 UploadAssets.propTypes = {
   success: PropTypes.string,
   error: PropTypes.string,
+  loading: PropTypes.bool,
   handleDrop: PropTypes.func,
-  handleCancel: PropTypes.func,
-  files: PropTypes.array
+  handleCancel: PropTypes.func
 };
 
 export default UploadAssets;
