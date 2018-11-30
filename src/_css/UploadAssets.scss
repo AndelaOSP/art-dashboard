@@ -1,0 +1,17 @@
+@import "sharedStyling.scss";
+@import "mediaQueries.scss";
+
+.center-upload {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropzone {
+  width: 50%;
+  height: 200px;
+  border: 2px dashed black;
+  border-radius: 5px;
+}

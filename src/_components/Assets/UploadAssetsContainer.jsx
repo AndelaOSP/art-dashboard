@@ -12,9 +12,14 @@ class UploadAssets extends React.Component {
   };
 
   handleDrop = (files) => {
-    this.setState({
-      files
-    });
+    this.setState(
+      {
+        files
+      },
+      () => {
+        this.props.uploadAssets(files);
+      }
+    );
   };
 
   handleCancel = () => {
@@ -35,6 +40,10 @@ class UploadAssets extends React.Component {
         handleCancel={this.handleCancel}
         files={this.state.files}
         submitAssets={this.submitAssets}
+        error={this.props.error}
+        loading={this.props.loading}
+        hasError={this.props.hasError}
+        success={this.props.success}
       />
     );
   }
@@ -43,9 +52,9 @@ class UploadAssets extends React.Component {
 const mapStateToProps = ({ assets }) => {
   const { errorMessage, hasError, isLoading, success } = assets;
   return {
-    errorMessage,
+    error: errorMessage,
     hasError,
-    isLoading,
+    loading: isLoading,
     success
   };
 };

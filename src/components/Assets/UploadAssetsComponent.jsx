@@ -5,10 +5,23 @@ import Dropzone from 'react-dropzone';
 
 import NavBarComponent from '../../_components/NavBarContainer';
 import StatusMessageComponent from '../common/StatusComponent';
+import LoaderComponent from '../../components/LoaderComponent';
+
+import '../../_css/UploadAssets.css';
 
 const UploadAssets = (props) => {
-  const { success, error } = props;
+  console.log({ props });
+
+  const { loading, success, error } = props;
   const showStatus = success || error;
+
+  if (loading) {
+    return (
+      <NavBarComponent>
+        <LoaderComponent />
+      </NavBarComponent>
+    );
+  }
 
   return (
     <NavBarComponent>
@@ -17,54 +30,32 @@ const UploadAssets = (props) => {
           <Header as="h1" id="page-headings" floated="left" content="Upload Asset" />
           <Divider id="assets-divider" />
         </div>
-
-        <Grid centered divided>
-          {showStatus && (
-            <Grid.Row>
-              <Grid.Column>
-                <StatusMessageComponent
-                  message={success || error}
-                  className={success ? 'success-status' : 'error-status'}
-                  reset={props.resetMessage}
-                />
-              </Grid.Column>
-            </Grid.Row>
-          )}
-          <Grid.Column width={10}>
-            <div className="upload-file">
-              <div className="uploader">
-                <div className="drag-drop">
-                  <Dropzone
-                    onDrop={props.handleDrop}
-                    onFileDialogCancel={props.handleCancel}
-                    accept="text/csv"
-                  >
-                    <p>Drag and drop files here, or click to select files to upload.</p>
-                  </Dropzone>
-                </div>
-                <aside>
-                  <h2>Dropped files</h2>
-                  <ul>
-                    {props.files.map(f => (
-                      <li key={f.name}>
-                        {f.name} - {f.size} bytes
-                      </li>
-                    ))}
-                  </ul>
-                </aside>
-                <button className="choose-file" onClick={props.handleCancel}>
-                  Cancel Upload
-                </button>
-                <button className="choose-file" onClick={props.submitAssets}>
-                  Upload
-                </button>
-              </div>
-              <div className="progress-bar">
-                <Progress percent={2} progress />
-              </div>
-            </div>
-          </Grid.Column>
-        </Grid>
+        <div className="center-upload">
+          <Dropzone
+            onDrop={props.handleDrop}
+            onFileDialogCancel={props.handleCancel}
+            accept="text/csv"
+            className="dropzone"
+          >
+            {showStatus && (
+              <StatusMessageComponent
+                message={success || error}
+                className={success ? 'success-status' : 'error-status'}
+              />
+            )}
+            {!showStatus && <p>Drag and drop files here, or click to select files to upload.</p>}
+          </Dropzone>
+          <aside>
+            <h2>Dropped files</h2>
+            <ul>
+              {props.files.map(f => (
+                <li key={f.name}>
+                  {f.name} - {f.size} bytes
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
       </div>
     </NavBarComponent>
   );
@@ -73,9 +64,7 @@ const UploadAssets = (props) => {
 UploadAssets.propTypes = {
   success: PropTypes.string,
   error: PropTypes.string,
-  resetMessage: PropTypes.func,
   handleDrop: PropTypes.func,
-  submitAssets: PropTypes.func,
   handleCancel: PropTypes.func,
   files: PropTypes.array
 };
