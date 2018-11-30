@@ -56,6 +56,14 @@ const UploadAssets = (props) => {
   const { loading, success, error } = props;
   const showStatus = success || error;
 
+  if (loading) {
+    return (
+      <NavBarComponent>
+        <LoaderComponent />
+      </NavBarComponent>
+    );
+  }
+
   return (
     <div className="center-upload">
       <span className="failed-file">
