@@ -10,7 +10,8 @@ const {
   SET_ACTIVE_PAGE,
   RESET_ASSETS,
   UPLOAD_ASSETS_SUCCESS,
-  UPLOAD_ASSETS_FAILURE
+  UPLOAD_ASSETS_FAILURE,
+  UPLOAD_ASSETS_STATUS
 } = constants;
 
 /* eslint-disable import/prefer-default-export */

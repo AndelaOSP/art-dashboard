@@ -100,6 +100,17 @@ body {
   width: 14.5em;
 }
 
+.ui.small.button.upload-assets {
+  @include blue-rounded-buttons;
+  width: 125px;
+  font-size: 0.8em;
+}
+
+.ui.medium.button.upload-assets {
+  @include blue-rounded-buttons;
+  width: 14.5em;
+}
+
 #page-heading-section {
   height: 77px;
   margin-top: 25px;
