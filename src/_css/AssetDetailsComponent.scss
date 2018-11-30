@@ -59,6 +59,11 @@
     .loading.form {
       min-height: 25px;
     }
+
+    .loading.form:after {
+      width: 2em;
+      height: 2em;
+    }
   }
 }
 

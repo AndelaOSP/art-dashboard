@@ -4,7 +4,6 @@ import expect from 'expect';
 
 import AssetDetailsComponent from '../../components/AssetDetails/AssetDetailsComponent';
 import assetMocks from '../../_mock/newAllocation';
-import officeLocations from '../../_mock/officeLocations';
 
 describe('Renders <AssetDetailsComponent /> correctly', () => {
   const props = {
@@ -24,7 +23,6 @@ describe('Renders <AssetDetailsComponent /> correctly', () => {
     loadCentres: jest.fn(),
     locationLoading: false,
     updateLoading: false,
-    locationList: officeLocations.results,
     updateAsset: async () => {},
     shouldFetchDetails: false
   };

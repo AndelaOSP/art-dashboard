@@ -14,7 +14,7 @@ export default class OfficeLocations extends Component {
   };
 
   componentDidMount() {
-    if (this.props.showFetchLocations) {
+    if (this.props.shouldFetchLocations) {
       this.props.loadOfficeLocations();
     }
   }
@@ -109,7 +109,7 @@ OfficeLocations.propTypes = {
   locationList: PropTypes.array,
   locationLoading: PropTypes.bool,
   updateLoading: PropTypes.bool,
-  showFetchLocations: PropTypes.bool,
+  shouldFetchLocations: PropTypes.bool,
   loadOfficeLocations: PropTypes.func,
   updateAsset: PropTypes.func,
   assetDetail: PropTypes.object,

@@ -196,7 +196,6 @@ class AssetDetailsComponent extends Component {
 
 AssetDetailsComponent.propTypes = {
   assetAsigneeUsers: PropTypes.array,
-  centreList: PropTypes.array,
   assetLoading: PropTypes.bool,
   hasError: PropTypes.bool,
   centreLoading: PropTypes.bool,

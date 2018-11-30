@@ -17,7 +17,7 @@ describe('Renders <OfficeLocationsComponent /> correctly', () => {
     location: asset.asset_location,
     locationList: officeLocations.results,
     updateLoading: false,
-    showFetchLocations: false,
+    shouldFetchLocations: false,
     updateAsset: async () => {},
     uuid: asset.uuid
   };

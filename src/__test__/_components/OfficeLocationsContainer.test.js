@@ -15,7 +15,7 @@ describe('Renders <OfficeLocationsContainer /> correctly', () => {
     location: asset.asset_location,
     locationList: officeLocations.results,
     updateLoading: false,
-    showFetchLocations: false
+    shouldFetchLocations: false
   };
 
   it('calls getLocationList function correctly', () => {
@@ -44,7 +44,7 @@ describe('Renders <OfficeLocationsContainer /> correctly', () => {
       location: '',
       locationList: [],
       updateLoading: false,
-      showFetchLocations: true
+      shouldFetchLocations: true
     };
 
     expect(mapStateToProps(state)).toEqual(expected);

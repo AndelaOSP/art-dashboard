@@ -14,7 +14,7 @@ export const mapStateToProps = ({ asset, assets, officeLocations }) => ({
   location: (asset.assetDetail || {}).asset_location || '',
   locationList: getLocationList(officeLocations.locationList),
   updateLoading: assets.updateLoading,
-  showFetchLocations: isEmpty(officeLocations.locationList)
+  shouldFetchLocations: isEmpty(officeLocations.locationList)
 });
 
 export default connect(mapStateToProps, {
