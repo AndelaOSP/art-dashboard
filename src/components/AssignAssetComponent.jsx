@@ -11,6 +11,8 @@ const userEmailsOptions = usersList => usersList.map((typeOption, index) => ({
 }));
 
 const AssignedTo = (props) => {
+  const showAssignDropdown = props.assetStatus === 'Available' || props.assetStatus === 'Allocated';
+
   if (isEmpty(props.assignedUser)) {
     const hasError = !!props.errorMessage;
     const errorClass = hasError ? 'error' : '';
@@ -18,16 +20,21 @@ const AssignedTo = (props) => {
     return (
       <div id="allocate-asset">
         <Header as="h3" content="Assign this asset to:" />
-        <DropdownComponent
-          customClass={`form-dropdown ${errorClass}`}
-          label="Assign this asset to:"
-          placeHolder="Select Andela Email To Assign This Asset"
-          name="assign-user"
-          search
-          value={props.selectedUserId}
-          onChange={props.onSelectUserEmail}
-          options={userEmailsOptions(props.users)}
-        />
+        {
+          showAssignDropdown
+            ? <DropdownComponent
+              customClass={`form-dropdown ${errorClass}`}
+              label="Assign this asset to:"
+              placeHolder="Select Andela Email To Assign This Asset"
+              name="assign-user"
+              search
+              value={props.selectedUserId}
+              onChange={props.onSelectUserEmail}
+              options={userEmailsOptions(props.users)}
+            />
+            : <p>You cannot assign this asset. Only available assets can be assigned.</p>
+        }
+
         {
           hasError && (
             <p className="error-message">{props.errorMessage}</p>
@@ -55,12 +62,14 @@ AssignedTo.propTypes = {
   assignedUser: PropTypes.object,
   users: PropTypes.array,
   selectedUserId: PropTypes.number,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+  assetStatus: PropTypes.string
 };
 
 AssignedTo.defaultProps = {
   errorMessage: '',
-  onSelectUserEmail: () => {},
+  onSelectUserEmail: () => {
+  },
   assignedUser: {},
   users: [],
   selectedUserId: null

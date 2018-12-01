@@ -10,7 +10,8 @@ describe('Renders <AssignedTo /> correctly', () => {
     assignedUser: null,
     users: [],
     selectedUserId: null,
-    errorMessage: 'Could not assign the asset'
+    errorMessage: 'Could not assign the asset',
+    assetStatus: 'Available'
   };
   const wrapper = shallow(<AssignedTo {...props} />);
 

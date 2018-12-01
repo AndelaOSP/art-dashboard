@@ -85,6 +85,7 @@ describe('Asset Reducer tests', () => {
 
   it('should handle BUTTON_LOADING', () => {
     action.type = BUTTON_LOADING;
+    action.payload = true;
     expect(assetReducer(state, action).buttonLoading).toBe(true);
   });
 });

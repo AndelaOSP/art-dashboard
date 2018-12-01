@@ -5,6 +5,7 @@ import ButtonComponent from './ButtonComponent';
 export default class ConfirmAction extends React.Component {
   componentDidUpdate(prevProps) {
     const { buttonLoading, toggleModal } = this.props;
+
     if ((prevProps.buttonLoading !== buttonLoading) && !buttonLoading) {
       toggleModal();
     }
@@ -16,19 +17,22 @@ export default class ConfirmAction extends React.Component {
         <label>
           Are you sure you want to perform this action?
         </label>
-        <br />
-        <ButtonComponent
-          className="cancel"
-          buttonName="Cancel"
-          handleClick={this.props.toggleModal}
-        />
-        <ButtonComponent
-          className="save"
-          buttonName="Save"
-          color="primary"
-          buttonState={this.props.buttonState}
-          handleClick={this.props.handleConfirm}
-        />
+
+        <div className="modal__buttons">
+          <ButtonComponent
+            customCss="cancel"
+            buttonName="Cancel"
+            handleClick={this.props.toggleModal}
+          />
+
+          <ButtonComponent
+            customCss="save"
+            buttonName="Save"
+            color="primary"
+            buttonState={this.props.buttonState}
+            handleClick={this.props.handleConfirm}
+          />
+        </div>
       </Fragment>
     );
   }
