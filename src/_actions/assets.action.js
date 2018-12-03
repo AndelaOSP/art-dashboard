@@ -13,7 +13,8 @@ const {
   UPLOAD_ASSETS_FAILURE,
   DOWNLOAD_FILE_SUCCESS,
   DOWNLOAD_FILE_FAILURE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  RESET_UPLOAD_ASSETS
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
@@ -55,27 +56,25 @@ export const uploadAssets = file => (dispatch) => {
     });
 };
 
-export const downloadFile = url =>
-  (dispatch) => {
-    dispatch(loading(true));
-    return axios(
-      {
-        url,
-        method: 'GET',
-        responseType: 'blob'
-      })
-      .then((response) => {
-        console.log('response', response);
-        const downloadedFIle = window.URL.createObjectURL(new Blob([response.data]));
-        dispatch(loading(false));
-        dispatch(downloadSuccess(downloadedFIle));
-        dispatch(resetUploadStatus());
-      })
-      .catch((error) => {
-        dispatch(loading(false));
-        dispatch(downloadFailure(error.message));
-      });
-  };
+export const downloadFile = url => (dispatch) => {
+  dispatch(loading(true));
+  return axios({
+    url,
+    method: 'GET',
+    responseType: 'blob'
+  })
+    .then((response) => {
+      console.log('response', response);
+      const downloadedFIle = window.URL.createObjectURL(new Blob([response.data]));
+      dispatch(loading(false));
+      dispatch(downloadSuccess(downloadedFIle));
+      dispatch(resetUploadStatus());
+    })
+    .catch((error) => {
+      dispatch(loading(false));
+      dispatch(downloadFailure(error.message));
+    });
+};
 
 export const setActivePage = page => dispatch => dispatch(setActivePageSuccess(page));
 
@@ -125,6 +124,9 @@ export const resetAssets = () => ({
   type: RESET_ASSETS
 });
 
+export const resetUploadAssets = () => ({
+  type: RESET_UPLOAD_ASSETS
+});
 const resetUploadStatus = () => ({
   type: RESET_STATUS_MESSAGE
 });

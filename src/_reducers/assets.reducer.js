@@ -18,7 +18,8 @@ const {
   UPLOAD_ASSETS_SUCCESS,
   UPLOAD_ASSETS_FAILURE,
   DOWNLOAD_FILE_SUCCESS,
-  DOWNLOAD_FILE_FAILURE
+  DOWNLOAD_FILE_FAILURE,
+  RESET_UPLOAD_ASSETS
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -99,7 +100,6 @@ export default (state = initialState.assets, action) => {
         errorMessage: '',
         hasError: false
       };
-
 
     case LOAD_ASSETS_STARTS:
       return {
@@ -197,6 +197,15 @@ export default (state = initialState.assets, action) => {
         hasError: true,
         isLoading: action.isLoading
       };
+    case RESET_UPLOAD_ASSETS:
+      return {
+        ...state,
+        assetsList: {},
+        errorMessage: '',
+        hasError: false,
+        isLoading: false
+      };
+
     default:
       return state;
   }
