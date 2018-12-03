@@ -21,17 +21,13 @@ const errorMessageHelper = (error, success, handleFileDownload) => {
         Please download
         <a href="#" onClick={() => handleFileDownload(success.file)}>
           this file
-        </a>,
-          fix errors and upload again.
+        </a>
+        , fix errors and upload again.
       </span>
     );
   }
   if (error) {
-    return (
-      <span className="error-guide">
-        Something went wrong. Please consult admin.
-      </span>
-    );
+    return <span className="error-guide">Something went wrong. Please consult admin.</span>;
   }
   return null;
 };
@@ -51,8 +47,8 @@ const UploadAssets = (props) => {
           <span className="failed-file">
             <a href="#" onClick={() => props.handleFileDownload('url')}>
               Download the sample file
-            </a> ,
-            fill the columns and upload it.
+            </a>{' '}
+            , fill the columns and upload it.
           </span>
 
           <Dropzone
@@ -61,20 +57,23 @@ const UploadAssets = (props) => {
             accept="text/csv"
             className="dropzone"
           >
-            {loading && !showStatus &&
-              <Progress style={{ width: '90%', color: '#fff' }} percent={100} active>
+            {loading && !showStatus && (
+              <Progress style={{ width: '90%' }} percent={100} active>
                 Upload in progress...
               </Progress>
-            }
+            )}
             {showStatus && (
               <StatusMessageComponent
                 message={uploadStatus(success, error)}
-                className={(success.hasOwnProperty('fail') || error) ? 'error-status' : 'success-status'}
+                className={
+                  success.hasOwnProperty('fail') || error ? 'error-status' : 'success-status'
+                }
+                reset={props.resetUpload}
               />
             )}
-            {!showStatus && !loading &&
+            {!showStatus && !loading && (
               <p>Drag and drop files here, or click to select files to upload.</p>
-            }
+            )}
           </Dropzone>
 
           {errorMessageHelper(error, success, props.handleFileDownload)}
@@ -90,7 +89,9 @@ UploadAssets.propTypes = {
   loading: PropTypes.bool,
   handleDrop: PropTypes.func,
   handleCancel: PropTypes.func,
-  handleFileDownload: PropTypes.func
+  handleFileDownload: PropTypes.func,
+  resetUpload: PropTypes.func
+
 };
 
 export default UploadAssets;

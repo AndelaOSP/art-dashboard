@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { uploadAssets, downloadFile } from '../../_actions/assets.action';
+import { uploadAssets, downloadFile, resetUploadAssets } from '../../_actions/assets.action';
 import UploadAssetsComponent from '../../components/Assets/UploadAssetsComponent';
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -38,6 +38,13 @@ class UploadAssets extends React.Component {
     });
   };
 
+  resetUpload = () => {
+    this.setState({
+      files: []
+    });
+    this.props.resetUploadAssets();
+  };
+
   submitAssets = () => {
     if (this.state.files) {
       this.props.uploadAssets(this.state.files);
@@ -46,7 +53,7 @@ class UploadAssets extends React.Component {
 
   handleFileDownload = (url) => {
     this.props.downloadFile(url);
-  }
+  };
 
   render() {
     return (
@@ -60,19 +67,14 @@ class UploadAssets extends React.Component {
         loading={this.props.loading}
         hasError={this.props.hasError}
         success={this.props.success}
+        resetUpload={this.resetUpload}
       />
     );
   }
 }
 
 const mapStateToProps = ({ assets }) => {
-  const {
-    errorMessage,
-    hasError,
-    isLoading,
-    success,
-    downloadedFile
-  } = assets;
+  const { errorMessage, hasError, isLoading, success, downloadedFile } = assets;
   return {
     error: errorMessage,
     hasError,
@@ -84,6 +86,7 @@ const mapStateToProps = ({ assets }) => {
 
 UploadAssets.propTypes = {
   uploadAssets: PropTypes.func,
+  resetUploadAssets: PropTypes.func,
   downloadFile: PropTypes.func,
   error: PropTypes.string,
   loading: PropTypes.bool,
@@ -95,6 +98,7 @@ export default connect(
   mapStateToProps,
   {
     uploadAssets,
-    downloadFile
+    downloadFile,
+    resetUploadAssets
   }
 )(UploadAssets);
