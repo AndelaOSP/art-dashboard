@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { uploadAssets } from '../../_actions/assets.action';
+import { uploadAssets, downloadFile } from '../../_actions/assets.action';
 import UploadAssetsComponent from '../../components/Assets/UploadAssetsComponent';
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -33,11 +33,17 @@ class UploadAssets extends React.Component {
       this.props.uploadAssets(this.state.files);
     }
   };
+
+  handleFileDownload = (url) => {
+    this.props.downloadFile(url);
+  }
+
   render() {
     return (
       <UploadAssetsComponent
         handleDrop={this.handleDrop}
         handleCancel={this.handleCancel}
+        handleFileDownload={this.handleFileDownload}
         files={this.state.files}
         submitAssets={this.submitAssets}
         error={this.props.error}
@@ -60,9 +66,17 @@ const mapStateToProps = ({ assets }) => {
 };
 
 UploadAssets.propTypes = {
-  uploadAssets: PropTypes.func
+  uploadAssets: PropTypes.func,
+  downloadFile: PropTypes.func,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  hasError: PropTypes.bool,
+  success: PropTypes.object
 };
 export default connect(
   mapStateToProps,
-  { uploadAssets }
+  {
+    uploadAssets,
+    downloadFile
+  }
 )(UploadAssets);
