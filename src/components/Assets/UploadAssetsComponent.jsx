@@ -55,6 +55,7 @@ const errorMessageHelper = (error, success, handleFileDownload) => {
 const UploadAssets = (props) => {
   const { loading, success, error } = props;
   const showStatus = success || error;
+
   return (
     <div className="center-upload">
       <span className="failed-file">
