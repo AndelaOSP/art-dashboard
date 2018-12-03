@@ -202,6 +202,7 @@ export default (state = initialState.assets, action) => {
         ...state,
         assetsList: {},
         errorMessage: '',
+        success: '',
         hasError: false,
         isLoading: false
       };
