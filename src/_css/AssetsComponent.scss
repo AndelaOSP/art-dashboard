@@ -90,25 +90,26 @@
   position: relative;
 }
 
-.drag-drop {
-  text-align: center;
-  display: block;
-  transform: translate(50%, 10%);
-  width: 50%;
-  height: 80%;
-  border: 1px grey dotted;
-  margin-bottom: 5vh;
-  top: 5%;
-  left: 10%;
+.ui.active.progress {
+  width: 90%;
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+  background-color: #fff;
+  margin: auto;
+  border: 1px solid lightgray;
+
 }
 
 .ui.progress .bar {
-  background: $andela-orange;
-  border: 1px solid lightgray;
-}
-
-.ui.active.progress .bar::after {
-  background: rgb(0, 255, 0);
+  position: absolute;
+  right: 50;
+  background-color: orange;
+  width: 80px;
+  height: 100%;
+  display: block;
+  top: 0;
+  animation: ani 2.7s infinite;
 }
 
 .failed-file {
@@ -118,4 +119,16 @@
 
 .error-guide {
   margin-top: 2%;
+}
+
+@keyframes ani {
+  0% {
+    right: 0;
+  }
+  50% {
+    right: 720px;
+  }
+  100% {
+    right: 0;
+  }
 }

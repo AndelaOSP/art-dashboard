@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { uploadAssets, downloadFile, resetUploadAssets } from '../../_actions/assets.action';
 import UploadAssetsComponent from '../../components/Assets/UploadAssetsComponent';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class UploadAssets extends React.Component {
   state = {
     files: []

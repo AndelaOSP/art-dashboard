@@ -14,7 +14,7 @@ const uploadStatus = (success, error) => {
   return success.success;
 };
 
-const errorMessageHelper = (error, success, handleFileDownload) => {
+const errorMessageHelper = (success, handleFileDownload) => {
   if (success.hasOwnProperty('fail')) {
     return (
       <span className="error-guide">
@@ -26,9 +26,7 @@ const errorMessageHelper = (error, success, handleFileDownload) => {
       </span>
     );
   }
-  if (error) {
-    return <span className="error-guide">Something went wrong. Please consult admin.</span>;
-  }
+
   return null;
 };
 
@@ -62,6 +60,7 @@ const UploadAssets = (props) => {
                 Upload in progress...
               </Progress>
             )}
+
             {showStatus && (
               <StatusMessageComponent
                 message={uploadStatus(success, error)}
@@ -71,12 +70,13 @@ const UploadAssets = (props) => {
                 reset={props.resetUpload}
               />
             )}
+
             {!showStatus && !loading && (
               <p>Drag and drop files here, or click to select files to upload.</p>
             )}
           </Dropzone>
 
-          {errorMessageHelper(error, success, props.handleFileDownload)}
+          {errorMessageHelper(success, props.handleFileDownload)}
         </div>
       </div>
     </NavBarComponent>
