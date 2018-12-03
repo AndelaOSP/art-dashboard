@@ -1,4 +1,4 @@
-@import "sharedStyling.scss";
+ @import "sharedStyling.scss";
 @import "mediaQueries.scss";
 
 .assets-list {
@@ -109,4 +109,13 @@
 
 .ui.active.progress .bar::after {
   background: green;
+}
+
+.failed-file {
+  width: 60%;
+  margin-bottom: 2%;
+}
+
+.error-guide {
+  margin-top: 2%;
 }
