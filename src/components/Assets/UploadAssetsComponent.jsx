@@ -91,7 +91,6 @@ UploadAssets.propTypes = {
   handleDrop: PropTypes.func,
   handleCancel: PropTypes.func,
   handleFileDownload: PropTypes.func
-
 };
 
 export default UploadAssets;

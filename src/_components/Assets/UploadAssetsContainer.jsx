@@ -11,6 +11,16 @@ class UploadAssets extends React.Component {
     files: []
   };
 
+  componentDidUpdate(prevProps) {
+    if (this.props.downloadedFile !== prevProps.downloadedFile) {
+      const link = document.createElement('a');
+      link.href = this.props.downloadedFile;
+      link.setAttribute('download', 'file.csv');
+      document.body.appendChild(link);
+      link.click();
+    }
+  }
+
   handleDrop = (files) => {
     this.setState(
       {
@@ -56,12 +66,19 @@ class UploadAssets extends React.Component {
 }
 
 const mapStateToProps = ({ assets }) => {
-  const { errorMessage, hasError, isLoading, success } = assets;
+  const {
+    errorMessage,
+    hasError,
+    isLoading,
+    success,
+    downloadedFile
+  } = assets;
   return {
     error: errorMessage,
     hasError,
     loading: isLoading,
-    success
+    success,
+    downloadedFile
   };
 };
 
@@ -71,7 +88,8 @@ UploadAssets.propTypes = {
   error: PropTypes.string,
   loading: PropTypes.bool,
   hasError: PropTypes.bool,
-  success: PropTypes.object
+  success: PropTypes.object,
+  downloadedFile: PropTypes.string
 };
 export default connect(
   mapStateToProps,
