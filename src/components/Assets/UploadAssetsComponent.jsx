@@ -59,17 +59,13 @@ const errorMessageHelper = (error, success, handleFileDownload) => {
         Please download
         <a href="#" onClick={() => handleFileDownload(success.file)}>
           this file
-        </a>,
-          fix errors and upload again.
+        </a>
+        , fix errors and upload again.
       </span>
     );
   }
   if (error) {
-    return (
-      <span className="error-guide">
-        Something went wrong. Please consult admin.
-      </span>
-    );
+    return <span className="error-guide">Something went wrong. Please consult admin.</span>;
   }
   return null;
 };
