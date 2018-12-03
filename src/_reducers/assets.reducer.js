@@ -16,7 +16,9 @@ const {
   UPDATE_ASSET_SUCCESS,
   UPDATE_ASSET_FAIL,
   UPLOAD_ASSETS_SUCCESS,
-  UPLOAD_ASSETS_FAILURE
+  UPLOAD_ASSETS_FAILURE,
+  DOWNLOAD_FILE_SUCCESS,
+  DOWNLOAD_FILE_FAILURE
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -90,13 +92,13 @@ export default (state = initialState.assets, action) => {
         errorMessage: getErrorMessage(action.payload.response.data)
       };
 
-    case RESET_STATUS_MESSAGE: {
+    case RESET_STATUS_MESSAGE:
       return {
         ...state,
         success: '',
         errorMessage: ''
       };
-    }
+
 
     case LOAD_ASSETS_STARTS:
       return {
@@ -139,7 +141,6 @@ export default (state = initialState.assets, action) => {
         ...state,
         assetsList: {}
       };
-<<<<<<< HEAD
 
     case UPDATE_ASSET_REQUEST:
       return {
@@ -166,13 +167,13 @@ export default (state = initialState.assets, action) => {
         errorMessage: 'Could not update asset.'
       };
 
-=======
     case UPLOAD_ASSETS_SUCCESS:
       return {
         ...state,
         success: action.payload,
         isLoading: action.isLoading
       };
+
     case UPLOAD_ASSETS_FAILURE:
       return {
         ...state,
@@ -180,7 +181,21 @@ export default (state = initialState.assets, action) => {
         hasError: true,
         isLoading: action.isLoading
       };
->>>>>>> feat(upload): upload assets
+
+    case DOWNLOAD_FILE_SUCCESS:
+      return {
+        ...state,
+        download: action.payload,
+        isLoading: action.isLoading
+      };
+
+    case DOWNLOAD_FILE_FAILURE:
+      return {
+        ...state,
+        errorMessage: action.payload,
+        hasError: true,
+        isLoading: action.isLoading
+      };
     default:
       return state;
   }

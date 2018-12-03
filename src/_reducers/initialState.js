@@ -26,7 +26,8 @@ export default {
     hasError: false,
     isLoading: false,
     activePage: 1,
-    progressStatus: ''
+    progressStatus: '',
+    download: ''
   },
   asset: {
     assetDetail: {},

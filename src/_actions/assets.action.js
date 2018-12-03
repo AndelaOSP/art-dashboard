@@ -11,7 +11,8 @@ const {
   RESET_ASSETS,
   UPLOAD_ASSETS_SUCCESS,
   UPLOAD_ASSETS_FAILURE,
-  UPLOAD_ASSETS_STATUS
+  DOWNLOAD_FILE_SUCCESS,
+  DOWNLOAD_FILE_FAILURE
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
@@ -53,6 +54,27 @@ export const uploadAssets = file => (dispatch) => {
     });
 };
 
+export const downloadFile = url =>
+  (dispatch) => {
+    dispatch(loading(true));
+    return axios(
+      {
+        url,
+        method: 'GET',
+        responseType: 'blob'
+      })
+      .then((response) => {
+        console.log('response', response);
+        const downloadedFIle = window.URL.createObjectURL(new Blob([response.data]));
+        dispatch(loading(false));
+        dispatch(downloadSuccess(downloadedFIle));
+      })
+      .catch((error) => {
+        dispatch(loading(false));
+        dispatch(downloadFailure(error.message));
+      });
+  };
+
 export const setActivePage = page => dispatch => dispatch(setActivePageSuccess(page));
 
 export const loading = isLoading => ({
@@ -71,6 +93,7 @@ const getAssetsFailure = (message, status = 'all') => ({
   payload: message,
   status
 });
+
 const uploadAssetsSuccsess = data => ({
   type: UPLOAD_ASSETS_SUCCESS,
   payload: data
@@ -78,6 +101,16 @@ const uploadAssetsSuccsess = data => ({
 
 const uploadAssetsFailure = message => ({
   type: UPLOAD_ASSETS_FAILURE,
+  payload: message
+});
+
+const downloadSuccess = data => ({
+  type: DOWNLOAD_FILE_SUCCESS,
+  payload: data
+});
+
+const downloadFailure = message => ({
+  type: DOWNLOAD_FILE_FAILURE,
   payload: message
 });
 

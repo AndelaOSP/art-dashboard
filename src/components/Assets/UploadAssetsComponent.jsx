@@ -7,9 +7,17 @@ import NavBarComponent from '../../_components/NavBarContainer';
 import StatusMessageComponent from '../common/StatusComponent';
 import '../../_css/UploadAssets.css';
 
+const uploadStatus = (success, error) => {
+  if (success.hasOwnProperty('fail') || error) {
+    return success.fail || error;
+  }
+  return success.success;
+};
+
 const UploadAssets = (props) => {
   const { loading, success, error } = props;
   const showStatus = success || error;
+
   return (
     <NavBarComponent>
       <div className="add-asset">
@@ -18,6 +26,13 @@ const UploadAssets = (props) => {
           <Divider id="assets-divider" />
         </div>
         <div className="center-upload">
+          <span>
+            <a href="#" onClick={() => props.handleFileDownload('url')}>
+              Download the sample file
+            </a>,
+            fill the columns and upload it.
+          </span>
+
           <Dropzone
             onDrop={props.handleDrop}
             onFileDialogCancel={props.handleCancel}
@@ -26,13 +41,13 @@ const UploadAssets = (props) => {
           >
             {loading && !showStatus &&
               <Progress style={{ width: '90%', color: '#fff' }} percent={100} active>
-                Active
+                Upload in progress...
               </Progress>
             }
             {showStatus && (
               <StatusMessageComponent
-                message={success || error}
-                className={success ? 'success-status' : 'error-status'}
+                message={uploadStatus(success, error)}
+                className={(success.hasOwnProperty('fail') || error) ? 'error-status' : 'success-status'}
               />
             )}
             {!showStatus && !loading &&
@@ -41,8 +56,16 @@ const UploadAssets = (props) => {
           </Dropzone>
 
           {error &&
-            // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            <span>Please download <a href="#">this file</a>, fix errors and upload again.</span>
+            <span>Something went wrong. Please consult admin.</span>
+          }
+
+          {success.hasOwnProperty('fail') &&
+            <span>Please download
+              <a href="#" onClick={() => props.handleFileDownload(success.file)}>
+                this file
+              </a>,
+              fix errors and upload again.
+            </span>
           }
         </div>
       </div>
@@ -51,11 +74,13 @@ const UploadAssets = (props) => {
 };
 
 UploadAssets.propTypes = {
-  success: PropTypes.string,
+  success: PropTypes.object,
   error: PropTypes.string,
   loading: PropTypes.bool,
   handleDrop: PropTypes.func,
-  handleCancel: PropTypes.func
+  handleCancel: PropTypes.func,
+  handleFileDownload: PropTypes.func
+
 };
 
 export default UploadAssets;
