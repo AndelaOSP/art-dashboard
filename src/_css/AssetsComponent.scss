@@ -1,4 +1,4 @@
- @import "sharedStyling.scss";
+@import "sharedStyling.scss";
 @import "mediaQueries.scss";
 
 .assets-list {
@@ -103,7 +103,7 @@
 }
 
 .ui.progress .bar {
-  background: rgb(255, 217, 0); 
+  background: $andela-orange;
   border: 1px solid lightgray;
 }
 
