@@ -105,3 +105,15 @@
 .error-guide {
   margin-top: 2%;
 }
+
+@keyframes ani {
+  0% {
+    right: 0;
+  }
+  50% {
+    right: 720px;
+  }
+  100% {
+    right: 0;
+  }
+}

@@ -52,7 +52,7 @@ const errorMessageHelper = (error, success, handleFileDownload) => {
   return null;
 };
 
-const errorMessageHelper = (error, success, handleFileDownload) => {
+const errorMessageHelper = (success, handleFileDownload) => {
   if (success.hasOwnProperty('fail')) {
     return (
       <span className="error-guide">
@@ -64,9 +64,7 @@ const errorMessageHelper = (error, success, handleFileDownload) => {
       </span>
     );
   }
-  if (error) {
-    return <span className="error-guide">Something went wrong. Please consult admin.</span>;
-  }
+
   return null;
 };
 
