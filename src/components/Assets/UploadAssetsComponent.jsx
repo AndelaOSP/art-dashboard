@@ -14,6 +14,28 @@ const uploadStatus = (success, error) => {
   return success.success;
 };
 
+const errorMessageHelper = (error, success, handleFileDownload) => {
+  if (success.hasOwnProperty('fail')) {
+    return (
+      <span className="error-guide">
+        Please download
+        <a href="#" onClick={() => handleFileDownload(success.file)}>
+          this file
+        </a>,
+          fix errors and upload again.
+      </span>
+    );
+  }
+  if (error) {
+    return (
+      <span className="error-guide">
+        Something went wrong. Please consult admin.
+      </span>
+    );
+  }
+  return null;
+};
+
 const UploadAssets = (props) => {
   const { loading, success, error } = props;
   const showStatus = success || error;
@@ -26,10 +48,10 @@ const UploadAssets = (props) => {
           <Divider id="assets-divider" />
         </div>
         <div className="center-upload">
-          <span>
+          <span className="failed-file">
             <a href="#" onClick={() => props.handleFileDownload('url')}>
               Download the sample file
-            </a>,
+            </a> ,
             fill the columns and upload it.
           </span>
 
@@ -55,18 +77,7 @@ const UploadAssets = (props) => {
             }
           </Dropzone>
 
-          {error &&
-            <span>Something went wrong. Please consult admin.</span>
-          }
-
-          {success.hasOwnProperty('fail') &&
-            <span>Please download
-              <a href="#" onClick={() => props.handleFileDownload(success.file)}>
-                this file
-              </a>,
-              fix errors and upload again.
-            </span>
-          }
+          {errorMessageHelper(error, success, props.handleFileDownload)}
         </div>
       </div>
     </NavBarComponent>
