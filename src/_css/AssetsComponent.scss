@@ -1,4 +1,4 @@
-@import "sharedStyling.scss";
+ @import "sharedStyling.scss";
 @import "mediaQueries.scss";
 
 .assets-list {
@@ -95,4 +95,13 @@
 .ui.bottom.attached.segment.active.tab {
   border: 0;
   padding-top: 2%;
+}
+
+.failed-file {
+  width: 60%;
+  margin-bottom: 2%;
+}
+
+.error-guide {
+  margin-top: 2%;
 }

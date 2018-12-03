@@ -52,6 +52,28 @@ const errorMessageHelper = (error, success, handleFileDownload) => {
   return null;
 };
 
+const errorMessageHelper = (error, success, handleFileDownload) => {
+  if (success.hasOwnProperty('fail')) {
+    return (
+      <span className="error-guide">
+        Please download
+        <a href="#" onClick={() => handleFileDownload(success.file)}>
+          this file
+        </a>,
+          fix errors and upload again.
+      </span>
+    );
+  }
+  if (error) {
+    return (
+      <span className="error-guide">
+        Something went wrong. Please consult admin.
+      </span>
+    );
+  }
+  return null;
+};
+
 const UploadAssets = (props) => {
   const { loading, success, error } = props;
   const showStatus = success || error;
