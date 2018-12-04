@@ -28,10 +28,9 @@
   width: 90%;
   position: relative;
   overflow: hidden;
-  height: 50px;
+  height: 25px;
   background-color: #fff;
-  border: 1px solid rgb(145, 145, 145);
-  margin: auto;
+  border: 1px solid $andela-orange;
 }
 
 .ui.progress .bar {
