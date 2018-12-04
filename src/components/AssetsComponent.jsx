@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { Header, Divider, Tab } from 'semantic-ui-react';
+import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import AssetsTabComponent from '../components/Assets/AssetsTabComponent';
 import NavBarComponent from '../_components/NavBarContainer';
-import AssetsTableContent from './AssetsTableContent';
-import FilterButton from './common/FilterButton';
-import FilterComponent from './common/FilterComponent';
-import PaginationComponent from './common/PaginationComponent';
-import UploadAssetsContainer from '../_components/Assets/UploadAssetsContainer';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
 import { constructUrl } from '../_utils/assets';
 
@@ -105,71 +101,31 @@ export default class AssetsComponent extends Component {
 
     const { assets } = this.state;
 
-
-    const panes = [
-      {
-        menuItem: 'All Assets',
-        render: () => (
-          <Tab.Pane>
-            <AssetsTableContent
-              activePage={this.props.activePage}
-              assets={this.props.assetsList[currentAssets] || assets}
-              errorMessage={this.props.errorMessage}
-              hasError={this.props.hasError}
-              isLoading={this.props.isLoading}
-            />
-            {showPaginator && (
-              <PaginationComponent
-                activePage={this.props.activePage}
-                handleRowChange={this.handleRowChange}
-                handlePaginationChange={this.handlePaginationChange}
-                limit={this.state.limit}
-                totalPages={totalPages}
-                isLoading={this.props.isLoading}
-              />
-            )}
-          </Tab.Pane>)
-      },
-      {
-        menuItem: 'Import Assets',
-        render: () => (
-          <Tab.Pane>
-            <UploadAssetsContainer />
-          </Tab.Pane>)
-      }
-    ];
     return (
       <NavBarComponent title="Assets">
         <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content={contentTitle} />
             <Divider id="assets-divider" />
-
-            <FilterButton
-              activePage={this.props.activePage}
-              limit={this.state.limit}
-              selected={this.props.selected}
-              filterAction={this.props.getAssetsAction}
-              disabled={this.props.isLoading}
-            >
-              <React.Fragment>
-                <FilterComponent
-                  index={0}
-                  option={this.props.filterData[0]}
-                  selected={this.props.selected}
-                  filterSelection={this.props.filterSelection}
-                />
-
-                <FilterComponent
-                  index={1}
-                  option={this.props.filterData[1]}
-                  selected={this.props.selected}
-                  filterSelection={this.props.filterSelection}
-                />
-              </React.Fragment>
-            </FilterButton>
           </div>
-          <Tab panes={panes} />
+          <AssetsTabComponent
+            activePage={this.props.activePage}
+            limit={this.state.limit}
+            selected={this.props.selected}
+            filterAction={this.props.getAssetsAction}
+            filterData={this.props.filterData}
+            filterSelection={this.props.filterSelection}
+            errorMessage={this.props.errorMessage}
+            hasError={this.props.hasError}
+            isLoading={this.props.isLoading}
+            handleRowChange={this.handleRowChange}
+            handlePaginationChange={this.handlePaginationChange}
+            assetsList={this.props.assetsList}
+            totalPages={totalPages}
+            showPaginator={showPaginator}
+            currentAssets={currentAssets}
+            assets={assets}
+          />
         </div>
       </NavBarComponent>
     );
@@ -179,16 +135,16 @@ export default class AssetsComponent extends Component {
 AssetsComponent.propTypes = {
   assetsCount: PropTypes.number.isRequired,
   assetsList: PropTypes.objectOf(PropTypes.array),
-  errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   resetAssets: PropTypes.func.isRequired,
   loading: PropTypes.func.isRequired,
+  activePage: PropTypes.number,
+  errorMessage: PropTypes.string,
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
-  activePage: PropTypes.number,
   selected: PropTypes.object.isRequired,
   filterSelection: PropTypes.func.isRequired,
   filterData: PropTypes.arrayOf(PropTypes.object),
