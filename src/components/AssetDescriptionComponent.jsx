@@ -11,11 +11,9 @@ import ModalComponent from './common/ModalComponent';
 import ButtonComponent from '../components/common/ButtonComponent';
 import ConfirmAction from './common/ConfirmAction';
 import AssignedTo from './AssignAssetComponent';
-import constants from '../_constants';
+import { ASSET_AVAILABLE, ASSET_ALLOCATED } from '../_constants';
 
 import '../_css/AssetDescriptionComponent.css';
-
-const { ASSET_AVAILABLE, ASSET_ALLOCATED } = constants;
 
 class AssetDescriptionComponent extends React.Component {
   state = {
@@ -136,8 +134,7 @@ class AssetDescriptionComponent extends React.Component {
               assetStatus={assetDetail.current_status}
             />
 
-            {
-              showAssignDropdown &&
+            {showAssignDropdown && (
               <ModalComponent
                 trigger={<ButtonComponent {...triggerProps} />}
                 modalTitle="Confirm Action"
@@ -149,7 +146,7 @@ class AssetDescriptionComponent extends React.Component {
                   buttonLoading={buttonLoading}
                 />
               </ModalComponent>
-            }
+            )}
           </Grid.Column>
         </Grid>
       </Container>
@@ -181,8 +178,7 @@ AssetDescriptionComponent.defaultProps = {
   assetAsigneeUsers: [],
   selectedUserId: 0,
   assignAssetButtonState: false,
-  handleConfirm: () => {
-  },
+  handleConfirm: () => {},
   buttonState: false,
   buttonLoading: false,
   specs: {},
