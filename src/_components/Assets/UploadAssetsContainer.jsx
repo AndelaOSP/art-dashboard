@@ -21,6 +21,7 @@ class UploadAssets extends React.Component {
   }
 
   handleDrop = (files) => {
+    this.resetUpload();
     this.setState(
       {
         files
@@ -73,11 +74,11 @@ class UploadAssets extends React.Component {
 }
 
 const mapStateToProps = ({ assets }) => {
-  const { errorMessage, hasError, isLoading, success, downloadedFile } = assets;
+  const { errorMessage, hasError, isUpLoading, success, downloadedFile } = assets;
   return {
     error: errorMessage,
     hasError,
-    loading: isLoading,
+    loading: isUpLoading,
     success,
     downloadedFile
   };

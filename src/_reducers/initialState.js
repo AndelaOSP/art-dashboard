@@ -36,7 +36,8 @@ export default {
     errorMessage: '',
     hasError: false,
     isLoading: false,
-    buttonLoading: false
+    buttonLoading: false,
+    isUpLoading: false
   },
   toastMessage: {
     message: '',

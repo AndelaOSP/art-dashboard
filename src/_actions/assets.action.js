@@ -14,7 +14,8 @@ const {
   DOWNLOAD_FILE_SUCCESS,
   DOWNLOAD_FILE_FAILURE,
   RESET_STATUS_MESSAGE,
-  RESET_UPLOAD_ASSETS
+  RESET_UPLOAD_ASSETS,
+  UPLOAD_ASSETS_STARTS
 } = constants;
 
 /* eslint-disable import/prefer-default-export */
@@ -39,7 +40,7 @@ export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
 export const uploadAssets = file => (dispatch) => {
   const formData = new FormData();
   formData.append('file', file[0]);
-  dispatch(loading(true));
+  dispatch(uploading(true));
   return axios
     .post('upload/', formData, {
       headers: {
@@ -47,11 +48,11 @@ export const uploadAssets = file => (dispatch) => {
       }
     })
     .then((response) => {
-      dispatch(loading(false));
+      dispatch(uploading(false));
       dispatch(uploadAssetsSuccsess(response.data));
     })
     .catch((error) => {
-      dispatch(loading(false));
+      dispatch(uploading(false));
       dispatch(uploadAssetsFailure(error.message));
     });
 };
@@ -81,6 +82,11 @@ export const setActivePage = page => dispatch => dispatch(setActivePageSuccess(p
 export const loading = isLoading => ({
   type: LOAD_ASSETS_STARTS,
   isLoading
+});
+
+export const uploading = isUpLoading => ({
+  type: UPLOAD_ASSETS_STARTS,
+  isUpLoading
 });
 
 const getAssetsSuccess = (data, status = 'all') => ({
