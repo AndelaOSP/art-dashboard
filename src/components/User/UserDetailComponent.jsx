@@ -39,6 +39,7 @@ const assetsAssigned = (allocatedAssets) => {
             <TableRowDetail
               key={asset.id}
               data={asset}
+              viewDetailsRoute={`/assets/${asset.uuid}/view`}
               headings={[
                 'asset_type',
                 'asset_code',
