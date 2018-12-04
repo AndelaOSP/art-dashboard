@@ -59,7 +59,7 @@ const errorMessageHelper = (success, handleFileDownload) => {
         Please download
         <a href="#" onClick={() => handleFileDownload(success.file)}>
           this file
-        </a>
+        </a>{' '}
         , fix errors and upload again.
       </span>
     );

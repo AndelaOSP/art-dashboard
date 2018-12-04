@@ -104,10 +104,11 @@
 
 .ui.tabular.menu .active.item {
   border-color: darkgray;
-  border-radius: 0.78571429rem 0.78571429rem 0.88571429rem 0.88571429rem !important;
+  border-radius: 0.78571429rem 0.78571429rem 0 0 !important;
   color: $border-color2
 }
 
 .ui.bottom.attached.segment.active.tab {
   border: none;
+  padding-top: 2%;
 }
