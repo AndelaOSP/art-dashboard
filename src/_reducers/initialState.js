@@ -37,7 +37,8 @@ export default {
     hasError: false,
     isLoading: false,
     buttonLoading: false,
-    isUpLoading: false
+    isUpLoading: false,
+    uploadError: ''
   },
   toastMessage: {
     message: '',

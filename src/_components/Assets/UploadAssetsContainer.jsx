@@ -74,9 +74,9 @@ class UploadAssets extends React.Component {
 }
 
 const mapStateToProps = ({ assets }) => {
-  const { errorMessage, hasError, isUpLoading, success, downloadedFile } = assets;
+  const { uploadError, hasError, isUpLoading, success, downloadedFile } = assets;
   return {
-    error: errorMessage,
+    error: uploadError,
     hasError,
     loading: isUpLoading,
     success,

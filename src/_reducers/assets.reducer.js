@@ -179,7 +179,7 @@ export default (state = initialState.assets, action) => {
     case UPLOAD_ASSETS_FAILURE:
       return {
         ...state,
-        errorMessage: action.payload,
+        uploadError: action.payload,
         hasError: true,
         isLoading: action.isLoading
       };
@@ -202,7 +202,7 @@ export default (state = initialState.assets, action) => {
       return {
         ...state,
         assetsList: {},
-        errorMessage: '',
+        uploadError: '',
         success: '',
         hasError: false,
         isLoading: false

@@ -12,7 +12,7 @@ const uploadStatus = (success, error) => {
   if (success.hasOwnProperty('fail') || error) {
     const errorIcon = (
       <div>
-        <Icon name="x icon" size="huge" />
+        <Icon name="x icon" size="big" />
         {success.fail || error}
       </div>
     );
@@ -20,7 +20,7 @@ const uploadStatus = (success, error) => {
   }
   const successIcon = (
     <div>
-      <Icon name="check" size="huge" />
+      <Icon name="check" size="big" />
       {success.success}
     </div>
   );
