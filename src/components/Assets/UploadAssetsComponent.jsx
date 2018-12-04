@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider, Header, Progress } from 'semantic-ui-react';
+import { Progress } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
-
-import NavBarComponent from '../../_components/NavBarContainer';
 import StatusMessageComponent from '../common/StatusComponent';
 import '../../_css/UploadAssets.css';
 
@@ -35,51 +33,43 @@ const UploadAssets = (props) => {
   const showStatus = success || error;
 
   return (
-    <NavBarComponent>
-      <div className="add-asset">
-        <div id="page-heading-section">
-          <Header as="h1" id="page-headings" floated="left" content="Upload Asset" />
-          <Divider id="assets-divider" />
-        </div>
-        <div className="center-upload">
-          <span className="failed-file">
-            <a href="#" onClick={() => props.handleFileDownload('url')}>
-              Download the sample file
-            </a>{' '}
-            , fill the columns and upload it.
-          </span>
+    <div className="center-upload">
+      <span className="failed-file">
+        <a href="#" onClick={() => props.handleFileDownload('url')}>
+          Download the sample file
+        </a>{' '}
+        , fill the columns and upload it.
+      </span>
 
-          <Dropzone
-            onDrop={props.handleDrop}
-            onFileDialogCancel={props.handleCancel}
-            accept="text/csv"
-            className="dropzone"
-          >
-            {loading && !showStatus && (
-              <Progress style={{ width: '90%' }} percent={100} active>
-                Upload in progress...
-              </Progress>
-            )}
+      <Dropzone
+        onDrop={props.handleDrop}
+        onFileDialogCancel={props.handleCancel}
+        accept="text/csv"
+        className="dropzone"
+      >
+        {loading && !showStatus && (
+          <Progress style={{ width: '90%' }} percent={100} active>
+            Upload in progress...
+          </Progress>
+        )}
 
-            {showStatus && (
-              <StatusMessageComponent
-                message={uploadStatus(success, error)}
-                className={
-                  success.hasOwnProperty('fail') || error ? 'error-status' : 'success-status'
-                }
-                reset={props.resetUpload}
-              />
-            )}
+        {showStatus && (
+          <StatusMessageComponent
+            message={uploadStatus(success, error)}
+            className={
+              success.hasOwnProperty('fail') || error ? 'error-status' : 'success-status'
+            }
+            reset={props.resetUpload}
+          />
+        )}
 
-            {!showStatus && !loading && (
-              <p>Drag and drop files here, or click to select files to upload.</p>
-            )}
-          </Dropzone>
+        {!showStatus && !loading && (
+          <p>Drag and drop files here, or click to select files to upload.</p>
+        )}
+      </Dropzone>
 
-          {errorMessageHelper(success, props.handleFileDownload)}
-        </div>
-      </div>
-    </NavBarComponent>
+      {errorMessageHelper(success, props.handleFileDownload)}
+    </div>
   );
 };
 
