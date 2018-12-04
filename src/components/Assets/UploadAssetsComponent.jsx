@@ -27,7 +27,7 @@ const uploadStatus = (success, error) => {
   return successIcon;
 };
 
-const errorMessageHelper = (success, handleFileDownload) => {
+const errorMessageHelper = (error, success, handleFileDownload) => {
   if (success.hasOwnProperty('fail')) {
     return (
       <span className="error-guide">
@@ -36,6 +36,14 @@ const errorMessageHelper = (success, handleFileDownload) => {
           this file
         </a>{' '}
         , fix errors and upload again.
+      </span>
+    );
+  }
+
+  if (error) {
+    return (
+      <span className="error-guide">
+        Please confirm the file is well formatted and try uploading again.
       </span>
     );
   }
@@ -52,8 +60,7 @@ const UploadAssets = (props) => {
       <span className="failed-file">
         <a href="#" onClick={() => props.handleFileDownload('url')}>
           Download the sample file
-        </a>{' '}
-        , fill the columns and upload it.
+        </a>{' '}, fill the columns and upload it.
       </span>
 
       <Dropzone
@@ -83,7 +90,7 @@ const UploadAssets = (props) => {
         )}
       </Dropzone>
 
-      {errorMessageHelper(success, props.handleFileDownload)}
+      {errorMessageHelper(error, success, props.handleFileDownload)}
     </div>
   );
 };
