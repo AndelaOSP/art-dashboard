@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Divider } from 'semantic-ui-react';
+import { Header, Divider, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import AssetsTabComponent from '../components/Assets/AssetsTabComponent';
@@ -95,7 +95,6 @@ export default class AssetsComponent extends Component {
     const totalPages = this.handlePageTotal();
     const showPaginator = totalPages > 1;
     const currentAssets = `page_${this.props.activePage}`;
-    const showFilter = !isEmpty(this.props.assetsList[currentAssets] || assets);
 
     const contentTitle = status ? `${status.toLocaleString()} Assets` : 'Assets';
 
