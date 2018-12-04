@@ -53,7 +53,7 @@ const AssetsTableContent = (props) => {
               asset_code: asset.asset_code || '-',
               serial_number: asset.serial_number || '-',
               model_number: asset.model_number || '-',
-              assigned_to: (asset.assigned_to && asset.assigned_to.email)
+              assignee: (asset.assigned_to && asset.assigned_to.email)
                 || (asset.assigned_to && `${asset.assigned_to.full_name}`)
                 || '-'
             };
@@ -69,7 +69,7 @@ const AssetsTableContent = (props) => {
                   'model_number',
                   'make_label',
                   'asset_type',
-                  'assigned_to'
+                  'assignee'
                 ]}
               />
             );
