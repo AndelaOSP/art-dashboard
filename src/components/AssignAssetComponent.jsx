@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Header } from 'semantic-ui-react';
 import DropdownComponent from '../components/common/DropdownComponent';
+import constants from '../_constants';
+
+const { ASSET_AVAILABLE, ASSET_ALLOCATED } = constants;
 
 const userEmailsOptions = usersList => usersList.map((typeOption, index) => ({
   key: index,
@@ -11,7 +14,8 @@ const userEmailsOptions = usersList => usersList.map((typeOption, index) => ({
 }));
 
 const AssignedTo = (props) => {
-  const showAssignDropdown = props.assetStatus === 'Available' || props.assetStatus === 'Allocated';
+  const showAssignDropdown =
+    props.assetStatus === ASSET_AVAILABLE || props.assetStatus === ASSET_ALLOCATED;
 
   if (isEmpty(props.assignedUser)) {
     const hasError = !!props.errorMessage;

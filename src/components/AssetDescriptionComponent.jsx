@@ -11,7 +11,11 @@ import ModalComponent from './common/ModalComponent';
 import ButtonComponent from '../components/common/ButtonComponent';
 import ConfirmAction from './common/ConfirmAction';
 import AssignedTo from './AssignAssetComponent';
+import constants from '../_constants';
+
 import '../_css/AssetDescriptionComponent.css';
+
+const { ASSET_AVAILABLE, ASSET_ALLOCATED } = constants;
 
 class AssetDescriptionComponent extends React.Component {
   state = {
@@ -110,7 +114,8 @@ class AssetDescriptionComponent extends React.Component {
     const triggerProps = this.triggerProps();
 
     const showAssignDropdown =
-      assetDetail.current_status === 'Available' || assetDetail.current_status === 'Allocated';
+      assetDetail.current_status === ASSET_AVAILABLE ||
+      assetDetail.current_status === ASSET_ALLOCATED;
 
     return (
       <Container>
