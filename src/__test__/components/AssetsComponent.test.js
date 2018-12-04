@@ -43,10 +43,6 @@ describe('Renders <AssetsComponent /> correctly', () => {
     expect(wrapper.find('#page-headings').prop('content')).toEqual('Assets');
   });
 
-  it('renders the AssetsTableContent component', () => {
-    expect(wrapper.find('AssetsTableContent').length).toBe(1);
-  });
-
   it('calls the handlePaginationChange function when the next button is clicked', () => {
     const handlePaginationChangeSpy = jest.spyOn(
       wrapper.instance(), 'handlePaginationChange'
