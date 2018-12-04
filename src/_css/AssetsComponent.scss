@@ -78,57 +78,16 @@
   }
 }
 
-.upload-file {
-  border: 1px black solid;
-  width: 100%;
-  height: 60vh;
-  text-align: center;
+.ui.tabular.menu{
+  border-color: darkgray,
 }
 
-.uploader {
-  height: 95%;
-  position: relative;
+.ui.tabular.menu .active.item {
+  border-color: darkgray;
+  border-radius: 0.78571429rem 0.78571429rem 0.88571429rem 0.88571429rem !important;
+  color: $border-color2
 }
 
-.ui.active.progress {
-  width: 90%;
-  position: relative;
-  overflow: hidden;
-  height: 50px;
-  background-color: #fff;
-  margin: auto;
-  border: 1px solid lightgray;
-
-}
-
-.ui.progress .bar {
-  position: absolute;
-  right: 50;
-  background-color: orange;
-  width: 80px;
-  height: 100%;
-  display: block;
-  top: 0;
-  animation: ani 2.7s infinite;
-}
-
-.failed-file {
-  width: 60%;
-  margin-bottom: 2%;
-}
-
-.error-guide {
-  margin-top: 2%;
-}
-
-@keyframes ani {
-  0% {
-    right: 0;
-  }
-  50% {
-    right: 720px;
-  }
-  100% {
-    right: 0;
-  }
+.ui.bottom.attached.segment.active.tab {
+  border: none;
 }

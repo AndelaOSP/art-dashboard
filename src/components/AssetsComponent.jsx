@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Divider } from 'semantic-ui-react';
+import { Header, Divider, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import NavBarComponent from '../_components/NavBarContainer';
@@ -7,6 +7,7 @@ import AssetsTableContent from './AssetsTableContent';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 import PaginationComponent from './common/PaginationComponent';
+import UploadAssetsContainer from '../_components/Assets/UploadAssetsContainer';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
 import { constructUrl } from '../_utils/assets';
 
@@ -102,56 +103,73 @@ export default class AssetsComponent extends Component {
 
     const contentTitle = status ? `${status.toLocaleString()} Assets` : 'Assets';
 
+    const { assets } = this.state;
+
+
+    const panes = [
+      {
+        menuItem: 'All Assets',
+        render: () => (
+          <Tab.Pane>
+            <AssetsTableContent
+              activePage={this.props.activePage}
+              assets={this.props.assetsList[currentAssets] || assets}
+              errorMessage={this.props.errorMessage}
+              hasError={this.props.hasError}
+              isLoading={this.props.isLoading}
+            />
+            {showPaginator && (
+              <PaginationComponent
+                activePage={this.props.activePage}
+                handleRowChange={this.handleRowChange}
+                handlePaginationChange={this.handlePaginationChange}
+                limit={this.state.limit}
+                totalPages={totalPages}
+                isLoading={this.props.isLoading}
+              />
+            )}
+          </Tab.Pane>)
+      },
+      {
+        menuItem: 'Import Assets',
+        render: () => (
+          <Tab.Pane>
+            <UploadAssetsContainer />
+          </Tab.Pane>)
+      }
+    ];
     return (
       <NavBarComponent title="Assets">
         <div className="assets-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content={contentTitle} />
             <Divider id="assets-divider" />
-            {showFilter && (
-              <FilterButton
-                activePage={this.props.activePage}
-                limit={this.state.limit}
-                selected={this.props.selected}
-                filterAction={this.props.getAssetsAction}
-                disabled={this.props.isLoading}
-              >
-                <React.Fragment>
-                  <FilterComponent
-                    index={0}
-                    option={this.props.filterData[0]}
-                    selected={this.props.selected}
-                    filterSelection={this.props.filterSelection}
-                  />
 
-                  <FilterComponent
-                    index={1}
-                    option={this.props.filterData[1]}
-                    selected={this.props.selected}
-                    filterSelection={this.props.filterSelection}
-                  />
-                </React.Fragment>
-              </FilterButton>
-            )}
-          </div>
-          <AssetsTableContent
-            activePage={this.props.activePage}
-            assets={this.props.assetsList[currentAssets] || assets}
-            errorMessage={this.props.errorMessage}
-            hasError={this.props.hasError}
-            isLoading={this.props.isLoading}
-            status={status}
-          />
-          {showPaginator && (
-            <PaginationComponent
+            <FilterButton
               activePage={this.props.activePage}
-              handleRowChange={this.handleRowChange}
-              handlePaginationChange={this.handlePaginationChange}
               limit={this.state.limit}
-              totalPages={totalPages}
-              isLoading={this.props.isLoading}
-            />
-          )}
+              selected={this.props.selected}
+              filterAction={this.props.getAssetsAction}
+              disabled={this.props.isLoading}
+            >
+              <React.Fragment>
+                <FilterComponent
+                  index={0}
+                  option={this.props.filterData[0]}
+                  selected={this.props.selected}
+                  filterSelection={this.props.filterSelection}
+                />
+
+                <FilterComponent
+                  index={1}
+                  option={this.props.filterData[1]}
+                  selected={this.props.selected}
+                  filterSelection={this.props.filterSelection}
+                />
+              </React.Fragment>
+            </FilterButton>
+          </div>
+          <Tab panes={panes} />
         </div>
       </NavBarComponent>
     );
