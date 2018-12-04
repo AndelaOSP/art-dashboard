@@ -65,6 +65,14 @@ const errorMessageHelper = (success, handleFileDownload) => {
     );
   }
 
+  if (error) {
+    return (
+      <span className="error-guide">
+        Please confirm the file is well formatted and try uploading again.
+      </span>
+    );
+  }
+
   return null;
 };
 
