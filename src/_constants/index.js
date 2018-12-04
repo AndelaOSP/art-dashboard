@@ -116,7 +116,9 @@ const CONSTANTS = KeyMirror({
   LOAD_LOCATIONS_FAILURE: true,
   UPDATE_ASSET_REQUEST: true,
   UPDATE_ASSET_SUCCESS: true,
-  UPDATE_ASSET_FAIL: true
+  UPDATE_ASSET_FAIL: true,
+  ASSET_AVAILABLE: 'Available',
+  ASSET_ALLOCATED: 'Allocated'
 });
 
 export const ASSET_AVAILABLE = 'Available';
