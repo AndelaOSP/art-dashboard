@@ -1,15 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Progress } from 'semantic-ui-react';
+import { Divider, Header, Progress, Icon } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
-import StatusMessageComponent from '../common/StatusComponent';
+
+import NavBarComponent from '../../_components/NavBarContainer';
 import '../../_css/UploadAssets.css';
+
+const StatusMessage = props => <div className={`${props.className} `}>{props.message}</div>;
 
 const uploadStatus = (success, error) => {
   if (success.hasOwnProperty('fail') || error) {
-    return success.fail || error;
+    const errorIcon = (
+      <div>
+        <Icon name="x icon" size="huge" />
+        {success.fail || error}
+      </div>
+    );
+    return errorIcon;
   }
-  return success.success;
+  const successIcon = (
+    <div>
+      <Icon name="check" size="huge" />
+      {success.success}
+    </div>
+  );
+  return successIcon;
 };
 
 const errorMessageHelper = (success, handleFileDownload) => {
@@ -54,7 +69,7 @@ const UploadAssets = (props) => {
         )}
 
         {showStatus && (
-          <StatusMessageComponent
+          <StatusMessage
             message={uploadStatus(success, error)}
             className={
               success.hasOwnProperty('fail') || error ? 'error-status' : 'success-status'
@@ -81,7 +96,6 @@ UploadAssets.propTypes = {
   handleCancel: PropTypes.func,
   handleFileDownload: PropTypes.func,
   resetUpload: PropTypes.func
-
 };
 
 export default UploadAssets;
