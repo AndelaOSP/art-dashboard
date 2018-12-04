@@ -102,18 +102,12 @@
   margin-bottom: 2%;
 }
 
-.error-guide {
-  margin-top: 2%;
+.ui.tabular.menu .active.item {
+  border-color: darkgray;
+  border-radius: 0.78571429rem 0.78571429rem 0.88571429rem 0.88571429rem !important;
+  color: $border-color2
 }
 
-@keyframes ani {
-  0% {
-    right: 0;
-  }
-  50% {
-    right: 720px;
-  }
-  100% {
-    right: 0;
-  }
+.ui.bottom.attached.segment.active.tab {
+  border: none;
 }

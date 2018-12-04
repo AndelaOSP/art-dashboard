@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Divider } from 'semantic-ui-react';
+import { Header, Divider, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import AssetsTabComponent from '../components/Assets/AssetsTabComponent';
