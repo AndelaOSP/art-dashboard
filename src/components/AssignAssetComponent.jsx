@@ -72,8 +72,7 @@ AssignedTo.propTypes = {
 
 AssignedTo.defaultProps = {
   errorMessage: '',
-  onSelectUserEmail: () => {
-  },
+  onSelectUserEmail: () => {},
   assignedUser: {},
   users: [],
   selectedUserId: null

@@ -178,8 +178,7 @@ AssetDescriptionComponent.defaultProps = {
   assetAsigneeUsers: [],
   selectedUserId: 0,
   assignAssetButtonState: false,
-  handleConfirm: () => {
-  },
+  handleConfirm: () => {},
   buttonState: false,
   buttonLoading: false,
   specs: {},
