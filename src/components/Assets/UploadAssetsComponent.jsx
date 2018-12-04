@@ -34,7 +34,7 @@ const errorMessageHelper = (success, handleFileDownload) => {
         Please download
         <a href="#" onClick={() => handleFileDownload(success.file)}>
           this file
-        </a>
+        </a>{' '}
         , fix errors and upload again.
       </span>
     );
@@ -79,7 +79,7 @@ const UploadAssets = (props) => {
         )}
 
         {!showStatus && !loading && (
-          <p>Drag and drop files here, or click to select files to upload.</p>
+          <p>Drag and drop the file here, or click to select the file to upload.</p>
         )}
       </Dropzone>
 
