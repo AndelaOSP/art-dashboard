@@ -2,12 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import AssetsComponent from '../components/AssetsComponent';
+import AssetsComponent from '../../components/AssetsComponent';
 
-import assets from '../_mock/assets';
-import assetModels from '../_mock/assetModels';
-import assetTypes from '../_mock/assetTypes';
-import filters from '../_mock/filters';
+import assets from '../../_mock/assets';
+import assetModels from '../../_mock/assetModels';
+import assetTypes from '../../_mock/assetTypes';
+import filters from '../../_mock/filters';
 
 describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
@@ -29,7 +29,10 @@ describe('Renders <AssetsComponent /> correctly', () => {
     filterSelection: jest.fn(),
     resetAssets: jest.fn(),
     assetsList: {},
-    loading: jest.fn()
+    loading: jest.fn(),
+    match: {
+      params: { assetStatus: '' }
+    }
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
@@ -77,5 +80,14 @@ describe('Renders <AssetsComponent /> correctly', () => {
 
   it('renders FilterComponent', () => {
     expect(wrapper.find('FilterButton').dive().find('FilterComponent').exists()).toBe(true);
+  });
+
+  it('calls retrieveAssets function', () => {
+    const retrieveAssetsSpy = jest.spyOn(
+      wrapper.instance(), 'retrieveAssets'
+    );
+
+    wrapper.instance().retrieveAssets(1, 10, '');
+    expect(retrieveAssetsSpy.mock.calls.length).toEqual(1);
   });
 });
