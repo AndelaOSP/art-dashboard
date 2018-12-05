@@ -119,4 +119,7 @@ const CONSTANTS = KeyMirror({
   UPDATE_ASSET_FAIL: true
 });
 
+export const ASSET_AVAILABLE = 'Available';
+export const ASSET_ALLOCATED = 'Allocated';
+
 export default CONSTANTS;

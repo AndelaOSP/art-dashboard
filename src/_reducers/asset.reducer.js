@@ -42,7 +42,7 @@ export default (state = initialState.asset, action) => {
     case BUTTON_LOADING:
       return {
         ...state,
-        buttonLoading: true
+        buttonLoading: action.payload
       };
 
     case NEW_ALLOCATION_SUCCESS:

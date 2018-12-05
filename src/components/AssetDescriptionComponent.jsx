@@ -11,6 +11,8 @@ import ModalComponent from './common/ModalComponent';
 import ButtonComponent from '../components/common/ButtonComponent';
 import ConfirmAction from './common/ConfirmAction';
 import AssignedTo from './AssignAssetComponent';
+import { ASSET_AVAILABLE, ASSET_ALLOCATED } from '../_constants';
+
 import '../_css/AssetDescriptionComponent.css';
 
 class AssetDescriptionComponent extends React.Component {
@@ -70,9 +72,12 @@ class AssetDescriptionComponent extends React.Component {
   };
 
   handleConfirm = () => {
-    if (isEmpty(values(this.props.assignedUser))) {
+    const { assignedUser } = this.props;
+
+    if (isEmpty(values(assignedUser))) {
       return this.handleAssign();
     }
+
     return this.handleUnassign();
   };
 
@@ -98,12 +103,17 @@ class AssetDescriptionComponent extends React.Component {
     const {
       assetAsigneeUsers,
       assignedUser,
-      toggleModal,
-      buttonLoading,
       assetDetail,
-      errorMessage
+      errorMessage,
+      toggleModal,
+      buttonLoading
     } = this.props;
+
     const triggerProps = this.triggerProps();
+
+    const showAssignDropdown =
+      assetDetail.current_status === ASSET_AVAILABLE ||
+      assetDetail.current_status === ASSET_ALLOCATED;
 
     return (
       <Container>
@@ -121,18 +131,22 @@ class AssetDescriptionComponent extends React.Component {
               users={assetAsigneeUsers}
               selectedUserId={this.state.selectedUser}
               errorMessage={errorMessage}
+              assetStatus={assetDetail.current_status}
             />
-            <ModalComponent
-              trigger={<ButtonComponent {...triggerProps} />}
-              modalTitle="Confirm Action"
-            >
-              <ConfirmAction
-                toggleModal={toggleModal}
-                handleConfirm={this.handleConfirm}
-                buttonState={buttonLoading}
-                buttonLoading={buttonLoading}
-              />
-            </ModalComponent>
+
+            {showAssignDropdown && (
+              <ModalComponent
+                trigger={<ButtonComponent {...triggerProps} />}
+                modalTitle="Confirm Action"
+              >
+                <ConfirmAction
+                  toggleModal={toggleModal}
+                  handleConfirm={this.handleConfirm}
+                  buttonState={buttonLoading}
+                  buttonLoading={buttonLoading}
+                />
+              </ModalComponent>
+            )}
           </Grid.Column>
         </Grid>
       </Container>

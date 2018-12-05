@@ -2,9 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';
 
-import AssetDescriptionComponent from '../components/AssetDescriptionComponent';
-import assetMocks from '../_mock/newAllocation';
-import assetSpecs from '../_mock/assetSpecs';
+import AssetDescriptionComponent from '../../components/AssetDescriptionComponent';
+import assetMocks from '../../_mock/newAllocation';
+import assetSpecs from '../../_mock/assetSpecs';
 
 describe('Renders <AssetDescriptionComponent /> correctly', () => {
   const props = {
