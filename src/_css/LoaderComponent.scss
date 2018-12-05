@@ -6,7 +6,7 @@
 }
 
 .ui.inverted.dimmer.overlay {
-  background-color: rgba(255, 255, 255, .95);
+  background-color: rgba(255, 255, 255, 0.95);
   position: static !important;
 }
 
@@ -22,6 +22,7 @@
 }
 
 .loader-segment {
+  margin-top: 5rem !important;
   border: 0 !important;
   box-shadow: none !important;
 }
