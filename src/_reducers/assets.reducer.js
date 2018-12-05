@@ -110,7 +110,8 @@ export default (state = initialState.assets, action) => {
         },
         assetsCount: action.payload.count,
         hasError: false,
-        isLoading: action.isLoading
+        isLoading: action.isLoading,
+        assetStatus: action.assetStatus
       };
 
     case SET_ACTIVE_PAGE:
@@ -126,7 +127,8 @@ export default (state = initialState.assets, action) => {
         assetsCount: 0,
         errorMessage: action.payload,
         hasError: true,
-        isLoading: action.isLoading
+        isLoading: action.isLoading,
+        assetStatus: action.assetStatus
       };
 
     case RESET_ASSETS:

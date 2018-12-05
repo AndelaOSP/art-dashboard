@@ -40,7 +40,8 @@ export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selec
     errorMessage,
     hasError,
     isLoading,
-    activePage
+    activePage,
+    assetStatus
   } = assets;
   const { assetModels } = assetModelsList;
   const { assetTypes } = assetTypesList;
@@ -53,9 +54,20 @@ export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selec
     isLoading,
     filterData: createFilterData(assetTypes, assetModels),
     activePage,
-    selected
+    selected,
+    assetStatus
   };
 };
+
+export const AssetStatus = connect(mapStateToProps, {
+  getAssetsAction,
+  loadAllAssetModels,
+  loadDropdownAssetTypes,
+  setActivePage,
+  filterSelection,
+  resetAssets,
+  loading
+})(Assets);
 
 export default connect(mapStateToProps, {
   getAssetsAction,

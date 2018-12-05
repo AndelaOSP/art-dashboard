@@ -46,7 +46,7 @@ const AssetsTableContent = (props) => {
 
         <Table.Body>
           {props.assets.map((asset) => {
-            const assetViewUrl = `assets/${asset.uuid}/view`;
+            const assetViewUrl = `/assets/${asset.uuid}/view`;
 
             const updatedAsset = {
               ...asset,
