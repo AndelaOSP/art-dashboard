@@ -97,5 +97,4 @@ AssetsTabComponent.defaultProps = {
   isLoading: false
 };
 
-
 export default AssetsTabComponent;

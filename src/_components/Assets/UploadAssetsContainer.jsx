@@ -94,6 +94,7 @@ UploadAssets.propTypes = {
   success: PropTypes.object,
   downloadedFile: PropTypes.string
 };
+
 export default connect(
   mapStateToProps,
   {
