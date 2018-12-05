@@ -103,12 +103,12 @@
 }
 
 .ui.tabular.menu .active.item {
-  border-color: darkgray;
+  border-color: #a9a9a9 ;
   border-radius: 0.78571429rem 0.78571429rem 0 0 !important;
-  color: $border-color2
+  color: $border-color2;
 }
 
 .ui.bottom.attached.segment.active.tab {
-  border: none;
+  border: 0;
   padding-top: 2%;
 }
