@@ -58,21 +58,20 @@ export const uploadAssets = file => (dispatch) => {
 };
 
 export const downloadFile = url => (dispatch) => {
-  dispatch(loading(true));
+  dispatch(uploading(true));
   return axios({
     url,
     method: 'GET',
     responseType: 'blob'
   })
     .then((response) => {
-      console.log('response', response);
       const downloadedFIle = window.URL.createObjectURL(new Blob([response.data]));
-      dispatch(loading(false));
+      dispatch(uploading(false));
       dispatch(downloadSuccess(downloadedFIle));
       dispatch(resetUploadStatus());
     })
     .catch((error) => {
-      dispatch(loading(false));
+      dispatch(uploading(false));
       dispatch(downloadFailure(error.message));
     });
 };

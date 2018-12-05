@@ -58,7 +58,7 @@ const UploadAssets = (props) => {
   return (
     <div className="center-upload">
       <span className="failed-file">
-        <a href="#" onClick={() => props.handleFileDownload('url')}>
+        <a href="#" onClick={() => props.handleFileDownload('sample_import_file/')}>
           Download the sample file
         </a>{' '}, fill the columns and upload it.
       </span>
