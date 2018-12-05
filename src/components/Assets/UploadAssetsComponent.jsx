@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider, Header, Progress, Icon } from 'semantic-ui-react';
+import { Progress, Icon } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
-
-import NavBarComponent from '../../_components/NavBarContainer';
 import '../../_css/UploadAssets.css';
 
 const StatusMessage = props => <div className={`${props.className} `}>{props.message}</div>;
@@ -102,7 +103,9 @@ UploadAssets.propTypes = {
   handleDrop: PropTypes.func,
   handleCancel: PropTypes.func,
   handleFileDownload: PropTypes.func,
-  resetUpload: PropTypes.func
+  resetUpload: PropTypes.func,
+  className: PropTypes.string,
+  message: PropTypes.string
 };
 
 export default UploadAssets;
