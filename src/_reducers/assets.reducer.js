@@ -201,7 +201,6 @@ export default (state = initialState.assets, action) => {
     case RESET_UPLOAD_ASSETS:
       return {
         ...state,
-        assetsList: {},
         uploadError: '',
         success: '',
         hasError: false,

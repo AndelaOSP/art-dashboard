@@ -11,10 +11,7 @@ import assets from '../../_mock/assets';
 import {
   createAssetSuccess,
   createAssetFail,
-  createAssetRequest,
-  updateAssetRequest,
-  updateAssetSuccess,
-  updateAssetFail
+  createAssetRequest
 } from '../../_actions/asset.actions';
 
 // constants
@@ -26,7 +23,9 @@ const {
   LOAD_ASSETS_STARTS,
   SET_ACTIVE_PAGE,
   RESET_STATUS_MESSAGE,
-  RESET_ASSETS
+  UPLOAD_ASSETS_STARTS,
+  UPLOAD_ASSETS_FAILURE,
+  RESET_UPLOAD_ASSETS
 } = constants;
 
 const state = {
@@ -35,9 +34,7 @@ const state = {
   hasError: false,
   isLoading: false,
   activePage: 1,
-  success: '',
-  errorMessage: '',
-  updateLoading: false
+  isUpLoading: false
 };
 
 let action = {
@@ -120,37 +117,22 @@ describe('Asset Reducer tests', () => {
     expect(assetReducer(state, action).errorMessage).toEqual('');
   });
 
-  it('should handle UPDATE_ASSET_REQUEST', () => {
-    action = updateAssetRequest(asset);
-    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      updateLoading: true,
-      success: '',
-      errorMessage: ''
-    }));
+  it('should handle UPLOAD_ASSETS_STARTS', () => {
+    action.type = UPLOAD_ASSETS_STARTS;
+    action.isUpLoading = true;
+    expect(assetReducer(state, action).isUpLoading).toBe(true);
   });
 
-  it('should handle UPDATE_ASSET_SUCCESS', () => {
-    action = updateAssetSuccess(asset);
-    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      updateLoading: false,
-      success: 'Asset successfully updated.',
-      errorMessage: ''
-    }));
+  it('should handle UPLOAD_ASSETS_FAILURE', () => {
+    action.type = UPLOAD_ASSETS_FAILURE;
+    action.isLoading = false;
+    expect(assetReducer(state, action).hasError).toBe(true);
+    expect(assetReducer(state, action).isUpLoading).toBe(false);
   });
 
-  it('should handle UPDATE_ASSET_FAIL', () => {
-    action = updateAssetFail(error);
-    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      updateLoading: false,
-      success: '',
-      errorMessage: 'Could not update asset.'
-    }));
-  });
-
-  it('should handle RESET_ASSETS', () => {
-    action.type = RESET_ASSETS;
-    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      assetsList: {}
-    }));
+  it('should handle RESET_UPLOAD_ASSETS', () => {
+    action.type = RESET_UPLOAD_ASSETS;
+    expect(assetReducer(state, {})).toEqual(state);
+    expect(assetReducer(state, action).success).toEqual('');
   });
 });
