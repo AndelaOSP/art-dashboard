@@ -40,8 +40,7 @@ const AssetsTableContent = (props) => {
             <Table.HeaderCell>Model Number</Table.HeaderCell>
             <Table.HeaderCell>Asset Make</Table.HeaderCell>
             <Table.HeaderCell>Asset Type</Table.HeaderCell>
-            <Table.HeaderCell>Category</Table.HeaderCell>
-            <Table.HeaderCell>Sub-category</Table.HeaderCell>
+            <Table.HeaderCell>Assigned To</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -53,7 +52,10 @@ const AssetsTableContent = (props) => {
               ...asset,
               asset_code: asset.asset_code || '-',
               serial_number: asset.serial_number || '-',
-              model_number: asset.model_number || '-'
+              model_number: asset.model_number || '-',
+              assignee: (asset.assigned_to && asset.assigned_to.email)
+                || (asset.assigned_to && `${asset.assigned_to.full_name}`)
+                || '-'
             };
 
             return (
@@ -67,8 +69,7 @@ const AssetsTableContent = (props) => {
                   'model_number',
                   'make_label',
                   'asset_type',
-                  'asset_category',
-                  'asset_sub_category'
+                  'assignee'
                 ]}
               />
             );
