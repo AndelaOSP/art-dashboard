@@ -11,6 +11,7 @@ const ItemsNotFoundComponent = props => (
       <h2>Nothing To See Here!</h2>
       <Image centered src="/images/windEmpty.jpg" alt="empty box" id="not_found_image" />
       <p> {props.message} </p>
+
       {props.allDataFetched && (
         <Button onClick={reloadPage} className="reload-page" size="small">
           Go Back

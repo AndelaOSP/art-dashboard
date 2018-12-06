@@ -57,6 +57,7 @@ describe('Asset Action tests', () => {
     mock.onGet(url).reply(200, users);
     return store.dispatch(loadUsers(pageNumber, limit)).then(() => {
       expect(store.getActions()).toContainEqual({
+        isFiltered: false,
         payload: users,
         type: LOAD_USERS_SUCCESS
       });

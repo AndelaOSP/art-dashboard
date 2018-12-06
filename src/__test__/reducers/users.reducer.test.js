@@ -9,7 +9,10 @@ const {
   LOADING_USERS,
   LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
   CREATE_SECURITY_USER_SUCCESS,
-  CREATE_SECURITY_USER_FAILURE
+  CREATE_SECURITY_USER_FAILURE,
+  RESET_STATUS_MESSAGE,
+  RESET_USERS,
+  SET_USERS_ACTIVE_PAGE
 } = constants;
 
 const initialState = {
@@ -20,7 +23,9 @@ const initialState = {
     hasError: false,
     isLoading: false,
     securityUser: {},
-    activePage: 1
+    activePage: 1,
+    errorMessage: '',
+    successMessage: ''
   }
 };
 
@@ -43,7 +48,6 @@ describe('Users Reducer tests', () => {
 
   it('should handle LOAD_USERS_FAILURE', () => {
     action.type = LOAD_USERS_FAILURE;
-    expect(usersReducer(initialState, action).users).toEqual([]);
     expect(usersReducer(initialState, action).hasError).toEqual(true);
   });
 
@@ -51,6 +55,12 @@ describe('Users Reducer tests', () => {
     action.type = LOADING_USERS;
     action.isLoading = true;
     expect(usersReducer(initialState, action).isLoading).toEqual(true);
+  });
+
+  it('should handle RESET_STATUS_MESSAGE', () => {
+    action.type = RESET_STATUS_MESSAGE;
+    expect(usersReducer(initialState, action).successMessage).toEqual('');
+    expect(usersReducer(initialState, action).errorMessage).toEqual('');
   });
 
   it('should handle LOAD_ASSET_ASSIGNEE_USERS_SUCCESS', () => {
@@ -68,5 +78,16 @@ describe('Users Reducer tests', () => {
   it('should handle CREATE_SECURITY_USER_FAILURE', () => {
     action.type = CREATE_SECURITY_USER_FAILURE;
     expect(usersReducer(initialState, action).errorMessage).toEqual(action.payload);
+  });
+
+  it('should handle RESET_USERS', () => {
+    action.type = RESET_USERS;
+    expect(usersReducer(initialState, action).users).toEqual({});
+  });
+
+  it('should handle SET_USERS_ACTIVE_PAGE', () => {
+    action.type = SET_USERS_ACTIVE_PAGE;
+    action.payload = 1;
+    expect(usersReducer(initialState, action).activePage).toEqual(action.payload);
   });
 });

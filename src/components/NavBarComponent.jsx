@@ -63,7 +63,7 @@ export class NavBarComponent extends Component {
   };
 
   render() {
-    const { isVisible } = this.props;
+    const { isVisible, placeHolder } = this.props;
     const token = jwt.decode(localStorage.getItem('art-prod-web-token'));
     const { picture } = token || {};
 
@@ -87,7 +87,7 @@ export class NavBarComponent extends Component {
 
             <Menu.Menu id="search-menu">
               <Menu.Item>
-                <Input id="nav-search" className="icon" icon="search" placeholder="Search..." />
+                <Input id="nav-search" className="icon" icon="search" placeholder={placeHolder} />
               </Menu.Item>
             </Menu.Menu>
 
@@ -166,7 +166,12 @@ NavBarComponent.propTypes = {
   history: PropTypes.object.isRequired,
   push: PropTypes.func,
   toggleVisibilityAction: PropTypes.func,
-  isVisible: PropTypes.bool
+  isVisible: PropTypes.bool,
+  placeHolder: PropTypes.string
+};
+
+NavBarComponent.defaultProps = {
+  placeHolder: 'Search...'
 };
 
 export default NavBarComponent;
