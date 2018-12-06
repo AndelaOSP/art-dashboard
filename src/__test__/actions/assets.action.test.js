@@ -36,7 +36,7 @@ describe('Asset Types action tests', () => {
       expect(store.getActions()).toContainEqual({
         payload: assets,
         type: 'LOAD_ASSETS_SUCCESS',
-        assetStatus: ''
+        status: ''
       });
     });
   });
@@ -58,7 +58,7 @@ describe('Asset Types action tests', () => {
       expect(store.getActions()).toContainEqual({
         payload: 'Request failed with status code 400',
         type: 'LOAD_ASSETS_FAILURE',
-        assetStatus: ''
+        status: ''
       });
     });
   });

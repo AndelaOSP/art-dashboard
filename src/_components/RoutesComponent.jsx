@@ -5,7 +5,7 @@ import { get } from 'lodash';
 
 import Authenticate from './AccessControl/AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
-import Assets, { AssetStatus } from '../_components/Assets/AssetsContainer';
+import Assets from '../_components/Assets/AssetsContainer';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
 import LoginComponent from '../components/LoginComponent';
 import Dashboard from '../_components/Dashboard/DashboardContainer';
@@ -61,14 +61,8 @@ class RoutesComponent extends Component {
           <Authenticate
             exact
             isAuthenticated={this.checkAuthentication()}
-            path="/assets"
+            path="/assets/:status?"
             component={Assets}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/assets/:assetStatus"
-            component={AssetStatus}
           />
           <Authenticate
             exact

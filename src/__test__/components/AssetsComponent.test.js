@@ -31,15 +31,16 @@ describe('Renders <AssetsComponent /> correctly', () => {
     assetsList: {},
     loading: jest.fn(),
     match: {
-      params: { assetStatus: '' }
-    }
+      params: { status: '' }
+    },
+    handlePageTotal: jest.fn()
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
   />);
 
   it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Assets List');
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Assets');
   });
 
   it('renders the AssetsTableContent component', () => {
@@ -75,6 +76,9 @@ describe('Renders <AssetsComponent /> correctly', () => {
   });
 
   it('renders FilterButton', () => {
+    wrapper.setState({
+      assets
+    });
     expect(wrapper.find('FilterButton').length).toBe(1);
   });
 

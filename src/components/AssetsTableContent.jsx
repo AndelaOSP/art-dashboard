@@ -9,24 +9,30 @@ import { ToastMessage } from '../_utils/ToastMessage';
 import NotFound from './common/ItemsNotFoundComponent';
 
 const AssetsTableContent = (props) => {
-  const hasAssets = !isEmpty(props.assets);
+  const { assets, status, errorMessage, hasError, isLoading } = props;
 
-  if (props.isLoading) {
+  const hasAssets = !isEmpty(assets);
+
+  if (isLoading) {
     return <LoaderComponent />;
   }
 
   // TODO: move this to appropriate component as it should not be here.
   // And do we really need "SemanticToastContainer"? (food for thought)
-  if (props.hasError && props.errorMessage) {
+  if (hasError && errorMessage) {
     setTimeout(() => {
-      ToastMessage.error({ message: props.errorMessage });
+      ToastMessage.error({ message: errorMessage });
     }, 500);
     return <SemanticToastContainer />;
   }
 
   if (!hasAssets) {
+    const assetAdjective = status || '';
+
     return (
-      <NotFound message="Please try again later to see if there will be assets to show you." />
+      <NotFound
+        message={`Please try again later to see if there will be ${assetAdjective} assets to show you.`}
+      />
     );
   }
 
@@ -84,7 +90,8 @@ AssetsTableContent.propTypes = {
   assets: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  status: PropTypes.string
 };
 
 AssetsTableContent.defaultProps = {

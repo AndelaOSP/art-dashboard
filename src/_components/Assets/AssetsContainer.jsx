@@ -33,7 +33,10 @@ export const createFilterData = (assetTypes, assetModels) => {
   ];
 };
 
-export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selected }) => {
+export const mapStateToProps = (state, ownProps) => {
+  const { assets, assetTypesList, assetModelsList, selected } = state;
+  const { params } = ownProps.match;
+
   const {
     assetsList,
     assetsCount,
@@ -41,10 +44,14 @@ export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selec
     hasError,
     isLoading,
     activePage,
-    assetStatus
+    status
   } = assets;
   const { assetModels } = assetModelsList;
   const { assetTypes } = assetTypesList;
+
+  const assetAdjective = params.status || '';
+  const shouldReload = assetAdjective !== assets.status;
+  const assetsEmpty = isEmpty(assets.assetsList);
 
   return {
     assetsList,
@@ -55,19 +62,11 @@ export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selec
     filterData: createFilterData(assetTypes, assetModels),
     activePage,
     selected,
-    assetStatus
+    status,
+    shouldFetchAssets: shouldReload || assetsEmpty,
+    shouldReload
   };
 };
-
-export const AssetStatus = connect(mapStateToProps, {
-  getAssetsAction,
-  loadAllAssetModels,
-  loadDropdownAssetTypes,
-  setActivePage,
-  filterSelection,
-  resetAssets,
-  loading
-})(Assets);
 
 export default connect(mapStateToProps, {
   getAssetsAction,
