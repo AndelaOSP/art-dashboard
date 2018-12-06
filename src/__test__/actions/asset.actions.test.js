@@ -161,7 +161,10 @@ describe('Asset Action tests', () => {
         expect(store.getActions()[1].type).toEqual(NEW_ALLOCATION_SUCCESS);
         mock.onGet().reply(200, loadedAsset);
         return store.dispatch(reloadAssetDetail()).then(() => {
-          expect(store.getActions()[2].type).toEqual(LOAD_ASSET_SUCCESS);
+          expect(store.getActions()).toContainEqual({
+            type: LOAD_ASSET_SUCCESS,
+            payload: loadedAsset
+          });
         });
       });
   });
