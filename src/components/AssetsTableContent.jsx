@@ -60,7 +60,7 @@ const AssetsTableContent = (props) => {
               serial_number: asset.serial_number || '-',
               model_number: asset.model_number || '-',
               assignee: (asset.assigned_to && asset.assigned_to.email)
-                || (asset.assigned_to && `${asset.assigned_to.full_name}`)
+                || (asset.assigned_to && asset.assigned_to.full_name)
                 || '-'
             };
 
