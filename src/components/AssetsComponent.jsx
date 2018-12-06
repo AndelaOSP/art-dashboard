@@ -63,10 +63,16 @@ export default class AssetsComponent extends Component {
     const { status } = match.params;
 
     this.props.setActivePage(activePage);
-    const currentPageList = this.props.assetsList[`page_${activePage}`];
+    const filters = this.props.selected;
 
-    if (isEmpty(currentPageList)) {
-      this.retrieveAssets(activePage, this.state.limit, status);
+    if (filters) {
+      this.props.getAssetsAction(activePage, this.state.limit, filters);
+    } else {
+      const currentPageList = this.props.assetsList[`page_${activePage}`];
+
+      if (isEmpty(currentPageList)) {
+        this.retrieveAssets(activePage, this.state.limit, status);
+      }
     }
   };
 
