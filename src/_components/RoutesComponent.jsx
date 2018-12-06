@@ -61,7 +61,7 @@ class RoutesComponent extends Component {
           <Authenticate
             exact
             isAuthenticated={this.checkAuthentication()}
-            path="/assets"
+            path="/assets/:status?"
             component={Assets}
           />
           <Authenticate

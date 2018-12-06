@@ -35,7 +35,8 @@ describe('Asset Types action tests', () => {
     return store.dispatch(getAssetsAction(1)).then(() => {
       expect(store.getActions()).toContainEqual({
         payload: assets,
-        type: 'LOAD_ASSETS_SUCCESS'
+        type: 'LOAD_ASSETS_SUCCESS',
+        status: ''
       });
     });
   });
@@ -56,7 +57,8 @@ describe('Asset Types action tests', () => {
     return store.dispatch(getAssetsAction()).then(() => {
       expect(store.getActions()).toContainEqual({
         payload: 'Request failed with status code 400',
-        type: 'LOAD_ASSETS_FAILURE'
+        type: 'LOAD_ASSETS_FAILURE',
+        status: ''
       });
     });
   });

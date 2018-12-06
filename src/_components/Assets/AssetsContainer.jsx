@@ -33,17 +33,25 @@ export const createFilterData = (assetTypes, assetModels) => {
   ];
 };
 
-export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selected }) => {
+export const mapStateToProps = (state, ownProps) => {
+  const { assets, assetTypesList, assetModelsList, selected } = state;
+  const { params } = ownProps.match;
+
   const {
     assetsList,
     assetsCount,
     errorMessage,
     hasError,
     isLoading,
-    activePage
+    activePage,
+    status
   } = assets;
   const { assetModels } = assetModelsList;
   const { assetTypes } = assetTypesList;
+
+  const assetAdjective = params.status || '';
+  const shouldReload = assetAdjective !== assets.status;
+  const assetsEmpty = isEmpty(assets.assetsList);
 
   return {
     assetsList,
@@ -53,7 +61,10 @@ export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selec
     isLoading,
     filterData: createFilterData(assetTypes, assetModels),
     activePage,
-    selected
+    selected,
+    status,
+    shouldFetchAssets: shouldReload || assetsEmpty,
+    shouldReload
   };
 };
 
