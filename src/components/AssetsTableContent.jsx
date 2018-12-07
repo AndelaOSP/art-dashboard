@@ -8,6 +8,13 @@ import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
 import NotFound from './common/ItemsNotFoundComponent';
 
+const getAssignee = (data) => {
+  if (!data) {
+    return '-';
+  }
+  return data.email || data.full_name || data.name || '-';
+};
+
 const AssetsTableContent = (props) => {
   const { assets, status, errorMessage, hasError, isLoading } = props;
 
@@ -59,9 +66,7 @@ const AssetsTableContent = (props) => {
               asset_code: asset.asset_code || '-',
               serial_number: asset.serial_number || '-',
               model_number: asset.model_number || '-',
-              assignee: (asset.assigned_to && asset.assigned_to.email)
-                || (asset.assigned_to && `${asset.assigned_to.full_name}`)
-                || '-'
+              assignee: getAssignee(asset.assigned_to)
             };
 
             return (
