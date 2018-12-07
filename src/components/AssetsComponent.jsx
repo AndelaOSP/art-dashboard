@@ -8,10 +8,11 @@ import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 import PaginationComponent from './common/PaginationComponent';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
+import { constructUrl } from '../_utils/assets';
 
 import '../_css/AssetsComponent.css';
 
-const CUTOFF_LIMIT = 50;
+const CUTOFF_LIMIT = 100;
 const checkIfCutoffExceeded = isCountCutoffExceeded(CUTOFF_LIMIT);
 
 export default class AssetsComponent extends Component {
@@ -59,26 +60,25 @@ export default class AssetsComponent extends Component {
   };
 
   handlePaginationChange = (e, { activePage }) => {
-    const { match } = this.props;
+    const { match, selected } = this.props;
     const { status } = match.params;
 
     this.props.setActivePage(activePage);
-    const filters = this.props.selected;
+    const currentPageList = this.props.assetsList[`page_${activePage}`];
 
-    if (filters) {
-      this.props.getAssetsAction(activePage, this.state.limit, filters);
-    } else {
-      const currentPageList = this.props.assetsList[`page_${activePage}`];
-
-      if (isEmpty(currentPageList)) {
-        this.retrieveAssets(activePage, this.state.limit, status);
-      }
+    if (isEmpty(currentPageList)) {
+      this.retrieveAssets(
+        activePage,
+        this.state.limit,
+        status,
+        selected
+      );
     }
   };
 
-  retrieveAssets = (activePage, limit, status) => {
+  retrieveAssets = (activePage, limit, status, filters = {}) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
-      const url = `manage-assets?page=${activePage}&page_size=${limit}&current_status=${status}`;
+      const url = constructUrl(activePage, limit, filters, status);
 
       this.props.loading(true);
       return fetchData(url).then((response) => {
@@ -87,7 +87,7 @@ export default class AssetsComponent extends Component {
       });
     }
 
-    return this.loadAssets(activePage, limit, null, status);
+    return this.loadAssets(activePage, limit, filters, status);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
