@@ -11,6 +11,8 @@ As a new member of the team, you should be assigned a _tech buddy_ who should he
 
 You should also be given a live demo of the project, either by your TTL or tech buddy. This should be arranged when you are being onboarded into the team. If this step is missed, please raise it up.
 
+To understand our workflow, read the [workflow](best_practices/workflow.md) document.
+
 In the ART team, we work in pairs when implementing features. This implies that pair programming is core in how we work. Therefore, we will pair you with a person who has been on the team for a longer duration of time in your initial tasks. Occasionally, you will work on your own when:
 - Working on 1 point feature tasks that are straight forward
 - Fixing bugs
