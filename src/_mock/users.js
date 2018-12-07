@@ -4,14 +4,16 @@ export default [
     first_name: 'Test',
     last_name: 'User',
     email: 'test@email.com',
-    cohort: 10
+    cohort: 10,
+    allocated_asset_count: 0
   },
   {
     id: 2,
     first_name: 'Test2',
     last_name: 'User2',
     email: 'test2@email.com',
-    cohort: 9
+    cohort: 9,
+    allocated_asset_count: 0
   }
 ];
 

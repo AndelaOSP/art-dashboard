@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { Link } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
 import AnalyticsCardComponent from './AnalyticsCardComponent';
@@ -19,19 +20,21 @@ export default class AssetStatusComponent extends Component {
 
     return (
       <Grid.Column>
-        <div className={`analytics-state-rectangle ${activeClass}`}>
-          {hasAssets && (
-            <div id="circle">
-              <div className="checkmark" />
-            </div>
-          )}
-          <AnalyticsCardComponent
-            assetNumber={asset.count}
-            assetState={status}
-            image={`/images/${status}.png`}
-            cssClass={status}
-          />
-        </div>
+        <Link to={`assets/${status}`} className="card-link">
+          <div className={`analytics-state-rectangle ${activeClass}`}>
+            {hasAssets && (
+              <div id="circle">
+                <div className="checkmark" />
+              </div>
+            )}
+            <AnalyticsCardComponent
+              assetNumber={asset.count}
+              assetState={status}
+              image={`/images/${status}.png`}
+              cssClass={status}
+            />
+          </div>
+        </Link>
       </Grid.Column>
     );
   }

@@ -8,13 +8,13 @@ import '../_css/PageNotFoundComponent.css';
 const PageNotFoundComponent = props => (
   <div className="page-404">
     <Image
-      src="images/andela_logo.png"
+      src="/images/andela_logo.png"
       alt="Andela logo"
       id="andela-logo-404"
     />
     <Image
       centered
-      src="images/sad_face.png"
+      src="/images/sad_face.png"
       alt="Sad face"
       id="sad-face-404"
     />

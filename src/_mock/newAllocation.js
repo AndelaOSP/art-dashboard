@@ -13,6 +13,7 @@ const assetMocks = {
     allocation_history: [],
     asset_category: 'Accessories',
     asset_code: 'EWWE',
+    asset_location: 'Dojo',
     asset_sub_category: 'Computer Accessoriess',
     asset_type: 'Headset',
     assigned_to: null,
@@ -26,7 +27,8 @@ const assetMocks = {
     notes: ' ',
     purchase_date: '2018-07-02',
     serial_number: 'SN1231',
-    specs: null
+    specs: null,
+    uuid: 'a134c9c1-a6fd-4390-8596-ec12b13b1ca6'
   },
   unassignAsset: {
     asset: '33',

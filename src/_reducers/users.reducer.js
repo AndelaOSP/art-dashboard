@@ -7,7 +7,10 @@ const {
   LOADING_USERS,
   LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
   CREATE_SECURITY_USER_SUCCESS,
-  CREATE_SECURITY_USER_FAILURE
+  CREATE_SECURITY_USER_FAILURE,
+  RESET_USERS,
+  SET_USERS_ACTIVE_PAGE,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 export default (state = initialState.usersList, action) => {
@@ -15,22 +18,35 @@ export default (state = initialState.usersList, action) => {
     case LOADING_USERS:
       return {
         ...state,
-        isLoading: action.isLoading
+        isLoading: action.isLoading,
+        successMessage: '',
+        errorMessage: ''
       };
     case LOAD_USERS_SUCCESS:
       return {
         ...state,
-        users: action.payload.results,
+        users: {
+          ...state.users,
+          [`page_${state.activePage}`]: action.payload.results
+        },
         usersCount: action.payload.count,
-        hasError: false
+        hasError: false,
+        successMessage: 'Filter successfully applied',
+        errorMessage: '',
+        isFiltered: action.isFiltered
       };
     case LOAD_USERS_FAILURE:
       return {
         ...state,
-        users: [],
-        usersCount: 0,
         errorMessage: action.payload,
+        successMessage: '',
         hasError: true
+      };
+    case RESET_STATUS_MESSAGE:
+      return {
+        ...state,
+        successMessage: '',
+        errorMessage: ''
       };
     case LOAD_ASSET_ASSIGNEE_USERS_SUCCESS:
       return {
@@ -46,6 +62,17 @@ export default (state = initialState.usersList, action) => {
       return {
         ...state,
         errorMessage: action.payload
+      };
+    case RESET_USERS:
+      return {
+        ...state,
+        users: {},
+        isFiltered: false
+      };
+    case SET_USERS_ACTIVE_PAGE:
+      return {
+        ...state,
+        activePage: action.payload
       };
     default:
       return state;

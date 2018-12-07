@@ -1,5 +1,6 @@
 import constants from '../_constants';
 import initialState from './initialState';
+import findAssetIndexAndPage from '../_utils/assets';
 
 const {
   CREATE_ASSET_REQUEST,
@@ -10,7 +11,10 @@ const {
   LOAD_ASSETS_STARTS,
   SET_ACTIVE_PAGE,
   RESET_STATUS_MESSAGE,
-  RESET_ASSETS
+  RESET_ASSETS,
+  UPDATE_ASSET_REQUEST,
+  UPDATE_ASSET_SUCCESS,
+  UPDATE_ASSET_FAIL
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -32,6 +36,24 @@ const getErrorMessage = (error) => {
   }
 
   return '';
+};
+
+const updateAssetList = (asset, assetList) => {
+  const assetLocation = findAssetIndexAndPage(asset, assetList);
+
+  if (!assetLocation) {
+    return assetList;
+  }
+
+  const { page, index } = assetLocation;
+  const pageData = assetList[page];
+
+  pageData[index] = asset;
+
+  return {
+    ...assetList,
+    [page]: pageData
+  };
 };
 
 export default (state = initialState.assets, action) => {
@@ -88,7 +110,8 @@ export default (state = initialState.assets, action) => {
         },
         assetsCount: action.payload.count,
         hasError: false,
-        isLoading: action.isLoading
+        isLoading: action.isLoading,
+        status: action.status
       };
 
     case SET_ACTIVE_PAGE:
@@ -104,12 +127,39 @@ export default (state = initialState.assets, action) => {
         assetsCount: 0,
         errorMessage: action.payload,
         hasError: true,
-        isLoading: action.isLoading
+        isLoading: action.isLoading,
+        status: action.status
       };
+
     case RESET_ASSETS:
       return {
         ...state,
         assetsList: {}
+      };
+
+    case UPDATE_ASSET_REQUEST:
+      return {
+        ...state,
+        updateLoading: true,
+        success: '',
+        errorMessage: ''
+      };
+
+    case UPDATE_ASSET_SUCCESS:
+      return {
+        ...state,
+        assetsList: updateAssetList(action.payload, state.assetsList),
+        updateLoading: false,
+        success: 'Asset successfully updated.',
+        errorMessage: ''
+      };
+
+    case UPDATE_ASSET_FAIL:
+      return {
+        ...state,
+        updateLoading: false,
+        success: '',
+        errorMessage: 'Could not update asset.'
       };
 
     default:

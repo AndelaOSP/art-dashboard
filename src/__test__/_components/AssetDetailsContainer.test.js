@@ -23,7 +23,9 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       params: {
         id: ''
       }
-    }
+    },
+    updateErrorMessage: '',
+    updateLoading: false
   };
 
   it('calls fetchAssetDetail function correctly', () => {
@@ -44,6 +46,10 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       usersList: {
         assetAsigneeUsers: [],
         isLoading: false
+      },
+      assets: {
+        updateLoading: false,
+        success: ''
       }
     };
     const expected = {
@@ -57,7 +63,9 @@ describe('Renders <AssetDetailsContainer /> correctly', () => {
       buttonLoading: false,
       assetLoading: false,
       userLoading: false,
-      assetAsigneeUsers: []
+      assetAsigneeUsers: [],
+      updateLoading: false,
+      success: ''
     };
 
     expect(mapStateToProps(state, props)).toEqual(expected);

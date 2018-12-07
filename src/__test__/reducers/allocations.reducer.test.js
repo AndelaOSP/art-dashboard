@@ -11,7 +11,8 @@ const {
 
 const initialState = {
   allAllocations: [],
-  isLoading: false
+  isLoading: false,
+  activePage: 1
 };
 
 const action = { payload: {} };
@@ -24,7 +25,9 @@ describe.only('Allocations Reducer test', () => {
   it('should handle LOAD_ALLOCATIONS_SUCCESS', () => {
     action.type = LOAD_ALLOCATIONS_SUCCESS;
     action.payload.results = allocations;
-    expect(allocationReducer(initialState, action).allAllocations).toEqual(action.payload.results);
+    expect(allocationReducer(initialState, action).allAllocations).toEqual({
+      page_1: [...action.payload.results]
+    });
     expect(allocationReducer(initialState, action).isLoading).toEqual(false);
   });
 
@@ -36,6 +39,7 @@ describe.only('Allocations Reducer test', () => {
 
   it('should handle LOADING_ALLOCATIONS', () => {
     action.type = LOADING_ALLOCATIONS;
+    action.isLoading = true;
     expect(allocationReducer(initialState, action).allAllocations).toEqual([]);
     expect(allocationReducer(initialState, action).isLoading).toEqual(true);
   });

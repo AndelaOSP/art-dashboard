@@ -1,7 +1,12 @@
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
 
-import { getAssetDetail, getAssetDetailSuccess as addAsset } from '../../_actions/asset.actions';
+import {
+  getAssetDetail,
+  getAssetDetailSuccess as addAsset,
+  updateAsset,
+  resetMessage
+} from '../../_actions/asset.actions';
 import { loadAssetAssigneeUsers } from '../../_actions/users.actions';
 import AssetDetailsComponent from '../../components/AssetDetails/AssetDetailsComponent';
 
@@ -15,7 +20,7 @@ const getAssetInfo = (assetDetail, props) => {
   return get(props.location, 'state', {});
 };
 
-export const mapStateToProps = ({ asset, usersList }, ownProps) => {
+export const mapStateToProps = ({ asset, assets, usersList }, ownProps) => {
   const {
     assetDetail,
     errorMessage,
@@ -31,6 +36,10 @@ export const mapStateToProps = ({ asset, usersList }, ownProps) => {
   const hasSameId = isSameId(assetDetail, ownProps);
   const shouldFetchDetails = isEmpty(details);
   const shouldAddToStore = !hasSameId && !shouldFetchDetails;
+  const {
+    updateLoading,
+    success
+  } = assets;
 
   return {
     assetAsigneeUsers,
@@ -43,12 +52,17 @@ export const mapStateToProps = ({ asset, usersList }, ownProps) => {
     hasError,
     assetLoading,
     userLoading,
-    buttonLoading
+    buttonLoading,
+    updateLoading,
+    success,
+    updateErrorMessage: assets.errorMessage
   };
 };
 
 export default connect(mapStateToProps, {
   getAssetDetail,
   loadAssetAssigneeUsers,
-  addAsset
+  addAsset,
+  updateAsset,
+  resetMessage
 })(AssetDetailsComponent);

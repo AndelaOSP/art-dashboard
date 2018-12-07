@@ -19,9 +19,19 @@ describe('Renders <AssetDetailsComponent /> correctly', () => {
       params: {
         id: ''
       }
-    }
+    },
+    loadCentres: jest.fn(),
+    locationLoading: false,
+    updateLoading: false,
+    updateAsset: async () => {},
+    shouldFetchDetails: false
   };
-  const wrapper = shallow(<AssetDetailsComponent {...props} />);
+
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<AssetDetailsComponent {...props} />);
+  });
 
   it('renders the asset detail', () => {
     expect(wrapper.find('.asset-details').length).toBe(1);

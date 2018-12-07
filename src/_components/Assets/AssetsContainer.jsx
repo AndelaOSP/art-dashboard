@@ -5,13 +5,9 @@ import { getAssetsAction, setActivePage, resetAssets, loading } from '../../_act
 import { loadAllAssetModels } from '../../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../../_actions/assetTypes.actions';
 import filterSelection from '../../_actions/checkedFilters.actions';
+import formatOption from '../../_utils/filters';
 
 import Assets from '../../components/AssetsComponent';
-
-const formatOption = (data, optionKey) => ({
-  id: data.id,
-  option: data[optionKey]
-});
 
 export const createFilterData = (assetTypes, assetModels) => {
   if (isEmpty(assetTypes) && isEmpty(assetModels)) {
@@ -33,17 +29,25 @@ export const createFilterData = (assetTypes, assetModels) => {
   ];
 };
 
-export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selected }) => {
+export const mapStateToProps = (state, ownProps) => {
+  const { assets, assetTypesList, assetModelsList, selected } = state;
+  const { params } = ownProps.match;
+
   const {
     assetsList,
     assetsCount,
     errorMessage,
     hasError,
     isLoading,
-    activePage
+    activePage,
+    status
   } = assets;
   const { assetModels } = assetModelsList;
   const { assetTypes } = assetTypesList;
+
+  const assetAdjective = params.status || '';
+  const shouldReload = assetAdjective !== assets.status;
+  const assetsEmpty = isEmpty(assets.assetsList);
 
   return {
     assetsList,
@@ -53,7 +57,10 @@ export const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selec
     isLoading,
     filterData: createFilterData(assetTypes, assetModels),
     activePage,
-    selected
+    selected,
+    status,
+    shouldFetchAssets: shouldReload || assetsEmpty,
+    shouldReload
   };
 };
 

@@ -12,7 +12,8 @@ describe('Renders <Assets />  tests', () => {
         assetsCount: 0,
         errorMessage: '',
         hasError: false,
-        activePage: 1
+        activePage: 1,
+        status: ''
       },
       assetModelsList: {
         assetModel: []
@@ -23,6 +24,14 @@ describe('Renders <Assets />  tests', () => {
       selected: []
     };
 
+    const ownProps = {
+      match: {
+        params: {
+          status: ''
+        }
+      }
+    };
+
     const expected = {
       isLoading: false,
       assetsList: [],
@@ -31,10 +40,13 @@ describe('Renders <Assets />  tests', () => {
       hasError: false,
       activePage: 1,
       selected: [],
-      filterData: []
+      filterData: [],
+      status: '',
+      shouldFetchAssets: true,
+      shouldReload: false
     };
 
-    expect(mapStateToProps(state)).toEqual(expected);
+    expect(mapStateToProps(state, ownProps)).toEqual(expected);
   });
 
   it('calls createFilterData', () => {

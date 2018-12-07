@@ -19,11 +19,26 @@
   overflow-y: scroll;
 }
 
-
-.ui.accordion .active.content::-webkit-scrollbar,
 .ui.vertical.accordion.ui.filter-menu.menu::-webkit-scrollbar {
   width: 0;
   background: transparent;
+}
+
+.ui.accordion .active.content {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $andela-orange;
+    outline: 1px solid #708090;
+  }
 }
 
 .ui.accordion.menu .item .title {

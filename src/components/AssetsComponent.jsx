@@ -8,6 +8,7 @@ import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 import PaginationComponent from './common/PaginationComponent';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
+
 import '../_css/AssetsComponent.css';
 
 const CUTOFF_LIMIT = 50;
@@ -20,82 +21,112 @@ export default class AssetsComponent extends Component {
   };
 
   componentDidMount() {
-    const assetsEmpty = isEmpty(this.props.assetsList);
+    const { activePage, match, shouldFetchAssets } = this.props;
+    const { status } = match.params;
 
     // TODO: fix the logic so that assets are fetched when you create an asset before fetching
     // assets, otherwise, you'll only display 1 row in assets table yet there are more than one
     // assets
-    if (assetsEmpty || (!assetsEmpty && this.props.assetsList.length === 1)) {
-      this.props.getAssetsAction(this.props.activePage, this.state.limit);
+    if (shouldFetchAssets) {
+      this.loadAssets(activePage, this.state.limit, null, status);
     }
 
     this.props.loadAllAssetModels();
     this.props.loadDropdownAssetTypes();
   }
 
+  componentDidUpdate(prevProps) {
+    const { activePage, match, shouldReload } = this.props;
+    const { status } = match.params;
+
+    if (shouldReload !== prevProps.shouldReload && shouldReload) {
+      this.props.resetAssets();
+      this.loadAssets(activePage, this.state.limit, null, status);
+    }
+  }
+
+  loadAssets = (activePage, limit, filters, status) =>
+    this.props.getAssetsAction(activePage, limit, filters, status);
+
   handleRowChange = (e, data) => {
+    const { activePage, match } = this.props;
+    const { status } = match.params;
+
     this.setState({ limit: data.value });
     this.props.resetAssets();
-    this.props.getAssetsAction(this.props.activePage, data.value);
+
+    this.loadAssets(activePage, data.value, null, status);
   };
 
   handlePaginationChange = (e, { activePage }) => {
+    const { match } = this.props;
+    const { status } = match.params;
+
     this.props.setActivePage(activePage);
     const currentPageList = this.props.assetsList[`page_${activePage}`];
 
     if (isEmpty(currentPageList)) {
-      this.retrieveAssets(activePage, this.state.limit);
+      this.retrieveAssets(activePage, this.state.limit, status);
     }
   };
 
-  retrieveAssets = (activePage, limit) => {
+  retrieveAssets = (activePage, limit, status) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
-      const url = `manage-assets?page=${activePage}&page_size=${limit}`;
+      const url = `manage-assets?page=${activePage}&page_size=${limit}&current_status=${status}`;
+
       this.props.loading(true);
       return fetchData(url).then((response) => {
         this.props.loading(false);
         this.setState({ assets: response.data.results });
       });
     }
-    return this.props.getAssetsAction(activePage, limit);
+
+    return this.loadAssets(activePage, limit, null, status);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
 
   render() {
-    const totalPages = this.handlePageTotal();
-    const showPaginator = totalPages > 0;
-    const currentAssets = `page_${this.props.activePage}`;
     const { assets } = this.state;
+    const { status } = this.props;
+    const totalPages = this.handlePageTotal();
+    const showPaginator = totalPages > 1;
+    const currentAssets = `page_${this.props.activePage}`;
+    const showFilter = !isEmpty(this.props.assetsList[currentAssets] || assets);
+
+    const contentTitle = status ? `${status.toLocaleString()} Assets` : 'Assets';
+
     return (
       <NavBarComponent title="Assets">
         <div className="assets-list">
           <div id="page-heading-section">
-            <Header as="h1" id="page-headings" floated="left" content="Assets List" />
+            <Header as="h1" id="page-headings" floated="left" content={contentTitle} />
             <Divider id="assets-divider" />
-            <FilterButton
-              activePage={this.props.activePage}
-              limit={this.state.limit}
-              selected={this.props.selected}
-              filterAction={this.props.getAssetsAction}
-              disabled={this.props.isLoading}
-            >
-              <React.Fragment>
-                <FilterComponent
-                  index={0}
-                  option={this.props.filterData[0]}
-                  selected={this.props.selected}
-                  filterSelection={this.props.filterSelection}
-                />
+            {showFilter && (
+              <FilterButton
+                activePage={this.props.activePage}
+                limit={this.state.limit}
+                selected={this.props.selected}
+                filterAction={this.props.getAssetsAction}
+                disabled={this.props.isLoading}
+              >
+                <React.Fragment>
+                  <FilterComponent
+                    index={0}
+                    option={this.props.filterData[0]}
+                    selected={this.props.selected}
+                    filterSelection={this.props.filterSelection}
+                  />
 
-                <FilterComponent
-                  index={1}
-                  option={this.props.filterData[1]}
-                  selected={this.props.selected}
-                  filterSelection={this.props.filterSelection}
-                />
-              </React.Fragment>
-            </FilterButton>
+                  <FilterComponent
+                    index={1}
+                    option={this.props.filterData[1]}
+                    selected={this.props.selected}
+                    filterSelection={this.props.filterSelection}
+                  />
+                </React.Fragment>
+              </FilterButton>
+            )}
           </div>
           <AssetsTableContent
             activePage={this.props.activePage}
@@ -103,6 +134,7 @@ export default class AssetsComponent extends Component {
             errorMessage={this.props.errorMessage}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
+            status={status}
           />
           {showPaginator && (
             <PaginationComponent
@@ -135,7 +167,11 @@ AssetsComponent.propTypes = {
   activePage: PropTypes.number,
   selected: PropTypes.object.isRequired,
   filterSelection: PropTypes.func.isRequired,
-  filterData: PropTypes.arrayOf(PropTypes.object)
+  filterData: PropTypes.arrayOf(PropTypes.object),
+  match: PropTypes.object,
+  status: PropTypes.string,
+  shouldFetchAssets: PropTypes.bool,
+  shouldReload: PropTypes.bool
 };
 
 AssetsComponent.defaultProps = {
