@@ -4,7 +4,7 @@ import expect from 'expect';
 import { Table } from 'semantic-ui-react';
 
 import { titles } from '../_mock/assets';
-import TableHeaderComponent from '../components/common/TableHeaderComponent.jsx';
+import TableHeaderComponent from '../components/common/Table/TableHeaderComponent.jsx';
 
 describe('<TableHeaderComponent>', () => {
   const props = {
