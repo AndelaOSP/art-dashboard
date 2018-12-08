@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Pagination, Segment } from 'semantic-ui-react';
 import { isEmpty } from 'lodash';
-import rowOptions from '../../_utils/pageRowOptions';
-import DropdownComponent from '../common/DropdownComponent';
-import TableRow from '../TableRowComponent';
+
 import LoaderComponent from '../LoaderComponent';
 import NavBarComponent from '../../_components/NavBarContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import UserHeader from './UserHeader';
 import StatusMessageComponent from '../common/StatusComponent';
 import { isCountCutoffExceeded, fetchData } from '../../_utils/helpers';
+
+import UsersContent from './UsersContent';
+import Paginator from '../common/PaginationComponent';
 
 import '../../_css/UsersComponent.css';
 
@@ -49,6 +49,16 @@ export default class UserComponent extends React.Component {
     }
   };
 
+  getTotalPages = () => {
+    const { usersCount } = this.props;
+
+    if (usersCount <= 1) {
+      return 1;
+    }
+
+    return Math.ceil(usersCount / this.state.limit);
+  };
+
   retrieveUsers = (activePage, limit) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
       const url = `users?page=${activePage}&page_size=${limit}`;
@@ -64,112 +74,58 @@ export default class UserComponent extends React.Component {
     return this.props.loadUsers(activePage, limit);
   };
 
-  handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit);
-
-  emptyUsersList = () => (isEmpty(this.props.users));
-
   render() {
-    const currentUsers = `page_${this.props.activePage}`;
-    const activePageUsers = this.props.users[currentUsers] || this.state.users;
-    const hasNoUsers = isEmpty(activePageUsers);
-    const showStatus = this.props.hasError && this.props.errorMessage;
+    const {
+      activePage,
+      users,
+      hasError,
+      errorMessage,
+      isFiltered,
+      resetMessage,
+      isLoading
+    } = this.props;
+    const currentUsers = `page_${activePage}`;
+    const activePageUsers = users[currentUsers] || this.state.users;
+    const hasUsers = !isEmpty(activePageUsers);
+    const showStatus = hasError && errorMessage;
 
-    if (this.props.isLoading) {
-      return <LoaderComponent />;
-    }
-
-    if (hasNoUsers) {
-      const message = this.props.isFiltered
-        ? 'No data for that filter. Please try another option.'
-        : 'Please try again later, to see if we\'ll have users to show you.';
-
-      return (
-        <NavBarComponent>
-          <UserHeader
-            hideHeader={!this.props.isFiltered}
-            limit={this.state.limit}
-          />
-          <ItemsNotFoundComponent
-            allDataFetched={this.state.allDataFetched}
-            message={message}
-          />
-        </NavBarComponent>
-      );
-    }
+    const message = isFiltered
+      ? 'No data for that filter. Please try another option.'
+      : 'Please try again later, to see if we\'ll have users to show you.';
 
     return (
       <NavBarComponent title="Users" placeHolder="Search by name... ">
         <UserHeader limit={this.state.limit} />
 
-        {
-            showStatus && (
-              <StatusMessageComponent
-                message={this.props.errorMessage}
-                className="error-status"
-                reset={this.props.resetMessage}
-              />
-            )
-          }
+        {showStatus && (
+          <StatusMessageComponent
+            message={this.props.errorMessage}
+            className="error-status"
+            reset={resetMessage}
+          />
+        )}
 
-        <Table basic selectable className="users-list">
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Email Address</Table.HeaderCell>
-              <Table.HeaderCell>Cohort</Table.HeaderCell>
-              <Table.HeaderCell>Assets Assigned</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {
-                activePageUsers.map((user) => {
-                  const viewUserUrl = `users/${user.id}/view`;
+        {isLoading && <LoaderComponent />}
 
-                  const updatedUser = {
-                    ...user,
-                    assets_assigned: user.allocated_asset_count
-                  };
+        {(!hasUsers && !isLoading) && (
+          <ItemsNotFoundComponent
+            allDataFetched={this.state.allDataFetched}
+            message={message}
+          />
+        )}
 
-                  return (
-                    <TableRow
-                      viewDetailsRoute={viewUserUrl}
-                      key={user.id}
-                      data={updatedUser}
-                      headings={['full_name', 'email', 'cohort', 'assets_assigned']}
-                    />
-                  );
-                })
-              }
-          </Table.Body>
-          <Table.Footer>
-            <Table.Row>
-              {!this.emptyUsersList() && (
-              <Table.HeaderCell colSpan="4" id="pagination-header">
-                <Segment.Group horizontal id="art-pagination-section">
-                  <Segment>
-                    <Pagination
-                      id="art-pagination-component"
-                      totalPages={this.handlePageTotal() || 1}
-                      onPageChange={this.handlePaginationChange}
-                      activePage={this.props.activePage}
-                    />
-                  </Segment>
-                  <Segment>
-                    <DropdownComponent
-                      customClass="page-limit"
-                      placeHolder="Show Rows"
-                      options={rowOptions}
-                      upward
-                      value={this.state.limit}
-                      onChange={this.handleRowChange}
-                    />
-                  </Segment>
-                </Segment.Group>
-              </Table.HeaderCell>
-                )}
-            </Table.Row>
-          </Table.Footer>
-        </Table>
+        {!isLoading && (
+          <UsersContent users={activePageUsers} hasUsers={hasUsers} />
+        )}
+
+        <Paginator
+          activePage={activePage}
+          handleRowChange={this.handleRowChange}
+          handlePaginationChange={this.handlePaginationChange}
+          limit={this.state.limit}
+          totalPages={this.getTotalPages()}
+          isLoading={isLoading}
+        />
       </NavBarComponent>
     );
   }

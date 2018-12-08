@@ -5,24 +5,17 @@ import UserFilterContainer from '../../_components/User/UserFilterContainer';
 
 import '../../_css/UsersComponent.css';
 
-const UserHeader = (props) => {
-  if (props.hideHeader) {
-    return null;
-  }
-
-  return (
-    <div className="users-list">
-      <div id="page-heading-section">
-        <Header as="h1" id="page-headings" floated="left" content="Users List" />
-        <Divider id="assets-divider" />
-        <UserFilterContainer limit={props.limit} />
-      </div>
+const UserHeader = ({ limit }) => (
+  <div className="users-list">
+    <div id="page-heading-section">
+      <Header as="h1" id="page-headings" floated="left" content="Users" />
+      <Divider id="assets-divider" />
+      <UserFilterContainer limit={limit} />
     </div>
-  );
-};
+  </div>
+);
 
 UserHeader.propTypes = {
-  hideHeader: PropTypes.bool,
   limit: PropTypes.number
 };
 
