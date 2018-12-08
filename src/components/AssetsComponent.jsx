@@ -8,6 +8,7 @@ import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 import PaginationComponent from './common/PaginationComponent';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
+import { constructUrl } from '../_utils/assets';
 
 import '../_css/AssetsComponent.css';
 
@@ -72,7 +73,7 @@ export default class AssetsComponent extends Component {
 
   retrieveAssets = (activePage, limit, status) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
-      const url = `manage-assets?page=${activePage}&page_size=${limit}&current_status=${status}`;
+      const url = constructUrl(activePage, limit, null, status);
 
       this.props.loading(true);
       return fetchData(url).then((response) => {
@@ -90,7 +91,6 @@ export default class AssetsComponent extends Component {
     const { assets } = this.state;
     const { status } = this.props;
     const totalPages = this.handlePageTotal();
-    const showPaginator = totalPages > 1;
     const currentAssets = `page_${this.props.activePage}`;
     const showFilter = !isEmpty(this.props.assetsList[currentAssets] || assets);
 
@@ -136,16 +136,14 @@ export default class AssetsComponent extends Component {
             isLoading={this.props.isLoading}
             status={status}
           />
-          {showPaginator && (
-            <PaginationComponent
-              activePage={this.props.activePage}
-              handleRowChange={this.handleRowChange}
-              handlePaginationChange={this.handlePaginationChange}
-              limit={this.state.limit}
-              totalPages={totalPages}
-              isLoading={this.props.isLoading}
-            />
-          )}
+          <PaginationComponent
+            activePage={this.props.activePage}
+            handleRowChange={this.handleRowChange}
+            handlePaginationChange={this.handlePaginationChange}
+            limit={this.state.limit}
+            totalPages={totalPages}
+            isLoading={this.props.isLoading}
+          />
         </div>
       </NavBarComponent>
     );
