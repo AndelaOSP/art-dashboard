@@ -48,7 +48,7 @@ const buildFiltersQueryString = (filters) => {
  * }
  * You can add more to the object as the need arises.
  *
- * @param {string} entity the API endpoint such as `/manage-assets`
+ * @param {string} entity the API endpoint such as `manage-assets`
  * @param {number} pageNumber
  * @param {number} pageSize limit per page
  * @param  {object} optionalArgs holds optional parameters like filters, status, etc, as an object
