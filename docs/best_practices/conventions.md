@@ -70,9 +70,7 @@ How can we apply the principles?
   )
   ```
 - It is easier to read and understand the above snippet even without looking at the individual component's implementation. Also, each component such as `Header` only have one single responsibilty, which should be related to displaying the header
-- Also note that you can render container components in presentation components. Therefore, you can retrieve the necessary props from the store for a particular container component rendered in a
-### 3. Liskov substitution principle
-- A way we can apply this is to use composition and maintain immutability in state
+- Also note that you can render container components in presentation components. Therefore, you can retrieve the necessary props from the store for a particular container component rendered in a presentation component.
 
 ### 4. Interface segregation principle
 - This principle should help with keeping _"Single responsibility principle"_.
@@ -88,12 +86,12 @@ How can we apply the principles?
 - This principle can be applied by either using a _higher order component or the render prop_.
 - The recommended method between the two is the use of a `render` prop. Therefore, if you find yourself having a high-level component depending on a low-level component, then `render prop` will come in handy.
 
-Look at this example to see how the principles have been applied. TODO: Add link to the example section
+Look at [the example](#example-application-of-the-solid-principles) to see how the principles have been applied.
 
 ---
 ## Other Conventions
 ### Limit props being passed to child component
-- For sanity purposes as well as maintaining readability and comprehension of the code, ensure that you pass a maximum of 8 props to a component in the render method. For example:
+For sanity purposes as well as maintaining readability and comprehension of the code, ensure that you pass a maximum of 8 props to a component in the render method. For example:
 ```jsx
 render() {
   <Fragment>
@@ -114,7 +112,8 @@ render() {
   </Fragment>
 }
 ```
-- If you find yourself passing more than 8 props, then think of how you can improve your code structure in order not to surpass the limit.
+
+If you find yourself passing more than 8 props, then think of how you can improve your code structure in order not to surpass the limit.
 
 ---
 
@@ -486,39 +485,54 @@ retrieveUsers = (activePage, limit) => {
 ```
 We can move the fetch block to its own function in the container component, and its response assigned to a variable that can be used to set the state.
 
-Assume that `store` has been created using redux's `createStore` as given in this [example](https://redux.js.org/api/store#example). `retrieveUsers` can be abstracted as:
+We can create a helper file and move the following logic to it:
+
 ```jsx
 const constructUrl = (endpointName, pageNumber, pageSize) => {
   const url = `${endpointName}?page=${pageNumber}&page_size=${pageSize}`
-
-  return url;
 }
 
-// import store from "_store/index.js" and use it to dispatch the loading action creator
-const fetchEntityData = async (url, loading) => {
-  store.dispatch(loading(true));
+const fetchInfo = (url, loadingCallback) => {
+  loadingCallback(true);
 
-  const response = await fetchData(url);
-  const { results } = await response.data;
+  return axios.get(url)
+    .then((response) => {
+      loadingCallback(false);
+      return response.data;
+    })
+    .catch((error) => {
+      loadingCallback(false);
+      return handleAxiosErrors(error);
+    });
+};
+```
 
-  store.dispatch(loading(false));
+The beauty of having `constructUrl` and `fetchInfo` as illustrated in the above snippet is that they can be reused in different components, as long as they are used with correct parameters.
 
-  return results;
+The the ajax block in `retrieveUsers` can then be extracted to its own method as:
+
+```jsx
+makeAjaxRequest = async (activePage, limit) => {
+  const url = constructUrl('users', activePage, limit);
+  const response = await fetchInfo(url, this.props.loading);
+
+  const { results = {} } = response;
+  if (isEmpty(results)) {
+    this.setState({ allDataFetched: true });
+    return;
+  }
+
+  this.setState({ users: results });
 }
 
+```
+
+and `retrieveUser` updated to:
+
+```jsx
 retrieveUsers = (activePage, limit) => {
 	if (checkIfCutoffExceeded(activePage, limit)) {
-    const url =  constructUrl('users', activePage, limit);
-
-    const response = fetchEntityData(url, this.props.loading).catch(() => {
-      this.props.loading(false);
-			this.setState({ allDataFetched: true });
-    });
-
-    if (response) {
-      this.setState({ users: response });
-    }
-    return;
+    return this.makeAjaxRequest(activePage, limit);
 	}
 
   return this.props.loadUsers(activePage, limit);
@@ -526,7 +540,116 @@ retrieveUsers = (activePage, limit) => {
 
 ```
 
-TODO: Properly refactor the ajax logic in retrieveUsers and ensure it works
+After refactoring `retrieveUsers` method, any update to the ajax block will not affect it as we now have a method `makeAjaxRequest` that have a responsibility of dealing with anything related to the ajax request.
+
+In summary, after the refactor we will have the following:
+
+**_helpers.js_**
+```jsx
+export const constructUrl = (endpointName, pageNumber, pageSize) => {
+  const url = `${endpointName}?page=${pageNumber}&page_size=${pageSize}`
+}
+
+export const fetchInfo = (url, loadingCallback) => {
+  loadingCallback(true);
+
+  return axios.get(url)
+    .then((response) => {
+      loadingCallback(false);
+      return response.data;
+    })
+    .catch((error) => {
+      loadingCallback(false);
+      return handleAxiosErrors(error);
+    });
+};
+```
+
+**_UserComponent.jsx_**
+```jsx
+export default class UserComponent extends React.Component {
+  ...
+
+  makeAjaxRequest = async (activePage, limit) => {
+    const url = constructUrl('users', activePage, limit);
+    const response = await fetchInfo(url, this.props.loading);
+
+    const { results = {} } = response;
+    if (isEmpty(results)) {
+      this.setState({ allDataFetched: true });
+      return;
+    }
+
+    this.setState({ users: results });
+  }
+
+  rretrieveUsers = (activePage, limit) => {
+    if (checkIfCutoffExceeded(activePage, limit)) {
+      return this.makeAjaxRequest(activePage, limit);
+    }
+
+    return this.props.loadUsers(activePage, limit);
+  };
+
+  ...
+
+  render() {
+    const {
+      activePage,
+      users,
+      hasError,
+      errorMessage,
+      isFiltered,
+      resetMessage,
+      isLoading,
+      usersCount
+    } = this.props;
+    const currentUsers = `page_${activePage}`;
+    const activePageUsers = users[currentUsers] || this.state.users;
+    const hasUsers = !isEmpty(activePageUsers);
+    const showStatus = hasError && errorMessage;
+
+    const message = isFiltered
+        ? 'No data for that filter. Please try another option.'
+        : 'Please try again later, to see if we\'ll have users to show you.';
+
+    return (
+      <NavBarComponent title="Users" placeHolder="Search by name... ">
+        <UserHeader
+          hideHeader={!isFiltered}
+          limit={this.state.limit}
+        />
+
+        {showStatus && (
+          <StatusMessageComponent
+            message={errorMessage}
+            className="error-status"
+            reset={resetMessage}
+          />
+        )}
+
+        {!hasUsers && (
+          <ItemsNotFoundComponent
+            allDataFetched={this.state.allDataFetched}
+            message={message}
+          />
+        )}
+
+        {hasUsers && (
+          <UserTable
+            isEmpty={!hasUsers}
+            isLoading={isLoading}
+            users={activePageUsers}
+            count={usersCount}
+            activePage={activePage}
+            options={rowOptions}
+          />
+        )}
+      </NavBarComponent>
+    );
+  }
+}
+```
 
 Note that the refactor above is not complete and it is done to demonstrate how SOLID principles can be applied. The assumption made is that all the props are passed to the components as needed.
 
