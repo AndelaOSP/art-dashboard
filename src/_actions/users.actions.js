@@ -1,17 +1,13 @@
-import axios from 'axios';
 import { isEmpty } from 'lodash';
 import { fetchData } from '../_utils/helpers';
 import constructUrl from '../_utils/constructUrl';
 import constants from '../_constants';
-import { updateToastMessageContent } from './toastMessage.actions';
 
 const {
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
   LOADING_USERS,
   LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
-  CREATE_SECURITY_USER_SUCCESS,
-  CREATE_SECURITY_USER_FAILURE,
   RESET_USERS,
   SET_USERS_ACTIVE_PAGE,
   RESET_STATUS_MESSAGE
@@ -58,31 +54,16 @@ const loadUsersSuccess = (users, isFiltered = false) => ({
   payload: users,
   isFiltered
 });
+
 const loadUsersFailure = error => ({
   type: LOAD_USERS_FAILURE,
   payload: error
 });
+
 const loadAssetAssigneeSuccess = users => ({
   type: LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
   payload: users
 });
-
-export const addSecurityUser = securityUser => dispatch =>
-  axios.post('/security-users/', securityUser)
-    .then((response) => {
-      dispatch({
-        type: CREATE_SECURITY_USER_SUCCESS,
-        payload: response.data
-      });
-      dispatch(updateToastMessageContent('New Security User Added Successfully', 'success'));
-    })
-    .catch((error) => {
-      dispatch({
-        type: CREATE_SECURITY_USER_FAILURE,
-        payload: error.message
-      });
-      dispatch(updateToastMessageContent('Could not save Security User', 'error'));
-    });
 
 export const resetUsers = (isFiltered = false) => ({
   type: RESET_USERS,
