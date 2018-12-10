@@ -7,8 +7,7 @@ import AssetsTableContent from './AssetsTableContent';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 import PaginationComponent from './common/PaginationComponent';
-import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
-import { constructUrl } from '../_utils/assets';
+import { isCountCutoffExceeded } from '../_utils/helpers';
 
 import '../_css/AssetsComponent.css';
 
@@ -78,13 +77,7 @@ export default class AssetsComponent extends Component {
 
   retrieveAssets = (activePage, limit, status, filters = {}) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
-      const url = constructUrl(activePage, limit, filters, status);
-
-      this.props.loading(true);
-      return fetchData(url).then((response) => {
-        this.props.loading(false);
-        this.setState({ assets: response.data.results });
-      });
+      this.props.getAssetsAction(activePage, limit, filters, status);
     }
 
     return this.loadAssets(activePage, limit, filters, status);
@@ -167,7 +160,6 @@ AssetsComponent.propTypes = {
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   resetAssets: PropTypes.func.isRequired,
-  loading: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
   activePage: PropTypes.number,
