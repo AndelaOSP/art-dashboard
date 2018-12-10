@@ -59,10 +59,7 @@ export default class UserComponent extends React.Component {
 
   makeAjaxRequest = async (activePage, limit) => {
     const url = constructApiUrl('users', activePage, limit);
-    this.props.loading(true);
-    const response = await fetchInfo(url);
-
-    this.props.loading(false);
+    const response = await fetchInfo(url, this.props.loading);
 
     const { results = {} } = response;
     if (isEmpty(results)) {
