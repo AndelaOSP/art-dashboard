@@ -4,6 +4,10 @@
 
 This is the admin dashboard for the ART application
 
+To get started:
+  - Set up according to the [Getting Started](#getting-started) guidelines
+  - Read the [onboarding](docs/onboarding.md) and [best practices](docs/best_practices.md) documents to understand how we work
+
 ## Getting Started
 Clone the repository
 > git clone https://github.com/AndelaOSP/art-dashboard.git
@@ -39,5 +43,3 @@ Execute these...
 
 To generate coverage report while running tests, execute:
 > npm run coverage
-
-Once you have set up, read the [onboarding](docs/onboarding.md) and [best practices](docs/best_practices.md) documents to understand how we work.
