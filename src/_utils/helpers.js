@@ -10,7 +10,6 @@ export const isCountCutoffExceeded = (cutoff = 100) => (pageNumber, limit) => {
 
 export const fetchData = url => axios.get(url);
 
-
 const MAP_QUERY_ARG = {
   status: 'current_status',
   'Model Numbers': 'model_number',

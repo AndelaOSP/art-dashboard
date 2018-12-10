@@ -7,7 +7,8 @@ import NavBarComponent from '../../_components/NavBarContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import UserHeader from './UserHeader';
 import StatusMessageComponent from '../common/StatusComponent';
-import { isCountCutoffExceeded, fetchData, constructApiUrl } from '../../_utils/helpers';
+import { isCountCutoffExceeded, constructApiUrl } from '../../_utils/helpers';
+import fetchInfo from '../../_utils/ajax';
 
 import UsersContent from './UsersContent';
 import Paginator from '../common/PaginationComponent';
@@ -56,16 +57,20 @@ export default class UserComponent extends React.Component {
     return this.props.loadUsers(activePage, limit);
   };
 
-  makeAjaxRequest = (activePage, limit) => {
+  makeAjaxRequest = async (activePage, limit) => {
     const url = constructApiUrl('users', activePage, limit);
     this.props.loading(true);
-    return fetchData(url).then((response) => {
-      this.props.loading(false);
-      this.setState({ users: response.data.results });
-    }).catch(() => {
-      this.props.loading(false);
+    const response = await fetchInfo(url);
+
+    this.props.loading(false);
+
+    const { results = {} } = response;
+    if (isEmpty(results)) {
       this.setState({ allDataFetched: true });
-    });
+      return;
+    }
+
+    this.setState({ users: results });
   }
 
   getTotalPages = () => {
