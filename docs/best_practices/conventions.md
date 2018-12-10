@@ -486,7 +486,47 @@ retrieveUsers = (activePage, limit) => {
 ```
 We can move the fetch block to its own function in the container component, and its response assigned to a variable that can be used to set the state.
 
-TODO: Show example of the refactored function :)
+Assume that `store` has been created using redux's `createStore` as given in this [example](https://redux.js.org/api/store#example). `retrieveUsers` can be abstracted as:
+```jsx
+const constructUrl = (endpointName, pageNumber, pageSize) => {
+  const url = `${endpointName}?page=${pageNumber}&page_size=${pageSize}`
+
+  return url;
+}
+
+// import store from "_store/index.js" and use it to dispatch the loading action creator
+const fetchEntityData = async (url, loading) => {
+  store.dispatch(loading(true));
+
+  const response = await fetchData(url);
+  const { results } = await response.data;
+
+  store.dispatch(loading(false));
+
+  return results;
+}
+
+retrieveUsers = (activePage, limit) => {
+	if (checkIfCutoffExceeded(activePage, limit)) {
+    const url =  constructUrl('users', activePage, limit);
+
+    const response = fetchEntityData(url, this.props.loading).catch(() => {
+      this.props.loading(false);
+			this.setState({ allDataFetched: true });
+    });
+
+    if (response) {
+      this.setState({ users: response });
+    }
+    return;
+	}
+
+  return this.props.loadUsers(activePage, limit);
+};
+
+```
+
+TODO: Properly refactor the ajax logic in retrieveUsers and ensure it works
 
 Note that the refactor above is not complete and it is done to demonstrate how SOLID principles can be applied. The assumption made is that all the props are passed to the components as needed.
 
