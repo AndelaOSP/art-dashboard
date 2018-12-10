@@ -1,12 +1,16 @@
 # Code Organization
 
-We use ReactJS and Redux in the frontend. To expidate the development process, we also use [Semantic UI's components](https://react.semantic-ui.com/).
+We use ReactJS and Redux in the frontend. To expedite the development process, we also use [Semantic UI's components](https://react.semantic-ui.com/).
 
 We organize the codebase into directories as explained in the rest of the document while following the [set conventions](conventions.md).
 
 Note that the entire codebase doesn't follow the organization structure, as the update is done progressively.
 
-We use the most common `rails-style` structure to organize our codebase by object roles. This structure separate folders depending on their nature. Our code structure is:
+We use the most common `rails-style` structure to organize our codebase by object roles. This structure separate folders depending on their nature.
+
+You can have a look at the [React's faq page](https://reactjs.org/docs/faq-structure.html) to see the most common structures that people use.
+
+Our code structure is:
 
 ```bash
 ├── src
@@ -35,7 +39,7 @@ const loadingUsers = isLoading => ({
 
 ## `_components` folder
 `_components` contains the container components, encapsulated within their respective folders. E.g.
-- `assets/addAsset.js`
+- `assets/addAsset.jsx`
 
 The **container components** are concerned with _how things work_.
 
@@ -54,7 +58,7 @@ Therefore, the container file should only have:
   - This is optional.
   - You can also use the shorthand notation instead of defining the function
 
-- Any helper function that is not being reused in another file and it is used to format data to the desired value.
+- Any helper function that is used to format data to the desired value, and is not being reused anywhere else.
 
 An example of a container file is:
 ```js
@@ -89,7 +93,7 @@ export default connect(
 ## `_reducers` folder
 This folder contains all the reducers of the application.
 
-Each reducer correspond to a specific action file. E.g. `users.reducer.js`
+Each reducer corresponds to a specific action file. E.g. `users.reducer.js`
 
 An example of a reducer file is:
 ```js
@@ -110,9 +114,9 @@ export default (state = initialState, action) => {
 ## `components` folder
 This folder contains the presentational components. The components are nested inside their respective folders, corresponding to the entity they are created for. E.g.
 - All user related components should have `Users` as the parent. E.g. `Users/SecurityUser.jsx`
-- All access control componenrts should be have `AccessControl` as the parent. E.g. `AccessControl/Authorization.jsx`
+- All access control componenrts should have `AccessControl` as the parent. E.g. `AccessControl/Authorization.jsx`
 
-Any component shared between different folders inside `components` should be written in the `/common` directory.
+Any component shared between different folders inside `components` should exist in the `/common` directory.
 
 An example folder structure for this can be:
 ```bash
@@ -127,7 +131,7 @@ An example folder structure for this can be:
 
 The **presentational components** are concerned with _how things look_. They usually have the following characteristics:
 - Obtains data and callbacks via props
-- Contains other presentational and container (when needed)components, as well as have DOM markup
+- Contains other presentational and container (when needed) components, as well as have DOM markup
 - Mostly written as functional components, unless they want to use internal state or lifecycle method
   - Note that the internal state used is mostly for managing the UI state, not data. E.g. changing a button from active to disabled
 
@@ -143,10 +147,8 @@ export default ({ header, buttonText }) => {
 };
 ```
 
-Have a look at the [React's faq page](https://reactjs.org/docs/faq-structure.html) to see the most common structures that people use.
-
 ## `styles` folder
-This directory comprises the styles used in the project.
+This directory contains the styles used in the project.
 
 ## `_test_` folder
 This folder contains the tests for all the components, containers, actions and reducers.
