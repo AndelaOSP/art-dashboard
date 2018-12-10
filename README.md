@@ -6,7 +6,7 @@ This is the admin dashboard for the ART application
 
 To get started:
   - Set up according to the [Getting Started](#getting-started) guidelines
-  - Read the [onboarding](docs/onboarding.md) and [best practices](docs/best_practices.md) documents to understand how we work
+  - Read the [onboarding](docs/onboarding.md) and [best practices](docs/best_practices) documents to understand how we work
 
 ## Getting Started
 Clone the repository
