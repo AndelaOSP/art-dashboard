@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Accordion, Icon, Menu, Popup } from 'semantic-ui-react';
+import { Accordion, Button, Icon, Menu, Popup } from 'semantic-ui-react';
 
 import ArtButton from './ButtonComponent';
 
@@ -34,13 +34,13 @@ class FilterButton extends React.Component {
         wide
         className="filter-popup"
         trigger={
-          <div
+          <Button
             className={this.state.toggleOn ? 'filter-button clicked' : 'filter-button'}
-            role="presentation"
+            disabled={this.props.disabled}
           >
             {this.state.toggleOn ? <Icon name="close" /> : <Icon name="bars" />}
             FILTERS
-          </div>
+          </Button>
         }
         on="click"
         open={this.state.toggleOn}
@@ -68,14 +68,16 @@ FilterButton.propTypes = {
   filterAction: PropTypes.func,
   activePage: PropTypes.number,
   limit: PropTypes.number,
-  selected: PropTypes.object
+  selected: PropTypes.object,
+  disabled: PropTypes.bool
 };
 
 FilterButton.defaultProps = {
   filterAction: () => {},
   activePage: 1,
   limit: 10,
-  selected: {}
+  selected: {},
+  disabled: false
 };
 
 export default FilterButton;

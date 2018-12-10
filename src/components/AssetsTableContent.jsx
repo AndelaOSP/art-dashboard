@@ -1,33 +1,45 @@
 import React from 'react';
-import {
-  Header,
-  Table,
-  Pagination,
-  Segment
-} from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import TableRowDetail from './TableRowComponent';
 import LoaderComponent from './LoaderComponent';
 import { ToastMessage } from '../_utils/ToastMessage';
-import rowOptions from '../_utils/pageRowOptions';
-import DropdownComponent from '../components/common/DropdownComponent';
+import NotFound from './common/ItemsNotFoundComponent';
+
+const getAssignee = (data) => {
+  if (!data) {
+    return '-';
+  }
+  return data.email || data.full_name || data.name || '-';
+};
 
 const AssetsTableContent = (props) => {
-  if (props.isLoading) {
+  const { assets, status, errorMessage, hasError, isLoading } = props;
+
+  const hasAssets = !isEmpty(assets);
+
+  if (isLoading) {
     return <LoaderComponent />;
   }
 
-  if (props.hasError && props.errorMessage) {
+  // TODO: move this to appropriate component as it should not be here.
+  // And do we really need "SemanticToastContainer"? (food for thought)
+  if (hasError && errorMessage) {
     setTimeout(() => {
-      ToastMessage.error({ message: props.errorMessage });
+      ToastMessage.error({ message: errorMessage });
     }, 500);
     return <SemanticToastContainer />;
   }
 
-  if (props.emptyAssetsCheck()) {
+  if (!hasAssets) {
+    const assetAdjective = status || '';
+
     return (
-      <Header as="h3" id="empty-assets" content="No Assets Found" />
+      <NotFound
+        message={`Please try again later to see if there will be ${assetAdjective} assets to show you.`}
+      />
     );
   }
 
@@ -36,109 +48,62 @@ const AssetsTableContent = (props) => {
       <Table basic selectable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>
-              Asset Code
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Serial Number
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Model Number
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Asset Make
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Asset Type
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Category
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Sub-category
-            </Table.HeaderCell>
+            <Table.HeaderCell>Asset Code</Table.HeaderCell>
+            <Table.HeaderCell>Serial Number</Table.HeaderCell>
+            <Table.HeaderCell>Model Number</Table.HeaderCell>
+            <Table.HeaderCell>Asset Make</Table.HeaderCell>
+            <Table.HeaderCell>Asset Type</Table.HeaderCell>
+            <Table.HeaderCell>Assigned To</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {
-            props.activePageAssets.map((asset) => {
-              const assetViewUrl = `assets/${asset.uuid}/view`;
+          {props.assets.map((asset) => {
+            const assetViewUrl = `/assets/${asset.uuid}/view`;
 
-              const updatedAsset = {
-                ...asset,
-                asset_code: asset.asset_code || '-',
-                serial_number: asset.serial_number || '-',
-                model_number: asset.model_number || '-'
-              };
+            const updatedAsset = {
+              ...asset,
+              asset_code: asset.asset_code || '-',
+              serial_number: asset.serial_number || '-',
+              model_number: asset.model_number || '-',
+              assignee: getAssignee(asset.assigned_to)
+            };
 
-              return (
-                <TableRowDetail
-                  viewDetailsRoute={assetViewUrl}
-                  key={asset.id}
-                  data={updatedAsset}
-                  headings={[
-                    'asset_code',
-                    'serial_number',
-                    'model_number',
-                    'make_label',
-                    'asset_type',
-                    'asset_category',
-                    'asset_sub_category'
-                  ]}
-                />
-              );
-            })
-          }
+            return (
+              <TableRowDetail
+                viewDetailsRoute={assetViewUrl}
+                key={asset.id}
+                data={updatedAsset}
+                headings={[
+                  'asset_code',
+                  'serial_number',
+                  'model_number',
+                  'make_label',
+                  'asset_type',
+                  'assignee'
+                ]}
+              />
+            );
+          })}
         </Table.Body>
-
-        <Table.Footer>
-          <Table.Row>
-            {!props.emptyAssetsCheck() ? (
-              <Table.HeaderCell colSpan="8" id="pagination-header">
-                <Segment.Group horizontal id="art-pagination-section">
-                  <Segment>
-                    <Pagination
-                      id="art-pagination-component"
-                      totalPages={props.handlePageTotal()}
-                      onPageChange={props.handlePaginationChange}
-                      activePage={props.activePage}
-                    />
-                  </Segment>
-                  <Segment>
-                    <DropdownComponent
-                      customClass="page-limit"
-                      placeHolder="Show Rows"
-                      options={rowOptions}
-                      upward
-                      value={props.limit}
-                      onChange={props.handleRowChange}
-                    />
-                  </Segment>
-                </Segment.Group>
-              </Table.HeaderCell>
-            ) : ''}
-          </Table.Row>
-        </Table.Footer>
       </Table>
-    </div>);
+    </div>
+  );
 };
 
 AssetsTableContent.propTypes = {
-  activePage: PropTypes.number,
-  activePageAssets: PropTypes.arrayOf(PropTypes.object),
-  emptyAssetsCheck: PropTypes.func.isRequired,
+  assets: PropTypes.arrayOf(PropTypes.object),
   errorMessage: PropTypes.string,
-  handlePageTotal: PropTypes.func,
-  handleRowChange: PropTypes.func,
-  handlePaginationChange: PropTypes.func,
   hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
-  limit: PropTypes.number
+  status: PropTypes.string
 };
 
 AssetsTableContent.defaultProps = {
   errorMessage: '',
-  isLoading: false
+  isLoading: false,
+  assets: [],
+  hasError: false
 };
+
 export default AssetsTableContent;

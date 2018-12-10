@@ -8,7 +8,9 @@ const AnalyticsCardComponent = props => (
   <Segment.Group horizontal>
     <Segment style={{ marginTop: '-28px' }}>
       <Segment.Group>
-        <Segment className="analytics-states-top-text">{props.assetNumber} {props.assetState}</Segment>
+        <Segment className="analytics-states-top-text">
+          {props.assetNumber} {props.assetState}
+        </Segment>
         <Segment className="analytics-states-bottom-text">assets</Segment>
       </Segment.Group>
     </Segment>
@@ -23,7 +25,10 @@ const AnalyticsCardComponent = props => (
 );
 
 AnalyticsCardComponent.propTypes = {
-  assetNumber: PropTypes.number,
+  assetNumber: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   assetState: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   cssClass: PropTypes.string

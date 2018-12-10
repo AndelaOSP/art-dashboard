@@ -1,11 +1,11 @@
 import React from 'react';
-import { Container, Dimmer, Grid } from 'semantic-ui-react';
+import { Segment, Dimmer, Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import '../_css/LoaderComponent.css';
 
 const LoaderComponent = ({ loadingText }) => (
-  <Container>
+  <Segment className="loader-segment">
     <Dimmer active inverted className="overlay">
       <Grid centered columns={3}>
         <Grid.Column className="loader-column">
@@ -18,7 +18,7 @@ const LoaderComponent = ({ loadingText }) => (
         </Grid.Column>
       </Grid>
     </Dimmer>
-  </Container>
+  </Segment>
 );
 
 LoaderComponent.propTypes = {

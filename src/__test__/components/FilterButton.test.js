@@ -2,13 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 import Filter from '../../components/common/FilterButton';
-import filters from '../../_mock/filters';
+import { selectedFilters } from '../../_mock/filters';
 
 describe('Renders <FilterButton /> tests', () => {
   const props = {
     activePage: 1,
     limit: 10,
-    selected: filters,
+    selected: selectedFilters,
     handleFilter: jest.fn(),
     filterAction: jest.fn()
   };
@@ -39,12 +39,12 @@ describe('Renders <FilterButton /> tests', () => {
     expect(wrapper.state().toggleOn).toEqual(false);
   });
 
-  it('calls handleFilter to apply the filtered options', () => {
+  it('dispatches filterAction when handleFilter is called', () => {
     const handleFilterSpy = jest.spyOn(
       wrapper.instance(), 'handleFilter'
     );
-
     wrapper.instance().handleFilter();
+
     expect(handleFilterSpy.mock.calls.length).toEqual(1);
   });
 });

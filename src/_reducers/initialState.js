@@ -19,9 +19,10 @@ export default {
   modelNumbers: [],
   assetModels: [],
   assets: {
-    assetsList: [],
+    assetsList: {},
     assetsCount: 0,
     errorMessage: '',
+    success: '',
     hasError: false,
     isLoading: false,
     activePage: 1
@@ -66,13 +67,15 @@ export default {
     isLoading: false
   },
   usersList: {
-    users: [],
+    users: {},
     assetAsigneeUsers: [],
     usersCount: 0,
     errorMessage: '',
+    successMessage: '',
     hasError: false,
     isLoading: false,
-    securityUser: {}
+    securityUser: {},
+    activePage: 1
   },
   user: {
     userDetail: {},
@@ -89,14 +92,31 @@ export default {
     nextUrl: ''
   },
   allocations: {
-    allAllocations: [],
+    allAllocations: {},
     allocationsCount: 0,
     errorMessage: '',
     hasError: false,
-    isLoading: false
+    isLoading: false,
+    activePage: 1
   },
   session: {
     sessionExpired: false
   },
-  checkedFilters: {}
+  checkedFilters: {},
+  navBarVisibility: {
+    isVisible: true
+  },
+  assetStatus: {},
+  officeLocations: {
+    locationCount: 0,
+    locationList: [],
+    isLoading: false,
+    error: ''
+  },
+  filters: {
+    cohorts: [],
+    allocatedAssets: [],
+    isLoading: false,
+    hasError: false
+  }
 };

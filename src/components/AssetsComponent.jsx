@@ -1,160 +1,183 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Header, Divider } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import NavbarComponent from './NavBarComponent';
+import NavBarComponent from '../_components/NavBarContainer';
 import AssetsTableContent from './AssetsTableContent';
-import '../_css/AssetsComponent.css';
-import { getAssetsAction, setActivePage } from '../_actions/assets.action';
-import { loadAllAssetModels } from '../_actions/assetModels.action';
-import { loadDropdownAssetTypes } from '../_actions/assetTypes.actions';
-import filterSelection from '../_actions/checkedFilters.actions';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
+import PaginationComponent from './common/PaginationComponent';
+import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
+import { constructUrl } from '../_utils/assets';
 
-export class AssetsComponent extends Component {
+import '../_css/AssetsComponent.css';
+
+const CUTOFF_LIMIT = 100;
+const checkIfCutoffExceeded = isCountCutoffExceeded(CUTOFF_LIMIT);
+
+export default class AssetsComponent extends Component {
   state = {
-    limit: 10
+    limit: 10,
+    assets: []
   };
 
   componentDidMount() {
-    this.props.loadAllAssetModels();
-    this.props.loadDropdownAssetTypes();
-    const assetsEmpty = isEmpty(this.props.assetsList);
+    const { activePage, match, shouldFetchAssets } = this.props;
+    const { status } = match.params;
 
     // TODO: fix the logic so that assets are fetched when you create an asset before fetching
     // assets, otherwise, you'll only display 1 row in assets table yet there are more than one
     // assets
-    if (assetsEmpty || (!assetsEmpty && this.props.assetsList.length === 1)) {
-      this.props.getAssetsAction(this.props.activePage, this.state.limit);
+    if (shouldFetchAssets) {
+      this.loadAssets(activePage, this.state.limit, null, status);
+    }
+
+    this.props.loadAllAssetModels();
+    this.props.loadDropdownAssetTypes();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { activePage, match, shouldReload } = this.props;
+    const { status } = match.params;
+
+    if (shouldReload !== prevProps.shouldReload && shouldReload) {
+      this.props.resetAssets();
+      this.loadAssets(activePage, this.state.limit, null, status);
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (this.props.hasError &&
-      (this.props.errorMessage === nextProps.errorMessage)) {
-      return false;
-    }
-    return true;
-  }
+  loadAssets = (activePage, limit, filters, status) =>
+    this.props.getAssetsAction(activePage, limit, filters, status);
 
   handleRowChange = (e, data) => {
+    const { activePage, match } = this.props;
+    const { status } = match.params;
+
     this.setState({ limit: data.value });
-    this.props.getAssetsAction(this.props.activePage, data.value);
+    this.props.resetAssets();
+
+    this.loadAssets(activePage, data.value, null, status);
   };
 
   handlePaginationChange = (e, { activePage }) => {
-    this.props.getAssetsAction(activePage, this.state.limit);
+    const { match, selected } = this.props;
+    const { status } = match.params;
+
     this.props.setActivePage(activePage);
+    const currentPageList = this.props.assetsList[`page_${activePage}`];
+
+    if (isEmpty(currentPageList)) {
+      this.retrieveAssets(
+        activePage,
+        this.state.limit,
+        status,
+        selected
+      );
+    }
+  };
+
+  retrieveAssets = (activePage, limit, status, filters = {}) => {
+    if (checkIfCutoffExceeded(activePage, limit)) {
+      const url = constructUrl(activePage, limit, filters, status);
+
+      this.props.loading(true);
+      return fetchData(url).then((response) => {
+        this.props.loading(false);
+        this.setState({ assets: response.data.results });
+      });
+    }
+
+    return this.loadAssets(activePage, limit, filters, status);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
 
-  emptyAssetsCheck = () => (isEmpty(this.props.assetsList));
-
-  createFilterData = () => {
-    const { assetModels, assetTypes } = this.props;
-
-    const allFilters = [];
-    const assetFilters = {
-      title: 'Asset Types',
-      content: []
-    };
-    const modelNumberFilters = {
-      title: 'Model Numbers',
-      content: []
-    };
-
-    if (!isEmpty(assetTypes) && !isEmpty(assetModels)) {
-      assetTypes.map(assetType => (
-        assetFilters.content.push({
-          id: assetType.id,
-          option: assetType.asset_type
-        })
-      ));
-
-      assetModels.map(assetModel => (
-        modelNumberFilters.content.push({
-          id: assetModel.id,
-          option: assetModel.model_number
-        })
-      ));
-
-      allFilters.push(assetFilters);
-      allFilters.push(modelNumberFilters);
-    }
-
-    return allFilters;
-  };
-
   render() {
-    const filters = this.createFilterData();
+    const { assets } = this.state;
+    const { status } = this.props;
+    const totalPages = this.handlePageTotal();
+    const showPaginator = totalPages > 1;
+    const currentAssets = `page_${this.props.activePage}`;
+    const showFilter = !isEmpty(this.props.assetsList[currentAssets] || assets);
+
+    const contentTitle = status ? `${status.toLocaleString()} Assets` : 'Assets';
 
     return (
-      <NavbarComponent title="Assets">
+      <NavBarComponent title="Assets">
         <div className="assets-list">
           <div id="page-heading-section">
-            <Header as="h1" id="page-headings" floated="left" content="Assets List" />
+            <Header as="h1" id="page-headings" floated="left" content={contentTitle} />
             <Divider id="assets-divider" />
-            <FilterButton
-              activePage={this.props.activePage}
-              limit={this.state.limit}
-              selected={this.props.selected}
-              filterAction={this.props.getAssetsAction}
-            >
-              <React.Fragment>
-                <FilterComponent
-                  index={0}
-                  option={filters[0]}
-                  selected={this.props.selected}
-                  filterSelection={this.props.filterSelection}
-                />
+            {showFilter && (
+              <FilterButton
+                activePage={this.props.activePage}
+                limit={this.state.limit}
+                selected={this.props.selected}
+                filterAction={this.props.getAssetsAction}
+                disabled={this.props.isLoading}
+              >
+                <React.Fragment>
+                  <FilterComponent
+                    index={0}
+                    option={this.props.filterData[0]}
+                    selected={this.props.selected}
+                    filterSelection={this.props.filterSelection}
+                  />
 
-                <FilterComponent
-                  index={1}
-                  option={filters[1]}
-                  selected={this.props.selected}
-                  filterSelection={this.props.filterSelection}
-                />
-              </React.Fragment>
-            </FilterButton>
+                  <FilterComponent
+                    index={1}
+                    option={this.props.filterData[1]}
+                    selected={this.props.selected}
+                    filterSelection={this.props.filterSelection}
+                  />
+                </React.Fragment>
+              </FilterButton>
+            )}
           </div>
           <AssetsTableContent
-            {...this.props}
             activePage={this.props.activePage}
-            activePageAssets={this.props.assetsList}
-            emptyAssetsCheck={this.emptyAssetsCheck}
+            assets={this.props.assetsList[currentAssets] || assets}
             errorMessage={this.props.errorMessage}
-            handlePageTotal={this.handlePageTotal}
-            handleRowChange={this.handleRowChange}
-            handlePaginationChange={this.handlePaginationChange}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
-            limit={this.state.limit}
+            status={status}
           />
+          {showPaginator && (
+            <PaginationComponent
+              activePage={this.props.activePage}
+              handleRowChange={this.handleRowChange}
+              handlePaginationChange={this.handlePaginationChange}
+              limit={this.state.limit}
+              totalPages={totalPages}
+              isLoading={this.props.isLoading}
+            />
+          )}
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }
 
 AssetsComponent.propTypes = {
   assetsCount: PropTypes.number.isRequired,
-  assetsList: PropTypes.arrayOf(PropTypes.object),
+  assetsList: PropTypes.objectOf(PropTypes.array),
   errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
+  resetAssets: PropTypes.func.isRequired,
+  loading: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
-  history: PropTypes.object,
   isLoading: PropTypes.bool,
-  assetModels: PropTypes.arrayOf(PropTypes.object),
-  assetTypes: PropTypes.arrayOf(PropTypes.object),
   activePage: PropTypes.number,
   selected: PropTypes.object.isRequired,
-  filterSelection: PropTypes.func.isRequired
+  filterSelection: PropTypes.func.isRequired,
+  filterData: PropTypes.arrayOf(PropTypes.object),
+  match: PropTypes.object,
+  status: PropTypes.string,
+  shouldFetchAssets: PropTypes.bool,
+  shouldReload: PropTypes.bool
 };
 
 AssetsComponent.defaultProps = {
@@ -163,36 +186,3 @@ AssetsComponent.defaultProps = {
   activePage: 1,
   isLoading: false
 };
-
-const mapStateToProps = ({ assets, assetTypesList, assetModelsList, selected }) => {
-  const {
-    assetsList,
-    assetsCount,
-    errorMessage,
-    hasError,
-    isLoading,
-    activePage
-  } = assets;
-  const { assetModels } = assetModelsList;
-  const { assetTypes } = assetTypesList;
-
-  return {
-    assetsList,
-    assetsCount,
-    errorMessage,
-    hasError,
-    isLoading,
-    assetModels,
-    assetTypes,
-    activePage,
-    selected
-  };
-};
-
-export default connect(mapStateToProps, {
-  getAssetsAction,
-  loadAllAssetModels,
-  loadDropdownAssetTypes,
-  setActivePage,
-  filterSelection
-})(AssetsComponent);

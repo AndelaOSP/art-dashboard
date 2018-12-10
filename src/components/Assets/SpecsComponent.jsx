@@ -151,6 +151,7 @@ class SpecsComponent extends React.Component {
                 color="primary"
                 buttonState={this.props.buttonLoading}
                 disabledState={this.props.isDisabled || this.props.buttonLoading}
+                handleClick={this.props.reset}
                 fluidState
               />
             </Grid.Column>
@@ -167,7 +168,8 @@ SpecsComponent.propTypes = {
   onCreateAsset: PropTypes.func.isRequired,
   buttonLoading: PropTypes.bool,
   isDisabled: PropTypes.bool,
-  specs: PropTypes.object
+  specs: PropTypes.object,
+  reset: PropTypes.func
 };
 
 SpecsComponent.defaultTypes = {

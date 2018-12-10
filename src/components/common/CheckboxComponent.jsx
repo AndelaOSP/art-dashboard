@@ -19,7 +19,10 @@ const CheckboxComponent = ({ isChecked = false, label, name, handleCheckboxChang
 );
 
 CheckboxComponent.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired
+  ]),
   name: PropTypes.string.isRequired,
   isChecked: PropTypes.bool,
   handleCheckboxChange: PropTypes.func

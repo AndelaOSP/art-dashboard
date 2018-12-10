@@ -1,89 +1,30 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import expect from 'expect';
-import User from '../../_components/User/UserContainer';
+import { mapStateToProps } from '../../_components/User/UserContainer';
 
-const props = {
-  loadUsers: jest.fn(),
-  hasError: false,
-  isLoading: false,
-  usersCount: 10,
-  errorMessage: '',
-  users: [],
-  handlePaginationChange: jest.fn(),
-  handleRowChange: jest.fn()
-};
+describe('Render <User /> tests', () => {
+  it('calls mapStateToProps', () => {
+    const state = {
+      usersList: {
+        users: [],
+        usersCount: 0,
+        errorMessage: '',
+        hasError: false,
+        isLoading: false,
+        isFiltered: false,
+        activePage: 1
+      }
+    };
 
-describe('Renders <UserContainer /> correctly', () => {
-  const wrapper = shallow(<User.WrappedComponent {...props} />);
+    const expected = {
+      isLoading: false,
+      users: [],
+      usersCount: 0,
+      errorMessage: '',
+      hasError: false,
+      activePage: 1,
+      isFiltered: false
+    };
 
-  it('renders the UserComponent component', () => {
-    expect(wrapper.find('UserComponent').length).toBe(1);
-  });
-
-  it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Users List');
-  });
-
-  it('calls the emptyUsersList function', () => {
-    const emptyUsersListSpy = jest.spyOn(
-      wrapper.instance(), 'emptyUsersList'
-    );
-    const event = {};
-    const data = {};
-
-    wrapper.instance().emptyUsersList(event, data);
-    expect(emptyUsersListSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the shouldComponentUpdate function', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    const event = {};
-    const data = {};
-
-    wrapper.instance().shouldComponentUpdate(event, data);
-    expect(shouldComponentUpdateSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the handlePageTotal function when the next button is clicked', () => {
-    const handlePageTotalSpy = jest.spyOn(
-      wrapper.instance(), 'handlePageTotal'
-    );
-
-    wrapper.instance().handlePageTotal();
-    expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the handlePaginationChange function when the next button is clicked', () => {
-    const handlePaginationChangeSpy = jest.spyOn(
-      wrapper.instance(), 'handlePaginationChange'
-    );
-    const event = {};
-    const data = {};
-
-    wrapper.instance().handlePaginationChange(event, data);
-    expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the handleRowChange function when the row dropdown is changed', () => {
-    const handleRowChangeSpy = jest.spyOn(
-      wrapper.instance(), 'handleRowChange'
-    );
-    const event = {};
-    const data = {};
-
-    wrapper.instance().handleRowChange(event, data);
-    expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('calls the toggleFilter function ', () => {
-    const toggleFilterSpy = jest.spyOn(
-      wrapper.instance(), 'toggleFilter'
-    );
-
-    wrapper.instance().toggleFilter();
-    expect(toggleFilterSpy.mock.calls.length).toEqual(1);
+    expect(mapStateToProps(state)).toEqual(expected);
   });
 });

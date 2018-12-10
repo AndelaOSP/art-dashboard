@@ -2,17 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { AssetsComponent } from '../components/AssetsComponent';
+import AssetsComponent from '../../components/AssetsComponent';
 
-import assets from '../_mock/assets';
-import assetModels from '../_mock/assetModels';
-import assetTypes from '../_mock/assetTypes';
+import assets from '../../_mock/assets';
+import assetModels from '../../_mock/assetModels';
+import assetTypes from '../../_mock/assetTypes';
+import filters from '../../_mock/filters';
 
 describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
     getAssetsAction: jest.fn(),
     handlePaginationChange: jest.fn(),
-    createFilterData: jest.fn(),
+    filterData: filters,
     handleRowChange: jest.fn(),
     setActivePage: jest.fn(),
     loadAllAssetModels: jest.fn(),
@@ -25,34 +26,25 @@ describe('Renders <AssetsComponent /> correctly', () => {
     assetModels,
     assetTypes,
     selected: {},
-    filterSelection: jest.fn()
+    filterSelection: jest.fn(),
+    resetAssets: jest.fn(),
+    assetsList: {},
+    loading: jest.fn(),
+    match: {
+      params: { status: '' }
+    },
+    handlePageTotal: jest.fn()
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
   />);
 
   it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Assets List');
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Assets');
   });
 
   it('renders the AssetsTableContent component', () => {
     expect(wrapper.find('AssetsTableContent').length).toBe(1);
-  });
-
-  it('should not rerender the component if the error message is the same', () => {
-    const shouldComponentUpdateSpy = jest.spyOn(
-      wrapper.instance(), 'shouldComponentUpdate'
-    );
-    wrapper.setProps({ hasError: true });
-    expect(shouldComponentUpdateSpy.mock.calls.length).toBe(1);
-  });
-
-  it('calls the emptyAssetsCheck function to check if the assetsList is empty', () => {
-    const emptyAssetsCheckSpy = jest.spyOn(
-      wrapper.instance(), 'emptyAssetsCheck'
-    );
-    wrapper.instance().emptyAssetsCheck();
-    expect(emptyAssetsCheckSpy.mock.calls.length).toEqual(1);
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {
@@ -73,14 +65,6 @@ describe('Renders <AssetsComponent /> correctly', () => {
     expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
   });
 
-  it('calls the createFilterData function to loop through the asset types and model numbers', () => {
-    const createFilterDataSpy = jest.spyOn(
-      wrapper.instance(), 'createFilterData'
-    );
-    wrapper.instance().createFilterData();
-    expect(createFilterDataSpy.mock.calls.length).toEqual(1);
-  });
-
   it('calls handleRowChange when a  number of rows are selected', () => {
     const handleRowChangeSpy = jest.spyOn(
       wrapper.instance(), 'handleRowChange'
@@ -92,10 +76,22 @@ describe('Renders <AssetsComponent /> correctly', () => {
   });
 
   it('renders FilterButton', () => {
+    wrapper.setState({
+      assets
+    });
     expect(wrapper.find('FilterButton').length).toBe(1);
   });
 
   it('renders FilterComponent', () => {
     expect(wrapper.find('FilterButton').dive().find('FilterComponent').exists()).toBe(true);
+  });
+
+  it('calls retrieveAssets function', () => {
+    const retrieveAssetsSpy = jest.spyOn(
+      wrapper.instance(), 'retrieveAssets'
+    );
+
+    wrapper.instance().retrieveAssets(1, 10, '');
+    expect(retrieveAssetsSpy.mock.calls.length).toEqual(1);
   });
 });

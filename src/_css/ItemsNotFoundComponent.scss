@@ -1,4 +1,5 @@
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
 
 .not-found {
   display: flex;
@@ -20,5 +21,18 @@
       font-family: $base-font, $fallback-font, cursive;
       color: #83878d;
     }
+  }
+}
+
+.reload-page {
+  padding: 0 110px;
+  text-align: left;
+  background-color: $andela-blue !important;
+  color: #fff !important;
+}
+
+@include small {
+  .reload-page {
+    padding: 10 30px;
   }
 }

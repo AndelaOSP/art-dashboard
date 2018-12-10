@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import { Header, Divider } from 'semantic-ui-react';
-import NavbarComponent from '../../components/NavBarComponent';
+import NavBarComponent from '../NavBarContainer';
 import UserDetailComponent from '../../components/User/UserDetailComponent';
 import { loadUserDetail as getUserDetail } from '../../_actions/user.actions';
 
@@ -18,7 +18,7 @@ class UserDetailContainer extends Component {
 
   render() {
     return (
-      <NavbarComponent title="Users">
+      <NavBarComponent title="Users">
         <div className="users-list">
           <div id="page-heading-section">
             <Header
@@ -36,7 +36,7 @@ class UserDetailContainer extends Component {
             isLoading={this.props.isLoading}
           />
         </div>
-      </NavbarComponent>
+      </NavBarComponent>
     );
   }
 }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import {
   Button,
   Dropdown,
-  Grid,
   Input,
   Menu,
   Icon,
@@ -16,10 +15,6 @@ import PropTypes from 'prop-types';
 import '../_css/NavBarComponent.css';
 
 export class NavBarComponent extends Component {
-  state = {
-    visible: true
-  };
-
   navigationLinks = [
     {
       url: '/dashboard',
@@ -58,31 +53,29 @@ export class NavBarComponent extends Component {
     this.props.history.push('/');
   };
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible });
-
   navButton = () => {
-    const { visible } = this.state;
+    const { isVisible } = this.props;
 
-    if (visible) {
+    if (isVisible) {
       return <Icon id="hamburger" name="angle double up" />;
     }
     return <Icon id="hamburger" name="bars" />;
   };
 
   render() {
-    const { visible } = this.state;
+    const { isVisible, placeHolder } = this.props;
     const token = jwt.decode(localStorage.getItem('art-prod-web-token'));
     const { picture } = token || {};
 
-    const topBarClass = visible ? 'top-bar-height-open' : 'top-bar-height-closed';
+    const topBarClass = isVisible ? 'top-bar-height-open' : 'top-bar-height-closed';
 
-    const pageContentClass = visible ? 'page-content-margin-open' : 'page-content-margin-closed';
+    const pageContentClass = isVisible ? 'page-content-margin-open' : 'page-content-margin-closed';
 
     return (
       <React.Fragment>
         <div className={`top-bar ${topBarClass}`}>
           <Menu id="nav-bar" secondary stackable>
-            <Menu.Item id="toggle-menu" name="menu" onClick={this.toggleVisibility}>
+            <Menu.Item id="toggle-menu" name="menu" onClick={this.props.toggleVisibilityAction}>
               {this.navButton()}
             </Menu.Item>
 
@@ -94,7 +87,7 @@ export class NavBarComponent extends Component {
 
             <Menu.Menu id="search-menu">
               <Menu.Item>
-                <Input id="nav-search" className="icon" icon="search" placeholder="Search..." />
+                <Input id="nav-search" className="icon" icon="search" placeholder={placeHolder} />
               </Menu.Item>
             </Menu.Menu>
 
@@ -137,27 +130,25 @@ export class NavBarComponent extends Component {
 
           <Transition.Group animation="fade down" duration="700">
             {
-              visible &&
-              <Grid className="collapsible-menu" textAlign="center">
-                <Grid columns={6} className="navigation-bar">
-                  {
-                    this.navigationLinks.map(nav => (
-                      <Grid.Column key={nav.url} mobile={8} tablet={3} computer={2}>
-                        <Link to={nav.url}>
-                          <span>
-                            <Image
-                              className="nav-images"
-                              src={nav.imgSrc}
-                            />
-                          </span>
+              isVisible &&
+              <div className="collapsible-menu">
+                {
+                  this.navigationLinks.map(nav => (
+                    <NavLink key={nav.url} to={nav.url}>
+                      <span>
+                        <Image
+                          className="nav-images"
+                          src={nav.imgSrc}
+                        />
+                      </span>
 
-                          {nav.title}
-                        </Link>
-                      </Grid.Column>
-                    ))
-                  }
-                </Grid>
-              </Grid>
+                      <span className="nav-text">
+                        {nav.title}
+                      </span>
+                    </NavLink>
+                  ))
+                }
+              </div>
             }
           </Transition.Group>
         </div>
@@ -173,12 +164,14 @@ export class NavBarComponent extends Component {
 NavBarComponent.propTypes = {
   children: PropTypes.node,
   history: PropTypes.object.isRequired,
-  push: PropTypes.func
+  push: PropTypes.func,
+  toggleVisibilityAction: PropTypes.func,
+  isVisible: PropTypes.bool,
+  placeHolder: PropTypes.string
 };
 
 NavBarComponent.defaultProps = {
-  push: () => {
-  }
+  placeHolder: 'Search...'
 };
 
-export default withRouter(NavBarComponent);
+export default NavBarComponent;

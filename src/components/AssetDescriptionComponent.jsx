@@ -11,6 +11,8 @@ import ModalComponent from './common/ModalComponent';
 import ButtonComponent from '../components/common/ButtonComponent';
 import ConfirmAction from './common/ConfirmAction';
 import AssignedTo from './AssignAssetComponent';
+import { ASSET_AVAILABLE, ASSET_ALLOCATED } from '../_constants';
+
 import '../_css/AssetDescriptionComponent.css';
 
 class AssetDescriptionComponent extends React.Component {
@@ -70,9 +72,12 @@ class AssetDescriptionComponent extends React.Component {
   };
 
   handleConfirm = () => {
-    if (isEmpty(values(this.props.assignedUser))) {
+    const { assignedUser } = this.props;
+
+    if (isEmpty(values(assignedUser))) {
       return this.handleAssign();
     }
+
     return this.handleUnassign();
   };
 
@@ -96,14 +101,19 @@ class AssetDescriptionComponent extends React.Component {
 
   render() {
     const {
-      users,
+      assetAsigneeUsers,
       assignedUser,
+      assetDetail,
+      errorMessage,
       toggleModal,
-      buttonState,
-      buttonLoading,
-      assetDetail
+      buttonLoading
     } = this.props;
+
     const triggerProps = this.triggerProps();
+
+    const showAssignDropdown =
+      assetDetail.current_status === ASSET_AVAILABLE ||
+      assetDetail.current_status === ASSET_ALLOCATED;
 
     return (
       <Container>
@@ -118,20 +128,25 @@ class AssetDescriptionComponent extends React.Component {
             <AssignedTo
               onSelectUserEmail={this.onSelectUserEmail}
               assignedUser={assignedUser}
-              users={users}
+              users={assetAsigneeUsers}
               selectedUserId={this.state.selectedUser}
+              errorMessage={errorMessage}
+              assetStatus={assetDetail.current_status}
             />
-            <ModalComponent
-              trigger={<ButtonComponent {...triggerProps} />}
-              modalTitle="Confirm Action"
-            >
-              <ConfirmAction
-                toggleModal={toggleModal}
-                handleConfirm={this.handleConfirm}
-                buttonState={buttonState}
-                buttonLoading={buttonLoading}
-              />
-            </ModalComponent>
+
+            {showAssignDropdown && (
+              <ModalComponent
+                trigger={<ButtonComponent {...triggerProps} />}
+                modalTitle="Confirm Action"
+              >
+                <ConfirmAction
+                  toggleModal={toggleModal}
+                  handleConfirm={this.handleConfirm}
+                  buttonState={buttonLoading}
+                  buttonLoading={buttonLoading}
+                />
+              </ModalComponent>
+            )}
           </Grid.Column>
         </Grid>
       </Container>
@@ -143,6 +158,7 @@ AssetDescriptionComponent.propTypes = {
   onSelectUserEmail: PropTypes.func,
   assignedUser: PropTypes.object,
   users: PropTypes.array,
+  assetAsigneeUsers: PropTypes.array,
   selectedUserId: PropTypes.number,
   assignAssetButtonState: PropTypes.bool,
   toggleModal: PropTypes.func,
@@ -152,19 +168,21 @@ AssetDescriptionComponent.propTypes = {
   unAssignedAsset: PropTypes.object,
   assetDetail: PropTypes.object,
   allocateAsset: PropTypes.func,
-  serialNumber: PropTypes.string,
   unassignAsset: PropTypes.func,
-  specs: PropTypes.object
+  specs: PropTypes.object,
+  errorMessage: PropTypes.string
 };
 
 AssetDescriptionComponent.defaultProps = {
   users: [],
+  assetAsigneeUsers: [],
   selectedUserId: 0,
   assignAssetButtonState: false,
   handleConfirm: () => {},
   buttonState: false,
   buttonLoading: false,
-  specs: {}
+  specs: {},
+  errorMessage: ''
 };
 
 export default connect(null, {

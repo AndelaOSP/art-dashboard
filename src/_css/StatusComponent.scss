@@ -1,0 +1,17 @@
+@import "sharedStyling.scss";
+
+.ui.message.success-status {
+  color: #4f8a10;
+  background-color: #dff2bf;
+  text-align: center;
+}
+
+.ui.message.error-status {
+  color: #d8000c;
+  background-color: #ffbaba;
+  text-align: center;
+}
+
+.hide-status {
+  display: none;
+}

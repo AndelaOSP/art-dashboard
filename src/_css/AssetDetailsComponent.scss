@@ -1,0 +1,117 @@
+@import "sharedStyling.scss";
+
+.ui.segment.asset-detail__segment,
+.ui.segment.asset-tab-pane {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.ui.basic.table.asset-detail__table,
+.ui.basic.table.asset-detail__table tbody td,
+.ui.basic.table.asset-detail__table td:first-child,
+.ui.basic.table.asset-detail__table td:last-child {
+  border: 0;
+  border-radius: 0;
+  cursor: initial;
+  padding: 0;
+}
+
+.ui.basic.table.asset-detail__table tbody tr {
+  i.icon.asset-detail__table__icon {
+    color: $andela-blue;
+    cursor: pointer;
+    float: right;
+    vertical-align: center;
+  }
+
+  i.icon.asset-detail__table__icon:hover {
+    color: $andela-orange;
+  }
+
+  td.details-headings {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    width: 50%;
+  }
+
+  td {
+    .form {
+      .ui.search.dropdown.asset-detail__table__dropdown {
+        margin: 0;
+        padding: 0;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        width: 80%;
+        float: left;
+        min-height: 25px;
+        border-radius: 0;
+
+        input.search {
+          font-family: $base-font, $fallback-font, Lato, Helvetica, Arial, sans-serif;
+          margin: 0;
+          padding: 2px 0;
+          height: 0;
+          min-height: 25px;
+        }
+      }
+    }
+
+    .loading.form {
+      min-height: 25px;
+    }
+
+    .loading.form:after {
+      width: 2em;
+      height: 2em;
+    }
+  }
+}
+
+.ui.dropdown.form-dropdown.asset-detail__table__dropdown > .dropdown.icon {
+  padding: 0 5px;
+}
+
+.ui.active.dropdown.form-dropdown.asset-detail__table__dropdown > .visible.menu.transition,
+.ui.active.dropdown.form-dropdown.asset-detail__table__dropdown > .visible.menu.transition:hover {
+  border: 0;
+  border-radius: 0;
+}
+
+.asset-details {
+  padding: 2rem;
+  text-align: left;
+}
+
+.asset-detail-header {
+  text-align: left;
+  margin-bottom: 1rem !important;
+}
+
+.asset-tab {
+  margin-top: 2rem;
+}
+
+.asset-tab .allocation-history {
+  overflow-y: auto;
+}
+
+.current-condition {
+  padding-top: 4rem !important;
+}
+
+#assign-user {
+  margin-left: 0;
+}
+
+@media screen and (max-width: 420px) {
+  .asset-tab .item {
+    width: 30% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .asset-tab .menu {
+    display: flex;
+    justify-content: space-between;
+  }
+}

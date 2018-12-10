@@ -11,11 +11,13 @@ import {
   getAssetDetail,
   allocateAsset,
   reloadAssetDetail,
-  unassignAsset
+  unassignAsset,
+  resetMessage,
+  updateAsset
 } from '../../_actions/asset.actions';
 
 // mock data
-import asset from '../../_mock/asset';
+import { asset } from '../../_mock/asset';
 import assetMocks from '../../_mock/newAllocation';
 
 // constants
@@ -25,6 +27,9 @@ const {
   CREATE_ASSET_REQUEST,
   CREATE_ASSET_SUCCESS,
   CREATE_ASSET_FAIL,
+  UPDATE_ASSET_REQUEST,
+  UPDATE_ASSET_SUCCESS,
+  UPDATE_ASSET_FAIL,
   LOADING_ASSET,
   LOAD_ASSET_FAILURE,
   LOAD_ASSET_SUCCESS,
@@ -32,7 +37,8 @@ const {
   NEW_ALLOCATION_FAILURE,
   BUTTON_LOADING,
   UNASSIGN_FAILURE,
-  UNASSIGN_SUCCESS
+  UNASSIGN_SUCCESS,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 // store
@@ -42,7 +48,10 @@ let store;
 
 describe('Asset Action tests', () => {
   const mock = new MockAdapter(axios);
+  const { uuid } = asset;
   const url = 'manage-assets';
+  const url2 = `manage-assets/${uuid}`;
+
   store = mockStore({});
 
   const assetToBeCreated = {
@@ -51,10 +60,16 @@ describe('Asset Action tests', () => {
     model_number: 6
   };
 
+  const assetUpdateData = {
+    asset_code: 'AMTESTING35',
+    model_number: 'LOGITECH',
+    serial_number: 'AMTEST35',
+    asset_location: 'Dojo'
+  };
+
   let expectedActions = [
     {
-      type: CREATE_ASSET_REQUEST,
-      payload: asset
+      type: CREATE_ASSET_REQUEST
     },
     {
       type: CREATE_ASSET_SUCCESS,
@@ -89,6 +104,13 @@ describe('Asset Action tests', () => {
     return store.dispatch(createAsset(assetToBeCreated)).then(() => {
       expect(store.getActions()).toContainEqual(expectedActions[2]);
     });
+  });
+
+  it('should dispatch RESET_STATUS_MESSAGE', () => {
+    store.dispatch(resetMessage());
+
+    expect(store.getActions())
+      .toContainEqual({ type: RESET_STATUS_MESSAGE });
   });
 
   it('should dispatch LOAD_ASSET_SUCCESS when getAssetDetails is called successfully', () => {
@@ -139,7 +161,10 @@ describe('Asset Action tests', () => {
         expect(store.getActions()[1].type).toEqual(NEW_ALLOCATION_SUCCESS);
         mock.onGet().reply(200, loadedAsset);
         return store.dispatch(reloadAssetDetail()).then(() => {
-          expect(store.getActions()[2].type).toEqual(LOAD_ASSET_SUCCESS);
+          expect(store.getActions()).toContainEqual({
+            type: LOAD_ASSET_SUCCESS,
+            payload: loadedAsset
+          });
         });
       });
   });
@@ -174,6 +199,35 @@ describe('Asset Action tests', () => {
     mock.onPost().reply(400);
     return store.dispatch(unassignAsset()).then(() => {
       expect(store.getActions()[1].type).toEqual(UNASSIGN_FAILURE);
+    });
+  });
+
+  it('should dispatch UPDATE_ASSET_REQUEST when updateAsset is called', () => {
+    mock.onPut(url2, assetUpdateData).reply(201, asset);
+    return store.dispatch(updateAsset(uuid, assetUpdateData)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: UPDATE_ASSET_REQUEST
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_ASSET_SUCCESS when updateAsset is called successfully', () => {
+    mock.onPut(url2, assetUpdateData).reply(201, asset);
+    return store.dispatch(updateAsset(uuid, assetUpdateData)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: asset,
+        type: UPDATE_ASSET_SUCCESS
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_ASSET_FAIL when updateAsset is unsuccessful', () => {
+    mock.onPut(url2, assetUpdateData).reply(400);
+    return store.dispatch(updateAsset(uuid, assetUpdateData)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: new Error('Request failed with status code 400'),
+        type: UPDATE_ASSET_FAIL
+      });
     });
   });
 });
