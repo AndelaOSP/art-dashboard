@@ -12,7 +12,7 @@ import { constructUrl } from '../_utils/assets';
 
 import '../_css/AssetsComponent.css';
 
-const CUTOFF_LIMIT = 50;
+const CUTOFF_LIMIT = 100;
 const checkIfCutoffExceeded = isCountCutoffExceeded(CUTOFF_LIMIT);
 
 export default class AssetsComponent extends Component {
@@ -60,20 +60,25 @@ export default class AssetsComponent extends Component {
   };
 
   handlePaginationChange = (e, { activePage }) => {
-    const { match } = this.props;
+    const { match, selected } = this.props;
     const { status } = match.params;
 
     this.props.setActivePage(activePage);
     const currentPageList = this.props.assetsList[`page_${activePage}`];
 
     if (isEmpty(currentPageList)) {
-      this.retrieveAssets(activePage, this.state.limit, status);
+      this.retrieveAssets(
+        activePage,
+        this.state.limit,
+        status,
+        selected
+      );
     }
   };
 
-  retrieveAssets = (activePage, limit, status) => {
+  retrieveAssets = (activePage, limit, status, filters = {}) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
-      const url = constructUrl(activePage, limit, null, status);
+      const url = constructUrl(activePage, limit, filters, status);
 
       this.props.loading(true);
       return fetchData(url).then((response) => {
@@ -82,7 +87,7 @@ export default class AssetsComponent extends Component {
       });
     }
 
-    return this.loadAssets(activePage, limit, null, status);
+    return this.loadAssets(activePage, limit, filters, status);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
