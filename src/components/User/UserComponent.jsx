@@ -7,7 +7,7 @@ import NavBarComponent from '../../_components/NavBarContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import UserHeader from './UserHeader';
 import StatusMessageComponent from '../common/StatusComponent';
-import { isCountCutoffExceeded, fetchData } from '../../_utils/helpers';
+import { isCountCutoffExceeded, fetchData, constructApiUrl } from '../../_utils/helpers';
 
 import UsersContent from './UsersContent';
 import Paginator from '../common/PaginationComponent';
@@ -49,6 +49,25 @@ export default class UserComponent extends React.Component {
     }
   };
 
+  retrieveUsers = (activePage, limit) => {
+    if (checkIfCutoffExceeded(activePage, limit)) {
+      return this.makeAjaxRequest(activePage, limit);
+    }
+    return this.props.loadUsers(activePage, limit);
+  };
+
+  makeAjaxRequest = (activePage, limit) => {
+    const url = constructApiUrl('users', activePage, limit);
+    this.props.loading(true);
+    return fetchData(url).then((response) => {
+      this.props.loading(false);
+      this.setState({ users: response.data.results });
+    }).catch(() => {
+      this.props.loading(false);
+      this.setState({ allDataFetched: true });
+    });
+  }
+
   getTotalPages = () => {
     const { usersCount } = this.props;
 
@@ -57,21 +76,6 @@ export default class UserComponent extends React.Component {
     }
 
     return Math.ceil(usersCount / this.state.limit);
-  };
-
-  retrieveUsers = (activePage, limit) => {
-    if (checkIfCutoffExceeded(activePage, limit)) {
-      const url = `users?page=${activePage}&page_size=${limit}`;
-      this.props.loading(true);
-      return fetchData(url).then((response) => {
-        this.props.loading(false);
-        this.setState({ users: response.data.results });
-      }).catch(() => {
-        this.props.loading(false);
-        this.setState({ allDataFetched: true });
-      });
-    }
-    return this.props.loadUsers(activePage, limit);
   };
 
   render() {
