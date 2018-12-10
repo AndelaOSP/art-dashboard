@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
-import AddSecurityUserComponent from '../../components/User/AddSecurityUserComponent';
+import AddSecurityUserComponent from '../../components/SecurityUser/AddSecurityUserComponent';
 
 const props = {
   handleSubmit: jest.fn(),

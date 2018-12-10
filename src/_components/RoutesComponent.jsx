@@ -23,6 +23,8 @@ import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
+import SecurityUsers from './SecurityUser/SecurityUserContainer';
+import AddSecurityUsers from './SecurityUser/AddSecurityUserContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => {
@@ -139,6 +141,18 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/assets/create"
             component={AddAsset}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/security-users"
+            component={SecurityUsers}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/security-users/create"
+            component={AddSecurityUsers}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />
