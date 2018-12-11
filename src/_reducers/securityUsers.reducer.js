@@ -23,7 +23,10 @@ export default (state = initialState.securityUsers, action) => {
     case CREATE_SECURITY_USER_SUCCESS:
       return {
         ...state,
-        usersList: { [`page_${state.activePage}`]: [action.payload] },
+        usersList: {
+          [`page_${state.activePage}`]:
+            [action.payload, ...state.usersList[`page_${state.activePage}`]]
+        },
         usersCount: state.usersCount + 1,
         successMessage: 'Security user added successfully',
         isLoading: false

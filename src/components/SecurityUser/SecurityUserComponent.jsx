@@ -107,11 +107,11 @@ export default class SecurityUserComponent extends React.Component {
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Security Users" />
             <Divider id="assets-divider" />
-            <Link to="/security-users/create">
-              <Button className="filter-button">
+            <Button className="filter-button">
+              <Link to="/security-users/create">
                 ADD SECURITY USER
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
 
