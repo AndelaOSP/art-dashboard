@@ -132,6 +132,7 @@ export const resetAssets = () => ({
 export const resetUploadAssets = () => ({
   type: RESET_UPLOAD_ASSETS
 });
+
 const resetUploadStatus = () => ({
   type: RESET_STATUS_MESSAGE
 });
