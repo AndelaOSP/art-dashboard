@@ -11,21 +11,20 @@ const StatusMessage = props => <div className={`${props.className} `}>{props.mes
 
 const uploadStatus = (success, error) => {
   if (success.hasOwnProperty('fail') || error) {
-    const errorIcon = (
+    return (
       <div>
         <Icon name="x icon" size="big" />
         {success.fail || error}
       </div>
     );
-    return errorIcon;
   }
-  const successIcon = (
+
+  return (
     <div>
       <Icon name="check" size="big" />
       {success.success}
     </div>
   );
-  return successIcon;
 };
 
 const errorMessageHelper = (error, success) => {
@@ -37,7 +36,6 @@ const errorMessageHelper = (error, success) => {
       </span>
     );
   }
-
   if (error) {
     return (
       <span className="error-guide">
@@ -123,9 +121,7 @@ UploadAssets.propTypes = {
   handleDrop: PropTypes.func,
   handleCancel: PropTypes.func,
   handleFileDownload: PropTypes.func,
-  resetUpload: PropTypes.func,
-  className: PropTypes.string,
-  message: PropTypes.string
+  resetUpload: PropTypes.func
 };
 
 export default UploadAssets;

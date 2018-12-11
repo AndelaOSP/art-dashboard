@@ -22,14 +22,8 @@ class UploadAssets extends React.Component {
 
   handleDrop = (files) => {
     this.resetUpload();
-    this.setState(
-      {
-        files
-      },
-      () => {
-        this.props.uploadAssets(files);
-      }
-    );
+    this.setState({ files });
+    this.props.uploadAssets(files);
   };
 
   handleCancel = () => {

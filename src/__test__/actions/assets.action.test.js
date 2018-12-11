@@ -4,7 +4,12 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { getAssetsAction, setActivePage, uploadAssets, downloadFile } from '../../_actions/assets.action';
+import {
+  getAssetsAction,
+  setActivePage,
+  uploadAssets,
+  downloadFile
+} from '../../_actions/assets.action';
 import assets from '../../_mock/assets';
 
 // store
