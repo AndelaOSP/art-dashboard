@@ -3,7 +3,7 @@ import { loadAllFilterValues } from '../../_actions/allFilterValues.actions';
 import { loadUsers, setActivePage, resetUsers, loading, resetMessage } from '../../_actions/users.actions';
 import User from '../../components/User/UserComponent';
 
-export const mapStateToProps = ({ usersList }) => {
+export const mapStateToProps = ({ usersList, selected }) => {
   const {
     activePage,
     users,
@@ -20,7 +20,8 @@ export const mapStateToProps = ({ usersList }) => {
     hasError,
     isLoading,
     activePage,
-    isFiltered
+    isFiltered,
+    selected
   };
 };
 
