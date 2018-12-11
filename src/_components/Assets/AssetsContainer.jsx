@@ -47,7 +47,7 @@ export const mapStateToProps = (state, ownProps) => {
 
   const assetAdjective = params.status || '';
   const shouldReload = assetAdjective !== assets.status;
-  const assetsEmpty = isEmpty(assets.assetsList);
+  // const assetsEmpty = isEmpty(assets.assetsList);
 
   return {
     assetsList,
@@ -59,7 +59,7 @@ export const mapStateToProps = (state, ownProps) => {
     activePage,
     selected,
     status,
-    shouldFetchAssets: shouldReload || assetsEmpty,
+    // shouldFetchAssets: shouldReload || assetsEmpty,
     shouldReload
   };
 };

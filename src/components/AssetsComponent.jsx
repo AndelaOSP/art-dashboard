@@ -7,7 +7,8 @@ import AssetsTableContent from './AssetsTableContent';
 import FilterButton from './common/FilterButton';
 import FilterComponent from './common/FilterComponent';
 import PaginationComponent from './common/PaginationComponent';
-import { isCountCutoffExceeded } from '../_utils/helpers';
+import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
+import { constructUrl } from '../_utils/assets';
 
 import '../_css/AssetsComponent.css';
 
@@ -21,14 +22,16 @@ export default class AssetsComponent extends Component {
   };
 
   componentDidMount() {
-    const { activePage, match, shouldFetchAssets } = this.props;
+    const { activePage, match, selected } = this.props;
     const { status } = match.params;
+
+    const shouldFetchAssets = this.checkIfShouldFetchAssets();
 
     // TODO: fix the logic so that assets are fetched when you create an asset before fetching
     // assets, otherwise, you'll only display 1 row in assets table yet there are more than one
     // assets
     if (shouldFetchAssets) {
-      this.loadAssets(activePage, this.state.limit, null, status);
+      this.retrieveAssets(activePage, this.state.limit, selected, status);
     }
 
     this.props.loadAllAssetModels();
@@ -36,26 +39,31 @@ export default class AssetsComponent extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { activePage, match, shouldReload } = this.props;
+    const { activePage, match, shouldReload, selected } = this.props;
     const { status } = match.params;
 
     if (shouldReload !== prevProps.shouldReload && shouldReload) {
       this.props.resetAssets();
-      this.loadAssets(activePage, this.state.limit, null, status);
+      this.retrieveAssets(activePage, this.state.limit, status, selected);
     }
   }
 
-  loadAssets = (activePage, limit, filters, status) =>
-    this.props.getAssetsAction(activePage, limit, filters, status);
+  checkIfShouldFetchAssets = () => {
+    const { activePage, shouldReload, assetsList } = this.props;
+    const pageKey = `page_${activePage}`;
+    const activePageAssets = assetsList[pageKey] || this.state.assets;
+
+    return shouldReload || isEmpty(activePageAssets);
+  };
 
   handleRowChange = (e, data) => {
-    const { activePage, match } = this.props;
+    const { activePage, match, selected } = this.props;
     const { status } = match.params;
 
     this.setState({ limit: data.value });
     this.props.resetAssets();
 
-    this.loadAssets(activePage, data.value, null, status);
+    this.retrieveAssets(activePage, data.value, status, selected);
   };
 
   handlePaginationChange = (e, { activePage }) => {
@@ -77,10 +85,16 @@ export default class AssetsComponent extends Component {
 
   retrieveAssets = (activePage, limit, status, filters = {}) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
-      this.props.getAssetsAction(activePage, limit, filters, status);
+      const url = constructUrl(activePage, limit, filters, status);
+
+      this.props.loading(true);
+      return fetchData(url).then((response) => {
+        this.props.loading(false);
+        this.setState({ assets: response.data.results });
+      });
     }
 
-    return this.loadAssets(activePage, limit, filters, status);
+    return this.props.getAssetsAction(activePage, limit, filters, status);
   };
 
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
@@ -88,6 +102,7 @@ export default class AssetsComponent extends Component {
   render() {
     const { assets } = this.state;
     const { status } = this.props;
+    console.log(status, 'status');
     const totalPages = this.handlePageTotal();
     const showPaginator = totalPages > 1;
     const currentAssets = `page_${this.props.activePage}`;
@@ -160,6 +175,7 @@ AssetsComponent.propTypes = {
   loadAllAssetModels: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   resetAssets: PropTypes.func.isRequired,
+  loading: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
   activePage: PropTypes.number,
@@ -168,7 +184,6 @@ AssetsComponent.propTypes = {
   filterData: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.object,
   status: PropTypes.string,
-  shouldFetchAssets: PropTypes.bool,
   shouldReload: PropTypes.bool
 };
 
