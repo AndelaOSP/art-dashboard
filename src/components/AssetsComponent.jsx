@@ -31,7 +31,7 @@ export default class AssetsComponent extends Component {
     // assets, otherwise, you'll only display 1 row in assets table yet there are more than one
     // assets
     if (shouldFetchAssets) {
-      this.retrieveAssets(activePage, this.state.limit, selected, status);
+      this.retrieveAssets(activePage, this.state.limit, status, selected);
     }
 
     this.props.loadAllAssetModels();
@@ -102,7 +102,6 @@ export default class AssetsComponent extends Component {
   render() {
     const { assets } = this.state;
     const { status } = this.props;
-    console.log(status, 'status');
     const totalPages = this.handlePageTotal();
     const showPaginator = totalPages > 1;
     const currentAssets = `page_${this.props.activePage}`;
