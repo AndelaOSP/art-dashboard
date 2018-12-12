@@ -1,18 +1,17 @@
-/* eslint-disable react/no-unused-prop-types */
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Tab } from 'semantic-ui-react';
 import AssetsTableContent from '../AssetsTableContent';
 import AssetsFilterContainer from '../../_components/Assets/AssetsFilterContainer';
 import PaginationComponent from '../common/PaginationComponent';
 import UploadAssetsContainer from '../../_components/Assets/UploadAssetsContainer';
+import TabsComponent from '../../components/common/TabsComponent';
 
-const AssetsTabComponent = (props) => {
-  const panes = [
+const AssetsTabComponent = props => (
+  <TabsComponent panes={[
     {
-      menuItem: 'All Assets',
-      render: () => (
-        <Tab.Pane>
+      header: 'All Assets',
+      component: (
+        <Fragment>
           <AssetsFilterContainer />
 
           <AssetsTableContent
@@ -32,22 +31,16 @@ const AssetsTabComponent = (props) => {
               isLoading={props.isLoading}
             />
           )}
-        </Tab.Pane>
+        </Fragment>
       )
     },
     {
-      menuItem: 'Import Assets',
-      render: () => (
-        <Tab.Pane>
-          <UploadAssetsContainer />
-        </Tab.Pane>
-      )
+      header: 'Import Assets',
+      component: <UploadAssetsContainer />
     }
-  ];
-  return (
-    <Tab panes={panes} />
-  );
-};
+  ]}
+  />
+);
 
 AssetsTabComponent.propTypes = {
   assetsList: PropTypes.objectOf(PropTypes.array),
