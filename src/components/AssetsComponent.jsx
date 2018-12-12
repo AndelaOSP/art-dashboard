@@ -113,10 +113,6 @@ export default class AssetsComponent extends Component {
           <AssetsTabComponent
             activePage={this.props.activePage}
             limit={this.state.limit}
-            selected={this.props.selected}
-            filterAction={this.props.getAssetsAction}
-            filterData={this.props.filterData}
-            filterSelection={this.props.filterSelection}
             errorMessage={this.props.errorMessage}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
@@ -147,9 +143,6 @@ AssetsComponent.propTypes = {
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
-  selected: PropTypes.object.isRequired,
-  filterSelection: PropTypes.func.isRequired,
-  filterData: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.object,
   status: PropTypes.string,
   shouldReload: PropTypes.bool
