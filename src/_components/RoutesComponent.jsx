@@ -5,7 +5,7 @@ import { get } from 'lodash';
 
 import Authenticate from './AccessControl/AuthenticateComponent';
 import AssetTypes from '../components/AssetTypesComponent';
-import Assets from '../_components/Assets/AssetsContainer';
+import Assets from '../components/Assets/AssetsTabComponent';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
 import LoginComponent from '../components/LoginComponent';
 import Dashboard from '../_components/Dashboard/DashboardContainer';

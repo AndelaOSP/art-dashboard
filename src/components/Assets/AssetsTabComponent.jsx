@@ -3,11 +3,11 @@ import AssetsContainer from '../../_components/Assets/AssetsContainer';
 import UploadAssetsContainer from '../../_components/Assets/UploadAssetsContainer';
 import TabsComponent from '../../components/common/TabsComponent';
 
-const AssetsTabComponent = () => (
+const AssetsTabComponent = props => (
   <TabsComponent panes={[
     {
       header: 'All Assets',
-      component: <AssetsContainer />
+      component: <AssetsContainer props={props} />
     },
     {
       header: 'Import Assets',
