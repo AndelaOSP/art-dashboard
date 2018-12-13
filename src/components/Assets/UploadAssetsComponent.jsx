@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Progress, Icon } from 'semantic-ui-react';
@@ -47,30 +44,6 @@ const errorMessageHelper = (error, success) => {
   return null;
 };
 
-const errorMessageHelper = (success, handleFileDownload) => {
-  if (success.hasOwnProperty('fail')) {
-    return (
-      <span className="error-guide">
-        Please download
-        <a href="#" onClick={() => handleFileDownload(success.file)}>
-          this file
-        </a>{' '}
-        , fix errors and upload again.
-      </span>
-    );
-  }
-
-  if (error) {
-    return (
-      <span className="error-guide">
-        Please confirm the file is well formatted and try uploading again.
-      </span>
-    );
-  }
-
-  return null;
-};
-
 const UploadAssets = (props) => {
   const { loading, success, error } = props;
   const showStatus = success || error;
@@ -78,7 +51,7 @@ const UploadAssets = (props) => {
   return (
     <div className="center-upload">
       <span className="failed-file">
-        <a href="#" onClick={() => props.handleFileDownload('sample_import_file/')}>
+        <a href="sample_import_file/" onClick={() => props.handleFileDownload('sample_import_file/')}>
           Download the sample file
         </a>{' '}
         , fill the columns and upload it.

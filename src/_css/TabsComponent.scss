@@ -4,12 +4,27 @@
   padding-top: 4%;
 }
 
+.ui.attached.tabular.menu {
+  padding-top: 10%;
+}
+
 .ui.tabular.menu {
   border-color: #a9a9a9;
 }
 
 .ui.tabular.menu .active.item {
   border-color: #a9a9a9;
+  border-radius: 0.78571429rem 0.78571429rem 0 0 !important;
+  color: $border-color2;
+}
+
+.ui.bottom.attached.segment.active.tab {
+  border: 0;
+  padding-top: 2%;
+}
+
+.ui.tabular.menu .active.item {
+  border-color: #a9a9a9 ;
   border-radius: 0.78571429rem 0.78571429rem 0 0 !important;
   color: $border-color2;
 }

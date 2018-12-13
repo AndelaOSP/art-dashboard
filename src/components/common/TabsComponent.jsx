@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tab } from 'semantic-ui-react';
+import '../../_css/TabsComponent.css';
 
 const getPanes = panes => (
   panes.map(pane => ({
