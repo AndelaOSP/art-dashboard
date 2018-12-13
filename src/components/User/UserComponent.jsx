@@ -11,6 +11,7 @@ import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import UserHeader from './UserHeader';
 import StatusMessageComponent from '../common/StatusComponent';
 import { isCountCutoffExceeded, fetchData } from '../../_utils/helpers';
+import constructUrl from '../../_utils/constructUrl';
 
 import '../../_css/UsersComponent.css';
 
@@ -33,27 +34,27 @@ export default class UserComponent extends React.Component {
   }
 
   handleRowChange = (e, data) => {
+    const { activePage, selected } = this.props;
     this.setState({
       limit: data.value,
       users: []
     });
     this.props.resetUsers();
-    this.retrieveUsers(this.props.activePage, data.value);
+    this.retrieveUsers(activePage, data.value, selected);
   };
 
   handlePaginationChange = (e, { activePage }) => {
     this.props.setActivePage(activePage);
     const currentPageList = this.props.users[`page_${activePage}`];
     if (isEmpty(currentPageList)) {
-      this.retrieveUsers(activePage, this.state.limit);
+      this.retrieveUsers(activePage, this.state.limit, this.props.selected);
     }
   };
 
-  retrieveUsers = (activePage, limit) => {
+  retrieveUsers = (activePage, limit, filters) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
-      const url = `users?page=${activePage}&page_size=${limit}`;
       this.props.loading(true);
-      return fetchData(url).then((response) => {
+      return fetchData(constructUrl(activePage, limit, filters)).then((response) => {
         this.props.loading(false);
         this.setState({ users: response.data.results });
       }).catch(() => {
@@ -61,7 +62,7 @@ export default class UserComponent extends React.Component {
         this.setState({ allDataFetched: true });
       });
     }
-    return this.props.loadUsers(activePage, limit);
+    return this.props.loadUsers(activePage, limit, filters);
   };
 
   handlePageTotal = () => Math.ceil(this.props.usersCount / this.state.limit);
@@ -191,7 +192,8 @@ UserComponent.propTypes = {
   setActivePage: PropTypes.func,
   loading: PropTypes.func,
   resetMessage: PropTypes.func,
-  isFiltered: PropTypes.bool
+  isFiltered: PropTypes.bool,
+  selected: PropTypes.object
 };
 
 UserComponent.defaultProps = {
