@@ -45,11 +45,6 @@ export class NavBarComponent extends Component {
       url: '/allocations',
       title: 'Allocations',
       imgSrc: '/images/allocated.png'
-    },
-    {
-      url: '/security-users',
-      title: 'Security Users',
-      imgSrc: '/images/users.png'
     }
   ];
 

@@ -10,7 +10,6 @@ import { isCountCutoffExceeded, fetchData } from '../../_utils/helpers';
 import DropdownComponent from '../common/DropdownComponent';
 import TableRow from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
-import NavBarComponent from '../../_components/NavBarContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import StatusMessageComponent from '../common/StatusComponent';
 
@@ -85,7 +84,7 @@ export default class SecurityUserComponent extends React.Component {
       const message = 'Please try again later, to see if we\'ll have security users to show you.';
 
       return (
-        <NavBarComponent>
+        <React.Fragment>
           <div className="users-list">
             <div id="page-heading-section">
               <Header as="h1" id="page-headings" floated="left" content="Security Users" />
@@ -97,12 +96,12 @@ export default class SecurityUserComponent extends React.Component {
             allDataFetched={this.state.allDataFetched}
             message={message}
           />
-        </NavBarComponent>
+        </React.Fragment>
       );
     }
 
     return (
-      <NavBarComponent title="Users" placeHolder="Search by name... ">
+      <React.Fragment>
         <div className="users-list">
           <div id="page-heading-section">
             <Header as="h1" id="page-headings" floated="left" content="Security Users" />
@@ -180,7 +179,7 @@ export default class SecurityUserComponent extends React.Component {
             </Table.Row>
           </Table.Footer>
         </Table>
-      </NavBarComponent>
+      </React.Fragment>
     );
   }
 }
