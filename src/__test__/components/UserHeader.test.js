@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 import UserHeader from '../../components/User/UserHeader';
 
-describe('Renders <CheckboxComponent /> tests', () => {
+describe('Renders <UserHeader /> tests', () => {
   const props = {
     limit: 10,
     hideHeader: false
@@ -16,6 +16,6 @@ describe('Renders <CheckboxComponent /> tests', () => {
   });
 
   it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Users List');
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Andelans');
   });
 });

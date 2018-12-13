@@ -6,7 +6,6 @@ import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
 import TableRow from '../TableRowComponent';
 import LoaderComponent from '../LoaderComponent';
-import NavBarComponent from '../../_components/NavBarContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import UserHeader from './UserHeader';
 import StatusMessageComponent from '../common/StatusComponent';
@@ -85,7 +84,7 @@ export default class UserComponent extends React.Component {
         : 'Please try again later, to see if we\'ll have users to show you.';
 
       return (
-        <NavBarComponent>
+        <React.Fragment>
           <UserHeader
             hideHeader={!this.props.isFiltered}
             limit={this.state.limit}
@@ -94,12 +93,12 @@ export default class UserComponent extends React.Component {
             allDataFetched={this.state.allDataFetched}
             message={message}
           />
-        </NavBarComponent>
+        </React.Fragment>
       );
     }
 
     return (
-      <NavBarComponent title="Users" placeHolder="Search by name... ">
+      <React.Fragment>
         <UserHeader limit={this.state.limit} />
 
         {
@@ -171,7 +170,7 @@ export default class UserComponent extends React.Component {
             </Table.Row>
           </Table.Footer>
         </Table>
-      </NavBarComponent>
+      </React.Fragment>
     );
   }
 }

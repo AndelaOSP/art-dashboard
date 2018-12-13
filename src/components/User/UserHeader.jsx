@@ -13,7 +13,7 @@ const UserHeader = (props) => {
   return (
     <div className="users-list">
       <div id="page-heading-section">
-        <Header as="h1" id="page-headings" floated="left" content="Users List" />
+        <Header as="h1" id="page-headings" floated="left" content="Andelans" />
         <Divider id="assets-divider" />
         <UserFilterContainer limit={props.limit} />
       </div>
