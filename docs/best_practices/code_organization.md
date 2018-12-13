@@ -132,7 +132,7 @@ An example folder structure for this can be:
 The **presentational components** are concerned with _how things look_. They usually have the following characteristics:
 - Obtains data and callbacks via props
 - Contains other presentational and container (when needed) components, as well as have DOM markup
-- Mostly written as functional components, unless they want to use internal state or lifecycle method
+- Mostly written as functional components, unless they want to use internal state or lifecycle methods
   - Note that the internal state used is mostly for managing the UI state, not data. E.g. changing a button from active to disabled
 
 An example of a presentational component is:
