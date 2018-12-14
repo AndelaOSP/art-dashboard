@@ -16,7 +16,6 @@ import { loadAssetTypes } from '../../_actions/assetTypes.actions';
 import { loadAssetMakesDropdown } from '../../_actions/assetMakes.actions';
 import { loadModelNumbers } from '../../_actions/modelNumbers.actions';
 import { createAsset, resetMessage } from '../../_actions/asset.actions';
-// import { ACCEPTABLE_ASSET_TYPES } from '../../_enums';
 
 import {
   filterSubCategories,
@@ -199,7 +198,6 @@ class AddAssetContainer extends React.Component {
     const selectedAssetType = assetTypes.find(asset =>
       asset.asset_type === this.state.formState.selectedAssetType);
 
-    // null check if it is defined first
     const isAssetSpecsAvailable = selectedAssetType && selectedAssetType.has_specs;
 
     if (loading) {

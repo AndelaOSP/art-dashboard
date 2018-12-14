@@ -177,16 +177,16 @@ FilterAssetComponent.propTypes = {
   selectedSubcategory: PropTypes.string,
   selectedAssetType: PropTypes.string,
   selectedAssetMake: PropTypes.string,
-  handleInputChange: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func,
   modelNumber: PropTypes.string,
   assetTag: PropTypes.string,
   serialNumber: PropTypes.string,
-  isAssetSpecsAvailable: PropTypes.bool.isRequired,
+  isAssetSpecsAvailable: PropTypes.bool,
   onCreateAsset: PropTypes.func.isRequired,
   reset: PropTypes.func
 };
 
-FilterAssetComponent.defaultTypes = {
+FilterAssetComponent.defaultProps = {
   filteredSubCategories: [],
   filteredAssetTypes: [],
   filteredAssetMakes: [],
