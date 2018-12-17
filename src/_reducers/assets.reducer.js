@@ -187,6 +187,7 @@ export default (state = initialState.assets, action) => {
     case DOWNLOAD_FILE_SUCCESS:
       return {
         ...state,
+        success: { success: 'Download successfully completed' },
         downloadedFile: action.payload,
         isLoading: action.isLoading
       };
@@ -194,7 +195,7 @@ export default (state = initialState.assets, action) => {
     case DOWNLOAD_FILE_FAILURE:
       return {
         ...state,
-        errorMessage: action.payload,
+        downloadError: action.payload,
         hasError: true,
         isLoading: action.isLoading
       };
@@ -202,6 +203,7 @@ export default (state = initialState.assets, action) => {
       return {
         ...state,
         uploadError: '',
+        downloadError: '',
         success: '',
         hasError: false,
         isLoading: false

@@ -13,12 +13,10 @@ const {
   UPLOAD_ASSETS_FAILURE,
   DOWNLOAD_FILE_SUCCESS,
   DOWNLOAD_FILE_FAILURE,
-  RESET_STATUS_MESSAGE,
   RESET_UPLOAD_ASSETS,
   UPLOAD_ASSETS_STARTS
 } = constants;
 
-/* eslint-disable import/prefer-default-export */
 export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
   const url = constructUrl(pageNumber, limit, filters, status);
 
@@ -65,10 +63,9 @@ export const downloadFile = url => (dispatch) => {
     responseType: 'blob'
   })
     .then((response) => {
-      const downloadedFIle = window.URL.createObjectURL(new Blob([response.data]));
+      const downloadedFile = window.URL.createObjectURL(new Blob([response.data]));
       dispatch(uploading(false));
-      dispatch(downloadSuccess(downloadedFIle));
-      dispatch(resetUploadStatus());
+      dispatch(downloadSuccess(downloadedFile));
     })
     .catch((error) => {
       dispatch(uploading(false));
@@ -131,8 +128,4 @@ export const resetAssets = () => ({
 
 export const resetUploadAssets = () => ({
   type: RESET_UPLOAD_ASSETS
-});
-
-const resetUploadStatus = () => ({
-  type: RESET_STATUS_MESSAGE
 });

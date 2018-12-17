@@ -5,11 +5,11 @@ const errorMessage = (error, success, handleFileDownload) => {
     return null;
   }
 
-  if (success.hasOwnProperty('fail')) {
+  if (success.fail) {
     return (
       <span className="error-guide">
-        Please download
-        <a href={success.file} onClick={() => handleFileDownload(success.file)}>
+        Please download{' '}
+        <a href="# " onClick={() => handleFileDownload(success.file)}>
           this file
         </a> {' '}, fix errors and upload again.
       </span>
@@ -18,7 +18,7 @@ const errorMessage = (error, success, handleFileDownload) => {
 
   return (
     <span className="error-guide">
-      Please confirm the file is well formatted and try uploading again.
+      Please contact the admin for help.
     </span>
   );
 };
