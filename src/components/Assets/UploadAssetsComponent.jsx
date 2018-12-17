@@ -4,7 +4,7 @@ import { Progress } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import NavBarComponent from '../../_components/NavBarContainer';
 import { uploadStatus, StatusMessage } from './UploadStatus';
-import errorMessage from './ErrorMessages';
+import errorMessage from './UploadErrorMessages';
 import '../../_css/UploadAssets.css';
 
 class UploadAssets extends React.Component {
@@ -46,7 +46,7 @@ class UploadAssets extends React.Component {
   };
 
   render() {
-    console.log('this.state', this.state.files);
+    const { files } = this.state;
     const { loading, success, error } = this.props;
     const showStatus = success || error;
     return (

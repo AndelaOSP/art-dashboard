@@ -39,8 +39,8 @@ describe('Renders <AssetsComponent /> correctly', () => {
     {...props}
   />);
 
-  it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Assets');
+  it('renders the AssetsTableContent component', () => {
+    expect(wrapper.find('AssetsTableContent').length).toBe(1);
   });
 
   it('calls the handlePaginationChange function when the next button is clicked', () => {
@@ -69,5 +69,25 @@ describe('Renders <AssetsComponent /> correctly', () => {
     const data = {};
     wrapper.instance().handleRowChange(event, data);
     expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('renders FilterButton', () => {
+    wrapper.setState({
+      assets
+    });
+    expect(wrapper.find('FilterButton').length).toBe(1);
+  });
+
+  it('renders FilterComponent', () => {
+    expect(wrapper.find('FilterButton').dive().find('FilterComponent').exists()).toBe(true);
+  });
+
+  it('calls retrieveAssets function', () => {
+    const retrieveAssetsSpy = jest.spyOn(
+      wrapper.instance(), 'retrieveAssets'
+    );
+
+    wrapper.instance().retrieveAssets(1, 10, '');
+    expect(retrieveAssetsSpy.mock.calls.length).toEqual(1);
   });
 });

@@ -39,6 +39,7 @@ describe('Renders <Assets />  tests', () => {
       activePage: 1,
       selected: [],
       status: '',
+      match: {},
       shouldFetchAssets: true,
       shouldReload: false
     };
