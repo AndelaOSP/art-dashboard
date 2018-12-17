@@ -1,33 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilterComponent from '../common/FilterComponent';
-import FilterButton from '../common/FilterButton';
+import Filter from '../common/FilterMain';
 
 const UserFilterButton = props => (
-  <FilterButton
+  <Filter
     activePage={props.activePage}
     limit={props.limit}
+    filterData={props.filterData}
     selected={props.selected}
+    filterSelection={props.filterSelection}
     filterAction={props.loadUsers}
     disabled={props.isLoading}
-    option={props.filterData[1]}
-  >
-    <React.Fragment>
-      <FilterComponent
-        index={0}
-        option={props.filterData[0]}
-        selected={props.selected}
-        filterSelection={props.filterSelection}
-      />
-
-      <FilterComponent
-        index={1}
-        option={props.filterData[1]}
-        selected={props.selected}
-        filterSelection={props.filterSelection}
-      />
-    </React.Fragment>
-  </FilterButton>
+  />
 );
 
 UserFilterButton.propTypes = {

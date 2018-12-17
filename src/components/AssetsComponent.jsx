@@ -2,9 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import AssetsTableContent from './AssetsTableContent';
-import FilterButton from './common/FilterButton';
-import FilterComponent from './common/FilterComponent';
 import PaginationComponent from './common/PaginationComponent';
+import Filter from './common/FilterMain';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
 import { constructUrl } from '../_utils/assets';
 
@@ -103,29 +102,15 @@ export default class AssetsComponent extends Component {
     return (
       <Fragment>
         {showFilter && (
-          <FilterButton
+          <Filter
             activePage={this.props.activePage}
             limit={this.state.limit}
+            filterData={this.props.filterData}
             selected={this.props.selected}
+            filterSelection={this.props.filterSelection}
             filterAction={this.props.getAssetsAction}
             disabled={this.props.isLoading}
-          >
-            <React.Fragment>
-              <FilterComponent
-                index={0}
-                option={this.props.filterData[0]}
-                selected={this.props.selected}
-                filterSelection={this.props.filterSelection}
-              />
-
-              <FilterComponent
-                index={1}
-                option={this.props.filterData[1]}
-                selected={this.props.selected}
-                filterSelection={this.props.filterSelection}
-              />
-            </React.Fragment>
-          </FilterButton>
+          />
         )}
         <AssetsTableContent
           activePage={this.props.activePage}
