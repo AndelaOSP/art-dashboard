@@ -102,17 +102,11 @@ export default class SecurityUserComponent extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="users-list">
-          <div id="page-heading-section">
-            <Header as="h1" id="page-headings" floated="left" content="Security Users" />
-            <Divider id="assets-divider" />
-            <Button className="filter-button">
-              <Link to="/security-users/create">
-                ADD SECURITY USER
-              </Link>
-            </Button>
-          </div>
-        </div>
+        <Button className="filter-button">
+          <Link to="/security-users/create">
+            ADD SECURITY USER
+          </Link>
+        </Button>
 
         {
           showStatus && (
