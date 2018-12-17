@@ -59,8 +59,8 @@ export default class UserComponent extends React.Component {
   };
 
   makeAjaxRequest = async (activePage, limit) => {
-    const { entity, loading } = this.props;
-    const url = constructApiUrl(entity, activePage, limit);
+    const { entity, loading, selected = {} } = this.props;
+    const url = constructApiUrl(entity, activePage, limit, { filters: selected });
     const response = await fetchInfo(url, loading);
 
     const { results = {} } = response;
