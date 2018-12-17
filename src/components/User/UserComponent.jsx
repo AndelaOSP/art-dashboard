@@ -58,16 +58,16 @@ export default class UserComponent extends React.Component {
   };
 
   makeAjaxRequest = async (activePage, limit) => {
-    const url = constructApiUrl('users', activePage, limit);
-    const response = await fetchInfo(url, this.props.loading);
+    const { entity, loading } = this.props;
+    const url = constructApiUrl(entity, activePage, limit);
+    const response = await fetchInfo(url, loading);
 
     const { results = {} } = response;
     if (isEmpty(results)) {
-      this.setState({ allDataFetched: true });
-      return;
+      return this.setState({ allDataFetched: true });
     }
 
-    this.setState({ users: results });
+    return this.setState({ users: results });
   }
 
   getTotalPages = () => {
@@ -88,7 +88,8 @@ export default class UserComponent extends React.Component {
       errorMessage,
       isFiltered,
       resetMessage,
-      isLoading
+      isLoading,
+      entity
     } = this.props;
     const currentUsers = `page_${activePage}`;
     const activePageUsers = users[currentUsers] || this.state.users;
@@ -97,11 +98,11 @@ export default class UserComponent extends React.Component {
 
     const message = isFiltered
       ? 'No data for that filter. Please try another option.'
-      : 'Please try again later, to see if we\'ll have users to show you.';
+      : `Please try again later, to see if we'll have ${entity} to show you.`;
 
     return (
       <NavBarComponent title="Users" placeHolder="Search by name... ">
-        <UserHeader limit={this.state.limit} />
+        <UserHeader limit={this.state.limit} name={entity} />
 
         {showStatus && (
           <StatusMessageComponent
@@ -153,7 +154,8 @@ UserComponent.propTypes = {
   setActivePage: PropTypes.func,
   loading: PropTypes.func,
   resetMessage: PropTypes.func,
-  isFiltered: PropTypes.bool
+  isFiltered: PropTypes.bool,
+  entity: PropTypes.string
 };
 
 UserComponent.defaultProps = {

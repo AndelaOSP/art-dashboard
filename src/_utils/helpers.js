@@ -54,8 +54,11 @@ const buildFiltersQueryString = (filters) => {
  * @param  {object} optionalArgs holds optional parameters like filters, status, etc, as an object
  */
 export const constructApiUrl = (entity, pageNumber, pageSize, optionalArgs = {}) => {
-  let url = `${entity}?page=${pageNumber}&page_size=${pageSize}`;
+  if (!pageNumber || !pageSize) {
+    return `${entity}?paginate=false`;
+  }
 
+  let url = `${entity}?page=${pageNumber}&page_size=${pageSize}`;
   if (!isEmpty(optionalArgs)) {
     let query = '';
     Object.keys(optionalArgs).forEach((param) => {
@@ -71,3 +74,11 @@ export const constructApiUrl = (entity, pageNumber, pageSize, optionalArgs = {})
 
   return url;
 };
+
+const capitalizeFirstLetter = ([firstLetter, ...rest]) =>
+  [firstLetter.toUpperCase(), ...rest].join('');
+
+export const titleCase = word =>
+  word.split(' ')
+    .map(capitalizeFirstLetter)
+    .join(' ');

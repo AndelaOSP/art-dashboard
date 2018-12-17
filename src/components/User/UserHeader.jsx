@@ -1,22 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import UserFilterContainer from '../../_components/User/UserFilterContainer';
 
-import '../../_css/UsersComponent.css';
+import PageHeader from '../common/PageHeader';
 
-const UserHeader = ({ limit }) => (
-  <div className="users-list">
-    <div id="page-heading-section">
-      <Header as="h1" id="page-headings" floated="left" content="Users" />
-      <Divider id="assets-divider" />
-      <UserFilterContainer limit={limit} />
-    </div>
-  </div>
-);
+import '../../_css/UsersComponent.css';
+import { titleCase } from '../../_utils/helpers';
+
+const UserHeader = ({ name, limit }) => {
+  const isUsersPage = name === 'users';
+  return (
+    <PageHeader header={titleCase(name)}>
+      {isUsersPage && (
+        <UserFilterContainer limit={limit} />
+      )}
+
+      {!isUsersPage && (
+        <Button className="filter-button">
+          <Link to="/security-users/create">
+            ADD SECURITY USER
+          </Link>
+        </Button>
+      )}
+    </PageHeader>
+  );
+};
 
 UserHeader.propTypes = {
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  name: PropTypes.string
 };
 
 export default UserHeader;

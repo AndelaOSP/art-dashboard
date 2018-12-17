@@ -20,7 +20,8 @@ export const mapStateToProps = ({ usersList }) => {
     hasError,
     isLoading,
     activePage,
-    isFiltered
+    isFiltered,
+    entity: 'users'
   };
 };
 
