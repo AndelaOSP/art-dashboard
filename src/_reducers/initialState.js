@@ -27,6 +27,7 @@ export default {
     isLoading: false,
     activePage: 1,
     progressStatus: '',
+    downloadError: '',
     downloadedFile: ''
   },
   asset: {

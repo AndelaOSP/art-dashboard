@@ -14,18 +14,19 @@ const AssetsTabComponent = (props) => {
         <div id="page-heading-section">
           <Header as="h1" id="page-headings" floated="left" content={contentTitle} />
           <Divider id="assets-divider" />
-          <TabsComponent panes={[
-            {
-              header: 'All Assets',
-              component: <AssetsContainer props={props} />
-            },
-            {
-              header: 'Import Assets',
-              component: <UploadAssetsContainer />
-            }
-          ]}
-          />
         </div>
+
+        <TabsComponent panes={[
+          {
+            header: 'All Assets',
+            component: <AssetsContainer props={props} />
+          },
+          {
+            header: 'Import Assets',
+            component: <UploadAssetsContainer />
+          }
+        ]}
+        />
       </div>
     </NavBarComponent>
   );

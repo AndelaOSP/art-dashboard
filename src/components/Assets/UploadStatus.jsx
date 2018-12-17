@@ -9,7 +9,7 @@ export const StatusMessage = props => (
 );
 
 export const uploadStatus = (success, error) => {
-  if (success.hasOwnProperty('fail') || error) {
+  if (success.fail || error) {
     return (
       <div>
         <Icon name="x icon" size="big" />

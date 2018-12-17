@@ -4,19 +4,22 @@ import UploadAssets from '../../components/Assets/UploadAssetsComponent';
 
 const mapStateToProps = ({ assets }) => {
   const {
+
     uploadError,
     hasError,
     isUpLoading,
     success,
-    downloadedFile
+    downloadedFile,
+    downloadError
   } = assets;
 
   return {
-    error: uploadError,
+    error: uploadError || downloadError,
     hasError,
     loading: isUpLoading,
     success,
-    downloadedFile
+    downloadedFile,
+    downloadError
   };
 };
 

@@ -8,10 +8,6 @@ import errorMessage from './UploadErrorMessages';
 import '../../_css/UploadAssets.css';
 
 class UploadAssets extends React.Component {
-  state = {
-    files: []
-  };
-
   componentDidUpdate(prevProps) {
     if (this.props.downloadedFile !== prevProps.downloadedFile) {
       const link = document.createElement('a');
@@ -24,36 +20,26 @@ class UploadAssets extends React.Component {
 
   handleDrop = (files) => {
     this.resetUpload();
-    this.setState({ files });
     this.props.uploadAssets(files);
   };
 
-  handleCancel = () => {
-    this.setState({
-      files: []
-    });
-  };
-
   resetUpload = () => {
-    this.setState({
-      files: []
-    });
     this.props.resetUploadAssets();
   };
 
   handleFileDownload = (url) => {
     this.props.downloadFile(url);
+    this.resetUpload();
   };
 
   render() {
-    const { files } = this.state;
     const { loading, success, error } = this.props;
     const showStatus = success || error;
     return (
       <NavBarComponent title="Assets">
         <div className="center-upload">
           <span className="failed-file">
-            <a href="sample_import_file/" onClick={() => this.handleFileDownload('sample_import_file/')}>
+            <a href="# " onClick={() => this.handleFileDownload('sample_import_file/')}>
               Download the sample file
             </a>{' '}
             , fill the columns and upload it.
@@ -61,27 +47,30 @@ class UploadAssets extends React.Component {
 
           <Dropzone
             onDrop={this.handleDrop}
-            onFileDialogCancel={this.handleCancel}
             accept="text/csv"
             className="dropzone"
           >
-            {loading && !showStatus && (
-              <Progress style={{ width: '90%' }} percent={100} active>
-                Upload in progress...
-              </Progress>
-            )}
 
-            {showStatus && (
-              <StatusMessage
-                message={uploadStatus(success, error)}
-                className={success.hasOwnProperty('fail') || error ? 'error-status' : 'success-status'}
-                reset={this.resetUpload}
-              />
-            )}
+            <div className="progress-handler" onClick={this.resetUpload} onKeyDown={this.resetUpload} role="button" tabIndex={0}>
+              {loading && !showStatus && (
+                <Progress style={{ width: '90%' }} percent={100} active>
+                  Upload in progress...
+                </Progress>
+              )}
 
-            {!showStatus && !loading && (
-              <p>Drag and drop the file here, or click to select the file to upload.</p>
-            )}
+              {showStatus && (
+                <StatusMessage
+                  message={uploadStatus(success, error)}
+                  className={success.fail || error ? 'error-status' : 'success-status'}
+                  reset={this.resetUpload}
+                />
+              )}
+
+              {!showStatus && !loading && (
+                <p>Drag and drop the file here, or click to select the file to upload.</p>
+              )}
+            </div>
+
           </Dropzone>
 
           {errorMessage(error, success, this.handleFileDownload)}
