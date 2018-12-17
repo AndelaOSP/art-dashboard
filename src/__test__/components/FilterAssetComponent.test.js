@@ -36,6 +36,10 @@ describe('<FilterAssetComponent /> test cases', () => {
     wrapper.setProps(props);
   });
 
+  it('renders SaveButton component when asset specs are not available', () => {
+    expect(wrapper.find('SaveButton').dive().find('.save').props().buttonName).toBe('save');
+  });
+
   it('renders next button when asset specs are available', () => {
     wrapper.setProps({
       isAssetSpecsAvailable: true,
