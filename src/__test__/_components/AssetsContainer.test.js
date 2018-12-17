@@ -42,7 +42,6 @@ describe('Renders <Assets />  tests', () => {
       selected: [],
       filterData: [],
       status: '',
-      shouldFetchAssets: true,
       shouldReload: false
     };
 

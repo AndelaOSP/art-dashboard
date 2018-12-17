@@ -34,27 +34,28 @@ export default class UserComponent extends React.Component {
   }
 
   handleRowChange = (e, data) => {
+    const { activePage, selected } = this.props;
     this.setState({
       limit: data.value,
       users: []
     });
     this.props.resetUsers();
-    this.retrieveUsers(this.props.activePage, data.value);
+    this.retrieveUsers(activePage, data.value, selected);
   };
 
   handlePaginationChange = (e, { activePage }) => {
     this.props.setActivePage(activePage);
     const currentPageList = this.props.users[`page_${activePage}`];
     if (isEmpty(currentPageList)) {
-      this.retrieveUsers(activePage, this.state.limit);
+      this.retrieveUsers(activePage, this.state.limit, this.props.selected);
     }
   };
 
-  retrieveUsers = (activePage, limit) => {
+  retrieveUsers = (activePage, limit, filters) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
       return this.makeAjaxRequest(activePage, limit);
     }
-    return this.props.loadUsers(activePage, limit);
+    return this.props.loadUsers(activePage, limit, filters);
   };
 
   makeAjaxRequest = async (activePage, limit) => {
@@ -155,6 +156,7 @@ UserComponent.propTypes = {
   loading: PropTypes.func,
   resetMessage: PropTypes.func,
   isFiltered: PropTypes.bool,
+  selected: PropTypes.object,
   entity: PropTypes.string
 };
 

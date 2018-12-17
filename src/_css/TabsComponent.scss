@@ -1,0 +1,20 @@
+@import "sharedStyling.scss";
+
+.ui.selectable.basic.table {
+  padding-top: 4%;
+}
+
+.ui.tabular.menu {
+  border-color: #a9a9a9;
+}
+
+.ui.tabular.menu .active.item {
+  border-color: #a9a9a9;
+  border-radius: 0.78571429rem 0.78571429rem 0 0 !important;
+  color: $border-color2;
+}
+
+.ui.bottom.attached.segment.active.tab {
+  border: 0;
+  padding-top: 2%;
+}

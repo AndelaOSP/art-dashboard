@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { isEmpty } from 'lodash';
 import { fetchData } from '../_utils/helpers';
+import constructUrl from '../_utils/constructUrl';
 import constants from '../_constants';
 import { updateToastMessageContent } from './toastMessage.actions';
 
@@ -15,15 +16,6 @@ const {
   SET_USERS_ACTIVE_PAGE,
   RESET_STATUS_MESSAGE
 } = constants;
-
-const constructUrl = (pageNumber, limit, filters = {}) => {
-  let url = `users?page=${pageNumber}&page_size=${limit}`;
-
-  if (!isEmpty(filters)) {
-    url = `${url}&asset_count=${filters['Asset Assigned'] || ''}&cohort=${filters.Cohort || ''}`;
-  }
-  return url;
-};
 
 export const loadUsers = (pageNumber, limit, filters = {}) => (dispatch) => {
   dispatch(loading(true));
