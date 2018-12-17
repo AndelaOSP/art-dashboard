@@ -14,8 +14,4 @@ describe('Renders <UserHeader /> tests', () => {
   it('renders header', () => {
     expect(wrapper.find('users-list'));
   });
-
-  it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Andelans');
-  });
 });
