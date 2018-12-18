@@ -25,6 +25,7 @@ const TableContent = ({ data, headings, urlEntity = '' }) => (
           viewDetailsRoute={viewUrl}
           headings={headings}
           data={formatDataKeys(info, urlEntity)}
+          data-test="table-row"
         />
       );
     })}

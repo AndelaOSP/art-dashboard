@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import UserFilterContainer from '../../_components/User/UserFilterContainer';
+import UserFilter from '../../_components/User/UserFilterContainer';
 
 import PageHeader from '../common/PageHeader';
 
@@ -11,10 +11,14 @@ import { titleCase } from '../../_utils/helpers';
 
 const UserHeader = ({ name, limit }) => {
   const isUsersPage = name === 'users';
+
   return (
     <PageHeader header={titleCase(name)}>
       {isUsersPage && (
-        <UserFilterContainer limit={limit} />
+        <UserFilter
+          limit={limit}
+          data-test="user-filter"
+        />
       )}
 
       {!isUsersPage && (

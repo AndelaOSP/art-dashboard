@@ -1,55 +1,80 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
-import UserComponent from '../../components/User/UserComponent';
 
+import UsersComponent from '../../components/User/UsersComponent';
+import UserHeader from '../../components/User/UserHeader';
 import users from '../../_mock/users';
 
-describe('Renders <UserComponent /> correctly when no errors or loading prop', () => {
-  const props = {
-    isLoading: false,
-    activePage: 1,
-    emptyUsersList: () => false,
-    errorMessage: '',
-    handlePageTotal: jest.fn(),
-    loadUsers: jest.fn(),
-    handlePaginationChange: jest.fn(),
-    handleRowChange: jest.fn(),
-    loadAllFilterValues: jest.fn(),
-    resetUsers: jest.fn(),
-    setActivePage: jest.fn(),
-    loading: jest.fn(),
-    users,
-    usersCount: 0
-  };
+jest.mock('../../_components/NavBarContainer', () => () => <div />);
 
-  const wrapper = shallow(<UserComponent {...props} />);
+describe('UsersComponent tests', () => {
+  let props;
+  beforeEach(() => {
+    props = {
+      loadUsers: jest.fn(),
+      loadAllFilterValues: jest.fn(),
+      resetUsers: jest.fn(),
+      setActivePage: jest.fn(),
+      usersCount: 1,
+      activePage: 1,
+      users: {
+        page_1: users
+      },
+      hasError: false,
+      errorMessage: '',
+      isFiltered: false,
+      resetMessage: jest.fn(),
+      isLoading: false,
+      entity: 'users'
+    };
+  });
 
-  it('calls the handlePaginationChange function when the next button is clicked', () => {
+  it('renders without errors with minimal props', () => {
+    expect(() => shallow(<UsersComponent {...props} />)).not.toThrow();
+  });
+
+  it('renders the UserHeader component', () => {
+    const wrapper = shallow(<UsersComponent {...props} />);
+    expect(wrapper).toContainReact(<UserHeader limit={10} name="users" />);
+  });
+
+  it('renders the StatusMessageComponent', () => {
+    const wrapper = shallow(
+      <UsersComponent
+        {...props}
+        errorMessage="Error!"
+        hasError
+      />
+    );
+    expect(wrapper.find('StatusMessageComponent')).toHaveClassName('error-status');
+  });
+
+  it('renders the not found component', () => {
+    const wrapper = shallow(<UsersComponent {...props} activePage={2} />);
+    expect(wrapper.find('ItemsNotFoundComponent')).toExist();
+  });
+
+  it('renders the UsersContent', () => {
+    const wrapper = shallow(<UsersComponent {...props} />);
+    expect(wrapper.find('UsersContent')).toHaveProp('hasUsers', true);
+  });
+
+  it('executes the handlePaginationChange function', () => {
+    const wrapper = shallow(<UsersComponent {...props} activePage={3} />);
     const handlePaginationChangeSpy = jest.spyOn(
       wrapper.instance(), 'handlePaginationChange'
     );
-    const event = {};
-    const data = {};
-    wrapper.instance().handlePaginationChange(event, data);
+    wrapper.instance().handlePaginationChange({}, {});
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
 
-  it('calls the handlePageTotal function when the next button is clicked', () => {
-    const handlePageTotalSpy = jest.spyOn(
-      wrapper.instance(), 'handlePageTotal'
-    );
-    wrapper.instance().handlePageTotal();
-    expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
-  });
-
   it('calls handleRowChange when a  number of rows are selected', () => {
+    const wrapper = shallow(<UsersComponent {...props} />);
     const handleRowChangeSpy = jest.spyOn(
       wrapper.instance(), 'handleRowChange'
     );
-    const event = {};
-    const data = {};
-    wrapper.instance().handleRowChange(event, data);
+    wrapper.instance().handleRowChange({}, {});
     expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
   });
 });
