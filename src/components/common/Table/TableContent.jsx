@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import TableRow from '../../TableRowComponent';
 
-const formatDataKeys = (data, entity) => {
+export const formatDataKeys = (data, entity) => {
   if (entity !== 'users') {
     return data;
   }
