@@ -36,6 +36,10 @@ describe('<FilterAssetComponent /> test cases', () => {
     wrapper.setProps(props);
   });
 
+  it('renders SaveButton component when asset specs are not available', () => {
+    expect(wrapper.find('SaveButton').dive().find('.save').props().buttonName).toBe('save');
+  });
+
   it('renders next button when asset specs are available', () => {
     wrapper.setProps({
       isAssetSpecsAvailable: true,
@@ -43,15 +47,5 @@ describe('<FilterAssetComponent /> test cases', () => {
     });
 
     expect(wrapper.find('ButtonComponent').props().buttonName).toBe('Next');
-  });
-
-  it('displays a message when modelNumber, assetTag and serialNumber are not blank', () => {
-    wrapper.setProps({
-      modelNumber: 'yuhij',
-      assetTag: 'vgyuhijk',
-      serialNumber: 'vgyuhj'
-    });
-
-    expect(wrapper.find('SaveButton').dive().find('.optional-label-text').exists()).toBe(true);
   });
 });
