@@ -20,10 +20,6 @@ describe('Renders <CheckboxComponent /> tests', () => {
   const wrapper = shallow(<UserFilterButton {...props} />);
 
   it('renders FilterButton', () => {
-    expect(wrapper.find('FilterButton').length).toEqual(1);
-  });
-
-  it('renders FilterComponent', () => {
-    expect(wrapper.find('FilterComponent').length).toEqual(2);
+    expect(wrapper.find('Filter').length).toEqual(1);
   });
 });

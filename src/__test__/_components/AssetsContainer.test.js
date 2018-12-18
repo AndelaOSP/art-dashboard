@@ -25,9 +25,11 @@ describe('Renders <Assets />  tests', () => {
     };
 
     const ownProps = {
-      match: {
-        params: {
-          status: ''
+      props: {
+        match: {
+          params: {
+            status: ''
+          }
         }
       }
     };
@@ -37,18 +39,17 @@ describe('Renders <Assets />  tests', () => {
       assetsList: [],
       assetsCount: 0,
       errorMessage: '',
+      filterData: [],
       hasError: false,
       activePage: 1,
       selected: [],
       status: '',
-      match: {},
-      shouldFetchAssets: true,
+      match: { params: { status: '' } },
       shouldReload: false
     };
 
     expect(mapStateToProps(state, ownProps)).toEqual(expected);
   });
-
 
   it('calls createFilterData', () => {
     const expected = [
