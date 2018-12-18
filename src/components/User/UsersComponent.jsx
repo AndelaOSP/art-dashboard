@@ -26,12 +26,20 @@ export default class UserComponent extends React.Component {
   };
 
   componentDidMount() {
-    const usersEmpty = isEmpty(this.props.users);
-    if (usersEmpty) {
+    const shouldFetchUsers = this.checkIfShouldFetchUsers();
+    if (shouldFetchUsers) {
       this.props.loadUsers(this.props.activePage, this.state.limit);
     }
     this.props.loadAllFilterValues();
   }
+
+  checkIfShouldFetchUsers = () => {
+    const { activePage, users } = this.props;
+    const pageKey = `page_${activePage}`;
+    const activePageUsers = users[pageKey] || this.state.users;
+
+    return isEmpty(activePageUsers);
+  };
 
   handleRowChange = (e, data) => {
     const { activePage, selected } = this.props;
