@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Divider, Header } from 'semantic-ui-react';
 
+import '../../_css/PageHeader.css';
+
 const PageHeader = ({ children, header }) => (
-  <div className="users-list">
+  <div className="page-header">
     <div id="page-heading-section">
       <Header as="h1" id="page-headings" floated="left" content={header} />
       <Divider id="assets-divider" />

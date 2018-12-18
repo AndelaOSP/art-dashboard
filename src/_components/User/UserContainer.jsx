@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { loadAllFilterValues } from '../../_actions/allFilterValues.actions';
 import { loadUsers, setActivePage, resetUsers, loading, resetMessage } from '../../_actions/users.actions';
-import User from '../../components/User/UserComponent';
+import User from '../../components/User/UsersComponent';
 
 export const mapStateToProps = ({ usersList, selected }) => {
   const {
