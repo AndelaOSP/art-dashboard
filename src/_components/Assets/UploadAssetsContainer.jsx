@@ -2,9 +2,8 @@ import { connect } from 'react-redux';
 import { uploadAssets, downloadFile, resetUploadAssets } from '../../_actions/assets.action';
 import UploadAssets from '../../components/Assets/UploadAssetsComponent';
 
-const mapStateToProps = ({ assets }) => {
+export const mapStateToProps = ({ assets }) => {
   const {
-
     uploadError,
     hasError,
     isUpLoading,
