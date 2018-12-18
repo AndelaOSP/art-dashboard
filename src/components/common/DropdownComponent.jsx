@@ -30,7 +30,8 @@ DropdownComponent.propTypes = {
   upward: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number
+    PropTypes.number,
+    PropTypes.bool
   ])
 };
 
