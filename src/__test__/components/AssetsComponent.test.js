@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 
 import AssetsComponent from '../../components/AssetsComponent';
-
 import assets from '../../_mock/assets';
 import assetModels from '../../_mock/assetModels';
 import assetTypes from '../../_mock/assetTypes';
@@ -75,11 +74,11 @@ describe('Renders <AssetsComponent /> correctly', () => {
     wrapper.setState({
       assets
     });
-    expect(wrapper.find('FilterButton').length).toBe(1);
-  });
+    wrapper.setProps({
+      assetsList: assets
+    });
 
-  it('renders FilterComponent', () => {
-    expect(wrapper.find('FilterButton').dive().find('FilterComponent').exists()).toBe(true);
+    expect(wrapper.find('Filter').length).toBe(1);
   });
 
   it('calls retrieveAssets function', () => {
