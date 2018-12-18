@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 import UploadAssetsComponent from '../../components/Assets/UploadAssetsComponent';
+import { StatusMessage } from '../../components/Assets/UploadStatus';
 
 describe('Renders <AssetsComponent /> correctly', () => {
   const props = {
@@ -64,5 +65,23 @@ describe('Renders <AssetsComponent /> correctly', () => {
     );
     wrapper.setProps({ downloadedFile: 'blob:testfile/' });
     expect(componentDidUpdateSpy.mock.calls.length).toEqual(1);
+  });
+});
+
+describe('Renders <StatusMessage /> correctly', () => {
+  const props = {
+    className: '',
+    message: ''
+  };
+  const wrapper = shallow(<StatusMessage {...props} />);
+
+  it('renders eStatusMessage', () => {
+    wrapper.setProps({
+      className: 'error',
+      message: 'Error message'
+    });
+
+    expect(wrapper.find('div').hasClass('error')).toBe(true);
+    expect(wrapper.find('.error').text()).toEqual('Error message');
   });
 });

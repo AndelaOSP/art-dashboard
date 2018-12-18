@@ -25,7 +25,9 @@ const {
   RESET_STATUS_MESSAGE,
   UPLOAD_ASSETS_STARTS,
   UPLOAD_ASSETS_FAILURE,
-  RESET_UPLOAD_ASSETS
+  RESET_UPLOAD_ASSETS,
+  DOWNLOAD_FILE_SUCCESS,
+  DOWNLOAD_FILE_FAILURE
 } = constants;
 
 const state = {
@@ -134,5 +136,17 @@ describe('Asset Reducer tests', () => {
     action.type = RESET_UPLOAD_ASSETS;
     expect(assetReducer(state, {})).toEqual(state);
     expect(assetReducer(state, action).success).toEqual('');
+  });
+
+  it('should handle DOWNLOAD_FILE_SUCCESS', () => {
+    action.type = DOWNLOAD_FILE_SUCCESS;
+    action.isLoading = false;
+    expect(assetReducer(state, action).success).toEqual({ success: 'Download successfully completed' });
+    expect(assetReducer(state, action).isUpLoading).toBe(false);
+  });
+
+  it('should handle DOWNLOAD_FILE_FAILURE', () => {
+    action.type = DOWNLOAD_FILE_FAILURE;
+    expect(assetReducer(state, action).hasError).toBe(true);
   });
 });
