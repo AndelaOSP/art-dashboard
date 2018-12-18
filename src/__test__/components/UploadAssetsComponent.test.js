@@ -4,7 +4,7 @@ import expect from 'expect';
 import UploadAssetsComponent from '../../components/Assets/UploadAssetsComponent';
 import { StatusMessage } from '../../components/Assets/UploadStatus';
 
-describe('Renders <AssetsComponent /> correctly', () => {
+describe('Renders <UploadAssetsComponent /> correctly', () => {
   const props = {
     success: {},
     error: '',
@@ -81,7 +81,6 @@ describe('Renders <StatusMessage /> correctly', () => {
       message: 'Error message'
     });
 
-    expect(wrapper.find('div').hasClass('error')).toBe(true);
     expect(wrapper.find('.error').text()).toEqual('Error message');
   });
 });
