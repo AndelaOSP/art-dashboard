@@ -36,6 +36,10 @@ class DashboardComponent extends Component {
     {
       url: '/asset-specs',
       title: 'Asset Specs'
+    },
+    {
+      url: '/andela-centres',
+      title: 'Andela Centres'
     }
   ];
 

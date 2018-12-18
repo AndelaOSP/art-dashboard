@@ -7,10 +7,10 @@ const {
   LOAD_LOCATIONS_FAILURE
 } = constants;
 
-export const loadOfficeLocations = () => (dispatch) => {
+export const loadOfficeLocations = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOAD_LOCATIONS_REQUEST });
 
-  return axios.get('andela-centres/')
+  return axios.get(`andela-centres/?page=${pageNumber}&page_size=${limit}`)
     .then((response) => {
       dispatch(loadOfficeLocationsSuccess(response.data));
     }).catch((error) => {
