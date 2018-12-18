@@ -189,4 +189,54 @@ describe('<AddAssetContainer /> test cases', () => {
     wrapper.instance().handleDropdownChanges(event, data);
     expect(wrapper.state().formState.selectedAssetMake).toEqual('MacBook Pro');
   });
+
+  it('shows device specs step if asset has specs', () => {
+    wrapper.setProps({ assetTypes: [{
+      asset_sub_category: 'Computers',
+      asset_type: 'MacBook',
+      has_specs: true,
+      id: 5,
+      last_modified: '2018-12-14T12:57:50.108712Z'
+    }] });
+
+    jest.spyOn(wrapper.instance(), 'handleDropdownChanges');
+
+    const event = {
+      stopPropagation: jest.fn(),
+      target: {}
+    };
+    const data = {
+      name: 'asset-types',
+      value: 'MacBook'
+    };
+
+    wrapper.instance().handleDropdownChanges(event, data);
+    wrapper.update();
+    expect(wrapper.find('StepDescription').length).toEqual(2);
+  });
+
+  it('hide device specs step if asset does not have specs', () => {
+    wrapper.setProps({ assetTypes: [{
+      asset_sub_category: 'Computers',
+      asset_type: 'MacBook',
+      has_specs: false,
+      id: 5,
+      last_modified: '2018-12-14T12:57:50.108712Z'
+    }] });
+
+    jest.spyOn(wrapper.instance(), 'handleDropdownChanges');
+
+    const event = {
+      stopPropagation: jest.fn(),
+      target: {}
+    };
+    const data = {
+      name: 'asset-types',
+      value: 'MacBook'
+    };
+
+    wrapper.instance().handleDropdownChanges(event, data);
+    wrapper.update();
+    expect(wrapper.find('StepDescription').length).toEqual(1);
+  });
 });
