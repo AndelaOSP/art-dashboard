@@ -8,33 +8,40 @@ import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from './DropdownComponent';
 import '../../_css/PaginationComponent.css';
 
-const PaginationComponent = props => (
-  <Segment.Group
-    horizontal
-    id="art-pagination-section"
-    className={props.isLoading ? 'asset-loading-pagination' : 'asset-loaded-pagination'}
-  >
-    <Segment>
-      <Pagination
-        id="art-pagination-component"
-        totalPages={props.totalPages}
-        onPageChange={props.handlePaginationChange}
-        activePage={props.activePage}
-        disabled
-      />
-    </Segment>
-    <Segment>
-      <DropdownComponent
-        customClass="page-limit"
-        placeHolder="Show Rows"
-        options={rowOptions}
-        upward
-        value={props.limit}
-        onChange={props.handleRowChange}
-      />
-    </Segment>
-  </Segment.Group>
-);
+const PaginationComponent = (props) => {
+  const hidePaginator = props.totalPages <= 1;
+  if (hidePaginator) {
+    return null;
+  }
+
+  return (
+    <Segment.Group
+      horizontal
+      id="art-pagination-section"
+      className={props.isLoading ? 'entity-loading-pagination' : 'entity-loaded-pagination'}
+    >
+      <Segment>
+        <Pagination
+          id="art-pagination-component"
+          totalPages={props.totalPages}
+          onPageChange={props.handlePaginationChange}
+          activePage={props.activePage}
+          disabled
+        />
+      </Segment>
+      <Segment>
+        <DropdownComponent
+          customClass="page-limit"
+          placeHolder="Show Rows"
+          options={rowOptions}
+          upward
+          value={props.limit}
+          onChange={props.handleRowChange}
+        />
+      </Segment>
+    </Segment.Group>
+  );
+};
 
 PaginationComponent.propTypes = {
   activePage: PropTypes.number,

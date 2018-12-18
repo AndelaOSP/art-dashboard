@@ -1,0 +1,17 @@
+@import "mediaQueries.scss";
+
+.page-header {
+  padding: 0 110px;
+}
+
+@include tablet {
+  .page-header {
+    padding: 0 30px;
+  }
+}
+
+@include small {
+  .page-header {
+    padding: 0 30px;
+  }
+}

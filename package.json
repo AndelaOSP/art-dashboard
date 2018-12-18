@@ -13,6 +13,7 @@
     "fusioncharts": "^3.12.2",
     "highcharts": "^6.1.1",
     "history": "^4.7.2",
+    "jest-enzyme": "^7.0.1",
     "jest-mock": "^23.2.0",
     "jsonwebtoken": "^8.2.2",
     "lodash": "^4.17.10",
