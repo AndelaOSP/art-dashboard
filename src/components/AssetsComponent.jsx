@@ -103,7 +103,6 @@ export default class AssetsComponent extends Component {
     const { assets } = this.state;
     const { status } = this.props;
     const totalPages = this.handlePageTotal();
-    const showPaginator = totalPages > 1;
     const currentAssets = `page_${this.props.activePage}`;
     const showFilter = !isEmpty(this.props.assetsList[currentAssets] || assets);
 
@@ -149,16 +148,14 @@ export default class AssetsComponent extends Component {
             isLoading={this.props.isLoading}
             status={status}
           />
-          {showPaginator && (
-            <PaginationComponent
-              activePage={this.props.activePage}
-              handleRowChange={this.handleRowChange}
-              handlePaginationChange={this.handlePaginationChange}
-              limit={this.state.limit}
-              totalPages={totalPages}
-              isLoading={this.props.isLoading}
-            />
-          )}
+          <PaginationComponent
+            activePage={this.props.activePage}
+            handleRowChange={this.handleRowChange}
+            handlePaginationChange={this.handlePaginationChange}
+            limit={this.state.limit}
+            totalPages={totalPages}
+            isLoading={this.props.isLoading}
+          />
         </div>
       </NavBarComponent>
     );

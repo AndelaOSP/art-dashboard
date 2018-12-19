@@ -18,6 +18,7 @@ import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../LoaderComponent';
 import StatusMessageComponent from '../common/StatusComponent';
 import OfficeLocations from '../../_components/OfficeLocations/OfficeLocationsContainer';
+import AssetVerifiedComponent from './AssetVerifiedComponent';
 
 import '../../_css/AssetDetailsComponent.css';
 
@@ -50,7 +51,14 @@ class AssetDetailsComponent extends Component {
   }
 
   render() {
-    const { assetDetail, errorMessage, success, updateErrorMessage, match } = this.props;
+    const {
+      assetDetail,
+      errorMessage,
+      success,
+      updateErrorMessage,
+      match,
+      updateAsset
+    } = this.props;
 
     const showMessage = success || updateErrorMessage;
 
@@ -174,6 +182,12 @@ class AssetDetailsComponent extends Component {
                             <Table.Cell className="details-headings">Asset Status</Table.Cell>
                             <Table.Cell>{assetDetail.current_status || '-'}</Table.Cell>
                           </Table.Row>
+
+                          <AssetVerifiedComponent
+                            uuid={match.params.id}
+                            assetDetail={assetDetail}
+                            updateAsset={updateAsset}
+                          />
                         </Table.Body>
                       </Table>
                     </Grid.Column>
