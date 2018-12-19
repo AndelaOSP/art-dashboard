@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
-import Filter from '../../components/common/FilterMain';
+import Filter from '../../components/common/Filter/Filter';
 
 describe('Renders <Filter /> tests', () => {
   const props = {
