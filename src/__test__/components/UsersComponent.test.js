@@ -1,55 +1,88 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
-import UserComponent from '../../components/User/UserComponent';
 
+import UsersComponent from '../../components/User/UsersComponent';
+import UserHeader from '../../components/User/UserHeader';
 import users from '../../_mock/users';
 
-describe('Renders <UserComponent /> correctly when no errors or loading prop', () => {
-  const props = {
-    isLoading: false,
-    activePage: 1,
-    emptyUsersList: () => false,
-    errorMessage: '',
-    handlePageTotal: jest.fn(),
-    loadUsers: jest.fn(),
-    handlePaginationChange: jest.fn(),
-    handleRowChange: jest.fn(),
-    loadAllFilterValues: jest.fn(),
-    resetUsers: jest.fn(),
-    setActivePage: jest.fn(),
-    loading: jest.fn(),
-    users,
-    usersCount: 0
-  };
+jest.mock('../../_components/NavBarContainer', () => () => <div />);
 
-  const wrapper = shallow(<UserComponent {...props} />);
-
-  it('calls the handlePaginationChange function when the next button is clicked', () => {
-    const handlePaginationChangeSpy = jest.spyOn(
-      wrapper.instance(), 'handlePaginationChange'
-    );
-    const event = {};
-    const data = {};
-    wrapper.instance().handlePaginationChange(event, data);
-    expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
+describe('UsersComponent tests', () => {
+  let props;
+  let wrapper;
+  beforeEach(() => {
+    props = {
+      loadUsers: jest.fn(),
+      loadAllFilterValues: jest.fn(),
+      resetUsers: jest.fn(),
+      setActivePage: jest.fn(),
+      usersCount: 1,
+      activePage: 1,
+      users: {
+        page_1: users
+      },
+      hasError: false,
+      errorMessage: '',
+      isFiltered: false,
+      resetMessage: jest.fn(),
+      isLoading: false,
+      entity: 'users'
+    };
+    wrapper = shallow(<UsersComponent {...props} />);
   });
 
-  it('calls the handlePageTotal function when the next button is clicked', () => {
-    const handlePageTotalSpy = jest.spyOn(
-      wrapper.instance(), 'handlePageTotal'
+  it('renders without errors with minimal props', () => {
+    expect(() => wrapper).not.toThrow();
+  });
+
+  it('renders the UserHeader component', () => {
+    expect(wrapper).toContainReact(<UserHeader limit={10} name="users" />);
+  });
+
+  it('renders the StatusMessageComponent', () => {
+    const withError = shallow(
+      <UsersComponent
+        {...props}
+        errorMessage="Error!"
+        hasError
+      />
     );
-    wrapper.instance().handlePageTotal();
-    expect(handlePageTotalSpy.mock.calls.length).toEqual(1);
+    expect(withError.find('StatusMessageComponent')).toHaveClassName('error-status');
+  });
+
+  it('renders the not found component', () => {
+    const rendered = shallow(<UsersComponent {...props} activePage={2} />);
+    expect(rendered.find('ItemsNotFoundComponent')).toExist();
+  });
+
+  it('renders the UsersContent', () => {
+    expect(wrapper.find('UsersContent')).toHaveProp('hasUsers', true);
+  });
+
+  it('executes the handlePaginationChange function', () => {
+    const rendered = shallow(<UsersComponent {...props} activePage={3} />);
+    const handlePaginationChangeSpy = jest.spyOn(
+      rendered.instance(), 'handlePaginationChange'
+    );
+    rendered.instance().handlePaginationChange({}, {});
+    expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
   });
 
   it('calls handleRowChange when a  number of rows are selected', () => {
     const handleRowChangeSpy = jest.spyOn(
       wrapper.instance(), 'handleRowChange'
     );
-    const event = {};
-    const data = {};
-    wrapper.instance().handleRowChange(event, data);
+    wrapper.instance().handleRowChange({}, {});
     expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calculates the total pages', () => {
+    const results = wrapper.instance().getTotalPages();
+    expect(results).toEqual(1);
+
+    wrapper.setProps({ usersCount: 25 });
+    const pages = wrapper.instance().getTotalPages();
+    expect(pages).toEqual(3);
   });
 });

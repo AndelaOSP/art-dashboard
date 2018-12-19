@@ -71,12 +71,7 @@ export default class AssetsComponent extends Component {
     const currentPageList = this.props.assetsList[`page_${activePage}`];
 
     if (isEmpty(currentPageList)) {
-      this.retrieveAssets(
-        activePage,
-        this.state.limit,
-        status,
-        selected
-      );
+      this.retrieveAssets(activePage, this.state.limit, status, selected);
     }
   };
 
@@ -100,8 +95,8 @@ export default class AssetsComponent extends Component {
     const { assets } = this.state;
     const { status } = this.props;
     const totalPages = this.handlePageTotal();
-    const showPaginator = totalPages > 1;
     const currentAssets = `page_${this.props.activePage}`;
+    const showPaginator = totalPages > 1;
     const showFilter = !isEmpty(this.props.assetsList[currentAssets] || assets);
 
     return (

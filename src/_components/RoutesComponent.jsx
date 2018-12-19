@@ -61,6 +61,12 @@ class RoutesComponent extends Component {
           <Authenticate
             exact
             isAuthenticated={this.checkAuthentication()}
+            path="/assets/create"
+            component={AddAsset}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
             path="/assets/:status?"
             component={Assets}
           />
@@ -133,12 +139,6 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/asset-specs/create"
             component={AddAssetSpec}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/assets/create"
-            component={AddAsset}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />

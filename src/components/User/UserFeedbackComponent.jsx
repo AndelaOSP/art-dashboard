@@ -12,7 +12,7 @@ import LoaderComponent from '../LoaderComponent';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
 import ActionComponent from '../ActionComponent';
-import TableHeaderComponent from '../common/TableHeaderComponent';
+import TableHeaderComponent from '../common/Table/TableHeaderComponent';
 
 import '../../_css/UserFeedback.css';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
