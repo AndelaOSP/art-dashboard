@@ -4,8 +4,6 @@ import {
   setActivePage,
   resetMessage
 } from '../../_actions/securityUsers.actions';
-import { loadAllFilterValues } from '../../_actions/allFilterValues.actions';
-import { loading, resetUsers } from '../../_actions/users.actions';
 import UsersComponent from '../../components/User/UsersComponent';
 
 export const mapStateToProps = ({ securityUsers }) => {
@@ -29,8 +27,5 @@ export const mapStateToProps = ({ securityUsers }) => {
 export default connect(mapStateToProps, {
   loadUsers: loadSecurityUsers,
   setActivePage,
-  resetMessage,
-  loadAllFilterValues,
-  loading,
-  resetUsers
+  resetMessage
 })(UsersComponent);
