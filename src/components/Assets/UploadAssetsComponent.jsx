@@ -50,7 +50,13 @@ class UploadAssets extends React.Component {
           className="dropzone"
         >
 
-          <div className="progress-handler" onClick={this.resetUpload} onKeyDown={this.resetUpload} role="button" tabIndex={0}>
+          <div
+            className="progress-handler"
+            onClick={this.resetUpload}
+            onKeyDown={this.resetUpload}
+            role="button"
+            tabIndex={0}
+          >
             {loading && !showStatus && (
               <Progress style={{ width: '90%' }} percent={100} active>
                 Upload in progress...

@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { Accordion, Form, Menu } from 'semantic-ui-react';
 import { isEmpty, isNull } from 'lodash';
 import uuidv4 from 'uuid/v4';
-
-import CheckboxComponent from './CheckboxComponent';
-
-import '../../_css/FilterComponent.css';
+import CheckboxComponent from '../CheckboxComponent';
+import '../../../_css/FilterComponent.css';
 
 class FilterComponent extends React.Component {
   state = {
@@ -53,21 +51,21 @@ class FilterComponent extends React.Component {
           <Accordion.Content active={activeIndex === index}>
             <Form className="filter-form">
               {
-                  option.content.map((opt) => {
-                    const label = isNull(opt.option) ? 'unspecified' : opt.option;
-                    const selectedOptions = this.props.selected[option.title] || [];
+                option.content.map((opt) => {
+                  const label = isNull(opt.option) ? 'unspecified' : opt.option;
+                  const selectedOptions = this.props.selected[option.title] || [];
 
-                    return (
-                      <CheckboxComponent
-                        key={uuidv4()}
-                        label={label}
-                        name={option.title}
-                        isChecked={selectedOptions.includes((label).toString())}
-                        handleCheckboxChange={this.handleCheckboxChange}
-                      />
-                      );
-                    }
-                  )
+                  return (
+                    <CheckboxComponent
+                      key={uuidv4()}
+                      label={label}
+                      name={option.title}
+                      isChecked={selectedOptions.includes((label).toString())}
+                      handleCheckboxChange={this.handleCheckboxChange}
+                    />
+                  );
+                }
+                )
               }
             </Form>
           </Accordion.Content>

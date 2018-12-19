@@ -30,9 +30,8 @@ export const createFilterData = (assetTypes, assetModels) => {
 };
 
 export const mapStateToProps = (state, ownProps) => {
-  const { props } = ownProps;
   const { assets, assetTypesList, assetModelsList, selected } = state;
-  const { params } = props.match;
+  const { params } = ownProps.match;
 
   const {
     assetsList,
@@ -59,8 +58,7 @@ export const mapStateToProps = (state, ownProps) => {
     activePage,
     selected,
     status,
-    shouldReload,
-    match: props.match
+    shouldReload
   };
 };
 

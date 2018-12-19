@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import AssetsTableContent from './AssetsTableContent';
 import PaginationComponent from './common/PaginationComponent';
-import Filter from './common/FilterMain';
+import Filter from './common/Filter/Filter';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
 import { constructUrl } from '../_utils/assets';
 

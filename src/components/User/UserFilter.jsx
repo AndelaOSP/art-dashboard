@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Filter from '../common/FilterMain';
+import Filter from '../common/Filter/Filter';
 
 const UserFilterButton = props => (
   <Filter

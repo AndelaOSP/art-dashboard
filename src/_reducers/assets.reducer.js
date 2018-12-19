@@ -199,6 +199,7 @@ export default (state = initialState.assets, action) => {
         hasError: true,
         isLoading: action.isLoading
       };
+
     case RESET_UPLOAD_ASSETS:
       return {
         ...state,
@@ -208,6 +209,7 @@ export default (state = initialState.assets, action) => {
         hasError: false,
         isLoading: false
       };
+
     case UPLOAD_ASSETS_STARTS:
       return {
         ...state,

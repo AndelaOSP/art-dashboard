@@ -25,11 +25,9 @@ describe('Renders <Assets />  tests', () => {
     };
 
     const ownProps = {
-      props: {
-        match: {
-          params: {
-            status: ''
-          }
+      match: {
+        params: {
+          status: ''
         }
       }
     };
@@ -44,7 +42,6 @@ describe('Renders <Assets />  tests', () => {
       activePage: 1,
       selected: [],
       status: '',
-      match: { params: { status: '' } },
       shouldReload: false
     };
 
