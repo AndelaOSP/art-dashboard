@@ -22,15 +22,6 @@ describe('Renders <UploadAssetsComponent /> correctly', () => {
     expect(wrapper.find('.dropzone').length).toBe(1);
   });
 
-  it('renders success StatusMessage', () => {
-    wrapper.setProps({
-      loading: false,
-      error: 'An error occured'
-    });
-
-    expect(wrapper.find('StatusMessage').hasClass('error-status')).toEqual(true);
-  });
-
   it('calls the handleDrop function when files are dropped on dropzone', () => {
     const handleDropSpy = jest.spyOn(
       wrapper.instance(), 'handleDrop'
