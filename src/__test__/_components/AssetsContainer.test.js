@@ -25,11 +25,9 @@ describe('Renders <Assets />  tests', () => {
     };
 
     const ownProps = {
-      props: {
-        match: {
-          params: {
-            status: ''
-          }
+      match: {
+        params: {
+          status: ''
         }
       }
     };
