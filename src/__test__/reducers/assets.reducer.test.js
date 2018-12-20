@@ -27,7 +27,11 @@ const {
   UPLOAD_ASSETS_FAILURE,
   RESET_UPLOAD_ASSETS,
   DOWNLOAD_FILE_SUCCESS,
-  DOWNLOAD_FILE_FAILURE
+  DOWNLOAD_FILE_FAILURE,
+  UPDATE_ASSET_REQUEST,
+  UPDATE_ASSET_SUCCESS,
+  UPDATE_ASSET_FAIL,
+  RESET_ASSETS
 } = constants;
 
 const state = {
@@ -117,6 +121,35 @@ describe('Asset Reducer tests', () => {
     expect(assetReducer(state, {})).toEqual(state);
     expect(assetReducer(state, action).success).toEqual('');
     expect(assetReducer(state, action).errorMessage).toEqual('');
+  });
+
+  it('should handle RESET_ASSETS', () => {
+    action.type = RESET_ASSETS;
+    expect(assetReducer(state, action).assetsList).toEqual({});
+  });
+
+  it('should handle UPDATE_ASSET_REQUEST', () => {
+    action.type = UPDATE_ASSET_REQUEST;
+    action.updateLoading = true;
+    expect(assetReducer(state, action).updateLoading).toBe(true);
+    expect(assetReducer(state, action).success).toEqual('');
+    expect(assetReducer(state, action).errorMessage).toEqual('');
+  });
+
+  it('should handle UPDATE_ASSET_SUCCESS', () => {
+    action.type = UPDATE_ASSET_SUCCESS;
+    action.updateLoading = false;
+    expect(assetReducer(state, action).updateLoading).toBe(false);
+    expect(assetReducer(state, action).success).toEqual('Asset successfully updated.');
+    expect(assetReducer(state, action).errorMessage).toEqual('');
+  });
+
+  it('should handle UPDATE_ASSET_FAIL', () => {
+    action.type = UPDATE_ASSET_FAIL;
+    action.updateLoading = false;
+    expect(assetReducer(state, action).updateLoading).toBe(false);
+    expect(assetReducer(state, action).success).toEqual('');
+    expect(assetReducer(state, action).errorMessage).toEqual('Could not update asset.');
   });
 
   it('should handle UPLOAD_ASSETS_STARTS', () => {

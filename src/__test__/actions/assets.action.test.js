@@ -138,4 +138,22 @@ describe('Asset Types action tests', () => {
       });
     });
   });
+
+  it('should dispatch DOWNLOAD_FILE_SUCCESS, when uploadAssets partially successful', () => {
+    const testurl = 'skipped/';
+    const expectedResponse = new Blob([{
+      size: 15041,
+      type: 'text/csv'
+    }]);
+
+    global.URL.createObjectURL = jest.fn();
+    const downloadedFile = global.URL.createObjectURL(expectedResponse);
+    mock.onGet().reply(200, downloadedFile);
+    return store.dispatch(downloadFile(testurl)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: downloadedFile,
+        type: 'DOWNLOAD_FILE_SUCCESS'
+      });
+    });
+  });
 });
