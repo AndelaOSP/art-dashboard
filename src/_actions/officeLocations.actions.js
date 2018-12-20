@@ -4,7 +4,8 @@ import constants from '../_constants';
 const {
   LOAD_LOCATIONS_REQUEST,
   LOAD_LOCATIONS_SUCCESS,
-  LOAD_LOCATIONS_FAILURE
+  LOAD_LOCATIONS_FAILURE,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 export const loadOfficeLocations = (pageNumber, limit) => (dispatch) => {
@@ -27,3 +28,5 @@ export const loadOfficeLocationsFailure = error => ({
   type: LOAD_LOCATIONS_FAILURE,
   payload: error
 });
+
+export const resetMessage = () => ({ type: RESET_STATUS_MESSAGE });

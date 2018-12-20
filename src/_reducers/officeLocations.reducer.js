@@ -4,7 +4,8 @@ import initialState from './initialState';
 const {
   LOAD_LOCATIONS_REQUEST,
   LOAD_LOCATIONS_SUCCESS,
-  LOAD_LOCATIONS_FAILURE
+  LOAD_LOCATIONS_FAILURE,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 export default (state = initialState.officeLocations, action) => {
@@ -28,6 +29,12 @@ export default (state = initialState.officeLocations, action) => {
         ...state,
         error: action.payload,
         isLoading: false
+      };
+
+    case RESET_STATUS_MESSAGE:
+      return {
+        ...state,
+        error: ''
       };
 
     default:
