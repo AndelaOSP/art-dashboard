@@ -12,6 +12,11 @@ const {
   RESET_STATUS_MESSAGE
 } = constants;
 
+// Currently the API returns three error messages. All are within objects with asset_code,
+//  serial_number and non_field_errors as the keys. The use of .replace() is due to the fact
+// that the response is not as well structured. e.g. {"asset_code": {"['error message']"}}
+// TODO: The error messages should be updated once the API returns the error messages
+// in a better format
 const getErrorMessage = (error) => {
   if (error.hasOwnProperty('email')) {
     return error.email[0].replace(/[[\]']/g, '');

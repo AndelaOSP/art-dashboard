@@ -27,21 +27,21 @@ class AddSecurityUserComponent extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!emailValidation(this.state.email)) {
-      this.setState({ emailError: true });
-    } else {
-      this.setState({ emailError: false });
+    const isValidEmail = emailValidation(this.state.email);
 
-      const newSecurityUser = {
-        first_name: this.state.firstName,
-        last_name: this.state.lastName,
-        phone_number: this.state.phoneNumber,
-        email: this.state.email,
-        badge_number: this.state.badgeNumber
-      };
-
-      this.props.addSecurityUser(newSecurityUser);
+    if (!isValidEmail) {
+      return this.setState({ emailError: !isValidEmail });
     }
+
+    this.setState({ emailError: isValidEmail });
+
+    return this.props.addSecurityUser({
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      phone_number: this.state.phoneNumber,
+      email: this.state.email,
+      badge_number: this.state.badgeNumber
+    });
   };
 
   render() {
