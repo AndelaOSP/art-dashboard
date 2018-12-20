@@ -14,7 +14,8 @@ describe('Renders <UploadAssetsComponent /> correctly', () => {
     uploadAssets: jest.fn(),
     handleDrop: jest.fn(),
     handleFileDownload: jest.fn(),
-    resetUpload: jest.fn()
+    resetUpload: jest.fn(),
+    errorMessage: jest.fn()
   };
   const wrapper = shallow(<UploadAssetsComponent {...props} />);
 
@@ -55,5 +56,17 @@ describe('Renders <UploadAssetsComponent /> correctly', () => {
     );
     wrapper.setProps({ downloadedFile: 'blob:testfile/' });
     expect(componentDidUpdateSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('returns message to download sample file', () => {
+    expect(wrapper.find('.failed-file').exists()).toEqual(true);
+  });
+
+  it('returns no error message if upload is successful', () => {
+    wrapper.setProps({
+      success: { failed: '' }
+    });
+    expect(wrapper.find('.error-guide').exists()).toEqual(false);
+    expect(wrapper.find('.success-status').exists()).toEqual(true);
   });
 });
