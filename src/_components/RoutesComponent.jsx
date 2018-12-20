@@ -25,6 +25,7 @@ import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
 import AddSecurityUsers from './SecurityUser/AddSecurityUserContainer';
 import SecurityUsers from './SecurityUser/SecurityUserContainer';
+import AndelaCentresComponent from './AndelaCentres/AndelaCentresContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => {
@@ -153,6 +154,12 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/security-users/create"
             component={AddSecurityUsers}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/andela-centres"
+            component={AndelaCentresComponent}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />
