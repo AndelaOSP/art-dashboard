@@ -38,7 +38,7 @@ class UploadAssets extends React.Component {
     return (
       <div className="center-upload">
         <span className="failed-file">
-          <a href="# " onClick={() => this.handleFileDownload('sample_import_file/')}>
+          <a href="# " onClick={() => this.handleFileDownload('files/sample_import_file/')}>
             Download the sample file
           </a>{' '}
           , fill the columns and upload it.
