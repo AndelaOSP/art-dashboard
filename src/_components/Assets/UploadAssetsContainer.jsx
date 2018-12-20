@@ -22,9 +22,8 @@ export const mapStateToProps = ({ assets }) => {
   };
 };
 
-export default connect(
-  mapStateToProps, {
-    uploadAssets,
-    downloadFile,
-    resetUploadAssets
-  })(UploadAssets);
+export default connect(mapStateToProps, {
+  uploadAssets,
+  downloadFile,
+  resetUploadAssets
+})(UploadAssets);
