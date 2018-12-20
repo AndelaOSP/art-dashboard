@@ -64,9 +64,27 @@ describe('Renders <UploadAssetsComponent /> correctly', () => {
 
   it('returns no error message if upload is successful', () => {
     wrapper.setProps({
-      success: { failed: '' }
+      success: { fail: '' }
     });
     expect(wrapper.find('.error-guide').exists()).toEqual(false);
     expect(wrapper.find('.success-status').exists()).toEqual(true);
+  });
+
+  it('returns download file error message if upload is partially successful', () => {
+    wrapper.setProps({
+      success: { fail: 'This some upload data failed' }
+    });
+    expect(wrapper.find('.error-guide').text()).toContain('fix errors and upload again');
+    expect(wrapper.find('.error-status').exists()).toEqual(true);
+  });
+
+
+  it('returns error message if an internal error occurs', () => {
+    wrapper.setProps({
+      success: { fail: '' },
+      error: '500'
+    });
+    expect(wrapper.find('.error-guide').text()).toContain('contact the admin');
+    expect(wrapper.find('.error-status').exists()).toEqual(true);
   });
 });
