@@ -8,22 +8,20 @@ import PageHeader from '../common/PageHeader';
 
 const AssetsTabComponent = props => (
   <NavBarComponent>
-    <PageHeader header="Assets">
-      <div className="assets-tab">
-        <TabsComponent
-          panes={[
-            {
-              header: 'All Assets',
-              component: <AssetsContainer {...props} />
-            },
-            {
-              header: 'Import Assets',
-              component: <UploadAssetsContainer />
-            }
-          ]}
-        />
-      </div>
-    </PageHeader>
+    <PageHeader header="Assets" />
+    <div className="assets-list">
+      <TabsComponent panes={[
+        {
+          header: 'All Assets',
+          component: <AssetsContainer {...props} />
+        },
+        {
+          header: 'Import Assets',
+          component: <UploadAssetsContainer />
+        }
+      ]}
+      />
+    </div>
   </NavBarComponent>
 );
 
