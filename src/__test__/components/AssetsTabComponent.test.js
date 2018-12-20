@@ -9,10 +9,6 @@ describe('Renders <AssetsTabComponent /> tests', () => {
   };
   const wrapper = shallow(<AssetsTab {...props} />);
 
-  // it('renders Header content to contain passed props status', () => {
-  //   expect(wrapper.find('Header').prop('content')).toEqual('Assets');
-  // });
-
   it('renders TabsComponent', () => {
     expect(wrapper.find('TabsComponent').exists()).toEqual(true);
   });
