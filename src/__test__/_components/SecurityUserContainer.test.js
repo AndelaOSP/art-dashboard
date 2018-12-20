@@ -16,10 +16,11 @@ describe('<SecurityUserContainer /> tests', () => {
 
     const expected = {
       isLoading: false,
-      usersList: [],
+      users: [],
       usersCount: 0,
       errorMessage: '',
-      activePage: 1
+      activePage: 1,
+      entity: 'security-users'
     };
 
     expect(mapStateToProps(state)).toEqual(expected);
