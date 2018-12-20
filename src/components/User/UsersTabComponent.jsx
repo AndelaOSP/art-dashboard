@@ -6,7 +6,7 @@ import TabsComponent from '../../components/common/TabsComponent';
 import UserComponent from '../../_components/User/UserContainer';
 import SecurityUser from '../../_components/SecurityUser/SecurityUserContainer';
 
-const UsesTabComponent = () => (
+const UsersTabComponent = () => (
   <NavBarComponent>
     <PageHeader header="Users">
       <TabsComponent panes={[
@@ -24,4 +24,4 @@ const UsesTabComponent = () => (
   </NavBarComponent>
 );
 
-export default UsesTabComponent;
+export default UsersTabComponent;
