@@ -12,18 +12,16 @@ const Filter = props => (
     disabled={props.isLoading}
     option={props.filterData[1]}
   >
-    <React.Fragment>
-      {
-        props.filterData.map((data, index) => (
-          <FilterComponent
-            index={index}
-            option={data}
-            selected={props.selected}
-            filterSelection={props.filterSelection}
-          />
-        ))
-      }
-    </React.Fragment>
+    {
+      props.filterData.map((data, index) => (
+        <FilterComponent
+          index={index}
+          option={data}
+          selected={props.selected}
+          filterSelection={props.filterSelection}
+        />
+      ))
+    }
   </FilterButton>
 );
 
