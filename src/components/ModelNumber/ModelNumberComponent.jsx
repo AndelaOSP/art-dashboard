@@ -16,11 +16,7 @@ const placeMakesInSemanticUIOptions = assetMakesList =>
 
 const ModelNumberComponent = (props) => {
   if (props.isLoading) {
-    return (
-      <div className="loader-container" >
-        <LoaderComponent />
-      </div>
-    );
+    return <LoaderComponent />;
   }
 
   return (
@@ -46,19 +42,21 @@ const ModelNumberComponent = (props) => {
           options={placeMakesInSemanticUIOptions(props.assetMakes)}
         />
       </label>
-      <br />
-      <ArtButton
-        className="cancel"
-        buttonName="Cancel"
-        handleClick={props.toggleModal}
-      />
-      <ArtButton
-        className="save"
-        buttonName="Save"
-        color="primary"
-        handleClick={props.onChangeButtonState}
-        buttonState={props.buttonState}
-      />
+
+      <div className="modal__buttons">
+        <ArtButton
+          customCss="cancel"
+          buttonName="Cancel"
+          handleClick={props.toggleModal}
+        />
+        <ArtButton
+          customCss="save"
+          buttonName="Save"
+          color="primary"
+          handleClick={props.onChangeButtonState}
+          buttonState={props.buttonState}
+        />
+      </div>
     </Form>
   );
 };

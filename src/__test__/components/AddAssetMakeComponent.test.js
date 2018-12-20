@@ -2,15 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';
 import { spy } from 'sinon';
-import AddAssetMakeComponent from '../components/AssetMake/AddAssetMakeComponent';
-import AssetMakeContainer from '../_components/AssetMake/AssetMakeContainer';
+import AddAssetMakeComponent from '../../components/AssetMake/AddAssetMakeComponent';
+import AssetMakeContainer from '../../_components/AssetMake/AssetMakeContainer';
 
 const toggleModal = spy();
-const onChangeButtonState = spy();
 const props = {
   toggleModal,
   handleSubmit: jest.fn(),
-  onChangeButtonState,
   onaddAssetMake: jest.fn(),
   assetTypes: [],
   onSelectAssetType: jest.fn(),
@@ -18,6 +16,7 @@ const props = {
   loadDropdownAssetTypes: jest.fn(),
   loadAssetMakes: jest.fn(),
   resetToastMessageContent: jest.fn(),
+  onChangeButtonState: jest.fn(),
   toastMessageContent: {},
   isLoading: false
 };
@@ -41,16 +40,8 @@ describe('Renders <AddAssetMakeComponent /> correctly', () => {
     expect(wrapper.find('DropdownComponent').length).toEqual(1);
   });
 
-  it('Should find the Save Button', () => {
-    expect(wrapper.find('.save').length).toEqual(1);
-    wrapper.find('.save').simulate('click');
-    expect(onChangeButtonState.callCount).toEqual(1);
-  });
-
-  it('Should find the Cancel Button', () => {
-    expect(wrapper.find('.cancel').length).toEqual(1);
-    wrapper.find('.cancel').simulate('click');
-    expect(toggleModal.callCount).toEqual(1);
+  it('Should find the save and cancel buttons', () => {
+    expect(wrapper.find('ButtonComponent').exists()).toBe(true);
   });
 
   it('Should simulate form submit', () => {

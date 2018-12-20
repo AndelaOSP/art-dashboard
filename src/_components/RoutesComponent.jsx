@@ -23,7 +23,6 @@ import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
-import AddSecurityUsers from './SecurityUser/AddSecurityUserContainer';
 import SecurityUsers from './SecurityUser/SecurityUserContainer';
 import AndelaCentresComponent from './AndelaCentres/AndelaCentresContainer';
 
@@ -148,12 +147,6 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/security-users"
             component={SecurityUsers}
-          />
-          <Authenticate
-            exact
-            isAuthenticated={this.checkAuthentication()}
-            path="/security-users/create"
-            component={AddSecurityUsers}
           />
           <Authenticate
             exact

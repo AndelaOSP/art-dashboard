@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import AssetTypesAction from '../components/AssetTypesAction';
+import AssetTypesAction from '../../components/AssetTypesAction';
 
-import details from '../_mock/assetType';
+import details from '../../_mock/assetType';
 
 describe('Renders <AssetTypesAction /> correctly', () => {
   const props = {

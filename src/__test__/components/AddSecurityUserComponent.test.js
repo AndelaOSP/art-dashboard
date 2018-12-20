@@ -15,14 +15,39 @@ const props = {
   error: false
 };
 
-describe('Renders <AddSecurityUserComponent /> correctly when no errors or loading prop', () => {
-  const wrapper1 = shallow(<AddSecurityUserComponent {...props} />);
+describe('Renders <AddSecurityUserComponent /> correctly', () => {
+  const wrapper = shallow(<AddSecurityUserComponent {...props} />);
 
   it('renders Form component', () => {
-    expect(wrapper1.find('Form').length).toBe(1);
+    expect(wrapper.find('Form').length).toBe(1);
   });
 
-  it('renders the save button component', () => {
-    expect(wrapper1.find('.save').length).toBe(1);
+  it('renders the save and cancel button', () => {
+    expect(wrapper.find('ButtonComponent').exists()).toBe(true);
+  });
+
+  it('calls the handleInputChange function', () => {
+    const handleInputChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleInputChange'
+    );
+    const event = { target: { value: '' } };
+    const data = {};
+
+    wrapper.instance().handleInputChange(event, data);
+    expect(handleInputChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the handleSubmit function', () => {
+    const handleSubmitSpy = jest.spyOn(
+      wrapper.instance(), 'handleSubmit'
+    );
+    const event = {
+      target: { value: '', reset: jest.fn() },
+      preventDefault: jest.fn()
+    };
+    const data = {};
+
+    wrapper.instance().handleSubmit(event, data);
+    expect(handleSubmitSpy.mock.calls.length).toEqual(1);
   });
 });

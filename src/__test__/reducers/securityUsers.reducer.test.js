@@ -27,6 +27,14 @@ const initialState = {
 
 const action = { payload: {} };
 
+const error = {
+  response: {
+    data: {
+      non_field_errors: ['The fields email and badge_number must be unique.']
+    }
+  }
+};
+
 describe('Users Reducer tests', () => {
   it('should return initial state when there is no action', () => {
     expect(securityUsersReducer(initialState, action)).toEqual(initialState);
@@ -48,9 +56,10 @@ describe('Users Reducer tests', () => {
 
   it('should handle CREATE_SECURITY_USER_FAILURE', () => {
     action.type = CREATE_SECURITY_USER_FAILURE;
-    action.payload = SecurityUser;
+    action.payload = error;
 
-    expect(securityUsersReducer(initialState, action).errorMessage).toEqual(action.payload);
+    expect(securityUsersReducer(initialState, action).errorMessage)
+      .toEqual(action.payload.response.data.non_field_errors[0]);
   });
 
   it('should handle LOAD_SECURITY_USERS_REQUEST', () => {

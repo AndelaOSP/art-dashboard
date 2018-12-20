@@ -2,25 +2,25 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { AssetSubCategoriesComponent } from '../components/AssetsSubCategoriesComponent';
+import { AssetMakeComponent } from '../../components/AssetMake/AssetMakeComponent';
 
-import assetSubCategories from '../_mock/subcategories';
+import assetMakes from '../../_mock/assetMakes';
 
-describe('Renders <AssetsSubCategoriesComponent /> correctly', () => {
+describe('Renders <AssetMakeComponent /> correctly', () => {
   const props = {
-    loadSubCategories: jest.fn(),
+    loadAssetMakes: jest.fn(),
     handlePaginationChange: jest.fn(),
     isLoading: false,
-    assetSubCategories,
-    assetSubCategoriesCount: 10
+    assetMakes,
+    assetMakesCount: 10
   };
-  let wrapper = shallow(<AssetSubCategoriesComponent
+  let wrapper = shallow(<AssetMakeComponent
     {...props}
   />);
 
   it('renders Loading component if isLoading is true', () => {
     props.isLoading = true;
-    wrapper = shallow(<AssetSubCategoriesComponent
+    wrapper = shallow(<AssetMakeComponent
       {...props}
     />);
     expect(wrapper.find('LoaderComponent').length).toBe(1);
@@ -28,7 +28,7 @@ describe('Renders <AssetsSubCategoriesComponent /> correctly', () => {
 
   it('renders Pagination component', () => {
     props.isLoading = false;
-    wrapper = shallow(<AssetSubCategoriesComponent
+    wrapper = shallow(<AssetMakeComponent
       {...props}
     />);
     expect(wrapper.find('Pagination').length).toBe(1);
@@ -36,7 +36,7 @@ describe('Renders <AssetsSubCategoriesComponent /> correctly', () => {
 
   it('renders Table component', () => {
     props.isLoading = false;
-    wrapper = shallow(<AssetSubCategoriesComponent
+    wrapper = shallow(<AssetMakeComponent
       {...props}
     />);
     expect(wrapper.find('Table').length).toBe(1);
@@ -50,10 +50,6 @@ describe('Renders <AssetsSubCategoriesComponent /> correctly', () => {
     const data = {};
     wrapper.instance().handlePaginationChange(event, data);
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
-  });
-
-  it('renders page title', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Asset Sub-Categories');
   });
 
   it('calls the getTotalPages function when the next button is clicked', () => {
