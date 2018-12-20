@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AddUserComponent from '../../components/User/AddSecurityUserComponent';
+import AddUserComponent from '../../components/SecurityUser/AddSecurityUserComponent';
 import { ToastMessage } from '../../_utils/ToastMessage';
-import { addSecurityUser } from '../../_actions/users.actions';
+import { addSecurityUser } from '../../_actions/securityUsers.actions';
 import resetToastMessageContent from '../../_actions/toastMessage.actions';
 import emailValidation from '../../_utils/formValidation';
 

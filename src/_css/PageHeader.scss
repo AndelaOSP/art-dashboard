@@ -2,6 +2,10 @@
 
 .page-header {
   padding: 0 110px;
+
+  .ui.attached.tabular.menu {
+    padding-top: 70px;
+  }
 }
 
 @include tablet {

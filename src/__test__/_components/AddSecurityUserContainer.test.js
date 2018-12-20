@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import expect from 'expect';
-import AddSecurityUserContainer from '../../_components/User/AddSecurityUserContainer';
+import AddSecurityUserContainer from '../../_components/SecurityUser/AddSecurityUserContainer';
 
 const props = {
   toastMessageContent: {

@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 
 import LoaderComponent from '../LoaderComponent';
 import NavBarComponent from '../../_components/NavBarContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
-import UserHeader from './UserHeader';
 import StatusMessageComponent from '../common/StatusComponent';
 import { isCountCutoffExceeded, constructApiUrl } from '../../_utils/helpers';
 import fetchInfo from '../../_utils/ajax';
 
 import UsersContent from './UsersContent';
 import Paginator from '../common/PaginationComponent';
+import UserFilter from '../../_components/User/UserFilterContainer';
 
 import '../../_css/UsersComponent.css';
 
@@ -104,14 +106,28 @@ export default class UserComponent extends React.Component {
     const activePageUsers = users[currentUsers] || this.state.users;
     const hasUsers = !isEmpty(activePageUsers);
     const showStatus = hasError && errorMessage;
+    const isUsersPage = entity === 'users';
 
     const message = isFiltered
       ? 'No data for that filter. Please try another option.'
-      : `Please try again later, to see if we'll have ${entity} to show you.`;
+      : `Please try again later, to see if we'll have ${entity.replace('-', ' ')} to show you.`;
 
     return (
       <NavBarComponent title="Users" placeHolder="Search by name... ">
-        <UserHeader limit={this.state.limit} name={entity} />
+        {isUsersPage && (
+          <UserFilter
+            limit={this.state.limit}
+            data-test="user-filter"
+          />
+        )}
+
+        {!isUsersPage && (
+          <Button className="filter-button">
+            <Link to="/security-users/create">
+              ADD SECURITY USER
+            </Link>
+          </Button>
+        )}
 
         {showStatus && (
           <StatusMessageComponent
@@ -131,7 +147,11 @@ export default class UserComponent extends React.Component {
         )}
 
         {!isLoading && (
-          <UsersContent users={activePageUsers} hasUsers={hasUsers} />
+          <UsersContent
+            users={activePageUsers}
+            hasUsers={hasUsers}
+            entity={entity}
+          />
         )}
 
         <Paginator
@@ -171,5 +191,8 @@ UserComponent.propTypes = {
 UserComponent.defaultProps = {
   errorMessage: '',
   isLoading: false,
-  users: []
+  users: [],
+  loadAllFilterValues: () => {},
+  loading: () => {},
+  resetUsers: () => {}
 };
