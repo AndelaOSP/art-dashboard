@@ -41,7 +41,10 @@ describe('Renders <AddSecurityUserComponent /> correctly', () => {
     const handleSubmitSpy = jest.spyOn(
       wrapper.instance(), 'handleSubmit'
     );
-    const event = { target: { value: '', reset: jest.fn() } };
+    const event = {
+      target: { value: '', reset: jest.fn() },
+      preventDefault: jest.fn()
+    };
     const data = {};
 
     wrapper.instance().handleSubmit(event, data);
