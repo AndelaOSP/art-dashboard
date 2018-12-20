@@ -96,7 +96,6 @@ export default class AssetsComponent extends Component {
     const { status } = this.props;
     const totalPages = this.handlePageTotal();
     const currentAssets = `page_${this.props.activePage}`;
-    const showPaginator = totalPages > 1;
     const showFilter = !isEmpty(this.props.assetsList[currentAssets] || assets);
 
     return (
@@ -120,7 +119,7 @@ export default class AssetsComponent extends Component {
           isLoading={this.props.isLoading}
           status={status}
         />
-        {showPaginator && (
+        {
           <PaginationComponent
             activePage={this.props.activePage}
             handleRowChange={this.handleRowChange}
@@ -129,7 +128,7 @@ export default class AssetsComponent extends Component {
             totalPages={totalPages}
             isLoading={this.props.isLoading}
           />
-        )}
+        }
       </Fragment>
     );
   }
