@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 
 import LoaderComponent from '../LoaderComponent';
@@ -14,8 +13,10 @@ import fetchInfo from '../../_utils/ajax';
 import UsersContent from './UsersContent';
 import Paginator from '../common/PaginationComponent';
 import UserFilter from '../../_components/User/UserFilterContainer';
+import ModalComponent from '../common/ModalComponent';
 
 import '../../_css/UsersComponent.css';
+import AddSecurityUserContainer from '../../_components/SecurityUser/AddSecurityUserContainer';
 
 const CUTOFF_LIMIT = 100;
 const checkIfCutoffExceeded = isCountCutoffExceeded(CUTOFF_LIMIT);
@@ -79,7 +80,7 @@ export default class UserComponent extends React.Component {
     }
 
     return this.setState({ users: results });
-  }
+  };
 
   getTotalPages = () => {
     const { usersCount } = this.props;
@@ -122,11 +123,16 @@ export default class UserComponent extends React.Component {
         )}
 
         {!isUsersPage && (
-          <Button className="filter-button">
-            <Link to="/security-users/create">
-              ADD SECURITY USER
-            </Link>
-          </Button>
+          <ModalComponent
+            trigger={
+              <Button className="filter-button">
+                ADD SECURITY USER
+              </Button>
+            }
+            modalTitle="Add Security User"
+          >
+            <AddSecurityUserContainer />
+          </ModalComponent>
         )}
 
         {showStatus && (

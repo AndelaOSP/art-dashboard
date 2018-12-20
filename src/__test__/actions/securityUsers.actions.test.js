@@ -51,11 +51,11 @@ describe('Security users tests', () => {
   });
 
   it('should dispatch CREATE_SECURITY_USER_FAILURE when addSecurityUser fails', () => {
-    mock.onPost(url).reply(401);
+    mock.onPost(url).reply(400);
     return store.dispatch(addSecurityUser(SecurityUser)).then(() => {
       expect(store.getActions()).toContainEqual({
         type: CREATE_SECURITY_USER_FAILURE,
-        payload: 'Request failed with status code 401'
+        payload: new Error('Request failed with status code 400')
       });
     });
   });

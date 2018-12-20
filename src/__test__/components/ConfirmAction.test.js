@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import ConfirmAction from '../components/common/ConfirmAction';
+import ConfirmAction from '../../components/common/ConfirmAction';
 
 describe('Renders <ConfirmAction /> correctly', () => {
   const props = {

@@ -49,7 +49,7 @@ export const addSecurityUser = securityUser => (dispatch) => {
       dispatch(addSecurityUserSuccess(response.data));
     })
     .catch((error) => {
-      dispatch(addSecurityUserFailure(error.message));
+      dispatch(addSecurityUserFailure(error));
     });
 };
 

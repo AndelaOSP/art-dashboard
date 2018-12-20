@@ -12,6 +12,22 @@ const {
   RESET_STATUS_MESSAGE
 } = constants;
 
+const getErrorMessage = (error) => {
+  if (error.hasOwnProperty('email')) {
+    return error.email[0].replace(/[[\]']/g, '');
+  }
+
+  if (error.hasOwnProperty('badge_number')) {
+    return error.badge_number[0].replace(/[[\]']/g, '');
+  }
+
+  if (error.hasOwnProperty('non_field_errors')) {
+    return error.non_field_errors[0]; // eslint-disable-line
+  }
+
+  return '';
+};
+
 export default (state = initialState.securityUsers, action) => {
   switch (action.type) {
     case CREATE_SECURITY_USER_REQUEST:
@@ -35,7 +51,7 @@ export default (state = initialState.securityUsers, action) => {
     case CREATE_SECURITY_USER_FAILURE:
       return {
         ...state,
-        errorMessage: action.payload,
+        errorMessage: getErrorMessage(action.payload.response.data),
         isLoading: false
       };
 

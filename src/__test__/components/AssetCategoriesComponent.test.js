@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { AssetCategoriesComponent } from '../components/AssetCategoriesComponent';
+import { AssetCategoriesComponent } from '../../components/AssetCategoriesComponent';
 
-import assetCategories from '../_mock/assetCategories';
+import assetCategories from '../../_mock/assetCategories';
 
 describe('Asset Categories Component', () => {
   const props = {

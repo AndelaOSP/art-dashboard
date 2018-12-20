@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import ActionComponent from '../components/ActionComponent';
+import ActionComponent from '../../components/ActionComponent';
 
 describe('Renders <ActionComponent /> correctly', () => {
   const props = {
