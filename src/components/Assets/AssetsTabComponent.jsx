@@ -4,25 +4,26 @@ import NavBarComponent from '../../_components/NavBarContainer';
 import AssetsContainer from '../../_components/Assets/AssetsContainer';
 import UploadAssetsContainer from '../../_components/Assets/UploadAssetsContainer';
 import TabsComponent from '../common/TabsComponent';
-// import PageHeader from '../common/PageHeader';
+import PageHeader from '../common/PageHeader';
 
 const AssetsTabComponent = props => (
-  <NavBarComponent title="Assets">
-    <div className="assets-list">
-      {/* <PageHeader /> */}
-
-      <TabsComponent panes={[
-        {
-          header: 'All Assets',
-          component: <AssetsContainer {...props} />
-        },
-        {
-          header: 'Import Assets',
-          component: <UploadAssetsContainer />
-        }
-      ]}
-      />
-    </div>
+  <NavBarComponent>
+    <PageHeader header="Assets">
+      <div className="assets-tab">
+        <TabsComponent
+          panes={[
+            {
+              header: 'All Assets',
+              component: <AssetsContainer {...props} />
+            },
+            {
+              header: 'Import Assets',
+              component: <UploadAssetsContainer />
+            }
+          ]}
+        />
+      </div>
+    </PageHeader>
   </NavBarComponent>
 );
 
