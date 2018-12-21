@@ -119,16 +119,14 @@ export default class AssetsComponent extends Component {
           isLoading={this.props.isLoading}
           status={status}
         />
-        {
-          <PaginationComponent
-            activePage={this.props.activePage}
-            handleRowChange={this.handleRowChange}
-            handlePaginationChange={this.handlePaginationChange}
-            limit={this.state.limit}
-            totalPages={totalPages}
-            isLoading={this.props.isLoading}
-          />
-        }
+        <PaginationComponent
+          activePage={this.props.activePage}
+          handleRowChange={this.handleRowChange}
+          handlePaginationChange={this.handlePaginationChange}
+          limit={this.state.limit}
+          totalPages={totalPages}
+          isLoading={this.props.isLoading}
+        />
       </Fragment>
     );
   }
