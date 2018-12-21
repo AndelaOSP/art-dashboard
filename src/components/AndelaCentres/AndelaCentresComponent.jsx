@@ -38,6 +38,7 @@ class AndelaCentresComponent extends React.Component {
     const { isLoading, locationList, error, resetMessage } = this.props;
     const hasLocations = !isEmpty(locationList);
     const showStatus = error;
+    const showNotFound = !isLoading && !hasLocations && !showStatus;
 
     return (
       <NavBarComponent>
@@ -53,9 +54,9 @@ class AndelaCentresComponent extends React.Component {
           )}
         </div>
 
-        {isLoading && <LoaderComponent />}
+        {isLoading && !showStatus && <LoaderComponent />}
 
-        {(!isLoading && !hasLocations) && (
+        {showNotFound && (
           <ItemsNotFoundComponent
             header="No Andela Centres found!"
             message="Please try again later to see if there will be centres to show you"
