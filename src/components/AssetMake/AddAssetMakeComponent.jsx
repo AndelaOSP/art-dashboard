@@ -17,11 +17,7 @@ const assetTypeOptions = assetTypes =>
 
 const AddAssetMakeComponent = (props) => {
   if (props.isLoading) {
-    return (
-      <div className="loader-container" >
-        <LoaderComponent />
-      </div>
-    );
+    return <LoaderComponent />;
   }
 
   return (
@@ -48,19 +44,22 @@ const AddAssetMakeComponent = (props) => {
           options={assetTypeOptions(props.assetTypes)}
         />
       </label>
-      <br />
-      <ArtButton
-        className="cancel"
-        buttonName="Cancel"
-        handleClick={props.toggleModal}
-      />
-      <ArtButton
-        className="save"
-        buttonName="Save"
-        color="primary"
-        handleClick={props.onChangeButtonState}
-        buttonState={props.buttonState}
-      />
+
+      <div className="modal__buttons">
+        <ArtButton
+          customCss="cancel"
+          buttonName="Cancel"
+          handleClick={props.toggleModal}
+        />
+
+        <ArtButton
+          customCss="save"
+          buttonName="Save"
+          color="primary"
+          handleClick={props.onChangeButtonState}
+          buttonState={props.buttonState}
+        />
+      </div>
     </Form>
   );
 };

@@ -42,9 +42,14 @@
   background-color: $andela-blue;
   color: $andela-white;
   font-weight: 500;
-  width: 150px;
+  min-width: 150px;
   position: absolute;
   right: 8rem;
+
+  a {
+    color: $andela-white;
+    font-weight: 500;
+  }
 }
 
 .ui.button.clicked {

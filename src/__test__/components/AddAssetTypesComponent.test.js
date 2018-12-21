@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import expect from 'expect';
 
-import AddAssetTypeContainer from '../_components/AssetTypes/AddAssetTypesContainer';
-import AddAssetTypesComponent from '../components/AssetTypes/AddAssetTypesComponent';
+import AddAssetTypeContainer from '../../_components/AssetTypes/AddAssetTypesContainer';
+import AddAssetTypesComponent from '../../components/AssetTypes/AddAssetTypesComponent';
 
 const props = {
   onAddAssetType: jest.fn(),
@@ -37,18 +37,14 @@ describe('renders <AddAssetTypesComponent />', () => {
     expect(wrapper.find('DropdownComponent').length).toEqual(1);
   });
 
-  it('should render save button on add asset types component', () => {
-    expect(wrapper.find('.save').length).toEqual(1);
-  });
-
-  it('should render cancel button on add asset types component', () => {
-    expect(wrapper.find('.cancel').length).toEqual(1);
+  it('should render save and cancel buttons', () => {
+    expect(wrapper.find('ButtonComponent').exists()).toBe(true);
   });
 
   it('should change props of buttonState to true', () => {
-    expect(wrapper.find('.save').props().buttonState).toEqual(false);
+    expect(wrapper.find('ButtonComponent').last().props().buttonState).toEqual(false);
     wrapper.setProps({ buttonState: true });
-    expect(wrapper.find('.save').props().buttonState).toEqual(true);
+    expect(wrapper.find('ButtonComponent').last().props().buttonState).toEqual(true);
   });
 
   it('renders Loading component if isLoading is true', () => {

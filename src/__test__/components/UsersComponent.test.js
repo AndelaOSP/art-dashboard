@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 
 import UsersComponent from '../../components/User/UsersComponent';
-import UserHeader from '../../components/User/UserHeader';
 import users from '../../_mock/users';
 
 jest.mock('../../_components/NavBarContainer', () => () => <div />);
@@ -34,10 +33,6 @@ describe('UsersComponent tests', () => {
 
   it('renders without errors with minimal props', () => {
     expect(() => wrapper).not.toThrow();
-  });
-
-  it('renders the UserHeader component', () => {
-    expect(wrapper).toContainReact(<UserHeader limit={10} name="users" />);
   });
 
   it('renders the StatusMessageComponent', () => {

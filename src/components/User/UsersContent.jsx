@@ -4,8 +4,9 @@ import { Table } from 'semantic-ui-react';
 
 import TableHeader from '../common/Table/TableHeaderComponent';
 import TableContent from '../common/Table/TableContent';
+import { USERS_HEADERS, USERS_HEADERS_TO_DATA_KEYS } from '../../_enums';
 
-const UsersContent = ({ users, hasUsers }) => {
+const UsersContent = ({ users, hasUsers, entity = '' }) => {
   if (!hasUsers) {
     return null;
   }
@@ -13,22 +14,12 @@ const UsersContent = ({ users, hasUsers }) => {
   return (
     <Table basic selectable className="users-list">
       <TableHeader
-        titles={[
-          'Name',
-          'Email Address',
-          'Cohort',
-          'Assets Assigned'
-        ]}
+        titles={USERS_HEADERS[entity]}
       />
       <TableContent
         data={users}
-        headings={[
-          'full_name',
-          'email',
-          'cohort',
-          'assets_assigned'
-        ]}
-        urlEntity="users"
+        headings={USERS_HEADERS_TO_DATA_KEYS[entity]}
+        urlEntity={entity === 'users' ? 'users' : ''}
       />
     </Table>
   );
@@ -36,7 +27,8 @@ const UsersContent = ({ users, hasUsers }) => {
 
 UsersContent.propTypes = {
   hasUsers: PropTypes.bool,
-  users: PropTypes.array
+  users: PropTypes.array,
+  entity: PropTypes.string
 };
 
 export default UsersContent;

@@ -2,25 +2,25 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { AssetMakeComponent } from '../components/AssetMake/AssetMakeComponent';
+import { AssetSubCategoriesComponent } from '../../components/AssetsSubCategoriesComponent';
 
-import assetMakes from '../_mock/assetMakes';
+import assetSubCategories from '../../_mock/subcategories';
 
-describe('Renders <AssetMakeComponent /> correctly', () => {
+describe('Renders <AssetsSubCategoriesComponent /> correctly', () => {
   const props = {
-    loadAssetMakes: jest.fn(),
+    loadSubCategories: jest.fn(),
     handlePaginationChange: jest.fn(),
     isLoading: false,
-    assetMakes,
-    assetMakesCount: 10
+    assetSubCategories,
+    assetSubCategoriesCount: 10
   };
-  let wrapper = shallow(<AssetMakeComponent
+  let wrapper = shallow(<AssetSubCategoriesComponent
     {...props}
   />);
 
   it('renders Loading component if isLoading is true', () => {
     props.isLoading = true;
-    wrapper = shallow(<AssetMakeComponent
+    wrapper = shallow(<AssetSubCategoriesComponent
       {...props}
     />);
     expect(wrapper.find('LoaderComponent').length).toBe(1);
@@ -28,7 +28,7 @@ describe('Renders <AssetMakeComponent /> correctly', () => {
 
   it('renders Pagination component', () => {
     props.isLoading = false;
-    wrapper = shallow(<AssetMakeComponent
+    wrapper = shallow(<AssetSubCategoriesComponent
       {...props}
     />);
     expect(wrapper.find('Pagination').length).toBe(1);
@@ -36,7 +36,7 @@ describe('Renders <AssetMakeComponent /> correctly', () => {
 
   it('renders Table component', () => {
     props.isLoading = false;
-    wrapper = shallow(<AssetMakeComponent
+    wrapper = shallow(<AssetSubCategoriesComponent
       {...props}
     />);
     expect(wrapper.find('Table').length).toBe(1);
@@ -50,6 +50,10 @@ describe('Renders <AssetMakeComponent /> correctly', () => {
     const data = {};
     wrapper.instance().handlePaginationChange(event, data);
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('renders page title', () => {
+    expect(wrapper.find('#page-headings').prop('content')).toEqual('Asset Sub-Categories');
   });
 
   it('calls the getTotalPages function when the next button is clicked', () => {

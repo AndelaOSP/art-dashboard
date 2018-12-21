@@ -18,11 +18,13 @@ import AssetCategories from '../components/AssetCategoriesComponent';
 import AssetDetail from './AssetDetails/AssetDetailsContainer';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
-import User from './User/UserContainer';
+import User from '../components/User/UsersTabComponent';
 import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
+import SecurityUsers from './SecurityUser/SecurityUserContainer';
+import AndelaCentresComponent from './AndelaCentres/AndelaCentresContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => {
@@ -139,6 +141,18 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/asset-specs/create"
             component={AddAssetSpec}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/security-users"
+            component={SecurityUsers}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/andela-centres"
+            component={AndelaCentresComponent}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />

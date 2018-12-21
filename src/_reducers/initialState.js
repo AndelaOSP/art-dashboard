@@ -79,7 +79,6 @@ export default {
     successMessage: '',
     hasError: false,
     isLoading: false,
-    securityUser: {},
     activePage: 1
   },
   user: {
@@ -123,5 +122,13 @@ export default {
     allocatedAssets: [],
     isLoading: false,
     hasError: false
+  },
+  securityUsers: {
+    activePage: 1,
+    usersList: {},
+    usersCount: 0,
+    errorMessage: '',
+    successMessage: '',
+    isLoading: false
   }
 };

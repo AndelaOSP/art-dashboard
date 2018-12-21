@@ -22,7 +22,7 @@ let store;
 
 describe('Centres Action tests', () => {
   const mock = new MockAdapter(axios);
-  const url = 'andela-centres/';
+  const url = 'andela-centres/?page=1&page_size=10';
 
   store = mockStore({});
 
@@ -32,7 +32,7 @@ describe('Centres Action tests', () => {
 
   it('should dispatch LOAD_LOCATIONS_REQUEST when loadOfficeLocations is called', () => {
     mock.onGet(url).reply(200, officeLocations.results);
-    return store.dispatch(loadOfficeLocations()).then(() => {
+    return store.dispatch(loadOfficeLocations(1, 10)).then(() => {
       expect(store.getActions()).toContainEqual({
         type: LOAD_LOCATIONS_REQUEST
       });
@@ -41,7 +41,7 @@ describe('Centres Action tests', () => {
 
   it('should dispatch LOAD_LOCATIONS_SUCCESS when loadOfficeLocations is called successfully', () => {
     mock.onGet(url).reply(200, officeLocations.results);
-    return store.dispatch(loadOfficeLocations()).then(() => {
+    return store.dispatch(loadOfficeLocations(1, 10)).then(() => {
       expect(store.getActions()).toContainEqual({
         payload: officeLocations.results,
         type: LOAD_LOCATIONS_SUCCESS
@@ -51,7 +51,7 @@ describe('Centres Action tests', () => {
 
   it('should dispatch LOAD_LOCATIONS_FAILURE when loadOfficeLocations is unsuccessful', () => {
     mock.onGet(url).reply(400, 'Could not load Andela centres');
-    return store.dispatch(loadOfficeLocations()).then(() => {
+    return store.dispatch(loadOfficeLocations(1, 10)).then(() => {
       expect(store.getActions()).toContainEqual({
         payload: new Error('Request failed with status code 400'),
         type: LOAD_LOCATIONS_FAILURE
