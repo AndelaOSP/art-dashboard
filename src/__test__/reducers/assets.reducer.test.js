@@ -11,10 +11,7 @@ import assets from '../../_mock/assets';
 import {
   createAssetSuccess,
   createAssetFail,
-  createAssetRequest,
-  updateAssetRequest,
-  updateAssetSuccess,
-  updateAssetFail
+  createAssetRequest
 } from '../../_actions/asset.actions';
 
 // constants
@@ -26,6 +23,14 @@ const {
   LOAD_ASSETS_STARTS,
   SET_ACTIVE_PAGE,
   RESET_STATUS_MESSAGE,
+  UPLOAD_ASSETS_STARTS,
+  UPLOAD_ASSETS_FAILURE,
+  RESET_UPLOAD_ASSETS,
+  DOWNLOAD_FILE_SUCCESS,
+  DOWNLOAD_FILE_FAILURE,
+  UPDATE_ASSET_REQUEST,
+  UPDATE_ASSET_SUCCESS,
+  UPDATE_ASSET_FAIL,
   RESET_ASSETS
 } = constants;
 
@@ -35,9 +40,7 @@ const state = {
   hasError: false,
   isLoading: false,
   activePage: 1,
-  success: '',
-  errorMessage: '',
-  updateLoading: false
+  isUpLoading: false
 };
 
 let action = {
@@ -120,37 +123,63 @@ describe('Asset Reducer tests', () => {
     expect(assetReducer(state, action).errorMessage).toEqual('');
   });
 
+  it('should handle RESET_ASSETS', () => {
+    action.type = RESET_ASSETS;
+    expect(assetReducer(state, action).assetsList).toEqual({});
+  });
+
   it('should handle UPDATE_ASSET_REQUEST', () => {
-    action = updateAssetRequest(asset);
-    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      updateLoading: true,
-      success: '',
-      errorMessage: ''
-    }));
+    action.type = UPDATE_ASSET_REQUEST;
+    action.updateLoading = true;
+    expect(assetReducer(state, action).updateLoading).toBe(true);
+    expect(assetReducer(state, action).success).toEqual('');
+    expect(assetReducer(state, action).errorMessage).toEqual('');
   });
 
   it('should handle UPDATE_ASSET_SUCCESS', () => {
-    action = updateAssetSuccess(asset);
-    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      updateLoading: false,
-      success: 'Asset successfully updated.',
-      errorMessage: ''
-    }));
+    action.type = UPDATE_ASSET_SUCCESS;
+    action.updateLoading = false;
+    expect(assetReducer(state, action).updateLoading).toBe(false);
+    expect(assetReducer(state, action).success).toEqual('Asset successfully updated.');
+    expect(assetReducer(state, action).errorMessage).toEqual('');
   });
 
   it('should handle UPDATE_ASSET_FAIL', () => {
-    action = updateAssetFail(error);
-    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      updateLoading: false,
-      success: '',
-      errorMessage: 'Could not update asset.'
-    }));
+    action.type = UPDATE_ASSET_FAIL;
+    action.updateLoading = false;
+    expect(assetReducer(state, action).updateLoading).toBe(false);
+    expect(assetReducer(state, action).success).toEqual('');
+    expect(assetReducer(state, action).errorMessage).toEqual('Could not update asset.');
   });
 
-  it('should handle RESET_ASSETS', () => {
-    action.type = RESET_ASSETS;
-    expect(assetReducer(state, action)).toEqual(expect.objectContaining({
-      assetsList: {}
-    }));
+  it('should handle UPLOAD_ASSETS_STARTS', () => {
+    action.type = UPLOAD_ASSETS_STARTS;
+    action.isUpLoading = true;
+    expect(assetReducer(state, action).isUpLoading).toBe(true);
+  });
+
+  it('should handle UPLOAD_ASSETS_FAILURE', () => {
+    action.type = UPLOAD_ASSETS_FAILURE;
+    action.isLoading = false;
+    expect(assetReducer(state, action).hasError).toBe(true);
+    expect(assetReducer(state, action).isUpLoading).toBe(false);
+  });
+
+  it('should handle RESET_UPLOAD_ASSETS', () => {
+    action.type = RESET_UPLOAD_ASSETS;
+    expect(assetReducer(state, {})).toEqual(state);
+    expect(assetReducer(state, action).success).toEqual('');
+  });
+
+  it('should handle DOWNLOAD_FILE_SUCCESS', () => {
+    action.type = DOWNLOAD_FILE_SUCCESS;
+    action.isLoading = false;
+    expect(assetReducer(state, action).success).toEqual({ success: 'Download successfully completed' });
+    expect(assetReducer(state, action).isUpLoading).toBe(false);
+  });
+
+  it('should handle DOWNLOAD_FILE_FAILURE', () => {
+    action.type = DOWNLOAD_FILE_FAILURE;
+    expect(assetReducer(state, action).hasError).toBe(true);
   });
 });

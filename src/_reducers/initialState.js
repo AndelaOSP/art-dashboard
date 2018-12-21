@@ -25,7 +25,10 @@ export default {
     success: '',
     hasError: false,
     isLoading: false,
-    activePage: 1
+    activePage: 1,
+    progressStatus: '',
+    downloadError: '',
+    downloadedFile: ''
   },
   asset: {
     assetDetail: {},
@@ -34,7 +37,9 @@ export default {
     errorMessage: '',
     hasError: false,
     isLoading: false,
-    buttonLoading: false
+    buttonLoading: false,
+    isUpLoading: false,
+    uploadError: ''
   },
   toastMessage: {
     message: '',

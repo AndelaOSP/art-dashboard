@@ -1,0 +1,88 @@
+@import "sharedStyling.scss";
+@import "mediaQueries.scss";
+
+.center-upload {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.dropzone {
+  width: 50%;
+  height: 250px;
+  border: 2px dashed #4aabb0;
+  border-radius: 5px;
+}
+
+.progress {
+  color: "#fff";
+}
+
+.ui.active.progress {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 25px;
+  background-color: #fff;
+  border: 1px solid $andela-orange;
+}
+
+.progress-handler {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui.progress .bar {
+  background: $andela-orange;
+  position: absolute;
+  right: 50;
+  width: 80px;
+  height: 100%;
+  display: block;
+  top: 0;
+  animation: ani 2.7s infinite;
+}
+
+.failed-file {
+  width: 60%;
+  margin-bottom: 2%;
+}
+
+.error-guide {
+  margin-top: 2%;
+}
+
+@keyframes ani {
+  0% {
+    right: 0;
+  }
+
+  50% {
+    right: 720px;
+  }
+
+  100% {
+    right: 0;
+  }
+}
+
+.success-status {
+  color: #4f8a10;
+  text-align: center;
+}
+
+.error-status {
+  color: #d8000c;
+  text-align: center;
+}
+
+.hide-status {
+  display: none;
+}

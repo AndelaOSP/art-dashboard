@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
-import Filter from '../../components/common/FilterButton';
+import Filter from '../../components/common/Filter/FilterButton';
 import { selectedFilters } from '../../_mock/filters';
 
 describe('Renders <FilterButton /> tests', () => {

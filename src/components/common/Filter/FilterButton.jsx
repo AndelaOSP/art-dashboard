@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Accordion, Button, Icon, Menu, Popup } from 'semantic-ui-react';
 
-import ArtButton from './ButtonComponent';
+import ArtButton from '../ButtonComponent';
 
 class FilterButton extends React.Component {
   state = {
@@ -73,7 +73,7 @@ FilterButton.propTypes = {
 };
 
 FilterButton.defaultProps = {
-  filterAction: () => {},
+  filterAction: () => { },
   activePage: 1,
   limit: 10,
   selected: {},
