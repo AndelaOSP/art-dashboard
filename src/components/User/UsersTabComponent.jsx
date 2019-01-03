@@ -8,7 +8,8 @@ import SecurityUser from '../../_components/SecurityUser/SecurityUserContainer';
 
 const UsersTabComponent = () => (
   <NavBarComponent>
-    <PageHeader header="Users">
+    <PageHeader header="Users" />
+    <div className="users-list">
       <TabsComponent panes={[
         {
           header: 'Andelans',
@@ -20,7 +21,7 @@ const UsersTabComponent = () => (
         }
       ]}
       />
-    </PageHeader>
+    </div>
   </NavBarComponent>
 );
 

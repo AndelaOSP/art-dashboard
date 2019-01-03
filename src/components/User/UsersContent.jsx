@@ -12,7 +12,7 @@ const UsersContent = ({ users, hasUsers, entity = '' }) => {
   }
 
   return (
-    <Table basic selectable className="users-list">
+    <Table basic selectable>
       <TableHeader
         titles={USERS_HEADERS[entity]}
       />
