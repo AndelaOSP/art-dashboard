@@ -1,6 +1,6 @@
 default: &default
   docker:
-    - image: circleci/node:8.9.0
+    - image: circleci/node:10.14.0
   working_directory: ~/art-dashboard  
 restore_cache: &restore_cache
   restore_cache:
