@@ -89,4 +89,12 @@ describe('Renders <AssetsComponent /> correctly', () => {
     wrapper.instance().retrieveAssets(1, 10, '');
     expect(retrieveAssetsSpy.mock.calls.length).toEqual(1);
   });
+
+  it('shows filter button even when assets list is empty', () => {
+    wrapper.setProps({
+      assetsList: []
+    });
+
+    expect(wrapper.find('Filter').length).toBe(1);
+  });
 });
