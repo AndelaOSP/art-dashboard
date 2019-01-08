@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuidv4 from 'uuid/v4';
+
 import FilterComponent from './FilterComponent';
 import FilterButton from './FilterButton';
 
@@ -15,6 +17,7 @@ const Filter = props => (
     {
       props.filterData.map((data, index) => (
         <FilterComponent
+          key={uuidv4()}
           index={index}
           option={data}
           selected={props.selected}
@@ -26,7 +29,7 @@ const Filter = props => (
 );
 
 Filter.propTypes = {
-  filterAction: PropTypes.func.isRequired,
+  filterAction: PropTypes.func,
   selected: PropTypes.object.isRequired,
   filterSelection: PropTypes.func,
   filterData: PropTypes.arrayOf(PropTypes.object),
