@@ -96,11 +96,10 @@ export default class AssetsComponent extends Component {
     const { status } = this.props;
     const totalPages = this.handlePageTotal();
     const currentAssets = `page_${this.props.activePage}`;
-    const showFilter = !isEmpty(this.props.assetsList[currentAssets] || assets);
 
     return (
       <Fragment>
-        {showFilter && (
+        {
           <Filter
             activePage={this.props.activePage}
             limit={this.state.limit}
@@ -110,7 +109,7 @@ export default class AssetsComponent extends Component {
             filterAction={this.props.getAssetsAction}
             disabled={this.props.isLoading}
           />
-        )}
+        }
         <AssetsTableContent
           activePage={this.props.activePage}
           assets={this.props.assetsList[currentAssets] || assets}
