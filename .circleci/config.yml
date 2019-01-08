@@ -1,6 +1,6 @@
 default: &default
   docker:
-    - image: circleci/node:8.4.0
+    - image: circleci/node:10.14.0
   working_directory: ~/art-dashboard  
 restore_cache: &restore_cache
   restore_cache:
@@ -97,4 +97,3 @@ workflows:
       - release_notes:
           requires:
             - deploy_production
-              
