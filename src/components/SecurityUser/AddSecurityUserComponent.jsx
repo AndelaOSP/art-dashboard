@@ -14,26 +14,32 @@ class AddSecurityUserComponent extends Component {
     phoneNumber: '',
     badgeNumber: '',
     email: '',
-    emailError: false
+    emailValid: false
   };
+
+  validateEmail() {
+    const isValidEmail = emailValidation(this.state.email);
+
+    return this.setState({ emailValid: isValidEmail });
+  }
 
   handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({
       [name]: value
     });
+
+    this.validateEmail();
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const isValidEmail = emailValidation(this.state.email);
+    const isValidEmail = this.validateEmail();
 
     if (!isValidEmail) {
-      return this.setState({ emailError: !isValidEmail });
+      return null;
     }
-
-    this.setState({ emailError: isValidEmail });
 
     return this.props.addSecurityUser({
       first_name: this.state.firstName,
@@ -45,7 +51,7 @@ class AddSecurityUserComponent extends Component {
   };
 
   render() {
-    const { firstName, lastName, phoneNumber, badgeNumber, email, emailError } = this.state;
+    const { firstName, lastName, phoneNumber, badgeNumber, email, emailValid } = this.state;
     const { successMessage, errorMessage, isLoading } = this.props;
 
     const showStatus = successMessage || errorMessage;
@@ -91,7 +97,7 @@ class AddSecurityUserComponent extends Component {
             required
           />
 
-          {emailError && (
+          {(!emailValid && email !== '') && (
             <Message
               error
               content="The email you provided is not valid."

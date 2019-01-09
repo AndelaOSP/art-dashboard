@@ -5,6 +5,7 @@ import AddSecurityUserComponent from '../../components/SecurityUser/AddSecurityU
 
 const props = {
   handleSubmit: jest.fn(),
+  addSecurityUser: jest.fn(),
   firstName: '',
   lastName: '',
   email: '',
