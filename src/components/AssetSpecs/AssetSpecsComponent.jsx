@@ -10,9 +10,10 @@ import NavBarComponent from '../../_components/NavBarContainer';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../../components/common/DropdownComponent';
 import LoaderComponent from '../../components/LoaderComponent';
-import '../../_css/AssetsComponent.css';
-import { loadAssetSpecs } from '../../_actions/assetSpecs.actions';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
+import { loadAssetSpecs } from '../../_actions/assetSpecs.actions';
+
+import '../../_css/AssetsComponent.css';
 
 export class AssetSpecsComponent extends React.Component {
   state = {
@@ -74,8 +75,7 @@ export class AssetSpecsComponent extends React.Component {
             <div className="header-modal-button">
               <Link to="/asset-specs/create">
                 <Button
-                  className="add-asset"
-                  size="medium"
+                  className="filter-button"
                 >
                   ADD ASSET SPEC GROUP
                 </Button>
