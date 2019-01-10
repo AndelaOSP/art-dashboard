@@ -4,17 +4,18 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Pagination, Table, Header, Segment, Divider } from 'semantic-ui-react';
 
-import TableRow from './TableRowComponent';
-import NavBarComponent from '../_components/NavBarContainer';
-import rowOptions from '../_utils/pageRowOptions';
-import DropdownComponent from '../components/common/DropdownComponent';
-import LoaderComponent from './LoaderComponent';
-import ModalComponent from './common/ModalComponent';
-import CategoryContainer from '../_components/Category/CategoryContainer';
+import TableRow from '../TableRowComponent';
+import NavBarComponent from '../../_components/NavBarContainer';
+import rowOptions from '../../_utils/pageRowOptions';
+import DropdownComponent from '../common/DropdownComponent';
+import LoaderComponent from '../LoaderComponent';
+import ModalComponent from '../common/ModalComponent';
+import CategoryContainer from '../../_components/Category/CategoryContainer';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
-import '../_css/AssetsComponent.css';
-import { loadAssetCategories } from '../_actions/assetCategories.actions';
-import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
+import { loadAssetCategories } from '../../_actions/assetCategories.actions';
+
+import '../../_css/AssetsComponent.css';
 
 export class AssetCategoriesComponent extends React.Component {
   state = {
@@ -81,8 +82,7 @@ export class AssetCategoriesComponent extends React.Component {
               <ModalComponent
                 trigger={
                   <Button
-                    className="add-asset"
-                    size="small"
+                    className="filter-button"
                   >
                     ADD CATEGORY
                   </Button>

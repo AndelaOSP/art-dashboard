@@ -2,42 +2,49 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Table, Pagination, Segment, Divider, Button } from 'semantic-ui-react';
+import {
+  Header,
+  Table,
+  Pagination,
+  Segment,
+  Divider,
+  Button
+} from 'semantic-ui-react';
 import _ from 'lodash';
 
-import TableRow from './TableRowComponent';
-import rowOptions from '../_utils/pageRowOptions';
-import NavBarComponent from '../_components/NavBarContainer';
-import DropdownComponent from '../components/common/DropdownComponent';
-import LoaderComponent from '../components/LoaderComponent';
-import AssetTypesContainer from '../_components/AssetTypes/AddAssetTypesContainer';
-import ModalComponent from './common/ModalComponent';
+import TableRow from '../TableRowComponent';
+import NavBarComponent from '../../_components/NavBarContainer';
+import rowOptions from '../../_utils/pageRowOptions';
+import DropdownComponent from '../common/DropdownComponent';
+import LoaderComponent from '../LoaderComponent';
+import ModalComponent from '../common/ModalComponent';
+import AddSubCategoryContainer from '../../_components/SubCategory/AddSubCategoriesContainer';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
+import { loadSubCategories } from '../../_actions/subcategory.actions';
 
-import '../_css/AssetsComponent.css';
-import { loadAssetTypes } from '../_actions/assetTypes.actions';
-import ItemsNotFoundComponent from './common/ItemsNotFoundComponent';
+import '../../_css/AssetsComponent.css';
 
-export class AssetTypesComponent extends React.Component {
+export class AssetSubCategoriesComponent extends React.Component {
   state = {
     activePage: 1,
     limit: 10
   };
 
   componentDidMount() {
-    this.props.loadAssetTypes(this.state.activePage, this.state.limit);
+    this.props.loadSubCategories(this.state.activePage, this.state.limit);
   }
 
   handleRowChange = (e, data) => {
     this.setState({ limit: data.value });
-    this.props.loadAssetTypes(this.state.activePage, data.value);
+    this.props.loadSubCategories(this.state.activePage, data.value);
   };
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadAssetTypes(activePage, this.state.limit);
+    this.props.loadSubCategories(activePage, this.state.limit);
   };
 
-  getTotalPages = () => Math.ceil(this.props.assetTypesCount / this.state.limit);
+  getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit);
 
   render() {
     if (this.props.isLoading) {
@@ -47,12 +54,12 @@ export class AssetTypesComponent extends React.Component {
         </NavBarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.assetTypes)) {
+    if (!this.props.isLoading && _.isEmpty(this.props.assetSubCategories)) {
       return (
         <NavBarComponent>
           <ItemsNotFoundComponent
-            header="No Asset types found!"
-            message="Please try again later to see if there will be asset types to show you"
+            header="No Asset subcategory found!"
+            message="Please try again later to see if there will be asset subcategories to show you."
           />
         </NavBarComponent>
       );
@@ -61,39 +68,38 @@ export class AssetTypesComponent extends React.Component {
       <NavBarComponent>
         <div className="assets-list">
           <div id="page-heading-section">
-            <Header as="h1" id="page-headings" floated="left" content="Asset Types" />
+            <Header as="h1" id="page-headings" floated="left" content="Asset Sub-Categories" />
             <Divider id="assets-divider" />
             <div className="header-modal-button">
               <ModalComponent
                 trigger={
                   <Button
-                    className="add-asset"
-                    size="small"
+                    className="filter-button"
                   >
-                    ADD ASSET TYPE
+                    ADD SUB-CATEGORY
                   </Button>
                 }
-                modalTitle="Add Asset Type"
+                modalTitle="Add Sub-Category"
               >
-                <AssetTypesContainer />
+                <AddSubCategoryContainer />
               </ModalComponent>
             </div>
           </div>
           <Table basic selectable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Sub-category</Table.HeaderCell>
-                <Table.HeaderCell>Type</Table.HeaderCell>
+                <Table.HeaderCell>Sub-Category</Table.HeaderCell>
+                <Table.HeaderCell>Category</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
             <Table.Body>
               {
-                this.props.assetTypes.map(assetType => (
+                this.props.assetSubCategories.map(subCategory => (
                   <TableRow
-                    key={assetType.id}
-                    data={assetType}
-                    headings={['asset_sub_category', 'asset_type']}
+                    key={subCategory.id}
+                    data={subCategory}
+                    headings={['sub_category_name', 'asset_category']}
                   />
                 ))
               }
@@ -101,8 +107,8 @@ export class AssetTypesComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                {!_.isEmpty(this.props.assetTypes) && (
-                  <Table.HeaderCell colSpan="3" id="pagination-header">
+                {!_.isEmpty(this.props.assetSubCategories) && (
+                  <Table.HeaderCell colSpan="4" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
                         <Pagination
@@ -133,22 +139,22 @@ export class AssetTypesComponent extends React.Component {
   }
 }
 
-const mapStateToProps = ({ assetTypesList }) => {
-  const { assetTypes, assetTypesCount, isLoading } = assetTypesList;
+const mapStateToProps = ({ subcategoriesList }) => {
+  const { assetSubCategories, assetSubCategoriesCount, isLoading } = subcategoriesList;
   return {
-    assetTypes,
-    assetTypesCount,
+    assetSubCategories,
+    assetSubCategoriesCount,
     isLoading
   };
 };
 
-AssetTypesComponent.propTypes = {
+AssetSubCategoriesComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  loadAssetTypes: PropTypes.func.isRequired,
-  assetTypes: PropTypes.array.isRequired,
-  assetTypesCount: PropTypes.number.isRequired
+  loadSubCategories: PropTypes.func.isRequired,
+  assetSubCategories: PropTypes.array.isRequired,
+  assetSubCategoriesCount: PropTypes.number.isRequired
 };
 
 export default withRouter(connect(mapStateToProps, {
-  loadAssetTypes
-})(AssetTypesComponent));
+  loadSubCategories
+})(AssetSubCategoriesComponent));

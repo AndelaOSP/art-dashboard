@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { AssetTypesComponent } from '../../components/AssetTypesComponent';
+import { AssetTypesComponent } from '../../components/AssetTypes/AssetTypesComponent';
 
 import assetTypes from '../../_mock/assetType';
 

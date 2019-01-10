@@ -72,8 +72,7 @@ export class AssetMakeComponent extends React.Component {
               <ModalComponent
                 trigger={
                   <Button
-                    className="add-asset"
-                    size="medium"
+                    className="filter-button"
                   >
                     ADD ASSET MAKE
                   </Button>
