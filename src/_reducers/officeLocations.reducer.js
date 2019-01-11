@@ -27,7 +27,7 @@ export default (state = initialState.officeLocations, action) => {
     case LOAD_LOCATIONS_FAILURE:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.message || 'Oops, something went wrong',
         isLoading: false
       };
 
