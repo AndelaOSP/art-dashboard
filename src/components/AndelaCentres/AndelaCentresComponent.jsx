@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Table } from 'semantic-ui-react';
+import { Table, Button, Divider, Header } from 'semantic-ui-react';
 
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../../components/LoaderComponent';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
-import PageHeader from '../common/PageHeader';
 import Paginator from '../common/PaginationComponent';
 import StatusMessageComponent from '../common/StatusComponent';
 import TableHeader from '../common/Table/TableHeaderComponent';
 import TableContent from '../common/Table/TableContent';
+import ModalComponent from '../common/ModalComponent';
+import CentreModal from '../../_components/CentreModal/CentreModal';
 
 class AndelaCentresComponent extends React.Component {
   state = {
@@ -42,45 +43,66 @@ class AndelaCentresComponent extends React.Component {
 
     return (
       <NavBarComponent>
-        <PageHeader header="Andela Centres" />
-
         <div className="assets-list">
-          {showStatus && (
-            <StatusMessageComponent
-              message={error}
-              className="error-status"
-              reset={resetMessage}
+          <Header as="h1" id="page-headings" floated="left" content="Andela Centres" />
+          <Divider id="assets-divider" />
+          <div className="header-modal-button">
+            <ModalComponent
+              trigger={
+                <Button className="add-asset" size="medium">
+                  ADD CENTRE
+                </Button>
+              }
+              modalTitle="Add Centre"
+            >
+              <CentreModal />
+            </ModalComponent>
+          </div>
+
+          <div className="assets-list">
+            {showStatus && (
+              <StatusMessageComponent
+                message={error}
+                className="error-status"
+                reset={resetMessage}
+              />
+            )}
+          </div>
+
+          {isLoading && <LoaderComponent />}
+
+          {!isLoading && !hasLocations && (
+            <ItemsNotFoundComponent
+              header="No Andela Centres found!"
+              message="Please try again later to see if there will be centres to show you"
             />
           )}
-        </div>
 
-        {isLoading && !showStatus && <LoaderComponent />}
+          {isLoading && !showStatus && <LoaderComponent />}
 
-        {showNotFound && (
-          <ItemsNotFoundComponent
-            header="No Andela Centres found!"
-            message="Please try again later to see if there will be centres to show you"
-          />
-        )}
-
-        {(!isLoading && hasLocations) && (
-          <Table basic className="assets-list">
-            <TableHeader titles={['Name', 'Country']} />
-            <TableContent
-              data={locationList}
-              headings={['centre_name', 'country']}
+          {showNotFound && (
+            <ItemsNotFoundComponent
+              header="No Andela Centres found!"
+              message="Please try again later to see if there will be centres to show you"
             />
-          </Table>
-        )}
+          )}
 
-        <Paginator
-          activePage={this.state.activePage}
-          handleRowChange={this.handleRowChange}
-          handlePaginationChange={this.handlePaginationChange}
-          limit={this.state.limit}
-          totalPages={this.getTotalPages()}
-          isLoading={this.props.isLoading}
-        />
+          {!isLoading && hasLocations && (
+            <Table basic>
+              <TableHeader titles={['Name', 'Country']} />
+              <TableContent data={locationList} headings={['centre_name', 'country']} />
+            </Table>
+          )}
+
+          <Paginator
+            activePage={this.state.activePage}
+            handleRowChange={this.handleRowChange}
+            handlePaginationChange={this.handlePaginationChange}
+            limit={this.state.limit}
+            totalPages={this.getTotalPages()}
+            isLoading={this.props.isLoading}
+          />
+        </div>
       </NavBarComponent>
     );
   }
