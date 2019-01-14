@@ -8,8 +8,7 @@ import CentreModalComponent from '../../components/CentreModal/CentreModal';
 class CentreModal extends Component {
   state = {
     name: '',
-    country: '',
-    saveButtonState: false
+    country: ''
   };
 
   onAddCentre = (event) => {
@@ -26,7 +25,6 @@ class CentreModal extends Component {
       centre_country: this.state.country
     };
     this.props.createOfficeLocation(newCentre);
-    console.log(this.state);
   };
   render() {
     return (
