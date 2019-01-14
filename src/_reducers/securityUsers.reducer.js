@@ -49,7 +49,8 @@ export default (state = initialState.securityUsers, action) => {
             [action.payload, ...state.usersList[`page_${state.activePage}`]]
         },
         usersCount: state.usersCount + 1,
-        successMessage: 'Security user added successfully',
+        successMessage:
+          'Security user added successfully. You can create another user or close this modal to view all users',
         isLoading: false
       };
 
