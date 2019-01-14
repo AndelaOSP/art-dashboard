@@ -119,6 +119,7 @@ export default class UserComponent extends React.Component {
           <UserFilter
             limit={this.state.limit}
             data-test="user-filter"
+            filterAction={this.props.loadUsers}
           />
         )}
 
