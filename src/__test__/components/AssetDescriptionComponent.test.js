@@ -90,6 +90,13 @@ describe('Renders <AssetDescriptionComponent /> correctly', () => {
     expect(wrapper.find('.asset-specs__label').exists()).toBe(true);
   });
 
+  it('calls handleToggleModal when a modal is opened or closed', () => {
+    wrapper.setState({ modalOpen: false });
+
+    wrapper.instance().handleToggleModal();
+    expect(wrapper.state().modalOpen).toEqual(true);
+  });
+
   it('returns expected values from triggerProps when assignedUser prop is not empty', () => {
     wrapper.setProps({
       assignedUser: {

@@ -24,7 +24,8 @@ export default class UserComponent extends React.Component {
   state = {
     limit: 10,
     users: [],
-    allDataFetched: false
+    allDataFetched: false,
+    modalOpen: false
   };
 
   componentDidMount() {
@@ -60,6 +61,8 @@ export default class UserComponent extends React.Component {
       this.retrieveUsers(activePage, this.state.limit, this.props.selected);
     }
   };
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   retrieveUsers = (activePage, limit, filters) => {
     if (checkIfCutoffExceeded(activePage, limit)) {
@@ -130,6 +133,8 @@ export default class UserComponent extends React.Component {
               </Button>
             }
             modalTitle="Add Security User"
+            toggleModal={this.handleToggleModal}
+            modalOpen={this.state.modalOpen}
           >
             <AddSecurityUserContainer />
           </ModalComponent>

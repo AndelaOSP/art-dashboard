@@ -60,4 +60,11 @@ describe('Renders <AssetTypesComponent /> correctly', () => {
     });
     expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
+
+  it('calls handleToggleModal when a modal is opened or closed', () => {
+    wrapper.setState({ modalOpen: false });
+
+    wrapper.instance().handleToggleModal();
+    expect(wrapper.state().modalOpen).toEqual(true);
+  });
 });

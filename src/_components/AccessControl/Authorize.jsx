@@ -5,9 +5,13 @@ import PropTypes from 'prop-types';
 import ArtModal from '../../components/common/ModalComponent';
 
 export default class Authorize extends React.Component {
+  state = { modalOpen: true };
+
   handleLogout = () => {
     this.props.history.push('/');
   };
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   render() {
     const { isAuthenticated, AuthComponent } = this.props;
@@ -19,7 +23,8 @@ export default class Authorize extends React.Component {
     return (
       <div className="app background">
         <ArtModal
-          open
+          modalOpen={this.state.modalOpen}
+          toggleModal={this.handleToggleModal}
           onClose
           modalTitle="Unauthorized Access"
           closeIcon={false}

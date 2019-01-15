@@ -19,6 +19,7 @@ class AssetDescriptionComponent extends React.Component {
   state = {
     assignAssetButtonState: true,
     selectedUser: 0,
+    modalOpen: false,
     UNITS: {
       processor_speed: 'GHz',
       screen_size: 'inch',
@@ -81,6 +82,8 @@ class AssetDescriptionComponent extends React.Component {
     return this.handleUnassign();
   };
 
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
+
   triggerProps = () => {
     if (isEmpty(values(this.props.assignedUser))) {
       return {
@@ -138,6 +141,8 @@ class AssetDescriptionComponent extends React.Component {
               <ModalComponent
                 trigger={<ButtonComponent {...triggerProps} />}
                 modalTitle="Confirm Action"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
               >
                 <ConfirmAction
                   toggleModal={toggleModal}

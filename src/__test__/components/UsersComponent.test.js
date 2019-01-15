@@ -80,4 +80,11 @@ describe('UsersComponent tests', () => {
     const pages = wrapper.instance().getTotalPages();
     expect(pages).toEqual(3);
   });
+
+  it('calls handleToggleModal when a modal is opened or closed', () => {
+    wrapper.setState({ modalOpen: false });
+
+    wrapper.instance().handleToggleModal();
+    expect(wrapper.state().modalOpen).toEqual(true);
+  });
 });
