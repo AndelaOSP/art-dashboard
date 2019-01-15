@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Button } from 'semantic-ui-react';
 
 import LoaderComponent from '../LoaderComponent';
-import NavBarComponent from '../../_components/NavBarContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import StatusMessageComponent from '../common/StatusComponent';
 import { isCountCutoffExceeded, constructApiUrl } from '../../_utils/helpers';
@@ -114,11 +113,12 @@ export default class UserComponent extends React.Component {
       : `Please try again later, to see if we'll have ${entity.replace('-', ' ')} to show you.`;
 
     return (
-      <NavBarComponent title="Users" placeHolder="Search by name... ">
+      <Fragment>
         {isUsersPage && (
           <UserFilter
             limit={this.state.limit}
             data-test="user-filter"
+            filterAction={this.props.loadUsers}
           />
         )}
 
@@ -168,7 +168,7 @@ export default class UserComponent extends React.Component {
           totalPages={this.getTotalPages()}
           isLoading={isLoading}
         />
-      </NavBarComponent>
+      </Fragment>
     );
   }
 }
