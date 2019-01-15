@@ -11,12 +11,14 @@ import StatusMessageComponent from '../common/StatusComponent';
 import TableHeader from '../common/Table/TableHeaderComponent';
 import TableContent from '../common/Table/TableContent';
 import ModalComponent from '../common/ModalComponent';
-import CentreModal from '../../_components/CentreModal/CentreModal';
+import CentreModal from './CentreModal';
 
 class AndelaCentresComponent extends React.Component {
   state = {
     limit: 10,
-    activePage: 1
+    activePage: 1,
+    centre: '',
+    country: ''
   };
 
   componentDidMount() {
@@ -31,6 +33,18 @@ class AndelaCentresComponent extends React.Component {
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadOfficeLocations(activePage);
+  };
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleSubmit = () => {
+    const newCentre = {
+      centre_name: this.state.centre,
+      centre_country: this.state.country
+    };
+    this.props.createOfficeLocation(newCentre);
   };
 
   getTotalPages = () => Math.ceil(this.props.locationCount / this.state.limit);
@@ -55,7 +69,11 @@ class AndelaCentresComponent extends React.Component {
               }
               modalTitle="Add Centre"
             >
-              <CentreModal />
+              <CentreModal
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                countries={this.props.locationList}
+              />
             </ModalComponent>
           </div>
 
@@ -111,6 +129,7 @@ class AndelaCentresComponent extends React.Component {
 AndelaCentresComponent.propTypes = {
   isLoading: PropTypes.bool,
   loadOfficeLocations: PropTypes.func,
+  createOfficeLocation: PropTypes.func,
   resetMessage: PropTypes.func,
   locationCount: PropTypes.number,
   locationList: PropTypes.array,

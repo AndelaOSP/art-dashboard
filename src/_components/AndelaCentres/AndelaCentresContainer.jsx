@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loadOfficeLocations, resetMessage } from '../../_actions/officeLocations.actions';
+import { loadOfficeLocations, resetMessage, createOfficeLocation } from '../../_actions/officeLocations.actions';
 import AndelaCentresComponent from '../../components/AndelaCentres/AndelaCentresComponent';
 
 export const mapStateToProps = ({ officeLocations }) => {
@@ -14,5 +14,6 @@ export const mapStateToProps = ({ officeLocations }) => {
 
 export default connect(mapStateToProps, {
   loadOfficeLocations,
-  resetMessage
+  resetMessage,
+  createOfficeLocation
 })(AndelaCentresComponent);

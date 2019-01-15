@@ -3,17 +3,26 @@ import { Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import InputFluid from '../common/TextInputComponent';
 import ArtButton from '../common/ButtonComponent';
+import DropdownComponent from '../common/DropdownComponent';
+
 
 const CentreModal = props => (
   <Form onSubmit={this.handleSubmit}>
     <label htmlFor="centre" className="label-style">
       Centre Name
-      <InputFluid name="centre" onChange={props.onAddCentre} placeHolder="Enter Centre Name" />
+      <InputFluid name="centre" onChange={props.handleChange} placeHolder="Enter Centre Name" />
     </label>
     <br />
     <label htmlFor="asset-make" className="label-style">
       Country
-      <InputFluid name="country" onChange={props.onAddCountry} placeHolder="Enter Centre Country" />
+      <DropdownComponent
+        customClass="form-dropdown add-asset-dropdown"
+        label="Country"
+        placeholder="Select Country"
+        name="country"
+        value={props.country}
+        upward={false}
+      />
     </label>
 
     <div className="modal__buttons">
@@ -30,9 +39,9 @@ const CentreModal = props => (
 
 CentreModal.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  onAddCentre: PropTypes.func.isRequired,
-  onAddCountry: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  country: PropTypes.string
 };
 
 export default CentreModal;
