@@ -50,6 +50,7 @@ class AndelaCentresComponent extends React.Component {
       country: this.state.country
     };
     this.props.createOfficeLocation(newCentre);
+    this.handleToggleModal();
   };
 
   handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
@@ -97,15 +98,6 @@ class AndelaCentresComponent extends React.Component {
               />
             )}
           </div>
-
-          {isLoading && <LoaderComponent />}
-
-          {!isLoading && !hasLocations && (
-            <ItemsNotFoundComponent
-              header="No Andela Centres found!"
-              message="Please try again later to see if there will be centres to show you"
-            />
-          )}
 
           {isLoading && !showStatus && <LoaderComponent />}
 

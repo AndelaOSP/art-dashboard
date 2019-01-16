@@ -42,8 +42,8 @@ export default (state = initialState.officeLocations, action) => {
     case CREATE_LOCATIONS_SUCCESS:
       return {
         ...state,
-        locationCount: action.payload.count,
-        locationList: action.payload.results,
+        locationCount: state.locationCount + 1,
+        locationList: state.locationList.concat(action.payload),
         isLoading: false
       };
     case CREATE_LOCATIONS_FAILURE:
