@@ -18,7 +18,8 @@ class AndelaCentresComponent extends React.Component {
     limit: 10,
     activePage: 1,
     centre: '',
-    country: ''
+    country: '',
+    modalOpen: false
   };
 
   componentDidMount() {
@@ -51,6 +52,8 @@ class AndelaCentresComponent extends React.Component {
     this.props.createOfficeLocation(newCentre);
   };
 
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
+
   getTotalPages = () => Math.ceil(this.props.locationCount / this.state.limit);
 
   render() {
@@ -72,6 +75,8 @@ class AndelaCentresComponent extends React.Component {
                 </Button>
               }
               modalTitle="Add Centre"
+              toggleModal={this.handleToggleModal}
+              modalOpen={this.state.modalOpen}
             >
               <CentreModal
                 handleChange={this.handleChange}
