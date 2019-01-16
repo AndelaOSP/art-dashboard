@@ -5,7 +5,12 @@ import InputFluid from '../common/TextInputComponent';
 import ArtButton from '../common/ButtonComponent';
 import DropdownComponent from '../common/DropdownComponent';
 
-
+const generateDropdownOptions = locations =>
+  locations.map(location => ({
+    key: location.id,
+    text: location.country,
+    value: location.country
+  }));
 const CentreModal = props => (
   <Form onSubmit={this.handleSubmit}>
     <label htmlFor="centre" className="label-style">
@@ -21,6 +26,8 @@ const CentreModal = props => (
         placeholder="Select Country"
         name="country"
         value={props.country}
+        options={generateDropdownOptions(props.countries)}
+        onChange={props.onSelectCountry}
         upward={false}
       />
     </label>
@@ -41,7 +48,9 @@ CentreModal.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  country: PropTypes.string
+  onSelectCountry: PropTypes.func.isRequired,
+  country: PropTypes.string,
+  countries: PropTypes.array
 };
 
 export default CentreModal;

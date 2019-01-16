@@ -39,10 +39,14 @@ class AndelaCentresComponent extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  onSelectCountry = (event, data) => {
+    this.setState({ country: data.value });
+  };
+
   handleSubmit = () => {
     const newCentre = {
       centre_name: this.state.centre,
-      centre_country: this.state.country
+      country: this.state.country
     };
     this.props.createOfficeLocation(newCentre);
   };
@@ -73,6 +77,8 @@ class AndelaCentresComponent extends React.Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 countries={this.props.locationList}
+                onSelectCountry={this.onSelectCountry}
+                country={this.state.country}
               />
             </ModalComponent>
           </div>
