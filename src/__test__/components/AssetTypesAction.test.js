@@ -26,4 +26,11 @@ describe('Renders <AssetTypesAction /> correctly', () => {
     const artModal = viewWrapper(1);
     expect(artModal.props.trigger).toBe(1);
   });
+
+  it('calls handleToggleModal when a modal is opened or closed', () => {
+    wrapper.setState({ modalOpen: false });
+
+    wrapper.instance().handleToggleModal();
+    expect(wrapper.state().modalOpen).toEqual(true);
+  });
 });

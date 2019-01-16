@@ -25,7 +25,8 @@ import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 export class AssetMakeComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    modalOpen: false
   };
 
   componentDidMount() {
@@ -41,6 +42,8 @@ export class AssetMakeComponent extends React.Component {
     this.setState({ activePage });
     this.props.loadAssetMakes(activePage);
   };
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   getTotalPages = () => Math.ceil(this.props.assetMakesCount / this.state.limit);
 
@@ -78,6 +81,8 @@ export class AssetMakeComponent extends React.Component {
                   </Button>
                 }
                 modalTitle="Add Asset Make"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
               >
                 <AssetMakeContainer />
               </ModalComponent>

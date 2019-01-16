@@ -8,6 +8,8 @@ import { expireSession } from '../_actions/session.action';
 import ArtModal from './common/ModalComponent';
 
 export class SessionExpiredComponent extends React.Component {
+  state = { modalOpen: true }
+
   componentDidMount() {
     this.tokenValid();
   }
@@ -34,17 +36,20 @@ export class SessionExpiredComponent extends React.Component {
     this.props.history.push('/');
   };
 
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
+
   render() {
     return (
       <div>
         {this.props.sessionExpired && (
           <ArtModal
-            open
+            modalOpen={this.state.modalOpen}
             onClose
             modalTitle="Session Expired"
             closeIcon={false}
             closeOnEscape={false}
             closeOnDimmerClick={false}
+            toggleModal={this.handleToggleModal}
           >
             <div>
               <p>Your Sign In session has timed out. Please Sign In again.</p>

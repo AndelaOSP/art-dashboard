@@ -60,4 +60,11 @@ describe('Asset Categories Component', () => {
     });
     expect(wrapper.find('h1').text()).toEqual('An Error Occurred While Trying To Display The Asset Categories');
   });
+
+  it('calls handleToggleModal when a modal is opened or closed', () => {
+    wrapper.setState({ modalOpen: false });
+
+    wrapper.instance().handleToggleModal();
+    expect(wrapper.state().modalOpen).toEqual(true);
+  });
 });

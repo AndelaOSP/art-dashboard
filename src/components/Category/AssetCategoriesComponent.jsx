@@ -20,7 +20,8 @@ import '../../_css/AssetsComponent.css';
 export class AssetCategoriesComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    modalOpen: false
   }
 
   componentDidMount() {
@@ -38,6 +39,8 @@ export class AssetCategoriesComponent extends React.Component {
   }
 
   handlePageTotal = () => Math.ceil(this.props.assetCategoriesCount / this.state.limit)
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   emptyCategoriesCheck = () => (_.isEmpty(this.props.categories))
 
@@ -88,6 +91,8 @@ export class AssetCategoriesComponent extends React.Component {
                   </Button>
                 }
                 modalTitle="Add Asset Category"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
               >
                 <CategoryContainer />
               </ModalComponent>

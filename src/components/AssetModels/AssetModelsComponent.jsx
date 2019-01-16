@@ -21,7 +21,8 @@ import '../../_css/AssetsComponent.css';
 export class AssetModelsComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    modalOpen: false
   };
 
   componentDidMount() {
@@ -37,6 +38,8 @@ export class AssetModelsComponent extends React.Component {
     this.setState({ activePage });
     this.props.loadAssetModels(activePage, this.state.limit);
   };
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   getTotalPages = () => Math.ceil(this.props.assetModelsCount / this.state.limit);
 
@@ -74,6 +77,8 @@ export class AssetModelsComponent extends React.Component {
                   </Button>
                 }
                 modalTitle="Add Model Number"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
               >
                 <ModelNumberContainer />
               </ModalComponent>

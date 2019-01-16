@@ -21,7 +21,8 @@ import '../../_css/AssetsComponent.css';
 export class AssetTypesComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    modalOpen: false
   };
 
   componentDidMount() {
@@ -37,6 +38,8 @@ export class AssetTypesComponent extends React.Component {
     this.setState({ activePage });
     this.props.loadAssetTypes(activePage, this.state.limit);
   };
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   getTotalPages = () => Math.ceil(this.props.assetTypesCount / this.state.limit);
 
@@ -74,6 +77,8 @@ export class AssetTypesComponent extends React.Component {
                   </Button>
                 }
                 modalTitle="Add Asset Type"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
               >
                 <AssetTypesContainer />
               </ModalComponent>

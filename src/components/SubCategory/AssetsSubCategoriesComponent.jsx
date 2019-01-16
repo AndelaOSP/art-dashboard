@@ -27,7 +27,8 @@ import '../../_css/AssetsComponent.css';
 export class AssetSubCategoriesComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    modalOpen: false
   };
 
   componentDidMount() {
@@ -43,6 +44,8 @@ export class AssetSubCategoriesComponent extends React.Component {
     this.setState({ activePage });
     this.props.loadSubCategories(activePage, this.state.limit);
   };
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   getTotalPages = () => Math.ceil(this.props.assetSubCategoriesCount / this.state.limit);
 
@@ -80,6 +83,8 @@ export class AssetSubCategoriesComponent extends React.Component {
                   </Button>
                 }
                 modalTitle="Add Sub-Category"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
               >
                 <AddSubCategoryContainer />
               </ModalComponent>
