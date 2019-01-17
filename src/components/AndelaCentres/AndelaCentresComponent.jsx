@@ -67,7 +67,7 @@ class AndelaCentresComponent extends React.Component {
             <TableHeader titles={['Name', 'Country']} />
             <TableContent
               data={locationList}
-              headings={['centre_name', 'country']}
+              headings={['name', 'country']}
             />
           </Table>
         )}
