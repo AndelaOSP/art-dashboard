@@ -1,20 +1,16 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import InputFluid from '../common/TextInputComponent';
 import ArtButton from '../common/ButtonComponent';
 import DropdownComponent from '../common/DropdownComponent';
 
-const generateDropdownOptions = (locations) => {
-  const uniqueCountries = _.uniqBy(locations, 'country');
-  return uniqueCountries.map(location => ({
-    key: location.id,
-    text: location.country,
-    value: location.country
-  }));
-};
+const generateDropdownOptions = locations => locations.map(location => ({
+  key: location.id,
+  text: location.name,
+  value: location.name
+}));
 
 const CentreModal = props => (
   <Form onSubmit={this.handleSubmit}>

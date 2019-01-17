@@ -8,7 +8,10 @@ const {
   RESET_STATUS_MESSAGE,
   CREATE_LOCATIONS_REQUEST,
   CREATE_LOCATIONS_SUCCESS,
-  CREATE_LOCATIONS_FAILURE
+  CREATE_LOCATIONS_FAILURE,
+  LOAD_COUNTRIES_REQUEST,
+  LOAD_COUNTRIES_SUCCESS,
+  LOAD_COUNTRIES_FAILURE
 } = constants;
 
 export const loadOfficeLocations = (pageNumber, limit) => (dispatch) => {
@@ -29,10 +32,23 @@ export const createOfficeLocation = data => (dispatch) => {
   return axios
     .post('andela-centres', data)
     .then((response) => {
-      dispatch({ type: CREATE_LOCATIONS_SUCCESS, payload: response.data });
+      dispatch({ type: CREATE_LOCATIONS_SUCCESS, payload: response.data.results });
     })
     .catch((error) => {
       dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: error.message });
+    });
+};
+
+export const loadCountries = () => (dispatch) => {
+  dispatch({ type: LOAD_COUNTRIES_REQUEST });
+
+  return axios
+    .get('countries')
+    .then((response) => {
+      dispatch({ type: LOAD_COUNTRIES_SUCCESS, payload: response.data });
+    })
+    .catch((error) => {
+      dispatch({ type: LOAD_COUNTRIES_FAILURE, payload: error.message });
     });
 };
 

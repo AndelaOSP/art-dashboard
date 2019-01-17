@@ -25,6 +25,7 @@ class AndelaCentresComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadOfficeLocations(this.state.activePage);
+    this.props.loadCountries();
   }
 
   handleRowChange = (e, data) => {
@@ -82,7 +83,7 @@ class AndelaCentresComponent extends React.Component {
                 <CentreModal
                   handleChange={this.handleChange}
                   handleSubmit={this.handleSubmit}
-                  countries={this.props.locationList}
+                  countries={this.props.countries}
                   onSelectCountry={this.onSelectCountry}
                   country={this.state.country}
                 />
@@ -137,7 +138,9 @@ AndelaCentresComponent.propTypes = {
   resetMessage: PropTypes.func,
   locationCount: PropTypes.number,
   locationList: PropTypes.array,
-  error: PropTypes.string
+  error: PropTypes.string,
+  loadCountries: PropTypes.func,
+  countries: PropTypes.array
 };
 
 AndelaCentresComponent.defaultProps = {
