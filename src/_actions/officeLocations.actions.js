@@ -32,7 +32,7 @@ export const createOfficeLocation = data => (dispatch) => {
       dispatch({ type: CREATE_LOCATIONS_SUCCESS, payload: response.data });
     })
     .catch((error) => {
-      dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: error });
+      dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: error.message });
     });
 };
 
