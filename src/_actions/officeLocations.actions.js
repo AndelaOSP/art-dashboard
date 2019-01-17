@@ -32,7 +32,7 @@ export const createOfficeLocation = data => (dispatch) => {
   return axios
     .post('andela-centres', data)
     .then((response) => {
-      dispatch({ type: CREATE_LOCATIONS_SUCCESS, payload: response.data.results });
+      dispatch({ type: CREATE_LOCATIONS_SUCCESS, payload: response.data });
     })
     .catch((error) => {
       dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: error.message });
@@ -45,7 +45,7 @@ export const loadCountries = () => (dispatch) => {
   return axios
     .get('countries')
     .then((response) => {
-      dispatch({ type: LOAD_COUNTRIES_SUCCESS, payload: response.data });
+      dispatch({ type: LOAD_COUNTRIES_SUCCESS, payload: response.data.results });
     })
     .catch((error) => {
       dispatch({ type: LOAD_COUNTRIES_FAILURE, payload: error.message });

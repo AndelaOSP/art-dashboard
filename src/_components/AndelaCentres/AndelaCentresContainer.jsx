@@ -1,5 +1,10 @@
 import { connect } from 'react-redux';
-import { loadOfficeLocations, resetMessage, createOfficeLocation, loadCountries } from '../../_actions/officeLocations.actions';
+import {
+  loadOfficeLocations,
+  resetMessage,
+  createOfficeLocation,
+  loadCountries
+} from '../../_actions/officeLocations.actions';
 import AndelaCentresComponent from '../../components/AndelaCentres/AndelaCentresComponent';
 
 export const mapStateToProps = ({ officeLocations }) => {
@@ -9,13 +14,16 @@ export const mapStateToProps = ({ officeLocations }) => {
     locationList,
     isLoading,
     error,
-    countries: countries.results
+    countries
   };
 };
 
-export default connect(mapStateToProps, {
-  loadOfficeLocations,
-  resetMessage,
-  createOfficeLocation,
-  loadCountries
-})(AndelaCentresComponent);
+export default connect(
+  mapStateToProps,
+  {
+    loadOfficeLocations,
+    resetMessage,
+    createOfficeLocation,
+    loadCountries
+  }
+)(AndelaCentresComponent);
