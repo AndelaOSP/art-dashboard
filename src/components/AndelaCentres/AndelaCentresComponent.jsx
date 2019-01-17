@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Table, Button, Divider, Header } from 'semantic-ui-react';
+import { Table, Button } from 'semantic-ui-react';
 
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../../components/LoaderComponent';
@@ -12,6 +12,7 @@ import TableHeader from '../common/Table/TableHeaderComponent';
 import TableContent from '../common/Table/TableContent';
 import ModalComponent from '../common/ModalComponent';
 import CentreModal from './CentreModal';
+import PageHeader from '../common/PageHeader';
 
 class AndelaCentresComponent extends React.Component {
   state = {
@@ -66,28 +67,28 @@ class AndelaCentresComponent extends React.Component {
     return (
       <NavBarComponent>
         <div className="assets-list">
-          <Header as="h1" id="page-headings" floated="left" content="Andela Centres" />
-          <Divider id="assets-divider" />
-          <div className="header-modal-button">
-            <ModalComponent
-              trigger={
-                <Button className="add-asset" size="medium">
-                  ADD CENTRE
-                </Button>
-              }
-              modalTitle="Add Centre"
-              toggleModal={this.handleToggleModal}
-              modalOpen={this.state.modalOpen}
-            >
-              <CentreModal
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-                countries={this.props.locationList}
-                onSelectCountry={this.onSelectCountry}
-                country={this.state.country}
-              />
-            </ModalComponent>
-          </div>
+          <PageHeader header="Andela Centres">
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <Button className="add-asset" size="medium">
+                    ADD CENTRE
+                  </Button>
+                }
+                modalTitle="Add Centre"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
+              >
+                <CentreModal
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                  countries={this.props.locationList}
+                  onSelectCountry={this.onSelectCountry}
+                  country={this.state.country}
+                />
+              </ModalComponent>
+            </div>
+          </PageHeader>
 
           <div className="assets-list">
             {showStatus && (

@@ -11,6 +11,7 @@ const generateDropdownOptions = locations =>
     text: location.country,
     value: location.country
   }));
+
 const CentreModal = props => (
   <Form onSubmit={this.handleSubmit}>
     <label htmlFor="centre" className="label-style">
