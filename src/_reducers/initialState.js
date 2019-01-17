@@ -116,7 +116,11 @@ export default {
     locationCount: 0,
     locationList: [],
     isLoading: false,
-    error: ''
+    error: '',
+    updateSuccess: '',
+    updateError: '',
+    createSuccess: '',
+    createFailure: ''
   },
   filters: {
     cohorts: [],

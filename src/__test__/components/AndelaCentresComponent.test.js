@@ -12,6 +12,7 @@ describe('Renders <AndelaCentresComponent /> correclty', () => {
     isLoading: false,
     centresCount: 2,
     loadAndelaCentres: jest.fn(),
+    updateAndelaCentre: jest.fn(),
     loadCountries: jest.fn(),
     centres,
     countries
@@ -50,5 +51,30 @@ describe('Renders <AndelaCentresComponent /> correclty', () => {
       isLoading: true
     });
     expect(wrapper.find('LoaderComponent').length).toBe(1);
+  });
+
+  it('calls handleChange when a user fills in modal input fields', () => {
+    const handleChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleChange'
+    );
+
+    const event = {
+      target: {}
+    };
+
+    wrapper.instance().handleChange(event);
+    expect(handleChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls onSelectCountry', () => {
+    const onSelectCountrySpy = jest.spyOn(
+      wrapper.instance(), 'onSelectCountry'
+    );
+
+    const event = {};
+    const data = {};
+
+    wrapper.instance().onSelectCountry(event, data);
+    expect(onSelectCountrySpy.mock.calls.length).toEqual(1);
   });
 });

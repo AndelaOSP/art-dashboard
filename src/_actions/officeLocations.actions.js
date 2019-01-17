@@ -11,7 +11,10 @@ const {
   CREATE_LOCATIONS_FAILURE,
   LOAD_COUNTRIES_REQUEST,
   LOAD_COUNTRIES_SUCCESS,
-  LOAD_COUNTRIES_FAILURE
+  LOAD_COUNTRIES_FAILURE,
+  UPDATE_ANDELA_CENTRE_REQUEST,
+  UPDATE_ANDELA_CENTRE_SUCCESS,
+  UPDATE_ANDELA_CENTRE_FAILURE
 } = constants;
 
 export const loadOfficeLocations = (pageNumber, limit) => (dispatch) => {
@@ -59,6 +62,27 @@ export const loadOfficeLocationsSuccess = centres => ({
 
 export const loadOfficeLocationsFailure = error => ({
   type: LOAD_LOCATIONS_FAILURE,
+  payload: error
+});
+
+export const updateAndelaCentre = (centreId, centre) => (dispatch) => {
+  dispatch({ type: UPDATE_ANDELA_CENTRE_REQUEST });
+
+  return axios.put(`andela-centres/${centreId}`, centre)
+    .then((response) => {
+      dispatch(updateAndelaCentreSuccess(response.data));
+    }).catch((error) => {
+      dispatch(updateAndelaCentreFail(error));
+    });
+};
+
+export const updateAndelaCentreSuccess = centre => ({
+  type: UPDATE_ANDELA_CENTRE_SUCCESS,
+  payload: centre
+});
+
+export const updateAndelaCentreFail = error => ({
+  type: UPDATE_ANDELA_CENTRE_FAILURE,
   payload: error
 });
 

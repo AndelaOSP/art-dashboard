@@ -14,7 +14,7 @@ export const formatDataKeys = (data, entity) => {
   };
 };
 
-const TableContent = ({ data, headings, urlEntity = '' }) => (
+const TableContent = ({ data, headings, urlEntity = '', showAction = false, onClick }) => (
   <Table.Body>
     {data.map((info) => {
       const viewUrl = urlEntity ? `${urlEntity}/${info.id}/view` : '';
@@ -26,6 +26,9 @@ const TableContent = ({ data, headings, urlEntity = '' }) => (
           headings={headings}
           data={formatDataKeys(info, urlEntity)}
           data-test="table-row"
+          showAction={showAction}
+          onClick={onClick}
+          id={info.id}
         />
       );
     })}
@@ -35,7 +38,13 @@ const TableContent = ({ data, headings, urlEntity = '' }) => (
 TableContent.propTypes = {
   data: PropTypes.array,
   headings: PropTypes.arrayOf(PropTypes.string),
-  urlEntity: PropTypes.string
+  urlEntity: PropTypes.string,
+  showAction: PropTypes.bool,
+  onClick: PropTypes.func
+};
+
+TableContent.defaultProps = {
+  onClick: () => {}
 };
 
 export default TableContent;

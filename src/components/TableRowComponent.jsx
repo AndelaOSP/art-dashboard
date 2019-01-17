@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'semantic-ui-react';
+import { Table, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 export class TableRowComponent extends React.Component {
@@ -12,6 +12,10 @@ export class TableRowComponent extends React.Component {
     return history.push(viewDetailsRoute, data);
   };
 
+  handleClick = () => {
+    this.props.onClick(this.props.id);
+  }
+
   render() {
     return (
       <Table.Row onClick={this.handleView}>
@@ -22,6 +26,15 @@ export class TableRowComponent extends React.Component {
             </Table.Cell>
           )
           )}
+        {this.props.showAction &&
+          <Table.Cell>
+            <Icon
+              id={this.props.id}
+              name="edit"
+              className="asset-detail__table__icon"
+              onClick={this.handleClick}
+            />
+          </Table.Cell>}
         {this.props.children}
       </Table.Row>
     );
@@ -33,7 +46,10 @@ TableRowComponent.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node,
   history: PropTypes.object,
-  viewDetailsRoute: PropTypes.string
+  viewDetailsRoute: PropTypes.string,
+  showAction: PropTypes.bool,
+  onClick: PropTypes.func,
+  id: PropTypes.number
 };
 
 export default withRouter(TableRowComponent);
