@@ -1,25 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Table } from 'semantic-ui-react';
+import { Table, Button } from 'semantic-ui-react';
 
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../../components/LoaderComponent';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
-import PageHeader from '../common/PageHeader';
 import Paginator from '../common/PaginationComponent';
 import StatusMessageComponent from '../common/StatusComponent';
 import TableHeader from '../common/Table/TableHeaderComponent';
 import TableContent from '../common/Table/TableContent';
+import ModalComponent from '../common/ModalComponent';
+import CentreModal from './CentreModal';
+import PageHeader from '../common/PageHeader';
 
 class AndelaCentresComponent extends React.Component {
   state = {
     limit: 10,
-    activePage: 1
+    activePage: 1,
+    centre: '',
+    country: '',
+    modalOpen: false
   };
 
   componentDidMount() {
     this.props.loadOfficeLocations(this.state.activePage);
+    this.props.loadCountries();
   }
 
   handleRowChange = (e, data) => {
@@ -32,6 +38,25 @@ class AndelaCentresComponent extends React.Component {
     this.props.loadOfficeLocations(activePage);
   };
 
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  onSelectCountry = (event, data) => {
+    this.setState({ country: data.value });
+  };
+
+  handleSubmit = () => {
+    const newCentre = {
+      centre_name: this.state.centre,
+      country: this.state.country
+    };
+    this.props.createOfficeLocation(newCentre);
+    this.handleToggleModal();
+  };
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
+
   getTotalPages = () => Math.ceil(this.props.locationCount / this.state.limit);
 
   render() {
@@ -42,45 +67,65 @@ class AndelaCentresComponent extends React.Component {
 
     return (
       <NavBarComponent>
-        <PageHeader header="Andela Centres" />
-
         <div className="assets-list">
-          {showStatus && (
-            <StatusMessageComponent
-              message={error}
-              className="error-status"
-              reset={resetMessage}
+          <PageHeader header="Andela Centres">
+            <div className="header-modal-button">
+              <ModalComponent
+                trigger={
+                  <Button className="add-asset" size="medium">
+                    ADD CENTRE
+                  </Button>
+                }
+                modalTitle="Add Centre"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
+              >
+                <CentreModal
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                  countries={this.props.countries}
+                  onSelectCountry={this.onSelectCountry}
+                  country={this.state.country}
+                />
+              </ModalComponent>
+            </div>
+          </PageHeader>
+
+          <div className="assets-list">
+            {showStatus && (
+              <StatusMessageComponent
+                message={error}
+                className="error-status"
+                reset={resetMessage}
+              />
+            )}
+          </div>
+
+          {isLoading && !showStatus && <LoaderComponent />}
+
+          {showNotFound && (
+            <ItemsNotFoundComponent
+              header="No Andela Centres found!"
+              message="Please try again later to see if there will be centres to show you"
             />
           )}
-        </div>
 
-        {isLoading && !showStatus && <LoaderComponent />}
+          {!isLoading && hasLocations && (
+            <Table basic>
+              <TableHeader titles={['Name', 'Country']} />
+              <TableContent data={locationList} headings={['centre_name', 'country']} />
+            </Table>
+          )}
 
-        {showNotFound && (
-          <ItemsNotFoundComponent
-            header="No Andela Centres found!"
-            message="Please try again later to see if there will be centres to show you"
+          <Paginator
+            activePage={this.state.activePage}
+            handleRowChange={this.handleRowChange}
+            handlePaginationChange={this.handlePaginationChange}
+            limit={this.state.limit}
+            totalPages={this.getTotalPages()}
+            isLoading={this.props.isLoading}
           />
-        )}
-
-        {(!isLoading && hasLocations) && (
-          <Table basic className="assets-list">
-            <TableHeader titles={['Name', 'Country']} />
-            <TableContent
-              data={locationList}
-              headings={['centre_name', 'country']}
-            />
-          </Table>
-        )}
-
-        <Paginator
-          activePage={this.state.activePage}
-          handleRowChange={this.handleRowChange}
-          handlePaginationChange={this.handlePaginationChange}
-          limit={this.state.limit}
-          totalPages={this.getTotalPages()}
-          isLoading={this.props.isLoading}
-        />
+        </div>
       </NavBarComponent>
     );
   }
@@ -89,10 +134,13 @@ class AndelaCentresComponent extends React.Component {
 AndelaCentresComponent.propTypes = {
   isLoading: PropTypes.bool,
   loadOfficeLocations: PropTypes.func,
+  createOfficeLocation: PropTypes.func,
   resetMessage: PropTypes.func,
   locationCount: PropTypes.number,
   locationList: PropTypes.array,
-  error: PropTypes.string
+  error: PropTypes.string,
+  loadCountries: PropTypes.func,
+  countries: PropTypes.array
 };
 
 AndelaCentresComponent.defaultProps = {

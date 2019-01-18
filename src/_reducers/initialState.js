@@ -112,6 +112,7 @@ export default {
   },
   assetStatus: {},
   officeLocations: {
+    countries: [],
     locationCount: 0,
     locationList: [],
     isLoading: false,
