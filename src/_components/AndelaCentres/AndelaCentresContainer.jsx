@@ -18,12 +18,9 @@ export const mapStateToProps = ({ officeLocations }) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    loadOfficeLocations,
-    resetMessage,
-    createOfficeLocation,
-    loadCountries
-  }
-)(AndelaCentresComponent);
+export default connect(mapStateToProps, {
+  loadOfficeLocations,
+  resetMessage,
+  createOfficeLocation,
+  loadCountries
+})(AndelaCentresComponent);
