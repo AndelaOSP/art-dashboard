@@ -4,7 +4,7 @@ import { loadUsers } from '../../_actions/users.actions';
 import filterSelection from '../../_actions/checkedFilters.actions';
 import formatOption from '../../_utils/filters';
 
-import UserFilterButton from '../../components/User/UserFilter';
+import UserFilter from '../../components/common/Filter/Filter';
 
 export const userFilterData = (cohorts, allocatedAssets) => {
   if (isEmpty(cohorts, allocatedAssets)) {
@@ -37,4 +37,4 @@ export const mapStateToProps = ({ usersList, filters, selected }) => ({
 export default connect(mapStateToProps, {
   loadUsers,
   filterSelection
-})(UserFilterButton);
+})(UserFilter);

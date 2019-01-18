@@ -14,7 +14,13 @@ const {
   RESET_ASSETS,
   UPDATE_ASSET_REQUEST,
   UPDATE_ASSET_SUCCESS,
-  UPDATE_ASSET_FAIL
+  UPDATE_ASSET_FAIL,
+  UPLOAD_ASSETS_SUCCESS,
+  UPLOAD_ASSETS_FAILURE,
+  DOWNLOAD_FILE_SUCCESS,
+  DOWNLOAD_FILE_FAILURE,
+  RESET_UPLOAD_ASSETS,
+  UPLOAD_ASSETS_STARTS
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -74,7 +80,8 @@ export default (state = initialState.assets, action) => {
         assetsCount: state.assetsCount + 1,
         hasError: false,
         isLoading: false,
-        success: 'Hoooray! Asset successfully created. You can create another one or head on to view all assets.',
+        success:
+          'Hoooray! Asset successfully created. You can create another one or head on to view all assets.',
         errorMessage: ''
       };
 
@@ -87,13 +94,13 @@ export default (state = initialState.assets, action) => {
         errorMessage: getErrorMessage(action.payload.response.data)
       };
 
-    case RESET_STATUS_MESSAGE: {
+    case RESET_STATUS_MESSAGE:
       return {
         ...state,
         success: '',
-        errorMessage: ''
+        errorMessage: '',
+        hasError: false
       };
-    }
 
     case LOAD_ASSETS_STARTS:
       return {
@@ -160,6 +167,53 @@ export default (state = initialState.assets, action) => {
         updateLoading: false,
         success: '',
         errorMessage: 'Could not update asset.'
+      };
+
+    case UPLOAD_ASSETS_SUCCESS:
+      return {
+        ...state,
+        success: action.payload,
+        isLoading: action.isLoading
+      };
+
+    case UPLOAD_ASSETS_FAILURE:
+      return {
+        ...state,
+        uploadError: action.payload,
+        hasError: true,
+        isLoading: action.isLoading
+      };
+
+    case DOWNLOAD_FILE_SUCCESS:
+      return {
+        ...state,
+        success: { success: 'Download successfully completed' },
+        downloadedFile: action.payload,
+        isLoading: action.isLoading
+      };
+
+    case DOWNLOAD_FILE_FAILURE:
+      return {
+        ...state,
+        downloadError: action.payload,
+        hasError: true,
+        isLoading: action.isLoading
+      };
+
+    case RESET_UPLOAD_ASSETS:
+      return {
+        ...state,
+        uploadError: '',
+        downloadError: '',
+        success: '',
+        hasError: false,
+        isLoading: false
+      };
+
+    case UPLOAD_ASSETS_STARTS:
+      return {
+        ...state,
+        isUpLoading: action.isUpLoading
       };
 
     default:

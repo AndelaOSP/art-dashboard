@@ -4,25 +4,27 @@ import jwt from 'jsonwebtoken';
 import { get } from 'lodash';
 
 import Authenticate from './AccessControl/AuthenticateComponent';
-import AssetTypes from '../components/AssetTypesComponent';
-import Assets from '../_components/Assets/AssetsContainer';
+import AssetTypes from '../components/AssetTypes/AssetTypesComponent';
+import Assets from '../components/Assets/AssetsTabComponent';
 import AssetModels from '../components/AssetModels/AssetModelsComponent';
 import LoginComponent from '../components/LoginComponent';
 import Dashboard from '../_components/Dashboard/DashboardContainer';
 import UserFeedback from '../components/User/UserFeedbackComponent';
 import PageNotFound from '../components/PageNotFoundComponent';
-import AssetSubCategories from '../components/AssetsSubCategoriesComponent';
+import AssetSubCategories from '../components/SubCategory/AssetsSubCategoriesComponent';
 import Allocations from '../components/AllocationsComponent';
 import IncidenceReports from '../components/IncidenceReportsComponent';
-import AssetCategories from '../components/AssetCategoriesComponent';
+import AssetCategories from '../components/Category/AssetCategoriesComponent';
 import AssetDetail from './AssetDetails/AssetDetailsContainer';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
-import User from './User/UserContainer';
+import User from '../components/User/UsersTabComponent';
 import UserDetail from './User/UserDetailContainer';
 import AssetSpecs from '../components/AssetSpecs/AssetSpecsComponent';
 import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
+import SecurityUsers from './SecurityUser/SecurityUserContainer';
+import AndelaCentresComponent from './AndelaCentres/AndelaCentresContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => {
@@ -139,6 +141,18 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/asset-specs/create"
             component={AddAssetSpec}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/security-users"
+            component={SecurityUsers}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/andela-centres"
+            component={AndelaCentresComponent}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />

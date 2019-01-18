@@ -42,9 +42,14 @@
   background-color: $andela-blue;
   color: $andela-white;
   font-weight: 500;
-  width: 150px;
+  min-width: 150px;
   position: absolute;
   right: 8rem;
+
+  a {
+    color: $andela-white;
+    font-weight: 500;
+  }
 }
 
 .ui.button.clicked {
@@ -76,4 +81,13 @@
   .filter-button {
     right: 1rem;
   }
+}
+
+.failed-file {
+  width: 60%;
+  margin-bottom: 2%;
+}
+
+.assets-tab {
+  padding-top: 4rem;
 }

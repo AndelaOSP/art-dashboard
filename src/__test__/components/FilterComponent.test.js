@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import FilterComponent from '../../components/common/FilterComponent';
+import FilterComponent from '../../components/common/Filter/FilterComponent';
 
 import assetFilter from '../../_mock/assetsFilter';
 import { selectedFilters } from '../../_mock/filters';

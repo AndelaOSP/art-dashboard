@@ -40,4 +40,11 @@ describe('Renders <SessionExpiredComponent /> correctly', () => {
     wrapper.instance().handleLogout();
     expect(handleLogoutSpy.mock.calls.length).toEqual(1);
   });
+
+  it('calls handleToggleModal when a modal is opened or closed', () => {
+    wrapper.setState({ modalOpen: false });
+
+    wrapper.instance().handleToggleModal();
+    expect(wrapper.state().modalOpen).toEqual(true);
+  });
 });

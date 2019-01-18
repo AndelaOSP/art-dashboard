@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import _ from 'lodash';
 import { Form } from 'semantic-ui-react';
 import DropdownComponent from '../common/DropdownComponent';
 import ArtButton from '../common/ButtonComponent';
@@ -10,32 +9,18 @@ import generateDropdownOptions from '../../_utils/generateDropdownOptions';
 import '../../_css/AddAssetComponent.css';
 
 const SaveButton = props => (
-  <React.Fragment>
-    {
-        props.hasSpecs && (
-          <div className="optional-label-text">
-            <p>
-              The selected asset has no specifications, click the submit button to finish
-              creation
-            </p>
-          </div>
-        )
-      }
-
-    <ArtButton
-      className="save"
-      buttonName="save"
-      color="primary"
-      buttonState={props.buttonLoading}
-      disabledState={props.isDisabled || props.buttonLoading}
-      handleClick={props.handleClick}
-      fluidState
-    />
-  </React.Fragment>
+  <ArtButton
+    className="save"
+    buttonName="save"
+    color="primary"
+    buttonState={props.buttonLoading}
+    disabledState={props.isDisabled || props.buttonLoading}
+    handleClick={props.handleClick}
+    fluidState
+  />
 );
 
 SaveButton.propTypes = {
-  hasSpecs: PropTypes.bool.isRequired,
   buttonLoading: PropTypes.bool,
   isDisabled: PropTypes.bool.isRequired,
   handleClick: PropTypes.func
@@ -54,10 +39,6 @@ const FilterAssetComponent = (props) => {
 
     return categoryArray;
   };
-
-  const hasSpecs = !_.isEmpty(props.modelNumber) &&
-    !_.isEmpty(props.assetTag) &&
-    !_.isEmpty(props.serialNumber);
 
   return (
     <Form onSubmit={props.onCreateAsset} className="add-asset-form">
@@ -153,7 +134,6 @@ const FilterAssetComponent = (props) => {
             />
           :
             <SaveButton
-              hasSpecs={hasSpecs}
               buttonLoading={props.buttonLoading}
               isDisabled={props.isDisabled}
               handleClick={props.reset}
@@ -177,16 +157,16 @@ FilterAssetComponent.propTypes = {
   selectedSubcategory: PropTypes.string,
   selectedAssetType: PropTypes.string,
   selectedAssetMake: PropTypes.string,
-  handleInputChange: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func,
   modelNumber: PropTypes.string,
   assetTag: PropTypes.string,
   serialNumber: PropTypes.string,
-  isAssetSpecsAvailable: PropTypes.bool.isRequired,
+  isAssetSpecsAvailable: PropTypes.bool,
   onCreateAsset: PropTypes.func.isRequired,
   reset: PropTypes.func
 };
 
-FilterAssetComponent.defaultTypes = {
+FilterAssetComponent.defaultProps = {
   filteredSubCategories: [],
   filteredAssetTypes: [],
   filteredAssetMakes: [],

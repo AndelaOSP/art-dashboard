@@ -13,6 +13,7 @@
     "fusioncharts": "^3.12.2",
     "highcharts": "^6.1.1",
     "history": "^4.7.2",
+    "jest-enzyme": "^7.0.1",
     "jest-mock": "^23.2.0",
     "jsonwebtoken": "^8.2.2",
     "lodash": "^4.17.10",
@@ -23,12 +24,13 @@
     "prop-types": "^15.6.1",
     "react": "^16.4.1",
     "react-dom": "^16.3.2",
+    "react-dropzone": "^7.0.1",
     "react-fusioncharts": "^1.0.5",
     "react-highcharts": "^16.0.2",
     "react-jsx-highcharts": "3.1.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "^2.1.3",
     "react-semantic-toasts": "^0.3.2",
     "react-test-renderer": "^16.4.0",
     "redux": "^4.0.0",
@@ -49,7 +51,7 @@
     "build": "npm-run-all build-css build-js",
     "test-js": "react-scripts test --env=jsdom --silent",
     "test": "npm-run-all build-css test-js",
-    "coverage-js": "react-scripts test --env=jsdom --coverage",
+    "coverage-js": "react-scripts test --env=jsdom --coverage --runInBand",
     "coverage": "npm-run-all build-css coverage-js",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts eject",
@@ -74,7 +76,6 @@
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
     "enzyme-redux": "^0.2.1",
-    "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jest": "^21.17.0",
@@ -93,5 +94,11 @@
       "!src/registerServiceWorker.js",
       "!src/index.js"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

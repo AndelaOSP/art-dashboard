@@ -1,7 +1,7 @@
 import expect from 'expect';
-import { mapStateToProps, createFilterData } from '../../_components/Assets/AssetsContainer';
 import models from '../../_mock/assetModels';
 import types from '../../_mock/assetTypes';
+import { mapStateToProps, createFilterData } from '../../_components/Assets/AssetsContainer';
 
 describe('Renders <Assets />  tests', () => {
   it('calls mapStateToProps', () => {
@@ -37,10 +37,10 @@ describe('Renders <Assets />  tests', () => {
       assetsList: [],
       assetsCount: 0,
       errorMessage: '',
+      filterData: [],
       hasError: false,
       activePage: 1,
       selected: [],
-      filterData: [],
       status: '',
       shouldReload: false
     };
@@ -67,7 +67,6 @@ describe('Renders <Assets />  tests', () => {
         ]
       }
     ];
-
     expect(createFilterData(types, models)).toEqual(expected);
   });
 });

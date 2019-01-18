@@ -12,15 +12,17 @@ import LoaderComponent from '../../components/LoaderComponent';
 import formatDate from '../../_utils/dateFormatter';
 import ModalComponent from '../common/ModalComponent';
 import ModelNumberContainer from '../../_components/ModelNumber/ModelNumberContainer';
+import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
 import { loadAssetModels } from '../../_actions/assetModels.action';
+
 import '../../_css/AssetsComponent.css';
-import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 
 export class AssetModelsComponent extends React.Component {
   state = {
     activePage: 1,
-    limit: 10
+    limit: 10,
+    modalOpen: false
   };
 
   componentDidMount() {
@@ -36,6 +38,8 @@ export class AssetModelsComponent extends React.Component {
     this.setState({ activePage });
     this.props.loadAssetModels(activePage, this.state.limit);
   };
+
+  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   getTotalPages = () => Math.ceil(this.props.assetModelsCount / this.state.limit);
 
@@ -67,13 +71,14 @@ export class AssetModelsComponent extends React.Component {
               <ModalComponent
                 trigger={
                   <Button
-                    className="add-asset"
-                    size="medium"
+                    className="filter-button"
                   >
                     ADD MODEL NUMBER
                   </Button>
                 }
                 modalTitle="Add Model Number"
+                toggleModal={this.handleToggleModal}
+                modalOpen={this.state.modalOpen}
               >
                 <ModelNumberContainer />
               </ModalComponent>

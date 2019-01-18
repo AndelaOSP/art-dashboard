@@ -25,7 +25,10 @@ export default {
     success: '',
     hasError: false,
     isLoading: false,
-    activePage: 1
+    activePage: 1,
+    progressStatus: '',
+    downloadError: '',
+    downloadedFile: ''
   },
   asset: {
     assetDetail: {},
@@ -34,7 +37,9 @@ export default {
     errorMessage: '',
     hasError: false,
     isLoading: false,
-    buttonLoading: false
+    buttonLoading: false,
+    isUpLoading: false,
+    uploadError: ''
   },
   toastMessage: {
     message: '',
@@ -74,7 +79,6 @@ export default {
     successMessage: '',
     hasError: false,
     isLoading: false,
-    securityUser: {},
     activePage: 1
   },
   user: {
@@ -108,6 +112,7 @@ export default {
   },
   assetStatus: {},
   officeLocations: {
+    countries: [],
     locationCount: 0,
     locationList: [],
     isLoading: false,
@@ -118,5 +123,13 @@ export default {
     allocatedAssets: [],
     isLoading: false,
     hasError: false
+  },
+  securityUsers: {
+    activePage: 1,
+    usersList: {},
+    usersCount: 0,
+    errorMessage: '',
+    successMessage: '',
+    isLoading: false
   }
 };

@@ -4,7 +4,14 @@ import initialState from './initialState';
 const {
   LOAD_LOCATIONS_REQUEST,
   LOAD_LOCATIONS_SUCCESS,
-  LOAD_LOCATIONS_FAILURE
+  LOAD_LOCATIONS_FAILURE,
+  RESET_STATUS_MESSAGE,
+  CREATE_LOCATIONS_SUCCESS,
+  CREATE_LOCATIONS_FAILURE,
+  CREATE_LOCATIONS_REQUEST,
+  LOAD_COUNTRIES_REQUEST,
+  LOAD_COUNTRIES_SUCCESS,
+  LOAD_COUNTRIES_FAILURE
 } = constants;
 
 export default (state = initialState.officeLocations, action) => {
@@ -26,7 +33,48 @@ export default (state = initialState.officeLocations, action) => {
     case LOAD_LOCATIONS_FAILURE:
       return {
         ...state,
+        error: action.payload.message || 'Oops, something went wrong',
+        isLoading: false
+      };
+
+    case RESET_STATUS_MESSAGE:
+      return {
+        ...state,
+        error: ''
+      };
+    case CREATE_LOCATIONS_SUCCESS:
+      return {
+        ...state,
+        locationCount: state.locationCount + 1,
+        locationList: state.locationList.concat(action.payload),
+        isLoading: false
+      };
+    case CREATE_LOCATIONS_FAILURE:
+      return {
+        ...state,
         error: action.payload,
+        isLoading: false
+      };
+    case CREATE_LOCATIONS_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case LOAD_COUNTRIES_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case LOAD_COUNTRIES_SUCCESS:
+      return {
+        ...state,
+        countries: action.payload
+      };
+    case LOAD_COUNTRIES_FAILURE:
+      return {
+        ...state,
+        error: action.payload.message || 'Oops, something went wrong',
         isLoading: false
       };
 

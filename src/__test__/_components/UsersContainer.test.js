@@ -12,7 +12,8 @@ describe('Render <User /> tests', () => {
         isLoading: false,
         isFiltered: false,
         activePage: 1
-      }
+      },
+      selected: {}
     };
 
     const expected = {
@@ -22,7 +23,9 @@ describe('Render <User /> tests', () => {
       errorMessage: '',
       hasError: false,
       activePage: 1,
-      isFiltered: false
+      isFiltered: false,
+      selected: {},
+      entity: 'users'
     };
 
     expect(mapStateToProps(state)).toEqual(expected);

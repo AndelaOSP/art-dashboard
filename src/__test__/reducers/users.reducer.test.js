@@ -1,15 +1,13 @@
 import expect from 'expect';
 import constants from '../../_constants';
 import usersReducer from '../../_reducers/users.reducer';
-import users, { SecurityUser, AssetAssignee } from '../../_mock/users';
+import users, { AssetAssignee } from '../../_mock/users';
 
 const {
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
   LOADING_USERS,
   LOAD_ASSET_ASSIGNEE_USERS_SUCCESS,
-  CREATE_SECURITY_USER_SUCCESS,
-  CREATE_SECURITY_USER_FAILURE,
   RESET_STATUS_MESSAGE,
   RESET_USERS,
   SET_USERS_ACTIVE_PAGE
@@ -22,7 +20,6 @@ const initialState = {
     assetsCount: 0,
     hasError: false,
     isLoading: false,
-    securityUser: {},
     activePage: 1,
     errorMessage: '',
     successMessage: ''
@@ -67,17 +64,6 @@ describe('Users Reducer tests', () => {
     action.type = LOAD_ASSET_ASSIGNEE_USERS_SUCCESS;
     action.payload = AssetAssignee;
     expect(usersReducer(initialState, action).assetAsigneeUsers).toEqual(action.payload);
-  });
-
-  it('should handle CREATE_SECURITY_USER_SUCCESS', () => {
-    action.type = CREATE_SECURITY_USER_SUCCESS;
-    action.payload = SecurityUser;
-    expect(usersReducer(initialState, action).securityUser).toEqual(action.payload);
-  });
-
-  it('should handle CREATE_SECURITY_USER_FAILURE', () => {
-    action.type = CREATE_SECURITY_USER_FAILURE;
-    expect(usersReducer(initialState, action).errorMessage).toEqual(action.payload);
   });
 
   it('should handle RESET_USERS', () => {
