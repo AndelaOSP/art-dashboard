@@ -23,7 +23,7 @@ class AndelaCentresComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadOfficeLocations(this.state.activePage);
+    this.props.loadOfficeLocations(this.state.activePage, this.state.limit);
     this.props.loadCountries();
   }
 
@@ -34,7 +34,7 @@ class AndelaCentresComponent extends React.Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadOfficeLocations(activePage);
+    this.props.loadOfficeLocations(activePage, this.state.limit);
   };
 
   handleToggleModal = () => {
@@ -93,6 +93,13 @@ class AndelaCentresComponent extends React.Component {
         </div>
 
         {isLoading && !showStatus && <LoaderComponent />}
+
+        <div className="card-container">
+          <Cards
+            data={locationList}
+            headings={['centre_name', 'country']}
+          />
+        </div>
 
         {showNotFound && (
           <ItemsNotFoundComponent

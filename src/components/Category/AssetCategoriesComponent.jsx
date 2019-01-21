@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Pagination, Table, Header, Segment, Divider } from 'semantic-ui-react';
 
-import TableRow from '../TableRowComponent';
+import Cards from '../common/Card/Card';
 import NavBarComponent from '../../_components/NavBarContainer';
 import rowOptions from '../../_utils/pageRowOptions';
 import DropdownComponent from '../common/DropdownComponent';
@@ -98,55 +98,41 @@ export class AssetCategoriesComponent extends React.Component {
               </ModalComponent>
             </div>
           </div>
-          <Table basic selectable>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Category</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
 
-            <Table.Body>
-              {
-                this.props.categories.map(category => (
-                  <TableRow
-                    key={category.id}
-                    data={category}
-                    headings={['category_name']}
-                  />
-                ))
-              }
-            </Table.Body>
+          <div className="card-container">
+            {
+              <Cards
+                data={this.props.categories}
+                headings={['category_name']}
+              />
+            }
+          </div>
 
-            <Table.Footer>
-              <Table.Row>
-                {
-                    !this.emptyCategoriesCheck() && (
-                    <Table.HeaderCell colSpan="3" id="pagination-header">
-                      <Segment.Group horizontal id="art-pagination-section">
-                        <Segment>
-                          <Pagination
-                            totalPages={this.handlePageTotal()}
-                            onPageChange={this.handlePaginationChange}
-                            activePage={this.state.activePage}
-                          />
-                        </Segment>
-                        <Segment>
-                          <DropdownComponent
-                            customClass="page-limit"
-                            placeHolder="Show Rows"
-                            options={rowOptions}
-                            onChange={this.handleRowChange}
-                            value={this.state.limit}
-                            upward
-                          />
-                        </Segment>
-                      </Segment.Group>
-                    </Table.HeaderCell>
-                    )
-                  }
-              </Table.Row>
-            </Table.Footer>
-          </Table>
+          {
+            !this.emptyCategoriesCheck() && (
+              <Table.HeaderCell colSpan="3" id="pagination-header">
+                <Segment.Group horizontal id="art-pagination-section">
+                  <Segment>
+                    <Pagination
+                      totalPages={this.handlePageTotal()}
+                      onPageChange={this.handlePaginationChange}
+                      activePage={this.state.activePage}
+                    />
+                  </Segment>
+                  <Segment>
+                    <DropdownComponent
+                      customClass="page-limit"
+                      placeHolder="Show Rows"
+                      options={rowOptions}
+                      onChange={this.handleRowChange}
+                      value={this.state.limit}
+                      upward
+                    />
+                  </Segment>
+                </Segment.Group>
+              </Table.HeaderCell>
+            )
+          }
         </div>
       </NavBarComponent>
     );
