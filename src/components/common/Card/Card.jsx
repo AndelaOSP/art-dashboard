@@ -19,10 +19,13 @@ export class Card extends React.Component {
   };
 
   render() {
-    const { customCss, data, headings, urlEntity = '' } = this.props;
+    const { customCss, data, headings, urlEntity = '', imageName } = this.props;
+    const backgroundImage = {
+      background: `url("/images/${imageName}") no-repeat center`
+    };
 
     return (
-      <React.Fragment>
+      <div className="card-container">
         {
           data.map((info) => {
             const viewUrl = urlEntity ? `${urlEntity}/${info.id}/view` : '';
@@ -30,7 +33,7 @@ export class Card extends React.Component {
             return (
               <div
                 key={uuidv4()}
-                className={`card2 ${customCss}`}
+                className={`card ${customCss}`}
                 onClick={this.handleView(viewUrl, info)}
                 onKeyUp={() => {}}
                 role="button"
@@ -38,19 +41,20 @@ export class Card extends React.Component {
               >
                 <div className="bottom-right">
                   <CardContent
-                    key={info.id}
+                    key={uuidv4()}
                     headings={headings}
                     data={info}
                     data-test="card-content"
                   />
                 </div>
 
-                <div className="overlay2" />
+                <div className="image-overlay" style={backgroundImage} />
+                <div className="overlay" />
               </div>
             );
           })
         }
-      </React.Fragment>
+      </div>
     );
   }
 }
@@ -60,11 +64,13 @@ Card.propTypes = {
   data: PropTypes.array.isRequired,
   history: PropTypes.object,
   customCss: PropTypes.string,
-  urlEntity: PropTypes.string
+  urlEntity: PropTypes.string,
+  imageName: PropTypes.string
 };
 
 Card.defaultProps = {
-  customCss: ''
+  customCss: '',
+  imageName: 'map.svg'
 };
 
 export default withRouter(Card);

@@ -5,6 +5,7 @@ import { Table } from 'semantic-ui-react';
 
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../../components/LoaderComponent';
+import Cards from '../common/Card/Card';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import Paginator from '../common/PaginationComponent';
 import StatusMessageComponent from '../common/StatusComponent';
@@ -94,12 +95,10 @@ class AndelaCentresComponent extends React.Component {
 
         {isLoading && !showStatus && <LoaderComponent />}
 
-        <div className="card-container">
-          <Cards
-            data={locationList}
-            headings={['centre_name', 'country']}
-          />
-        </div>
+        <Cards
+          data={locationList}
+          headings={['centre_name', 'country']}
+        />
 
         {showNotFound && (
           <ItemsNotFoundComponent
