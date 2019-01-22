@@ -34,7 +34,7 @@ const FilterAssetComponent = (props) => {
   const generateCategoryArray = () => {
     const categoryArray = [];
     props.categories.map(opt => (
-      categoryArray.push(opt.category_name)
+      categoryArray.push(opt.name)
     ));
 
     return categoryArray;

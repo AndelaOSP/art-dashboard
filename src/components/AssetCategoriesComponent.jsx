@@ -106,7 +106,7 @@ export class AssetCategoriesComponent extends React.Component {
                   <TableRow
                     key={category.id}
                     data={category}
-                    headings={['category_name']}
+                    headings={['name']}
                   />
                 ))
               }

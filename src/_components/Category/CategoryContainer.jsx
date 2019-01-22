@@ -40,7 +40,7 @@ class CategoryContainer extends React.Component {
 
   handleSubmit = (event) => {
     const newCategory = {
-      category_name: this.state.categoryName
+      name: this.state.categoryName
     };
     this.props.createCategory(newCategory);
     event.target.reset();

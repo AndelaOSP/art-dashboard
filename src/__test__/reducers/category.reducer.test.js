@@ -51,7 +51,7 @@ describe('Category Reducer tests', () => {
   it('should handle CREATE_CATEGORY_SUCCESS', () => {
     const newAction = {};
     const newCategory = {
-      category_name: 'Category 1',
+      name: 'Category 1',
       id: 4
     };
     const newState = {

@@ -9,7 +9,7 @@ import LoaderComponent from '../LoaderComponent';
 const populateCategories = props =>
   props.map((option, index) => ({
     key: index,
-    text: option.category_name,
+    text: option.name,
     value: option.id
   }));
 
