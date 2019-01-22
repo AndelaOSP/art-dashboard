@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { connect } from 'react-redux';
 import { Button, Header, Divider } from 'semantic-ui-react';
 
 import Cards from '../common/Card/Card';
@@ -11,8 +10,6 @@ import ModalComponent from '../common/ModalComponent';
 import CategoryContainer from '../../_components/Category/CategoryContainer';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import Paginator from '../common/PaginationComponent';
-
-import { loadAssetCategories } from '../../_actions/assetCategories.actions';
 
 import '../../_css/AssetsComponent.css';
 
@@ -132,14 +129,4 @@ AssetCategoriesComponent.propTypes = {
   hasError: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ assetCategories }) => {
-  const { categories, assetCategoriesCount, isLoading, hasError } = assetCategories;
-  return {
-    categories,
-    assetCategoriesCount,
-    isLoading,
-    hasError
-  };
-};
-
-export default connect(mapStateToProps, { loadAssetCategories })(AssetCategoriesComponent);
+export default AssetCategoriesComponent;

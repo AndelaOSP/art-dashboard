@@ -28,5 +28,8 @@ export const uploadStatus = (success, error) => {
 
 StatusMessage.propTypes = {
   className: PropTypes.string,
-  message: PropTypes.string
+  message: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 };

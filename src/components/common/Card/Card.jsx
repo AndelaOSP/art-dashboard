@@ -44,7 +44,6 @@ export class Card extends React.Component {
                     key={uuidv4()}
                     headings={headings}
                     data={info}
-                    data-test="card-content"
                   />
                 </div>
 
