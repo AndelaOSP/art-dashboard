@@ -19,7 +19,7 @@
   height: 100px;
   padding: 20px;
   margin: 0 20px 20px 0;
-  border: none;
+  border: 0;
   -webkit-border-radius: 0.25rem;
   -moz-border-radius: 0.25rem;
   border-radius: 0.25rem;
@@ -44,7 +44,7 @@
   }
 
   .bottom-right {
-    pointer-events:none;
+    pointer-events: none;
     text-align: right;
   }
 
@@ -87,8 +87,9 @@
 
 @keyframes bounce {
   from {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
+
   to {
     transform: translateY(-7px);
   }
@@ -96,8 +97,9 @@
 
 @-webkit-keyframes bounce {
   from {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
+
   to {
     transform: translateY(-7px);
   }
@@ -105,8 +107,9 @@
 
 @-moz-keyframes bounce {
   from {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
+
   to {
     transform: translateY(-7px);
   }
