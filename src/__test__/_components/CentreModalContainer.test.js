@@ -19,7 +19,7 @@ describe('Renders <CentreModal /> tests', () => {
       isLoading: false,
       successMessage: '',
       errorMessage: '',
-      showStatus: ''
+      showStatus: false
     };
 
     expect(mapStateToProps(state)).toEqual(expected);

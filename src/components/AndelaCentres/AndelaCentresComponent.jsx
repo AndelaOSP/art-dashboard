@@ -11,17 +11,18 @@ import StatusMessageComponent from '../common/StatusComponent';
 import TableHeader from '../common/Table/TableHeaderComponent';
 import TableContent from '../common/Table/TableContent';
 import PageHeader from '../common/PageHeader';
-import AndelaCentresModal from './AndelaCentresModal';
+// import AndelaCentresModal from './AndelaCentresModal';
+import CentreModal from '../../_components/AndelaCentres/CentreModalContainer';
 
 class AndelaCentresComponent extends React.Component {
   state = {
     limit: 10,
-    activePage: 1,
-    centre: '',
-    country: '',
-    modalOpen: false,
-    editModalOpen: false,
-    locationId: null
+    activePage: 1
+    // centre: '',
+    // country: '',
+    // modalOpen: false,
+    // editModalOpen: false,
+    // locationId: null
   };
 
   componentDidMount() {
@@ -39,14 +40,14 @@ class AndelaCentresComponent extends React.Component {
     this.props.loadOfficeLocations(activePage);
   };
 
-  handleToggleModal = () => {
-    this.setState({ modalOpen: !this.state.modalOpen });
-    this.props.resetMessage();
-  }
+  // handleToggleModal = () => {
+  //   this.setState({ modalOpen: !this.state.modalOpen });
+  //   this.props.resetMessage();
+  // }
 
-  onSelectCountry = (event, data) => {
-    this.setState({ country: data.value });
-  }
+  // onSelectCountry = (event, data) => {
+  //   this.setState({ country: data.value });
+  // }
 
   handleChange = (event) => {
     const { value, name } = event.target;
@@ -56,30 +57,30 @@ class AndelaCentresComponent extends React.Component {
     });
   }
 
-  handleSubmit = () => {
-    const newCentre = {
-      centre_name: this.state.centre,
-      country: this.state.country
-    };
-    this.props.createOfficeLocation(newCentre);
-  };
+  // handleSubmit = () => {
+  //   const newCentre = {
+  //     centre_name: this.state.centre,
+  //     country: this.state.country
+  //   };
+  //   this.props.createOfficeLocation(newCentre);
+  // };
 
-  handleEditToggleModal = (id) => {
-    this.setState({
-      editModalOpen: !this.state.editModalOpen,
-      locationId: id
-    });
-    this.props.resetMessage();
-  }
+  // handleEditToggleModal = (id) => {
+  //   this.setState({
+  //     editModalOpen: !this.state.editModalOpen,
+  //     locationId: id
+  //   });
+  //   this.props.resetMessage();
+  // }
 
-  handleEditSubmit = (event) => {
-    event.preventDefault();
+  // handleEditSubmit = (event) => {
+  //   event.preventDefault();
 
-    this.props.updateAndelaCentre(this.state.locationId, {
-      centre_name: this.state.centre,
-      country: this.state.country
-    });
-  };
+  //   this.props.updateAndelaCentre(this.state.locationId, {
+  //     centre_name: this.state.centre,
+  //     country: this.state.country
+  //   });
+  // };
 
   getTotalPages = () => Math.ceil(this.props.locationCount / this.state.limit);
 
@@ -94,7 +95,12 @@ class AndelaCentresComponent extends React.Component {
       <NavBarComponent>
         <PageHeader header="Andela Centres">
           <div className="header-modal-button">
-            <AndelaCentresModal
+            <CentreModal
+              showTrigger
+              title="Add Centre"
+              mode="add"
+            />
+            {/* <AndelaCentresModal
               showTrigger
               title="Add Centre"
               onToggleModal={this.handleToggleModal}
@@ -103,11 +109,15 @@ class AndelaCentresComponent extends React.Component {
               onSubmit={this.handleSubmit}
               onSelectCountry={this.onSelectCountry}
               country={this.state.country}
-            />
+            /> */}
           </div>
         </PageHeader>
 
-        <AndelaCentresModal
+        <CentreModal
+          title="Update An Andela Centre"
+          mode="edit"
+        />
+        {/* <AndelaCentresModal
           showTrigger={false}
           title="Update An Andela Centre"
           onToggleModal={this.handleEditToggleModal}
@@ -116,7 +126,7 @@ class AndelaCentresComponent extends React.Component {
           onSubmit={this.handleEditSubmit}
           onSelectCountry={this.onSelectCountry}
           country={this.state.country}
-        />
+        /> */}
 
         <div className="assets-list">
           {showStatus && (
@@ -165,14 +175,14 @@ class AndelaCentresComponent extends React.Component {
 AndelaCentresComponent.propTypes = {
   isLoading: PropTypes.bool,
   loadOfficeLocations: PropTypes.func,
-  createOfficeLocation: PropTypes.func,
+  // createOfficeLocation: PropTypes.func,
   resetMessage: PropTypes.func,
   locationCount: PropTypes.number,
   locationList: PropTypes.array,
   error: PropTypes.string,
   loadCountries: PropTypes.func,
   entity: PropTypes.string,
-  updateAndelaCentre: PropTypes.func
+  // updateAndelaCentre: PropTypes.func
 };
 
 AndelaCentresComponent.defaultProps = {

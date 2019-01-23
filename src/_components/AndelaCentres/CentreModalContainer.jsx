@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
-import { resetMessage } from '../../_actions/officeLocations.actions';
-import CentreModal from '../../components/AndelaCentres/CentreModal';
+import {
+  resetMessage,
+  updateAndelaCentre,
+  createOfficeLocation
+} from '../../_actions/officeLocations.actions';
+import CentreModal from '../../components/AndelaCentres/Temp';
 
 export const mapStateToProps = ({ officeLocations }) => {
   const {
@@ -12,13 +16,20 @@ export const mapStateToProps = ({ officeLocations }) => {
     createFailure
   } = officeLocations;
 
+  const successMessage = updateSuccess || createSuccess;
+  const errorMessage = updateError || createFailure;
+
   return {
     countries,
     isLoading,
-    successMessage: updateSuccess || createSuccess,
-    errorMessage: updateError || createFailure,
-    showStatus: updateError || updateSuccess || createSuccess || createFailure
+    successMessage,
+    errorMessage,
+    showStatus: !!successMessage || !!errorMessage
   };
 };
 
-export default connect(mapStateToProps, { resetMessage })(CentreModal);
+export default connect(mapStateToProps, {
+  resetMessage,
+  updateAndelaCentre,
+  createOfficeLocation
+})(CentreModal);
