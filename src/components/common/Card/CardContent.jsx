@@ -5,13 +5,13 @@ import uuidv4 from 'uuid/v4';
 const CardContent = props => (
   <Fragment>
     {
-        props.headings.map(heading => (
-          <span key={uuidv4()}>
-            {props.data[heading]}
-            <br />
-          </span>
-        ))
-      }
+      props.headings.map(heading => (
+        <span key={uuidv4()}>
+          {props.data[heading]}
+          <br />
+        </span>
+      ))
+    }
   </Fragment>
 );
 

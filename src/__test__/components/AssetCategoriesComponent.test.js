@@ -19,11 +19,7 @@ describe('Asset Categories Component', () => {
   const wrapper = shallow(<AssetCategoriesComponent {...props} />);
 
   it('renders page heading', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Asset Categories');
-  });
-
-  it('renders a divider below the heading', () => {
-    expect(wrapper.find('#assets-divider').length).toBe(1);
+    expect(wrapper.find('PageHeader').prop('header')).toEqual('Asset Categories');
   });
 
   it('renders PaginationComponent', () => {

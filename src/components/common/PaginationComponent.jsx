@@ -17,10 +17,10 @@ const PaginationComponent = (props) => {
   return (
     <Segment.Group
       horizontal
+      compact
       id="art-pagination-section"
-      className={props.isLoading ? 'entity-loading-pagination' : 'entity-loaded-pagination'}
     >
-      <Segment>
+      <Segment compact>
         <Pagination
           id="art-pagination-component"
           totalPages={props.totalPages}
@@ -29,7 +29,7 @@ const PaginationComponent = (props) => {
           disabled
         />
       </Segment>
-      <Segment>
+      <Segment compact>
         <DropdownComponent
           customClass="page-limit"
           placeHolder="Show Rows"
@@ -48,8 +48,7 @@ PaginationComponent.propTypes = {
   handleRowChange: PropTypes.func,
   handlePaginationChange: PropTypes.func,
   limit: PropTypes.number,
-  totalPages: PropTypes.number,
-  isLoading: PropTypes.bool
+  totalPages: PropTypes.number
 };
 
 PaginationComponent.defaultProps = {
