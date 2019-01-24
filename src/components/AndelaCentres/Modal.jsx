@@ -43,7 +43,7 @@ export default class Temp extends React.Component {
     this.setState({ country: data.value });
   }
 
-  handleToggle =() => {
+  handleToggle = () => {
     this.props.onToggle();
     this.setState({
       centre: '',

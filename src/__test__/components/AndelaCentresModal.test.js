@@ -69,7 +69,53 @@ describe('<AndelaCentresModal /> test', () => {
     const handleInputChangeSpy = jest.spyOn(wrapper.instance(), 'handleInputChange');
 
     wrapper.instance().handleInputChange({ target: { name: 'test', value: 123 } });
-    expect(handleInputChangeSpy.mock.calls.length).toEqual(1);
+    expect(handleInputChangeSpy).toHaveBeenCalled();
     expect(wrapper.state('test')).toEqual(123);
+  });
+
+  it('handles form submission', () => {
+    const wrapper = shallow(<AndelaCentresModal {...props} />);
+    const handleSubmitSpy = jest.spyOn(wrapper.instance(), 'handleSubmit');
+
+    wrapper.instance().handleSubmit();
+    expect(handleSubmitSpy).toHaveBeenCalled();
+  });
+
+  it('handles update submission', () => {
+    const wrapper = shallow(<AndelaCentresModal {...props} />);
+    const handleUpdateSpy = jest.spyOn(wrapper.instance(), 'handleUpdate');
+
+    wrapper.instance().handleUpdate({ preventDefault: jest.fn() });
+    expect(handleUpdateSpy).toHaveBeenCalled();
+  });
+
+  it('handles selecting a country', () => {
+    const wrapper = shallow(<AndelaCentresModal {...props} />);
+    const handleSelectSpy = jest.spyOn(wrapper.instance(), 'handleSelect');
+
+    wrapper.instance().handleSelect(null, { value: 'Egypt' });
+    expect(handleSelectSpy).toHaveBeenCalled();
+    expect(wrapper.state('country')).toEqual('Egypt');
+  });
+
+  it('handles modal toggling', () => {
+    const wrapper = shallow(<AndelaCentresModal {...props} />);
+    const handleToggleSpy = jest.spyOn(wrapper.instance(), 'handleToggle');
+
+    wrapper.instance().handleToggle();
+    expect(handleToggleSpy).toHaveBeenCalled();
+    expect(wrapper.state('country')).toEqual('');
+    expect(wrapper.state('centre')).toEqual('');
+  });
+
+  it('generates dropdown options', () => {
+    const wrapper = shallow(<AndelaCentresModal {...props} />);
+
+    const options = wrapper.instance().generateDropdownOptions();
+    expect(options).toContainEqual({
+      key: 12,
+      text: 'Kenya',
+      value: 'Kenya'
+    });
   });
 });
