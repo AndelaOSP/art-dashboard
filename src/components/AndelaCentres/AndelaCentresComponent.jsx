@@ -42,14 +42,6 @@ class AndelaCentresComponent extends React.Component {
     this.props.resetMessage();
   }
 
-  handleChange = (event) => {
-    const { value, name } = event.target;
-
-    this.setState({
-      [name]: value
-    });
-  }
-
   handleEditToggleModal = (data = {}) => {
     this.setState({
       editModalOpen: !this.state.editModalOpen,
