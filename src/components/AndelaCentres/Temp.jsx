@@ -10,24 +10,9 @@ import ModalComponent from '../common/ModalComponent';
 
 export default class Temp extends React.Component {
   state = {
-    // modalOpen: false,
-    country: '',
-    centre: ''
-  };
-
-  // handleModalToggle = (id) => {
-  //   console.log('Location ID: ', id);
-  //   this.setState({ modalOpen: !this.state.modalOpen });
-  //   this.props.resetMessage();
-  // }
-
-	// handleEditToggleModal = (id) => {
-  //   this.setState({
-  //     editModalOpen: !this.state.editModalOpen,
-  //     locationId: id
-  //   });
-  //   this.props.resetMessage();
-  // }
+    country: this.props.data.country || '',
+    centre: this.props.data.centre_name || ''
+  }
 
   handleInputChange = (event) => {
     const { value, name } = event.target;
@@ -44,18 +29,14 @@ export default class Temp extends React.Component {
     });
   }
 
-  // equivalent of handleEditSubmit
   handleUpdate = (event) => {
     event.preventDefault();
-    console.group('UPDATE SUBMIT');
-    console.log('**********');
-    console.groupEnd();
 
-    // const { id } = this.props;
-    // this.props.updateAndelaCentre(id, {
-    //   centre_name: this.state.centre,
-    //   country: this.state.country
-    // });
+    const { data } = this.props;
+    this.props.updateAndelaCentre(data.id, {
+      centre_name: this.state.centre,
+      country: this.state.country
+    });
   }
 
   handleSelect = (event, data) => {
@@ -88,7 +69,7 @@ export default class Temp extends React.Component {
       resetMessage,
       isLoading,
       showTrigger,
-      mode, //
+      mode,
       open
     } = this.props;
 
@@ -97,8 +78,6 @@ export default class Temp extends React.Component {
         ADD CENTRE
       </Button>
     );
-
-    console.log("PROPS: ", this.props);
 
     return (
       <ModalComponent
@@ -171,9 +150,9 @@ export default class Temp extends React.Component {
 }
 
 Temp.propTypes = {
-  showTrigger: PropTypes.bool, //
-  title: PropTypes.string, //
-  mode: PropTypes.string, // either 'edit' or 'add'
+  showTrigger: PropTypes.bool,
+  title: PropTypes.string,
+  mode: PropTypes.string,
   showStatus: PropTypes.bool,
   successMessage: PropTypes.string,
   errorMessage: PropTypes.string,
@@ -184,11 +163,12 @@ Temp.propTypes = {
   updateAndelaCentre: PropTypes.func,
   onToggle: PropTypes.func,
   open: PropTypes.bool,
-  id: PropTypes.string
+  data: PropTypes.object
 };
 
 Temp.defaultProps = {
   showTrigger: false,
   mode: 'add',
-  title: 'Modal'
+  title: 'Modal',
+  data: {}
 };

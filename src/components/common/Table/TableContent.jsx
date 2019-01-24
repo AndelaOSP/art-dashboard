@@ -28,7 +28,6 @@ const TableContent = ({ data, headings, urlEntity = '', showAction = false, onCl
           data-test="table-row"
           showAction={showAction}
           onClick={onClick}
-          id={info.id}
         />
       );
     })}
