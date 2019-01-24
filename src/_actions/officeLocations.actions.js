@@ -82,7 +82,8 @@ export const updateAndelaCentre = (centreId, centre) => (dispatch) => {
     .then((response) => {
       dispatch(updateAndelaCentreSuccess(response.data));
     }).catch((error) => {
-      dispatch(updateAndelaCentreFail(error));
+      const message = retrieveErrorMessage(error);
+      dispatch(updateAndelaCentreFail(message));
     });
 };
 

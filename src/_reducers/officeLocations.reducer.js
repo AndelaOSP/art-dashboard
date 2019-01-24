@@ -73,7 +73,7 @@ export default (state = initialState.officeLocations, action) => {
         ...state,
         isLoading: false,
         updateSuccess: '',
-        updateError: 'Could not update the centre.'
+        updateError: action.payload
       };
 
     case RESET_STATUS_MESSAGE:
