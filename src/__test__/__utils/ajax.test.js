@@ -78,7 +78,7 @@ describe('Ajax helper tests', () => {
   it('returns the default error message', async () => {
     error();
     const response = await fetchInfo(url, loadingCallback);
-    expect(response).toEqual('Something went wrong! Please try again later');
+    expect(response).toEqual('Oops! Something went wrong. Please try again');
   });
 
   it('calls the loading callback with a false value on comlpletion of a request', async () => {

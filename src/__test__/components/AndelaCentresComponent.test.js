@@ -65,16 +65,4 @@ describe('Renders <AndelaCentresComponent /> correclty', () => {
     wrapper.instance().handleChange(event);
     expect(handleChangeSpy.mock.calls.length).toEqual(1);
   });
-
-  it('calls onSelectCountry', () => {
-    const onSelectCountrySpy = jest.spyOn(
-      wrapper.instance(), 'onSelectCountry'
-    );
-
-    const event = {};
-    const data = {};
-
-    wrapper.instance().onSelectCountry(event, data);
-    expect(onSelectCountrySpy.mock.calls.length).toEqual(1);
-  });
 });

@@ -13,7 +13,7 @@ export class TableRowComponent extends React.Component {
   };
 
   handleClick = () => {
-    this.props.onClick(this.props.id);
+    this.props.onClick(this.props.data);
   }
 
   render() {
@@ -29,7 +29,7 @@ export class TableRowComponent extends React.Component {
         {this.props.showAction &&
           <Table.Cell>
             <Icon
-              id={this.props.id}
+              data={this.props.data}
               name="edit"
               className="asset-detail__table__icon"
               onClick={this.handleClick}
@@ -48,8 +48,7 @@ TableRowComponent.propTypes = {
   history: PropTypes.object,
   viewDetailsRoute: PropTypes.string,
   showAction: PropTypes.bool,
-  onClick: PropTypes.func,
-  id: PropTypes.number
+  onClick: PropTypes.func
 };
 
 export default withRouter(TableRowComponent);

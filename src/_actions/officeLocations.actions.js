@@ -1,5 +1,6 @@
 import axios from 'axios';
 import constants from '../_constants';
+import { handleAxiosErrors } from '../_utils/ajax';
 
 const {
   LOAD_LOCATIONS_REQUEST,
@@ -38,8 +39,17 @@ export const createOfficeLocation = data => (dispatch) => {
       dispatch({ type: CREATE_LOCATIONS_SUCCESS, payload: response.data });
     })
     .catch((error) => {
-      dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: error.message });
+      const message = retrieveErrorMessage(error);
+      dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: message });
     });
+};
+
+const retrieveErrorMessage = (error) => {
+  const axiosError = handleAxiosErrors(error);
+  if (axiosError.centre_name) {
+    return axiosError.centre_name.shift();
+  }
+  return axiosError;
 };
 
 export const loadCountries = () => (dispatch) => {
@@ -72,7 +82,8 @@ export const updateAndelaCentre = (centreId, centre) => (dispatch) => {
     .then((response) => {
       dispatch(updateAndelaCentreSuccess(response.data));
     }).catch((error) => {
-      dispatch(updateAndelaCentreFail(error));
+      const message = retrieveErrorMessage(error);
+      dispatch(updateAndelaCentreFail(message));
     });
 };
 
