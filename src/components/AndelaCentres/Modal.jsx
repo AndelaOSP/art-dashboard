@@ -8,7 +8,7 @@ import DropdownComponent from '../common/DropdownComponent';
 import StatusComponent from '../common/StatusComponent';
 import ModalComponent from '../common/ModalComponent';
 
-export default class Temp extends React.Component {
+export default class Modal extends React.Component {
   state = {
     country: this.props.data.country || '',
     centre: this.props.data.centre_name || ''
@@ -149,7 +149,7 @@ export default class Temp extends React.Component {
   }
 }
 
-Temp.propTypes = {
+Modal.propTypes = {
   showTrigger: PropTypes.bool,
   title: PropTypes.string,
   mode: PropTypes.string,
@@ -166,7 +166,7 @@ Temp.propTypes = {
   data: PropTypes.object
 };
 
-Temp.defaultProps = {
+Modal.defaultProps = {
   showTrigger: false,
   mode: 'add',
   title: 'Modal',
