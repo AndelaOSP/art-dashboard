@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  resetMessage,
+  // resetMessage,
   updateAndelaCentre,
   createOfficeLocation
 } from '../../_actions/officeLocations.actions';
@@ -29,7 +29,7 @@ export const mapStateToProps = ({ officeLocations }) => {
 };
 
 export default connect(mapStateToProps, {
-  resetMessage,
+  // resetMessage,
   updateAndelaCentre,
   createOfficeLocation
 })(CentreModal);

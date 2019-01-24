@@ -17,12 +17,12 @@ import CentreModal from '../../_components/AndelaCentres/CentreModalContainer';
 class AndelaCentresComponent extends React.Component {
   state = {
     limit: 10,
-    activePage: 1
+    activePage: 1,
     // centre: '',
     // country: '',
-    // modalOpen: false,
-    // editModalOpen: false,
-    // locationId: null
+    modalOpen: false,
+    editModalOpen: false,
+    locationId: null
   };
 
   componentDidMount() {
@@ -40,10 +40,10 @@ class AndelaCentresComponent extends React.Component {
     this.props.loadOfficeLocations(activePage);
   };
 
-  // handleToggleModal = () => {
-  //   this.setState({ modalOpen: !this.state.modalOpen });
-  //   this.props.resetMessage();
-  // }
+  handleToggleModal = () => {
+    this.setState({ modalOpen: !this.state.modalOpen });
+    this.props.resetMessage();
+  }
 
   // onSelectCountry = (event, data) => {
   //   this.setState({ country: data.value });
@@ -65,13 +65,17 @@ class AndelaCentresComponent extends React.Component {
   //   this.props.createOfficeLocation(newCentre);
   // };
 
-  // handleEditToggleModal = (id) => {
-  //   this.setState({
-  //     editModalOpen: !this.state.editModalOpen,
-  //     locationId: id
-  //   });
-  //   this.props.resetMessage();
-  // }
+  handleEditToggleModal = (id = null) => {
+    console.group('PARENT TOGGLE EDIT');
+    console.log('id: ', id);
+    console.groupEnd();
+
+    this.setState({
+      editModalOpen: !this.state.editModalOpen,
+      locationId: id
+    });
+    this.props.resetMessage();
+  }
 
   // handleEditSubmit = (event) => {
   //   event.preventDefault();
@@ -99,6 +103,8 @@ class AndelaCentresComponent extends React.Component {
               showTrigger
               title="Add Centre"
               mode="add"
+              onToggle={this.handleToggleModal}
+              open={this.state.modalOpen}
             />
             {/* <AndelaCentresModal
               showTrigger
@@ -116,6 +122,9 @@ class AndelaCentresComponent extends React.Component {
         <CentreModal
           title="Update An Andela Centre"
           mode="edit"
+          onToggle={this.handleEditToggleModal}
+          open={this.state.editModalOpen}
+          id={this.state.locationId}
         />
         {/* <AndelaCentresModal
           showTrigger={false}
@@ -181,7 +190,7 @@ AndelaCentresComponent.propTypes = {
   locationList: PropTypes.array,
   error: PropTypes.string,
   loadCountries: PropTypes.func,
-  entity: PropTypes.string,
+  entity: PropTypes.string
   // updateAndelaCentre: PropTypes.func
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import AndelaCentresModal from '../../components/AndelaCentres/Temp';
 
 describe('<AndelaCentresModal /> test', () => {
@@ -14,7 +14,12 @@ describe('<AndelaCentresModal /> test', () => {
       countries: [{
         id: 12,
         name: 'Kenya'
-      }]
+      }],
+      isLoading: false,
+      createOfficeLocation: jest.fn(),
+      updateAndelaCentre: jest.fn(),
+      onToggle: jest.fn(),
+      open: false
     };
   });
 
@@ -56,6 +61,15 @@ describe('<AndelaCentresModal /> test', () => {
   it('renders the buttons', () => {
     const wrapper = shallow(<AndelaCentresModal {...props} />);
     expect(wrapper.find('[data-test="centers-save-button"]')).toHaveProp('buttonName', 'Save');
-    expect(wrapper.find('[data-test="centers-cancel-button"]')).toHaveProp('buttonName', 'CancelindentationToSpaces');
+    expect(wrapper.find('[data-test="centers-cancel-button"]')).toHaveProp('buttonName', 'Cancel');
+  });
+
+  it('calls handleInputChange', () => {
+    const wrapper = shallow(<AndelaCentresModal {...props} />);
+    const handleInputChangeSpy = jest.spyOn(wrapper.instance(), 'handleInputChange');
+
+    wrapper.instance().handleInputChange({ target: { name: 'test', value: 123 } });
+    expect(handleInputChangeSpy.mock.calls.length).toEqual(1);
+    expect(wrapper.state('test')).toEqual(123);
   });
 });

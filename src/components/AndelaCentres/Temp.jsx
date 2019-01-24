@@ -10,16 +10,16 @@ import ModalComponent from '../common/ModalComponent';
 
 export default class Temp extends React.Component {
   state = {
-    modalOpen: false,
+    // modalOpen: false,
     country: '',
     centre: ''
   };
 
-  handleModalToggle = (id) => {
-    console.log('Location ID: ', id);
-    this.setState({ modalOpen: !this.state.modalOpen });
-    this.props.resetMessage();
-  }
+  // handleModalToggle = (id) => {
+  //   console.log('Location ID: ', id);
+  //   this.setState({ modalOpen: !this.state.modalOpen });
+  //   this.props.resetMessage();
+  // }
 
 	// handleEditToggleModal = (id) => {
   //   this.setState({
@@ -45,14 +45,14 @@ export default class Temp extends React.Component {
   }
 
   // equivalent of handleEditSubmit
-  handleUpdate = (event, id) => {
+  handleUpdate = (event) => {
     event.preventDefault();
     console.group('UPDATE SUBMIT');
-    console.log('id: ', id);
-    console.log('event: ', event);
+    console.log('**********');
     console.groupEnd();
 
-    // this.props.updateAndelaCentre(this.state.locationId, {
+    // const { id } = this.props;
+    // this.props.updateAndelaCentre(id, {
     //   centre_name: this.state.centre,
     //   country: this.state.country
     // });
@@ -60,6 +60,14 @@ export default class Temp extends React.Component {
 
   handleSelect = (event, data) => {
     this.setState({ country: data.value });
+  }
+
+  handleToggle =() => {
+    this.props.onToggle();
+    this.setState({
+      centre: '',
+      country: ''
+    });
   }
 
   generateDropdownOptions = () => {
@@ -80,7 +88,8 @@ export default class Temp extends React.Component {
       resetMessage,
       isLoading,
       showTrigger,
-      mode
+      mode, //
+      open
     } = this.props;
 
     const trigger = (
@@ -89,12 +98,14 @@ export default class Temp extends React.Component {
       </Button>
     );
 
+    console.log("PROPS: ", this.props);
+
     return (
       <ModalComponent
         modalTitle={title}
         trigger={showTrigger ? trigger : null}
-        toggleModal={this.handleModalToggle}
-        modalOpen={this.state.modalOpen}
+        toggleModal={this.handleToggle}
+        modalOpen={open}
         data-test="centers-modal-wrapper"
       >
         <React.Fragment>
@@ -139,7 +150,8 @@ export default class Temp extends React.Component {
               <ArtButton
                 customCss="cancel"
                 buttonName="Cancel"
-                handleClick={this.handleModalToggle}
+                handleClick={this.handleToggle}
+                data-test="centers-cancel-button"
               />
 
               <ArtButton
@@ -148,6 +160,7 @@ export default class Temp extends React.Component {
                 color="primary"
                 handleClick={mode === 'add' ? this.handleSubmit : this.handleUpdate}
                 buttonState={isLoading}
+                data-test="centers-save-button"
               />
             </div>
           </Form>
@@ -168,7 +181,10 @@ Temp.propTypes = {
   countries: PropTypes.array,
   isLoading: PropTypes.bool,
   createOfficeLocation: PropTypes.func,
-  updateAndelaCentre: PropTypes.func
+  updateAndelaCentre: PropTypes.func,
+  onToggle: PropTypes.func,
+  open: PropTypes.bool,
+  id: PropTypes.string
 };
 
 Temp.defaultProps = {
