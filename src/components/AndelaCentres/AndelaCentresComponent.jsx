@@ -98,6 +98,7 @@ class AndelaCentresComponent extends React.Component {
         <Cards
           data={locationList}
           headings={['centre_name', 'country']}
+          imageName="map.svg"
         />
 
         {showNotFound && (
