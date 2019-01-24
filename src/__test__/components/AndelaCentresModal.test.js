@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import AndelaCentresModal from '../../components/AndelaCentres/Temp';
+import { shallow } from 'enzyme';
+import AndelaCentresModal from '../../components/AndelaCentres/Modal';
 
 describe('<AndelaCentresModal /> test', () => {
   let props;

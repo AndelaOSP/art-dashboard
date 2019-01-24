@@ -3,7 +3,7 @@ import {
   updateAndelaCentre,
   createOfficeLocation
 } from '../../_actions/officeLocations.actions';
-import CentreModal from '../../components/AndelaCentres/Temp';
+import CentreModal from '../../components/AndelaCentres/Modal';
 
 export const mapStateToProps = ({ officeLocations }) => {
   const {
