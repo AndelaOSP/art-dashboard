@@ -1,5 +1,6 @@
 import axios from 'axios';
 import constants from '../_constants';
+import { handleAxiosErrors } from '../_utils/ajax';
 
 const {
   LOAD_LOCATIONS_REQUEST,
@@ -11,7 +12,10 @@ const {
   CREATE_LOCATIONS_FAILURE,
   LOAD_COUNTRIES_REQUEST,
   LOAD_COUNTRIES_SUCCESS,
-  LOAD_COUNTRIES_FAILURE
+  LOAD_COUNTRIES_FAILURE,
+  UPDATE_ANDELA_CENTRE_REQUEST,
+  UPDATE_ANDELA_CENTRE_SUCCESS,
+  UPDATE_ANDELA_CENTRE_FAILURE
 } = constants;
 
 export const loadOfficeLocations = (pageNumber, limit) => (dispatch) => {
@@ -35,8 +39,17 @@ export const createOfficeLocation = data => (dispatch) => {
       dispatch({ type: CREATE_LOCATIONS_SUCCESS, payload: response.data });
     })
     .catch((error) => {
-      dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: error.message });
+      const message = retrieveErrorMessage(error);
+      dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: message });
     });
+};
+
+const retrieveErrorMessage = (error) => {
+  const axiosError = handleAxiosErrors(error);
+  if (axiosError.centre_name) {
+    return axiosError.centre_name.shift();
+  }
+  return axiosError;
 };
 
 export const loadCountries = () => (dispatch) => {
@@ -59,6 +72,28 @@ export const loadOfficeLocationsSuccess = centres => ({
 
 export const loadOfficeLocationsFailure = error => ({
   type: LOAD_LOCATIONS_FAILURE,
+  payload: error
+});
+
+export const updateAndelaCentre = (centreId, centre) => (dispatch) => {
+  dispatch({ type: UPDATE_ANDELA_CENTRE_REQUEST });
+
+  return axios.put(`andela-centres/${centreId}`, centre)
+    .then((response) => {
+      dispatch(updateAndelaCentreSuccess(response.data));
+    }).catch((error) => {
+      const message = retrieveErrorMessage(error);
+      dispatch(updateAndelaCentreFail(message));
+    });
+};
+
+export const updateAndelaCentreSuccess = centre => ({
+  type: UPDATE_ANDELA_CENTRE_SUCCESS,
+  payload: centre
+});
+
+export const updateAndelaCentreFail = error => ({
+  type: UPDATE_ANDELA_CENTRE_FAILURE,
   payload: error
 });
 
