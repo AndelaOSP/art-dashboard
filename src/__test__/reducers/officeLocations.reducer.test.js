@@ -80,13 +80,15 @@ describe('Asset Reducer tests', () => {
   });
 
   it('should handle UPDATE_ANDELA_CENTRE_FAILURE', () => {
-    action.type = UPDATE_ANDELA_CENTRE_FAILURE;
-
-    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
-      isLoading: false,
-      updateError: 'Could not update the centre.',
-      updateSuccess: ''
-    }));
+    expect(centresReducer(state, {
+      type: UPDATE_ANDELA_CENTRE_FAILURE,
+      payload: 'Could not update the centre.'
+    }))
+      .toEqual(expect.objectContaining({
+        isLoading: false,
+        updateError: 'Could not update the centre.',
+        updateSuccess: ''
+      }));
   });
 
   it('should handle RESET_STATUS_MESSAGE', () => {
