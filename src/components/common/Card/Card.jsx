@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import uuidv4 from 'uuid/v4';
+import { Icon } from 'semantic-ui-react';
 
 import CardContent from './CardContent';
 
@@ -18,8 +19,12 @@ export class Card extends React.Component {
     return history.push(viewDetailsRoute, data);
   };
 
+  handleClick = (data) => {
+    this.props.onClick(data);
+  };
+
   render() {
-    const { customCss, data, headings, urlEntity = '', imageName } = this.props;
+    const { customCss, data, headings, urlEntity = '', imageName, showAction } = this.props;
     const backgroundImage = {
       background: `url("/images/${imageName}") no-repeat center`
     };
@@ -48,7 +53,15 @@ export class Card extends React.Component {
                 </div>
 
                 <div className="image-overlay" style={backgroundImage} />
-                <div className="overlay" />
+                <div className="overlay">
+                  {showAction &&
+                  <Icon
+                    data={this.props.data}
+                    name="edit"
+                    className="overlay-icon"
+                    onClick={() => this.handleClick(info)}
+                  />}
+                </div>
               </div>
             );
           })
@@ -64,7 +77,9 @@ Card.propTypes = {
   history: PropTypes.object,
   customCss: PropTypes.string,
   urlEntity: PropTypes.string,
-  imageName: PropTypes.string
+  imageName: PropTypes.string,
+  showAction: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 Card.defaultProps = {
