@@ -44,6 +44,15 @@ export class Card extends React.Component {
                 role="button"
                 tabIndex={0}
               >
+                {showAction &&
+                  <div className="overlay-icon">
+                    <Icon
+                      data={this.props.data}
+                      name="edit"
+                      onClick={() => this.handleClick(info)}
+                    />
+                  </div>}
+
                 <div className="bottom-right">
                   <CardContent
                     key={uuidv4()}
@@ -53,15 +62,7 @@ export class Card extends React.Component {
                 </div>
 
                 <div className="image-overlay" style={backgroundImage} />
-                <div className="overlay">
-                  {showAction &&
-                  <Icon
-                    data={this.props.data}
-                    name="edit"
-                    className="overlay-icon"
-                    onClick={() => this.handleClick(info)}
-                  />}
-                </div>
+                <div className="overlay" />
               </div>
             );
           })
