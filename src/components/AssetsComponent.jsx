@@ -5,7 +5,7 @@ import AssetsTableContent from './AssetsTableContent';
 import PaginationComponent from './common/PaginationComponent';
 import Filter from './common/Filter/Filter';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
-import { constructUrl } from '../_utils/assets';
+import constructUrl from '../_utils/assets';
 
 import '../_css/AssetsComponent.css';
 
