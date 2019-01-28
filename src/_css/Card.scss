@@ -20,7 +20,6 @@
   padding: 20px;
   margin: 0 20px 20px 0;
   border: 0;
-  outline: none;
   -webkit-border-radius: 0.25rem;
   -moz-border-radius: 0.25rem;
   border-radius: 0.25rem;
@@ -28,32 +27,21 @@
   -moz-box-shadow: 0 1px 2px 1px rgba(154, 154, 204, 0.42);
   box-shadow: 0 1px 2px 1px rgba(154, 154, 204, 0.42);
 
-  &:hover {
-    color: $andela-white;
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    transform: scale(1.1);
-    -webkit-transition: all 0.7s;
-    -moz-transition: all 0.7s;
-    transition: all 0.7s;
-
-    .image-overlay {
-      animation: bounce 1s infinite alternate;
-      -webkit-animation: bounce 1s infinite alternate;
-    }
-  }
-
   .bottom-right {
     pointer-events: none;
     text-align: right;
   }
 
   .overlay-icon {
-    pointer-events: none;
     position: absolute;
     top: 5px;
     right: 10px;
     color: $andela-orange;
+    cursor: pointer;
+
+    &:hover {
+
+    }
   }
 
   .image-overlay {
@@ -63,7 +51,6 @@
     width: 200px;
     height: 100px;
     border: 0;
-    outline: none;
     background-size: 180px 80px !important;
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
@@ -83,15 +70,29 @@
     height: 100px;
     opacity: 0;
     border: 0;
-    outline: none;
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem;
     -webkit-transition: all 0.7s;
     -moz-transition: all 0.7s;
     transition: all 0.7s;
+  }
 
-    &:hover {
+  &:hover {
+    color: $andela-white;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transition: all 0.7s;
+    -moz-transition: all 0.7s;
+    transition: all 0.7s;
+
+    .image-overlay {
+      animation: bounce 1s infinite alternate;
+      -webkit-animation: bounce 1s infinite alternate;
+    }
+
+    .overlay {
       opacity: 0.7;
     }
   }

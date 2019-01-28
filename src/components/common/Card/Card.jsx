@@ -45,13 +45,12 @@ export class Card extends React.Component {
                 tabIndex={0}
               >
                 {showAction &&
-                  <div className="overlay-icon">
-                    <Icon
-                      data={this.props.data}
-                      name="edit"
-                      onClick={() => this.handleClick(info)}
-                    />
-                  </div>}
+                  <Icon
+                    className="overlay-icon"
+                    data={this.props.data}
+                    name="edit"
+                    onClick={() => this.handleClick(info)}
+                  />}
 
                 <div className="bottom-right">
                   <CardContent
