@@ -12,7 +12,7 @@ export default class Modal extends React.Component {
   state = {
     country: this.props.data.country || '',
     centre: this.props.data.centre_name || ''
-  }
+  };
 
   handleInputChange = (event) => {
     const { value, name } = event.target;
@@ -20,14 +20,14 @@ export default class Modal extends React.Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
   handleSubmit = () => {
     this.props.createOfficeLocation({
       centre_name: this.state.centre,
       country: this.state.country
     });
-  }
+  };
 
   handleUpdate = (event) => {
     event.preventDefault();
@@ -37,11 +37,11 @@ export default class Modal extends React.Component {
       centre_name: this.state.centre,
       country: this.state.country
     });
-  }
+  };
 
   handleSelect = (event, data) => {
     this.setState({ country: data.value });
-  }
+  };
 
   handleToggle = () => {
     this.props.onToggle();
@@ -49,7 +49,7 @@ export default class Modal extends React.Component {
       centre: '',
       country: ''
     });
-  }
+  };
 
   generateDropdownOptions = () => {
     const { countries = [] } = this.props;
@@ -58,7 +58,7 @@ export default class Modal extends React.Component {
       text: country.name,
       value: country.name
     }));
-  }
+  };
 
   render() {
     const {
@@ -74,7 +74,7 @@ export default class Modal extends React.Component {
     } = this.props;
 
     const trigger = (
-      <Button className="add-asset" size="medium">
+      <Button className="filter-button" size="medium">
         ADD CENTRE
       </Button>
     );

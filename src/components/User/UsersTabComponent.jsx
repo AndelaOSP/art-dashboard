@@ -8,8 +8,9 @@ import SecurityUser from '../../_components/SecurityUser/SecurityUserContainer';
 
 const UsersTabComponent = () => (
   <NavBarComponent>
-    <PageHeader header="Users" />
     <div className="users-list">
+      <PageHeader header="Users" />
+
       <TabsComponent panes={[
         {
           header: 'Andelans',

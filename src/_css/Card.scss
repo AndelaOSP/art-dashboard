@@ -1,0 +1,125 @@
+@import "sharedStyling.scss";
+@import "mediaQueries.scss";
+
+.card-container {
+  display: inline-flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  font-size: 16px;
+  font-weight: 500;
+  color: $andela-blue;
+  width: 200px;
+  height: 100px;
+  padding: 20px;
+  margin: 0 20px 20px 0;
+  border: 0;
+  -webkit-border-radius: 0.25rem;
+  -moz-border-radius: 0.25rem;
+  border-radius: 0.25rem;
+  -webkit-box-shadow: 0 1px 2px 1px rgba(154, 154, 204, 0.42);
+  -moz-box-shadow: 0 1px 2px 1px rgba(154, 154, 204, 0.42);
+  box-shadow: 0 1px 2px 1px rgba(154, 154, 204, 0.42);
+
+  .bottom-right {
+    pointer-events: none;
+    text-align: right;
+  }
+
+  .overlay-icon {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: $andela-orange;
+    cursor: pointer;
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100px;
+    border: 0;
+    background-size: 180px 80px !important;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem;
+    -webkit-filter: grayscale(100%) opacity(0.1);
+    filter: grayscale(100%) opacity(0.1);
+    z-index: -10;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $andela-black;
+    z-index: -10;
+    width: 200px;
+    height: 100px;
+    opacity: 0;
+    border: 0;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem;
+    -webkit-transition: all 0.7s;
+    -moz-transition: all 0.7s;
+    transition: all 0.7s;
+  }
+
+  &:hover {
+    color: $andela-white;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transition: all 0.7s;
+    -moz-transition: all 0.7s;
+    transition: all 0.7s;
+
+    .image-overlay {
+      animation: bounce 1s infinite alternate;
+      -webkit-animation: bounce 1s infinite alternate;
+    }
+
+    .overlay {
+      opacity: 0.7;
+    }
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-7px);
+  }
+}
+
+@-webkit-keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-7px);
+  }
+}
+
+@-moz-keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-7px);
+  }
+}

@@ -14,7 +14,7 @@ import PageNotFound from '../components/PageNotFoundComponent';
 import AssetSubCategories from '../components/SubCategory/AssetsSubCategoriesComponent';
 import Allocations from '../components/AllocationsComponent';
 import IncidenceReports from '../components/IncidenceReportsComponent';
-import AssetCategories from '../components/Category/AssetCategoriesComponent';
+import AssetCategories from './Category/AssetCategoryContainer';
 import AssetDetail from './AssetDetails/AssetDetailsContainer';
 import AssetConditions from '../components/AssetCondition/AssetConditionsComponent';
 import AssetMakes from '../components/AssetMake/AssetMakeComponent';
