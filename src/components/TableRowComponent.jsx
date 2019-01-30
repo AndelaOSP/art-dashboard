@@ -18,9 +18,7 @@ export class TableRowComponent extends React.Component {
   }
 
   handleHeadings = (heading) => {
-    if (this.props.data[heading] === true) {
-      return (<IsActiveContainer securityUser={this.props.data} />);
-    } else if (this.props.data[heading] === false) {
+    if (this.props.data[heading] === true || this.props.data[heading] === false) {
       return (<IsActiveContainer securityUser={this.props.data} />);
     }
 
