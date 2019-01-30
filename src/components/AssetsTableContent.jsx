@@ -54,6 +54,7 @@ const AssetsTableContent = (props) => {
             <Table.HeaderCell>Asset Make</Table.HeaderCell>
             <Table.HeaderCell>Asset Type</Table.HeaderCell>
             <Table.HeaderCell>Assigned To</Table.HeaderCell>
+            <Table.HeaderCell>Verification Status</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -66,7 +67,8 @@ const AssetsTableContent = (props) => {
               asset_code: asset.asset_code || '-',
               serial_number: asset.serial_number || '-',
               model_number: asset.model_number || '-',
-              assignee: getAssignee(asset.assigned_to)
+              assignee: getAssignee(asset.assigned_to),
+              verified: asset.verified
             };
 
             return (
@@ -80,7 +82,8 @@ const AssetsTableContent = (props) => {
                   'model_number',
                   'make_label',
                   'asset_type',
-                  'assignee'
+                  'assignee',
+                  'verified'
                 ]}
               />
             );
