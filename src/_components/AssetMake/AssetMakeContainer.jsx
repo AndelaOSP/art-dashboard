@@ -95,7 +95,7 @@ AssetMakeContainer.propTypes = {
   assetTypes: PropTypes.array
 };
 
-const mapStateToProps = ({ assetTypesList, toastMessage }) => ({
+export const mapStateToProps = ({ assetTypesList, toastMessage }) => ({
   assetTypes: assetTypesList.assetTypes,
   toastMessageContent: toastMessage,
   isLoading: assetTypesList.isLoading

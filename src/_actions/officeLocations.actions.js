@@ -49,6 +49,7 @@ const retrieveErrorMessage = (error) => {
   if (axiosError.centre_name) {
     return axiosError.centre_name.shift();
   }
+
   return axiosError;
 };
 

@@ -56,7 +56,7 @@ UserDetailContainer.defaultTypes = {
   errorMessage: ''
 };
 
-const mapStateToProps = ({ userDetails }, props) => {
+export const mapStateToProps = ({ userDetails }, props) => {
   const { isLoading, hasError, errorMessage, userDetail } = userDetails;
   return {
     userDetail: isEmpty(userDetail) ? props.location.state : userDetail,

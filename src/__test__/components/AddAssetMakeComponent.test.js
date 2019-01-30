@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import expect from 'expect';
 import { spy } from 'sinon';
 import AddAssetMakeComponent from '../../components/AssetMake/AddAssetMakeComponent';
-import AssetMakeContainer from '../../_components/AssetMake/AssetMakeContainer';
+import AssetMakeContainer, { mapStateToProps } from '../../_components/AssetMake/AssetMakeContainer';
 
 const toggleModal = spy();
 const props = {
@@ -49,6 +49,24 @@ describe('Renders <AddAssetMakeComponent /> correctly', () => {
     expect(form.length).toEqual(1);
     form.simulate('submit');
     expect(props.handleSubmit.mock.calls.length).toEqual(1);
+  });
+
+  it('should call mapStateToProps', () => {
+    const state = {
+      assetTypesList: {
+        assetTypes: [],
+        isLoading: false
+      },
+      toastMessage: {}
+    };
+
+    const expected = {
+      isLoading: false,
+      toastMessageContent: {},
+      assetTypes: []
+    };
+
+    expect(mapStateToProps(state)).toEqual(expected);
   });
 
   it('renders Loading component if isLoading is true', () => {
