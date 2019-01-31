@@ -26,4 +26,4 @@ rules:
   no-transition-all: 0
 
   # NameFormat
-  convention: hyphenated_lowercase # or 'BEM', or a regex pattern
+  variable-name-format: 0 
