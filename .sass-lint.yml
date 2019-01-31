@@ -25,6 +25,10 @@ rules:
   url-quotes: 0
   no-transition-all: 0
 
-  linters:
-    SelectorFormat:
-      convention: hyphenated_BEM
+  NameFormat:
+    enabled: true
+    convention: hyphenated_lowercase # or 'BEM', or a regex pattern
+
+  SelectorFormat:
+    enabled: true
+    convention: BEM
