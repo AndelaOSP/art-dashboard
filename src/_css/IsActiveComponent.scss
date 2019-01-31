@@ -1,18 +1,18 @@
 @import "sharedStyling.scss";
 
-i.icon.asset-detail__table__icon {
+i.icon.asset-detail__table-icon {
   color: $border-color2;
   cursor: pointer;
   float: right;
   vertical-align: center;
 }
 
-i.icon.asset-detail__table__icon:hover {
+i.icon.asset-detail__table-icon:hover {
   color: $andela-blue;
 }
 
 .form {
-  .ui.search.dropdown.asset-detail__table__dropdown {
+  .ui.search.dropdown.asset-detail__table-dropdown {
     margin: 0;
     padding: 0;
     border-top: 0;
