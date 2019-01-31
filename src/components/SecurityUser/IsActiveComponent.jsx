@@ -50,7 +50,7 @@ class IsActiveComponent extends React.Component {
           {optionText}
           <Icon
             name="edit"
-            className="asset-detail__table__icon"
+            className="asset-detail__table-icon"
             onClick={this.toggleFormVisibility}
           />
         </div>
@@ -60,7 +60,7 @@ class IsActiveComponent extends React.Component {
     return (
       <Form>
         <DropdownComponent
-          customClass="form-dropdown asset-detail__table__dropdown"
+          customClass="form-dropdown asset-detail__table-dropdown"
           label="Active"
           options={[{ text: 'Yes', value: 'Yes' }, { text: 'No', value: 'No' }]}
           placeholder="Select Active Status"
@@ -72,13 +72,13 @@ class IsActiveComponent extends React.Component {
         <div className="is-active-icons">
           <Icon
             name="close"
-            className="asset-detail__table__icon"
+            className="asset-detail__table-icon"
             onClick={this.toggleFormVisibility}
           />
 
           <Icon
             name="save"
-            className="asset-detail__table__icon"
+            className="asset-detail__table-icon"
             onClick={this.updateIsActive}
           />
         </div>
