@@ -1,4 +1,5 @@
 import React from 'react';
+import uuidv4 from 'uuid/v4';
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import TableRow from '../../TableRowComponent';
@@ -18,16 +19,16 @@ const TableContent = ({ data, headings, urlEntity = '', showAction = false, onCl
   <Table.Body>
     {data.map((info) => {
       const viewUrl = urlEntity ? `${urlEntity}/${info.id}/view` : '';
-
       return (
         <TableRow
-          key={info.id}
+          key={uuidv4()}
           viewDetailsRoute={viewUrl}
           headings={headings}
           data={formatDataKeys(info, urlEntity)}
           data-test="table-row"
           showAction={showAction}
           onClick={onClick}
+          id={info.id}
         />
       );
     })}

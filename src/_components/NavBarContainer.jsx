@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import toggleVisibilityAction from '../_actions/navBarToggle.action';
 import { NavBarComponent } from '../components/NavBarComponent';
 
-const mapStateToProps = ({ navBarVisibility }) => {
+export const mapStateToProps = ({ navBarVisibility }) => {
   const { isVisible } = navBarVisibility;
   return {
     isVisible

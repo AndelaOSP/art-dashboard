@@ -1,6 +1,6 @@
 import constants from '../_constants';
 import initialState from './initialState';
-import findLocationIndex from '../_utils/locations';
+import findLocationIndex from '../_utils/updateUnpaginatedObject';
 
 const {
   LOAD_LOCATIONS_REQUEST,

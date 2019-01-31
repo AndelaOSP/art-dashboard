@@ -24,3 +24,9 @@ rules:
   shorthand-values: 0
   url-quotes: 0
   no-transition-all: 0
+
+  # Configure BEM Syntax
+  class-name-format:
+    - 1
+    - allow-leading-underscore: false
+      convention: strictbem

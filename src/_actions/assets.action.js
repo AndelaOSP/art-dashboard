@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { fetchData } from '../_utils/helpers';
-import { constructUrl } from '../_utils/assets';
+import constructUrl from '../_utils/assets';
 import constants from '../_constants';
 
 const {

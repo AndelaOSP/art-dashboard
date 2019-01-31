@@ -1,0 +1,40 @@
+@import "sharedStyling.scss";
+
+i.icon.asset-detail__table-icon {
+  color: $border-color2;
+  cursor: pointer;
+  float: right;
+  vertical-align: center;
+}
+
+i.icon.asset-detail__table-icon:hover {
+  color: $andela-blue;
+}
+
+.form {
+  .ui.search.dropdown.asset-detail__table-dropdown {
+    margin: 0;
+    padding: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 60%;
+    float: left;
+    min-height: 25px;
+    border-radius: 0;
+    background: transparent;
+
+    input.search {
+      font-family: $base-font, $fallback-font, Lato, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 2px 0;
+      height: 0;
+      min-height: 25px;
+    }
+  }
+}
+
+.is-active-icons {
+  display: inline-block;
+  width: 40%;
+}

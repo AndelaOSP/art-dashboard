@@ -1,6 +1,6 @@
 import constants from '../_constants';
 import initialState from './initialState';
-import findAssetIndexAndPage from '../_utils/assets';
+import findAssetIndexAndPage from '../_utils/updatePaginatedObject';
 
 const {
   CREATE_ASSET_REQUEST,

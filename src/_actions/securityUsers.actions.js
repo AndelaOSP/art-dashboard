@@ -10,7 +10,10 @@ const {
   LOAD_SECURITY_USERS_SUCCESS,
   LOAD_SECURITY_USERS_FAILURE,
   SET_USERS_ACTIVE_PAGE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  UPDATE_ACTIVE_STATUS_REQUEST,
+  UPDATE_ACTIVE_STATUS_SUCCESS,
+  UPDATE_ACTIVE_STATUS_FAILURE
 } = constants;
 
 export const loadSecurityUsers = (pageNumber, limit) => (dispatch) => {
@@ -73,3 +76,26 @@ export const setActivePage = page => ({
 });
 
 export const resetMessage = () => ({ type: RESET_STATUS_MESSAGE });
+
+export const updateActiveStatus = (id, securityUser) => (dispatch) => {
+  dispatch(updateActiveStatusRequest());
+
+  return axios.put(`/security-users/${id}`, securityUser)
+    .then((response) => {
+      dispatch(updateActiveStatusSuccess(response.data));
+    }).catch((error) => {
+      dispatch(updateActiveStatusFailure(error));
+    });
+};
+
+export const updateActiveStatusRequest = () => ({ type: UPDATE_ACTIVE_STATUS_REQUEST });
+
+export const updateActiveStatusSuccess = usersList => ({
+  type: UPDATE_ACTIVE_STATUS_SUCCESS,
+  payload: usersList
+});
+
+export const updateActiveStatusFailure = error => ({
+  type: UPDATE_ACTIVE_STATUS_FAILURE,
+  payload: error.message
+});

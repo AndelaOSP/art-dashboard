@@ -3,7 +3,11 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { addSecurityUser, loadSecurityUsers } from '../../_actions/securityUsers.actions';
+import {
+  addSecurityUser,
+  loadSecurityUsers,
+  updateActiveStatus
+} from '../../_actions/securityUsers.actions';
 import constants from '../../_constants';
 import { SecurityUser, securityUsers } from '../../_mock/users';
 
@@ -13,7 +17,9 @@ const {
   CREATE_SECURITY_USER_FAILURE,
   LOAD_SECURITY_USERS_REQUEST,
   LOAD_SECURITY_USERS_SUCCESS,
-  LOAD_SECURITY_USERS_FAILURE
+  LOAD_SECURITY_USERS_FAILURE,
+  UPDATE_ACTIVE_STATUS_REQUEST,
+  UPDATE_ACTIVE_STATUS_FAILURE
 } = constants;
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -23,8 +29,10 @@ describe('Security users tests', () => {
   const mock = new MockAdapter(axios);
   const pageNumber = 1;
   const limit = 10;
+  const id = 0;
   const url = '/security-users/';
   const url2 = `/security-users/?page=${pageNumber}&page_size=${limit}`;
+  const url3 = `/security-users/${id}`;
   store = mockStore({});
 
   afterEach(() => {
@@ -85,6 +93,25 @@ describe('Security users tests', () => {
       expect(store.getActions()).toContainEqual({
         type: LOAD_SECURITY_USERS_FAILURE,
         payload: 'Request failed with status code 401'
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_ACTIVE_STATUS_REQUEST when a user wants to update', () => {
+    mock.onGet(url3).reply(200);
+    return store.dispatch(updateActiveStatus(id, securityUsers)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: UPDATE_ACTIVE_STATUS_REQUEST
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_ACTIVE_STATUS_FAILURE when an update fails', () => {
+    mock.onGet(url3).reply(401);
+    return store.dispatch(updateActiveStatus(id, securityUsers)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: UPDATE_ACTIVE_STATUS_FAILURE,
+        payload: 'Request failed with status code 404'
       });
     });
   });
