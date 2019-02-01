@@ -67,8 +67,7 @@ const AssetsTableContent = (props) => {
               asset_code: asset.asset_code || '-',
               serial_number: asset.serial_number || '-',
               model_number: asset.model_number || '-',
-              assignee: getAssignee(asset.assigned_to),
-              verified: asset.verified
+              assignee: getAssignee(asset.assigned_to)
             };
 
             return (
