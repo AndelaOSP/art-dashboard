@@ -24,6 +24,14 @@ export class TableRowComponent extends React.Component {
       }
     }
 
+    if (this.props.data[heading] === true) {
+      return 'Yes';
+    }
+
+    if (this.props.data[heading] === false) {
+      return 'No';
+    }
+
     return this.props.data[heading];
   }
 
