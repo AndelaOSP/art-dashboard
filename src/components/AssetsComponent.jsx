@@ -133,7 +133,7 @@ export default class AssetsComponent extends Component {
 
 AssetsComponent.propTypes = {
   assetsCount: PropTypes.number.isRequired,
-  assetsList: PropTypes.array,
+  assetsList: PropTypes.object,
   errorMessage: PropTypes.string,
   getAssetsAction: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,

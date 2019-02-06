@@ -41,7 +41,6 @@ class FilterButton extends React.Component {
       }
     }
 
-
     this.props.filterAction(
       this.props.activePage,
       this.props.limit,

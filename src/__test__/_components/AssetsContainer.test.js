@@ -65,6 +65,13 @@ describe('Renders <Assets />  tests', () => {
           { id: 2, option: 'Microsoft Lifechat LX-6000' },
           { id: 3, option: 'Spectre x360' }
         ]
+      },
+      {
+        title: 'Verification Status',
+        content: [
+          { id: 1, option: 'Verified' },
+          { id: 2, option: 'UnVerified' }
+        ]
       }
     ];
     expect(createFilterData(types, models)).toEqual(expected);
