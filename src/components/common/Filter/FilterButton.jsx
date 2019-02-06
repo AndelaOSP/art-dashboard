@@ -21,6 +21,27 @@ class FilterButton extends React.Component {
     this.handleClose();
     const { selected } = this.props;
 
+    if (this.props.selected['Verification Status']) {
+      if (this.props.selected['Verification Status'][0] === 'verified') {
+        this.props.selected['Verification Status'][0] = true;
+      }
+      if (this.props.selected['Verification Status'][1] === 'verified') {
+        this.props.selected['Verification Status'][0] = true;
+      }
+      if (this.props.selected['Verification Status'][0] === 'unverified') {
+        this.props.selected['Verification Status'][0] = false;
+      }
+      if (this.props.selected['Verification Status'][1] === 'unverified') {
+        this.props.selected['Verification Status'][1] = false;
+      }
+      if (this.props.selected['Verification Status'][0] === 'verified' || this.props.selected['Verification Status'][1] === 'verified') {
+        if (this.props.selected['Verification Status'][0] === 'unverified' || this.props.selected['Verification Status'][1] === 'unverified') {
+          this.props.selected['Verification Status'] = null;
+        }
+      }
+    }
+
+
     this.props.filterAction(
       this.props.activePage,
       this.props.limit,
