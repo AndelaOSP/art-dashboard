@@ -22,20 +22,20 @@ class FilterButton extends React.Component {
     const { selected } = this.props;
 
     if (this.props.selected['Verification Status']) {
-      if (this.props.selected['Verification Status'][0] === 'verified') {
+      if (this.props.selected['Verification Status'][0] === 'Verified') {
         this.props.selected['Verification Status'][0] = true;
       }
-      if (this.props.selected['Verification Status'][1] === 'verified') {
+      if (this.props.selected['Verification Status'][1] === 'Verified') {
         this.props.selected['Verification Status'][0] = true;
       }
-      if (this.props.selected['Verification Status'][0] === 'unverified') {
+      if (this.props.selected['Verification Status'][0] === 'UnVerified') {
         this.props.selected['Verification Status'][0] = false;
       }
-      if (this.props.selected['Verification Status'][1] === 'unverified') {
+      if (this.props.selected['Verification Status'][1] === 'UnVerified') {
         this.props.selected['Verification Status'][1] = false;
       }
-      if (this.props.selected['Verification Status'][0] === 'verified' || this.props.selected['Verification Status'][1] === 'verified') {
-        if (this.props.selected['Verification Status'][0] === 'unverified' || this.props.selected['Verification Status'][1] === 'unverified') {
+      if (this.props.selected['Verification Status'][0] === 'Verified' || this.props.selected['Verification Status'][1] === 'Verified') {
+        if (this.props.selected['Verification Status'][0] === 'UnVerified' || this.props.selected['Verification Status'][1] === 'UnVerified') {
           this.props.selected['Verification Status'] = null;
         }
       }

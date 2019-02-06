@@ -27,7 +27,7 @@ export const createFilterData = (assetTypes, assetModels) => {
     },
     {
       title: 'Verification Status',
-      content: [{ id: 1, option: 'verified' }, { id: 2, option: 'unverified' }]
+      content: [{ id: 1, option: 'Verified' }, { id: 2, option: 'UnVerified' }]
     }
   ];
 };

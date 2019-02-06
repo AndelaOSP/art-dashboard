@@ -57,10 +57,10 @@ class FilterComponent extends React.Component {
 
                   const check = () => {
                     if (selectedOptions[0] === true) {
-                      selectedOptions[0] = 'verified';
+                      selectedOptions[0] = 'Verified';
                     }
                     if (selectedOptions[0] === false) {
-                      selectedOptions[0] = 'unverified';
+                      selectedOptions[0] = 'UnVerified';
                     }
                     return selectedOptions.includes((label).toString());
                   };
