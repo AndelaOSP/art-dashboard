@@ -55,12 +55,22 @@ class FilterComponent extends React.Component {
                   const label = isNull(opt.option) ? 'unspecified' : opt.option;
                   const selectedOptions = this.props.selected[option.title] || [];
 
+                  const check = () => {
+                    if (selectedOptions[0] === true) {
+                      selectedOptions[0] = 'verified';
+                    }
+                    if (selectedOptions[0] === false) {
+                      selectedOptions[0] = 'unverified';
+                    }
+                    return selectedOptions.includes((label).toString());
+                  };
+
                   return (
                     <CheckboxComponent
                       key={uuidv4()}
                       label={label}
                       name={option.title}
-                      isChecked={selectedOptions.includes((label).toString())}
+                      isChecked={check()}
                       handleCheckboxChange={this.handleCheckboxChange}
                     />
                   );
