@@ -7,27 +7,53 @@ It is expected that every action a user can perform should be documented here an
 The purpose of laying out behaviors in this way is to allow us to set up regression tests as well as end-to-end tests easily as well as allow their automation to be a lot easier to do.
 
 #### Table of Contents
-* [Registering](#registering)
 * [Logging in](#logging-in)
+* [Registering](#registering)
+
+
+#### [Logging In](#logging-in)
+*Successful Login (Using Andela Email)*
+1. Visit login page
+2. Click on the `Sign in with Google` button.
+3. A popup will appear requesting you to choose your preferred email.
+4. Select your Andela email (email must have admin privileges)
+5. User is redirected to `/dashboard` endpoint
+
+*Failed Login (Using Non-Andela Email)*
+1. Do step 1 to 3 of successful login flow
+2. Select a non-Andela email
+3. A toast message appears at the top right corner of the browser page asking you to login with an Andela email.
+
+*Failed Login (Using Andela Email Without Proper Privileges)*
+1. Do step 1 to 4 of successful login flow using email without proper privileges
+2. A modal appears telling you that only users with admin privileges can access the site
 
 #### [Registering](#registering)
 ##### Andelans
-An Andelan is automatically registered if they have an Andela email, i.e. _`(xxxx.xxxx@andela.com)`_
+Registration is similar to login workflow. Refer to [login workflow](#logging-in)
 
 ##### Security Users
 A security user must be registered by an Andela user with admin privileges.
-To register a security user:
-* After [logging in](#logging-in), click on the `Users` link on the navigation bar.
-* Click on the `Security Users` tab.
-* Click on the `Add security User` button. A modal with a form to enter the security user details will appear.
-* On the modal, enter the details and click on the `Submit` button.
-* If a user tris to submit the form with any of the required fields left blank, then an alert shows up at the top of the form informing them that the required field cannot be left blank.
-* If a user tries to submit the form with an invalid email, then the email input field is highlighted in red and a message appears at the bottom of the input field indicating that the email is not valid.
-* If the user tries to submit the form and the badge number is not unique, then an alert shows up at the top of the form informing them that the badge number already exists.
 
-#### [Logging In](#logging-in)
-* Click on the `Sign in with Google` button.
-* A popup will appear requesting you to choose your preferred email.
-* If a user chooses an email that is not an Andela email, a toast message appears on the top right corner of the browser page asking them to log in with their Andela email.
-* If a user chooses an Andela email and they do not have the proper privileges, a modal will appear telling them that only users with admin privileges can access the site.
-* If a user chooses an Andela email and they have the proper privileges, then they are successfully logged in and redirected to the `/dashboard` endpoint.
+*Successfully Registration*
+1. Login - see [logging in](#logging-in). 
+2. Click on `Users` link in the navigation bar.
+3. Click on `Security Users` tab.
+4. Click `Add Security User button`. A modal with a form to enter security user details will appear.
+5. Enter the user details and click `submit` button.
+6. A success alert is displayed at the top of the modal.
+
+*Registration With Validation Errors*
+1. Perform step 1 to 4 of successful registration flow
+2. Submit form with validation errors
+3. An alert is displayed at the top of the modal indicating the validation errors
+
+*Registration With Invalid Email*
+1. Perform step 1 to 4 of successful registration flow.
+2. Submit form with an invalid email.
+3. The email input field is highlighted in red and a message appears at the bottom of the input field indicating that the email is not valid.
+
+*Registration With Duplicate Badge Number*
+1. Perform step 1 to 4 of successful registration flow.
+2. Submit form with a duplicate badge number.
+3. An alert shows up at the top of the form informing the user that the badge number already exists.
