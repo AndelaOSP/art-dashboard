@@ -4,7 +4,7 @@ This document will highlight all the actions that can be performed within the ap
 
 It is expected that every action a user can perform should be documented here and if an action and/or behavior is altered, then this document should be updated to reflect those alterations.
 
-The purpose of laying out behaviors in this way is to allow us to set up regression tests as well as end-to-end tests easily as well as allow their automation to be a lot easier to do.
+The purpose of laying out behaviors in this way is to allow us to set up regression and end-to-end tests easily as well as allow their automation later on.
 
 #### Table of Contents
 * [Logging in](#logging-in)
@@ -17,7 +17,7 @@ The purpose of laying out behaviors in this way is to allow us to set up regress
 2. Click on the `Sign in with Google` button.
 3. A popup will appear requesting you to choose your preferred email.
 4. Select your Andela email (email must have admin privileges)
-5. User is redirected to `/dashboard` endpoint
+5. You will be redirected to the `/dashboard` endpoint
 
 *Failed Login (Using Non-Andela Email)*
 1. Do step 1 to 3 of successful login flow
@@ -37,11 +37,13 @@ A security user must be registered by an Andela user with admin privileges.
 
 *Successfully Registration*
 1. Login - see [logging in](#logging-in). 
-2. Click on `Users` link in the navigation bar.
-3. Click on `Security Users` tab.
-4. Click `Add Security User button`. A modal with a form to enter security user details will appear.
-5. Enter the user details and click `submit` button.
+2. Click the `Users` link in the navigation bar.
+3. Click the `Security Users` tab.
+4. Click the `Add Security User button`. A modal with a form to enter security user details will appear.
+5. Enter the user details and click the `Submit` button.
 6. A success alert is displayed at the top of the modal.
+7. Repeat steps 1 to 6 in case you need to add another security user
+8. Click the `Cancel` button to close the modal
 
 *Registration With Validation Errors*
 1. Perform step 1 to 4 of successful registration flow
@@ -56,4 +58,4 @@ A security user must be registered by an Andela user with admin privileges.
 *Registration With Duplicate Badge Number*
 1. Perform step 1 to 4 of successful registration flow.
 2. Submit form with a duplicate badge number.
-3. An alert shows up at the top of the form informing the user that the badge number already exists.
+3. An alert shows up at the top of the form informing you that the badge number already exists.
