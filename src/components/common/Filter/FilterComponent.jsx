@@ -28,9 +28,6 @@ class FilterComponent extends React.Component {
       isChecked: checked
     };
 
-    console.log('option>>>>>>>>>>>>', this.props.option);
-    console.log('ischecked>>>>>>>>>>>', checked);
-
     this.props.filterSelection(selection, option.title);
   };
 
