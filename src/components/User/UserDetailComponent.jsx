@@ -41,7 +41,7 @@ const assetsAssigned = (allocatedAssets) => {
               data={asset}
               viewDetailsRoute={`/assets/${asset.uuid}/view`}
               headings={[
-                'asset_type',
+                'name',
                 'asset_code',
                 'serial_number'
               ]}

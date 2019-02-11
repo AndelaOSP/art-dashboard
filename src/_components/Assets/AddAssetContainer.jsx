@@ -196,7 +196,7 @@ class AddAssetContainer extends React.Component {
     const showStatus = success || error;
 
     const selectedAssetType = assetTypes.find(asset =>
-      asset.asset_type === this.state.formState.selectedAssetType);
+      asset.name === this.state.formState.selectedAssetType);
 
     const isAssetSpecsAvailable = selectedAssetType && selectedAssetType.has_specs;
 

@@ -11,7 +11,7 @@ const assetTypeOptions = assetTypes =>
   assetTypes
     .map((typeOption, index) => ({
       key: index,
-      text: typeOption.asset_type,
+      text: typeOption.name,
       value: typeOption.id
     }));
 
@@ -25,7 +25,7 @@ const AddAssetMakeComponent = (props) => {
       <label htmlFor="asset-make" className="label-style">
         Asset Make
         <InputFluid
-          name="make_label"
+          name="name"
           id="make"
           onChange={props.onaddAssetMake}
           placeholder="Enter Asset Make"

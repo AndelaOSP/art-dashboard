@@ -9,7 +9,7 @@ import LoaderComponent from '../LoaderComponent';
 const placeMakesInSemanticUIOptions = props =>
   props.map((option, index) => ({
     key: index,
-    text: option.sub_category_name,
+    text: option.name,
     value: option.id
   }));
 

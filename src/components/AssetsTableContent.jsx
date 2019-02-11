@@ -79,7 +79,7 @@ const AssetsTableContent = (props) => {
                   'serial_number',
                   'model_number',
                   'make_label',
-                  'asset_type',
+                  'name',
                   'assignee'
                 ]}
               />

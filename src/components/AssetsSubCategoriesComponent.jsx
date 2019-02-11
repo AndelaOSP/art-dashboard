@@ -99,7 +99,7 @@ export class AssetSubCategoriesComponent extends React.Component {
                   <TableRow
                     key={subCategory.id}
                     data={subCategory}
-                    headings={['sub_category_name', 'asset_category']}
+                    headings={['name', 'asset_category']}
                   />
                 ))
               }

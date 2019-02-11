@@ -62,7 +62,7 @@ class AddSubCategoriesContainer extends React.Component {
 
   handleSubmit = (event) => {
     const newSubCategory = {
-      sub_category_name: this.state.subCategory,
+      name: this.state.subCategory,
       asset_category: this.state.category
     };
 

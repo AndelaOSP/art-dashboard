@@ -59,7 +59,7 @@ class AssetMakeContainer extends React.Component {
   handleSubmit = (event) => {
     const { assetMake, assetType } = this.state;
     const newMake = {
-      make_label: assetMake,
+      name: assetMake,
       asset_type: assetType
     };
     this.props.addAssetMakes(newMake);

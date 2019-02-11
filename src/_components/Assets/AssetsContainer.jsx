@@ -14,7 +14,7 @@ export const createFilterData = (assetTypes, assetModels) => {
     return [];
   }
 
-  const formattedAssetTypes = assetTypes.map(assetType => formatOption(assetType, 'asset_type'));
+  const formattedAssetTypes = assetTypes.map(assetType => formatOption(assetType, 'name'));
   const formattedAssetModels = assetModels.map(assetModel => formatOption(assetModel, 'model_number'));
 
   return [

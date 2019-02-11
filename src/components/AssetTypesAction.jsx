@@ -12,7 +12,7 @@ const AssetTypesAction = props => (
       <ArtModal
         className="inline"
         trigger={element}
-        modalTitle={props.details.asset_type}
+        modalTitle={props.details.name}
       >
         {
           Object.keys(props.details).map(
