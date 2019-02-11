@@ -212,7 +212,7 @@ describe('<AddAssetContainer /> test cases', () => {
 
     wrapper.instance().handleDropdownChanges(event, data);
     wrapper.update();
-    expect(wrapper.find('StepDescription').length).toEqual(2);
+    expect(wrapper.find('StepDescription').length).toEqual(1);
   });
 
   it('hide device specs step if asset does not have specs', () => {
