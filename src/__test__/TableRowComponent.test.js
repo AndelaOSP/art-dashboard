@@ -46,8 +46,19 @@ describe('Renders <TableRowComponent /> correctly', () => {
     );
 
     const heading = '';
-
+    props.data[heading] = false;
     wrapper.instance().handleHeadings(heading);
     expect(handleHeadingsSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleHeadings for active user ', () => {
+    const handleHeadingsSpy = jest.spyOn(
+      wrapper.instance(), 'handleHeadings'
+    );
+
+    const heading = 'is_active';
+    props.data[heading] = true;
+    wrapper.instance().handleHeadings(heading);
+    expect(handleHeadingsSpy.mock.calls.length).toEqual(2);
   });
 });
