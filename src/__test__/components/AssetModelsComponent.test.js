@@ -12,7 +12,8 @@ describe('Renders <AssetModelsComponent /> correctly', () => {
     handlePaginationChange: jest.fn(),
     isLoading: false,
     assetModels,
-    assetModelsCount: 3
+    assetModelsCount: 3,
+    handleRowChange: jest.fn()
   };
 
   let wrapper = shallow(<AssetModelsComponent{...props} />);
@@ -56,5 +57,15 @@ describe('Renders <AssetModelsComponent /> correctly', () => {
 
     wrapper.instance().handleToggleModal();
     expect(wrapper.state().modalOpen).toEqual(true);
+  });
+
+  it('calls handleRowChange when a  number of rows are selected', () => {
+    const handleRowChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleRowChange'
+    );
+    const event = {};
+    const data = {};
+    wrapper.instance().handleRowChange(event, data);
+    expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
   });
 });
