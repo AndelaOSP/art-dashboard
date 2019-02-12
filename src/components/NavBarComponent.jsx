@@ -48,6 +48,12 @@ export class NavBarComponent extends Component {
     }
   ];
 
+  state = {
+    limit: 10,
+    pageNumber: 1,
+    value: { 'Serial Number': '' }
+  };
+
   handleLogout = () => {
     localStorage.removeItem('art-prod-web-token');
     this.props.history.push('/');
@@ -61,6 +67,22 @@ export class NavBarComponent extends Component {
     }
     return <Icon id="hamburger" name="bars" />;
   };
+
+  handleSearchInput = (event, data = {}) => {
+    event.preventDefault();
+    const searchValue = event.target.value || data.value;
+    this.setState(prevState => ({ value: { ...prevState.value, 'Serial Number': searchValue } }));
+  }
+
+  handleSearch = (event) => {
+    event.stopPropagation();
+    const { location } = this.props;
+    if (location.pathname === '/assets' && event.key === 'Enter') {
+      const { pageNumber, limit, value } = this.state;
+      this.props.getAssetsAction(pageNumber, limit, value);
+      this.setState({ value: { 'Serial Number': '' } });
+    }
+  }
 
   render() {
     const { isVisible, placeHolder } = this.props;
@@ -87,7 +109,16 @@ export class NavBarComponent extends Component {
 
             <Menu.Menu id="search-menu">
               <Menu.Item>
-                <Input id="nav-search" className="icon" icon="search" placeholder={placeHolder} />
+                <Input
+                  id="nav-search"
+                  className="icon"
+                  icon="search"
+                  value={this.state.value['Serial Number']}
+                  placeholder={placeHolder}
+                  onKeyDown={this.handleSearch}
+                  onChange={this.handleSearchInput}
+
+                />
               </Menu.Item>
             </Menu.Menu>
 
@@ -167,7 +198,9 @@ NavBarComponent.propTypes = {
   push: PropTypes.func,
   toggleVisibilityAction: PropTypes.func,
   isVisible: PropTypes.bool,
-  placeHolder: PropTypes.string
+  placeHolder: PropTypes.string,
+  getAssetsAction: PropTypes.func,
+  location: PropTypes.object
 };
 
 NavBarComponent.defaultProps = {
