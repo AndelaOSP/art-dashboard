@@ -35,7 +35,7 @@ class AddSecurityUserComponent extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    if (this.state.emailValid) {
+    if (!this.state.emailValid) {
       return null;
     }
 
