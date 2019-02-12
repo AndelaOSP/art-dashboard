@@ -88,10 +88,10 @@ describe('Asset Types action tests', () => {
     const expectedFormData = new FormData();
     expectedFormData.append('file', testFile);
 
-    mock.onPost(url, testFile).reply(500);
+    mock.onPost(url, testFile).reply(400, 'CSV file is empty');
     return store.dispatch(uploadAssets(testFile)).then(() => {
       expect(store.getActions()).toContainEqual({
-        payload: 'Request failed with status code 500',
+        payload: 'CSV file is empty',
         type: 'UPLOAD_ASSETS_FAILURE'
       });
     });
