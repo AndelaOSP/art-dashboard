@@ -54,6 +54,7 @@ const AssetsTableContent = (props) => {
             <Table.HeaderCell>Asset Make</Table.HeaderCell>
             <Table.HeaderCell>Asset Type</Table.HeaderCell>
             <Table.HeaderCell>Assigned To</Table.HeaderCell>
+            <Table.HeaderCell>Verification Status</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -80,7 +81,8 @@ const AssetsTableContent = (props) => {
                   'model_number',
                   'make_label',
                   'asset_type',
-                  'assignee'
+                  'assignee',
+                  'verified'
                 ]}
               />
             );

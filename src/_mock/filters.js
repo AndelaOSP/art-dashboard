@@ -5,7 +5,8 @@ const filters = [
 
 export const selectedFilters = {
   asset_types: ['Headsets'],
-  model_numbers: ['HP 27ES']
+  model_numbers: ['HP 27ES'],
+  'Verification Status': ['Verified', 'UnVerified']
 };
 
 export const userFilters = [

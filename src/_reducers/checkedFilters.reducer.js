@@ -7,7 +7,13 @@ const filtersReducer = (state = initialState.checkedFilters, action) => {
   switch (action.type) {
     case FILTER_SELECTED: {
       const { selection, filterType } = action;
-      const previousSelected = state[filterType] || [];
+      let previousSelected;
+
+      if (filterType === 'Verification Status') {
+        previousSelected = [];
+      } else {
+        previousSelected = state[filterType] || [];
+      }
 
       return {
         ...state,

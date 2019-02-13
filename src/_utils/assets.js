@@ -10,7 +10,8 @@ const constructUrl = (pageNumber, limit, filters = {}, status = '') => {
   if (!isEmpty(filters)) {
     url = `${url}&asset_type=${filters['Asset Types'] || ''}
     &model_number=${filters['Model Numbers'] || ''}
-    &serial_number=${filters['Serial Number'] || ''}`;
+    &serial_number=${filters['Serial Number'] || ''}
+    &verified=${filters['Verification Status'] || ''}`;
   }
   return url;
 };
