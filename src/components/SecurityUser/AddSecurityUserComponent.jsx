@@ -43,7 +43,7 @@ class AddSecurityUserComponent extends Component {
       first_name: this.state.firstName,
       last_name: this.state.lastName,
       phone_number: this.state.phoneNumber,
-      email: this.state.email,
+      email: this.state.email.toLowerCase(),
       badge_number: this.state.badgeNumber
     });
   };
