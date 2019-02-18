@@ -9,7 +9,7 @@ import LoaderComponent from '../LoaderComponent';
 const placeMakesInSemanticUIOptions = props =>
   props.map((option, index) => ({
     key: index,
-    text: option.sub_category_name,
+    text: option.name,
     value: option.id
   }));
 
@@ -43,11 +43,7 @@ const AssetTypesComponent = (props) => {
       </label>
 
       <div className="modal__buttons">
-        <ArtButton
-          customCss="cancel"
-          buttonName="Cancel"
-          handleClick={props.toggleModal}
-        />
+        <ArtButton customCss="cancel" buttonName="Cancel" handleClick={props.toggleModal} />
         <ArtButton
           customCss="save"
           buttonName="Save"
@@ -68,10 +64,7 @@ AssetTypesComponent.propTypes = {
   onChangeButtonState: PropTypes.func.isRequired,
   subcategories: PropTypes.array,
   buttonState: PropTypes.bool.isRequired,
-  subCategorySelectedId: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+  subCategorySelectedId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   isLoading: PropTypes.bool
 };
 

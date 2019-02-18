@@ -62,7 +62,7 @@ class AddSubCategoriesContainer extends React.Component {
 
   handleSubmit = (event) => {
     const newSubCategory = {
-      sub_category_name: this.state.subCategory,
+      name: this.state.subCategory,
       asset_category: this.state.category
     };
 
@@ -104,8 +104,11 @@ const mapStateToProps = ({ categoriesList, toastMessage }) => ({
   isLoading: categoriesList.isLoading
 });
 
-export default connect(mapStateToProps, {
-  loadCategoriesDropdown,
-  createSubCategory,
-  resetToastMessageContent
-})(AddSubCategoriesContainer);
+export default connect(
+  mapStateToProps,
+  {
+    loadCategoriesDropdown,
+    createSubCategory,
+    resetToastMessageContent
+  }
+)(AddSubCategoriesContainer);
