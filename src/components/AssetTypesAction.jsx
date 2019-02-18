@@ -17,7 +17,7 @@ class AssetTypesAction extends React.Component {
           <ArtModal
             className="inline"
             trigger={element}
-            modalTitle={this.props.details.asset_type}
+            modalTitle={this.props.details.name}
             toggleModal={this.handleToggleModal}
             modalOpen={this.state.modalOpen}
           >

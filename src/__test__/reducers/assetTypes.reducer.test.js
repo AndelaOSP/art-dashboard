@@ -50,7 +50,7 @@ describe('Asset Type Reducer tests', () => {
     const newAction = {};
     const newAssetType = {
       asset_sub_category: 3,
-      asset_type: 'Adapters',
+      name: 'Adapters',
       id: 3
     };
     const newState = {
