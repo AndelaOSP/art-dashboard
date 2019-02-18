@@ -39,7 +39,7 @@ export class AssetCategoriesComponent extends React.Component {
 
   handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
-  emptyCategoriesCheck = () => (_.isEmpty(this.props.categories));
+  emptyCategoriesCheck = () => _.isEmpty(this.props.categories);
 
   render() {
     if (this.props.isLoading) {
@@ -53,10 +53,12 @@ export class AssetCategoriesComponent extends React.Component {
       return (
         <NavBarComponent>
           <div className="assets-list">
-            <h1>
-              An Error Occurred While Trying To Display The Asset Categories
-            </h1>
-            <Button onClick={() => { this.props.loadAssetCategories(this.state.activePage); }}>
+            <h1>An Error Occurred While Trying To Display The Asset Categories</h1>
+            <Button
+              onClick={() => {
+                this.props.loadAssetCategories(this.state.activePage);
+              }}
+            >
               Try Again
             </Button>
           </div>
@@ -66,9 +68,7 @@ export class AssetCategoriesComponent extends React.Component {
     if (!this.props.isLoading && this.emptyCategoriesCheck()) {
       return (
         <NavBarComponent>
-          <ItemsNotFoundComponent
-            message="Please try again later to see if there will be asset categories to show you."
-          />
+          <ItemsNotFoundComponent message="Please try again later to see if there will be asset categories to show you." />
         </NavBarComponent>
       );
     }
@@ -78,13 +78,7 @@ export class AssetCategoriesComponent extends React.Component {
           <PageHeader header="Asset Categories">
             <div className="header-modal-button">
               <ModalComponent
-                trigger={
-                  <Button
-                    className="filter-button"
-                  >
-                    ADD CATEGORY
-                  </Button>
-                }
+                trigger={<Button className="filter-button">ADD CATEGORY</Button>}
                 modalTitle="Add Asset Category"
                 toggleModal={this.handleToggleModal}
                 modalOpen={this.state.modalOpen}
@@ -94,11 +88,7 @@ export class AssetCategoriesComponent extends React.Component {
             </div>
           </PageHeader>
 
-          <Cards
-            data={this.props.categories}
-            headings={['category_name']}
-            imageName="category.svg"
-          />
+          <Cards data={this.props.categories} headings={['name']} imageName="category.svg" />
 
           <Paginator
             activePage={this.state.activePage}

@@ -51,7 +51,7 @@ describe('Category Reducer tests', () => {
   it('should handle CREATE_CATEGORY_SUCCESS', () => {
     const newAction = {};
     const newCategory = {
-      category_name: 'Category 1',
+      name: 'Category 1',
       id: 4
     };
     const newState = {
@@ -94,8 +94,9 @@ describe('Category Reducer tests', () => {
       results: categories
     };
     expect(categoryReducer(newState, newAction).categories).toEqual(newAction.payload.results);
-    expect(categoryReducer(newState, newAction).assetCategoriesCount)
-      .toEqual(newAction.payload.count);
+    expect(categoryReducer(newState, newAction).assetCategoriesCount).toEqual(
+      newAction.payload.count
+    );
   });
 
   it('should handle DROPDOWN_CATEGORIES_SUCCESS', () => {
