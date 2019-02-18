@@ -11,7 +11,7 @@ import ModalComponent from '../common/ModalComponent';
 export default class Modal extends React.Component {
   state = {
     country: this.props.data.country || '',
-    centre: this.props.data.centre_name || ''
+    centre: this.props.data.name || ''
   };
 
   handleInputChange = (event) => {
@@ -24,7 +24,7 @@ export default class Modal extends React.Component {
 
   handleSubmit = () => {
     this.props.createOfficeLocation({
-      centre_name: this.state.centre,
+      name: this.state.centre,
       country: this.state.country
     });
   };
@@ -34,7 +34,7 @@ export default class Modal extends React.Component {
 
     const { data } = this.props;
     this.props.updateAndelaCentre(data.id, {
-      centre_name: this.state.centre,
+      name: this.state.centre,
       country: this.state.country
     });
   };

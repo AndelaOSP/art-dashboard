@@ -46,8 +46,8 @@ export const createOfficeLocation = data => (dispatch) => {
 
 const retrieveErrorMessage = (error) => {
   const axiosError = handleAxiosErrors(error);
-  if (axiosError.centre_name) {
-    return axiosError.centre_name.shift();
+  if (axiosError.name) {
+    return axiosError.name.shift();
   }
 
   return axiosError;

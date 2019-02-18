@@ -94,7 +94,7 @@ class AndelaCentresComponent extends React.Component {
           {!isLoading && hasLocations && (
             <Cards
               data={locationList}
-              headings={['centre_name', 'country']}
+              headings={['name', 'country']}
               imageName="map.svg"
               showAction={showAction}
               onClick={this.handleEditToggleModal}

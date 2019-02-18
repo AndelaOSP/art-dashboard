@@ -6,7 +6,7 @@ import { updateAsset } from '../../_actions/asset.actions';
 
 import OfficeLocations from '../../components/OfficeLocations/OfficeLocationsComponent';
 
-export const getLocationList = locations => locations.map(location => location.centre_name);
+export const getLocationList = locations => locations.map(location => location.name);
 
 export const mapStateToProps = ({ asset, assets, officeLocations }) => ({
   locationLoading: officeLocations.isLoading,
