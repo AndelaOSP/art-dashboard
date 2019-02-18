@@ -1,20 +1,19 @@
-
 import faker from 'faker';
 
 export default [
   {
     id: 1,
-    make_label: 'Make Label Fake A',
+    name: 'Make Label Fake A',
     asset_type: 'monitoring'
   },
   {
     id: 2,
-    make_label: 'Make Label Fake B',
+    name: 'Make Label Fake B',
     asset_type: faker.random.word()
   },
   {
     id: 2,
-    make_label: 'Make Label Fake C',
+    name: 'Make Label Fake C',
     asset_type: faker.random.word()
   }
 ];

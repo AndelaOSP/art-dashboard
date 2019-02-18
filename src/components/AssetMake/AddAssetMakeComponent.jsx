@@ -25,7 +25,7 @@ const AddAssetMakeComponent = (props) => {
       <label htmlFor="asset-make" className="label-style">
         Asset Make
         <InputFluid
-          name="make_label"
+          name="name"
           id="make"
           onChange={props.onaddAssetMake}
           placeholder="Enter Asset Make"

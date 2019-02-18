@@ -2,12 +2,12 @@ export default [
   {
     id: 1,
     name: 'MC-LifeChat 5',
-    make_label: 'Microsoft'
+    asset_make: 'Microsoft'
   },
   {
     id: 2,
     name: 'Microsoft Lifechat LX-6000',
-    make_label: 'Microsoft'
+    asset_make: 'Microsoft'
   },
   {
     id: 3,
