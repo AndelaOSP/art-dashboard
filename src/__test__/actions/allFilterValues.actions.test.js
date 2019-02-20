@@ -6,13 +6,14 @@ import thunk from 'redux-thunk';
 
 import constants from '../../_constants';
 
-import { loadAllFilterValues } from '../../_actions/allFilterValues.actions';
+import { loadAllFilterValues, loadAccordionValue } from '../../_actions/allFilterValues.actions';
 
 import { allFilterValues } from '../../_mock/filters';
 
 const {
   FETCH_FILTER_VALUES_START,
-  FETCH_FILTER_VALUES_SUCCESS
+  FETCH_FILTER_VALUES_SUCCESS,
+  ACTIVE_ACCORDION
 } = constants;
 
 const middleware = [thunk];
@@ -41,5 +42,16 @@ describe('Filter Values Actions', () => {
         expect(store.getActions()).toContainEqual(expectedActions[0]);
         expect(store.getActions()).toContainEqual(expectedActions[1]);
       });
+  });
+});
+
+describe('Load Accordion', () => {
+  it('should dispatch ACTIVE_ACCORDION when accordion is opened', () => {
+    const expectedActions = {
+      type: ACTIVE_ACCORDION
+    };
+    store.dispatch(loadAccordionValue(2));
+    expect(store.getActions()[0].type).toEqual(expectedActions.type);
+    expect(store.getActions()[0].index).toEqual(2);
   });
 });

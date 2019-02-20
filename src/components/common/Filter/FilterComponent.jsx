@@ -2,87 +2,76 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Accordion, Form, Menu } from 'semantic-ui-react';
 import { isEmpty, isNull } from 'lodash';
-import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
-import { loadAccordionValue } from '../../../_actions/allFilterValues.actions';
 import '../../../_css/FilterComponent.css';
 
-const FilterComponent = (props) => {
-  const {
-    activeIndex,
-    option,
-    filterSelection,
-    selected,
-    index
-  } = props;
-
-  const handleTitleClick = (e, titleProps) => {
-    // eslint-disable-next-line no-shadow
+class FilterComponent extends React.Component {
+  handleTitleClick = (e, titleProps) => {
     const { index } = titleProps;
-    const newIndex = activeIndex === index ? -1 : index;
-    props.loadAccordionValue(newIndex);
+    const newIndex = this.props.activeIndex === index ? -1 : index;
+    this.props.loadAccordionValue(newIndex);
   };
 
-  const handleCheckboxChange = (event, { checked, label }) => {
+  handleCheckboxChange = (event, { checked, label }) => {
     const selection = {
       label,
       isChecked: checked
     };
-
-    filterSelection(selection, option.title);
+    this.props.filterSelection(selection, this.props.option.title);
   };
 
-  const accordionContent = (
-    <Form className="filter-form">
-      <Form.Group grouped>
-        {
-          option.content.map((opt) => {
-          const label = isNull(opt.option) ? 'unspecified' : opt.option;
-          const selectedOptions = selected[option.title] || [];
+  render() {
+    const { activeIndex, option, selected, index } = this.props;
+    if (isEmpty(option)) {
+      return <p>Loading filters</p>;
+    }
 
-          const check = () => {
-            if (selectedOptions[0] === true) {
-              selectedOptions[0] = 'Verified';
-            }
-            if (selectedOptions[0] === false) {
-              selectedOptions[0] = 'UnVerified';
-            }
-            return selectedOptions.includes(label.toString());
-          };
+    return (
+      <React.Fragment>
+        <Menu.Item>
+          <Accordion.Title
+            index={index}
+            active={activeIndex === index}
+            content={option.title}
+            onClick={this.handleTitleClick}
+          />
+          <Accordion.Content active={activeIndex === index}>
+            <Form className="filter-form">
+              <Form.Group grouped>
+                {
+                  option.content.map((opt) => {
+                  const label = isNull(opt.option) ? 'unspecified' : opt.option;
+                  const selectedOptions = selected[option.title] || [];
 
-          return (
-            <Form.Checkbox
-              key={uuidv4()}
-              label={label}
-              name={option.title}
-              checked={check()}
-              onChange={handleCheckboxChange}
-            />
-          );
-          })
-        }
-      </Form.Group>
-    </Form>
-  );
+                  const check = () => {
+                    if (selectedOptions[0] === true) {
+                      selectedOptions[0] = 'Verified';
+                    }
+                    if (selectedOptions[0] === false) {
+                      selectedOptions[0] = 'UnVerified';
+                    }
+                    return selectedOptions.includes(label.toString());
+                  };
 
-  if (isEmpty(option)) {
-    return <p>Loading filters</p>;
+                  return (
+                    <Form.Checkbox
+                      key={uuidv4()}
+                      label={label}
+                      name={option.title}
+                      checked={check()}
+                      onChange={this.handleCheckboxChange}
+                    />
+                  );
+                  })
+                }
+              </Form.Group>
+            </Form>
+          </Accordion.Content>
+        </Menu.Item>
+      </React.Fragment>
+    );
   }
-
-  return (
-    <React.Fragment>
-      <Menu.Item>
-        <Accordion.Title
-          index={index}
-          active={activeIndex === index}
-          content={option.title}
-          onClick={handleTitleClick}
-        />
-        <Accordion.Content active={activeIndex === index} content={accordionContent} />
-      </Menu.Item>
-    </React.Fragment>
-  );
-};
+}
 
 FilterComponent.propTypes = {
   index: PropTypes.number,
@@ -98,14 +87,5 @@ FilterComponent.defaultProps = {
   option: {}
 };
 
-const mapStateToProps = (state) => {
-  const { activeIndex } = state.accordion;
-  return {
-    activeIndex
-  };
-};
 
-export default connect(
-  mapStateToProps,
-  { loadAccordionValue }
-)(FilterComponent);
+export default FilterComponent;
