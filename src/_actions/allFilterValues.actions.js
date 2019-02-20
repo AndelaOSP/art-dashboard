@@ -4,7 +4,8 @@ import constants from '../_constants';
 const {
   FETCH_FILTER_VALUES_START,
   FETCH_FILTER_VALUES_SUCCESS,
-  FETCH_FILTER_VALUES_FAILURE
+  FETCH_FILTER_VALUES_FAILURE,
+  ACTIVE_ACCORDION
 } = constants;
 
 /**
@@ -27,3 +28,11 @@ export const loadAllFilterValues = () =>
       })
       .catch({ type: FETCH_FILTER_VALUES_FAILURE });
   };
+
+export const loadAccordionValue = index => (dispatch) => {
+  dispatch(
+    {
+      type: ACTIVE_ACCORDION,
+      index
+    });
+};

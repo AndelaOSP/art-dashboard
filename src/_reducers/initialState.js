@@ -135,5 +135,8 @@ export default {
     errorMessage: '',
     successMessage: '',
     isLoading: false
+  },
+  accordion: {
+    activeIndex: 0
   }
 };
