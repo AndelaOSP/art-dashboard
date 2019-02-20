@@ -15,7 +15,7 @@
 
 .ui.accordion .accordion .active.content,
 .ui.accordion .active.content {
-  max-height: 20rem;
+  max-height: 10rem;
   overflow-y: scroll;
 }
 
@@ -45,4 +45,12 @@
   font-size: 16px;
   margin: 2px 0 8px 0;
   text-align: left;
+}
+
+body.popup-open {
+   overflow: hidden;
+}
+
+body.popup-closed {
+  overflow: auto;
 }
