@@ -56,7 +56,7 @@ describe('Renders <FilterComponent /> correctly', () => {
         value: ''
       }
     };
-    wrapper.instance().handleCheckboxChange({}, event);
+    wrapper.instance().handleCheckboxChange(event);
     expect(handleCheckboxChangeSpy.mock.calls.length).toEqual(1);
   });
 });

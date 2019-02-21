@@ -42,7 +42,8 @@ class FilterComponent extends React.Component {
           />
           <Accordion.Content active={activeIndex === index}>
             <Form className="filter-form">
-              {option.content.map((opt) => {
+              {
+                option.content.map((opt) => {
                 const label = isNull(opt.option) ? 'unspecified' : opt.option;
                 const selectedOptions = selected[option.title] || [];
 
@@ -53,7 +54,7 @@ class FilterComponent extends React.Component {
                   if (selectedOptions[0] === false) {
                     selectedOptions[0] = 'UnVerified';
                   }
-                  return selectedOptions.includes(label.toString());
+                  return selectedOptions.includes((label).toString());
                 };
 
                 return (
@@ -65,7 +66,8 @@ class FilterComponent extends React.Component {
                     handleCheckboxChange={this.handleCheckboxChange}
                   />
                 );
-              })}
+                })
+              }
             </Form>
           </Accordion.Content>
         </Menu.Item>
