@@ -30,8 +30,8 @@ class UploadAssets extends React.Component {
 
     this.setState({ accepted, rejected });
 
-    if (!isEmpty(accepted)) {
-      this.props.uploadAssets(accepted);
+    if (!isEmpty(this.state.accepted)) {
+      this.props.uploadAssets(this.state.accepted);
     }
   };
 
@@ -52,7 +52,7 @@ class UploadAssets extends React.Component {
     return (
       <div className="center-upload">
         <span className="failed-file">
-          <a href=" " onClick={() => this.handleFileDownload('files/sample_import_file/')}>
+          <a href="# " onClick={() => this.handleFileDownload('files/sample_import_file/')}>
             Download the sample file
           </a>{' '}
           , fill the columns and upload it.
