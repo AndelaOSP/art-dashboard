@@ -3,21 +3,26 @@ import PropTypes from 'prop-types';
 import { Accordion, Form, Menu } from 'semantic-ui-react';
 import { isEmpty, isNull } from 'lodash';
 import uuidv4 from 'uuid/v4';
+import CheckboxComponent from '../CheckboxComponent';
 import '../../../_css/FilterComponent.css';
 
 class FilterComponent extends React.Component {
   handleTitleClick = (e, titleProps) => {
+    const { activeIndex, loadAccordionValue } = this.props;
     const { index } = titleProps;
-    const newIndex = this.props.activeIndex === index ? -1 : index;
-    this.props.loadAccordionValue(newIndex);
+    const newIndex = activeIndex === index ? -1 : index;
+    loadAccordionValue(newIndex);
   };
 
-  handleCheckboxChange = (event, { checked, label }) => {
+  handleCheckboxChange = (event) => {
+    const { option } = this.props;
+    const { checked, value } = event.target;
+
     const selection = {
-      label,
+      label: value,
       isChecked: checked
     };
-    this.props.filterSelection(selection, this.props.option.title);
+    this.props.filterSelection(selection, option.title);
   };
 
   render() {
@@ -37,34 +42,30 @@ class FilterComponent extends React.Component {
           />
           <Accordion.Content active={activeIndex === index}>
             <Form className="filter-form">
-              <Form.Group grouped>
-                {
-                  option.content.map((opt) => {
-                  const label = isNull(opt.option) ? 'unspecified' : opt.option;
-                  const selectedOptions = selected[option.title] || [];
+              {option.content.map((opt) => {
+                const label = isNull(opt.option) ? 'unspecified' : opt.option;
+                const selectedOptions = selected[option.title] || [];
 
-                  const check = () => {
-                    if (selectedOptions[0] === true) {
-                      selectedOptions[0] = 'Verified';
-                    }
-                    if (selectedOptions[0] === false) {
-                      selectedOptions[0] = 'UnVerified';
-                    }
-                    return selectedOptions.includes(label.toString());
-                  };
+                const check = () => {
+                  if (selectedOptions[0] === true) {
+                    selectedOptions[0] = 'Verified';
+                  }
+                  if (selectedOptions[0] === false) {
+                    selectedOptions[0] = 'UnVerified';
+                  }
+                  return selectedOptions.includes(label.toString());
+                };
 
-                  return (
-                    <Form.Checkbox
-                      key={uuidv4()}
-                      label={label}
-                      name={option.title}
-                      checked={check()}
-                      onChange={this.handleCheckboxChange}
-                    />
-                  );
-                  })
-                }
-              </Form.Group>
+                return (
+                  <CheckboxComponent
+                    key={uuidv4()}
+                    label={label}
+                    name={option.title}
+                    isChecked={check()}
+                    handleCheckboxChange={this.handleCheckboxChange}
+                  />
+                );
+              })}
             </Form>
           </Accordion.Content>
         </Menu.Item>
@@ -86,6 +87,5 @@ FilterComponent.defaultProps = {
   index: 0,
   option: {}
 };
-
 
 export default FilterComponent;
