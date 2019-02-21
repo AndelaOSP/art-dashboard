@@ -1,12 +1,20 @@
 import React from 'react';
+import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { Progress } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
+
 import { uploadStatus, StatusMessage } from './UploadStatus';
 import errorMessage from './UploadErrorMessages';
+
 import '../../_css/UploadAssets.css';
 
 class UploadAssets extends React.Component {
+  state = {
+    accepted: [],
+    rejected: []
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.downloadedFile !== prevProps.downloadedFile) {
       const link = document.createElement('a');
@@ -17,9 +25,14 @@ class UploadAssets extends React.Component {
     }
   }
 
-  handleDrop = (files) => {
+  handleDrop = (accepted, rejected) => {
     this.resetUpload();
-    this.props.uploadAssets(files);
+
+    this.setState({ accepted, rejected });
+
+    if (!isEmpty(accepted)) {
+      this.props.uploadAssets(accepted);
+    }
   };
 
   resetUpload = () => {
@@ -32,13 +45,14 @@ class UploadAssets extends React.Component {
   };
 
   render() {
+    const { rejected } = this.state;
     const { loading, success, error } = this.props;
-    const showStatus = success || error;
+    const showStatus = success || error || !isEmpty(rejected);
 
     return (
       <div className="center-upload">
         <span className="failed-file">
-          <a href="# " onClick={() => this.handleFileDownload('files/sample_import_file/')}>
+          <a href=" " onClick={() => this.handleFileDownload('files/sample_import_file/')}>
             Download the sample file
           </a>{' '}
           , fill the columns and upload it.
@@ -65,8 +79,8 @@ class UploadAssets extends React.Component {
 
             {showStatus && (
               <StatusMessage
-                message={uploadStatus(success, error)}
-                className={success.fail || error ? 'error-status' : 'success-status'}
+                message={uploadStatus(success, error, rejected)}
+                className={success.fail || (error || !isEmpty(rejected)) ? 'error-status' : 'success-status'}
                 reset={this.resetUpload}
               />
             )}

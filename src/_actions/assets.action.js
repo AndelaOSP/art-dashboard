@@ -38,6 +38,7 @@ export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
 
 export const uploadAssets = file => (dispatch) => {
   const formData = new FormData();
+
   formData.append('file', file[0]);
   dispatch(uploading(true));
   return axios
