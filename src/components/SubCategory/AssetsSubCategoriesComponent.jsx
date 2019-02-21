@@ -2,14 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import {
-  Header,
-  Table,
-  Pagination,
-  Segment,
-  Divider,
-  Button
-} from 'semantic-ui-react';
+import { Header, Table, Pagination, Segment, Divider, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import TableRow from '../TableRowComponent';
@@ -75,13 +68,7 @@ export class AssetSubCategoriesComponent extends React.Component {
             <Divider id="assets-divider" />
             <div className="header-modal-button">
               <ModalComponent
-                trigger={
-                  <Button
-                    className="filter-button"
-                  >
-                    ADD SUB-CATEGORY
-                  </Button>
-                }
+                trigger={<Button className="filter-button">ADD SUB-CATEGORY</Button>}
                 modalTitle="Add Sub-Category"
                 toggleModal={this.handleToggleModal}
                 modalOpen={this.state.modalOpen}
@@ -99,15 +86,13 @@ export class AssetSubCategoriesComponent extends React.Component {
             </Table.Header>
 
             <Table.Body>
-              {
-                this.props.assetSubCategories.map(subCategory => (
-                  <TableRow
-                    key={subCategory.id}
-                    data={subCategory}
-                    headings={['sub_category_name', 'asset_category']}
-                  />
-                ))
-              }
+              {this.props.assetSubCategories.map(subCategory => (
+                <TableRow
+                  key={subCategory.id}
+                  data={subCategory}
+                  headings={['name', 'asset_category']}
+                />
+              ))}
             </Table.Body>
 
             <Table.Footer>
@@ -160,6 +145,11 @@ AssetSubCategoriesComponent.propTypes = {
   assetSubCategoriesCount: PropTypes.number.isRequired
 };
 
-export default withRouter(connect(mapStateToProps, {
-  loadSubCategories
-})(AssetSubCategoriesComponent));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {
+      loadSubCategories
+    }
+  )(AssetSubCategoriesComponent)
+);

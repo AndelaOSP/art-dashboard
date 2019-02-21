@@ -10,7 +10,7 @@ import LoaderComponent from '../LoaderComponent';
 const placeMakesInSemanticUIOptions = assetMakesList =>
   assetMakesList.map((option, index) => ({
     key: index,
-    text: option.make_label,
+    text: option.asset_make,
     value: option.id
   }));
 

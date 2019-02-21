@@ -9,7 +9,7 @@ import LoaderComponent from '../LoaderComponent';
 const populateCategories = props =>
   props.map((option, index) => ({
     key: index,
-    text: option.category_name,
+    text: option.name,
     value: option.id
   }));
 
@@ -43,11 +43,7 @@ const AddSubCategoryComponent = (props) => {
       </label>
 
       <div className="modal__buttons">
-        <ArtButton
-          customCss="cancel"
-          buttonName="Cancel"
-          handleClick={props.toggleModal}
-        />
+        <ArtButton customCss="cancel" buttonName="Cancel" handleClick={props.toggleModal} />
         <ArtButton
           customCss="save"
           buttonName="Save"

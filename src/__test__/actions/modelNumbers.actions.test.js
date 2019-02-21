@@ -34,7 +34,7 @@ describe('Model Numbers action tests', () => {
   store = mockStore({});
 
   const modelNumberToCreate = {
-    model_number: 'MC-LF600',
+    name: 'MC-LF600',
     make_label: 'Make Label'
   };
 
@@ -66,7 +66,7 @@ describe('Model Numbers action tests', () => {
   it('should dispatch CREATE_MODEL_NUMBER_FAILURE when createModelNumbers fails', () => {
     mock.onGet().reply(401);
     return store.dispatch(createModelNumbers({
-      model_number: '',
+      name: '',
       make_label: ''
     }))
       .then(() => {

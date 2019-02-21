@@ -61,7 +61,7 @@ export class AddAssetTypesContainer extends React.Component {
 
   handleSubmit = () => {
     this.props.createAssetType({
-      asset_type: this.state.assetType,
+      name: this.state.assetType,
       asset_sub_category: this.state.subCategory
     });
   };
