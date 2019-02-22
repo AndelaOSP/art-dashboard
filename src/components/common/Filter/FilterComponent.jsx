@@ -7,16 +7,11 @@ import CheckboxComponent from '../CheckboxComponent';
 import '../../../_css/FilterComponent.css';
 
 class FilterComponent extends React.Component {
-  state = {
-    activeIndex: 0
-  };
-
   handleTitleClick = (e, titleProps) => {
+    const { activeIndex, loadAccordionValue } = this.props;
     const { index } = titleProps;
-    const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
-
-    this.setState({ activeIndex: newIndex });
+    loadAccordionValue(newIndex);
   };
 
   handleCheckboxChange = (event) => {
@@ -27,14 +22,11 @@ class FilterComponent extends React.Component {
       label: value,
       isChecked: checked
     };
-
     this.props.filterSelection(selection, option.title);
   };
 
   render() {
-    const { index, option } = this.props;
-    const { activeIndex } = this.state;
-
+    const { activeIndex, option, selected, index } = this.props;
     if (isEmpty(option)) {
       return <p>Loading filters</p>;
     }
@@ -52,30 +44,29 @@ class FilterComponent extends React.Component {
             <Form className="filter-form">
               {
                 option.content.map((opt) => {
-                  const label = isNull(opt.option) ? 'unspecified' : opt.option;
-                  const selectedOptions = this.props.selected[option.title] || [];
+                const label = isNull(opt.option) ? 'unspecified' : opt.option;
+                const selectedOptions = selected[option.title] || [];
 
-                  const check = () => {
-                    if (selectedOptions[0] === true) {
-                      selectedOptions[0] = 'Verified';
-                    }
-                    if (selectedOptions[0] === false) {
-                      selectedOptions[0] = 'UnVerified';
-                    }
-                    return selectedOptions.includes((label).toString());
-                  };
+                const check = () => {
+                  if (selectedOptions[0] === true) {
+                    selectedOptions[0] = 'Verified';
+                  }
+                  if (selectedOptions[0] === false) {
+                    selectedOptions[0] = 'UnVerified';
+                  }
+                  return selectedOptions.includes((label).toString());
+                };
 
-                  return (
-                    <CheckboxComponent
-                      key={uuidv4()}
-                      label={label}
-                      name={option.title}
-                      isChecked={check()}
-                      handleCheckboxChange={this.handleCheckboxChange}
-                    />
-                  );
-                }
-                )
+                return (
+                  <CheckboxComponent
+                    key={uuidv4()}
+                    label={label}
+                    name={option.title}
+                    isChecked={check()}
+                    handleCheckboxChange={this.handleCheckboxChange}
+                  />
+                );
+                })
               }
             </Form>
           </Accordion.Content>
@@ -87,9 +78,11 @@ class FilterComponent extends React.Component {
 
 FilterComponent.propTypes = {
   index: PropTypes.number,
+  activeIndex: PropTypes.number,
   option: PropTypes.object,
   filterSelection: PropTypes.func.isRequired,
-  selected: PropTypes.object.isRequired
+  selected: PropTypes.object.isRequired,
+  loadAccordionValue: PropTypes.func
 };
 
 FilterComponent.defaultProps = {

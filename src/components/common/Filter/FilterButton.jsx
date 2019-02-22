@@ -11,16 +11,17 @@ class FilterButton extends React.Component {
 
   handleOpen = () => {
     this.setState({ toggleOn: true });
+    document.body.classList.add('popup-open');
   };
 
   handleClose = () => {
     this.setState({ toggleOn: false });
+    document.body.classList.add('popup-closed');
   };
 
   handleFilter = () => {
     this.handleClose();
     const { selected } = this.props;
-
     if (this.props.selected['Verification Status']) {
       if (this.props.selected['Verification Status'][0] === 'Verified') {
         this.props.selected['Verification Status'][0] = true;

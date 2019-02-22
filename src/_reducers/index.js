@@ -25,6 +25,7 @@ import assetStatusReducer from './assetStatus.reducer';
 import officeLocations from './officeLocations.reducer';
 import filterValuesReducer from './allFilterValues.reducer';
 import securityUsersReducer from './securityUsers.reducer';
+import accordionReducer from './accordion.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -51,7 +52,8 @@ const rootReducer = combineReducers({
   assetStatus: assetStatusReducer,
   officeLocations,
   filters: filterValuesReducer,
-  securityUsers: securityUsersReducer
+  securityUsers: securityUsersReducer,
+  accordion: accordionReducer
 });
 
 export default rootReducer;
