@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const handleAxiosErrors = (error) => {
+export const handleAxiosErrors = (error) => {
   if (error.response) {
     return error.response.data;
   }
@@ -9,7 +9,7 @@ const handleAxiosErrors = (error) => {
     return error.request;
   }
 
-  return error.message || 'Something went wrong! Please try again later';
+  return error.message || 'Oops! Something went wrong. Please try again';
 };
 
 const fetchInfo = (url, loadingCallback) => {

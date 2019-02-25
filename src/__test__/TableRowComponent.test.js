@@ -9,6 +9,8 @@ describe('Renders <TableRowComponent /> correctly', () => {
   const props = {
     viewDetailsRoute: '',
     data: assets[0],
+    handleClick: jest.fn(),
+    onClick: jest.fn(),
     headings: ['asset_type', 'asset_code', 'model_number']
   };
   const wrapper = shallow(<TableRowComponent {...props} />);
@@ -27,5 +29,36 @@ describe('Renders <TableRowComponent /> correctly', () => {
     );
     wrapper.instance().handleView();
     expect(handleViewSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleClick function when icon is clicked', () => {
+    const handleClickSpy = jest.spyOn(
+      wrapper.instance(), 'handleClick'
+    );
+
+    wrapper.instance().handleClick();
+    expect(handleClickSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleHeadings', () => {
+    const handleHeadingsSpy = jest.spyOn(
+      wrapper.instance(), 'handleHeadings'
+    );
+
+    const heading = '';
+    props.data[heading] = false;
+    wrapper.instance().handleHeadings(heading);
+    expect(handleHeadingsSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleHeadings for active user ', () => {
+    const handleHeadingsSpy = jest.spyOn(
+      wrapper.instance(), 'handleHeadings'
+    );
+
+    const heading = 'is_active';
+    props.data[heading] = true;
+    wrapper.instance().handleHeadings(heading);
+    expect(handleHeadingsSpy.mock.calls.length).toEqual(2);
   });
 });

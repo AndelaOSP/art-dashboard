@@ -6,8 +6,6 @@ import { createBrowserHistory } from 'history';
 import RoutesComponent from './_components/RoutesComponent';
 import SessionExpired from './components/SessionExpiredComponent';
 
-import './App.css';
-
 import store from './_store';
 
 const history = createBrowserHistory();

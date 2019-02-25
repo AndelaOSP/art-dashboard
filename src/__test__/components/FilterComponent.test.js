@@ -11,11 +11,13 @@ describe('Renders <FilterComponent /> correctly', () => {
   const props = {
     handleTitleClick: jest.fn(),
     handleCheckboxChange: jest.fn(),
+    loadAccordionValue: jest.fn(),
     handleClose: jest.fn(),
     option: assetFilter[0],
     selected: selectedFilters,
     filterSelection: jest.fn(),
-    index: 0
+    index: 0,
+    activeIndex: 0
   };
 
   const wrapper = shallow(<FilterComponent {...props} />);

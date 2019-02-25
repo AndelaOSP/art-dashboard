@@ -62,8 +62,8 @@ class ModelNumberContainer extends React.Component {
 
   handleSubmit = (event) => {
     const newModel = {
-      make_label: this.state.assetMake,
-      model_number: this.state.modelNumber
+      asset_make: this.state.assetMake,
+      name: this.state.modelNumber
     };
     this.props.createModelNumbers(newModel);
     event.target.reset();
@@ -103,8 +103,11 @@ const mapStateToProps = ({ assetMakesList, toastMessage }) => ({
   isLoading: assetMakesList.isLoading
 });
 
-export default connect(mapStateToProps, {
-  loadAssetMakesDropdown,
-  createModelNumbers,
-  resetToastMessageContent
-})(ModelNumberContainer);
+export default connect(
+  mapStateToProps,
+  {
+    loadAssetMakesDropdown,
+    createModelNumbers,
+    resetToastMessageContent
+  }
+)(ModelNumberContainer);

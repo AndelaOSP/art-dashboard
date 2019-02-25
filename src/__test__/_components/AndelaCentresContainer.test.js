@@ -9,6 +9,8 @@ describe('Render <AndelaCentres /> tests', () => {
         locationCount: 0,
         isLoading: false,
         error: '',
+        updateError: '',
+        updateSuccess: '',
         countries: { results: [] }
       }
     };
@@ -18,7 +20,10 @@ describe('Render <AndelaCentres /> tests', () => {
       locationCount: 0,
       isLoading: false,
       error: '',
-      countries: { results: [] }
+      countries: { results: [] },
+      updateSuccess: '',
+      updateError: '',
+      entity: 'andela-centres'
     };
 
     expect(mapStateToProps(state)).toEqual(expected);

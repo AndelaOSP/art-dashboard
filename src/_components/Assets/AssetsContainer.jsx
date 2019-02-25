@@ -14,9 +14,8 @@ export const createFilterData = (assetTypes, assetModels) => {
     return [];
   }
 
-  const formattedAssetTypes = assetTypes.map(assetType => formatOption(assetType, 'asset_type'));
-  const formattedAssetModels = assetModels.map(assetModel => formatOption(assetModel, 'model_number'));
-
+  const formattedAssetTypes = assetTypes.map(assetType => formatOption(assetType, 'name'));
+  const formattedAssetModels = assetModels.map(assetModel => formatOption(assetModel, 'name'));
   return [
     {
       title: 'Asset Types',
@@ -25,6 +24,10 @@ export const createFilterData = (assetTypes, assetModels) => {
     {
       title: 'Model Numbers',
       content: formattedAssetModels
+    },
+    {
+      title: 'Verification Status',
+      content: [{ id: 1, option: 'Verified' }, { id: 2, option: 'UnVerified' }]
     }
   ];
 };

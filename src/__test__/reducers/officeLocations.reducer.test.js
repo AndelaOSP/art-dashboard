@@ -7,14 +7,20 @@ import constants from '../../_constants';
 const {
   LOAD_LOCATIONS_REQUEST,
   LOAD_LOCATIONS_SUCCESS,
-  LOAD_LOCATIONS_FAILURE
+  LOAD_LOCATIONS_FAILURE,
+  UPDATE_ANDELA_CENTRE_REQUEST,
+  UPDATE_ANDELA_CENTRE_SUCCESS,
+  UPDATE_ANDELA_CENTRE_FAILURE,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 const state = {
   locationCount: 0,
   locationList: [],
   isLoading: false,
-  error: ''
+  error: '',
+  updateSuccess: '',
+  updateError: ''
 };
 
 const action = {
@@ -52,6 +58,47 @@ describe('Asset Reducer tests', () => {
 
     expect(centresReducer(state, action)).toEqual(expect.objectContaining({
       isLoading: false
+    }));
+  });
+
+  it('should handle UPDATE_ANDELA_CENTRE_REQUEST', () => {
+    action.type = UPDATE_ANDELA_CENTRE_REQUEST;
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      isLoading: true
+    }));
+  });
+
+  it('should handle UPDATE_ANDELA_CENTRE_SUCCESS', () => {
+    action.type = UPDATE_ANDELA_CENTRE_SUCCESS;
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      isLoading: false,
+      updateError: '',
+      updateSuccess: 'Centre updated successfully.'
+    }));
+  });
+
+  it('should handle UPDATE_ANDELA_CENTRE_FAILURE', () => {
+    expect(centresReducer(state, {
+      type: UPDATE_ANDELA_CENTRE_FAILURE,
+      payload: 'Could not update the centre.'
+    }))
+      .toEqual(expect.objectContaining({
+        isLoading: false,
+        updateError: 'Could not update the centre.',
+        updateSuccess: ''
+      }));
+  });
+
+  it('should handle RESET_STATUS_MESSAGE', () => {
+    action.type = RESET_STATUS_MESSAGE;
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      error: '',
+      successMessage: '',
+      updateError: '',
+      updateSuccess: ''
     }));
   });
 });

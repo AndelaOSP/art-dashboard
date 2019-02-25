@@ -1,4 +1,3 @@
-
 import expect from 'expect';
 import subcategoryReducer from '../../_reducers/subcategory.reducer';
 import subcategories from '../../_mock/subcategories';
@@ -19,7 +18,7 @@ const initialState = {
 };
 
 const subCategoryToCreate = {
-  sub_category_name: 'Asus',
+  name: 'Asus',
   asset_category: 1
 };
 
@@ -33,8 +32,9 @@ describe('Sub Category Reducer test', () => {
   it('should handle LOAD_SUBCATEGORIES_SUCCESS', () => {
     action.type = LOAD_SUBCATEGORIES_SUCCESS;
     action.payload.results = subcategories;
-    expect(subcategoryReducer(initialState, action).assetSubCategories)
-      .toEqual(action.payload.results);
+    expect(subcategoryReducer(initialState, action).assetSubCategories).toEqual(
+      action.payload.results
+    );
     expect(subcategoryReducer(initialState, action).isLoading).toEqual(false);
   });
 
@@ -54,8 +54,9 @@ describe('Sub Category Reducer test', () => {
   it('should handle CREATE_SUBCATEGORY_SUCCESS', () => {
     action.type = CREATE_SUBCATEGORY_SUCCESS;
     action.payload = subCategoryToCreate;
-    expect(subcategoryReducer(initialState, action).assetSubCategories[0])
-      .toEqual(subCategoryToCreate);
+    expect(subcategoryReducer(initialState, action).assetSubCategories[0]).toEqual(
+      subCategoryToCreate
+    );
   });
 
   it('should handle CREATE_SUBCATEGORY_FAILURE', () => {

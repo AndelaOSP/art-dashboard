@@ -11,15 +11,36 @@ class FilterButton extends React.Component {
 
   handleOpen = () => {
     this.setState({ toggleOn: true });
+    document.body.classList.add('popup-open');
   };
 
   handleClose = () => {
     this.setState({ toggleOn: false });
+    document.body.classList.add('popup-closed');
   };
 
   handleFilter = () => {
     this.handleClose();
     const { selected } = this.props;
+    if (this.props.selected['Verification Status']) {
+      if (this.props.selected['Verification Status'][0] === 'Verified') {
+        this.props.selected['Verification Status'][0] = true;
+      }
+      if (this.props.selected['Verification Status'][1] === 'Verified') {
+        this.props.selected['Verification Status'][0] = true;
+      }
+      if (this.props.selected['Verification Status'][0] === 'UnVerified') {
+        this.props.selected['Verification Status'][0] = false;
+      }
+      if (this.props.selected['Verification Status'][1] === 'UnVerified') {
+        this.props.selected['Verification Status'][1] = false;
+      }
+      if (this.props.selected['Verification Status'][0] === 'Verified' || this.props.selected['Verification Status'][1] === 'Verified') {
+        if (this.props.selected['Verification Status'][0] === 'UnVerified' || this.props.selected['Verification Status'][1] === 'UnVerified') {
+          this.props.selected['Verification Status'] = null;
+        }
+      }
+    }
 
     this.props.filterAction(
       this.props.activePage,

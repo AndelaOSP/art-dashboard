@@ -1,30 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Table, Button } from 'semantic-ui-react';
 
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../../components/LoaderComponent';
+import Cards from '../common/Card/Card';
 import ItemsNotFoundComponent from '../common/ItemsNotFoundComponent';
 import Paginator from '../common/PaginationComponent';
 import StatusMessageComponent from '../common/StatusComponent';
-import TableHeader from '../common/Table/TableHeaderComponent';
-import TableContent from '../common/Table/TableContent';
-import ModalComponent from '../common/ModalComponent';
-import CentreModal from './CentreModal';
 import PageHeader from '../common/PageHeader';
+import CentreModal from '../../_components/AndelaCentres/CentreModalContainer';
 
 class AndelaCentresComponent extends React.Component {
   state = {
     limit: 10,
     activePage: 1,
-    centre: '',
-    country: '',
-    modalOpen: false
+    modalOpen: false,
+    editModalOpen: false,
+    location: {}
   };
 
   componentDidMount() {
-    this.props.loadOfficeLocations(this.state.activePage);
+    this.props.loadOfficeLocations(this.state.activePage, this.state.limit);
     this.props.loadCountries();
   }
 
@@ -35,34 +32,29 @@ class AndelaCentresComponent extends React.Component {
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
-    this.props.loadOfficeLocations(activePage);
+    this.props.loadOfficeLocations(activePage, this.state.limit);
   };
 
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleToggleModal = () => {
+    this.setState({ modalOpen: !this.state.modalOpen });
+    this.props.resetMessage();
   };
 
-  onSelectCountry = (event, data) => {
-    this.setState({ country: data.value });
+  handleEditToggleModal = (data = {}) => {
+    this.setState({
+      editModalOpen: !this.state.editModalOpen,
+      location: data
+    });
+    this.props.resetMessage();
   };
-
-  handleSubmit = () => {
-    const newCentre = {
-      centre_name: this.state.centre,
-      country: this.state.country
-    };
-    this.props.createOfficeLocation(newCentre);
-    this.handleToggleModal();
-  };
-
-  handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   getTotalPages = () => Math.ceil(this.props.locationCount / this.state.limit);
 
   render() {
-    const { isLoading, locationList, error, resetMessage } = this.props;
+    const { isLoading, locationList, error, resetMessage, entity } = this.props;
     const hasLocations = !isEmpty(locationList);
     const showStatus = error;
+    const showAction = entity === 'andela-centres';
     const showNotFound = !isLoading && !hasLocations && !showStatus;
 
     return (
@@ -70,51 +62,50 @@ class AndelaCentresComponent extends React.Component {
         <div className="assets-list">
           <PageHeader header="Andela Centres">
             <div className="header-modal-button">
-              <ModalComponent
-                trigger={
-                  <Button className="add-asset" size="medium">
-                    ADD CENTRE
-                  </Button>
-                }
-                modalTitle="Add Centre"
-                toggleModal={this.handleToggleModal}
-                modalOpen={this.state.modalOpen}
-              >
-                <CentreModal
-                  handleChange={this.handleChange}
-                  handleSubmit={this.handleSubmit}
-                  countries={this.props.countries}
-                  onSelectCountry={this.onSelectCountry}
-                  country={this.state.country}
-                />
-              </ModalComponent>
+              <CentreModal
+                showTrigger
+                title="Add Centre"
+                mode="add"
+                onToggle={this.handleToggleModal}
+                open={this.state.modalOpen}
+              />
             </div>
           </PageHeader>
 
-          <div className="assets-list">
-            {showStatus && (
-              <StatusMessageComponent
-                message={error}
-                className="error-status"
-                reset={resetMessage}
-              />
-            )}
-          </div>
+          <CentreModal
+            title="Update An Andela Centre"
+            mode="edit"
+            onToggle={this.handleEditToggleModal}
+            open={this.state.editModalOpen}
+            data={this.state.location}
+            key={`edit-${this.state.location.id || 1}`}
+          />
+
+          {showStatus && (
+            <StatusMessageComponent
+              message={error}
+              className="error-status"
+              reset={resetMessage}
+            />
+          )}
 
           {isLoading && !showStatus && <LoaderComponent />}
+
+          {!isLoading && hasLocations && (
+            <Cards
+              data={locationList}
+              headings={['name', 'country']}
+              imageName="map.svg"
+              showAction={showAction}
+              onClick={this.handleEditToggleModal}
+            />
+          )}
 
           {showNotFound && (
             <ItemsNotFoundComponent
               header="No Andela Centres found!"
               message="Please try again later to see if there will be centres to show you"
             />
-          )}
-
-          {!isLoading && hasLocations && (
-            <Table basic>
-              <TableHeader titles={['Name', 'Country']} />
-              <TableContent data={locationList} headings={['centre_name', 'country']} />
-            </Table>
           )}
 
           <Paginator
@@ -134,13 +125,12 @@ class AndelaCentresComponent extends React.Component {
 AndelaCentresComponent.propTypes = {
   isLoading: PropTypes.bool,
   loadOfficeLocations: PropTypes.func,
-  createOfficeLocation: PropTypes.func,
   resetMessage: PropTypes.func,
   locationCount: PropTypes.number,
   locationList: PropTypes.array,
   error: PropTypes.string,
   loadCountries: PropTypes.func,
-  countries: PropTypes.array
+  entity: PropTypes.string
 };
 
 AndelaCentresComponent.defaultProps = {

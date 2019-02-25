@@ -103,7 +103,7 @@ export class AssetMakeComponent extends React.Component {
                   <TableRow
                     key={asset.id}
                     data={asset}
-                    headings={['id', 'asset_type', 'make_label']}
+                    headings={['id', 'asset_type', 'name']}
                   />
                 ))
               }

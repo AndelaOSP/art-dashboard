@@ -19,7 +19,8 @@ export const USERS_HEADERS = {
     'Last Name',
     'Email Address',
     'Badge No.',
-    'Phone No.'
+    'Phone No.',
+    'Active'
   ]
 };
 
@@ -35,6 +36,7 @@ export const USERS_HEADERS_TO_DATA_KEYS = {
     'last_name',
     'email',
     'badge_number',
-    'phone_number'
+    'phone_number',
+    'is_active'
   ]
 };

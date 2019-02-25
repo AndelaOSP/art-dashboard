@@ -116,7 +116,11 @@ export default {
     locationCount: 0,
     locationList: [],
     isLoading: false,
-    error: ''
+    error: '',
+    updateSuccess: '',
+    updateError: '',
+    createSuccess: '',
+    createFailure: ''
   },
   filters: {
     cohorts: [],
@@ -131,5 +135,8 @@ export default {
     errorMessage: '',
     successMessage: '',
     isLoading: false
+  },
+  accordion: {
+    activeIndex: 0
   }
 };

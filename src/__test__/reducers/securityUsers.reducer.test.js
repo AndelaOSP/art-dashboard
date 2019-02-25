@@ -11,7 +11,10 @@ const {
   LOAD_SECURITY_USERS_SUCCESS,
   LOAD_SECURITY_USERS_FAILURE,
   RESET_STATUS_MESSAGE,
-  SET_USERS_ACTIVE_PAGE
+  SET_USERS_ACTIVE_PAGE,
+  UPDATE_ACTIVE_STATUS_REQUEST,
+  UPDATE_ACTIVE_STATUS_SUCCESS,
+  UPDATE_ACTIVE_STATUS_FAILURE
 } = constants;
 
 const initialState = {
@@ -95,5 +98,28 @@ describe('Users Reducer tests', () => {
 
     expect(securityUsersReducer(initialState, action).successMessage).toEqual('');
     expect(securityUsersReducer(initialState, action).errorMessage).toEqual('');
+  });
+
+  it('should handle UPDATE_ACTIVE_STATUS_REQUEST', () => {
+    action.type = UPDATE_ACTIVE_STATUS_REQUEST;
+    action.payload = SecurityUser;
+
+    expect(securityUsersReducer(initialState, action).isLoading).toEqual(true);
+  });
+
+  it('should handle UPDATE_ACTIVE_STATUS_SUCCESS', () => {
+    action.type = UPDATE_ACTIVE_STATUS_SUCCESS;
+    action.payload = SecurityUser;
+
+    expect(securityUsersReducer(initialState, action).isLoading).toEqual(false);
+    expect(securityUsersReducer(initialState, action).successMessage).toEqual('Active status updated successfully.');
+  });
+
+  it('should handle UPDATE_ACTIVE_STATUS_FAILURE', () => {
+    action.type = UPDATE_ACTIVE_STATUS_FAILURE;
+    action.payload = SecurityUser;
+
+    expect(securityUsersReducer(initialState, action).isLoading).toEqual(false);
+    expect(securityUsersReducer(initialState, action).errorMessage).toEqual('Active status update unsuccessful. Please try again.');
   });
 });

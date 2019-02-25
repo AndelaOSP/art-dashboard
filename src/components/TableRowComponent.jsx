@@ -1,7 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Table } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Table, Icon } from 'semantic-ui-react';
+import IsActiveContainer from '../_components/SecurityUser/IsActiveContainer';
 
 export class TableRowComponent extends React.Component {
   handleView = () => {
@@ -12,16 +13,47 @@ export class TableRowComponent extends React.Component {
     return history.push(viewDetailsRoute, data);
   };
 
+  handleClick = () => {
+    this.props.onClick(this.props.data);
+  }
+
+  handleHeadings = (heading) => {
+    if (heading === 'is_active') {
+      if (this.props.data[heading] === true || this.props.data[heading] === false) {
+        return (<IsActiveContainer securityUser={this.props.data} />);
+      }
+    }
+
+    if (this.props.data[heading] === true) {
+      return 'Yes';
+    }
+
+    if (this.props.data[heading] === false) {
+      return 'No';
+    }
+
+    return this.props.data[heading];
+  }
+
   render() {
     return (
       <Table.Row onClick={this.handleView}>
         {this.props.headings
           .map(heading => (
             <Table.Cell key={heading}>
-              {this.props.data[heading]}
+              {this.handleHeadings(heading)}
             </Table.Cell>
           )
           )}
+        {this.props.showAction &&
+          <Table.Cell>
+            <Icon
+              data={this.props.data}
+              name="edit"
+              className="asset-detail__table__icon"
+              onClick={this.handleClick}
+            />
+          </Table.Cell>}
         {this.props.children}
       </Table.Row>
     );
@@ -33,7 +65,9 @@ TableRowComponent.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node,
   history: PropTypes.object,
-  viewDetailsRoute: PropTypes.string
+  viewDetailsRoute: PropTypes.string,
+  showAction: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 export default withRouter(TableRowComponent);

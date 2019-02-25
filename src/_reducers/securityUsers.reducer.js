@@ -1,5 +1,6 @@
 import constants from '../_constants';
 import initialState from './initialState';
+import findSecurityUserIndex from '../_utils/updatePaginatedObject';
 
 const {
   CREATE_SECURITY_USER_REQUEST,
@@ -9,7 +10,10 @@ const {
   LOAD_SECURITY_USERS_SUCCESS,
   LOAD_SECURITY_USERS_FAILURE,
   SET_USERS_ACTIVE_PAGE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  UPDATE_ACTIVE_STATUS_REQUEST,
+  UPDATE_ACTIVE_STATUS_SUCCESS,
+  UPDATE_ACTIVE_STATUS_FAILURE
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -31,6 +35,24 @@ const getErrorMessage = (error) => {
   }
 
   return '';
+};
+
+const updateSecurityUser = (securityUser, usersList) => {
+  const securityUserIndex = findSecurityUserIndex(securityUser, usersList);
+
+  if (!securityUserIndex) {
+    return usersList;
+  }
+
+  const { page, index } = securityUserIndex;
+  const pageData = usersList[page];
+
+  pageData[index] = securityUser;
+
+  return {
+    ...usersList,
+    [page]: pageData
+  };
 };
 
 export default (state = initialState.securityUsers, action) => {
@@ -97,6 +119,29 @@ export default (state = initialState.securityUsers, action) => {
       return {
         ...state,
         activePage: action.payload
+      };
+
+    case UPDATE_ACTIVE_STATUS_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case UPDATE_ACTIVE_STATUS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        usersList: updateSecurityUser(action.payload, state.usersList),
+        successMessage: 'Active status updated successfully.',
+        errorMessage: ''
+      };
+
+    case UPDATE_ACTIVE_STATUS_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        successMessage: '',
+        errorMessage: 'Active status update unsuccessful. Please try again.'
       };
 
     default:

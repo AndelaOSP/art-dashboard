@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uuidv4 from 'uuid/v4';
 
-import FilterComponent from './FilterComponent';
+import FilterComponent from '../../../_components/common/FilterContainer';
 import FilterButton from './FilterButton';
 
 const Filter = props => (

@@ -28,7 +28,7 @@ describe('Pagination component tests', () => {
   });
 
   it('renders the segment group', () => {
-    expect(wrapper.find('#art-pagination-section')).toHaveClassName('entity-loaded-pagination');
+    expect(wrapper.find('#art-pagination-section')).toHaveProp('compact', true);
   });
 
   it('renders the pagination component', () => {

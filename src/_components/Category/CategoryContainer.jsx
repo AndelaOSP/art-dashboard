@@ -40,7 +40,7 @@ class CategoryContainer extends React.Component {
 
   handleSubmit = (event) => {
     const newCategory = {
-      category_name: this.state.categoryName
+      name: this.state.categoryName
     };
     this.props.createCategory(newCategory);
     event.target.reset();
@@ -77,7 +77,10 @@ const mapStateToProps = ({ categories, toastMessage, isLoading }) => ({
   isLoading
 });
 
-export default connect(mapStateToProps, {
-  createCategory,
-  resetToastMessageContent
-})(CategoryContainer);
+export default connect(
+  mapStateToProps,
+  {
+    createCategory,
+    resetToastMessageContent
+  }
+)(CategoryContainer);

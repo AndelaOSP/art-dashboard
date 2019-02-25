@@ -29,8 +29,8 @@ describe('Category Reducer tests', () => {
 
   it('should handle CREATE_MODEL_NUMBER_SUCCESS', () => {
     const modelNumberToCreate = {
-      model_number: 'MC-LF600',
-      make_label: 'Make Label'
+      name: 'MC-LF600',
+      asset_make: 'Make Label'
     };
     const action = createModelNumberSuccess(modelNumberToCreate);
     expect(mockStore.modelNumbers.length).toEqual(0);

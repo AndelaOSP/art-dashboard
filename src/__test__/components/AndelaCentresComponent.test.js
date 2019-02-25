@@ -14,7 +14,7 @@ describe('Renders <AndelaCentresComponent /> correclty', () => {
     loadAndelaCentres: jest.fn(),
     loadCountries: jest.fn(),
     centres,
-    countries
+    countries: countries.results
   };
 
   const wrapper = shallow(<AndelaCentresComponent {...props} />);

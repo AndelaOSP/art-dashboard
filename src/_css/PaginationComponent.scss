@@ -1,11 +1,86 @@
 @import "sharedStyling.scss";
+@import "mediaQueries.scss";
 
-.entity-loading-pagination {
-  position: absolute;
-  top: 20vh;
-  left: 50vh;
+#art-pagination-section {
+  width: fit-content;
+  margin: 0 auto;
 }
 
-.entity-loaded-pagination {
-  left: 45vh;
+@mixin first-last-pagination {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 1px;
+  top: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  background: $andela-white;
+}
+
+.ui.fluid.search.selection.dropdown.page-limit {
+  width: 100px;
+  height: 41px;
+  margin-top: 0;
+  border-radius: 0;
+  border: 0.5px solid $pagination-color;
+}
+
+.ui.pagination.menu {
+  box-shadow: none;
+  border: 0;
+}
+
+.ui.pagination.menu .item {
+  border: 0.5px solid $pagination-color;
+}
+
+.ui.pagination.menu .active.item {
+  border-top: solid 0.5px #d6d6d6;
+}
+
+.ui.pagination.menu a:nth-child(n+3) {
+  border-top: solid 0.5px #d6d6d6;
+  border-bottom: solid 0.5px #d6d6d6;
+  border-left: 0;
+  border-right: 0;
+}
+
+.ui.pagination.menu a:nth-last-child(2) {
+  border: 0.5px solid $pagination-color;
+  color: $andela-black;
+}
+
+.ui.pagination.menu a:last-child {
+  border: 0.5px solid $pagination-color;
+  color: $andela-black;
+  margin-left: 10px;
+}
+
+.ui.pagination.menu a:first-child,
+.ui.pagination.menu a:last-child {
+  position: relative;
+  margin-right: 10px;
+}
+
+.ui.pagination.menu a:first-child::after {
+  border-radius: 0;
+  content: "First";
+}
+
+.ui.pagination.menu a:last-child::after {
+  content: "Last";
+}
+
+.ui.pagination.menu .item:last-child {
+  border-radius: 0;
+}
+
+.ui.pagination.menu .item:first-child {
+  border-radius: 0;
+}
+
+.ui.pagination.menu a:first-child::after,
+.ui.pagination.menu a:last-child::after {
+  @include first-last-pagination
 }

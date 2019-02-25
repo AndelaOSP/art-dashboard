@@ -59,7 +59,7 @@ class AssetMakeContainer extends React.Component {
   handleSubmit = (event) => {
     const { assetMake, assetType } = this.state;
     const newMake = {
-      make_label: assetMake,
+      name: assetMake,
       asset_type: assetType
     };
     this.props.addAssetMakes(newMake);
@@ -95,7 +95,7 @@ AssetMakeContainer.propTypes = {
   assetTypes: PropTypes.array
 };
 
-const mapStateToProps = ({ assetTypesList, toastMessage }) => ({
+export const mapStateToProps = ({ assetTypesList, toastMessage }) => ({
   assetTypes: assetTypesList.assetTypes,
   toastMessageContent: toastMessage,
   isLoading: assetTypesList.isLoading

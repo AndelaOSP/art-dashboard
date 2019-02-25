@@ -11,12 +11,13 @@ describe('Renders <Filter /> tests', () => {
     filterData: [],
     activePage: 1,
     limit: 0,
-    isLoading: false
+    isLoading: false,
+    index: 0
   };
   const wrapper = shallow(<Filter {...props} />);
 
   it('does not renders FilterComponent if filterdata is empty', () => {
-    expect(wrapper.find('FilterButton').dive().find('FilterComponent').exists()).toBe(false);
+    expect(wrapper.find('FilterButton').dive().find('Connect(FilterComponent)').exists()).toBe(false);
   });
 
   it('renders FilterComponent if filterdata not empty', () => {
@@ -38,6 +39,6 @@ describe('Renders <Filter /> tests', () => {
         }
       ]
     });
-    expect(wrapper.find('FilterButton').dive().find('FilterComponent').exists()).toBe(true);
+    expect(wrapper.find('FilterButton').dive().find('Connect(FilterComponent)').exists()).toBe(true);
   });
 });

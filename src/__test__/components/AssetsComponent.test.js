@@ -27,7 +27,7 @@ describe('Renders <AssetsComponent /> correctly', () => {
     selected: {},
     filterSelection: jest.fn(),
     resetAssets: jest.fn(),
-    assetsList: {},
+    assetsList: [],
     loading: jest.fn(),
     match: {
       params: { status: '' }

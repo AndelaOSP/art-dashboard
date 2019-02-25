@@ -19,23 +19,11 @@ describe('Asset Categories Component', () => {
   const wrapper = shallow(<AssetCategoriesComponent {...props} />);
 
   it('renders page heading', () => {
-    expect(wrapper.find('#page-headings').prop('content')).toEqual('Asset Categories');
+    expect(wrapper.find('PageHeader').prop('header')).toEqual('Asset Categories');
   });
 
-  it('renders a divider below the heading', () => {
-    expect(wrapper.find('#assets-divider').length).toBe(1);
-  });
-
-  it('renders Pagination component', () => {
-    expect(wrapper.find('Pagination').length).toBe(1);
-  });
-
-  it('renders a Table Component', () => {
-    expect(wrapper.find('Table').length).toBe(1);
-  });
-
-  it('renders a Dropdown Component', () => {
-    expect(wrapper.find('DropdownComponent').length).toBe(1);
+  it('renders PaginationComponent', () => {
+    expect(wrapper.find('PaginationComponent').length).toBe(1);
   });
 
   it('renders error message if there are no asset categories', () => {
@@ -66,5 +54,27 @@ describe('Asset Categories Component', () => {
 
     wrapper.instance().handleToggleModal();
     expect(wrapper.state().modalOpen).toEqual(true);
+  });
+
+  it('calls the handlePaginationChange function', () => {
+    const handlePaginationChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handlePaginationChange'
+    );
+    const event = {};
+    const data = {};
+
+    wrapper.instance().handlePaginationChange(event, data);
+    expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the handleRowChange function ', () => {
+    const handleRowChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleRowChange'
+    );
+    const event = {};
+    const data = {};
+
+    wrapper.instance().handleRowChange(event, data);
+    expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
   });
 });

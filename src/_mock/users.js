@@ -23,7 +23,8 @@ export const SecurityUser = {
   last_name: 'User',
   email: 'test@email.com',
   badge_number: '10F',
-  phone_number: '090938e90938'
+  phone_number: '090938e90938',
+  is_active: true
 };
 
 export const AssetAssignee = [
@@ -49,7 +50,8 @@ export const securityUsers = {
       email: 'security1@example.com',
       badge_number: '001',
       phone_number: '0700111222',
-      last_login: null
+      last_login: null,
+      is_active: true
     },
     {
       id: 176,
@@ -58,7 +60,8 @@ export const securityUsers = {
       email: 'security2@example.com',
       badge_number: '002',
       phone_number: '0700111333',
-      last_login: null
+      last_login: null,
+      is_active: true
     },
     {
       id: 177,
@@ -67,7 +70,8 @@ export const securityUsers = {
       email: 'security3@example.com',
       badge_number: '003',
       phone_number: '0700111444',
-      last_login: null
+      last_login: null,
+      is_active: true
     }
   ]
 };

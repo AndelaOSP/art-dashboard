@@ -33,16 +33,16 @@ SaveButton.defaultProps = {
 const FilterAssetComponent = (props) => {
   const generateCategoryArray = () => {
     const categoryArray = [];
-    props.categories.map(opt => (
-      categoryArray.push(opt.category_name)
-    ));
+    props.categories.map(opt => categoryArray.push(opt.name));
 
     return categoryArray;
   };
 
   return (
     <Form onSubmit={props.onCreateAsset} className="add-asset-form">
-      <div className="label-style">Category <span className="input-asterisk"> * </span></div>
+      <div className="label-style">
+        Category <span className="input-asterisk"> * </span>
+      </div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Category"
@@ -54,7 +54,9 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Sub Category <span className="input-asterisk"> * </span></div>
+      <div className="label-style">
+        Sub Category <span className="input-asterisk"> * </span>
+      </div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Subcategory"
@@ -66,7 +68,9 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Type <span className="input-asterisk"> * </span></div>
+      <div className="label-style">
+        Type <span className="input-asterisk"> * </span>
+      </div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Type"
@@ -78,7 +82,9 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Make <span className="input-asterisk"> * </span></div>
+      <div className="label-style">
+        Make <span className="input-asterisk"> * </span>
+      </div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Make"
@@ -90,7 +96,9 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Model Number <span className="input-asterisk"> * </span></div>
+      <div className="label-style">
+        Model Number <span className="input-asterisk"> * </span>
+      </div>
       <DropdownComponent
         customClass="form-dropdown add-asset-dropdown"
         label="Asset Model Number"
@@ -102,7 +110,9 @@ const FilterAssetComponent = (props) => {
         upward={false}
       />
 
-      <div className="label-style">Asset Tag <span className="input-asterisk"> * </span></div>
+      <div className="label-style">
+        Asset Tag <span className="input-asterisk"> * </span>
+      </div>
       <InputFluid
         customCss="input-style"
         placeholder="Enter Asset Tag"
@@ -111,7 +121,9 @@ const FilterAssetComponent = (props) => {
         onChange={props.handleInputChange}
       />
 
-      <div className="label-style">Serial Number <span className="input-asterisk"> * </span></div>
+      <div className="label-style">
+        Serial Number <span className="input-asterisk"> * </span>
+      </div>
       <InputFluid
         customCss="input-style"
         placeholder="Enter Serial Number"
@@ -120,25 +132,23 @@ const FilterAssetComponent = (props) => {
         onChange={props.handleInputChange}
       />
 
-      {
-        props.isAssetSpecsAvailable && !props.isDisabled
-          ?
-            <ArtButton
-              className="save"
-              buttonName="Next"
-              color="primary"
-              handleClick={props.onNextClicked}
-              buttonState={props.buttonLoading}
-              disabledState={props.isDisabled}
-              fluidState
-            />
-          :
-            <SaveButton
-              buttonLoading={props.buttonLoading}
-              isDisabled={props.isDisabled}
-              handleClick={props.reset}
-            />
-      }
+      {props.isAssetSpecsAvailable && !props.isDisabled ? (
+        <ArtButton
+          className="save"
+          buttonName="Next"
+          color="primary"
+          handleClick={props.onNextClicked}
+          buttonState={props.buttonLoading}
+          disabledState={props.isDisabled}
+          fluidState
+        />
+      ) : (
+        <SaveButton
+          buttonLoading={props.buttonLoading}
+          isDisabled={props.isDisabled}
+          handleClick={props.reset}
+        />
+      )}
     </Form>
   );
 };
