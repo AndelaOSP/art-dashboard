@@ -15,5 +15,10 @@ export default {
     incidenceReportsCount: 0,
     isLoading: false,
     hasError: false
+  },
+  logs: {
+    isLoading: false,
+    assetLogs: [],
+    assetLogsCount: 0
   }
 };
