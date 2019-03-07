@@ -1,19 +1,18 @@
-import faker from 'faker';
 
 export default [
   {
     id: 1,
-    asset: 'Make Label Fake A',
-    log_type: 'monitoring'
+    asset: 'Asset Fake A',
+    log_type: 'Checkin'
   },
   {
     id: 2,
-    name: 'Make Label Fake B',
-    log_type: faker.random.word()
+    asset: 'Asset Fake B',
+    log_type: 'Checkin'
   },
   {
-    id: 2,
-    name: 'Make Label Fake C',
-    log_type: faker.random.word()
+    id: 3,
+    asset: 'Asset Fake C',
+    log_type: 'Checkout'
   }
 ];
