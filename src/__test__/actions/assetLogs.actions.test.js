@@ -31,9 +31,8 @@ describe('Asset Logs Actions', () => {
     store.clearActions();
   });
 
-  expect.hasAssertions();
-
   it('should dispatch LOADING_ASSET_LOGS with isLoading false when done fetching asset logs', () => {
+    expect.hasAssertions();
     mock.onGet().reply(200, assetLogs);
     return store.dispatch(loadAssetLogs())
       .then(() => {
@@ -45,6 +44,7 @@ describe('Asset Logs Actions', () => {
   });
 
   it('should dispatch LOADING_ASSET_LOGS with isLoading true when fetching asset logs', () => {
+    expect.hasAssertions();
     mock.onGet().reply(200, assetLogs);
     return store.dispatch(loadAssetLogs())
       .then(() => {
@@ -56,6 +56,7 @@ describe('Asset Logs Actions', () => {
   });
 
   it('should dispatch LOAD_ASSET_LOGS_SUCCESS when loadAssetLogs called successfully', () => {
+    expect.hasAssertions();
     mock.onGet().reply(200, assetLogs);
     return store.dispatch(loadAssetLogs())
       .then(() => {
@@ -67,6 +68,7 @@ describe('Asset Logs Actions', () => {
   });
 
   it('should dispatch LOAD_ASSET_LOGS_FAILURE when AssetLogs are not loaded', () => {
+    expect.hasAssertions();
     mock.onGet().reply(401);
     return store.dispatch(loadAssetLogs()).then(() => {
       expect(store.getActions()).toContainEqual({
