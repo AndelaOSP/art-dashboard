@@ -12,6 +12,7 @@ import fetchInfo from '../../_utils/ajax';
 import UsersContent from './UsersContent';
 import Paginator from '../common/PaginationComponent';
 import UserFilter from '../../_components/User/UserFilterContainer';
+import Securityuser from '../../_components/User/SecurityUserFilter';
 import ModalComponent from '../common/ModalComponent';
 
 import '../../_css/UsersComponent.css';
@@ -94,6 +95,8 @@ export default class UserComponent extends React.Component {
     return Math.ceil(usersCount / this.state.limit);
   };
 
+  usersStatus = () => ['active', 'inactive'];
+
   render() {
     const {
       activePage,
@@ -126,18 +129,22 @@ export default class UserComponent extends React.Component {
         )}
 
         {!isUsersPage && (
-          <ModalComponent
-            trigger={
-              <Button className="filter-button">
-                ADD SECURITY USER
-              </Button>
-            }
-            modalTitle="Add Security User"
-            toggleModal={this.handleToggleModal}
-            modalOpen={this.state.modalOpen}
-          >
-            <AddSecurityUserContainer />
-          </ModalComponent>
+          <React.Fragment>
+            <ModalComponent
+              trigger={<Button className="filter-button">ADD SECURITY USER</Button>}
+              modalTitle="Add Security User"
+              toggleModal={this.handleToggleModal}
+              modalOpen={this.state.modalOpen}
+            >
+              <AddSecurityUserContainer />
+            </ModalComponent>
+
+            <Securityuser
+              limit={this.state.limit}
+              data-test="user-filter"
+              filterAction={this.usersStatus}
+            />
+          </React.Fragment>
         )}
 
         {showStatus && (
@@ -150,20 +157,11 @@ export default class UserComponent extends React.Component {
 
         {isLoading && <LoaderComponent />}
 
-        {(!hasUsers && !isLoading) && (
-          <ItemsNotFoundComponent
-            allDataFetched={this.state.allDataFetched}
-            message={message}
-          />
+        {!hasUsers && !isLoading && (
+          <ItemsNotFoundComponent allDataFetched={this.state.allDataFetched} message={message} />
         )}
 
-        {!isLoading && (
-          <UsersContent
-            users={activePageUsers}
-            hasUsers={hasUsers}
-            entity={entity}
-          />
-        )}
+        {!isLoading && <UsersContent users={activePageUsers} hasUsers={hasUsers} entity={entity} />}
 
         <Paginator
           activePage={activePage}
@@ -184,10 +182,7 @@ UserComponent.propTypes = {
   isLoading: PropTypes.bool,
   loadUsers: PropTypes.func.isRequired,
   usersCount: PropTypes.number,
-  users: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.object),
-    PropTypes.object
-  ]),
+  users: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.object]),
   loadAllFilterValues: PropTypes.func,
   activePage: PropTypes.number,
   resetUsers: PropTypes.func,
