@@ -146,7 +146,7 @@ const CONSTANTS = KeyMirror({
   ACTIVE_ACCORDION: true,
   LOAD_ASSET_LOGS_SUCCESS: true,
   LOAD_ASSET_LOGS_FAILURE: true,
-  LOADING_ASSETS_LOGS: true
+  LOADING_ASSET_LOGS: true
 });
 
 export const ASSET_AVAILABLE = 'Available';

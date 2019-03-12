@@ -12,23 +12,17 @@ describe('Renders <AssetLogComponent /> correctly', () => {
     isLoading: false,
     assetLogs
   };
-  let wrapper = shallow(<AssetLogComponent
-    {...props}
-  />);
+  let wrapper = shallow(<AssetLogComponent {...props} />);
 
   it('renders Loading component if isLoading is true', () => {
     props.isLoading = true;
-    wrapper = shallow(<AssetLogComponent
-      {...props}
-    />);
+    wrapper = shallow(<AssetLogComponent {...props} />);
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 
   it('renders Table component', () => {
     props.isLoading = false;
-    wrapper = shallow(<AssetLogComponent
-      {...props}
-    />);
+    wrapper = shallow(<AssetLogComponent {...props} />);
     expect(wrapper.find('Accordion').length).toBe(1);
   });
 });

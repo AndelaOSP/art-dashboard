@@ -13,7 +13,7 @@ import assetLogs from '../../_mock/assetLogs';
 const {
   LOAD_ASSET_LOGS_SUCCESS,
   LOAD_ASSET_LOGS_FAILURE,
-  LOADING_ASSETS_LOGS
+  LOADING_ASSET_LOGS
 } = constants;
 
 const middleware = [thunk];
@@ -31,13 +31,15 @@ describe('Asset Logs Actions', () => {
     store.clearActions();
   });
 
+  expect.hasAssertions();
+
   it('should dispatch LOADING_ASSET_LOGS with isLoading false when done fetching asset logs', () => {
     mock.onGet().reply(200, assetLogs);
     return store.dispatch(loadAssetLogs())
       .then(() => {
         expect(store.getActions()).toContainEqual({
           isLoading: false,
-          type: LOADING_ASSETS_LOGS
+          type: LOADING_ASSET_LOGS
         });
       });
   });
@@ -48,7 +50,7 @@ describe('Asset Logs Actions', () => {
       .then(() => {
         expect(store.getActions()).toContainEqual({
           isLoading: true,
-          type: LOADING_ASSETS_LOGS
+          type: LOADING_ASSET_LOGS
         });
       });
   });

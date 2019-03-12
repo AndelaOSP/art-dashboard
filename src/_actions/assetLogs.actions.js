@@ -5,7 +5,7 @@ import { updateToastMessageContent } from './toastMessage.actions';
 const {
   LOAD_ASSET_LOGS_SUCCESS,
   LOAD_ASSET_LOGS_FAILURE,
-  LOADING_ASSETS_LOGS
+  LOADING_ASSET_LOGS
 } = constants;
 
 /**
@@ -30,7 +30,7 @@ export default loadAssetLogs;
 
 
 const loading = isLoading => ({
-  type: LOADING_ASSETS_LOGS,
+  type: LOADING_ASSET_LOGS,
   isLoading
 });
 

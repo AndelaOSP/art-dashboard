@@ -32,7 +32,7 @@ export class AssetLogComponent extends React.Component {
     });
   }
 
-  con = index => (
+  content = index => (
     <Table celled>
       <Table.Header>
         <Table.Row>
@@ -65,7 +65,7 @@ export class AssetLogComponent extends React.Component {
     key: `panel-${index}`,
     title: key,
     content: {
-      content: this.con(index),
+      content: this.content(index),
       key: uuidv4(),
       className: 'logs'
     }

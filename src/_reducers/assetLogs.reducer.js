@@ -4,7 +4,7 @@ import initialState from './initialState';
 const {
   LOAD_ASSET_LOGS_SUCCESS,
   LOAD_ASSET_LOGS_FAILURE,
-  LOADING_ASSETS_LOGS
+  LOADING_ASSET_LOGS
 } = constants;
 
 export default (state = initialState.logs, action) => {
@@ -17,7 +17,7 @@ export default (state = initialState.logs, action) => {
       };
     case LOAD_ASSET_LOGS_FAILURE:
       return state;
-    case LOADING_ASSETS_LOGS:
+    case LOADING_ASSET_LOGS:
       return {
         ...state,
         isLoading: action.isLoading
