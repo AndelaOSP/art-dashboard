@@ -30,13 +30,13 @@ describe('Renders <AssetLogComponent /> correctly', () => {
 it('calls mapStateToProps', () => {
   const state = {
     logs: {
-      assetLogs: [], isLoading: false, assetLogsCount: 5
+      assetLogs: [], isLoading: false, assetLogsCount: 3
     }
   };
 
   const expected = {
     logs: {
-      assetLogs: [], isLoading: false, assetLogsCount: 5
+      assetLogs: [], isLoading: false, assetLogsCount: 3
     }
   };
 
