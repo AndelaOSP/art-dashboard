@@ -37,9 +37,9 @@ export class NavBarComponent extends Component {
       imgSrc: '/images/reports.png'
     },
     {
-      url: '/user-feedback',
-      title: 'Feedback',
-      imgSrc: '/images/feedback.png'
+      url: '/asset-logs',
+      title: 'Logs',
+      imgSrc: '/images/assets.png'
     },
     {
       url: '/allocations',

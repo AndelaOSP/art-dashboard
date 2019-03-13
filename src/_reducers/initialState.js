@@ -138,5 +138,10 @@ export default {
   },
   accordion: {
     activeIndex: 0
+  },
+  logs: {
+    isLoading: false,
+    assetLogs: [],
+    assetLogsCount: 0
   }
 };
