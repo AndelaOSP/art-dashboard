@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
-import { loadUsers } from '../../_actions/users.actions';
 import filterSelection from '../../_actions/checkedFilters.actions';
 import UserFilter from '../../components/common/Filter/Filter';
 
 export const userFilterData = () => {
-  const formattedStatus = [{ id: 1, option: 'active' }, { id: 2, option: 'in active' }];
+  const formattedStatus = [{ id: 1, option: 'true' }, { id: 2, option: 'false' }];
 
   return [
     {
-      title: 'Status',
+      title: 'Active',
       content: formattedStatus
     }
   ];
@@ -24,7 +23,6 @@ export const mapStateToProps = ({ usersList, selected }) => ({
 export default connect(
   mapStateToProps,
   {
-    loadUsers,
     filterSelection
   }
 )(UserFilter);

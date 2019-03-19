@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isEmpty } from 'lodash';
 import { fetchData } from '../_utils/helpers';
 import constants from '../_constants';
 
@@ -16,8 +17,11 @@ const {
   UPDATE_ACTIVE_STATUS_FAILURE
 } = constants;
 
-export const loadSecurityUsers = (pageNumber, limit) => (dispatch) => {
-  const url = `/security-users/?page=${pageNumber}&page_size=${limit}`;
+export const loadSecurityUsers = (pageNumber, limit, filters = {}) => (dispatch) => {
+  let url = `/security-users/?page=${pageNumber}&page_size=${limit}`;
+  if (!isEmpty(filters)) {
+    url = `/security-users/?page=${pageNumber}&page_size=${limit}&is_active=${filters.Active[0]}`;
+  }
 
   dispatch(loadSecurityUsersRequest());
 
@@ -47,7 +51,8 @@ export const loadSecurityUsersFailure = error => ({
 export const addSecurityUser = securityUser => (dispatch) => {
   dispatch(addSecurityUserRequest());
 
-  return axios.post('/security-users/', securityUser)
+  return axios
+    .post('/security-users/', securityUser)
     .then((response) => {
       dispatch(addSecurityUserSuccess(response.data));
     })
@@ -80,10 +85,12 @@ export const resetMessage = () => ({ type: RESET_STATUS_MESSAGE });
 export const updateActiveStatus = (id, securityUser) => (dispatch) => {
   dispatch(updateActiveStatusRequest());
 
-  return axios.put(`/security-users/${id}`, securityUser)
+  return axios
+    .put(`/security-users/${id}`, securityUser)
     .then((response) => {
       dispatch(updateActiveStatusSuccess(response.data));
-    }).catch((error) => {
+    })
+    .catch((error) => {
       dispatch(updateActiveStatusFailure(error));
     });
 };

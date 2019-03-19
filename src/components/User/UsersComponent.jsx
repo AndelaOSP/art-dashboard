@@ -95,8 +95,6 @@ export default class UserComponent extends React.Component {
     return Math.ceil(usersCount / this.state.limit);
   };
 
-  usersStatus = () => ['active', 'inactive'];
-
   render() {
     const {
       activePage,
@@ -142,7 +140,7 @@ export default class UserComponent extends React.Component {
             <Securityuser
               limit={this.state.limit}
               data-test="user-filter"
-              filterAction={this.usersStatus}
+              filterAction={this.props.loadUsers}
             />
           </React.Fragment>
         )}
