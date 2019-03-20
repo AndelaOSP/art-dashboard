@@ -42,11 +42,27 @@ class FilterButton extends React.Component {
       }
     }
 
-    this.props.filterAction(
-      this.props.activePage,
-      this.props.limit,
-      selected
-    );
+    if (this.props.selected.Active) {
+      if (this.props.selected.Active[0] === 'true') {
+        this.props.selected.Active[0] = true;
+      }
+      if (this.props.selected.Active[1] === 'true') {
+        this.props.selected.Active[0] = true;
+      }
+      if (this.props.selected.Active[0] === 'false') {
+        this.props.selected.Active[0] = false;
+      }
+      if (this.props.selected.Active[1] === 'false') {
+        this.props.selected.Active[1] = false;
+      }
+      if (this.props.selected.Active[0] === 'true' || this.props.selected.Active[1] === 'true') {
+        if (this.props.selected.Active[0] === 'false' || this.props.selected.Active[1] === 'false') {
+          this.props.selected.Active = null;
+        }
+      }
+    }
+
+    this.props.filterAction(this.props.activePage, this.props.limit, selected);
   };
 
   render() {
@@ -94,7 +110,7 @@ FilterButton.propTypes = {
 };
 
 FilterButton.defaultProps = {
-  filterAction: () => { },
+  filterAction: () => {},
   activePage: 1,
   limit: 10,
   selected: {},

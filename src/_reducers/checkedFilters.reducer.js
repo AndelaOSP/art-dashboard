@@ -15,6 +15,12 @@ const filtersReducer = (state = initialState.checkedFilters, action) => {
         previousSelected = state[filterType] || [];
       }
 
+      if (filterType === 'Active') {
+        previousSelected = [];
+      } else {
+        previousSelected = state[filterType] || [];
+      }
+
       return {
         ...state,
         [filterType]: selection.isChecked
@@ -28,7 +34,7 @@ const filtersReducer = (state = initialState.checkedFilters, action) => {
   }
 };
 
-const add = (value, list) => ([...list, value]);
+const add = (value, list) => [...list, value];
 
 const remove = (value, list) => list.filter(item => item !== value);
 
