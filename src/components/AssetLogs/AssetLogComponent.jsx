@@ -70,24 +70,30 @@ export class AssetLogComponent extends React.Component {
 
               return filterCheckinLogs.map((checkinLog, index) => {
                 const { asset = '', log_type = '', created_at = '' } = checkinLog;
-                const checkoutLog = filterCheckoutLogs[index] || ' ';
-
+                const checkoutLog = filterCheckoutLogs[index];
+                const checkinDate =
+                  _.isEmpty(created_at) ? '' : new Date(created_at).toLocaleTimeString();
+                const assetCode = _.isEmpty(asset) ? checkoutLog.asset : asset;
                 return (
                   <Table.Row key={uuidv4()}>
                     <Table.Cell className="log-cell">
-                      <Label>{asset}</Label>
+                      <Label>{assetCode}</Label>
                     </Table.Cell>
                     <Table.Cell>
                       <Label>{log_type}</Label>
                     </Table.Cell>
                     <Table.Cell>
-                      <Label>{new Date(created_at).toLocaleTimeString()}</Label>
+                      <Label>{ checkinDate}</Label>
                     </Table.Cell>
                     <Table.Cell>
-                      <Label>{ checkoutLog.log_type}</Label>
+                      <Label>{ checkoutLog && (checkoutLog.log_type)}</Label>
                     </Table.Cell>
                     <Table.Cell>
-                      <Label >{ new Date(checkoutLog.created_at).toLocaleTimeString()}</Label>
+                      <Label >
+                        {
+                        checkoutLog && new Date(checkoutLog.created_at).toLocaleTimeString()
+                        }
+                      </Label>
                     </Table.Cell>
                   </Table.Row>
                   );
