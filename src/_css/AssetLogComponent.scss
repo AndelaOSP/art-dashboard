@@ -1,0 +1,10 @@
+@import "sharedStyling.scss";
+@import "mediaQueries.scss";
+
+.logs {
+  max-height: 15rem !important;
+}
+
+.log-cell {
+  width: 20rem;
+}

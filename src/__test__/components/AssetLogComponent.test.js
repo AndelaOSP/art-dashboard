@@ -4,7 +4,7 @@ import expect from 'expect';
 
 import { AssetLogComponent, mapStateToProps } from '../../components/AssetLogs/AssetLogComponent';
 
-import assetLogs from '../../_mock/assetMakes';
+import assetLogs from '../../_mock/assetLogs';
 
 describe('Renders <AssetLogComponent /> correctly', () => {
   const props = {
@@ -20,10 +20,17 @@ describe('Renders <AssetLogComponent /> correctly', () => {
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 
-  it('renders Table component', () => {
+  it('renders Accordion component', () => {
     props.isLoading = false;
     wrapper = shallow(<AssetLogComponent {...props} />);
     expect(wrapper.find('Accordion').length).toBe(1);
+  });
+
+  it('renders ItemsNotFoundComponent component if assetLogs is empty', () => {
+    props.isLoading = false;
+    props.assetLogs = [];
+    wrapper = shallow(<AssetLogComponent {...props} />);
+    expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 });
 
