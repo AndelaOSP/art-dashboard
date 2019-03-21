@@ -9,6 +9,10 @@ export const selectedFilters = {
   'Verification Status': ['Verified', 'UnVerified']
 };
 
+export const securityFilters = {
+  Active: ['true', 'false']
+};
+
 export const userFilters = [
   { cohort: [0] },
   { allocated_asset_count: [0] }
