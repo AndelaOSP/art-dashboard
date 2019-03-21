@@ -20,7 +20,6 @@ describe('Renders <AssetLogComponent /> correctly', () => {
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 
-
   it('renders Accordion component', () => {
     props.isLoading = false;
     wrapper = shallow(<AssetLogComponent {...props} />);
@@ -34,7 +33,6 @@ describe('Renders <AssetLogComponent /> correctly', () => {
     expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 });
-
 
 it('calls mapStateToProps', () => {
   const state = {
