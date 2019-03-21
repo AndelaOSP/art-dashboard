@@ -23,21 +23,21 @@ import '../../_css/AssetLogComponent.css';
 
 export class AssetLogComponent extends React.Component {
   state = {
-    groupedAssetLogsbyDate: {}
+    groupedLogsbyDate: {}
   };
 
   async componentDidMount() {
     await this.props.loadAssetLogs();
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({
-      groupedAssetLogsbyDate:
+      groupedLogsbyDate:
       _.groupBy(this.props.assetLogs, asset => new Date(asset.created_at).toDateString())
     });
   }
 
   content = (assetsLogs) => {
-    const groupedassetsLogsbyAsset = _.groupBy(assetsLogs, asset => asset.asset);
-    const returnedAssetLogs = Object.values(groupedassetsLogsbyAsset);
+    const groupedLogsbyAsset = _.groupBy(assetsLogs, asset => asset.asset);
+    const returnedAssetLogs = Object.values(groupedLogsbyAsset);
     return (
       <Table celled>
         <Table.Header>
@@ -99,7 +99,7 @@ export class AssetLogComponent extends React.Component {
     );
   }
 
-  panels = () => Object.entries(this.state.groupedAssetLogsbyDate).map((value, index) =>
+  panels = () => Object.entries(this.state.groupedLogsbyDate).map((value, index) =>
     ({
       key: `panel-${index}`,
       title: FormatDate(value[0]),
