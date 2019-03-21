@@ -2,35 +2,23 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 import Filter from '../../components/common/Filter/FilterButton';
-import { selectedFilters, securityFilters } from '../../_mock/filters';
+import { selectedFilters, selectedFilters2 } from '../../_mock/filters';
 
 describe('Renders <FilterButton /> tests', () => {
   const props = {
     activePage: 1,
     limit: 10,
     selected: selectedFilters,
-    security: securityFilters,
-    handleFilter: jest.fn(),
-    filterAction: jest.fn()
-  };
-
-  const props1 = {
-    activePage: 1,
-    limit: 10,
-    selected: securityFilters,
     handleFilter: jest.fn(),
     filterAction: jest.fn()
   };
 
   const wrapper = shallow(<Filter {...props} />);
-  const securityWrapper = shallow(<Filter {...props1} />);
 
   it('changes toggle state to true when handleOpen is called', () => {
     wrapper.setState({ toggleOn: false });
 
-    const handleOpenSpy = jest.spyOn(
-      wrapper.instance(), 'handleOpen'
-    );
+    const handleOpenSpy = jest.spyOn(wrapper.instance(), 'handleOpen');
     wrapper.instance().handleOpen();
 
     expect(handleOpenSpy.mock.calls.length).toEqual(1);
@@ -40,9 +28,7 @@ describe('Renders <FilterButton /> tests', () => {
   it('changes toggle state to false when handleClose is called', () => {
     wrapper.setState({ toggleOn: true });
 
-    const handleCloseSpy = jest.spyOn(
-      wrapper.instance(), 'handleClose'
-    );
+    const handleCloseSpy = jest.spyOn(wrapper.instance(), 'handleClose');
     wrapper.instance().handleClose();
 
     expect(handleCloseSpy.mock.calls.length).toEqual(1);
@@ -50,19 +36,18 @@ describe('Renders <FilterButton /> tests', () => {
   });
 
   it('dispatches filterAction when handleFilter is called', () => {
-    const handleFilterSpy = jest.spyOn(
-      wrapper.instance(), 'handleFilter'
-    );
+    const handleFilterSpy = jest.spyOn(wrapper.instance(), 'handleFilter');
     wrapper.instance().handleFilter();
 
     expect(handleFilterSpy.mock.calls.length).toEqual(1);
   });
 
-  it('dispatches security filterAction when handleFilter is called', () => {
-    const handleFilterSpy = jest.spyOn(
-      securityWrapper.instance(), 'handleFilter'
-    );
-    securityWrapper.instance().handleFilter();
+  it('dispatches filterAction when verification status and security user status are alternated', () => {
+    props.selected = selectedFilters2;
+    const wrapper2 = shallow(<Filter {...props} />);
+
+    const handleFilterSpy = jest.spyOn(wrapper2.instance(), 'handleFilter');
+    wrapper2.instance().handleFilter();
 
     expect(handleFilterSpy.mock.calls.length).toEqual(1);
   });

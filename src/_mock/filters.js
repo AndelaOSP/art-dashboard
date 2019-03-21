@@ -6,11 +6,15 @@ const filters = [
 export const selectedFilters = {
   asset_types: ['Headsets'],
   model_numbers: ['HP 27ES'],
-  'Verification Status': ['Verified', 'UnVerified']
+  'Verification Status': ['Verified', 'UnVerified'],
+  Active: ['true', 'false']
 };
 
-export const securityFilters = {
-  Active: ['true', 'false']
+export const selectedFilters2 = {
+  asset_types: ['Headsets'],
+  model_numbers: ['HP 27ES'],
+  'Verification Status': ['UnVerified', 'Verified'],
+  Active: ['false', 'true']
 };
 
 export const userFilters = [

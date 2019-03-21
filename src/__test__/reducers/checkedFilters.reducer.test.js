@@ -10,6 +10,15 @@ const action = {
   selection: {},
   filterType: 'Model Numbers'
 };
+const verificationAction = {
+  selection: {},
+  filterType: 'Verification Status'
+};
+
+const activeAction = {
+  selection: {},
+  filterType: 'Active'
+};
 
 describe('Checked Filters Reducer test', () => {
   it('should return initial state when there is no action', () => {
@@ -24,4 +33,21 @@ describe('Checked Filters Reducer test', () => {
         'Model Numbers': []
       });
   });
-});
+
+  it('should handle verification status', () => {
+    verificationAction.type = FILTER_SELECTED;
+    expect(filtersReducer(initialState, verificationAction))
+      .toEqual({
+        'Verification Status': []
+      });
+  });
+
+  it('should handle active security status', () => {
+    activeAction.type = FILTER_SELECTED;
+    expect(filtersReducer(initialState, activeAction))
+      .toEqual({
+        Active: []
+      });
+  });
+}
+);
