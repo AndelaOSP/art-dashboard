@@ -13,7 +13,8 @@ export const userFilterData = (cohorts, allocatedAssets) => {
 
   const formattedUserCohort = cohorts.map(cohort => formatOption(cohort, 'option'));
   const formattedAssetCount = allocatedAssets.map(assignedAsset =>
-    formatOption(assignedAsset, 'option'));
+    formatOption(assignedAsset, 'option')
+  );
 
   return [
     {
@@ -34,7 +35,10 @@ export const mapStateToProps = ({ usersList, filters, selected }) => ({
   filterData: userFilterData(filters.cohorts, filters.allocatedAssets)
 });
 
-export default connect(mapStateToProps, {
-  loadUsers,
-  filterSelection
-})(UserFilter);
+export default connect(
+  mapStateToProps,
+  {
+    loadUsers,
+    filterSelection
+  }
+)(UserFilter);
