@@ -20,7 +20,7 @@ const {
 export const loadSecurityUsers = (pageNumber, limit, filters = {}) => (dispatch) => {
   const url = !isEmpty(filters)
     ? `/security-users/?page=${pageNumber}&page_size=${limit}&is_active=${filters.Active[0]}`
-    : `/security-users/?page=${pageNumber}&page_size=${limit}`;
+    : `/security-users/?page=${pageNumber}&page_size=${limit}&is_active=${'true'}`;
 
   dispatch(loadSecurityUsersRequest());
 
