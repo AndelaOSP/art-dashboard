@@ -31,7 +31,9 @@ const {
   UPDATE_ASSET_REQUEST,
   UPDATE_ASSET_SUCCESS,
   UPDATE_ASSET_FAIL,
-  RESET_ASSETS
+  RESET_ASSETS,
+  EXPORT_ASSETS_SUCCESS,
+  EXPORT_ASSETS_FAILURE
 } = constants;
 
 const state = {
@@ -181,5 +183,14 @@ describe('Asset Reducer tests', () => {
   it('should handle DOWNLOAD_FILE_FAILURE', () => {
     action.type = DOWNLOAD_FILE_FAILURE;
     expect(assetReducer(state, action).hasError).toBe(true);
+  });
+
+  it('should handle EXPORT_ASSETS_SUCCESS', () => {
+    action.type = EXPORT_ASSETS_SUCCESS;
+    expect(assetReducer(state, action).exportAsset.hasError).toBe(false);
+  });
+  it('should handle EXPORT_ASSETS_FAILURE', () => {
+    action.type = EXPORT_ASSETS_FAILURE;
+    expect(assetReducer(state, action).exportAsset.hasError).toBe(true);
   });
 });

@@ -22,6 +22,7 @@ export default {
     assetsList: {},
     assetsCount: 0,
     errorMessage: '',
+    exportAsset: {},
     success: '',
     hasError: false,
     isLoading: false,
