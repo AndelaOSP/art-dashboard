@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 import AssetsTableContent from './AssetsTableContent';
 import PaginationComponent from './common/PaginationComponent';
 import Filter from './common/Filter/Filter';
+import ExportAsset from './Assets/ExportAsset';
 import { isCountCutoffExceeded, fetchData } from '../_utils/helpers';
 import constructUrl from '../_utils/assets';
 
@@ -92,39 +93,58 @@ export default class AssetsComponent extends Component {
   handlePageTotal = () => Math.ceil(this.props.assetsCount / this.state.limit);
 
   render() {
-    const { assets } = this.state;
-    const { status } = this.props;
+    const {
+      assets,
+      limit
+    } = this.state;
+    const {
+      status,
+      exportAsset,
+      exportAssetsAction,
+      activePage,
+      assetsList,
+      filterData,
+      selected,
+      filterSelection,
+      getAssetsAction,
+      isLoading,
+      errorMessage,
+      hasError
+    } = this.props;
     const totalPages = this.handlePageTotal();
     const currentAssets = `page_${this.props.activePage}`;
 
     return (
       <Fragment>
-        {
-          <Filter
-            activePage={this.props.activePage}
-            limit={this.state.limit}
-            filterData={this.props.filterData}
-            selected={this.props.selected}
-            filterSelection={this.props.filterSelection}
-            filterAction={this.props.getAssetsAction}
-            disabled={this.props.isLoading}
-          />
-        }
+        <ExportAsset
+          assets={assetsList[currentAssets] || assets}
+          exportAsset={exportAsset}
+          exportAssetsAction={exportAssetsAction}
+        />
+        <Filter
+          activePage={activePage}
+          limit={limit}
+          filterData={filterData}
+          selected={selected}
+          filterSelection={filterSelection}
+          filterAction={getAssetsAction}
+          disabled={isLoading}
+        />
         <AssetsTableContent
-          activePage={this.props.activePage}
-          assets={this.props.assetsList[currentAssets] || assets}
-          errorMessage={this.props.errorMessage}
-          hasError={this.props.hasError}
-          isLoading={this.props.isLoading}
+          activePage={activePage}
+          assets={assetsList[currentAssets] || assets}
+          errorMessage={errorMessage}
+          hasError={hasError}
+          isLoading={isLoading}
           status={status}
         />
         <PaginationComponent
-          activePage={this.props.activePage}
+          activePage={activePage}
           handleRowChange={this.handleRowChange}
           handlePaginationChange={this.handlePaginationChange}
-          limit={this.state.limit}
+          limit={limit}
           totalPages={totalPages}
-          isLoading={this.props.isLoading}
+          isLoading={isLoading}
         />
       </Fragment>
     );
@@ -138,6 +158,7 @@ AssetsComponent.propTypes = {
   getAssetsAction: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,
   loadAllAssetModels: PropTypes.func.isRequired,
+  exportAssetsAction: PropTypes.func.isRequired,
   loadDropdownAssetTypes: PropTypes.func.isRequired,
   resetAssets: PropTypes.func.isRequired,
   loading: PropTypes.func.isRequired,
@@ -148,6 +169,7 @@ AssetsComponent.propTypes = {
   filterSelection: PropTypes.func.isRequired,
   filterData: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.object,
+  exportAsset: PropTypes.object,
   status: PropTypes.string,
   shouldReload: PropTypes.bool
 };

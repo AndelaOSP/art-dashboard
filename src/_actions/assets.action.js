@@ -14,7 +14,9 @@ const {
   DOWNLOAD_FILE_SUCCESS,
   DOWNLOAD_FILE_FAILURE,
   RESET_UPLOAD_ASSETS,
-  UPLOAD_ASSETS_STARTS
+  UPLOAD_ASSETS_STARTS,
+  EXPORT_ASSETS_SUCCESS,
+  EXPORT_ASSETS_FAILURE
 } = constants;
 
 export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
@@ -128,4 +130,19 @@ export const resetAssets = () => ({
 
 export const resetUploadAssets = () => ({
   type: RESET_UPLOAD_ASSETS
+});
+
+export const exportAssetsAction = () => dispatch => axios
+  .get('export-assets/')
+  .then(response => dispatch(exportAssetsSuccsess(response.data)))
+  .catch(error => dispatch(exportAssetsFailure(error.message)));
+
+const exportAssetsSuccsess = data => ({
+  type: EXPORT_ASSETS_SUCCESS,
+  payload: data
+});
+
+const exportAssetsFailure = message => ({
+  type: EXPORT_ASSETS_FAILURE,
+  payload: message
 });

@@ -8,7 +8,8 @@ import {
   getAssetsAction,
   setActivePage,
   uploadAssets,
-  downloadFile
+  downloadFile,
+  exportAssetsAction
 } from '../../_actions/assets.action';
 import assets from '../../_mock/assets';
 
@@ -156,4 +157,24 @@ describe('Asset Types action tests', () => {
       });
     });
   });
+
+  it('should dispatch EXPORT_ASSETS_SUCCESS, when exportAssetsAction is called', () => {
+    const testurl = 'export-assets/';
+    mock.onGet(testurl).reply(200, {});
+    return store.dispatch(exportAssetsAction(testurl)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: 'EXPORT_ASSETS_SUCCESS'
+      });
+    });
+  });
+
+  // xit('should dispatch EXPORT_ASSETS_FAILURE, when exportAssetsAction is called', () => {
+  //   const testurl = 'export-assets/';
+  //   mock.onGet(testurl).reply(400);
+  //   return store.dispatch(exportAssetsAction(testurl)).then(() => {
+  //     expect(store.getActions()).toContainEqual({
+  //       type: 'EXPORT_ASSETS_FAILURE'
+  //     });
+  //   });
+  // });
 });
