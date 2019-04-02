@@ -223,7 +223,7 @@ export default (state = initialState.assets, action) => {
         ...state,
         exportAsset: {
           hasError: false,
-          message: action.payload.Success,
+          message: action.payload.success,
           data: action.payload.file
         }
       };
