@@ -51,12 +51,8 @@ describe('Renders <ExportAsset /> correctly', () => {
 
   it('should ', () => {
     wrapper.setState({ filePath: '' });
-    // const exportAssetsActionSpy = jest.spyOn(
-    //   wrapper.instance(), 'exportAssetsAction'
-    // );
     wrapper.instance().handleExport();
     expect(wrapper.state().loading).toEqual(true);
-    // expect(exportAssetsActionSpy.mock.calls.length).toEqual(1);
   });
 
   it('should not call export Asset action when the file is already in the state', () => {
