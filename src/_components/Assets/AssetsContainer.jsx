@@ -1,7 +1,13 @@
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import { getAssetsAction, setActivePage, resetAssets, loading } from '../../_actions/assets.action';
+import {
+  getAssetsAction,
+  setActivePage,
+  resetAssets,
+  loading,
+  exportAssetsAction
+} from '../../_actions/assets.action';
 import { loadAllAssetModels } from '../../_actions/assetModels.action';
 import { loadDropdownAssetTypes } from '../../_actions/assetTypes.actions';
 import filterSelection from '../../_actions/checkedFilters.actions';
@@ -39,6 +45,7 @@ export const mapStateToProps = (state, ownProps) => {
   const {
     assetsList,
     assetsCount,
+    exportAsset,
     errorMessage,
     hasError,
     isLoading,
@@ -55,6 +62,7 @@ export const mapStateToProps = (state, ownProps) => {
     assetsList,
     assetsCount,
     errorMessage,
+    exportAsset,
     hasError,
     isLoading,
     filterData: createFilterData(assetTypes, assetModels),
@@ -72,5 +80,6 @@ export default connect(mapStateToProps, {
   setActivePage,
   filterSelection,
   resetAssets,
-  loading
+  loading,
+  exportAssetsAction
 })(Assets);

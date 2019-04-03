@@ -8,7 +8,8 @@ import {
   getAssetsAction,
   setActivePage,
   uploadAssets,
-  downloadFile
+  downloadFile,
+  exportAssetsAction
 } from '../../_actions/assets.action';
 import assets from '../../_mock/assets';
 
@@ -153,6 +154,27 @@ describe('Asset Types action tests', () => {
       expect(store.getActions()).toContainEqual({
         payload: downloadedFile,
         type: 'DOWNLOAD_FILE_SUCCESS'
+      });
+    });
+  });
+
+  it('should dispatch EXPORT_ASSETS_SUCCESS, when exportAssetsAction is called', () => {
+    const testurl = 'export-assets/';
+    mock.onGet(testurl).reply(200, {});
+    return store.dispatch(exportAssetsAction(testurl)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: 'EXPORT_ASSETS_SUCCESS'
+      });
+    });
+  });
+
+  it('should dispatch EXPORT_ASSETS_FAILURE, when exportAssetsAction is called', () => {
+    const testurl = 'export-assets/';
+    mock.onGet().reply(400);
+    return store.dispatch(exportAssetsAction(testurl)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: 'Request failed with status code 400',
+        type: 'EXPORT_ASSETS_FAILURE'
       });
     });
   });

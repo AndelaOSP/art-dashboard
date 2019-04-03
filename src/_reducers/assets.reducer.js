@@ -20,7 +20,9 @@ const {
   DOWNLOAD_FILE_SUCCESS,
   DOWNLOAD_FILE_FAILURE,
   RESET_UPLOAD_ASSETS,
-  UPLOAD_ASSETS_STARTS
+  UPLOAD_ASSETS_STARTS,
+  EXPORT_ASSETS_SUCCESS,
+  EXPORT_ASSETS_FAILURE
 } = constants;
 
 // Currently the API returns three error messages. All are within objects with asset_code,
@@ -214,6 +216,25 @@ export default (state = initialState.assets, action) => {
       return {
         ...state,
         isUpLoading: action.isUpLoading
+      };
+
+    case EXPORT_ASSETS_SUCCESS:
+      return {
+        ...state,
+        exportAsset: {
+          hasError: false,
+          message: action.payload.success,
+          data: action.payload.file
+        }
+      };
+
+    case EXPORT_ASSETS_FAILURE:
+      return {
+        ...state,
+        exportAsset: {
+          hasError: true,
+          message: action.payload
+        }
       };
 
     default:

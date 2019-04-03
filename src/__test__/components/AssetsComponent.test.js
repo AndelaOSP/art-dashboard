@@ -81,6 +81,10 @@ describe('Renders <AssetsComponent /> correctly', () => {
     expect(wrapper.find('Filter').length).toBe(1);
   });
 
+  it('renders ExportAsset component', () => {
+    expect(wrapper.find('ExportAsset').length).toBe(1);
+  });
+
   it('calls retrieveAssets function', () => {
     const retrieveAssetsSpy = jest.spyOn(
       wrapper.instance(), 'retrieveAssets'
