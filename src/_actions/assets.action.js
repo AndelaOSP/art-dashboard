@@ -132,10 +132,12 @@ export const resetUploadAssets = () => ({
   type: RESET_UPLOAD_ASSETS
 });
 
-export const exportAssetsAction = () => dispatch => axios
-  .get('export-assets/')
-  .then(response => dispatch(exportAssetsSuccsess(response.data)))
-  .catch(error => dispatch(exportAssetsFailure(error.message)));
+export const exportAssetsAction = status => (dispatch) => {
+  const url = (status) ? `export-assets/?current_status=${status}` : 'export-assets/';
+  return axios.get(url)
+    .then(response => dispatch(exportAssetsSuccsess(response.data)))
+    .catch(error => dispatch(exportAssetsFailure(error.message)));
+};
 
 const exportAssetsSuccsess = data => ({
   type: EXPORT_ASSETS_SUCCESS,

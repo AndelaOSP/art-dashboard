@@ -41,11 +41,12 @@ class ExportAsset extends React.Component {
         open: true
       });
     } else {
-      const { exportAssetsAction } = this.props;
+      const { exportAssetsAction, location } = this.props;
       this.setState({
         loading: true
       });
-      exportAssetsAction();
+      const status = (location.split('/')[2]);
+      exportAssetsAction(status);
     }
   }
 
@@ -56,7 +57,7 @@ class ExportAsset extends React.Component {
       <div className="export-asset">
         <SemanticToastContainer />
         <Button
-          disabled={!assets}
+          disabled={!assets.length > 0}
           className="export-button"
           onClick={this.handleExport}
           loading={loading}
@@ -84,7 +85,8 @@ class ExportAsset extends React.Component {
 ExportAsset.propTypes = {
   assets: PropTypes.array,
   exportAssetsAction: PropTypes.func.isRequired,
-  exportAsset: PropTypes.object.isRequired
+  exportAsset: PropTypes.object.isRequired,
+  location: PropTypes.string.isRequired
 };
 
 export default ExportAsset;

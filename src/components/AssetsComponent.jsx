@@ -109,7 +109,8 @@ export default class AssetsComponent extends Component {
       getAssetsAction,
       isLoading,
       errorMessage,
-      hasError
+      hasError,
+      location
     } = this.props;
     const totalPages = this.handlePageTotal();
     const currentAssets = `page_${this.props.activePage}`;
@@ -120,6 +121,7 @@ export default class AssetsComponent extends Component {
           assets={assetsList[currentAssets] || assets}
           exportAsset={exportAsset}
           exportAssetsAction={exportAssetsAction}
+          location={location.pathname}
         />
         <Filter
           activePage={activePage}
@@ -171,7 +173,8 @@ AssetsComponent.propTypes = {
   match: PropTypes.object,
   exportAsset: PropTypes.object,
   status: PropTypes.string,
-  shouldReload: PropTypes.bool
+  shouldReload: PropTypes.bool,
+  location: PropTypes.object.isRequired
 };
 
 AssetsComponent.defaultProps = {

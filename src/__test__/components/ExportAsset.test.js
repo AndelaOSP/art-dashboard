@@ -10,7 +10,8 @@ describe('Renders <ExportAsset /> correctly', () => {
   const props = {
     exportAssetsAction: jest.fn(),
     hasError: false,
-    assets
+    assets,
+    location: 'assets/allocated'
   };
   const wrapper = shallow(<ExportAsset
     {...props}
