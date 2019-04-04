@@ -22,7 +22,8 @@ export default (state = initialState.departments, action) => {
     case CREATE_DEPARTMENT_SUCCESS:
       return {
         ...state,
-        departmentsCount: state.departmentsCount + 1,
+        departmentsList: state.departmentsList.concat(action.payload),
+        departmentsCount: state.departmentsList.length + 1,
         isLoading: false
       };
 
@@ -44,6 +45,7 @@ export default (state = initialState.departments, action) => {
       return {
         ...state,
         departmentsList: action.payload,
+        departmentsCount: action.payload.length,
         isLoading: false
       };
 

@@ -21,7 +21,7 @@ class DepartmentsComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadDepartments();
+    this.props.loadDepartments(this.state.activePage, this.state.limit);
   }
 
   handleRowChange = (e, data) => {
@@ -112,7 +112,7 @@ class DepartmentsComponent extends React.Component {
             handleRowChange={this.handleRowChange}
             handlePaginationChange={this.handlePaginationChange}
             limit={this.state.limit}
-            // totalPages={this.getTotalPages()}
+            totalPages={this.getTotalPages()}
             isLoading={this.props.isLoading}
           />
         </div>
