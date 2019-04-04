@@ -44,6 +44,10 @@ class DashboardComponent extends Component {
     {
       url: '/office-blocks',
       title: 'Office Blocks'
+    },
+    {
+      url: '/departments',
+      title: 'Departments'
     }
   ];
 
