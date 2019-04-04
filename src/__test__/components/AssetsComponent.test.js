@@ -32,7 +32,10 @@ describe('Renders <AssetsComponent /> correctly', () => {
     match: {
       params: { status: '' }
     },
-    handlePageTotal: jest.fn()
+    handlePageTotal: jest.fn(),
+    location: {
+      pathname: '/assets/allocated'
+    }
   };
   const wrapper = shallow(<AssetsComponent
     {...props}
