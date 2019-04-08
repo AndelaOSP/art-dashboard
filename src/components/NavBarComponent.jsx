@@ -178,7 +178,7 @@ export class NavBarComponent extends Component {
                         {nav.title}
                       </span>
                     </NavLink>
-                      ))
+                  ))
                 }
               </div>
             }
