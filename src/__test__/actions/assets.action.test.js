@@ -43,7 +43,8 @@ describe('Asset Types action tests', () => {
       expect(store.getActions()).toContainEqual({
         payload: assets,
         type: 'LOAD_ASSETS_SUCCESS',
-        status: ''
+        status: '',
+        filters: {}
       });
     });
   });
