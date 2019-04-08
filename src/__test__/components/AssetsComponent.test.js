@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import expect from 'expect';
 
 import AssetsComponent from '../../components/AssetsComponent';
@@ -30,13 +30,16 @@ describe('Renders <AssetsComponent /> correctly', () => {
     assetsList: [],
     loading: jest.fn(),
     match: {
-      params: { status: '' }
+      params: { status: '', filters: '' }
     },
     handlePageTotal: jest.fn(),
     location: {
       pathname: '/assets/allocated'
-    }
+    },
+    shouldReload: false,
+    reloadAfterSearch: false
   };
+
   const wrapper = shallow(<AssetsComponent
     {...props}
   />);
@@ -103,5 +106,27 @@ describe('Renders <AssetsComponent /> correctly', () => {
     });
 
     expect(wrapper.find('Filter').length).toBe(1);
+  });
+
+  it('renders the AssetsTableContent component when loading only allocated asets', () => {
+    wrapper.setProps({
+      match: { params: { status: 'allocated' } },
+      shouldReload: true });
+    expect(wrapper.find('AssetsTableContent').length).toBe(1);
+  });
+
+  it('renders the AssetsTableContent component when searching for an asset', () => {
+    wrapper.setProps({
+      match: { params: { filters: '87878' } },
+      reloadAfterSearch: true });
+    expect(wrapper.find('AssetsTableContent').length).toBe(1);
+  });
+
+  it('loads AssetsComponent with filtered assets', () => {
+    props.match.params.filters = '87878';
+    const wrapper2 = mount(<AssetsComponent
+      {...props}
+    />);
+    expect(wrapper2.props().match).toEqual({ params: { filters: '87878', status: '' } });
   });
 });
