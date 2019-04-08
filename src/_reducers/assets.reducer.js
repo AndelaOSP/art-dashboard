@@ -120,7 +120,8 @@ export default (state = initialState.assets, action) => {
         assetsCount: action.payload.count,
         hasError: false,
         isLoading: action.isLoading,
-        status: action.status
+        status: action.status,
+        filters: action.filters['Serial Number']
       };
 
     case SET_ACTIVE_PAGE:

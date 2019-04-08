@@ -41,7 +41,6 @@ export const createFilterData = (assetTypes, assetModels) => {
 export const mapStateToProps = (state, ownProps) => {
   const { assets, assetTypesList, assetModelsList, selected } = state;
   const { params } = ownProps.match;
-
   const {
     assetsList,
     assetsCount,
@@ -50,13 +49,16 @@ export const mapStateToProps = (state, ownProps) => {
     hasError,
     isLoading,
     activePage,
-    status
+    status,
+    filters
   } = assets;
   const { assetModels } = assetModelsList;
   const { assetTypes } = assetTypesList;
 
   const assetAdjective = params.status || '';
-  const shouldReload = assetAdjective !== assets.status;
+  const assetAdjectiveAfterSearh = params.filters || '';
+  const reloadAfterSearch = assetAdjectiveAfterSearh !== filters;
+  const shouldReload = assetAdjective !== status;
 
   return {
     assetsList,
@@ -69,7 +71,9 @@ export const mapStateToProps = (state, ownProps) => {
     activePage,
     selected,
     status,
-    shouldReload
+    shouldReload,
+    filters,
+    reloadAfterSearch
   };
 };
 

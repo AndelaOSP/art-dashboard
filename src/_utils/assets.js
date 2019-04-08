@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 const constructUrl = (pageNumber, limit, filters = {}, status = '') => {
   let url = `manage-assets?page=${pageNumber}&page_size=${limit}`;
 
-  if (status) {
+  if (!isEmpty(status)) {
     url = `${url}&current_status=${status}`;
   }
 
