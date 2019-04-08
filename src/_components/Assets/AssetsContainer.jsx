@@ -56,8 +56,8 @@ export const mapStateToProps = (state, ownProps) => {
   const { assetTypes } = assetTypesList;
 
   const assetAdjective = params.status || '';
-  const assetAdjectiveAfterSearh = params.filters || '';
-  const reloadAfterSearch = assetAdjectiveAfterSearh !== filters;
+  const assetAdjectiveAfterSearch = params.filters || '';
+  const reloadAfterSearch = assetAdjectiveAfterSearch !== filters;
   const shouldReload = assetAdjective !== status;
 
   return {
