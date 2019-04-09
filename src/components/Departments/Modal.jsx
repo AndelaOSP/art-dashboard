@@ -26,15 +26,6 @@ export default class Modal extends React.Component {
     });
   };
 
-  handleUpdate = (event) => {
-    event.preventDefault();
-
-    const { data } = this.props;
-    this.props.updateAndelaCentre(data.id, {
-      name: this.state.department
-    });
-  };
-
   handleSelect = (event, data) => {
     this.setState({ department: data.value });
   };
@@ -130,7 +121,6 @@ Modal.propTypes = {
   resetMessage: PropTypes.func,
   isLoading: PropTypes.bool,
   createDepartment: PropTypes.func,
-  updateAndelaCentre: PropTypes.func,
   onToggle: PropTypes.func,
   open: PropTypes.bool,
   data: PropTypes.object

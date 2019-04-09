@@ -4,21 +4,19 @@ import {
 } from '../../_actions/departments.actions';
 import CentreModal from '../../components/Departments/Modal';
 
-export const mapStateToProps = ({ officeLocations }) => {
+export const mapStateToProps = ({ departments }) => {
   const {
-    countries,
     updateError,
     updateSuccess,
     isLoading,
     createSuccess,
     createFailure
-  } = officeLocations;
+  } = departments;
 
   const successMessage = updateSuccess || createSuccess;
   const errorMessage = updateError || createFailure;
 
   return {
-    countries,
     isLoading,
     successMessage,
     errorMessage,

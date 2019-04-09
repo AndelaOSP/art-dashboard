@@ -24,6 +24,8 @@ export default (state = initialState.departments, action) => {
         ...state,
         departmentsList: state.departmentsList.concat(action.payload),
         departmentsCount: state.departmentsList.length + 1,
+        createSuccess: 'Department added successfully.',
+        createFailure: '',
         isLoading: false
       };
 
@@ -31,7 +33,7 @@ export default (state = initialState.departments, action) => {
       return {
         ...state,
         isLoading: false,
-        updateSuccess: '',
+        createSuccess: '',
         createFailure: action.payload
       };
 
