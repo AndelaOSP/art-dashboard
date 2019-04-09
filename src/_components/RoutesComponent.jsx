@@ -25,6 +25,7 @@ import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
 import SecurityUsers from './SecurityUser/SecurityUserContainer';
 import AndelaCentresComponent from './AndelaCentres/AndelaCentresContainer';
+import OfficeBlocksContainer from './OfficeBlocks/OfficeBlocksContainer';
 import AssetLogs from '../components/AssetLogs/AssetLogComponent';
 
 class RoutesComponent extends Component {
@@ -160,6 +161,12 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/andela-centres"
             component={AndelaCentresComponent}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/office-blocks"
+            component={OfficeBlocksContainer}
           />
           <Authenticate
             exact

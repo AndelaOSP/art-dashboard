@@ -11,7 +11,13 @@ const {
   UPDATE_ANDELA_CENTRE_REQUEST,
   UPDATE_ANDELA_CENTRE_SUCCESS,
   UPDATE_ANDELA_CENTRE_FAILURE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  LOAD_OFFICE_BLOCK_REQUEST,
+  LOAD_OFFICE_BLOCK_SUCCESS,
+  LOAD_OFFICE_BLOCK_FAILURE,
+  CREATE_OFFICE_BLOCK_REQUEST,
+  CREATE_OFFICE_BLOCK_SUCCESS,
+  CREATE_OFFICE_BLOCK_FAILURE
 } = constants;
 
 const state = {
@@ -20,7 +26,9 @@ const state = {
   isLoading: false,
   error: '',
   updateSuccess: '',
-  updateError: ''
+  updateError: '',
+  blockCount: 0,
+  blockList: []
 };
 
 const action = {
@@ -99,6 +107,99 @@ describe('Asset Reducer tests', () => {
       successMessage: '',
       updateError: '',
       updateSuccess: ''
+    }));
+  });
+
+  it('should handle LOAD_OFFICE_BLOCK_REQUEST', () => {
+    action.type = LOAD_OFFICE_BLOCK_REQUEST;
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      error: '',
+      updateError: '',
+      updateSuccess: '',
+      isLoading: true,
+      locationCount: 0,
+      locationList: []
+    }));
+  });
+
+  it('should handle LOAD_OFFICE_BLOCK_SUCCESS', () => {
+    action.type = LOAD_OFFICE_BLOCK_SUCCESS;
+    action.payload = {
+      count: 0,
+      results: []
+    };
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      error: '',
+      updateError: '',
+      updateSuccess: '',
+      isLoading: false,
+      blockCount: 0,
+      blockList: []
+    }));
+  });
+
+  it('should handle LOAD_OFFICE_BLOCK_FAILURE', () => {
+    action.type = LOAD_OFFICE_BLOCK_FAILURE;
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      error: 'Oops, something went wrong',
+      updateError: '',
+      updateSuccess: '',
+      isLoading: false,
+      blockCount: 0,
+      blockList: []
+    }));
+  });
+
+  it('should handle CREATE_OFFICE_BLOCK_SUCCESS', () => {
+    action.type = CREATE_OFFICE_BLOCK_SUCCESS;
+    action.payload = {
+      id: 1,
+      name: 'Block Q',
+      location: 4
+    };
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      error: '',
+      updateError: '',
+      updateSuccess: '',
+      isLoading: false,
+      blockCount: 1,
+      blockList: [{
+        id: 1,
+        name: 'Block Q',
+        location: 4
+      }],
+      createSuccess: 'Block added successfully.',
+      createFailure: ''
+    }));
+  });
+
+  it('should handle CREATE_OFFICE_BLOCK_FAILURE', () => {
+    action.type = CREATE_OFFICE_BLOCK_FAILURE;
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      error: 'Oops, something went wrong',
+      updateError: '',
+      updateSuccess: '',
+      isLoading: false,
+      blockCount: 0,
+      blockList: []
+    }));
+  });
+
+  it('should handle CREATE_OFFICE_BLOCK_REQUEST', () => {
+    action.type = CREATE_OFFICE_BLOCK_REQUEST;
+
+    expect(centresReducer(state, action)).toEqual(expect.objectContaining({
+      error: '',
+      updateError: '',
+      updateSuccess: '',
+      isLoading: true,
+      locationCount: 0,
+      locationList: []
     }));
   });
 });

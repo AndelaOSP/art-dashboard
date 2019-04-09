@@ -15,7 +15,13 @@ const {
   LOAD_COUNTRIES_FAILURE,
   UPDATE_ANDELA_CENTRE_REQUEST,
   UPDATE_ANDELA_CENTRE_SUCCESS,
-  UPDATE_ANDELA_CENTRE_FAILURE
+  UPDATE_ANDELA_CENTRE_FAILURE,
+  LOAD_OFFICE_BLOCK_REQUEST,
+  LOAD_OFFICE_BLOCK_SUCCESS,
+  LOAD_OFFICE_BLOCK_FAILURE,
+  CREATE_OFFICE_BLOCK_REQUEST,
+  CREATE_OFFICE_BLOCK_SUCCESS,
+  CREATE_OFFICE_BLOCK_FAILURE
 } = constants;
 
 const updateLocationList = (location, locationList) => {
@@ -102,7 +108,7 @@ export default (state = initialState.officeLocations, action) => {
         ...state,
         isLoading: false,
         createSuccess: '',
-        createFailure: action.payload
+        createFailure: 'action.payload'
       };
 
     case CREATE_LOCATIONS_REQUEST:
@@ -128,6 +134,52 @@ export default (state = initialState.officeLocations, action) => {
         ...state,
         error: action.payload.message || 'Oops, something went wrong',
         isLoading: false
+      };
+
+    case LOAD_OFFICE_BLOCK_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case LOAD_OFFICE_BLOCK_SUCCESS:
+      return {
+        ...state,
+        blockCount: action.payload.count,
+        blockList: action.payload.results,
+        isLoading: false
+      };
+
+    case LOAD_OFFICE_BLOCK_FAILURE:
+      return {
+        ...state,
+        error: action.payload.message || 'Oops, something went wrong',
+        isLoading: false
+      };
+
+    case CREATE_OFFICE_BLOCK_SUCCESS:
+      return {
+        ...state,
+        blockCount: state.blockCount + 1,
+        blockList: state.blockList.concat(action.payload),
+        isLoading: false,
+        createSuccess: 'Block added successfully.',
+        createFailure: ''
+      };
+
+    case CREATE_OFFICE_BLOCK_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        createSuccess: '',
+        createFailure: action.payload,
+        error: action.payload.message || 'Oops, something went wrong'
+      };
+
+    case CREATE_OFFICE_BLOCK_REQUEST:
+      return {
+        ...state,
+        isLoading: true
       };
 
     default:

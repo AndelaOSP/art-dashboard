@@ -40,6 +40,10 @@ class DashboardComponent extends Component {
     {
       url: '/andela-centres',
       title: 'Andela Centres'
+    },
+    {
+      url: '/office-blocks',
+      title: 'Office Blocks'
     }
   ];
 
@@ -92,7 +96,7 @@ class DashboardComponent extends Component {
             <Grid>
               {
                 this.assetNavigation.map(nav => (
-                  <Grid.Column key={nav.url}>
+                  <Grid.Column key={nav.url} className="asset-navigation">
                     <Link to={nav.url}>{nav.title}</Link>
                   </Grid.Column>
                 ))
