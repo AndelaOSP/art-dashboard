@@ -14,10 +14,12 @@ const {
   DOWNLOAD_FILE_SUCCESS,
   DOWNLOAD_FILE_FAILURE,
   RESET_UPLOAD_ASSETS,
-  UPLOAD_ASSETS_STARTS
+  UPLOAD_ASSETS_STARTS,
+  EXPORT_ASSETS_SUCCESS,
+  EXPORT_ASSETS_FAILURE
 } = constants;
 
-export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
+export const getAssetsAction = (pageNumber, limit, filters = {}, status = '') => {
   const url = constructUrl(pageNumber, limit, filters, status);
 
   return (dispatch) => {
@@ -26,11 +28,11 @@ export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
     return fetchData(url)
       .then((response) => {
         dispatch(loading(false));
-        dispatch(getAssetsSuccess(response.data, status));
+        dispatch(getAssetsSuccess(response.data, status, filters));
       })
       .catch((error) => {
         dispatch(loading(false));
-        dispatch(getAssetsFailure(error.message, status));
+        dispatch(getAssetsFailure(error.message, status), filters);
       });
   };
 };
@@ -85,10 +87,11 @@ export const uploading = isUpLoading => ({
   isUpLoading
 });
 
-const getAssetsSuccess = (data, status = 'all') => ({
+const getAssetsSuccess = (data, status = 'all', filters = {}) => ({
   type: LOAD_ASSETS_SUCCESS,
   payload: data,
-  status
+  status,
+  filters
 });
 
 const getAssetsFailure = (message, status = 'all') => ({
@@ -128,4 +131,21 @@ export const resetAssets = () => ({
 
 export const resetUploadAssets = () => ({
   type: RESET_UPLOAD_ASSETS
+});
+
+export const exportAssetsAction = status => (dispatch) => {
+  const url = (status) ? `export-assets/?current_status=${status}` : 'export-assets/';
+  return axios.get(url)
+    .then(response => dispatch(exportAssetsSuccsess(response.data)))
+    .catch(error => dispatch(exportAssetsFailure(error.message)));
+};
+
+const exportAssetsSuccsess = data => ({
+  type: EXPORT_ASSETS_SUCCESS,
+  payload: data
+});
+
+const exportAssetsFailure = message => ({
+  type: EXPORT_ASSETS_FAILURE,
+  payload: message
 });

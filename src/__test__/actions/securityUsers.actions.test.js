@@ -30,9 +30,12 @@ describe('Security users tests', () => {
   const pageNumber = 1;
   const limit = 10;
   const id = 0;
+  const filters = { Active: ['false'] };
   const url = '/security-users/';
-  const url2 = `/security-users/?page=${pageNumber}&page_size=${limit}`;
+  const url2 = `/security-users/?page=${pageNumber}&page_size=${limit}&is_active=${'true'}`;
   const url3 = `/security-users/${id}`;
+  const url4 = `/security-users/?page=${pageNumber}&page_size=${limit}&is_active=${filters.Active[0]}`;
+
   store = mockStore({});
 
   afterEach(() => {
@@ -90,6 +93,26 @@ describe('Security users tests', () => {
   it('should dispatch LOAD_SECURITY_USERS_FAILURE when loadSecurityUsers fails', () => {
     mock.onGet(url2).reply(401);
     return store.dispatch(loadSecurityUsers(pageNumber, limit)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: LOAD_SECURITY_USERS_FAILURE,
+        payload: 'Request failed with status code 401'
+      });
+    });
+  });
+
+  it('should dispatch LOAD_SECURITY_USERS_SUCCESS when loadSecurityUsers succeeds with filters', () => {
+    mock.onGet(url4).reply(200, securityUsers);
+    return store.dispatch(loadSecurityUsers(pageNumber, limit, filters)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        type: LOAD_SECURITY_USERS_SUCCESS,
+        payload: securityUsers
+      });
+    });
+  });
+
+  it('should dispatch LOAD_SECURITY_USERS_FAILURE when loadSecurityUsers fails with filters', () => {
+    mock.onGet(url4).reply(401);
+    return store.dispatch(loadSecurityUsers(pageNumber, limit, filters)).then(() => {
       expect(store.getActions()).toContainEqual({
         type: LOAD_SECURITY_USERS_FAILURE,
         payload: 'Request failed with status code 401'

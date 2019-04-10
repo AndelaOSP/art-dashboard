@@ -22,6 +22,7 @@ export default {
     assetsList: {},
     assetsCount: 0,
     errorMessage: '',
+    exportAsset: {},
     success: '',
     hasError: false,
     isLoading: false,
@@ -138,5 +139,10 @@ export default {
   },
   accordion: {
     activeIndex: 0
+  },
+  logs: {
+    isLoading: false,
+    assetLogs: [],
+    assetLogsCount: 0
   }
 };
