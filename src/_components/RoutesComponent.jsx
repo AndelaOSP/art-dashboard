@@ -76,6 +76,12 @@ class RoutesComponent extends Component {
           <Authenticate
             exact
             isAuthenticated={this.checkAuthentication()}
+            path="/assets/:filters/search"
+            component={Assets}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
             path="/asset-models"
             component={AssetModels}
           />

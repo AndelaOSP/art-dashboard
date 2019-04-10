@@ -13,7 +13,8 @@ describe('Renders <Assets />  tests', () => {
         errorMessage: '',
         hasError: false,
         activePage: 1,
-        status: ''
+        status: '',
+        filters: ''
       },
       assetModelsList: {
         assetModel: []
@@ -27,7 +28,8 @@ describe('Renders <Assets />  tests', () => {
     const ownProps = {
       match: {
         params: {
-          status: ''
+          status: '',
+          filters: ''
         }
       }
     };
@@ -42,7 +44,9 @@ describe('Renders <Assets />  tests', () => {
       activePage: 1,
       selected: [],
       status: '',
-      shouldReload: false
+      filters: '',
+      shouldReload: false,
+      reloadAfterSearch: false
     };
 
     expect(mapStateToProps(state, ownProps)).toEqual(expected);

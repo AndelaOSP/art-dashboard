@@ -20,16 +20,19 @@ export default class AssetsComponent extends Component {
   };
 
   componentDidMount() {
-    const { activePage, match, selected } = this.props;
-    const { status } = match.params;
-
-    const shouldFetchAssets = this.checkIfShouldFetchAssets();
+    const { activePage, match, selected, getAssetsAction } = this.props;
+    const { status, filters } = match.params;
 
     // TODO: fix the logic so that assets are fetched when you create an asset before fetching
     // assets, otherwise, you'll only display 1 row in assets table yet there are more than one
     // assets
-    if (shouldFetchAssets) {
-      this.retrieveAssets(activePage, this.state.limit, status, selected);
+    if (isEmpty(filters)) {
+      const shouldFetchAssets = this.checkIfShouldFetchAssets();
+      if (shouldFetchAssets) {
+        this.retrieveAssets(activePage, this.state.limit, status, selected);
+      }
+    } else {
+      getAssetsAction(activePage, this.state.limit, { 'Serial Number': filters });
     }
 
     this.props.loadAllAssetModels();
@@ -37,21 +40,30 @@ export default class AssetsComponent extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { activePage, match, shouldReload, selected } = this.props;
-    const { status } = match.params;
-
+    const {
+      activePage,
+      match,
+      shouldReload,
+      selected,
+      reloadAfterSearch,
+      getAssetsAction
+    } = this.props;
+    const { status, filters } = match.params;
     if (shouldReload !== prevProps.shouldReload && shouldReload) {
       this.props.resetAssets();
       this.retrieveAssets(activePage, this.state.limit, status, selected);
+    } else if (reloadAfterSearch !== prevProps.reloadAfterSearch && reloadAfterSearch) {
+      this.props.resetAssets();
+      getAssetsAction(activePage, this.state.limit, { 'Serial Number': filters || '' });
     }
   }
 
   checkIfShouldFetchAssets = () => {
-    const { activePage, shouldReload, assetsList } = this.props;
+    const { activePage, shouldReload, assetsList, reloadAfterSearch } = this.props;
     const pageKey = `page_${activePage}`;
     const activePageAssets = assetsList[pageKey] || this.state.assets;
 
-    return shouldReload || isEmpty(activePageAssets);
+    return reloadAfterSearch || shouldReload || isEmpty(activePageAssets);
   };
 
   handleRowChange = (e, data) => {
@@ -174,7 +186,8 @@ AssetsComponent.propTypes = {
   exportAsset: PropTypes.object,
   status: PropTypes.string,
   shouldReload: PropTypes.bool,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  reloadAfterSearch: PropTypes.bool
 };
 
 AssetsComponent.defaultProps = {

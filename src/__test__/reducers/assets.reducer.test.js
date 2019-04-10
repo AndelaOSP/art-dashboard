@@ -48,7 +48,8 @@ const state = {
 let action = {
   payload: {
     results: assets
-  }
+  },
+  filters: {}
 };
 
 const error = {

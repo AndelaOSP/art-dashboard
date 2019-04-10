@@ -76,11 +76,12 @@ export class NavBarComponent extends Component {
 
   handleSearch = (event) => {
     event.stopPropagation();
-    const { location } = this.props;
-    if (location.pathname === '/assets' && event.key === 'Enter') {
+    const { location, history } = this.props;
+    if (location.pathname.includes('/assets') && event.key === 'Enter') {
       const { pageNumber, limit, value } = this.state;
       this.props.getAssetsAction(pageNumber, limit, value);
       this.setState({ value: { 'Serial Number': '' } });
+      history.push(`/assets/${value['Serial Number']}/search`);
     }
   }
 

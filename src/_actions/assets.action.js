@@ -19,7 +19,7 @@ const {
   EXPORT_ASSETS_FAILURE
 } = constants;
 
-export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
+export const getAssetsAction = (pageNumber, limit, filters = {}, status = '') => {
   const url = constructUrl(pageNumber, limit, filters, status);
 
   return (dispatch) => {
@@ -28,11 +28,11 @@ export const getAssetsAction = (pageNumber, limit, filters, status = '') => {
     return fetchData(url)
       .then((response) => {
         dispatch(loading(false));
-        dispatch(getAssetsSuccess(response.data, status));
+        dispatch(getAssetsSuccess(response.data, status, filters));
       })
       .catch((error) => {
         dispatch(loading(false));
-        dispatch(getAssetsFailure(error.message, status));
+        dispatch(getAssetsFailure(error.message, status), filters);
       });
   };
 };
@@ -87,10 +87,11 @@ export const uploading = isUpLoading => ({
   isUpLoading
 });
 
-const getAssetsSuccess = (data, status = 'all') => ({
+const getAssetsSuccess = (data, status = 'all', filters = {}) => ({
   type: LOAD_ASSETS_SUCCESS,
   payload: data,
-  status
+  status,
+  filters
 });
 
 const getAssetsFailure = (message, status = 'all') => ({
