@@ -4,7 +4,7 @@ import { getAssetStatus } from '../../_actions/assetStatus.action';
 
 import DashboardComponent from '../../components/Dashboard/DashboardComponent';
 
-const mapStateToProps = ({ assetStatus }) => {
+export const mapStateToProps = ({ assetStatus }) => {
   const {
     allocated,
     available,
