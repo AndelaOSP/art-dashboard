@@ -77,11 +77,11 @@ describe('Asset Reducer tests', () => {
   it('should handle CREATE_DEPARTMENT_FAILURE', () => {
     expect(departmentsReducer(state, {
       type: CREATE_DEPARTMENT_FAILURE,
-      payload: 'Could not update the centre.'
+      payload: 'Could not create department.'
     }))
       .toEqual(expect.objectContaining({
         isLoading: false,
-        createFailure: 'Could not update the centre.',
+        createFailure: 'Could not create department.',
         createSuccess: ''
       }));
   });
