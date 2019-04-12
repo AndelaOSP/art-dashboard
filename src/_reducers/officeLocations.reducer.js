@@ -108,7 +108,7 @@ export default (state = initialState.officeLocations, action) => {
         ...state,
         isLoading: false,
         createSuccess: '',
-        createFailure: 'action.payload'
+        createFailure: action.payload
       };
 
     case CREATE_LOCATIONS_REQUEST:

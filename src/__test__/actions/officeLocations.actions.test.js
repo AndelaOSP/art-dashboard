@@ -74,7 +74,7 @@ describe('Centres Action tests', () => {
   });
 
   it('should dispatch LOAD_OFFICE_BLOCK_FAILURE when loadOfficeBlocks is unsuccessful', () => {
-    mock.onGet('office-blocks/?page=1&page_size=10').reply(400, 'Could not load Andela centres');
+    mock.onGet('office-blocks/?page=1&page_size=10').reply(400, 'Could not office blocks');
     return store.dispatch(loadOfficeBlocks(1, 10)).then(() => {
       expect(store.getActions()).toContainEqual({
         payload: new Error('Request failed with status code 400'),
@@ -93,11 +93,12 @@ describe('Centres Action tests', () => {
     });
   });
 
-  xit('should dispatch CREATE_OFFICE_BLOCK_FAILURE when createOfficeBlock is unsuccessful', () => {
-    mock.onPost('office-blocks').reply(400);
+  it('should dispatch CREATE_OFFICE_BLOCK_FAILURE when createOfficeBlock is unsuccessful', () => {
+    mock.onPost('office-blocks').reply(400, 'Error creating Block');
     return store.dispatch(createOfficeBlock({})).then(() => {
       expect(store.getActions()).toContainEqual({
-        type: CREATE_OFFICE_BLOCK_FAILURE
+        type: CREATE_OFFICE_BLOCK_FAILURE,
+        payload: 'Error creating Block'
       });
     });
   });

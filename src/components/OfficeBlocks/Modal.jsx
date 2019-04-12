@@ -16,13 +16,6 @@ export default class Modal extends React.Component {
     block: this.props.data.name || ''
   };
 
-  componentWillReceiveProps({ successMessage }) {
-    if (successMessage && successMessage === 'Block added successfully.') {
-      this.handleToggle();
-      ToastMessage.error({ message: successMessage });
-    }
-  }
-
   handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({
