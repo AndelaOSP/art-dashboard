@@ -121,7 +121,9 @@ export default {
     updateSuccess: '',
     updateError: '',
     createSuccess: '',
-    createFailure: ''
+    createFailure: '',
+    blockCount: 0,
+    blockList: []
   },
   filters: {
     cohorts: [],

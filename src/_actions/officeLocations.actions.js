@@ -15,14 +15,21 @@ const {
   LOAD_COUNTRIES_FAILURE,
   UPDATE_ANDELA_CENTRE_REQUEST,
   UPDATE_ANDELA_CENTRE_SUCCESS,
-  UPDATE_ANDELA_CENTRE_FAILURE
+  UPDATE_ANDELA_CENTRE_FAILURE,
+  LOAD_OFFICE_BLOCK_REQUEST,
+  LOAD_OFFICE_BLOCK_SUCCESS,
+  LOAD_OFFICE_BLOCK_FAILURE,
+  CREATE_OFFICE_BLOCK_REQUEST,
+  CREATE_OFFICE_BLOCK_SUCCESS,
+  CREATE_OFFICE_BLOCK_FAILURE
 } = constants;
 
 export const loadOfficeLocations = (pageNumber, limit) => (dispatch) => {
   dispatch({ type: LOAD_LOCATIONS_REQUEST });
-
+  const url = (pageNumber && limit) ? `andela-centres/?page=${pageNumber}&page_size=${limit}`
+    : 'andela-centres/';
   return axios
-    .get(`andela-centres/?page=${pageNumber}&page_size=${limit}`)
+    .get(url)
     .then((response) => {
       dispatch(loadOfficeLocationsSuccess(response.data));
     })
@@ -99,3 +106,39 @@ export const updateAndelaCentreFail = error => ({
 });
 
 export const resetMessage = () => ({ type: RESET_STATUS_MESSAGE });
+
+export const loadOfficeBlocks = (pageNumber, limit) => (dispatch) => {
+  dispatch({ type: LOAD_OFFICE_BLOCK_REQUEST });
+
+  return axios
+    .get(`office-blocks/?page=${pageNumber}&page_size=${limit}`)
+    .then((response) => {
+      dispatch(loadOfficeBlocksSuccess(response.data));
+    })
+    .catch((error) => {
+      dispatch(loadOfficeBlocksFailure(error));
+    });
+};
+
+export const loadOfficeBlocksSuccess = blocks => ({
+  type: LOAD_OFFICE_BLOCK_SUCCESS,
+  payload: blocks
+});
+
+export const loadOfficeBlocksFailure = error => ({
+  type: LOAD_OFFICE_BLOCK_FAILURE,
+  payload: error
+});
+
+export const createOfficeBlock = data => (dispatch) => {
+  dispatch({ type: CREATE_OFFICE_BLOCK_REQUEST });
+  return axios
+    .post('office-blocks', data)
+    .then((response) => {
+      dispatch({ type: CREATE_OFFICE_BLOCK_SUCCESS, payload: response.data });
+    })
+    .catch((error) => {
+      const message = retrieveErrorMessage(error);
+      dispatch({ type: CREATE_OFFICE_BLOCK_FAILURE, payload: message });
+    });
+};
