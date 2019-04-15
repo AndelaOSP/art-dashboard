@@ -26,10 +26,6 @@ export default class Modal extends React.Component {
     });
   };
 
-  handleSelect = (event, data) => {
-    this.setState({ department: data.value });
-  };
-
   handleToggle = () => {
     this.props.onToggle();
     this.setState({

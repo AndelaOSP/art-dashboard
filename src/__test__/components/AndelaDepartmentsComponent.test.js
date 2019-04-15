@@ -10,7 +10,7 @@ describe('Renders <DepartmentsComponent /> correclty', () => {
     isLoading: false,
     departmentsCount: 2,
     loadDepartments: jest.fn(),
-    departments
+    departmentsList: departments
   };
 
   const wrapper = shallow(<DepartmentsComponent {...props} />);
@@ -39,6 +39,17 @@ describe('Renders <DepartmentsComponent /> correclty', () => {
     const getTotalPagesSpy = jest.spyOn(wrapper.instance(), 'getTotalPages');
     wrapper.instance().getTotalPages();
     expect(getTotalPagesSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleToggleModal when a modal is opened or closed', () => {
+    wrapper.setState({ modalOpen: false });
+
+    wrapper.instance().handleToggleModal();
+    expect(wrapper.state().modalOpen).toEqual(true);
+  });
+
+  it('renders cards', () => {
+    expect(wrapper.find('Card'));
   });
 
   it('renders Loading component if isLoading is true', () => {

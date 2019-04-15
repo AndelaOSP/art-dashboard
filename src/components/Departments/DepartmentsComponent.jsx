@@ -36,15 +36,6 @@ class DepartmentsComponent extends React.Component {
 
   handleToggleModal = () => {
     this.setState({ modalOpen: !this.state.modalOpen });
-    this.props.resetMessage();
-  };
-
-  handleEditToggleModal = (data = {}) => {
-    this.setState({
-      editModalOpen: !this.state.editModalOpen,
-      location: data
-    });
-    this.props.resetMessage();
   };
 
   getTotalPages = () => Math.ceil(this.props.departmentsCount / this.state.limit);
