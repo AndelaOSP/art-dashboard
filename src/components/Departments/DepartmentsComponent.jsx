@@ -93,7 +93,7 @@ class DepartmentsComponent extends React.Component {
           {!isLoading && hasDepartments && (
             <Cards
               data={departmentsList}
-              headings={['name', 'id']}
+              headings={['name']}
               imageName="map.svg"
               showAction={showAction}
               onClick={this.handleEditToggleModal}
