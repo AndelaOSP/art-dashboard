@@ -146,5 +146,16 @@ export default {
     isLoading: false,
     assetLogs: [],
     assetLogsCount: 0
+  },
+
+  departments: {
+    departmentsList: [],
+    departmentsCount: 0,
+    isLoading: false,
+    error: '',
+    updateSuccess: '',
+    updateError: '',
+    createSuccess: '',
+    createFailure: ''
   }
 };

@@ -27,6 +27,7 @@ import filterValuesReducer from './allFilterValues.reducer';
 import securityUsersReducer from './securityUsers.reducer';
 import accordionReducer from './accordion.reducer';
 import logs from './assetLogs.reducer';
+import departments from './departments.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -55,7 +56,8 @@ const rootReducer = combineReducers({
   filters: filterValuesReducer,
   securityUsers: securityUsersReducer,
   accordion: accordionReducer,
-  logs
+  logs,
+  departments
 });
 
 export default rootReducer;

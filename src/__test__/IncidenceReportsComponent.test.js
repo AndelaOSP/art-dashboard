@@ -28,8 +28,23 @@ describe('IncidenceReportsComponent is rendered correctly', () => {
     expect(wrapper.find('Table').length).toBe(1);
   });
 
-
   it('renders a Dropdown component', () => {
     expect(wrapper.find('DropdownComponent').length).toBe(1);
+  });
+
+  it('calls the handlePaginationChange function when the next button is clicked', () => {
+    const handlePaginationChangeSpy = jest.spyOn(wrapper.instance(), 'handlePaginationChange');
+    const event = {};
+    const data = {};
+    wrapper.instance().handlePaginationChange(event, data);
+    expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the handleRowChange function when the next button is clicked', () => {
+    const handleRowChangeSpy = jest.spyOn(wrapper.instance(), 'handleRowChange');
+    const event = {};
+    const data = {};
+    wrapper.instance().handleRowChange(event, data);
+    expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
   });
 });
