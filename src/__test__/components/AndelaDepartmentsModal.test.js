@@ -24,17 +24,14 @@ describe('<DepartmentsModal /> test', () => {
 
   it('renders the modal wrapper', () => {
     const wrapper = shallow(<DepartmentsModal {...props} />);
-    expect(wrapper.find('[data-test="departments-modal-wrapper"]')).toHaveProp('modalTitle', 'Testing Modal');
+    expect(wrapper.find('[data-test="departments-modal-wrapper"]')).toHaveProp(
+      'modalTitle',
+      'Testing Modal'
+    );
   });
 
   it('renders the status component when showStatus prop is true', () => {
-    const wrapper = shallow(
-      <DepartmentsModal
-        {...props}
-        showStatus
-        successMessage="Success!"
-      />
-    );
+    const wrapper = shallow(<DepartmentsModal {...props} showStatus successMessage="Success!" />);
     expect(wrapper.find('[data-test="departments-status"]')).toExist();
   });
 
@@ -51,7 +48,10 @@ describe('<DepartmentsModal /> test', () => {
   it('renders the buttons', () => {
     const wrapper = shallow(<DepartmentsModal {...props} />);
     expect(wrapper.find('[data-test="departments-save-button"]')).toHaveProp('buttonName', 'Save');
-    expect(wrapper.find('[data-test="departments-cancel-button"]')).toHaveProp('buttonName', 'Cancel');
+    expect(wrapper.find('[data-test="departments-cancel-button"]')).toHaveProp(
+      'buttonName',
+      'Cancel'
+    );
   });
 
   it('calls handleInputChange', () => {
@@ -70,7 +70,6 @@ describe('<DepartmentsModal /> test', () => {
     wrapper.instance().handleSubmit();
     expect(handleSubmitSpy).toHaveBeenCalled();
   });
-
 
   it('handles modal toggling', () => {
     const wrapper = shallow(<DepartmentsModal {...props} />);
