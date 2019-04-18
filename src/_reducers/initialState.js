@@ -22,6 +22,7 @@ export default {
     assetsList: {},
     assetsCount: 0,
     errorMessage: '',
+    exportAsset: {},
     success: '',
     hasError: false,
     isLoading: false,
@@ -120,7 +121,9 @@ export default {
     updateSuccess: '',
     updateError: '',
     createSuccess: '',
-    createFailure: ''
+    createFailure: '',
+    blockCount: 0,
+    blockList: []
   },
   filters: {
     cohorts: [],
@@ -138,5 +141,21 @@ export default {
   },
   accordion: {
     activeIndex: 0
+  },
+  logs: {
+    isLoading: false,
+    assetLogs: [],
+    assetLogsCount: 0
+  },
+
+  departments: {
+    departmentsList: [],
+    departmentsCount: 0,
+    isLoading: false,
+    error: '',
+    updateSuccess: '',
+    updateError: '',
+    createSuccess: '',
+    createFailure: ''
   }
 };

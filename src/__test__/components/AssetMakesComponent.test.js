@@ -12,7 +12,8 @@ describe('Renders <AssetMakeComponent /> correctly', () => {
     handlePaginationChange: jest.fn(),
     isLoading: false,
     assetMakes,
-    assetMakesCount: 10
+    assetMakesCount: 10,
+    handleRowChange: jest.fn()
   };
   let wrapper = shallow(<AssetMakeComponent
     {...props}
@@ -65,5 +66,15 @@ describe('Renders <AssetMakeComponent /> correctly', () => {
 
     wrapper.instance().handleToggleModal();
     expect(wrapper.state().modalOpen).toEqual(true);
+  });
+
+  it('calls handleRowChange when a  number of rows are selected', () => {
+    const handleRowChangeSpy = jest.spyOn(
+      wrapper.instance(), 'handleRowChange'
+    );
+    const event = {};
+    const data = {};
+    wrapper.instance().handleRowChange(event, data);
+    expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
   });
 });

@@ -18,10 +18,12 @@ class StatusMessageComponent extends React.Component {
   render() {
     const { isOpen } = this.state;
     const hideClass = !isOpen ? 'hide-status' : '';
+    const message = (this.props.message === 'The fields name, location must make a unique set.') ?
+      'Block name must be unique' : this.props.message;
     return (
       <Message
         onDismiss={this.handleDismiss}
-        content={this.props.message}
+        content={message}
         className={`${this.props.className} ${hideClass}`}
       />
     );

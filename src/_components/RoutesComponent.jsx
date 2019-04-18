@@ -25,6 +25,9 @@ import AddAsset from './Assets/AddAssetContainer';
 import AddAssetSpec from './AssetSpecs/AddAssetSpecContainer';
 import SecurityUsers from './SecurityUser/SecurityUserContainer';
 import AndelaCentresComponent from './AndelaCentres/AndelaCentresContainer';
+import OfficeBlocksContainer from './OfficeBlocks/OfficeBlocksContainer';
+import AssetLogs from '../components/AssetLogs/AssetLogComponent';
+import Departments from '../_components/Departments/DepartmentsContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => {
@@ -70,6 +73,12 @@ class RoutesComponent extends Component {
             exact
             isAuthenticated={this.checkAuthentication()}
             path="/assets/:status?"
+            component={Assets}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/assets/:filters/search"
             component={Assets}
           />
           <Authenticate
@@ -153,6 +162,24 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/andela-centres"
             component={AndelaCentresComponent}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/office-blocks"
+            component={OfficeBlocksContainer}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/asset-logs"
+            component={AssetLogs}
+          />
+          <Authenticate
+            exact
+            isAuthenticated={this.checkAuthentication()}
+            path="/departments"
+            component={Departments}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />
