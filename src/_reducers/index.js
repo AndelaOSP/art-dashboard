@@ -29,7 +29,7 @@ import accordionReducer from './accordion.reducer';
 import logs from './assetLogs.reducer';
 import departments from './departments.reducer';
 import departmentDetail from './departmentDetail.reducer';
-import officeSections from './office-sections.reducer';
+import officeSections from './officeSections.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
