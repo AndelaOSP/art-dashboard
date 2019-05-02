@@ -8,6 +8,9 @@ const {
   LOAD_DEPARTMENTS_REQUEST,
   LOAD_DEPARTMENTS_SUCCESS,
   LOAD_DEPARTMENTS_FAILURE,
+  LOAD_DEPARTMENT_DETAIL_REQUEST,
+  LOAD_DEPARTMENT_DETAIL_SUCCESS,
+  LOAD_DEPARTMENT_DETAIL_FAILURE,
   RESET_STATUS_MESSAGE
 } = constants;
 
@@ -48,7 +51,8 @@ export default (state = initialState.departments, action) => {
         ...state,
         departmentsList: action.payload,
         departmentsCount: action.payload.length,
-        isLoading: false
+        isLoading: false,
+        department: {}
       };
 
     case LOAD_DEPARTMENTS_FAILURE:
@@ -67,6 +71,27 @@ export default (state = initialState.departments, action) => {
         createSuccess: '',
         createFailure: ''
       };
+
+    case LOAD_DEPARTMENT_DETAIL_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case LOAD_DEPARTMENT_DETAIL_SUCCESS:
+      return {
+        ...state,
+        departmentDetail: action.payload,
+        isLoading: false
+      };
+
+    case LOAD_DEPARTMENT_DETAIL_FAILURE:
+      return {
+        ...state,
+        error: action.payload || 'Oops, something went wrong',
+        isLoading: false
+      };
+
     default:
       return state;
   }

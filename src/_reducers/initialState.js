@@ -156,6 +156,7 @@ export default {
     updateSuccess: '',
     updateError: '',
     createSuccess: '',
-    createFailure: ''
+    createFailure: '',
+    departmentDetail: {}
   }
 };
