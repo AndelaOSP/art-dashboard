@@ -11,7 +11,10 @@ const {
   CREATE_DEPARTMENT_REQUEST,
   CREATE_DEPARTMENT_SUCCESS,
   CREATE_DEPARTMENT_FAILURE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  LOAD_DEPARTMENT_DETAIL_REQUEST,
+  LOAD_DEPARTMENT_DETAIL_SUCCESS,
+  LOAD_DEPARTMENT_DETAIL_FAILURE
 } = constants;
 
 const state = {
@@ -94,6 +97,34 @@ describe('Asset Reducer tests', () => {
       successMessage: '',
       updateError: '',
       updateSuccess: ''
+    }));
+  });
+
+  it('should handle LOAD_DEPARTMENT_DEATIL_REQUEST', () => {
+    action.type = LOAD_DEPARTMENT_DETAIL_REQUEST;
+    ([action.payload] = departments.results);
+
+    expect(departmentsReducer(state, action)).toEqual(expect.objectContaining({
+      isLoading: true
+    }));
+  });
+
+  it('should handle LOAD_DEPARTMENT_DETAIL_SUCCESS', () => {
+    action.type = LOAD_DEPARTMENT_DETAIL_SUCCESS;
+    ([action.payload] = departments.results);
+    expect(departmentsReducer(state, action)).toEqual(expect.objectContaining({
+      departmentDetail: departments.results[0],
+      isLoading: false
+    }));
+  });
+
+  it('should handle LOAD_DEPARTMENT_DETAIL_FAILURE', () => {
+    action.type = LOAD_DEPARTMENT_DETAIL_FAILURE;
+    action.payload = 'Error';
+
+    expect(departmentsReducer(state, action)).toEqual(expect.objectContaining({
+      isLoading: false,
+      error: 'Error'
     }));
   });
 });

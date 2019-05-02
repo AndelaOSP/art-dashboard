@@ -17,3 +17,23 @@ export default {
     }
   ]
 };
+
+export const departmentDetail1 = {
+  name: 'Technology',
+  id: 2,
+  assets_assigned: [
+    {
+      uuid: 'cde76cd9-3161-43a5-b0be-c20d44d5ba49',
+      asset_category: 'Electronics',
+      serial_number: 'SERIAL-NUMBERS',
+      asset_code: 'TAGTAGTAG',
+      asset_type: 'Monitors'
+    }
+  ]
+};
+
+export const departmentDetail2 = {
+  name: 'Travel',
+  id: 3,
+  assets_assigned: []
+};

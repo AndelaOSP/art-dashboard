@@ -17,7 +17,9 @@ describe('Card component tests', () => {
         push: jest.fn()
       },
       data: [{ id: 123 }],
-      headings: ['Testing']
+      headings: ['Testing'],
+      onClick: jest.fn(),
+      showAction: true
     };
 
     const { WrappedComponent } = withRouter(connect()(CardComponent));
@@ -38,10 +40,21 @@ describe('Card component tests', () => {
     const handleViewSpy = jest.spyOn(
       wrapper.instance(), 'handleView'
     );
-    const viewDetailsRoute = '';
+    const viewDetailsRoute = 'test/route';
     const data = {};
-
-    wrapper.instance().handleView(viewDetailsRoute, data);
+    const event = { target: { nodeName: 'DIV' } };
+    wrapper.instance().handleView(viewDetailsRoute, data, event);
+    wrapper.find('div').at(0).simulate('click', event);
     expect(handleViewSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the handleClick function ', () => {
+    const handleClickSpy = jest.spyOn(
+      wrapper.instance(), 'handleClick'
+    );
+    const event = { target: { nodeName: 'I' } };
+    const data = {};
+    wrapper.instance().handleClick(data, event);
+    expect(handleClickSpy.mock.calls.length).toEqual(1);
   });
 });
