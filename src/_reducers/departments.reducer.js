@@ -52,7 +52,7 @@ export default (state = initialState.departments, action) => {
         departmentsList: action.payload,
         departmentsCount: action.payload.length,
         isLoading: false,
-        department: {}
+        departmentDetail: {}
       };
 
     case LOAD_DEPARTMENTS_FAILURE:
