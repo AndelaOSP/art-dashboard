@@ -11,11 +11,9 @@ import '../../../_css/Card.css';
 
 export class Card extends React.Component {
   handleView = (viewDetailsRoute, data, event) => {
-    if (event.target.nodeName === 'DIV') {
+    if (event.target.nodeName === 'DIV' && !_.isEmpty(viewDetailsRoute)) {
       const { history } = this.props;
-      if (!_.isEmpty(viewDetailsRoute)) {
-        return history.push(viewDetailsRoute, data);
-      }
+      return history.push(viewDetailsRoute, data);
     }
     return null;
   };

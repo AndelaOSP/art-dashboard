@@ -97,8 +97,7 @@ class DepartmentsComponent extends React.Component {
               onClick={this.handleEditToggleModal}
               urlEntity={entity === 'andela-departments' ? 'departments' : ''}
             />
-          )
-          }
+          )}
 
           {showNotFound && (
             <ItemsNotFoundComponent
