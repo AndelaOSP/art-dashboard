@@ -1,9 +1,9 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import { Header, Table, Card, Divider } from 'semantic-ui-react';
+import { Header, Card, Divider, Segment, Grid } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import LoaderComponent from '../../components/LoaderComponent';
-import TableRowDetail from '../TableRowComponent';
 import NavBarComponent from '../../_components/NavBarContainer';
 import '../../_css/UserDetailComponent.css';
 
@@ -14,8 +14,12 @@ export class DepartmentDetailComponent extends React.Component {
     if (isEmpty(departmentDetail)) loadDepartmentDetail(+match.params.id);
   }
 
+  viewAssignedAssets = assets =>
+    this.props.getAssetsSuccess({ results: assets.assets_assigned, count: assets.assets_assigned.length }, '');
+
+
   assetsAssigned = (assets) => {
-    if (isEmpty(assets)) {
+    if (isEmpty(assets.assets_assigned)) {
       return (
         <Card>
           <Card.Content extra>
@@ -26,41 +30,9 @@ export class DepartmentDetailComponent extends React.Component {
     }
 
     return (
-      <Table basic selectable>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>
-              Asset Type
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Asset Code
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Asset Category
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              Serial Number
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {
-            assets.map(asset => (
-              <TableRowDetail
-                key={asset.uuid}
-                data={asset}
-                viewDetailsRoute={`/assets/${asset.uuid}/view`}
-                headings={[
-                  'asset_type',
-                  'asset_code',
-                  'asset_category',
-                  'serial_number'
-                ]}
-              />
-            ))
-          }
-        </Table.Body>
-      </Table>
+      <Link to="/assets" onClick={() => this.viewAssignedAssets(assets)} >
+        View Assigned Assets
+      </Link>
     );
   };
 
@@ -91,16 +63,21 @@ export class DepartmentDetailComponent extends React.Component {
             />
             <Divider id="assets-divider" />
           </div>
-          <div>
-            <Header as="h3" textAlign="left">
-              Department Name: {departmentDetail.name || 'Not Provided'}
-            </Header>
-            <Header as="h3" textAlign="left">
-          Total Assets Assigned: {departmentDetail.assets_assigned.length}
-            </Header>
-            {this.assetsAssigned(departmentDetail.assets_assigned)}
-          </div>
+          <Segment vertical>
+            <Grid columns={3} relaxed="very" stackable>
+              <Grid.Column>
+                <Header>
+                  Department Name: {departmentDetail.name || 'Not Provided'}
+                </Header>
+                <Header>
+                  Total Assets Assigned: {departmentDetail.assets_assigned.length}
+                </Header>
+                {this.assetsAssigned(departmentDetail)}
+              </Grid.Column>
+            </Grid>
+          </Segment>
         </div>
+
       </NavBarComponent>
     );
   }
@@ -110,6 +87,7 @@ DepartmentDetailComponent.propTypes = {
   isLoading: PropTypes.bool,
   departmentDetail: PropTypes.object,
   loadDepartmentDetail: PropTypes.func.isRequired,
+  getAssetsSuccess: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired
 };
 
