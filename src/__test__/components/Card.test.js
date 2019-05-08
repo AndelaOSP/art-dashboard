@@ -42,19 +42,20 @@ describe('Card component tests', () => {
     );
     const viewDetailsRoute = 'test/route';
     const data = {};
-    const event = { target: { nodeName: 'DIV' } };
+    const event = { target: { nodeName: 'DIV' }, persist: jest.fn() };
     wrapper.instance().handleView(viewDetailsRoute, data, event);
-    wrapper.find('div').at(0).simulate('click', event);
-    expect(handleViewSpy.mock.calls.length).toEqual(1);
+    wrapper.find('div').at(1).simulate('click', event);
+    expect(handleViewSpy.mock.calls.length).toEqual(2);
   });
 
   it('calls the handleClick function ', () => {
     const handleClickSpy = jest.spyOn(
       wrapper.instance(), 'handleClick'
     );
-    const event = { target: { nodeName: 'I' } };
+    const event = { target: { nodeName: 'I' }, persist: jest.fn() };
     const data = {};
     wrapper.instance().handleClick(data, event);
-    expect(handleClickSpy.mock.calls.length).toEqual(1);
+    wrapper.find('Icon').simulate('click', event);
+    expect(handleClickSpy.mock.calls.length).toEqual(2);
   });
 });
