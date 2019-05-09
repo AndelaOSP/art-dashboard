@@ -15,7 +15,6 @@ class AndelaCentresComponent extends React.Component {
   state = {
     limit: 10,
     activePage: 1,
-    modalOpen: false,
     editModalOpen: false,
     location: {}
   };
@@ -33,11 +32,6 @@ class AndelaCentresComponent extends React.Component {
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage });
     this.props.loadOfficeLocations(activePage, this.state.limit);
-  };
-
-  handleToggleModal = () => {
-    this.setState({ modalOpen: !this.state.modalOpen });
-    this.props.resetMessage();
   };
 
   handleEditToggleModal = (data = {}) => {
@@ -60,17 +54,7 @@ class AndelaCentresComponent extends React.Component {
     return (
       <NavBarComponent>
         <div className="assets-list">
-          <PageHeader header="Andela Centres">
-            <div className="header-modal-button">
-              <CentreModal
-                showTrigger
-                title="Add Centre"
-                mode="add"
-                onToggle={this.handleToggleModal}
-                open={this.state.modalOpen}
-              />
-            </div>
-          </PageHeader>
+          <PageHeader header="Andela Centres" />
 
           <CentreModal
             title="Update An Andela Centre"

@@ -7,9 +7,6 @@ const {
   LOAD_LOCATIONS_SUCCESS,
   LOAD_LOCATIONS_FAILURE,
   RESET_STATUS_MESSAGE,
-  CREATE_LOCATIONS_REQUEST,
-  CREATE_LOCATIONS_SUCCESS,
-  CREATE_LOCATIONS_FAILURE,
   LOAD_COUNTRIES_REQUEST,
   LOAD_COUNTRIES_SUCCESS,
   LOAD_COUNTRIES_FAILURE,
@@ -35,19 +32,6 @@ export const loadOfficeLocations = (pageNumber, limit) => (dispatch) => {
     })
     .catch((error) => {
       dispatch(loadOfficeLocationsFailure(error));
-    });
-};
-
-export const createOfficeLocation = data => (dispatch) => {
-  dispatch({ type: CREATE_LOCATIONS_REQUEST });
-  return axios
-    .post('andela-centres', data)
-    .then((response) => {
-      dispatch({ type: CREATE_LOCATIONS_SUCCESS, payload: response.data });
-    })
-    .catch((error) => {
-      const message = retrieveErrorMessage(error);
-      dispatch({ type: CREATE_LOCATIONS_FAILURE, payload: message });
     });
 };
 
