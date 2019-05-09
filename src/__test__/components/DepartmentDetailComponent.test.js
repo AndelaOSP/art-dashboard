@@ -1,41 +1,48 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
-import { departmentDetail1, departmentDetail2 } from '../../_mock/departments';
+import { departmentDetailWithAssignedAsset, departmentDetailWithoutAssignedAsset } from '../../_mock/departments';
 import DepartmentDetail from '../../components/Departments/DepartmentDetailComponent';
 
+let wrapper;
 const props = {
-  departmentDetail: {},
+  details: {},
   isLoading: false,
   loadDepartmentDetail: jest.fn(),
   match: { params: { id: 2 } },
   getAssetsSuccess: jest.fn()
 };
 
-describe('Renders <DepartmentDetailComponent /> correctly', () => {
-  const wrapper = shallow(<DepartmentDetail {...props} />);
+beforeEach(() => {
+  wrapper = shallow(<DepartmentDetail {...props} />);
+});
 
+describe('Renders <DepartmentDetailComponent /> correctly', () => {
   it('renders the LoaderComponent component if isLoading is true', () => {
     wrapper.setProps({ isLoading: true });
     expect(wrapper.find('LoaderComponent').exists()).toEqual(true);
   });
 
-  it('renders a the Segment Component if loading is false and department details is not empty', () => {
+  it('renders the Segment Component if loading is false and department details is not empty', () => {
     wrapper.setProps({
-      departmentDetail: departmentDetail1,
+      details: departmentDetailWithAssignedAsset,
       isLoading: false
     });
     expect(wrapper.find('Segment').exists()).toEqual(true);
   });
 
-  it('clicks the Link to view assigned assets', () => {
+  it('calls getAssetsSuccess action  when the Link Component is clicked ', () => {
+    wrapper.setProps({
+      details: departmentDetailWithAssignedAsset,
+      isLoading: false
+    });
     wrapper.find('Link').simulate('click');
     expect(props.getAssetsSuccess.mock.calls.length).toEqual(1);
   });
 
   it('renders an empty card if assigned_assets is empty ', () => {
     wrapper.setProps({
-      departmentDetail: departmentDetail2,
+      details: departmentDetailWithoutAssignedAsset,
       isLoading: false
     });
     expect(wrapper.find('Card').exists()).toEqual(true);

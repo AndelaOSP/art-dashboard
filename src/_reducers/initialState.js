@@ -156,7 +156,12 @@ export default {
     updateSuccess: '',
     updateError: '',
     createSuccess: '',
-    createFailure: '',
-    departmentDetail: {}
+    createFailure: ''
+  },
+
+  departmentDetail: {
+    details: {},
+    isLoading: false,
+    error: ''
   }
 };

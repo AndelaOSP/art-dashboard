@@ -18,7 +18,7 @@ export default {
   ]
 };
 
-export const departmentDetail1 = {
+export const departmentDetailWithAssignedAsset = {
   name: 'Technology',
   id: 2,
   assets_assigned: [
@@ -32,7 +32,7 @@ export const departmentDetail1 = {
   ]
 };
 
-export const departmentDetail2 = {
+export const departmentDetailWithoutAssignedAsset = {
   name: 'Travel',
   id: 3,
   assets_assigned: []

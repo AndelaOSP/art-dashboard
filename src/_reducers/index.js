@@ -28,6 +28,7 @@ import securityUsersReducer from './securityUsers.reducer';
 import accordionReducer from './accordion.reducer';
 import logs from './assetLogs.reducer';
 import departments from './departments.reducer';
+import departmentDetail from './departmentDetail.reducer';
 
 const rootReducer = combineReducers({
   categoriesList: categoryReducer,
@@ -57,7 +58,8 @@ const rootReducer = combineReducers({
   securityUsers: securityUsersReducer,
   accordion: accordionReducer,
   logs,
-  departments
+  departments,
+  departmentDetail
 });
 
 export default rootReducer;

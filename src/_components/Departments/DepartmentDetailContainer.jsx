@@ -3,10 +3,10 @@ import DepartmentDetail from '../../components/Departments/DepartmentDetailCompo
 import { loadDepartmentDetail } from '../../_actions/departments.actions';
 import { getAssetsSuccess } from '../../_actions/assets.action';
 
-export const mapStateToProps = ({ departments }) => {
-  const { isLoading, error, departmentDetail } = departments;
+export const mapStateToProps = ({ departmentDetail }) => {
+  const { isLoading, error, details } = departmentDetail;
   return {
-    departmentDetail,
+    details,
     isLoading,
     error
   };

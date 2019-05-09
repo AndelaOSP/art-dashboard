@@ -10,11 +10,11 @@ import '../../_css/UserDetailComponent.css';
 
 export class DepartmentDetailComponent extends React.Component {
   componentDidMount() {
-    const { match, loadDepartmentDetail, departmentDetail } = this.props;
-    if (isEmpty(departmentDetail)) loadDepartmentDetail(+match.params.id);
+    const { match, loadDepartmentDetail } = this.props;
+    loadDepartmentDetail(match.params.id);
   }
 
-  viewAssignedAssets = assets =>
+  getAssignedAssets = assets =>
     this.props.getAssetsSuccess({ results: assets.assets_assigned, count: assets.assets_assigned.length }, '');
 
 
@@ -30,21 +30,21 @@ export class DepartmentDetailComponent extends React.Component {
     }
 
     return (
-      <Link to="/assets" onClick={() => this.viewAssignedAssets(assets)} >
+      <Link to="/assets" onClick={() => this.getAssignedAssets(assets)} >
         View Assigned Assets
       </Link>
     );
   };
 
   render() {
-    const { isLoading, departmentDetail } = this.props;
+    const { isLoading, details } = this.props;
     if (isLoading) {
       return (
         <LoaderComponent />
       );
     }
 
-    if (isEmpty(departmentDetail)) {
+    if (isEmpty(details)) {
       return (
         <div>
           Department Not Found
@@ -67,12 +67,12 @@ export class DepartmentDetailComponent extends React.Component {
             <Grid columns={3} relaxed="very" stackable>
               <Grid.Column>
                 <Header>
-                  Department Name: {departmentDetail.name || 'Not Provided'}
+                  Department Name: {details.name || 'Not Provided'}
                 </Header>
                 <Header>
-                  Total Assets Assigned: {departmentDetail.assets_assigned.length}
+                  Total Assets Assigned: {details.assets_assigned.length}
                 </Header>
-                {this.assetsAssigned(departmentDetail)}
+                {this.assetsAssigned(details)}
               </Grid.Column>
             </Grid>
           </Segment>
@@ -85,7 +85,7 @@ export class DepartmentDetailComponent extends React.Component {
 
 DepartmentDetailComponent.propTypes = {
   isLoading: PropTypes.bool,
-  departmentDetail: PropTypes.object,
+  details: PropTypes.object,
   loadDepartmentDetail: PropTypes.func.isRequired,
   getAssetsSuccess: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired

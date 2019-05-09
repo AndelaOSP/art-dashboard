@@ -1,19 +1,19 @@
 import expect from 'expect';
 import { mapStateToProps } from '../../_components/Departments/DepartmentDetailContainer';
-import { departmentDetail1 } from '../../_mock/departments';
+import { departmentDetailWithAssignedAsset } from '../../_mock/departments';
 
-describe('Renders <DepartmentDetailContainer /> correctly', () => {
-  it('calls mapStateToProps', () => {
+describe('mapStateToProps', () => {
+  it('returns the expected prop', () => {
     const state = {
-      departments: {
-        departmentDetail: departmentDetail1,
+      departmentDetail: {
+        details: departmentDetailWithAssignedAsset,
         isLoading: false,
         error: ''
       }
     };
 
     const expected = {
-      departmentDetail: departmentDetail1,
+      details: departmentDetailWithAssignedAsset,
       isLoading: false,
       error: ''
     };

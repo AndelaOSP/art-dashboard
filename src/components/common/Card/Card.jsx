@@ -10,16 +10,19 @@ import CardContent from './CardContent';
 import '../../../_css/Card.css';
 
 export class Card extends React.Component {
-  handleView = (viewDetailsRoute, data, event) => {
-    if (event.target.nodeName === 'DIV' && !_.isEmpty(viewDetailsRoute)) {
+  handleCardView = (viewDetailsRoute, data, event) => {
+    if (this.hasClickedOnCardDiv(event) && !_.isEmpty(viewDetailsRoute)) {
       const { history } = this.props;
       return history.push(viewDetailsRoute, data);
     }
     return null;
   };
+  hasClickedOnCardDiv = event => event.target.nodeName === 'DIV';
 
-  handleClick = (data, event) => {
-    if (event.target.nodeName === 'I') this.props.onClick(data);
+  hasClickedOnCardEditIcon = event => event.target.nodeName === 'I';
+
+  handleEditIconClick = (data, event) => {
+    if (this.hasClickedOnCardEditIcon(event)) this.props.onClick(data);
   };
 
   render() {
@@ -40,7 +43,7 @@ export class Card extends React.Component {
                 className={`card ${customCss}`}
                 onClick={(event) => {
                   event.persist();
-                  this.handleView(viewUrl, info, event);
+                  this.handleCardView(viewUrl, info, event);
                 }}
                 onKeyUp={() => {}}
                 role="button"
@@ -53,7 +56,7 @@ export class Card extends React.Component {
                     name="edit"
                     onClick={(event) => {
                       event.persist();
-                      this.handleClick(info, event);
+                      this.handleEditIconClick(info, event);
                     }}
                   />}
 

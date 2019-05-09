@@ -16,7 +16,7 @@ class DepartmentsComponent extends React.Component {
     limit: 10,
     activePage: 1,
     modalOpen: false,
-    editModalOpen: false,
+    isEditModalOpen: false,
     location: {}
   };
 
@@ -40,7 +40,7 @@ class DepartmentsComponent extends React.Component {
 
   handleEditToggleModal = (data = {}) => {
     this.setState({
-      editModalOpen: !this.state.editModalOpen,
+      isEditModalOpen: !this.state.editModalOpen,
       location: data
     });
   };
@@ -73,7 +73,7 @@ class DepartmentsComponent extends React.Component {
             title="Update An Andela Department"
             mode="edit"
             onToggle={this.handleEditToggleModal}
-            open={this.state.editModalOpen}
+            open={this.state.isEditModalOpen}
             data={this.state.location}
             key={`edit-${this.state.location.id || 1}`}
           />
