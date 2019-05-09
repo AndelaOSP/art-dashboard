@@ -56,17 +56,13 @@ export const loadDepartmentDetail = departmentId => (
   (dispatch) => {
     dispatch({ type: LOAD_DEPARTMENT_DETAIL_REQUEST });
     return axios.get(`departments/${departmentId}`)
-      .then((response) => {
-        dispatch({
-          type: LOAD_DEPARTMENT_DETAIL_SUCCESS,
-          payload: response.data
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: LOAD_DEPARTMENT_DETAIL_FAILURE,
-          payload: error.message
-        });
-      });
+      .then(response => dispatch({
+        type: LOAD_DEPARTMENT_DETAIL_SUCCESS,
+        payload: response.data
+      }))
+      .catch(error => dispatch({
+        type: LOAD_DEPARTMENT_DETAIL_FAILURE,
+        payload: error.message
+      }));
   }
 );
