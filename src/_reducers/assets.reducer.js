@@ -119,9 +119,9 @@ export default (state = initialState.assets, action) => {
         },
         assetsCount: action.payload.count,
         hasError: false,
-        isLoading: action.isLoading,
-        status: action.status,
-        filters: action.filters['Serial Number']
+        isLoading: action.isLoading || false,
+        status: action.status || '',
+        filters: action.filters['Serial Number'] || ''
       };
 
     case SET_ACTIVE_PAGE:

@@ -9,7 +9,10 @@ const {
   LOAD_DEPARTMENTS_REQUEST,
   LOAD_DEPARTMENTS_SUCCESS,
   LOAD_DEPARTMENTS_FAILURE,
-  RESET_STATUS_MESSAGE
+  RESET_STATUS_MESSAGE,
+  LOAD_DEPARTMENT_DETAIL_REQUEST,
+  LOAD_DEPARTMENT_DETAIL_SUCCESS,
+  LOAD_DEPARTMENT_DETAIL_FAILURE
 } = constants;
 
 export const createDepartment = data => (dispatch) => {
@@ -48,3 +51,18 @@ export const loadDepartments = () => (dispatch) => {
 };
 
 export const resetMessage = () => ({ type: RESET_STATUS_MESSAGE });
+
+export const loadDepartmentDetail = departmentId => (
+  (dispatch) => {
+    dispatch({ type: LOAD_DEPARTMENT_DETAIL_REQUEST });
+    return axios.get(`departments/${departmentId}`)
+      .then(response => dispatch({
+        type: LOAD_DEPARTMENT_DETAIL_SUCCESS,
+        payload: response.data
+      }))
+      .catch(error => dispatch({
+        type: LOAD_DEPARTMENT_DETAIL_FAILURE,
+        payload: error.message
+      }));
+  }
+);

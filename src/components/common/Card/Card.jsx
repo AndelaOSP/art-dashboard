@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import uuidv4 from 'uuid/v4';
+import _ from 'lodash';
 import { Icon } from 'semantic-ui-react';
 
 import CardContent from './CardContent';
@@ -9,18 +10,19 @@ import CardContent from './CardContent';
 import '../../../_css/Card.css';
 
 export class Card extends React.Component {
-  handleView = (viewDetailsRoute, data) => {
-    const { history } = this.props;
-
-    if (!viewDetailsRoute) {
-      return null;
+  handleCardView = (viewDetailsRoute, data, event) => {
+    if (this.hasClickedOnCardDiv(event) && !_.isEmpty(viewDetailsRoute)) {
+      const { history } = this.props;
+      return history.push(viewDetailsRoute, data);
     }
-
-    return history.push(viewDetailsRoute, data);
+    return null;
   };
+  hasClickedOnCardDiv = event => event.target.nodeName === 'DIV';
 
-  handleClick = (data) => {
-    this.props.onClick(data);
+  hasClickedOnCardEditIcon = event => event.target.nodeName === 'I';
+
+  handleEditIconClick = (data, event) => {
+    if (this.hasClickedOnCardEditIcon(event)) this.props.onClick(data);
   };
 
   render() {
@@ -39,7 +41,10 @@ export class Card extends React.Component {
               <div
                 key={uuidv4()}
                 className={`card ${customCss}`}
-                onClick={this.handleView(viewUrl, info)}
+                onClick={(event) => {
+                  event.persist();
+                  this.handleCardView(viewUrl, info, event);
+                }}
                 onKeyUp={() => {}}
                 role="button"
                 tabIndex={0}
@@ -49,7 +54,10 @@ export class Card extends React.Component {
                     className="overlay-icon"
                     data={this.props.data}
                     name="edit"
-                    onClick={() => this.handleClick(info)}
+                    onClick={(event) => {
+                      event.persist();
+                      this.handleEditIconClick(info, event);
+                    }}
                   />}
 
                 <div className="bottom-right">
