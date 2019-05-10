@@ -28,6 +28,7 @@ import AndelaCentresComponent from './AndelaCentres/AndelaCentresContainer';
 import OfficeBlocksContainer from './OfficeBlocks/OfficeBlocksContainer';
 import AssetLogs from '../components/AssetLogs/AssetLogComponent';
 import Departments from '../_components/Departments/DepartmentsContainer';
+import DepartmentDetail from './Departments/DepartmentDetailContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => {
@@ -180,6 +181,11 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/departments"
             component={Departments}
+          />
+          <Authenticate
+            isAuthenticated={this.checkAuthentication()}
+            path="/departments/:id/view"
+            component={DepartmentDetail}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />

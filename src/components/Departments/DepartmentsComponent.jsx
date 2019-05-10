@@ -16,7 +16,7 @@ class DepartmentsComponent extends React.Component {
     limit: 10,
     activePage: 1,
     modalOpen: false,
-    editModalOpen: false,
+    isEditModalOpen: false,
     location: {}
   };
 
@@ -36,6 +36,13 @@ class DepartmentsComponent extends React.Component {
 
   handleToggleModal = () => {
     this.setState({ modalOpen: !this.state.modalOpen });
+  };
+
+  handleEditToggleModal = (data = {}) => {
+    this.setState({
+      isEditModalOpen: !this.state.editModalOpen,
+      location: data
+    });
   };
 
   getTotalPages = () => Math.ceil(this.props.departmentsCount / this.state.limit);
@@ -66,7 +73,7 @@ class DepartmentsComponent extends React.Component {
             title="Update An Andela Department"
             mode="edit"
             onToggle={this.handleEditToggleModal}
-            open={this.state.editModalOpen}
+            open={this.state.isEditModalOpen}
             data={this.state.location}
             key={`edit-${this.state.location.id || 1}`}
           />
@@ -88,6 +95,7 @@ class DepartmentsComponent extends React.Component {
               imageName="map.svg"
               showAction={showAction}
               onClick={this.handleEditToggleModal}
+              urlEntity={entity === 'andela-departments' ? 'departments' : ''}
             />
           )}
 

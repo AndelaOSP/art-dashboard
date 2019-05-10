@@ -73,7 +73,7 @@ const AssetsTableContent = (props) => {
             return (
               <TableRowDetail
                 viewDetailsRoute={assetViewUrl}
-                key={asset.id}
+                key={asset.id || asset.uuid}
                 data={updatedAsset}
                 headings={[
                   'asset_code',

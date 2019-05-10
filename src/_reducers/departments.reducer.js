@@ -57,6 +57,7 @@ export default (state = initialState.departments, action) => {
         error: action.payload.message || 'Oops, something went wrong',
         isLoading: false
       };
+
     case RESET_STATUS_MESSAGE:
       return {
         ...state,
@@ -67,6 +68,7 @@ export default (state = initialState.departments, action) => {
         createSuccess: '',
         createFailure: ''
       };
+
     default:
       return state;
   }

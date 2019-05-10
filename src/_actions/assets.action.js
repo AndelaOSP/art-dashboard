@@ -87,12 +87,13 @@ export const uploading = isUpLoading => ({
   isUpLoading
 });
 
-const getAssetsSuccess = (data, status = 'all', filters = {}) => ({
-  type: LOAD_ASSETS_SUCCESS,
-  payload: data,
-  status,
-  filters
-});
+export const getAssetsSuccess = (data, status = 'all', filters = {}) =>
+  ({
+    type: LOAD_ASSETS_SUCCESS,
+    payload: data,
+    status,
+    filters
+  });
 
 const getAssetsFailure = (message, status = 'all') => ({
   type: LOAD_ASSETS_FAILURE,
