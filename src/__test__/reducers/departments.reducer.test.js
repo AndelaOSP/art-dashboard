@@ -25,7 +25,7 @@ const departmentState = {
   error: ''
 };
 
-const departmentDetilState = {
+const departmentDetailState = {
   details: {},
   isLoading: false,
   error: ''
@@ -109,7 +109,7 @@ describe('Department Reducer tests', () => {
     it('should handle LOAD_DEPARTMENT_DEATIL_REQUEST', () => {
       action.type = LOAD_DEPARTMENT_DETAIL_REQUEST;
       ([action.payload] = departments.results);
-      expect(departmentDetailReducer(departmentDetilState, action))
+      expect(departmentDetailReducer(departmentDetailState, action))
         .toEqual(expect.objectContaining({
           isLoading: true
         }));
@@ -118,7 +118,7 @@ describe('Department Reducer tests', () => {
     it('should handle LOAD_DEPARTMENT_DETAIL_SUCCESS', () => {
       action.type = LOAD_DEPARTMENT_DETAIL_SUCCESS;
       ([action.payload] = departments.results);
-      expect(departmentDetailReducer(departmentDetilState, action))
+      expect(departmentDetailReducer(departmentDetailState, action))
         .toEqual(expect.objectContaining({
           details: departments.results[0],
           isLoading: false
@@ -128,7 +128,7 @@ describe('Department Reducer tests', () => {
     it('should handle LOAD_DEPARTMENT_DETAIL_FAILURE', () => {
       action.type = LOAD_DEPARTMENT_DETAIL_FAILURE;
       action.payload = 'Error';
-      expect(departmentDetailReducer(departmentDetilState, action))
+      expect(departmentDetailReducer(departmentDetailState, action))
         .toEqual(expect.objectContaining({
           isLoading: false,
           error: 'Error'
