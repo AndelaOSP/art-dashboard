@@ -12,12 +12,8 @@ const loadOfficeSections = (pageNumber, limit) => (dispatch) => {
 
   return axios
     .get(`/office-sections/?page=${pageNumber}&page_size=${limit}`)
-    .then((response) => {
-      dispatch({ type: LOAD_OFFICE_SECTIONS_SUCCESS, payload: response.data });
-    })
-    .catch((error) => {
-      dispatch({ type: LOAD_OFFICE_SECTIONS_FAILURE, payload: error.message });
-    });
+    .then(response => dispatch({ type: LOAD_OFFICE_SECTIONS_SUCCESS, payload: response.data }))
+    .catch(error => dispatch({ type: LOAD_OFFICE_SECTIONS_FAILURE, payload: error.message }));
 };
 
 export default loadOfficeSections;

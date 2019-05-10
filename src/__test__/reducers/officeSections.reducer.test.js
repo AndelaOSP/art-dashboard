@@ -14,7 +14,7 @@ const {
 const action = { payload: {} };
 
 describe('Office Section Reducer tests', () => {
-  it('should handle LOADING_ASSET_LOGS', () => {
+  it('should handle LOAD_OFFICE_SECTIONS_REQUEST', () => {
     action.type = LOAD_OFFICE_SECTIONS_REQUEST;
     action.isLoading = true;
     expect(officeSectionsReducer(mockStore.officeSections, action).officeSectionsList).toEqual([]);

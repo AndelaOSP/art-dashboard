@@ -7,29 +7,31 @@ import OfficeSections from '../../components/OfficeSections/OfficeSectionsCompon
 import officeSectionsList from '../../_mock/officeSections';
 
 describe('Renders <OfficeSections /> correctly', () => {
+  let wrapper;
+
   const props = {
     loadOfficeSections: jest.fn(),
     isLoading: false,
     officeSectionsList: officeSectionsList.results
   };
-  let wrapper = shallow(<OfficeSections {...props} />);
+
+  beforeEach(() => {
+    wrapper = shallow(<OfficeSections {...props} />);
+  });
+
 
   it('renders Loading component if isLoading is true', () => {
-    props.isLoading = true;
-    wrapper = shallow(<OfficeSections {...props} />);
+    wrapper.setProps({ isLoading: true });
     expect(wrapper.find('LoaderComponent').length).toBe(1);
   });
 
-  it('renders Table component', () => {
-    props.isLoading = false;
-    wrapper = shallow(<OfficeSections {...props} />);
+  it('renders Table component when Loading is false', () => {
+    wrapper.setProps({ isLoading: false });
     expect(wrapper.find('Table').length).toBe(1);
   });
 
   it('renders ItemsNotFoundComponent component if office Sections is empty', () => {
-    props.isLoading = false;
-    props.officeSectionsList = [];
-    wrapper = shallow(<OfficeSections {...props} />);
+    wrapper.setProps({ isLoading: false, officeSectionsList: [] });
     expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 

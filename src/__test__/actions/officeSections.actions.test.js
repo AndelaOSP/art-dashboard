@@ -19,11 +19,11 @@ const {
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
-let mock;
+let axiosMock;
 
 describe('Office Sections Actions', () => {
   beforeEach(() => {
-    mock = new MockAdapter(axios);
+    axiosMock = new MockAdapter(axios);
     store = mockStore({});
   });
 
@@ -31,9 +31,9 @@ describe('Office Sections Actions', () => {
     store.clearActions();
   });
 
-  it('should dispatch LOAD_OFFICE_SECTIONS_REQUEST when fetching office Sections', () => {
+  it('should dispatch LOAD_OFFICE_SECTIONS_REQUEST when loadOfficeSections request is triggered', () => {
     expect.hasAssertions();
-    mock.onGet().reply(200, officeSections);
+    axiosMock.onGet().reply(200, officeSections);
     return store.dispatch(loadOfficeSections())
       .then(() => {
         expect(store.getActions()).toContainEqual({
@@ -42,9 +42,9 @@ describe('Office Sections Actions', () => {
       });
   });
 
-  it('should dispatch LOAD_OFFICE_SECTIONS_SUCCESS when loadOfficeSections called successfully', () => {
+  it('should dispatch LOAD_OFFICE_SECTIONS_SUCCESS when loadOfficeSections request is successful', () => {
     expect.hasAssertions();
-    mock.onGet().reply(200, officeSections);
+    axiosMock.onGet().reply(200, officeSections);
     return store.dispatch(loadOfficeSections())
       .then(() => {
         expect(store.getActions()).toContainEqual({
@@ -56,7 +56,7 @@ describe('Office Sections Actions', () => {
 
   it('should dispatch LOAD_OFFICE_SECTIONS_FAILURE when OfficeSections are not loaded', () => {
     expect.hasAssertions();
-    mock.onGet().reply(401);
+    axiosMock.onGet().reply(401);
     return store.dispatch(loadOfficeSections()).then(() => {
       expect(store.getActions()).toContainEqual({
         payload: 'Request failed with status code 401',

@@ -1,8 +1,8 @@
 import expect from 'expect';
 import { mapStateToProps } from '../../_components/OfficeSections/OfficeSectionsContainer';
 
-describe('Renders <Office Sections /> tests', () => {
-  it('calls mapStateToProps', () => {
+describe('mapStateToProps', () => {
+  it('returns the expected props', () => {
     const state = {
       officeSections: {
         officeSectionsList: [],
