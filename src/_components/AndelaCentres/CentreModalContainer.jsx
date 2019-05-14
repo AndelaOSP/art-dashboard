@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  updateAndelaCentre,
-  createOfficeLocation
+  updateAndelaCentre
 } from '../../_actions/officeLocations.actions';
 import CentreModal from '../../components/AndelaCentres/Modal';
 
@@ -28,6 +27,5 @@ export const mapStateToProps = ({ officeLocations }) => {
 };
 
 export default connect(mapStateToProps, {
-  updateAndelaCentre,
-  createOfficeLocation
+  updateAndelaCentre
 })(CentreModal);

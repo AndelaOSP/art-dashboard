@@ -7,9 +7,6 @@ const {
   LOAD_LOCATIONS_SUCCESS,
   LOAD_LOCATIONS_FAILURE,
   RESET_STATUS_MESSAGE,
-  CREATE_LOCATIONS_SUCCESS,
-  CREATE_LOCATIONS_FAILURE,
-  CREATE_LOCATIONS_REQUEST,
   LOAD_COUNTRIES_REQUEST,
   LOAD_COUNTRIES_SUCCESS,
   LOAD_COUNTRIES_FAILURE,
@@ -91,30 +88,6 @@ export default (state = initialState.officeLocations, action) => {
         updateError: '',
         createSuccess: '',
         createFailure: ''
-      };
-
-    case CREATE_LOCATIONS_SUCCESS:
-      return {
-        ...state,
-        locationCount: state.locationCount + 1,
-        locationList: state.locationList.concat(action.payload),
-        isLoading: false,
-        createSuccess: 'Centre added successfully.',
-        createFailure: ''
-      };
-
-    case CREATE_LOCATIONS_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        createSuccess: '',
-        createFailure: action.payload
-      };
-
-    case CREATE_LOCATIONS_REQUEST:
-      return {
-        ...state,
-        isLoading: true
       };
 
     case LOAD_COUNTRIES_REQUEST:
