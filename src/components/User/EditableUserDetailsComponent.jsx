@@ -38,7 +38,6 @@ class EditableUserDetailsComponent extends Component {
 
     if (!show) {
       return (
-        // <Table>
         <Table.Row className="is-admin-wrapper">
           <Table.Cell>Staff</Table.Cell>
           <Table.Cell className="is-admin">
@@ -50,7 +49,6 @@ class EditableUserDetailsComponent extends Component {
             />
           </Table.Cell>
         </Table.Row>
-        // </Table>
       );
     }
 
