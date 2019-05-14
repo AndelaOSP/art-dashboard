@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { Header, Icon, Table, Segment, Card } from 'semantic-ui-react';
 import LoaderComponent from '../../components/LoaderComponent';
 import TableRowDetail from '../TableRowComponent';
+import EditableUserDetailsComponent from './EditableUserDetailsComponent';
+
+import verifySuperAdmin from '../../_utils/verifySuperAdmin';
 
 import '../../_css/UserDetailComponent.css';
 
@@ -11,9 +14,7 @@ const assetsAssigned = (allocatedAssets) => {
   if (isEmpty(allocatedAssets)) {
     return (
       <Card>
-        <Card.Content extra>
-          No Assests Allocated
-        </Card.Content>
+        <Card.Content extra>No Assests Allocated</Card.Content>
       </Card>
     );
   }
@@ -22,32 +23,20 @@ const assetsAssigned = (allocatedAssets) => {
     <Table basic selectable>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>
-            Asset Type
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            Asset Code
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            Serial Number
-          </Table.HeaderCell>
+          <Table.HeaderCell>Asset Type</Table.HeaderCell>
+          <Table.HeaderCell>Asset Code</Table.HeaderCell>
+          <Table.HeaderCell>Serial Number</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {
-          allocatedAssets.map(asset => (
-            <TableRowDetail
-              key={asset.id}
-              data={asset}
-              viewDetailsRoute={`/assets/${asset.uuid}/view`}
-              headings={[
-                'asset_type',
-                'asset_code',
-                'serial_number'
-              ]}
-            />
-          ))
-        }
+        {allocatedAssets.map(asset => (
+          <TableRowDetail
+            key={asset.id}
+            data={asset}
+            viewDetailsRoute={`/assets/${asset.uuid}/view`}
+            headings={['asset_type', 'asset_code', 'serial_number']}
+          />
+        ))}
       </Table.Body>
     </Table>
   );
@@ -55,17 +44,11 @@ const assetsAssigned = (allocatedAssets) => {
 
 const UserDetailComponent = (props) => {
   if (props.isLoading) {
-    return (
-      <LoaderComponent />
-    );
+    return <LoaderComponent />;
   }
 
   if (isEmpty(props.userDetail)) {
-    return (
-      <div>
-        User Not Found
-      </div>
-    );
+    return <div>User Not Found</div>;
   }
 
   return (
@@ -78,9 +61,7 @@ const UserDetailComponent = (props) => {
           <div className="user-detail-icon">
             <Icon name="mail" size="large" style={{ width: '15%' }} />
           </div>
-          <div className="user-detail-content">
-            {props.userDetail.email}
-          </div>
+          <div className="user-detail-content">{props.userDetail.email}</div>
         </Segment>
         <Segment className="user-detail-info">
           <div className="user-detail-icon">
@@ -109,19 +90,37 @@ const UserDetailComponent = (props) => {
           </div>
         </Segment>
       </Segment.Group>
+      {
+        verifySuperAdmin() && (
+          <Segment.Group horizontal>
+            <Segment className="user-detail-info">
+              <div className="user-detail-icon">
+                <Icon name="user" size="large" style={{ width: '15%' }} />
+              </div>
+              <div className="user-detail-content">
+                <EditableUserDetailsComponent
+                  id={props.userDetail.id}
+                  userDetail={props.userDetail}
+                  updateUserDetail={props.updateUserDetail}
+                />
+              </div>
+            </Segment>
+            <Segment className="user-detail-info" />
+          </Segment.Group>
+        )
+      }
       <Header as="h3" textAlign="left">
         Total Assets Assigned: {props.userDetail.allocated_assets.length}
       </Header>
-      {
-        assetsAssigned(props.userDetail.allocated_assets)
-      }
+      {assetsAssigned(props.userDetail.allocated_assets)}
     </div>
   );
 };
 
 UserDetailComponent.propTypes = {
   isLoading: PropTypes.bool,
-  userDetail: PropTypes.object
+  userDetail: PropTypes.object,
+  updateUserDetail: PropTypes.func.isRequired
 };
 
 UserDetailComponent.defaultTypes = {
