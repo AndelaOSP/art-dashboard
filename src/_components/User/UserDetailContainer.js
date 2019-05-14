@@ -5,12 +5,11 @@ import isEmpty from 'lodash/isEmpty';
 import { Header, Divider } from 'semantic-ui-react';
 import NavBarComponent from '../NavBarContainer';
 import UserDetailComponent from '../../components/User/UserDetailComponent';
-import { loadUserDetail as getUserDetail } from '../../_actions/user.actions';
+import { loadUserDetail as getUserDetail, updateUserDetail } from '../../_actions/user.actions';
 
 class UserDetailContainer extends Component {
   componentDidMount() {
     const { match, userDetail, loadUserDetail } = this.props;
-
     if (isEmpty(userDetail)) {
       loadUserDetail(+match.params.id);
     }
@@ -32,8 +31,10 @@ class UserDetailContainer extends Component {
           <UserDetailComponent
             userDetail={this.props.userDetail}
             errorMessage={this.props.errorMessage}
+            successMessage={this.props.successMessage}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
+            updateUserDetail={this.props.updateUserDetail}
           />
         </div>
       </NavBarComponent>
@@ -47,7 +48,9 @@ UserDetailContainer.propTypes = {
   hasError: PropTypes.bool,
   errorMessage: PropTypes.string,
   userDetail: PropTypes.object,
-  match: PropTypes.object.isRequired
+  updateUserDetail: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  successMessage: PropTypes.string
 };
 
 UserDetailContainer.defaultTypes = {
@@ -57,15 +60,17 @@ UserDetailContainer.defaultTypes = {
 };
 
 export const mapStateToProps = ({ userDetails }, props) => {
-  const { isLoading, hasError, errorMessage, userDetail } = userDetails;
+  const { isLoading, hasError, successMessage, errorMessage, userDetail } = userDetails;
   return {
     userDetail: isEmpty(userDetail) ? props.location.state : userDetail,
     isLoading,
     hasError,
+    successMessage,
     errorMessage
   };
 };
 
 export default connect(mapStateToProps, {
-  loadUserDetail: getUserDetail
+  loadUserDetail: getUserDetail,
+  updateUserDetail
 })(UserDetailContainer);

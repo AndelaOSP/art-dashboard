@@ -1,7 +1,14 @@
 import axios from 'axios';
 import constants from '../_constants';
 
-const { LOADING_USER, LOAD_USER_SUCCESS, LOAD_USER_FAILURE } = constants;
+const {
+  LOADING_USER,
+  LOAD_USER_SUCCESS,
+  LOAD_USER_FAILURE,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_LOADING
+} = constants;
 export const loadUserDetail = userId => (
   (dispatch) => {
     dispatch(loading(true));
@@ -17,9 +24,29 @@ export const loadUserDetail = userId => (
   }
 );
 
+export const updateUserDetail = user => (
+  (dispatch) => {
+    dispatch(updateLoading(true));
+    return axios.patch(`users/${user.id}`, user)
+      .then((response) => {
+        dispatch(updateLoading(false));
+        dispatch(updateUserDetailSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(updateLoading(false));
+        dispatch(updateUserDetailFailure(error.message));
+      });
+  }
+);
+
 const loading = isLoading => ({
   type: LOADING_USER,
   isLoading
+});
+
+const updateLoading = updateUserLoading => ({
+  type: UPDATE_USER_LOADING,
+  updateUserLoading
 });
 
 export const loadUserDetailSuccess = successData => ({
@@ -29,5 +56,15 @@ export const loadUserDetailSuccess = successData => ({
 
 export const loadUserDetailFailure = errorMessage => ({
   type: LOAD_USER_FAILURE,
+  payload: errorMessage
+});
+
+export const updateUserDetailSuccess = successData => ({
+  type: UPDATE_USER_SUCCESS,
+  payload: successData
+});
+
+export const updateUserDetailFailure = errorMessage => ({
+  type: UPDATE_USER_FAILURE,
   payload: errorMessage
 });

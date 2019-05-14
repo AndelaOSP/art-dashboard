@@ -85,6 +85,7 @@ export default {
   user: {
     userDetail: {},
     errorMessage: '',
+    successMessage: '',
     hasError: false,
     isLoading: false
   },

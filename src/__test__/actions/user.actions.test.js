@@ -3,7 +3,8 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { loadUserDetail } from '../../_actions/user.actions';
+import { loadUserDetail, updateUserDetail } from '../../_actions/user.actions';
+import { userDetail as user } from '../../_mock/users';
 
 const userDetail = [
   {
@@ -25,6 +26,7 @@ let store;
 describe('User Detail action tests', () => {
   const mock = new MockAdapter(axios);
   const url = 'users/';
+  const userDetailUrl = `users/${user.id}`;
   store = mockStore({});
 
   afterEach(() => {
@@ -60,6 +62,25 @@ describe('User Detail action tests', () => {
       expect(store.getActions()).toContainEqual({
         payload: 'Request failed with status code 404',
         type: 'LOAD_USER_FAILURE'
+      });
+    });
+  });
+  it('should dispatch UPDATE_USER_SUCCESS when updateUserDetail is called successfully', () => {
+    mock.onPatch(userDetailUrl).reply(200, user);
+    return store.dispatch(updateUserDetail(user)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: user,
+        type: 'UPDATE_USER_SUCCESS'
+      });
+    });
+  });
+
+  it('should dispatch UPDATE_USER_FAILURE when updateUserDetail is called unsuccessfully', () => {
+    mock.onPatch().reply(404, {});
+    return store.dispatch(updateUserDetail(userDetail)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: 'Request failed with status code 404',
+        type: 'UPDATE_USER_FAILURE'
       });
     });
   });
