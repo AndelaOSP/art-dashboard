@@ -33,11 +33,12 @@ class EditableUserDetailsComponent extends Component {
   };
 
   render() {
-    const { updateLoading } = this.props;
+    const { isLoading } = this.props;
     const { show, optionText } = this.state;
 
     if (!show) {
       return (
+        // <Table>
         <Table.Row className="is-admin-wrapper">
           <Table.Cell>Staff</Table.Cell>
           <Table.Cell className="is-admin">
@@ -49,6 +50,7 @@ class EditableUserDetailsComponent extends Component {
             />
           </Table.Cell>
         </Table.Row>
+        // </Table>
       );
     }
 
@@ -56,7 +58,7 @@ class EditableUserDetailsComponent extends Component {
       <Table.Row >
         <Table.Cell className="is-admin-wrapper details-headings">Staff</Table.Cell>
         <Table.Cell className="is-admin">
-          <Form loading={updateLoading}>
+          <Form loading={isLoading}>
 
             <DropdownComponent
               customClass="form-dropdown asset-detail__table__dropdown"
@@ -87,8 +89,8 @@ class EditableUserDetailsComponent extends Component {
 
 EditableUserDetailsComponent.propTypes = {
   userDetail: PropTypes.object,
-  updateLoading: PropTypes.bool,
-  updateUserDetail: PropTypes.func.isRequired
+  updateUserDetail: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 };
 
 export default EditableUserDetailsComponent;

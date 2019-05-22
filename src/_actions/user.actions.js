@@ -6,7 +6,8 @@ const {
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_FAILURE
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_LOADING
 } = constants;
 export const loadUserDetail = userId => (
   (dispatch) => {
@@ -25,14 +26,14 @@ export const loadUserDetail = userId => (
 
 export const updateUserDetail = user => (
   (dispatch) => {
-    dispatch(loading(true));
+    dispatch(updateLoading(true));
     return axios.patch(`users/${user.id}`, user)
       .then((response) => {
-        dispatch(loading(false));
+        dispatch(updateLoading(false));
         dispatch(updateUserDetailSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(loading(false));
+        dispatch(updateLoading(false));
         dispatch(updateUserDetailFailure(error.message));
       });
   }
@@ -41,6 +42,11 @@ export const updateUserDetail = user => (
 const loading = isLoading => ({
   type: LOADING_USER,
   isLoading
+});
+
+const updateLoading = updateUserLoading => ({
+  type: UPDATE_USER_LOADING,
+  updateUserLoading
 });
 
 export const loadUserDetailSuccess = successData => ({

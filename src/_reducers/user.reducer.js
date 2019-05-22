@@ -6,7 +6,8 @@ const {
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_FAILURE
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_LOADING
 } = constants;
 
 export default (state = initialState.user, action) => {
@@ -35,7 +36,14 @@ export default (state = initialState.user, action) => {
       return {
         ...state,
         userDetail: action.payload,
-        isLoading: action.isLoading
+        isLoading: action.isLoading,
+        successMessage: 'Record updated succesfully'
+      };
+
+    case UPDATE_USER_LOADING:
+      return {
+        ...state,
+        isLoading: action.updateUserLoading
       };
 
     case UPDATE_USER_FAILURE:

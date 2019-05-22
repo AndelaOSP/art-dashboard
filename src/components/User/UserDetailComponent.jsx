@@ -2,9 +2,10 @@ import React from 'react';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { Header, Icon, Table, Segment, Card } from 'semantic-ui-react';
-import LoaderComponent from '../../components/LoaderComponent';
+// import LoaderComponent from '../../components/LoaderComponent';
 import TableRowDetail from '../TableRowComponent';
 import EditableUserDetailsComponent from './EditableUserDetailsComponent';
+import StatusMessageComponent from '../common/StatusComponent';
 
 import verifySuperAdmin from '../../_utils/verifySuperAdmin';
 
@@ -43,10 +44,6 @@ const assetsAssigned = (allocatedAssets) => {
 };
 
 const UserDetailComponent = (props) => {
-  if (props.isLoading) {
-    return <LoaderComponent />;
-  }
-
   if (isEmpty(props.userDetail)) {
     return <div>User Not Found</div>;
   }
@@ -56,6 +53,15 @@ const UserDetailComponent = (props) => {
       <Header as="h2" textAlign="left">
         {props.userDetail.full_name || 'Andelan'}
       </Header>
+      {
+        (props.successMessage !== '' || props.errorMessage !== '') && (
+          <StatusMessageComponent
+            message={props.successMessage || props.errorMessage}
+            className={(props.successMessage !== '') ? 'success-status' : 'error-status'}
+          />
+        )
+      }
+
       <Segment.Group horizontal>
         <Segment className="user-detail-info">
           <div className="user-detail-icon">
@@ -102,6 +108,7 @@ const UserDetailComponent = (props) => {
                   id={props.userDetail.id}
                   userDetail={props.userDetail}
                   updateUserDetail={props.updateUserDetail}
+                  isLoading={props.isLoading}
                 />
               </div>
             </Segment>
@@ -120,7 +127,9 @@ const UserDetailComponent = (props) => {
 UserDetailComponent.propTypes = {
   isLoading: PropTypes.bool,
   userDetail: PropTypes.object,
-  updateUserDetail: PropTypes.func.isRequired
+  updateUserDetail: PropTypes.func.isRequired,
+  successMessage: PropTypes.string,
+  errorMessage: PropTypes.string
 };
 
 UserDetailComponent.defaultTypes = {

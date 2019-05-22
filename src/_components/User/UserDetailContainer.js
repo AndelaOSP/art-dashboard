@@ -10,7 +10,6 @@ import { loadUserDetail as getUserDetail, updateUserDetail } from '../../_action
 class UserDetailContainer extends Component {
   componentDidMount() {
     const { match, userDetail, loadUserDetail } = this.props;
-
     if (isEmpty(userDetail)) {
       loadUserDetail(+match.params.id);
     }
@@ -32,6 +31,7 @@ class UserDetailContainer extends Component {
           <UserDetailComponent
             userDetail={this.props.userDetail}
             errorMessage={this.props.errorMessage}
+            successMessage={this.props.successMessage}
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
             updateUserDetail={this.props.updateUserDetail}
@@ -49,7 +49,8 @@ UserDetailContainer.propTypes = {
   errorMessage: PropTypes.string,
   userDetail: PropTypes.object,
   updateUserDetail: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  successMessage: PropTypes.string
 };
 
 UserDetailContainer.defaultTypes = {
@@ -59,11 +60,12 @@ UserDetailContainer.defaultTypes = {
 };
 
 export const mapStateToProps = ({ userDetails }, props) => {
-  const { isLoading, hasError, errorMessage, userDetail } = userDetails;
+  const { isLoading, hasError, successMessage, errorMessage, userDetail } = userDetails;
   return {
     userDetail: isEmpty(userDetail) ? props.location.state : userDetail,
     isLoading,
     hasError,
+    successMessage,
     errorMessage
   };
 };
