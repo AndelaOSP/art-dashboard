@@ -5,16 +5,16 @@ describe('mapStateToProps', () => {
   it('returns the expected props', () => {
     const state = {
       officeSections: {
-        officeSectionsList: [],
-        officeSectionsCount: 0,
+        list: [],
+        count: 0,
         isLoading: false,
         error: ''
       }
     };
 
     const expected = {
-      officeSectionsList: [],
-      officeSectionsCount: 0,
+      list: [],
+      count: 0,
       isLoading: false,
       error: ''
     };

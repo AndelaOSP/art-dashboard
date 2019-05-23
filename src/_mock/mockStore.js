@@ -22,8 +22,8 @@ export default {
     assetLogsCount: 0
   },
   officeSections: {
-    officeSectionsList: [],
-    officeSectionsCount: 0,
+    list: [],
+    count: 0,
     isLoading: false,
     error: ''
   }

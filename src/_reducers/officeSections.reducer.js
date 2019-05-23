@@ -18,8 +18,8 @@ export default (state = initialState.officeSections, action) => {
     case LOAD_OFFICE_SECTIONS_SUCCESS:
       return {
         ...state,
-        officeSectionsList: action.payload.results,
-        officeSectionsCount: action.payload.count,
+        list: action.payload.results,
+        count: action.payload.count,
         isLoading: false
       };
 
@@ -27,7 +27,7 @@ export default (state = initialState.officeSections, action) => {
       return {
         ...state,
         isLoading: false,
-        officeSectionsList: [],
+        list: [],
         error: action.payload.message || 'Oops, something went wrong'
       };
 

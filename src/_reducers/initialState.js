@@ -161,8 +161,8 @@ export default {
     details: {}
   },
   officeSections: {
-    officeSectionsList: [],
-    officeSectionsCount: 0,
+    list: [],
+    count: 0,
     isLoading: false,
     error: ''
   }

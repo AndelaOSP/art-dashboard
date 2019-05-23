@@ -8,7 +8,7 @@ import {
   Divider,
   Button
 } from 'semantic-ui-react';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 import TableRow from '../TableRowComponent';
 import NavBarComponent from '../../_components/NavBarContainer';
@@ -28,19 +28,21 @@ export class OfficeSectionsComponent extends React.Component {
     this.props.loadOfficeSections(this.state.activePage, this.state.limit);
   }
 
-  handleRowChange = (e, data) => {
+  handleRowChange = (event, data) => {
     this.setState({ limit: data.value });
     this.props.loadOfficeSections(this.state.activePage, data.value);
+    event.stopPropagation();
   };
 
-  handlePaginationChange = (e, { activePage }) => {
+  handlePaginationChange = (event, { activePage }) => {
     this.setState({ activePage });
     this.props.loadOfficeSections(activePage);
+    event.stopPropagation();
   };
 
   handleToggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
-  getTotalPages = () => Math.ceil(this.props.officeSectionsCount / this.state.limit);
+  getTotalPages = () => Math.ceil(this.props.count / this.state.limit);
 
   render() {
     if (this.props.isLoading) {
@@ -50,7 +52,7 @@ export class OfficeSectionsComponent extends React.Component {
         </NavBarComponent>
       );
     }
-    if (!this.props.isLoading && _.isEmpty(this.props.officeSectionsList)) {
+    if (isEmpty(this.props.list)) {
       return (
         <NavBarComponent>
           <ItemsNotFoundComponent
@@ -92,7 +94,7 @@ export class OfficeSectionsComponent extends React.Component {
 
             <Table.Body>
               {
-                this.props.officeSectionsList.map(section => (
+                this.props.list.map(section => (
                   <TableRow
                     key={section.id}
                     data={section}
@@ -104,7 +106,7 @@ export class OfficeSectionsComponent extends React.Component {
 
             <Table.Footer>
               <Table.Row>
-                {!_.isEmpty(this.props.officeSectionsList) && (
+                {!isEmpty(this.props.list) && (
                   <Table.HeaderCell colSpan="4" id="pagination-header">
                     <Segment.Group horizontal id="art-pagination-section">
                       <Segment>
@@ -139,8 +141,8 @@ export class OfficeSectionsComponent extends React.Component {
 OfficeSectionsComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadOfficeSections: PropTypes.func.isRequired,
-  officeSectionsList: PropTypes.array.isRequired,
-  officeSectionsCount: PropTypes.number.isRequired
+  list: PropTypes.array.isRequired,
+  count: PropTypes.number.isRequired
 };
 
 export default OfficeSectionsComponent;

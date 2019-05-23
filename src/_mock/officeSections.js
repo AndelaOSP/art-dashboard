@@ -1,5 +1,5 @@
 export default {
-  officeSectionsCount: 2,
+  count: 2,
   next: null,
   previous: null,
   results: [

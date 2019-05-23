@@ -4,15 +4,15 @@ import expect from 'expect';
 
 import OfficeSections from '../../components/OfficeSections/OfficeSectionsComponent';
 
-import officeSectionsList from '../../_mock/officeSections';
+import Sections from '../../_mock/officeSections';
 
-describe('Renders <OfficeSections /> correctly', () => {
+describe('OfficeSectionComponent Spec', () => {
   let wrapper;
 
   const props = {
     loadOfficeSections: jest.fn(),
     isLoading: false,
-    officeSectionsList: officeSectionsList.results
+    list: Sections.results
   };
 
   beforeEach(() => {
@@ -31,27 +31,32 @@ describe('Renders <OfficeSections /> correctly', () => {
   });
 
   it('renders ItemsNotFoundComponent component if office Sections is empty', () => {
-    wrapper.setProps({ isLoading: false, officeSectionsList: [] });
+    wrapper.setProps({ isLoading: false, list: [] });
     expect(wrapper.find('ItemsNotFoundComponent').length).toBe(1);
   });
 
   it('calls handleRowChange when a user tries to change row limit', () => {
     const handleRowChangeSpy = jest.spyOn(wrapper.instance(), 'handleRowChange');
 
-    const event = {};
-    const data = {};
+    const event = { stopPropagation: jest.fn() };
+    const data = { value: '' };
 
-    wrapper.instance().handleRowChange(event, data);
-    expect(handleRowChangeSpy.mock.calls.length).toEqual(1);
+    wrapper.setProps({ onChange: handleRowChangeSpy });
+    wrapper.find('DropdownComponent').simulate('change', event, data);
+    expect(handleRowChangeSpy).toHaveBeenCalledWith(event, data);
+    expect(handleRowChangeSpy).toHaveBeenCalledTimes(1);
   });
 
   it('calls handlePaginationChange when next button is clicked', () => {
     const handlePaginationChangeSpy = jest.spyOn(wrapper.instance(), 'handlePaginationChange');
 
-    const event = {};
+    const event = { stopPropagation: jest.fn() };
     const data = {};
 
-    wrapper.instance().handlePaginationChange(event, data);
-    expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
+    wrapper.setProps({ onPageChange: handlePaginationChangeSpy });
+    wrapper.find('Pagination').simulate('pageChange', event, data);
+
+    expect(handlePaginationChangeSpy).toHaveBeenCalledWith(event, data);
+    expect(handlePaginationChangeSpy).toHaveBeenCalledTimes(1);
   });
 });

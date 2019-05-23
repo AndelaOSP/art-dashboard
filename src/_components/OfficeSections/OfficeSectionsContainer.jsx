@@ -4,15 +4,15 @@ import OfficeSections from '../../components/OfficeSections/OfficeSectionsCompon
 
 export const mapStateToProps = ({ officeSections }) => {
   const {
-    officeSectionsList,
-    officeSectionsCount,
+    list,
+    count,
     isLoading,
     error
   } = officeSections;
 
   return {
-    officeSectionsList,
-    officeSectionsCount,
+    list,
+    count,
     isLoading,
     error
   };
