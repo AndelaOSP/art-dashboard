@@ -11,6 +11,7 @@ const { LOADING_USER, LOAD_USER_SUCCESS, LOAD_USER_FAILURE,
 const state = {
   userDetail: {},
   errorMessage: '',
+  successMessage: '',
   hasError: false,
   isLoading: false
 };
@@ -40,6 +41,7 @@ describe('User Detail Reducer tests', () => {
       errorMessage: '',
       hasError: false,
       isLoading: false,
+      successMessage: '',
       userDetail: action.payload
     });
   });
@@ -59,6 +61,7 @@ describe('User Detail Reducer tests', () => {
       errorMessage: '',
       hasError: false,
       isLoading: false,
+      successMessage: 'Record updated succesfully',
       userDetail: action.payload
     });
   });

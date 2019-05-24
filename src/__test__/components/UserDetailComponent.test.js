@@ -11,11 +11,6 @@ const props = {
 describe('Renders <UserDetailComponent /> correctly', () => {
   const wrapper = shallow(<UserDetailComponent {...props} />);
 
-  it('renders the LoaderComponent component if isLoading is true', () => {
-    wrapper.setProps({ isLoading: true });
-    expect(wrapper.find('LoaderComponent').exists()).toEqual(true);
-  });
-
   it('renders a the table if loading is false and user details is not empty', () => {
     wrapper.setProps({
       userDetail: {
