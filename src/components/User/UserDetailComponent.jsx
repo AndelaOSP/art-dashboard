@@ -2,7 +2,6 @@ import React from 'react';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { Header, Icon, Table, Segment, Card } from 'semantic-ui-react';
-// import LoaderComponent from '../../components/LoaderComponent';
 import TableRowDetail from '../TableRowComponent';
 import EditableUserDetailsComponent from './EditableUserDetailsComponent';
 import StatusMessageComponent from '../common/StatusComponent';
@@ -54,10 +53,11 @@ const UserDetailComponent = (props) => {
         {props.userDetail.full_name || 'Andelan'}
       </Header>
       {
-        (props.successMessage !== '' || props.errorMessage !== '') && (
+        (props.successMessage || props.errorMessage) && (
           <StatusMessageComponent
             message={props.successMessage || props.errorMessage}
-            className={(props.successMessage !== '') ? 'success-status' : 'error-status'}
+            className={props.successMessage ? 'success-status' : 'error-status'}
+            reset={props.resetMessage}
           />
         )
       }
@@ -129,12 +129,15 @@ UserDetailComponent.propTypes = {
   userDetail: PropTypes.object,
   updateUserDetail: PropTypes.func.isRequired,
   successMessage: PropTypes.string,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+  resetMessage: PropTypes.func
 };
 
 UserDetailComponent.defaultTypes = {
   isLoading: false,
-  userDetail: {}
+  userDetail: {},
+  successMessage: '',
+  errorMessage: ''
 };
 
 export default UserDetailComponent;

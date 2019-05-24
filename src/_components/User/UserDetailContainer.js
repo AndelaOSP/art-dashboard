@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Header, Divider } from 'semantic-ui-react';
 import NavBarComponent from '../NavBarContainer';
 import UserDetailComponent from '../../components/User/UserDetailComponent';
-import { loadUserDetail as getUserDetail, updateUserDetail } from '../../_actions/user.actions';
+import { loadUserDetail as getUserDetail, updateUserDetail, resetMessage } from '../../_actions/user.actions';
 
 class UserDetailContainer extends Component {
   componentDidMount() {
@@ -35,6 +35,7 @@ class UserDetailContainer extends Component {
             hasError={this.props.hasError}
             isLoading={this.props.isLoading}
             updateUserDetail={this.props.updateUserDetail}
+            resetMessage={this.props.resetMessage}
           />
         </div>
       </NavBarComponent>
@@ -50,13 +51,15 @@ UserDetailContainer.propTypes = {
   userDetail: PropTypes.object,
   updateUserDetail: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
-  successMessage: PropTypes.string
+  successMessage: PropTypes.string,
+  resetMessage: PropTypes.func.isRequired
 };
 
 UserDetailContainer.defaultTypes = {
   isLoading: false,
   hasError: false,
-  errorMessage: ''
+  errorMessage: '',
+  successMessage: ''
 };
 
 export const mapStateToProps = ({ userDetails }, props) => {
@@ -72,5 +75,6 @@ export const mapStateToProps = ({ userDetails }, props) => {
 
 export default connect(mapStateToProps, {
   loadUserDetail: getUserDetail,
-  updateUserDetail
+  updateUserDetail,
+  resetMessage
 })(UserDetailContainer);

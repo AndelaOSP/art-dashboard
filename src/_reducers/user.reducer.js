@@ -7,7 +7,8 @@ const {
   LOAD_USER_FAILURE,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
-  UPDATE_USER_LOADING
+  UPDATE_USER_LOADING,
+  RESET_STATUS_MESSAGE
 } = constants;
 
 export default (state = initialState.user, action) => {
@@ -30,6 +31,14 @@ export default (state = initialState.user, action) => {
         isLoading: action.isLoading,
         hasError: true,
         errorMessage: action.payload
+      };
+
+    case RESET_STATUS_MESSAGE:
+      return {
+        ...state,
+        successMessage: '',
+        errorMessage: '',
+        hasError: false
       };
 
     case UPDATE_USER_SUCCESS:

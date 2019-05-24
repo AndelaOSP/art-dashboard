@@ -7,8 +7,12 @@ const {
   LOAD_USER_FAILURE,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
-  UPDATE_USER_LOADING
+  UPDATE_USER_LOADING,
+  RESET_STATUS_MESSAGE
 } = constants;
+
+export const resetMessage = () => ({ type: RESET_STATUS_MESSAGE });
+
 export const loadUserDetail = userId => (
   (dispatch) => {
     dispatch(loading(true));
@@ -26,7 +30,7 @@ export const loadUserDetail = userId => (
 
 export const updateUserDetail = user => (
   (dispatch) => {
-    dispatch(updateLoading(true));
+    dispatch(loading(true));
     return axios.patch(`users/${user.id}`, user)
       .then((response) => {
         dispatch(updateLoading(false));
