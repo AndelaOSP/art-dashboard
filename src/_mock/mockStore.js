@@ -20,5 +20,11 @@ export default {
     isLoading: false,
     assetLogs: [],
     assetLogsCount: 0
+  },
+  officeSections: {
+    list: [],
+    count: 0,
+    isLoading: false,
+    error: ''
   }
 };

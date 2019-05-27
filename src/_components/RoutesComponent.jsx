@@ -29,6 +29,7 @@ import OfficeBlocksContainer from './OfficeBlocks/OfficeBlocksContainer';
 import AssetLogs from '../components/AssetLogs/AssetLogComponent';
 import Departments from '../_components/Departments/DepartmentsContainer';
 import DepartmentDetail from './Departments/DepartmentDetailContainer';
+import OfficeSections from '../_components/OfficeSections/OfficeSectionsContainer';
 
 class RoutesComponent extends Component {
   checkAuthentication = () => {
@@ -186,6 +187,12 @@ class RoutesComponent extends Component {
             isAuthenticated={this.checkAuthentication()}
             path="/departments/:id/view"
             component={DepartmentDetail}
+            exact
+          />
+          <Authenticate
+            isAuthenticated={this.checkAuthentication()}
+            path="/office-sections"
+            component={OfficeSections}
           />
           <Route exact path="/" component={LoginComponent} />
           <Route path="*" component={PageNotFound} />
