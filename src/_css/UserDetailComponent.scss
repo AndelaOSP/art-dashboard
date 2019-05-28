@@ -5,6 +5,7 @@
 }
 
 .user-detail-icon {
+  margin-top: 0.5rem;
   float: left;
 }
 
@@ -23,10 +24,15 @@
   margin-left: 15%;
   text-align: left;
 
+  table {
+    border: none !important;
+  }
+
   tr {
     width: auto;
 
     td.is-admin {
+      margin-top: 0.8rem;
       width: 200px;
       display: flex;
       padding: 0 20px;
@@ -89,6 +95,3 @@ h3.ui.header {
   width: 90%;
   align-content: center;
 }
-
-
-

@@ -8,7 +8,7 @@ import '../../_css/AssetDetailsComponent.css';
 
 class EditableUserDetailsComponent extends Component {
   state = {
-    show: false,
+    editIconClicked: false,
     optionText: this.props.userDetail.is_staff ? 'Yes' : 'No'
   };
 
@@ -22,65 +22,74 @@ class EditableUserDetailsComponent extends Component {
 
   toggleFormVisibility = () => {
     this.setState({
-      show: !this.state.show
+      editIconClicked: !this.state.editIconClicked
     });
   };
 
-  updateUserStatus = () => {
+  updateUserStatus = async () => {
     const { userDetail, updateUserDetail } = this.props;
     userDetail.is_staff = (this.state.optionText === 'Yes');
-    updateUserDetail(userDetail);
+    await updateUserDetail(userDetail);
+    this.setState({ editIconClicked: false });
   };
 
   render() {
     const { isLoading } = this.props;
-    const { show, optionText } = this.state;
+    const { editIconClicked, optionText } = this.state;
 
-    if (!show) {
+    if (!editIconClicked) {
       return (
-        <Table.Row className="is-admin-wrapper">
-          <Table.Cell>Staff</Table.Cell>
-          <Table.Cell className="is-admin">
-            {optionText}
-            <Icon
-              name="edit"
-              className="asset-detail__table__icon is-admin"
-              onClick={this.toggleFormVisibility}
-            />
-          </Table.Cell>
-        </Table.Row>
+        <Table>
+          <Table.Body>
+            <Table.Row className="is-admin-wrapper">
+              <Table.Cell>Staff</Table.Cell>
+              <Table.Cell className="is-admin">
+                {optionText}
+                <Icon
+                  name="edit"
+                  className="asset-detail__table__icon is-admin"
+                  onClick={this.toggleFormVisibility}
+                />
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
       );
     }
 
     return (
-      <Table.Row >
-        <Table.Cell className="is-admin-wrapper details-headings">Staff</Table.Cell>
-        <Table.Cell className="is-admin">
-          <Form loading={isLoading}>
+      <Table>
+        <Table.Body>
+          <Table.Row >
+            <Table.Cell className="is-admin-wrapper details-headings">Staff</Table.Cell>
+            <Table.Cell className="is-admin">
+              <Form loading={isLoading}>
 
-            <DropdownComponent
-              customClass="form-dropdown asset-detail__table__dropdown"
-              options={[{ text: 'Yes', value: 'Yes' }, { text: 'No', value: 'No' }]}
-              value={optionText}
-              onChange={this.handleDropdownChange}
-              upward={false}
-            />
+                <DropdownComponent
+                  customClass="form-dropdown asset-detail__table__dropdown"
+                  options={[{ text: 'Yes', value: 'Yes' }, { text: 'No', value: 'No' }]}
+                  value={optionText}
+                  onChange={this.handleDropdownChange}
+                  upward={false}
+                />
 
-            <Icon
-              name="close"
-              className="asset-detail__table__icon"
-              onClick={this.toggleFormVisibility}
-            />
+                <Icon
+                  name="close"
+                  className="asset-detail__table__icon"
+                  onClick={this.toggleFormVisibility}
+                />
 
-            <Icon
-              name="save"
-              className="asset-detail__table__icon"
-              onClick={this.updateUserStatus}
-            />
+                <Icon
+                  name="save"
+                  className="asset-detail__table__icon"
+                  onClick={this.updateUserStatus}
+                />
 
-          </Form>
-        </Table.Cell>
-      </Table.Row>
+              </Form>
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
     );
   }
 }

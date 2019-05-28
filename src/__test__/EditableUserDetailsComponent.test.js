@@ -6,7 +6,7 @@ import EditableUserDetailsComponent from '../components/User/EditableUserDetails
 
 import { userDetail } from '../_mock/users';
 
-describe('Renders <EditableUserDetailsComponent /> correctly', () => {
+describe('EditableUserDetailsComponent Spec', () => {
   const props = {
     errorMessage: '',
     hasError: false,
