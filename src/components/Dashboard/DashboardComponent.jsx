@@ -48,6 +48,10 @@ class DashboardComponent extends Component {
     {
       url: '/departments',
       title: 'Departments'
+    },
+    {
+      url: '/office-sections',
+      title: 'Office Sections'
     }
   ];
 

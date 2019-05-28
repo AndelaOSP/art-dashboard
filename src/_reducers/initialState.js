@@ -148,7 +148,6 @@ export default {
     assetLogs: [],
     assetLogsCount: 0
   },
-
   departments: {
     departmentsList: [],
     departmentsCount: 0,
@@ -159,9 +158,12 @@ export default {
     createSuccess: '',
     createFailure: ''
   },
-
   departmentDetail: {
-    details: {},
+    details: {}
+  },
+  officeSections: {
+    list: [],
+    count: 0,
     isLoading: false,
     error: ''
   }
