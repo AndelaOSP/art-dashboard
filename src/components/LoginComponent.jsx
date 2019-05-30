@@ -27,10 +27,20 @@ class LoginComponent extends React.Component {
     if (validAndelaEmail(result.user.email)) {
       result.user.getIdToken().then((idToken) => {
         const decodedToken = jwt.decode(idToken);
+        const isAdmin = decodedToken.admin;
 
         if (get(decodedToken, 'admin', false)) {
           localStorage.setItem('art-prod-web-token', idToken);
           setAuthorizationConfig();
+        }
+
+        /**
+         * This method is to ensure that a normal admin can log in
+         *  As long as a user has an Admin property set to true they
+         * can log in
+         */
+        if (isAdmin) {
+          localStorage.setItem('art-prod-web-token', idToken);
         }
 
         this.props.history.push('/dashboard');

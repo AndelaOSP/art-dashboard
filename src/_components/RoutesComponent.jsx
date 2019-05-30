@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
-import { get } from 'lodash';
 
 import Authenticate from './AccessControl/AuthenticateComponent';
 import AssetTypes from '../components/AssetTypes/AssetTypesComponent';
@@ -35,13 +33,7 @@ class RoutesComponent extends Component {
   checkAuthentication = () => {
     const token = localStorage.getItem('art-prod-web-token');
 
-    if (!token) {
-      return false;
-    }
-
-    const decodedToken = jwt.decode(token);
-
-    return get(decodedToken, 'admin', false);
+    return !!token;
   };
 
   render() {
@@ -49,6 +41,7 @@ class RoutesComponent extends Component {
       <div>
         <Switch>
           <Authenticate
+            exact
             isAuthenticated={this.checkAuthentication()}
             path="/dashboard"
             component={Dashboard}
@@ -202,4 +195,4 @@ class RoutesComponent extends Component {
   }
 }
 
-export default (RoutesComponent);
+export default(RoutesComponent);
