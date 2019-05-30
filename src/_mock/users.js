@@ -27,6 +27,17 @@ export const SecurityUser = {
   is_active: true
 };
 
+export const userDetail = {
+  id: 1,
+  first_name: 'Test',
+  last_name: 'User',
+  email: 'test@email.com',
+  badge_number: '10F',
+  phone_number: '090938e90938',
+  is_active: true,
+  is_staff: true
+};
+
 export const AssetAssignee = [
   {
     id: 1,

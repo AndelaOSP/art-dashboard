@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
-import UserDetailContainer from '../../_components/User/UserDetailContainer';
+import UserDetailContainer, { mapStateToProps } from '../../_components/User/UserDetailContainer';
 
 const props = {
   loadUserDetail: jest.fn(),
@@ -46,5 +46,29 @@ describe('Renders <UserDetailContainer /> correctly', () => {
     });
 
     expect(wrapper.find('UserDetailComponent').exists()).toEqual(true);
+  });
+
+  it('calls mapStateToProps', () => {
+    const state = {
+      userDetails: {
+        isLoading: false,
+        hasError: false,
+        successMessage: '',
+        errorMessage: '',
+        userDetail: {}
+      }
+    };
+
+    const expected = {
+      isLoading: false,
+      hasError: false,
+      successMessage: '',
+      errorMessage: '',
+      userDetail: ''
+    };
+
+    expect(mapStateToProps(state, { location: {
+      state: ''
+    } })).toEqual(expected);
   });
 });
