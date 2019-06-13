@@ -8,6 +8,7 @@ describe('Renders <OfficeBlocksComponent /> correctly', () => {
   const props = {
     isLoading: false,
     blockCount: 2,
+    locationList: [],
     loadOfficeBlocks: jest.fn(),
     loadOfficeLocations: jest.fn(),
     loadCountries: jest.fn(),

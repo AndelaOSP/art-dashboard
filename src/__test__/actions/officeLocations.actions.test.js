@@ -4,9 +4,10 @@ import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { loadOfficeLocations, loadOfficeBlocks, createOfficeBlock } from '../../_actions/officeLocations.actions';
+import { loadOfficeLocations, loadOfficeBlocks, createOfficeBlock, loadCentreOfficeBlocks } from '../../_actions/officeLocations.actions';
 
 import officeLocations from '../../_mock/officeLocations';
+import officeBlocks from '../../_mock/officeBlocks';
 
 import constants from '../../_constants';
 
@@ -68,6 +69,16 @@ describe('Centres Action tests', () => {
     return store.dispatch(loadOfficeBlocks(1, 10)).then(() => {
       expect(store.getActions()).toContainEqual({
         payload: officeLocations.results,
+        type: LOAD_OFFICE_BLOCK_SUCCESS
+      });
+    });
+  });
+
+  it('should dispatch LOAD_OFFICE_BLOCK_SUCCESS when loadCentreOfficeBlocks is called successfully', () => {
+    mock.onGet().reply(200, officeBlocks.results);
+    return store.dispatch(loadCentreOfficeBlocks(2)).then(() => {
+      expect(store.getActions()).toContainEqual({
+        payload: officeBlocks.results,
         type: LOAD_OFFICE_BLOCK_SUCCESS
       });
     });
