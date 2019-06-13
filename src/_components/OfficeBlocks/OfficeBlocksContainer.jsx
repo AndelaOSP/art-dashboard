@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import {
   loadOfficeBlocks,
   resetMessage,
-  loadOfficeLocations
+  loadOfficeLocations,
+  loadCentreOfficeBlocks
 } from '../../_actions/officeLocations.actions';
 import OfficeBlocksComponent from '../../components/OfficeBlocks/OfficeBlocksComponent';
 
@@ -32,5 +33,6 @@ export const mapStateToProps = ({ officeLocations }) => {
 export default connect(mapStateToProps, {
   loadOfficeBlocks,
   resetMessage,
-  loadOfficeLocations
+  loadOfficeLocations,
+  loadCentreOfficeBlocks
 })(OfficeBlocksComponent);

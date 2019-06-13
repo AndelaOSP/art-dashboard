@@ -104,6 +104,17 @@ export const loadOfficeBlocks = (pageNumber, limit) => (dispatch) => {
     });
 };
 
+export const loadCentreOfficeBlocks = centreId => (dispatch) => {
+  dispatch({ type: LOAD_OFFICE_BLOCK_REQUEST });
+  return axios
+    .get(`andela-centres/${centreId}/office_blocks/`)
+    .then((response) => {
+      dispatch(loadOfficeBlocksSuccess(response.data));
+    }).catch((error) => {
+      dispatch(loadOfficeBlocksFailure(error));
+    });
+};
+
 export const loadOfficeBlocksSuccess = blocks => ({
   type: LOAD_OFFICE_BLOCK_SUCCESS,
   payload: blocks
