@@ -11,6 +11,7 @@ describe('Renders <OfficeBlocksComponent /> correctly', () => {
     locationList: [],
     loadOfficeBlocks: jest.fn(),
     loadOfficeLocations: jest.fn(),
+    loadCentreOfficeBlocks: jest.fn(),
     loadCountries: jest.fn(),
     resetMessage: jest.fn()
   };
@@ -35,6 +36,30 @@ describe('Renders <OfficeBlocksComponent /> correctly', () => {
 
     wrapper.instance().handlePaginationChange(event, data);
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleEditToggleModal when modal is clicked', () => {
+    const handleEditToggleModalSpy = jest.spyOn(wrapper.instance(), 'handleEditToggleModal');
+
+    wrapper.setState({ modalOpen: true });
+
+    const event = {};
+    const data = {};
+
+    wrapper.instance().handleEditToggleModal(event, data);
+    expect(handleEditToggleModalSpy.mock.calls.length).toEqual(1);
+    expect(wrapper.state('modalOpen')).toEqual(true);
+  });
+
+
+  it('calls handleDropdownChange the dropdown item is selected', () => {
+    const handleDropdownChangeSpy = jest.spyOn(wrapper.instance(), 'handleDropdownChange');
+
+    const event = {};
+    const data = {};
+
+    wrapper.instance().handleDropdownChange(event, data);
+    expect(handleDropdownChangeSpy.mock.calls.length).toEqual(1);
   });
 
   it('calls the getTotalPages function when the next button is clicked', () => {
