@@ -64,7 +64,7 @@ class OfficeBlocksComponent extends React.Component {
     const showStatus = error;
     const showAction = entity === 'office-blocks';
     const showNotFound = !isLoading && !hasLocations && !showStatus;
-    const options = [];
+    const options = [{ key: -1, text: 'Select Center', value: 0 }];
     locationList.forEach((location, index) => {
       const locObj = {
         key: index,
