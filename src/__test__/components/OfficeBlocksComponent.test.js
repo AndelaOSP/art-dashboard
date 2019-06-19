@@ -8,7 +8,7 @@ describe('Renders <OfficeBlocksComponent /> correctly', () => {
   const props = {
     isLoading: false,
     blockCount: 2,
-    locationList: [],
+    locationList: [{ name: 'Lagos', id: 23 }, { name: 'Nairobi', id: 45 }],
     loadOfficeBlocks: jest.fn(),
     loadOfficeLocations: jest.fn(),
     loadCentreOfficeBlocks: jest.fn(),
@@ -36,6 +36,19 @@ describe('Renders <OfficeBlocksComponent /> correctly', () => {
 
     wrapper.instance().handlePaginationChange(event, data);
     expect(handlePaginationChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls handleToggleModal when the modal is toggled', () => {
+    const handleToggleModalSpy = jest.spyOn(wrapper.instance(), 'handleToggleModal');
+
+    wrapper.setState({ modalOpen: true });
+
+    const event = {};
+    const data = {};
+
+    wrapper.instance().handleToggleModal(event, data);
+    expect(handleToggleModalSpy.mock.calls.length).toEqual(1);
+    expect(wrapper.state('modalOpen')).toEqual(false);
   });
 
   it('calls handleEditToggleModal when modal is clicked', () => {
