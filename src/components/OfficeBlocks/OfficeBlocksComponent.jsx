@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
+import { Dropdown } from 'semantic-ui-react';
 import NavBarComponent from '../../_components/NavBarContainer';
 import LoaderComponent from '../../components/LoaderComponent';
 import Cards from '../common/Card/Card';
@@ -10,6 +11,9 @@ import Paginator from '../common/PaginationComponent';
 import StatusMessageComponent from '../common/StatusComponent';
 import PageHeader from '../common/PageHeader';
 import OfficeBlocksModal from '../../_components/OfficeBlocks/OfficeBlocksModal';
+import verifySuperAdmin from '../../_utils/verifySuperAdmin';
+
+import '../../_css/officeBlocksComponent.scss';
 
 class OfficeBlocksComponent extends React.Component {
   state = {
@@ -48,14 +52,27 @@ class OfficeBlocksComponent extends React.Component {
     this.props.resetMessage();
   };
 
+  handleDropdownChange = (e, data) => {
+    this.props.loadCentreOfficeBlocks(data.value);
+  };
+
   getTotalPages = () => Math.ceil(this.props.blockCount / this.state.limit);
 
   render() {
-    const { isLoading, blockList, error, resetMessage, entity } = this.props;
+    const { isLoading, blockList, error, resetMessage, entity, locationList } = this.props;
     const hasLocations = !isEmpty(blockList);
     const showStatus = error;
     const showAction = entity === 'office-blocks';
     const showNotFound = !isLoading && !hasLocations && !showStatus;
+    const options = [{ key: -1, text: 'Select Center', value: 0 }];
+    locationList.forEach((location, index) => {
+      const locObj = {
+        key: index,
+        text: location.name,
+        value: location.id
+      };
+      options.push(locObj);
+    });
 
     return (
       <NavBarComponent>
@@ -69,6 +86,19 @@ class OfficeBlocksComponent extends React.Component {
                 onToggle={this.handleToggleModal}
                 open={this.state.modalOpen}
               />
+              {
+              verifySuperAdmin() && (
+                <div className="center-filter">
+                  <Dropdown
+                    placeholder="Select Center"
+                    fluid
+                    selection
+                    options={options}
+                    onChange={this.handleDropdownChange}
+                  />
+                </div>
+              )
+            }
             </div>
           </PageHeader>
 
@@ -128,8 +158,10 @@ OfficeBlocksComponent.propTypes = {
   resetMessage: PropTypes.func,
   blockCount: PropTypes.number,
   blockList: PropTypes.array,
+  locationList: PropTypes.array,
   error: PropTypes.string,
   loadOfficeLocations: PropTypes.func,
+  loadCentreOfficeBlocks: PropTypes.func,
   entity: PropTypes.string
 };
 
