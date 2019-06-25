@@ -2,6 +2,7 @@ import axios from 'axios';
 import { fetchData } from '../_utils/helpers';
 import constructUrl from '../_utils/assets';
 import constants from '../_constants';
+import { handleAxiosErrors } from '../_utils/ajax';
 
 const {
   LOAD_ASSETS_SUCCESS,
@@ -39,6 +40,7 @@ export const getAssetsAction = (pageNumber, limit, filters = {}, status = '') =>
 
 export const uploadAssets = file => (dispatch) => {
   const formData = new FormData();
+
   formData.append('file', file[0]);
   dispatch(uploading(true));
   return axios
@@ -53,7 +55,8 @@ export const uploadAssets = file => (dispatch) => {
     })
     .catch((error) => {
       dispatch(uploading(false));
-      dispatch(uploadAssetsFailure(error.message));
+      const message = handleAxiosErrors(error);
+      dispatch(uploadAssetsFailure(message));
     });
 };
 

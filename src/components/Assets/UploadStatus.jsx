@@ -1,4 +1,5 @@
 import React from 'react';
+import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
@@ -8,12 +9,14 @@ export const StatusMessage = props => (
   </div>
 );
 
-export const uploadStatus = (success, error) => {
-  if (success.fail || error) {
+export const uploadStatus = (success, error, rejected) => {
+  const errorMessage = !isEmpty(rejected) ? 'Only csv files can be imported' : success.fail;
+
+  if (success.fail || error || !isEmpty(rejected)) {
     return (
       <div>
         <Icon name="x icon" size="big" />
-        {success.fail || error}
+        {errorMessage || error}
       </div>
     );
   }

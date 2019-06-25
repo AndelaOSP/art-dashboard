@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const handleAxiosErrors = (error) => {
   if (error.response) {
-    return error.response.data;
+    return error.response.data.error || error.response.data;
   }
 
   if (error.request) {
