@@ -21,19 +21,29 @@ export default {
 export const departmentDetailWithAssignedAsset = {
   name: 'Technology',
   id: 2,
-  assets_assigned: [
-    {
-      uuid: 'cde76cd9-3161-43a5-b0be-c20d44d5ba49',
-      asset_category: 'Electronics',
-      serial_number: 'SERIAL-NUMBERS',
-      asset_code: 'TAGTAGTAG',
-      asset_type: 'Monitors'
-    }
-  ]
+  assets_assigned: {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+      {
+        uuid: 'cde76cd9-3161-43a5-b0be-c20d44d5ba49',
+        asset_category: 'Electronics',
+        serial_number: 'SERIAL-NUMBERS',
+        asset_code: 'TAGTAGTAG',
+        asset_type: 'Monitors'
+      }
+    ]
+  }
 };
 
 export const departmentDetailWithoutAssignedAsset = {
   name: 'Travel',
   id: 3,
-  assets_assigned: []
+  assets_assigned: {
+    count: 0,
+    next: null,
+    previous: null,
+    results: []
+  }
 };

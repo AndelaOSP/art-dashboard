@@ -15,11 +15,11 @@ export class DepartmentDetailComponent extends React.Component {
   }
 
   getAssignedAssets = assets =>
-    this.props.getAssetsSuccess({ results: assets.assets_assigned, count: assets.assets_assigned.length }, '');
+    this.props.getAssetsSuccess({ results: assets.assets_assigned.results, count: assets.assets_assigned.count }, '');
 
 
   assetsAssigned = (assets) => {
-    if (isEmpty(assets.assets_assigned)) {
+    if (isEmpty(assets.assets_assigned.results)) {
       return (
         <Card>
           <Card.Content extra>
@@ -38,6 +38,8 @@ export class DepartmentDetailComponent extends React.Component {
 
   render() {
     const { isLoading, details } = this.props;
+    // eslint-disable-next-line camelcase
+    const { name, assets_assigned } = details;
     if (isLoading) {
       return (
         <LoaderComponent />
@@ -67,10 +69,10 @@ export class DepartmentDetailComponent extends React.Component {
             <Grid columns={3} relaxed="very" stackable>
               <Grid.Column>
                 <Header>
-                  Department Name: {details.name || 'Not Provided'}
+                  Department Name: {name || 'Not Provided'}
                 </Header>
                 <Header>
-                  Total Assets Assigned: {details.assets_assigned.length}
+                  Total Assets Assigned: {assets_assigned.count}
                 </Header>
                 {this.assetsAssigned(details)}
               </Grid.Column>
